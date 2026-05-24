@@ -18,28 +18,24 @@ use crmeb\traits\ModelTrait;
  * từ khóa
  * Class WechatReply
  * @package app\model\wechat
- */
-class WechatReply extends BaseModel
+ */class WechatReply extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'wechat_reply';
+     */    protected $name = 'wechat_reply';
 
     /**
      * Loại tin nhắn
      * @var string[]
-     */
-    public static $replyType = ['text', 'image', 'news', 'voice'];
+     */    public static $replyType = ['text', 'image', 'news', 'voice'];
 
     /**
      * Hiệp hội trả lời tự động tài khoản chính thức
@@ -47,20 +43,18 @@ class WechatReply extends BaseModel
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function wechatKeys()
+     */    public function wechatKeys()
     {
         return $this->hasMany(WechatKey::class, 'reply_id', 'id');
     }
 
     /**
-     * Hiệp hội trả lời tự động dịch vụ khách hàng
+     * Hiệp hội trả lời tự động CSKH
      * @return \think\model\relation\HasOne
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function kefuKey()
+     */    public function kefuKey()
     {
         return $this->hasOne(WechatKey::class, 'reply_id', 'id')->bind(['keys']);
     }

@@ -13,8 +13,7 @@ if (!function_exists('get_this_class_methods')) {
     /**Nhận phương thức lớp hiện tại
      * @param $class
      * @return array
-     */
-    function get_this_class_methods($class, $unarray = [])
+     */    function get_this_class_methods($class, $unarray = [])
     {
         $arrayall = get_class_methods($class);
         if ($parent_class = get_parent_class($class)) {
@@ -34,16 +33,14 @@ if (!function_exists('setconfig')) {
      * @param $arr1 or $string Tiền tố cấu hình
      * @param $arr2 or $string biến dữ liệu
      * @return bool trạng thái trả về
-     */
-    function setconfig($name, $pat, $rep)
+     */    function setconfig($name, $pat, $rep)
     {
         /**
          * Nguyên tắc là mở tệp cấu hình cấu hình, sử dụng tìm kiếm và thay thế thông thường, sau đó lưu tệp. Không thể sửa đổi cấu hình có giá trị là mảng.
          * Tham số được truyền vào là 2 mảng, mảng trước là cấu hình và mảng sau là giá trị số. Sự kết hợp thông thường là một trích dẫn duy nhất. Nếu của bạn là dấu chấm phẩy, vui lòng đổi nó thành dấu chấm phẩy.
          * $pat[0] = Tiền tố tham số;  ví dụ:   default_return_type
          * $rep[0] = Thay thế cái gì;    ví dụ:  json
-         */
-        $pats = $reps = [];
+         */        $pats = $reps = [];
         if (is_array($pat) && is_array($rep)) {
             for ($i = 0; $i < count($pat); $i++) {
                 $pats[$i] = '/\'' . $pat[$i] . '\'(.*?),/';
@@ -78,8 +75,7 @@ if (!function_exists('arrayToText')) {
      * Chức năng sửa đổi cấu hình
      * @param $array
      * @return string
-     */
-    function arrayToText($array)
+     */    function arrayToText($array)
     {
         $config = print_r($array, true);
         $config = str_replace('[', "\"", $config);
@@ -111,8 +107,7 @@ if (!function_exists('attr_format')) {
      * Thuộc tính định dạng
      * @param $arr
      * @return array
-     */
-    function attr_format($arr): array
+     */    function attr_format($arr): array
     {
         $len = count($arr);
         $title = array_column($arr, 'value');
@@ -130,7 +125,7 @@ if (!function_exists('attr_format')) {
                     $temp = $result;
                     // Xóa kết quả và chuẩn bị thu thập lại các kết hợp mới
                     $result = [];
-                    // Duyệt qua tất cả các kết hợp thu được ở vòng trước
+                    // Duyệt qua Tất cả các kết hợp thu được ở vòng trước
                     foreach ($temp as $item) {
                         // Nối lần lượt sự kết hợp hiện tại với tập hợp chi tiết thuộc tính tiếp theo
                         foreach ($arr[$i + 1]['detail'] as $datum) {
@@ -144,7 +139,7 @@ if (!function_exists('attr_format')) {
                     }
                 }
             } else {
-                // Khi chỉ có một thuộc tính, truy xuất trực tiếp tất cả các giá trị thuộc tính của nhóm.
+                // Khi chỉ có một thuộc tính, truy xuất trực tiếp Tất cả các giá trị thuộc tính của nhóm.
                 foreach ($arr[0]['detail'] as $item) {
                     // Cũng phân biệt giữa mảng và không mảng và lấy giá trị thống nhất hoặc trực tiếp.
                     if (is_array($item)) {
@@ -166,8 +161,7 @@ if (!function_exists('verify_domain')) {
      * Xác minh xem tên miền có hợp pháp không
      * @param string $domain
      * @return bool
-     */
-    function verify_domain(string $domain): bool
+     */    function verify_domain(string $domain): bool
     {
         $res = "/^(?=^.{3,255}$)(http(s)?:\/\/)(www\.)?[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+(:\d+)*(\/\w+\.\w+)*$/";
         if (preg_match($res, $domain))

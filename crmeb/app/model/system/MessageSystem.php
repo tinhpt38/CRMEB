@@ -16,26 +16,23 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * Mô hình cài đặt cấp hệ thống
+ * Mô hình Cài đặt cấp hệ thống
  * Class SystemUserLevel
  * @package app\model\system
- */
-class MessageSystem extends BaseModel
+ */class MessageSystem extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'message_system';
+     */    protected $name = 'message_system';
 
 
     protected $insert = ['add_time'];
@@ -45,8 +42,7 @@ class MessageSystem extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIdAttr($query, $value, $data)
+     */    public function searchIdAttr($query, $value, $data)
     {
         $query->where('id', $value);
     }
@@ -55,8 +51,7 @@ class MessageSystem extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchUidAttr($query, $value, $data)
+     */    public function searchUidAttr($query, $value, $data)
     {
         $query->where('uid', $value);
     }
@@ -65,8 +60,7 @@ class MessageSystem extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchLookAttr($query, $value, $data)
+     */    public function searchLookAttr($query, $value, $data)
     {
         $query->where('look', $value);
     }
@@ -75,8 +69,7 @@ class MessageSystem extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value);
     }

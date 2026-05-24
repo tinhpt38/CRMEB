@@ -19,8 +19,7 @@ use crmeb\exceptions\AdminException;
 /**
  * Class StoreProductRuleService
  * @package app\services\product\sku
- */
-class StoreProductRuleServices extends BaseServices
+ */class StoreProductRuleServices extends BaseServices
 {
     public function __construct(StoreProductRuleDao $dao)
     {
@@ -34,8 +33,7 @@ class StoreProductRuleServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [])
+     */    public function getList(array $where = [])
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
@@ -64,8 +62,7 @@ class StoreProductRuleServices extends BaseServices
      * lưu dữ liệu
      * @param int $id
      * @param array $data
-     */
-    public function save(int $id, array $data)
+     */    public function save(int $id, array $data)
     {
         $data['rule_value'] = json_encode($data['spec']);
         unset($data['spec']);
@@ -81,8 +78,7 @@ class StoreProductRuleServices extends BaseServices
      * Lấy một phần dữ liệu
      * @param int $id
      * @return array
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         $info = $this->dao->get($id);
         $info['spec'] = json_decode($info['rule_value'], true);
@@ -92,8 +88,7 @@ class StoreProductRuleServices extends BaseServices
     /**
      * Xóa dữ liệu
      * @param string $ids
-     */
-    public function del(string $ids)
+     */    public function del(string $ids)
     {
         if ($ids == '') throw new AdminException('Lỗi tham số');
         $this->dao->del($ids);

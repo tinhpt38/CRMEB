@@ -19,14 +19,12 @@ use app\model\system\config\SystemConfigTab;
  * Phân loại cấu hình
  * Class SystemConfigTabDao
  * @package app\dao\system\config
- */
-class SystemConfigTabDao extends BaseDao
+ */class SystemConfigTabDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemConfigTab::class;
     }
@@ -39,8 +37,7 @@ class SystemConfigTabDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfigTabAll(array $searchWhere, array $field = ['*'], array $where = [])
+     */    public function getConfigTabAll(array $searchWhere, array $field = ['*'], array $where = [])
     {
         return $this->search($searchWhere)->when(count($where), function ($query) use ($where) {
             $query->where($where);
@@ -56,8 +53,7 @@ class SystemConfigTabDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfgTabList(array $where, int $page, int $limit)
+     */    public function getConfgTabList(array $where, int $page, int $limit)
     {
         return $this->search($where)->order('sort desc,id asc')->select();
     }

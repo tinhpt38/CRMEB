@@ -17,24 +17,20 @@ use crmeb\basic\BaseController;
 /**
  * Class AuthController
  * @package app\kefuapi\controller
- */
-abstract class AuthController extends BaseController
+ */abstract class AuthController extends BaseController
 {
 
     /**
      * @var int
-     */
-    protected $kefuId;
+     */    protected $kefuId;
 
     /**
      * @var array
-     */
-    protected $kefuInfo;
+     */    protected $kefuInfo;
 
     /**
      * khởi tạo
-     */
-    protected function initialize()
+     */    protected function initialize()
     {
         $this->kefuId = $this->request->kefuId();
         $this->kefuInfo = $this->request->kefuInfo();

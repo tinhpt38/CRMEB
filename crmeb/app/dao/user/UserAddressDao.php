@@ -15,18 +15,16 @@ use app\dao\BaseDao;
 use app\model\user\UserAddress;
 
 /**
- * Địa chỉ thu thập của người dùng
+ * Địa chỉ thu thập của Khách hàng
  * Class UserAddressDao
  * @package app\dao\user
- */
-class UserAddressDao extends BaseDao
+ */class UserAddressDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserAddress::class;
     }
@@ -41,8 +39,7 @@ class UserAddressDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page, int $limit): array
+     */    public function getList(array $where, string $field = '*', int $page, int $limit): array
     {
         return $this->search($where)->field($field)->page($page, $limit)->order('is_default DESC,id DESC')->select()->toArray();
     }

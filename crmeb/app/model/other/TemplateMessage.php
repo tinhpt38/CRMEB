@@ -18,30 +18,26 @@ use think\Model;
  *  Mẫu tin nhắnModel
  * Class TemplateMessage
  * @package app\model\other
- */
-class TemplateMessage extends BaseModel
+ */class TemplateMessage extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'template_message';
+     */    protected $name = 'template_message';
 
     /**
      * Trình tìm kiếm ID mẫu
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTempIdAttr($query, $value, $data)
+     */    public function searchTempIdAttr($query, $value, $data)
     {
         $query->where('temp_id', $value);
     }
@@ -49,8 +45,7 @@ class TemplateMessage extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if (in_array($value,[0,1])){
             $query->where('type', $value);
@@ -60,8 +55,7 @@ class TemplateMessage extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value) {
             $query->where('status', $value);
@@ -71,8 +65,7 @@ class TemplateMessage extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchNameAttr($query, $value)
+     */    public function searchNameAttr($query, $value)
     {
         if ($value) {
             $query->where('name', 'LIKE',"%$value%");

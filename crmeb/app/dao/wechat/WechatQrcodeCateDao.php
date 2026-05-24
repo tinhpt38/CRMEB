@@ -18,8 +18,7 @@ class WechatQrcodeCateDao extends BaseDao
 {
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return WechatQrcodeCate::class;
     }
@@ -30,8 +29,7 @@ class WechatQrcodeCateDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCateList()
+     */    public function getCateList()
     {
         return $this->getModel()->where('is_del', 0)->select()->toArray();
     }

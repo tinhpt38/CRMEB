@@ -21,20 +21,17 @@ use think\Model;
  * TODO Các mặt hàng bán trướcModel
  * Class StoreSeckill
  * @package app\model\activity
- */
-class StoreAdvance extends BaseModel
+ */class StoreAdvance extends BaseModel
 {
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_advance';
+     */    protected $name = 'store_advance';
 
     use ModelTrait;
 
@@ -42,8 +39,7 @@ class StoreAdvance extends BaseModel
      * hiệp hội một-một
      *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function description()
+     */    public function description()
     {
         return $this->hasOne(StoreDescription::class, 'product_id', 'id')->where('type', 6)->bind(['description']);
     }
@@ -52,8 +48,7 @@ class StoreAdvance extends BaseModel
      * hiệp hội một-một
      *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function product()
+     */    public function product()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')->where('is_show', 1)->where('is_del', 0)->field(['id', 'cate_id'])->bind([
             'cate_id' => 'cate_id'
@@ -64,8 +59,7 @@ class StoreAdvance extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    protected function getAddTimeAttr($value)
+     */    protected function getAddTimeAttr($value)
     {
         if ($value) return date('Y-m-d H:i:s', (int)$value);
         return '';
@@ -75,8 +69,7 @@ class StoreAdvance extends BaseModel
      * Trình lấy hình ảnh
      * @param $value
      * @return array|mixed
-     */
-    protected function getImagesAttr($value)
+     */    protected function getImagesAttr($value)
     {
         return json_decode($value, true) ?: [];
     }
@@ -86,8 +79,7 @@ class StoreAdvance extends BaseModel
      * @param Model $query
      * @param $value
      * @param $query
-     */
-    public function searchTitleAttr($query, $value)
+     */    public function searchTitleAttr($query, $value)
     {
         if ($value !== '') $query->where('title|id', 'like', '%' . $value . '%');
     }
@@ -97,8 +89,7 @@ class StoreAdvance extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value ?? 0);
     }
@@ -108,8 +99,7 @@ class StoreAdvance extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStatusAttr($query, $value, $data)
+     */    public function searchStatusAttr($query, $value, $data)
     {
         if ($value !== '') $query->where('status', $value);
     }
@@ -119,8 +109,7 @@ class StoreAdvance extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTypeAttr($query, $value, $data)
+     */    public function searchTypeAttr($query, $value, $data)
     {
         if ($value !== '') $query->where('type', $value);
     }
@@ -130,8 +119,7 @@ class StoreAdvance extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductIdAttr($query, $value, $data)
+     */    public function searchProductIdAttr($query, $value, $data)
     {
         if ($value) {
             if (is_array($value)) {

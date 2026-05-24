@@ -1,11 +1,7 @@
-/** Node trong cây dữ liệu tỉnh/thành từ GET /city_list */
-export interface CityNode {
-  /** ID vùng */
-  v: number;
-  /** Tên vùng */
-  n: string;
-  /** Cấp con (Quận/Huyện hoặc Phường/Xã) */
-  c: CityNode[];
+/** Node trong cây dữ liệu tỉnh/thành từ GET /city_list */export interface CityNode {
+  /** ID vùng */  v: number;
+  /** Tên vùng */  n: string;
+  /** Cấp con (Quận/Huyện hoặc Phường/Xã) */  c: CityNode[];
 }
 
 export interface MiniAppTheme {
@@ -38,8 +34,7 @@ export interface MiniAppThemeResponse {
 
 export interface Banner {
   pic: string;
-  /** Link điều hướng khi nhấn banner. Có thể là URL web hoặc path nội bộ CRMEB. */
-  link?: string;
+  /** Link điều hướng khi nhấn banner. Có thể là URL web hoặc path nội bộ CRMEB. */  link?: string;
 }
 
 export interface UserInfo {
@@ -49,8 +44,7 @@ export interface UserInfo {
   phone: string;
   email: string;
   address: string;
-  /** Điểm thưởng CRMEB (từ GET /userinfo). */
-  integral?: number;
+  /** Điểm thưởng CRMEB (từ GET /userinfo). */  integral?: number;
 }
 
 export interface PickupContact {
@@ -78,23 +72,16 @@ export interface Product {
   category: Category;
   detail?: string;
   attributes?: ProductAttribute[];
-  /** true khi CRMEB `spec_type = 1` (nhiều SKU). */
-  specType?: boolean;
-  /** Nhóm thuộc tính để chọn SKU (`productAttr`). */
-  skuDimensions?: ProductAttribute[];
-  /** Danh sách SKU (`productValue`). */
-  variants?: ProductVariant[];
-  /** SKU mặc định cho sản phẩm đơn quy cách (`spec_unique`). */
-  defaultUnique?: string;
-  /** Nhãn biến thể đã chọn — hiển thị trên giỏ / đơn hàng. */
-  variantLabel?: string;
-  /** Cờ hiển thị section trang chủ từ CRMEB. */
-  isHot?: boolean;
+  /** true khi CRMEB `spec_type = 1` (nhiều SKU). */  specType?: boolean;
+  /** Nhóm thuộc tính để chọn SKU (`productAttr`). */  skuDimensions?: ProductAttribute[];
+  /** Danh sách SKU (`productValue`). */  variants?: ProductVariant[];
+  /** SKU mặc định cho sản phẩm đơn quy cách (`spec_unique`). */  defaultUnique?: string;
+  /** Nhãn biến thể đã chọn — hiển thị trên giỏ / đơn hàng. */  variantLabel?: string;
+  /** Cờ hiển thị section trang chủ từ CRMEB. */  isHot?: boolean;
   isBest?: boolean;
   isNew?: boolean;
   isBenefit?: boolean;
-  /** Cấu hình vận chuyển theo sản phẩm. */
-  isPostage?: boolean;
+  /** Cấu hình vận chuyển theo sản phẩm. */  isPostage?: boolean;
   postage?: number;
   tempId?: number;
 }
@@ -113,8 +100,7 @@ export interface Category {
 export interface CartItem {
   product: Product;
   quantity: number;
-  /** unique key từ CRMEB cartInfo — dùng cho POST /order/comment */
-  unique?: string;
+  /** unique key từ CRMEB cartInfo — dùng cho POST /order/comment */  unique?: string;
 }
 
 export type Cart = CartItem[];
@@ -126,20 +112,15 @@ export interface Location {
 
 export interface ShippingAddress {
   alias: string;
-  /** Tỉnh / Thành phố — bắt buộc khi lưu lên CRMEB */
-  province: string;
-  /** Quận / Huyện */
-  city: string;
-  /** Phường / Xã */
-  district: string;
-  /** Số nhà, tên đường (chi tiết) */
-  address: string;
+  /** Tỉnh / Thành phố — bắt buộc khi lưu lên CRMEB */  province: string;
+  /** Quận / Huyện */  city: string;
+  /** Phường / Xã */  district: string;
+  /** Số nhà, tên đường (chi tiết) */  address: string;
   name: string;
   phone: string;
 }
 
-/** Địa chỉ lưu trên server CRMEB (từ GET /address/list) */
-export interface CrmebAddress {
+/** Địa chỉ lưu trên server CRMEB (từ GET /address/list) */export interface CrmebAddress {
   id: number;
   real_name: string;
   phone: string;
@@ -187,33 +168,23 @@ export interface Order {
   delivery: Delivery;
   total: number;
   note: string;
-  /** Mã pay_type từ CRMEB (vn_cod, vn_bank, offline, …) */
-  payType?: string;
-  /** Nhãn hiển thị từ CRMEB (`_status._payType`) */
-  payTypeName?: string;
+  /** Mã pay_type từ CRMEB (vn_cod, vn_bank, offline, …) */  payType?: string;
+  /** Nhãn hiển thị từ CRMEB (`_status._payType`) */  payTypeName?: string;
   /** Hướng dẫn CK/VietQR (cấu hình cửa hàng) khi đơn dùng vn_bank */
   bankPayGuide?: string;
+  /** Nội dung chuyển khoản theo đơn (CRMEB `vn_bank_transfer_content`) */
+  bankTransferContent?: string;
   /** URL ảnh QR CK (CRMEB `vn_bank_pay_qr_image`) */
   bankPayQrUrl?: string;
-  /** `_status._title` từ CRMEB */
-  statusTitle?: string;
-  /** `_status._msg` */
-  statusMessage?: string;
-  /** `_status._type` — khớp ảnh trạng thái / logic tab */
-  crmebStatusType?: number;
-  /** Unix timestamp — hết hạn giữ đơn thanh toán (`stop_time`) */
-  stopTime?: number;
-  /** ID nội bộ DB (số nguyên) — dùng cho POST /order/refund/apply/:id */
-  dbId?: number;
-  /** Mã vận đơn (`delivery_id`) */
-  deliveryId?: string;
-  /** Tên nhà vận chuyển (`delivery_name`) */
-  deliveryName?: string;
-  /** Loại giao hàng CRMEB: send | express | split */
-  deliveryType?: string;
-  /** Cho phép hoàn tiền / trả hàng (`_status._is_back`) */
-  isBack?: boolean;
+  /** `_status._title` từ CRMEB */  statusTitle?: string;
+  /** `_status._msg` */  statusMessage?: string;
+  /** `_status._type` — khớp ảnh trạng thái / logic tab */  crmebStatusType?: number;
+  /** Unix timestamp — hết hạn giữ đơn thanh toán (`stop_time`) */  stopTime?: number;
+  /** ID nội bộ DB (số nguyên) — dùng cho POST /order/refund/apply/:id */  dbId?: number;
+  /** Mã vận đơn (`delivery_id`) */  deliveryId?: string;
+  /** Tên nhà vận chuyển (`delivery_name`) */  deliveryName?: string;
+  /** Loại giao hàng CRMEB: send | express | split */  deliveryType?: string;
+  /** Cho phép hoàn tiền / trả hàng (`_status._is_back`) */  isBack?: boolean;
 }
 
-/** Mã `value` từ CRMEB `GET /pay/config` (vd. vn_cod, vn_bank, offline). */
-export type CheckoutPaymentMethod = string;
+/** Mã `value` từ CRMEB `GET /pay/config` (vd. vn_cod, vn_bank, offline). */export type CheckoutPaymentMethod = string;

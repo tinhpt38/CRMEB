@@ -32,8 +32,7 @@ if (!function_exists('crmebLog')) {
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/03
-     */
-    function crmebLog($msg)
+     */    function crmebLog($msg)
     {
         Log::write($msg, 'crmeb');
     }
@@ -47,8 +46,7 @@ if (!function_exists('success')) {
      * @param array|null $replace mảng thay thế tin nhắn
      * @return \think\Response
      * @see \crmeb\utils\Json::success()
-     */
-    function success($msg = 'success', ?array $data = null, ?array $replace = [])
+     */    function success($msg = 'success', ?array $data = null, ?array $replace = [])
     {
         return app('json')->success($msg, $data, $replace);
     }
@@ -62,8 +60,7 @@ if (!function_exists('fail')) {
      * @param array|null $replace mảng thay thế tin nhắn
      * @return \think\Response
      * @see \crmeb\utils\Json::fail()
-     */
-    function fail($msg = 'fail', ?array $data = null, ?array $replace = [])
+     */    function fail($msg = 'fail', ?array $data = null, ?array $replace = [])
     {
         return app('json')->fail($msg, $data, $replace);
     }
@@ -72,10 +69,9 @@ if (!function_exists('fail')) {
 if (!function_exists('getWorkerManUrl')) {
 
     /**
-     * Nhận dữ liệu dịch vụ khách hàng
+     * Nhận dữ liệu CSKH
      * @return mixed
-     */
-    function getWorkerManUrl()
+     */    function getWorkerManUrl()
     {
         $ws = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'wss://' : 'ws://';
         $host = $_SERVER['HTTP_HOST'];
@@ -90,8 +86,7 @@ if (!function_exists('object2array')) {
      * Đối tượng vào mảng
      * @param $object
      * @return array|mixed
-     */
-    function object2array($object)
+     */    function object2array($object)
     {
         $array = [];
         if (is_object($object)) {
@@ -112,8 +107,7 @@ if (!function_exists('exception')) {
      * @param int $code
      * @param string $exception
      * @throws \think\Exception
-     */
-    function exception($msg, $code = 0, $exception = '')
+     */    function exception($msg, $code = 0, $exception = '')
     {
         $e = $exception ?: '\think\Exception';
         throw new $e($msg, $code);
@@ -126,8 +120,7 @@ if (!function_exists('sys_config')) {
      * @param string $name
      * @param string $default
      * @return string
-     */
-    function sys_config(string $name, $default = '')
+     */    function sys_config(string $name, $default = '')
     {
         if (empty($name))
             return $default;
@@ -155,8 +148,7 @@ if (!function_exists('sys_data')) {
      * Nhận dữ liệu hệ thống riêng lẻ
      * @param string $name
      * @return string
-     */
-    function sys_data(string $name, int $limit = 0)
+     */    function sys_data(string $name, int $limit = 0)
     {
         return app('sysGroupData')->getData($name, $limit);
     }
@@ -184,8 +176,7 @@ if (!function_exists('str_middle_replace')) {
      * @param int $start Giữ lại vài cái đầu tiên
      * @param int $end Cuối cùng còn lại bao nhiêu?
      * @return string
-     */
-    function str_middle_replace($string, $start, $end)
+     */    function str_middle_replace($string, $start, $end)
     {
         $strlen = mb_strlen($string, 'UTF-8');//Nhận độ dài chuỗi
         $firstStr = mb_substr($string, 0, $start, 'UTF-8');//Nhận vị trí đầu tiên
@@ -203,8 +194,7 @@ if (!function_exists('sensitive_words_filter')) {
      *
      * @param string
      * @return string
-     */
-    function sensitive_words_filter($str)
+     */    function sensitive_words_filter($str)
     {
         if (!$str) return '';
         $file = app()->getAppPath() . 'public/statics/plug/censorwords/CensorWords';
@@ -230,8 +220,7 @@ if (!function_exists('make_path')) {
      * @param int $type
      * @param bool $force
      * @return string
-     */
-    function make_path($path, int $type = 2, bool $force = false)
+     */    function make_path($path, int $type = 2, bool $force = false)
     {
         $path = DS . ltrim(rtrim($path));
         switch ($type) {
@@ -265,8 +254,7 @@ if (!function_exists('curl_file_exist')) {
      * CURL Kiểm tra xem tập tin từ xa có hiện diện không
      * @param $url
      * @return bool
-     */
-    function curl_file_exist($url)
+     */    function curl_file_exist($url)
     {
         $ch = curl_init();
         try {
@@ -288,8 +276,7 @@ if (!function_exists('set_file_url')) {
      * Đặt đường dẫn bổ sung
      * @param $url
      * @return bool
-     */
-    function set_file_url($image, $siteUrl = '')
+     */    function set_file_url($image, $siteUrl = '')
     {
         if (!strlen(trim($siteUrl))) $siteUrl = sys_config('site_url');
         if (!$image) return $image;
@@ -316,8 +303,7 @@ if (!function_exists('set_http_type')) {
      * @param string $url tên miền
      * @param int $type 0 Quay lại https 1 Quay lại http
      * @return string
-     */
-    function set_http_type($url, $type = 0)
+     */    function set_http_type($url, $type = 0)
     {
 
         // Xác minh cơ bản
@@ -349,8 +335,7 @@ if (!function_exists('check_card')) {
      * Xác minh ID
      * @param $card
      * @return bool
-     */
-    function check_card($card)
+     */    function check_card($card)
     {
         $city = [11 => "Bắc Kinh", 12 => "Thiên Tân", 13 => "Hà Bắc", 14 => "Sơn Tây", 15 => "Nội Mông", 21 => "Liêu Ninh", 22 => "Cát Lâm", 23 => "Hắc Long Giang ", 31 => "Thượng Hải", 32 => "Giang Tô", 33 => "Chiết Giang", 34 => "An Huy", 35 => "Phúc Kiến", 36 => "Giang Tây", 37 => "Sơn Đông", 41 => "Hà Nam", 42 => "hồ bắc ", 43 => "Hồ Nam", 44 => "Quảng Đông", 45 => "Quảng Tây", 46 => "Hải Nam", 50 => "Trùng Khánh", 51 => "Tứ Xuyên", 52 => "Quý Châu", 53 => "Vân Nam", 54 => "Tây Tạng ", 61 => "Thiểm Tây", 62 => "Cam Túc", 63 => "Thanh Hải", 64 => "Ninh Hạ", 65 => "Tân Cương", 71 => "Đài Loan", 81 => "Hồng Kông", 82 => "Macao", 91 => "nước ngoài "];
         $tip = "";
@@ -388,17 +373,14 @@ if (!function_exists('check_card')) {
                 $pass = false;
             }
         }
-        if (!$pass) return false;/* Lỗi định dạng chứng minh nhân dân*/
-        return true;/* Định dạng thẻ ID là chính xác*/
-    }
+        if (!$pass) return false;/* Lỗi định dạng chứng minh nhân dân*/        return true;/* Định dạng thẻ ID là chính xác*/    }
 }
 if (!function_exists('check_link')) {
     /**
      * Xác minh địa chỉ
      * @param string $link
      * @return false|int
-     */
-    function check_link(string $link)
+     */    function check_link(string $link)
     {
         return preg_match("/^(http|https|ftp):\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+[\/=\?%\-&_~`@[\]\’:+!]*([^<>\”])*$/", $link);
     }
@@ -408,8 +390,7 @@ if (!function_exists('check_phone')) {
      * Xác minh số điện thoại di động
      * @param $phone
      * @return false|int
-     */
-    function check_phone($phone)
+     */    function check_phone($phone)
     {
         return \crmeb\utils\PhoneValidate::isVnMobile((string)$phone);
     }
@@ -417,19 +398,17 @@ if (!function_exists('check_phone')) {
 if (!function_exists('format_vnd')) {
     /**
      * Định dạng số tiền VND.
-     */
-    function format_vnd($amount): string
+     */    function format_vnd($amount): string
     {
         return number_format((float)$amount, 0, ',', '.') . ' đ';
     }
 }
 if (!function_exists('anonymity')) {
     /**
-     * Xử lý ẩn danh biệt danh của người dùng
+     * Xử lý ẩn danh biệt danh của Khách hàng
      * @param $name
      * @return string
-     */
-    function anonymity($name, $type = 1)
+     */    function anonymity($name, $type = 1)
     {
         if ($type == 1) {
             return mb_substr($name, 0, 1, 'UTF-8') . '**' . mb_substr($name, -1, 1, 'UTF-8');
@@ -456,8 +435,7 @@ if (!function_exists('sort_list_tier')) {
      * @param int $level
      * @param bool $clear
      * @return array
-     */
-    function sort_list_tier($data, $pid = 0, $field = 'pid', $pk = 'id', $html = '|-----', $level = 1, $clear = true)
+     */    function sort_list_tier($data, $pid = 0, $field = 'pid', $pk = 'id', $html = '|-----', $level = 1, $clear = true)
     {
         static $list = [];
         if ($clear) $list = [];
@@ -484,8 +462,7 @@ if (!function_exists('sort_city_tier')) {
      * @param int $level
      * @param bool $clear
      * @return array
-     */
-    function sort_city_tier($data, $pid = 0, $navList = [])
+     */    function sort_city_tier($data, $pid = 0, $navList = [])
     {
         foreach ($data as $k => $menu) {
             if ($menu['parent_id'] == $pid) {
@@ -504,8 +481,7 @@ if (!function_exists('time_tran')) {
      * Chuyển đổi nhân hóa dấu thời gian
      * @param $time
      * @return string
-     */
-    function time_tran($time)
+     */    function time_tran($time)
     {
         $t = time() - $time;
         $f = array(
@@ -530,8 +506,7 @@ if (!function_exists('url_to_path')) {
      * urlđường dẫn chuyển đổi
      * @param $url
      * @return string
-     */
-    function url_to_path($url)
+     */    function url_to_path($url)
     {
         $path = trim(str_replace('/', DS, $url), DS);
         if (0 !== strripos($path, 'public'))
@@ -545,8 +520,7 @@ if (!function_exists('path_to_url')) {
      * đường dẫn đến đường dẫn url
      * @param $path
      * @return string
-     */
-    function path_to_url($path)
+     */    function path_to_url($path)
     {
         return trim(str_replace(DS, '/', $path), '.');
     }
@@ -557,8 +531,7 @@ if (!function_exists('image_to_base64')) {
      * Lấy hình ảnh và chuyển đổi nó thànhbase64
      * @param string $avatar
      * @return bool|string
-     */
-    function image_to_base64($avatar = '', $timeout = 9)
+     */    function image_to_base64($avatar = '', $timeout = 9)
     {
         $avatar = str_replace('https', 'http', $avatar);
         try {
@@ -607,8 +580,7 @@ if (!function_exists('put_image')) {
      * Lấy hình ảnh và chuyển đổi nó thànhbase64
      * @param string $avatar
      * @return bool|string
-     */
-    function put_image($url, $filename = '')
+     */    function put_image($url, $filename = '')
     {
 
         if ($url == '') {
@@ -645,8 +617,7 @@ if (!function_exists('debug_file')) {
     /**
      * Gỡ lỗi tập tin
      * @param $content
-     */
-    function debug_file($content, string $fileName = 'error', string $ext = 'txt')
+     */    function debug_file($content, string $fileName = 'error', string $ext = 'txt')
     {
         $msg = '[' . date('Y-m-d H:i:s', time()) . '] [ DEBUG ] ';
         $pach = app()->getRuntimePath();
@@ -660,8 +631,7 @@ if (!function_exists('sql_filter')) {
      * sql Lọc tham số
      * @param string $str
      * @return mixed
-     */
-    function sql_filter(string $str)
+     */    function sql_filter(string $str)
     {
         $filter = ['select ', 'insert ', 'update ', 'delete ', 'drop', 'truncate ', 'declare', 'xp_cmdshell', '/add', ' or ', 'exec', 'create', 'chr', 'mid', ' and ', 'execute'];
         $toupper = array_map(function ($str) {
@@ -676,8 +646,7 @@ if (!function_exists('filter_str')) {
      * Lọc các ký tự nhạy cảm với chuỗi
      * @param $str
      * @return array|mixed|string|string[]|null
-     */
-    function filter_str($str)
+     */    function filter_str($str)
     {
         $param_filter_type = sys_config('param_filter_type');
         if ($param_filter_type != 0) {
@@ -708,8 +677,7 @@ if (!function_exists('is_brokerage_statu')) {
      * Tôi có thể trở thành người quảng bá không?
      * @param float $price
      * @return bool
-     */
-    function is_brokerage_statu(float $price)
+     */    function is_brokerage_statu(float $price)
     {
         if (!sys_config('brokerage_func_status')) {
             return false;
@@ -731,8 +699,7 @@ if (!function_exists('array_unique_fb')) {
      * Loại bỏ các giá trị trùng lặp khỏi mảng hai chiều
      * @param $array
      * @return array
-     */
-    function array_unique_fb($array)
+     */    function array_unique_fb($array)
     {
         $out = array();
         foreach ($array as $key => $value) {
@@ -751,8 +718,7 @@ if (!function_exists('get_crmeb_version')) {
      * Lấy số phiên bản hệ thống CRMEB
      * @param string $default
      * @return string
-     */
-    function get_crmeb_version($default = 'v1.0.0')
+     */    function get_crmeb_version($default = 'v1.0.0')
     {
         try {
             $version = parse_ini_file(app()->getRootPath() . '.version');
@@ -768,8 +734,7 @@ if (!function_exists('get_crmeb_version_vode')) {
      * Lấy số phiên bản hệ thống CRMEB
      * @param string $default
      * @return string
-     */
-    function get_crmeb_version_vode($default = '0')
+     */    function get_crmeb_version_vode($default = '0')
     {
         try {
             $version = parse_ini_file(app()->getRootPath() . '.version');
@@ -785,8 +750,7 @@ if (!function_exists('get_file_link')) {
      * Lấy đường dẫn đầy đủ của file có tên miền
      * @param string $link
      * @return string
-     */
-    function get_file_link(string $link)
+     */    function get_file_link(string $link)
     {
         if (!$link) {
             return '';
@@ -806,8 +770,7 @@ if (!function_exists('tidy_tree')) {
      * @param int $pid
      * @param array $navList
      * @return array
-     */
-    function tidy_tree($menusList, $pid = 0, $navList = [])
+     */    function tidy_tree($menusList, $pid = 0, $navList = [])
     {
         foreach ($menusList as $k => $menu) {
             if ($menu['parent_id'] == $pid) {
@@ -830,8 +793,7 @@ if (!function_exists('create_form')) {
      * @param string $method
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    function create_form(string $title, array $field, $url, string $method = 'POST')
+     */    function create_form(string $title, array $field, $url, string $method = 'POST')
     {
         $form = Form::createForm((string)$url);//Gửi địa chỉ
         $form->setMethod($method);//Phương thức gửi
@@ -855,8 +817,7 @@ if (!function_exists('msectime')) {
     /**
      * Nhận mili giây
      * @return float
-     */
-    function msectime()
+     */    function msectime()
     {
         list($msec, $sec) = explode(' ', microtime());
         return (float)sprintf('%.0f', (floatval($msec) + floatval($sec)) * 1000);
@@ -869,8 +830,7 @@ if (!function_exists('array_bc_sum')) {
      * Lấy tổng của mảng một chiều với độ chính xác cao
      * @param array $data
      * @return string
-     */
-    function array_bc_sum(array $data)
+     */    function array_bc_sum(array $data)
     {
         $sum = '0';
         foreach ($data as $item) {
@@ -888,8 +848,7 @@ if (!function_exists('get_tree_children')) {
      * @param string $keyName Tên khóa dữ liệu
      * @param string $pidName Tên khóa dữ liệu cấp trên
      * @return array
-     */
-    function get_tree_children(array $data, string $childrenname = 'children', string $keyName = 'id', string $pidName = 'pid')
+     */    function get_tree_children(array $data, string $childrenname = 'children', string $keyName = 'id', string $pidName = 'pid')
     {
         $list = array();
         foreach ($data as $value) {
@@ -933,8 +892,7 @@ if (!function_exists('get_tree_value')) {
      * @param array $data
      * @param int|string $value
      * @return array
-     */
-    function get_tree_value(array $data, $value)
+     */    function get_tree_value(array $data, $value)
     {
 //        static $childrenValue = [];
 //        foreach ($data as &$item) {
@@ -958,7 +916,7 @@ if (!function_exists('get_tree_value')) {
                 }
             }
         }
-        return $childrenValue; // Trả về một mảng chứa tất cả các giá trị phụ
+        return $childrenValue; // Trả về một mảng chứa Tất cả các giá trị phụ
     }
 }
 
@@ -969,8 +927,7 @@ if (!function_exists('get_image_thumb')) {
      * @param string $type all|big|mid|small
      * @param bool $is_remote_down
      * @return mixed|string|string[]
-     */
-    function get_image_thumb($filePath, string $type = 'all', bool $is_remote_down = false)
+     */    function get_image_thumb($filePath, string $type = 'all', bool $is_remote_down = false)
     {
         if (!$filePath || !is_string($filePath) || strpos($filePath, '?') !== false) return $filePath;
         try {
@@ -1003,8 +960,7 @@ if (!function_exists('get_thumb_water')) {
      * @param array|string[] $field 1、['image','images'] type Tham số giá trị:type 2、['small'=>'image','mid'=>'images'] type Lấy mảng trườngkey
      * @param bool $is_remote_down
      * @return array|mixed|string|string[]
-     */
-    function get_thumb_water($list, string $type = 'small', array $field = ['image'], bool $is_remote_down = false)
+     */    function get_thumb_water($list, string $type = 'small', array $field = ['image'], bool $is_remote_down = false)
     {
         // Chức năng hình thu nhỏ không được bật và dữ liệu gốc được trả về trực tiếp.
         if (!sys_config('image_thumb_status', 0)) {
@@ -1069,10 +1025,10 @@ if (!function_exists('getLang')) {
      * ② Nếu không có, hãy đọc ngôn ngữ mặc định của hệ thống（LangTypeServices.is_default = 1）
      *    ③ Nếu hệ thống không được định cấu hình bằng ngôn ngữ mặc định, thẻ ngôn ngữ đầu tiên của Trình duyệt Ngôn ngữ chấp nhận sẽ được đọc.
      * ④ Nếu nó vẫn trống, buộc chuyển sang zh-CN để đảm bảo rằng logic tiếp theo có sẵn giá trị
-     * 4. Tăng tốc bộ đệm: tất cả“Một khi đã viết, hiếm khi thay đổi”thống nhất sử dụng dữ liệu CacheService::remember() Bộ nhớ đệm trong 3600 giây để giảm áp lực cơ sở dữ liệu
+     * 4. Tăng tốc bộ đệm: Tất cả“Một khi đã viết, hiếm khi thay đổi”thống nhất sử dụng dữ liệu CacheService::remember() Bộ nhớ đệm trong 3600 giây để giảm áp lực cơ sở dữ liệu
      * - sys_lang_source_map: Tiếng Trung remarks => code ánh xạ, được sử dụng để chuyển đổi dữ liệu đến“biểu tượng Trung Quốc”Chuyển đổi sang nội bộ code
      *    - type_id_{range}：Kiểm tra type_id tương ứng dựa trên mã ngắn ngôn ngữ (chẳng hạn như zh-CN)
-     * - lang_type_data: tất cả các loại ngôn ngữ được kích hoạt id => file_name Bảng ánh xạ, được sử dụng để xác minh xem ngôn ngữ có hợp pháp không
+     * - lang_type_data: Tất cả các loại ngôn ngữ được kích hoạt id => file_name Bảng ánh xạ, được sử dụng để xác minh xem ngôn ngữ có hợp pháp không
      *    - lang_{file_name}：gói ngôn ngữ cụ thể code => Toàn bộ mảng văn bản dịch
      * 5. Quá trình dịch thuật:
      * - Nếu loại ngôn ngữ không tồn tại, hãy trả về trực tiếp mã định danh ban đầu.
@@ -1080,25 +1036,18 @@ if (!function_exists('getLang')) {
      * 6. Thay thế biến: được hỗ trợ {:tên biến} Ngữ pháp, thay thế hàng loạt phần giữ chỗ trong văn bản đã dịch bằng $replace giá trị trong mảng
      * 7. Khôi phục ngoại lệ: Nhật ký lỗi chi tiết (tên tệp/số dòng/thông tin ngoại lệ) được ghi lại trong quá trình bắt và nhận dạng ban đầu vẫn được trả về để đảm bảo hoạt động tiếp tục.
      *
-     * @param string $msg   Mã định danh ngôn ngữ Trung Quốc (nhận xét), chẳng hạn như "Tên người dùng không được để trống"
+     * @param string $msg   Mã định danh ngôn ngữ Trung Quốc (nhận xét), chẳng hạn như "Tên Khách hàng không được để trống"
      * @param array  $replace Ánh xạ biến tùy chọn, chẳng hạn như ['name' => 'Số điện thoại']，sẽ thay đổi văn bản {:name} Thay thế bằng“Số điện thoại”
      * @return string       Văn bản dịch cuối cùng; mã định danh ban đầu được trả về trong trường hợp không tìm thấy bất kỳ ngoại lệ hoặc bản dịch nào
-     */
-    function getLang($msg, array $replace = [])
+     */    function getLang($msg, array $replace = [])
     {
-        /* Khi xảy ra lỗi trong toàn bộ quá trình dịch thuật, logo gốc sẽ được trả lại trực tiếp để tránh làm gián đoạn hoạt động kinh doanh. */
-        try {
-            /* --------------- 1. Tiêm phụ thuộc: nhận các dịch vụ liên quan đến ngôn ngữ --------------- */
-            /** @var LangCountryServices $langCountryServices */
-            $langCountryServices = app()->make(LangCountryServices::class);
-            /** @var LangTypeServices $langTypeServices */
-            $langTypeServices = app()->make(LangTypeServices::class);
-            /** @var LangCodeServices $langCodeServices */
-            $langCodeServices = app()->make(LangCodeServices::class);
+        /* Khi xảy ra lỗi trong toàn bộ quá trình dịch thuật, logo gốc sẽ được trả lại trực tiếp để tránh làm gián đoạn hoạt động kinh doanh. */        try {
+            /* --------------- 1. Tiêm phụ thuộc: nhận các dịch vụ liên quan đến ngôn ngữ --------------- */            /** @var LangCountryServices $langCountryServices */            $langCountryServices = app()->make(LangCountryServices::class);
+            /** @var LangTypeServices $langTypeServices */            $langTypeServices = app()->make(LangTypeServices::class);
+            /** @var LangCodeServices $langCodeServices */            $langCodeServices = app()->make(LangCodeServices::class);
 
-            /* --------------- 2. Xác định phạm vi ngôn ngữ hiện tại（range） --------------- */
-            $request = app()->request;
-            // Ưu tiên ngôn ngữ được chỉ định bởi giao diện người dùng/giao diện
+            /* --------------- 2. Xác định phạm vi ngôn ngữ hiện tại（range） --------------- */            $request = app()->request;
+            // Ưu tiên ngôn ngữ được chỉ định bởi giao diện Khách hàng/giao diện
             $range = $request->header('cb-lang');
             if (!$range) {
                 // Khi không được chỉ định, ngôn ngữ mặc định của hệ thống sẽ được đọc.
@@ -1120,8 +1069,7 @@ if (!function_exists('getLang')) {
                 return (int)($langTypeServices->value(['is_default' => 1], 'id') ?: 1);
             }, 3600);
 
-            /* --------------- 3. Đọc dữ liệu bản đồ khác nhau (có bộ đệm) --------------- */
-            // remarks => code (ngôn ngữ nguồn, mặc định type_id default)
+            /* --------------- 3. Đọc dữ liệu bản đồ khác nhau (có bộ đệm) --------------- */            // remarks => code (ngôn ngữ nguồn, mặc định type_id default)
             $langSourceMap = CacheService::remember('sys_lang_source_map', function () use ($langCodeServices, $defaultTypeId) {
                 return $langCodeServices->getColumn(['type_id' => $defaultTypeId], 'code', 'remarks');
             }, 3600);
@@ -1136,19 +1084,16 @@ if (!function_exists('getLang')) {
                 return $langTypeServices->getColumn(['status' => 1, 'is_del' => 0], 'file_name', 'id');
             }, 3600);
 
-            /* --------------- 4. Xác minh xem loại ngôn ngữ có hợp pháp không --------------- */
-            if (!isset($langData[$typeId])) {
+            /* --------------- 4. Xác minh xem loại ngôn ngữ có hợp pháp không --------------- */            if (!isset($langData[$typeId])) {
                 return $msg;
             }
 
-            /* --------------- 5. Đọc gói ngôn ngữ hiện tại（code => Dịch văn bản） --------------- */
-            $langStr = 'lang_' . str_replace('-', '_', $langData[$typeId]); // Xây dựng bộ đệm key
+            /* --------------- 5. Đọc gói ngôn ngữ hiện tại（code => Dịch văn bản） --------------- */            $langStr = 'lang_' . str_replace('-', '_', $langData[$typeId]); // Xây dựng bộ đệm key
             $lang = CacheService::remember($langStr, function () use ($typeId, $langCodeServices) {
                 return $langCodeServices->getColumn(['type_id' => $typeId], 'lang_explain', 'code');
             }, 3600);
 
-            /* --------------- 6. Nhận văn bản dịch --------------- */
-            if (isset($langSourceMap[$msg]) && isset($lang[$langSourceMap[$msg]])) {
+            /* --------------- 6. Nhận văn bản dịch --------------- */            if (isset($langSourceMap[$msg]) && isset($lang[$langSourceMap[$msg]])) {
                 // Nếu bảng ánh xạ tồn tại và mã tương ứng tồn tại trong gói ngôn ngữ, hãy sử dụng văn bản đã dịch.
                 $message = (string)$lang[$langSourceMap[$msg]];
             } else {
@@ -1156,8 +1101,7 @@ if (!function_exists('getLang')) {
                 $message = $msg;
             }
 
-            /* --------------- 7. Thay thế biến (hỗ trợ {:tên biến} ngữ pháp） --------------- */
-            if (!empty($replace) && is_array($replace)) {
+            /* --------------- 7. Thay thế biến (hỗ trợ {:tên biến} ngữ pháp） --------------- */            if (!empty($replace) && is_array($replace)) {
                 // Xây dựng một mảng giữ chỗ, chẳng hạn như ['name'] -> ['{:name}']
                 $key = array_map(function ($v) { return "{:{$v}}"; }, array_keys($replace));
                 // Thay thế hàng loạt
@@ -1166,8 +1110,7 @@ if (!function_exists('getLang')) {
 
             return $message;
         } catch (\Throwable $e) {
-            /* Ghi lại nhật ký lỗi chi tiết và vẫn trả lại nhận dạng ban đầu để đảm bảo hoạt động kinh doanh được tiếp tục. */
-            Log::error('Nhận ngôn ngữmsg：' . $msg . 'Đã xảy ra lỗi, nguyên nhân là：' . json_encode([
+            /* Ghi lại nhật ký lỗi chi tiết và vẫn trả lại nhận dạng ban đầu để đảm bảo hoạt động kinh doanh được tiếp tục. */            Log::error('Nhận ngôn ngữmsg：' . $msg . 'Đã xảy ra lỗi, nguyên nhân là：' . json_encode([
                     'file'  => $e->getFile(),
                     'message' => $e->getMessage(),
                     'line'  => $e->getLine()
@@ -1183,8 +1126,7 @@ if (!function_exists('aj_captcha_check_one')) {
      * @param string $token
      * @param string $pointJson
      * @return bool
-     */
-    function aj_captcha_check_one(string $captchaType, string $token, string $pointJson)
+     */    function aj_captcha_check_one(string $captchaType, string $token, string $pointJson)
     {
         aj_get_serevice($captchaType)->check($token, $pointJson);
         return true;
@@ -1197,8 +1139,7 @@ if (!function_exists('aj_captcha_check_two')) {
      * @param string $token
      * @param string $pointJson
      * @return bool
-     */
-    function aj_captcha_check_two(string $captchaType, string $captchaVerification)
+     */    function aj_captcha_check_two(string $captchaType, string $captchaVerification)
     {
         aj_get_serevice($captchaType)->verificationByEncryptCode($captchaVerification);
         return true;
@@ -1210,8 +1151,7 @@ if (!function_exists('aj_captcha_create')) {
     /**
      * Tạo mã xác minh
      * @return array
-     */
-    function aj_captcha_create(string $captchaType)
+     */    function aj_captcha_create(string $captchaType)
     {
         return aj_get_serevice($captchaType)->get();
     }
@@ -1222,8 +1162,7 @@ if (!function_exists('aj_get_serevice')) {
     /**
      * @param string $captchaType
      * @return ClickWordCaptchaService|BlockPuzzleCaptchaService
-     */
-    function aj_get_serevice(string $captchaType)
+     */    function aj_get_serevice(string $captchaType)
     {
         $config = Config::get('ajcaptcha');
         switch ($captchaType) {
@@ -1247,8 +1186,7 @@ if (!function_exists('out_push')) {
      * @param array $data
      * @param string $tip
      * @return bool
-     */
-    function out_push(string $pushUrl, array $data, string $tip = ''): bool
+     */    function out_push(string $pushUrl, array $data, string $tip = ''): bool
     {
         $param = json_encode($data, JSON_UNESCAPED_UNICODE);
         $res = HttpService::postRequest($pushUrl, $param, ['Content-Type:application/json', 'Content-Length:' . strlen($param)]);
@@ -1268,8 +1206,7 @@ if (!function_exists('dump_sql')) {
      * @param array $data
      * @param string $tip
      * @return bool
-     */
-    function dump_sql()
+     */    function dump_sql()
     {
         Db::listen(function ($sql) {
             var_dump($sql);
@@ -1284,8 +1221,7 @@ if (!function_exists('toIntArray')) {
      * @param $data
      * @param string $separator
      * @return array
-     */
-    function toIntArray($data, string $separator = ',')
+     */    function toIntArray($data, string $separator = ',')
     {
         if (!is_string($data) && !is_int($data)) {
             return array_unique(array_diff(array_map('intval', $data), [0]));

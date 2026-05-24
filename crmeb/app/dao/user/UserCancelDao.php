@@ -17,8 +17,7 @@ class UserCancelDao extends BaseDao
 {
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserCancel::class;
     }
@@ -32,8 +31,7 @@ class UserCancelDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList($where, $page = 0, $limit = 0)
+     */    public function getList($where, $page = 0, $limit = 0)
     {
         return $this->search($where)->with(['user'])
             ->when($page && $limit, function ($query) use ($page, $limit) {

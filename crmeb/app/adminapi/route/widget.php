@@ -12,8 +12,7 @@ use think\facade\Route;
 
 /**
  * Các thành phần, plug-in nhỏ, các tuyến đường liên quan
- */
-Route::group('widget', function () {
+ */Route::group('widget', function () {
 
 })->middleware([
     \app\http\middleware\AllowOriginMiddleware::class,

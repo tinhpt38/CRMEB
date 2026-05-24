@@ -11,8 +11,7 @@ import { Banner } from "@/types";
  * CRMEB trả về path dạng WeChat mini-app như `/pages/goods/details/id=42`
  * hoặc URL web đầy đủ. Hàm này cố gắng map sang router nội bộ trước,
  * fallback về openWebview nếu là URL tuyệt đối.
- */
-function useBannerNavigator() {
+ */function useBannerNavigator() {
   const navigate = useNavigate();
 
   return (banner: Banner) => {

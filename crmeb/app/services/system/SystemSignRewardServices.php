@@ -20,13 +20,11 @@ use think\facade\Route as Url;
  * @author: thủy triều
  * @email: 442384644@qq.com
  * @date: 2023/7/28
- */
-class SystemSignRewardServices extends BaseServices
+ */class SystemSignRewardServices extends BaseServices
 {
     /**
      * @param SystemSignRewardDao $dao
-     */
-    public function __construct(SystemSignRewardDao $dao)
+     */    public function __construct(SystemSignRewardDao $dao)
     {
         $this->dao = $dao;
     }
@@ -42,8 +40,7 @@ class SystemSignRewardServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
-     */
-    public function getList($type = 0)
+     */    public function getList($type = 0)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->selectList(['type' => $type], '*', $page, $limit, 'days');
@@ -63,8 +60,7 @@ class SystemSignRewardServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
-     */
-    public function rewardsForm($id = 0, $type = 0)
+     */    public function rewardsForm($id = 0, $type = 0)
     {
         $info = $this->dao->get($id);
         if ($info) $type = $info['type'];
@@ -84,8 +80,7 @@ class SystemSignRewardServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/10
-     */
-    public function saveRewards($id, $data)
+     */    public function saveRewards($id, $data)
     {
         if ($id) {
             $this->dao->update($id, $data);
@@ -110,8 +105,7 @@ class SystemSignRewardServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/1
-     */
-    public function getSignRewards($type, $days)
+     */    public function getSignRewards($type, $days)
     {
         $info = $this->dao->get(['type' => $type, 'days' => $days]);
         if ($info) return [true, $info['point'], $info['exp']];

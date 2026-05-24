@@ -20,16 +20,14 @@ use think\facade\App;
  * Phân loại cấu hình
  * Class SystemConfigTab
  * @package app\adminapi\controller\v1\setting
- */
-class SystemConfigTab extends AuthController
+ */class SystemConfigTab extends AuthController
 {
     /**
      * gNgười xây dựng
      * SystemConfigTab constructor.
      * @param App $app
      * @param SystemConfigTabServices $services
-     */
-    public function __construct(App $app, SystemConfigTabServices $services)
+     */    public function __construct(App $app, SystemConfigTabServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class SystemConfigTab extends AuthController
      * Hiển thị danh sách tài nguyên
      *
      * @return \think\Response
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -53,8 +50,7 @@ class SystemConfigTab extends AuthController
      * Hiển thị trang biểu mẫu tạo tài nguyên.
      *
      * @return \think\Response
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->createForm());
     }
@@ -63,8 +59,7 @@ class SystemConfigTab extends AuthController
      * Lưu tài nguyên mới
      *
      * @return \think\Response
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             'eng_title',
@@ -87,8 +82,7 @@ class SystemConfigTab extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function read($id)
+     */    public function read($id)
     {
         //
     }
@@ -98,8 +92,7 @@ class SystemConfigTab extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->updateForm((int)$id));
     }
@@ -109,8 +102,7 @@ class SystemConfigTab extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             'title',
@@ -134,8 +126,7 @@ class SystemConfigTab extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function delete(SystemConfigServices $services, $id)
+     */    public function delete(SystemConfigServices $services, $id)
     {
         if ($services->count(['tab_id' => $id])) {
             return app('json')->fail('Có cấu hình cấp thấp hơn và không thể xóa được.');
@@ -151,8 +142,7 @@ class SystemConfigTab extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if ($status == '' || $id == 0) {
             return app('json')->fail('Lỗi tham số');

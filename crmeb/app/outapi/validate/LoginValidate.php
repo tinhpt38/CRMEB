@@ -19,16 +19,14 @@ class LoginValidate extends Validate
     protected $regex = ['account' => '/^[a-zA-Z0-9]{4,30}$/'];
     /**
      * @var string[]
-     */
-    protected $rule = [
+     */    protected $rule = [
         'appid' => 'require|account',
         'appsecret' => 'require',
     ];
 
     /**
      * @var string[]
-     */
-    protected $message = [
+     */    protected $message = [
         'appid.require' => 'Vui lòng điền số tài khoản',
         'appid.account' => 'Tài khoản hoặc mật khẩu không chính xác',
         'appsecret.regex' => 'Vui lòng điền mật khẩu',

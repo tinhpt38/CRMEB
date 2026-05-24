@@ -35,14 +35,12 @@ use crmeb\services\CacheService;
  * @package app\services\activity
  * @method get(int $id, array $field) Lấy một phần dữ liệu
  * @method getAdvanceStatus(array $ids) Biết liệu sản phẩm bán trước có được bật hay không
- */
-class StoreAdvanceServices extends BaseServices
+ */class StoreAdvanceServices extends BaseServices
 {
     /**
      * StoreAdvanceServices constructor.
      * @param StoreAdvanceDao $dao
-     */
-    public function __construct(StoreAdvanceDao $dao)
+     */    public function __construct(StoreAdvanceDao $dao)
     {
         $this->dao = $dao;
     }
@@ -54,8 +52,7 @@ class StoreAdvanceServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList($where)
+     */    public function getList($where)
     {
         [$page, $limit] = $this->getPageValue();
         $where['is_del'] = 0;
@@ -68,8 +65,7 @@ class StoreAdvanceServices extends BaseServices
      * Lưu dữ liệu trước khi bán
      * @param $id
      * @param $data
-     */
-    public function saveData($id, $data)
+     */    public function saveData($id, $data)
     {
         $description = $data['description'];
         $detail = $data['attrs'];
@@ -87,12 +83,9 @@ class StoreAdvanceServices extends BaseServices
             $data['pay_stop_time'] = strtotime($data['pay_time'][1]);
         }
         unset($data['section_time'], $data['description'], $data['attrs'], $data['items']);
-        /** @var StoreDescriptionServices $storeDescriptionServices */
-        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
-        /** @var StoreProductServices $storeProductServices */
-        $storeProductServices = app()->make(StoreProductServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionServices */        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductServices $storeProductServices */        $storeProductServices = app()->make(StoreProductServices::class);
         if ($data['quota'] > $storeProductServices->value(['id' => $data['product_id']], 'stock')) {
             throw new AdminException('Giới hạn không thể vượt quá số lượng sản phẩm tồn kho');
         }
@@ -122,8 +115,7 @@ class StoreAdvanceServices extends BaseServices
      * Nhận thông tin chi tiết trước khi bán
      * @param int $id
      * @return array|\think\Model|null
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         $info = $this->dao->get($id);
         if ($info) {
@@ -147,8 +139,7 @@ class StoreAdvanceServices extends BaseServices
             }
             $info['price'] = floatval($info['price']);
             $info['ot_price'] = floatval($info['ot_price']);
-            /** @var StoreDescriptionServices $storeDescriptionServices */
-            $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+            /** @var StoreDescriptionServices $storeDescriptionServices */            $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
             $info['description'] = $storeDescriptionServices->getDescription(['product_id' => $id, 'type' => 6]);
             $info['attrs'] = $this->attrList($id, $info['product_id']);
         }
@@ -160,11 +151,9 @@ class StoreAdvanceServices extends BaseServices
      * @param int $id
      * @param int $pid
      * @return mixed
-     */
-    public function attrList(int $id, int $pid)
+     */    public function attrList(int $id, int $pid)
     {
-        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */
-        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
+        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
         $advanceResult = $storeProductAttrResultServices->value(['product_id' => $id, 'type' => 6], 'result');
         $items = json_decode($advanceResult, true)['attr'];
         $productAttr = $this->getAttr($items, $pid, 0);
@@ -202,11 +191,9 @@ class StoreAdvanceServices extends BaseServices
      * @param $id
      * @param $type
      * @return array
-     */
-    public function getAttr($attr, $id, $type)
+     */    public function getAttr($attr, $id, $type)
     {
-        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
         list($value, $head) = attr_format($attr);
         $valueNew = [];
         $count = 0;
@@ -245,8 +232,7 @@ class StoreAdvanceServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAdvanceinfo(Request $request, int $id)
+     */    public function getAdvanceinfo(Request $request, int $id)
     {
         $uid = (int)$request->uid();
         $storeInfo = $this->dao->getOne(['id' => $id], '*', ['description']);
@@ -268,23 +254,19 @@ class StoreAdvanceServices extends BaseServices
         $storeInfo['start_time'] = date('Y-m-d H:i:s', (int)$storeInfo['start_time']);
         $storeInfo['stop_time'] = date('Y-m-d H:i:s', (int)$storeInfo['stop_time']);
 
-        /** @var StoreProductServices $storeProductService */
-        $storeProductService = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $storeProductService */        $storeProductService = app()->make(StoreProductServices::class);
         $productInfo = $storeProductService->get($storeInfo['product_id']);
         $storeInfo['total'] = $productInfo['sales'] + $productInfo['ficti'];
         $storeInfo['store_name'] = $storeInfo['title'];
         $storeInfo['store_info'] = $storeInfo['info'];
 
-        /** @var QrcodeServices $qrcodeService */
-        $qrcodeService = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrcodeService */        $qrcodeService = app()->make(QrcodeServices::class);
         $storeInfo['code_base'] = $qrcodeService->getWechatQrcodePath($id . '_product_advance_detail_wap.jpg', 'pages/activity/presell_details/index?id=' . $id);
 
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $data['buy_num'] = $storeOrderServices->getBuyCount($uid, 'advance_id', $id);
 
-        /** @var StoreProductRelationServices $storeProductRelationServices */
-        $storeProductRelationServices = app()->make(StoreProductRelationServices::class);
+        /** @var StoreProductRelationServices $storeProductRelationServices */        $storeProductRelationServices = app()->make(StoreProductRelationServices::class);
         $storeInfo['userCollect'] = $storeProductRelationServices->isProductRelation(['uid' => $uid, 'product_id' => $storeInfo['product_id'], 'type' => 'collect', 'category' => 'product']);
         $storeInfo['userLike'] = false;
         $storeInfo['uid'] = $uid;
@@ -300,20 +282,18 @@ class StoreAdvanceServices extends BaseServices
         //Chi tiết sản phẩm
         $data['storeInfo'] = get_thumb_water($storeInfo, 'big', ['image', 'images']);
 
-        /** @var StoreProductReplyServices $storeProductReplyService */
-        $storeProductReplyService = app()->make(StoreProductReplyServices::class);
+        /** @var StoreProductReplyServices $storeProductReplyService */        $storeProductReplyService = app()->make(StoreProductReplyServices::class);
         $data['reply'] = get_thumb_water($storeProductReplyService->getRecProductReply($storeInfo['product_id']), 'small', ['pics']);
         [$replyCount, $goodReply, $replyChance] = $storeProductReplyService->getProductReplyData((int)$storeInfo['product_id']);
         $data['replyChance'] = $replyChance;
         $data['replyCount'] = $replyCount;
 
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
         list($productAttr, $productValue) = $storeProductAttrServices->getProductAttrDetail($id, $uid, 0, 6, $storeInfo['product_id']);
         $data['productAttr'] = $productAttr;
         $data['productValue'] = $productValue;
         $data['routine_contact_type'] = sys_config('routine_contact_type', 0);
-        //Sự kiện truy cập của người dùng
+        //Sự kiện truy cập của Khách hàng
         event('UserVisitListener', [$uid, $id, 'advance', $storeInfo['product_id'], 'view']);
         //Lịch sử duyệt web
         ProductLogJob::dispatch(['visit', ['uid' => $uid, 'product_id' => $storeInfo['product_id']]]);
@@ -325,13 +305,11 @@ class StoreAdvanceServices extends BaseServices
      * @param int $num
      * @param int $advanceId
      * @return bool
-     */
-    public function decAdvanceStock(int $num, int $advanceId, string $unique = '')
+     */    public function decAdvanceStock(int $num, int $advanceId, string $unique = '')
     {
         $product_id = $this->dao->value(['id' => $advanceId], 'product_id');
         if ($unique) {
-            /** @var StoreProductAttrValueServices $skuValueServices */
-            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrValueServices $skuValueServices */            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
             //Tăng doanh số bán hàng bằng cách trừ đi hàng tồn kho của các mặt hàng trước khi bán
             $res = false !== $skuValueServices->decProductAttrStock($advanceId, $unique, $num, 6);
             //trừ đi hàng tồn kho trước khi bán
@@ -343,8 +321,7 @@ class StoreAdvanceServices extends BaseServices
         } else {
             $res = false !== $this->dao->decStockIncSales(['id' => $advanceId, 'type' => 6], $num);
         }
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         //trừ đi hàng tồn kho chung
         $res = $res && $services->decProductStock($num, $product_id);
         return $res;
@@ -356,13 +333,11 @@ class StoreAdvanceServices extends BaseServices
      * @param int $advanceId
      * @param string $unique
      * @return bool
-     */
-    public function incAdvanceStock(int $num, int $advanceId, string $unique = '')
+     */    public function incAdvanceStock(int $num, int $advanceId, string $unique = '')
     {
         $product_id = $this->dao->value(['id' => $advanceId], 'product_id');
         if ($unique) {
-            /** @var StoreProductAttrValueServices $skuValueServices */
-            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrValueServices $skuValueServices */            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
             //Trừ đi doanh số bán hàng của sản phẩm giá hời,Tăng hàng tồn kho và số lượng mua hạn chế
             $res = false !== $skuValueServices->incProductAttrStock($advanceId, $unique, $num, 6);
             //Trừ đi doanh số bán hàng giá hời,tăng hàng tồn kho
@@ -377,8 +352,7 @@ class StoreAdvanceServices extends BaseServices
             //Trừ đi doanh số bán hàng giá hời,tăng hàng tồn kho
             $res = false !== $this->dao->incStockDecSales(['id' => $advanceId, 'type' => 6], $num);
         }
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         //Trừ đi hàng tồn kho thông thường cộng với doanh thu
         $res = $res && $services->incProductStock($num, $product_id);
         return $res;
@@ -394,13 +368,11 @@ class StoreAdvanceServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkAdvanceStock(int $uid, int $advanceId, int $cartNum = 1, string $unique = '')
+     */    public function checkAdvanceStock(int $uid, int $advanceId, int $cartNum = 1, string $unique = '')
     {
         $productInfo = $this->dao->getOne(['id' => $advanceId, 'status' => 1, 'is_del' => 0], '*,title as store_name');
         if (!$productInfo) throw new ApiException('Sản phẩm đã được đưa ra khỏi kệ hoặc bị xóa');
-        /** @var StoreProductAttrValueServices $attrValueServices */
-        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $attrValueServices */        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
         if ($unique == '') {
             $unique = $attrValueServices->value(['product_id' => $advanceId, 'type' => 6], 'unique');
         }
@@ -408,8 +380,7 @@ class StoreAdvanceServices extends BaseServices
         if (!$attrInfo || $attrInfo['product_id'] != $advanceId) {
             throw new ApiException('Vui lòng chọn thuộc tính sản phẩm hợp lệ');
         }
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $userBuyCount = $orderServices->getBuyCount($uid, 'advance_id', $advanceId);
         if ($productInfo['num'] < ($userBuyCount + $cartNum)) {
             throw new ApiException('Tổng giới hạn mua hàng cho mỗi người{:num}miếng', ['num' => $productInfo['num']]);

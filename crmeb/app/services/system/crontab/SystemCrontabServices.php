@@ -31,8 +31,7 @@ class SystemCrontabServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTimerList(array $where = [])
+     */    public function getTimerList(array $where = [])
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->selectList($where, '*', $page, $limit, 'id desc', [], true);
@@ -51,8 +50,7 @@ class SystemCrontabServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTimerInfo($id)
+     */    public function getTimerInfo($id)
     {
         $info = $this->dao->get($id);
         $info['customCode'] = "<?php\n\n" . json_decode($info['customCode']);
@@ -63,8 +61,7 @@ class SystemCrontabServices extends BaseServices
     /**
      * Loại nhiệm vụ theo lịch trình
      * @return string[]
-     */
-    public function getMarkList(): array
+     */    public function getMarkList(): array
     {
         return app()->make(CrontabRunServices::class)->markList;
     }
@@ -77,8 +74,7 @@ class SystemCrontabServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveTimer(array $data = [])
+     */    public function saveTimer(array $data = [])
     {
         if (!$data['id'] && $this->dao->getCount(['mark' => $data['mark'], 'is_del' => 0]) && $data['mark'] != 'customTimer') {
             throw new AdminException('Tác vụ theo lịch trình này đã tồn tại, vui lòng không thêm lại.');
@@ -116,8 +112,7 @@ class SystemCrontabServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function delTimer($id)
+     */    public function delTimer($id)
     {
         $data['update_time'] = time();
         $data['is_del'] = 1;
@@ -137,8 +132,7 @@ class SystemCrontabServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setTimerStatus($id, $is_open)
+     */    public function setTimerStatus($id, $is_open)
     {
         $data['update_time'] = time();
         $data['is_open'] = $is_open;
@@ -154,8 +148,7 @@ class SystemCrontabServices extends BaseServices
      * @param $data
      * @param int $time
      * @return false|float|int|mixed
-     */
-    public function getTimerCycleTime($data, $time = 0)
+     */    public function getTimerCycleTime($data, $time = 0)
     {
         if (!$time) $time = time();
         switch ($data['type']) {
@@ -221,8 +214,7 @@ class SystemCrontabServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/17
-     */
-    public function crontabApiRun()
+     */    public function crontabApiRun()
     {
         $crontabRunServices = app()->make(CrontabRunServices::class);
         $time = time();
@@ -249,8 +241,7 @@ class SystemCrontabServices extends BaseServices
      *
      * @param object $task Đối tượng nhiệm vụ
      * @return void
-     */
-    public function crontabCommandRun($task)
+     */    public function crontabCommandRun($task)
     {
         file_put_contents(root_path() . 'runtime/.timer', time());
         // Nhận phiên bản CrontabRunServices
@@ -318,8 +309,7 @@ class SystemCrontabServices extends BaseServices
      * +-------------- sec (0-59)[Có thể bỏ qua nếu không có bit 0,Sau đó, độ chi tiết thời gian tối thiểu là phút]
      * @param $data
      * @return string
-     */
-    public function getTimerStr($data): string
+     */    public function getTimerStr($data): string
     {
         $timeStr = '';
         switch ($data['type']) {

@@ -21,16 +21,14 @@ use think\facade\App;
  * Tin nhắn mẫu WeChat
  * Class WechatTemplate
  * @package app\adminapi\controller\v1\application\wechat
- */
-class WechatTemplate extends AuthController
+ */class WechatTemplate extends AuthController
 {
     /**
      * Người xây dựng
      * WechatTemplate constructor.
      * @param App $app
      * @param SystemNotificationServices $services
-     */
-    public function __construct(App $app, SystemNotificationServices $services)
+     */    public function __construct(App $app, SystemNotificationServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -42,11 +40,10 @@ class WechatTemplate extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function syncSubscribe()
+     */    public function syncSubscribe()
     {
         if (!sys_config('wechat_appid') || !sys_config('wechat_appsecret')) {
-            throw new AdminException('Trước tiên hãy định cấu hình ứng dụng tài khoản công khai WeChat, appSecret và các thông số khác');
+            throw new AdminException('Trước tiên hãy định cấu hình Ứng dụng tài khoản công khai WeChat, appSecret và các thông số khác');
         }
 
         $tempIds = $this->services->getTempId('wechat');

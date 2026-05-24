@@ -21,21 +21,18 @@ use think\facade\Env;
  * Sao lưu cơ sở dữ liệu
  * Class SystemDatabackupServices
  * @package app\services\system
- */
-class SystemDatabackupServices extends BaseServices
+ */class SystemDatabackupServices extends BaseServices
 {
 
     /**
      *
      * @var MysqlBackupService
-     */
-    protected $dbBackup;
+     */    protected $dbBackup;
 
     /**
      * Người xây dựng
      * SystemDatabackupServices constructor.
-     */
-    public function __construct()
+     */    public function __construct()
     {
         $this->dbBackup = app()->make(MysqlBackupService::class, [[
             //Kích thước khối lượng sao lưu cơ sở dữ liệu
@@ -49,8 +46,7 @@ class SystemDatabackupServices extends BaseServices
      * Lấy danh sách cơ sở dữ liệu
      * @return array
      * @throws \think\db\exception\BindParamException
-     */
-    public function getDataList()
+     */    public function getDataList()
     {
         $list = $this->dbBackup->dataList();
         $count = count($list);
@@ -61,8 +57,7 @@ class SystemDatabackupServices extends BaseServices
      * Nhận chi tiết bảng
      * @param string $tablename
      * @return array
-     */
-    public function getRead(string $tablename)
+     */    public function getRead(string $tablename)
     {
         $database = Env::get("database.database");
         $list = Db::query("select * from information_schema.columns where table_name = '" . $tablename . "' and table_schema = '" . $database . "'");
@@ -75,8 +70,7 @@ class SystemDatabackupServices extends BaseServices
 
     /**
      * @return MysqlBackupService
-     */
-    public function getDbBackup()
+     */    public function getDbBackup()
     {
         return $this->dbBackup;
     }
@@ -86,8 +80,7 @@ class SystemDatabackupServices extends BaseServices
      * @param string $tables
      * @return string
      * @throws \think\db\exception\BindParamException
-     */
-    public function backup(string $tables)
+     */    public function backup(string $tables)
     {
         $tables = explode(',', $tables);
         $data = '';
@@ -104,8 +97,7 @@ class SystemDatabackupServices extends BaseServices
     /**
      * Nhận danh sách dự phòng
      * @return array
-     */
-    public function getBackup()
+     */    public function getBackup()
     {
         $files = $this->dbBackup->fileList();
         $data = [];
@@ -117,7 +109,7 @@ class SystemDatabackupServices extends BaseServices
             $data[$key]['backtime'] = $key;
             $data[$key]['time'] = $t['time'];
         }
-        krsort($data);//Thứ tự giảm dần theo thời gian
+        krsort($data);//Đơn hàng giảm dần theo thời gian
         return ['count' => count($data), 'list' => array_values($data)];
     }
 

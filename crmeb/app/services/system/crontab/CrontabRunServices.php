@@ -27,14 +27,12 @@ use think\facade\Log;
  * @tác giả Ngô triều
  * @email 442384644@qq.com
  * @date 2023/03/01
- */
-class CrontabRunServices
+ */class CrontabRunServices
 {
     /**
      * Các loại nhiệm vụ theo lịch trình. Mỗi kiểu được xác định tương ứng với một phương thức trong lớp CrontabRunServices.
      * @var string[]
-     */
-    public $markList = [
+     */    public $markList = [
         'orderCancel' => 'Tự động hủy đơn hàng nếu chưa thanh toán',
         'pinkExpiration' => 'Xử lý đơn hàng nhóm nhóm đã hết hạn',
         'agentUnbind' => 'Tự động hủy ràng buộc cấp trên khi hết hạn',
@@ -57,8 +55,7 @@ class CrontabRunServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function __call($name, $arguments)
+     */    public function __call($name, $arguments)
     {
         $this->crontabLog($name . 'phương pháp không tồn tại');
     }
@@ -66,8 +63,7 @@ class CrontabRunServices
     /**
      * Nhật ký nhiệm vụ theo lịch trình
      * @param $msg
-     */
-    protected function crontabLog($msg)
+     */    protected function crontabLog($msg)
     {
         $timer_log_open = config("log.timer_log", false);
         if ($timer_log_open) {
@@ -81,8 +77,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function orderCancel()
+     */    public function orderCancel()
     {
         try {
             app()->make(StoreOrderServices::class)->orderUnpaidCancel();
@@ -97,8 +92,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function pinkExpiration()
+     */    public function pinkExpiration()
     {
         try {
             app()->make(StorePinkServices::class)->statusPink();
@@ -113,8 +107,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function agentUnbind()
+     */    public function agentUnbind()
     {
         try {
             app()->make(AgentManageServices::class)->removeSpread();
@@ -129,8 +122,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function liveProductStatus()
+     */    public function liveProductStatus()
     {
         try {
             app()->make(LiveGoodsServices::class)->syncGoodStatus();
@@ -145,8 +137,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function liveRoomStatus()
+     */    public function liveRoomStatus()
     {
         try {
             app()->make(LiveRoomServices::class)->syncRoomStatus();
@@ -161,8 +152,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function takeDelivery()
+     */    public function takeDelivery()
     {
         try {
             app()->make(StoreOrderTakeServices::class)->autoTakeOrder();
@@ -177,8 +167,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function advanceOff()
+     */    public function advanceOff()
     {
         try {
             app()->make(StoreProductServices::class)->downAdvance();
@@ -193,8 +182,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function productReplay()
+     */    public function productReplay()
     {
         try {
             app()->make(StoreOrderServices::class)->autoComment();
@@ -209,8 +197,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function clearPoster()
+     */    public function clearPoster()
     {
         try {
             app()->make(SystemAttachmentServices::class)->emptyYesterdayAttachment();
@@ -225,8 +212,7 @@ class CrontabRunServices
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function autoInvoice()
+     */    public function autoInvoice()
     {
         try {
             $invoiceServices = app()->make(StoreOrderInvoiceServices::class);
@@ -243,8 +229,7 @@ class CrontabRunServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2023/9/30
-     */
-    public function signRemind()
+     */    public function signRemind()
     {
         try {
             app()->make(UserSignServices::class)->sendSignRemind();
@@ -260,8 +245,7 @@ class CrontabRunServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/6
-     */
-    public function customTimer($customCode = '')
+     */    public function customTimer($customCode = '')
     {
         try {
             eval($customCode);

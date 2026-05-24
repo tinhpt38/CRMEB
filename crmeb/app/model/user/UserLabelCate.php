@@ -18,26 +18,22 @@ use think\Model;
 /**
  * Class UserLabelCate
  * @package app\model\user
- */
-class UserLabelCate extends BaseModel
+ */class UserLabelCate extends BaseModel
 {
     /**
      * tên bảng
      * @var string
-     */
-    protected $name = 'user_label_cate';
+     */    protected $name = 'user_label_cate';
 
     /**
      * khóa chính
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchNameAttr($query, $value)
+     */    public function searchNameAttr($query, $value)
     {
         $query->whereLike('name', '%' . $value . '%');
     }
@@ -45,8 +41,7 @@ class UserLabelCate extends BaseModel
     /**
      * liên kết một-nhiều
      * @return \think\model\relation\HasMany
-     */
-    public function label()
+     */    public function label()
     {
         return $this->hasMany(UserLabel::class, 'label_cate', 'id');
     }

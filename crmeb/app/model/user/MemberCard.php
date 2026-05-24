@@ -23,14 +23,12 @@ class MemberCard extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'member_card';
+     */    protected $name = 'member_card';
 
     protected $insert = ['add_time', 'update_time'];
 
@@ -42,8 +40,7 @@ class MemberCard extends BaseModel
      * Trình tìm kiếm số thẻ
      * @param Model $query
      * @param $value
-     */
-    public function searchCardNumberAttr($query, $value)
+     */    public function searchCardNumberAttr($query, $value)
     {
         if ($value) {
             $query->whereLike('card_number', '%' . $value . '%');
@@ -52,11 +49,10 @@ class MemberCard extends BaseModel
     }
 
     /**
-     * Trình tìm kiếm uid người dùng
+     * Trình tìm kiếm uid Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchUseUidAttr($query, $value)
+     */    public function searchUseUidAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('use_uid', $value);
@@ -69,8 +65,7 @@ class MemberCard extends BaseModel
      * Công cụ tìm số điện thoại di động
      * @param Model $query
      * @param $value
-     */
-    public function searchPhoneAttr($query, $value)
+     */    public function searchPhoneAttr($query, $value)
     {
         if ($value) {
             $query->whereIn('use_uid', function ($query) use ($value) {
@@ -83,8 +78,7 @@ class MemberCard extends BaseModel
      * công cụ tìm kiếm id hàng loạt
      * @param Model $query
      * @param $value
-     */
-    public function searchBatchCardIdAttr($query, $value)
+     */    public function searchBatchCardIdAttr($query, $value)
     {
         $query->where('card_batch_id', $value);
     }
@@ -93,8 +87,7 @@ class MemberCard extends BaseModel
      * Người dùng use_time người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUseTimeAttr($query, $value)
+     */    public function searchUseTimeAttr($query, $value)
     {
         if ($value > 0) {
             $query->where('use_time', '>', 0);

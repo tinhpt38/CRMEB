@@ -18,8 +18,7 @@ use crmeb\traits\ModelTrait;
 /**
  * Class LiveRoomGoods
  * @package app\model\live
- */
-class LiveRoomGoods extends BaseModel
+ */class LiveRoomGoods extends BaseModel
 {
     use ModelTrait;
 

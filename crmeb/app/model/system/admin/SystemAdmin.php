@@ -20,8 +20,7 @@ use think\Model;
  * Mô hình quản trị viên
  * Class SystemAdmin
  * @package app\model\system\admin
- */
-class SystemAdmin extends BaseModel
+ */class SystemAdmin extends BaseModel
 {
     use ModelTrait;
     use JwtAuthModelTrait;
@@ -29,14 +28,12 @@ class SystemAdmin extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_admin';
+     */    protected $name = 'system_admin';
 
     protected $insert = ['add_time'];
 
@@ -44,8 +41,7 @@ class SystemAdmin extends BaseModel
      * Dữ liệu quyền
      * @param $value
      * @return false|string[]
-     */
-    public static function getRolesAttr($value)
+     */    public static function getRolesAttr($value)
     {
         return explode(',', $value);
     }
@@ -55,8 +51,7 @@ class SystemAdmin extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchLevelAttr($query, $value)
+     */    public function searchLevelAttr($query, $value)
     {
         if (is_array($value)) {
             $query->where('level', $value[0], $value[1]);
@@ -69,8 +64,7 @@ class SystemAdmin extends BaseModel
      * Tài khoản quản trị viên và người tìm kiếm tên
      * @param Model $query
      * @param $value
-     */
-    public function searchAccountLikeAttr($query, $value)
+     */    public function searchAccountLikeAttr($query, $value)
     {
         if ($value) {
             $query->whereLike('account|real_name', '%' . $value . '%');
@@ -81,8 +75,7 @@ class SystemAdmin extends BaseModel
      * Trình tìm kiếm tài khoản quản trị viên
      * @param Model $query
      * @param $value
-     */
-    public function searchAccountAttr($query, $value)
+     */    public function searchAccountAttr($query, $value)
     {
         if ($value) {
             $query->where('account', $value);
@@ -93,8 +86,7 @@ class SystemAdmin extends BaseModel
      * Công cụ tìm quyền quản trị
      * @param Model $query
      * @param $roles
-     */
-    public function searchRolesAttr($query, $roles)
+     */    public function searchRolesAttr($query, $roles)
     {
         if ($roles) {
             $query->where("CONCAT(',',roles,',')  LIKE '%,$roles,%'");
@@ -105,8 +97,7 @@ class SystemAdmin extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query)
+     */    public function searchIsDelAttr($query)
     {
         $query->where('is_del', 0);
     }
@@ -115,8 +106,7 @@ class SystemAdmin extends BaseModel
      * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value != '' && $value != null) {
             $query->where('status', $value);

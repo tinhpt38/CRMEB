@@ -20,28 +20,24 @@ use think\Model;
  * TODO Chia sẻ nhómModel
  * Class StorePink
  * @package app\model\activity
- */
-class StorePink extends BaseModel
+ */class StorePink extends BaseModel
 {
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_pink';
+     */    protected $name = 'store_pink';
 
     use ModelTrait;
 
     /**
-     * Liên kết một-một người dùng
+     * Liên kết một-một Khách hàng
      * @return \think\model\relation\HasOne
-     */
-    public function getUser()
+     */    public function getUser()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->bind(['nickname', 'avatar']);
     }
@@ -56,8 +52,7 @@ class StorePink extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchOrderIdAttr($query, $value, $data)
+     */    public function searchOrderIdAttr($query, $value, $data)
     {
         $query->where('order_id', $value);
     }
@@ -67,8 +62,7 @@ class StorePink extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchOrderIdKeyAttr($query, $value, $data)
+     */    public function searchOrderIdKeyAttr($query, $value, $data)
     {
         $query->where('order_id_key', $value);
     }
@@ -78,8 +72,7 @@ class StorePink extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCidAttr($query, $value, $data)
+     */    public function searchCidAttr($query, $value, $data)
     {
         $query->where('cid', $value);
     }
@@ -89,8 +82,7 @@ class StorePink extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchPidAttr($query, $value, $data)
+     */    public function searchPidAttr($query, $value, $data)
     {
         $query->where('pid', $value);
     }
@@ -100,8 +92,7 @@ class StorePink extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchKIdAttr($query, $value, $data)
+     */    public function searchKIdAttr($query, $value, $data)
     {
         $query->where('k_id', $value);
     }
@@ -111,8 +102,7 @@ class StorePink extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsRefundAttr($query, $value, $data)
+     */    public function searchIsRefundAttr($query, $value, $data)
     {
         $query->where('is_refund', $value ?? 0);
     }
@@ -122,8 +112,7 @@ class StorePink extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStatusAttr($query, $value, $data)
+     */    public function searchStatusAttr($query, $value, $data)
     {
         if ($value != '') $query->where('status', $value);
     }

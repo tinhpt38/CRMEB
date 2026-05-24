@@ -17,14 +17,12 @@ use app\model\product\sku\StoreProductAttrResult;
 /**
  * Class StoreProductAttrResultDao
  * @package app\dao\product\sku
- */
-class StoreProductAttrResultDao extends BaseDao
+ */class StoreProductAttrResultDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductAttrResult::class;
     }
@@ -35,8 +33,7 @@ class StoreProductAttrResultDao extends BaseDao
      * @param int $type
      * @return bool
      * @throws \Exception
-     */
-    public function del(int $id, int $type)
+     */    public function del(int $id, int $type)
     {
         return $this->search(['product_id' => $id, 'type' => $type])->delete();
     }

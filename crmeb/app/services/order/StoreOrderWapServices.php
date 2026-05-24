@@ -19,14 +19,12 @@ use app\services\BaseServices;
  * Class StoreOrderWapServices
  * @package app\services\order
  * @method getOne(array $where, ?string $field = '*', ?array $with = []) Lấy một phần dữ liệu
- */
-class StoreOrderWapServices extends BaseServices
+ */class StoreOrderWapServices extends BaseServices
 {
     /**
      * StoreOrderWapServices constructor.
      * @param StoreOrderDao $dao
-     */
-    public function __construct(StoreOrderDao $dao)
+     */    public function __construct(StoreOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -34,8 +32,7 @@ class StoreOrderWapServices extends BaseServices
     /**
      * Nhận số lượng đặt hàng của ngày hôm qua và tháng này
      * @return mixed
-     */
-    public function getOrderTimeData()
+     */    public function getOrderTimeData()
     {
         $where = ['timeKey' => 'add_time', 'paid' => 1, 'refund_status' => 0, 'pid' => 0];
         //Doanh số hôm nay
@@ -59,8 +56,7 @@ class StoreOrderWapServices extends BaseServices
      * @param array $where
      * @param int $store_id
      * @return array
-     */
-    public function getOrderDataPriceCount(array $where = [], int $store_id = 0)
+     */    public function getOrderDataPriceCount(array $where = [], int $store_id = 0)
     {
         [$page, $limit] = $this->getPageValue();
         return $this->dao->getOrderDataPriceCount($where + ['pid' => 0, 'is_del' => 0, 'paid' => 1, 'refund_status' => [0, 3], 'is_system_del' => 0, 'store_id' => $store_id], ['sum(pay_price) as price', 'count(id) as count', 'FROM_UNIXTIME(add_time, \'%m-%d\') as time'], $page, $limit);
@@ -73,13 +69,11 @@ class StoreOrderWapServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getWapAdminOrderList(array $where)
+     */    public function getWapAdminOrderList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getOrderList($where, ['*'], $page, $limit, ['pink']);
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $list = $orderServices->tidyOrderList($list);
         foreach ($list as &$item) {
             $refund_num = array_sum(array_column($item['refund'], 'refund_num'));

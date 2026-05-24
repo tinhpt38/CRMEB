@@ -25,15 +25,13 @@ use app\services\BaseServices;
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  * @method delete($id, ?string $key = null) Xóa dữ liệu
  * @method value(array $where, ?string $field = '') Nhận một giá trị
- */
-class SystemGroupServices extends BaseServices
+ */class SystemGroupServices extends BaseServices
 {
 
     /**
      * SystemGroupServices constructor.
      * @param SystemGroupDao $dao
-     */
-    public function __construct(SystemGroupDao $dao)
+     */    public function __construct(SystemGroupDao $dao)
     {
         $this->dao = $dao;
     }
@@ -45,8 +43,7 @@ class SystemGroupServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGroupList(array $where, array $field = ['*'])
+     */    public function getGroupList(array $where, array $field = ['*'])
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getGroupList($where, $field, $page, $limit);
@@ -64,8 +61,7 @@ class SystemGroupServices extends BaseServices
      * Lấy tiêu đề dưới tab dữ liệu kết hợp
      * @param int $id
      * @return array
-     */
-    public function getGroupDataTabHeader(int $id)
+     */    public function getGroupDataTabHeader(int $id)
     {
         $data = $this->getValueFields($id);
         $header = [];
@@ -92,8 +88,7 @@ class SystemGroupServices extends BaseServices
      * Lấy các trường dữ liệu kết hợp
      * @param int $id
      * @return array|mixed
-     */
-    public function getValueFields(int $id)
+     */    public function getValueFields(int $id)
     {
         return json_decode($this->dao->value(['id' => $id], 'fields'), true) ?: [];
     }

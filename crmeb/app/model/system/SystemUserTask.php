@@ -17,20 +17,17 @@ use crmeb\traits\ModelTrait;
 /**
  * Class SystemUserTask
  * @package app\model\system
- */
-class SystemUserTask extends BaseModel
+ */class SystemUserTask extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_user_task';
+     */    protected $name = 'system_user_task';
 }

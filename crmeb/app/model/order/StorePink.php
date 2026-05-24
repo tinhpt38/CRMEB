@@ -18,30 +18,26 @@ use think\Model;
 /**
  * Class StorePink
  * @package app\model\order
- */
-class StorePink extends BaseModel
+ */class StorePink extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_pink';
+     */    protected $name = 'store_pink';
 
     protected $insert = ['add_time'];
 
     /**
      * Tạo công cụ sửa đổi thời gian
      * @return int
-     */
-    protected function setAddTimeAttr()
+     */    protected function setAddTimeAttr()
     {
         return time();
     }
@@ -50,8 +46,7 @@ class StorePink extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchOrderIdKeyAttr($query, $value, $data)
+     */    public function searchOrderIdKeyAttr($query, $value, $data)
     {
         $query->whereIn('order_id_key', $value);
     }

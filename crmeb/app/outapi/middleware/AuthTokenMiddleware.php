@@ -21,8 +21,7 @@ use think\facade\Config;
 /**
  * Class AuthTokenMiddleware
  * @package app\outapi\middleware
- */
-class AuthTokenMiddleware implements MiddlewareInterface
+ */class AuthTokenMiddleware implements MiddlewareInterface
 {
 
     /**
@@ -33,12 +32,10 @@ class AuthTokenMiddleware implements MiddlewareInterface
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function handle(Request $request, \Closure $next)
+     */    public function handle(Request $request, \Closure $next)
     {
         $token = trim(ltrim($request->header(Config::get('cookie.token_name', 'Authori-zation')), 'Bearer'));
-        /** @var OutAccountServices $services */
-        $services = app()->make(OutAccountServices::class);
+        /** @var OutAccountServices $services */        $services = app()->make(OutAccountServices::class);
         $outInfo = $services->parseToken($token);
         $request->macro('outId', function () use (&$outInfo) {
             return (int)$outInfo['id'];
@@ -47,8 +44,7 @@ class AuthTokenMiddleware implements MiddlewareInterface
         $request->macro('outInfo', function () use (&$outInfo) {
             return $outInfo;
         });
-        /** @var OutInterfaceServices $outInterfaceServices */
-        $outInterfaceServices = app()->make(OutInterfaceServices::class);
+        /** @var OutInterfaceServices $outInterfaceServices */        $outInterfaceServices = app()->make(OutInterfaceServices::class);
         $outInterfaceServices->verifyAuth($request);
 
         return $next($request);

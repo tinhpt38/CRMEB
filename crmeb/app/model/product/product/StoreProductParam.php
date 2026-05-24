@@ -18,20 +18,17 @@ use crmeb\traits\ModelTrait;
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2024/12/17
- */
-class StoreProductParam extends BaseModel
+ */class StoreProductParam extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_param';
+     */    protected $name = 'store_product_param';
 }

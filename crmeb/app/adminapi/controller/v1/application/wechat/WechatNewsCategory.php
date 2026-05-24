@@ -22,16 +22,14 @@ use think\facade\Log;
  * Class WechatNewsCategory
  * @package app\admin\controller\wechat
  *
- */
-class WechatNewsCategory extends AuthController
+ */class WechatNewsCategory extends AuthController
 {
     /**
      * Người xây dựng
      * Menus constructor.
      * @param App $app
      * @param WechatNewsCategoryServices $services
-     */
-    public function __construct(App $app, WechatNewsCategoryServices $services)
+     */    public function __construct(App $app, WechatNewsCategoryServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -40,8 +38,7 @@ class WechatNewsCategory extends AuthController
     /**
      * Danh sách tin nhắn đồ họa
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['page', 1],
@@ -56,12 +53,10 @@ class WechatNewsCategory extends AuthController
      * Chi tiết hình ảnh và văn bản
      * @param $id
      * @return mixed
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->get($id);
-        /** @var ArticleServices $services */
-        $services = app()->make(ArticleServices::class);
+        /** @var ArticleServices $services */        $services = app()->make(ArticleServices::class);
         $new = $services->articlesList($info['new_id']);
         if ($new) $new = $new->toArray();
         $info['new'] = $new;
@@ -72,8 +67,7 @@ class WechatNewsCategory extends AuthController
      * Xóa hình ảnh và văn bản
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$this->services->delete($id))
             return app('json')->fail('Xóa không thành công');
@@ -84,8 +78,7 @@ class WechatNewsCategory extends AuthController
     /**
      * Thêm hoặc chỉnh sửa lưu
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['list', []],
@@ -95,8 +88,7 @@ class WechatNewsCategory extends AuthController
             $id = [];
             $countList = count($data['list']);
             if (!$countList) return app('json')->fail('Vui lòng thêm hình ảnh và văn bản');
-            /** @var ArticleServices $services */
-            $services = app()->make(ArticleServices::class);
+            /** @var ArticleServices $services */            $services = app()->make(ArticleServices::class);
             foreach ($data['list'] as $k => $v) {
                 if ($v['title'] == '') return app('json')->fail('Tiêu đề không thể trống');
                 if ($v['author'] == '') return app('json')->fail('Tác giả không thể trống');
@@ -142,8 +134,7 @@ class WechatNewsCategory extends AuthController
 
     /**
      * Gửi tin nhắn
-     */
-    public function push()
+     */    public function push()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -161,7 +152,7 @@ class WechatNewsCategory extends AuthController
                 $wechatNews['id'] = $list['new'][0]['id'];
             }
         }
-        if ($data['user_ids'] != '') {//Tin nhắn dịch vụ khách hàng
+        if ($data['user_ids'] != '') {//Tin nhắn CSKH
             $wechatNews = $this->services->wechatPush($wechatNews);
             $message = WechatService::newsMessage($wechatNews);
             $errorLog = [];//Người dùng không gửi được
@@ -176,7 +167,7 @@ class WechatNewsCategory extends AuthController
                             $errorLog[] = $v['nickname'] . 'Gửi không thành công';
                         }
                     } else {
-                        $errorLog[] = $v['nickname'] . 'Không gửi sự chú ý không thành công(Không phải là người dùng tài khoản công khai WeChat)';
+                        $errorLog[] = $v['nickname'] . 'Không gửi sự chú ý không thành công(Không phải là Khách hàng tài khoản công khai WeChat)';
                     }
                 }
                 if (!count($errorLog)) {
@@ -195,8 +186,7 @@ class WechatNewsCategory extends AuthController
     /**
      * Gửi danh sách văn bản tin nhắn
      * @return mixed
-     */
-    public function send_news()
+     */    public function send_news()
     {
         $where = $this->request->getMore([
             ['cate_name', ''],

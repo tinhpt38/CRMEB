@@ -19,8 +19,7 @@ class DivisionAgentApplyDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return DivisionAgentApply::class;
     }
@@ -36,8 +35,7 @@ class DivisionAgentApplyDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [], int $page = 0, int $limit = 0, string $field = '*', array $with = [])
+     */    public function getList(array $where = [], int $page = 0, int $limit = 0, string $field = '*', array $with = [])
     {
         return $this->search($where)->field($field)->when($with, function ($query) use ($with) {
             $query->with($with);

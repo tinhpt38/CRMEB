@@ -19,29 +19,25 @@ use think\Model;
 /**
  * Class UserLabel
  * @package app\model\user
- */
-class UserLabel extends BaseModel
+ */class UserLabel extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_label';
+     */    protected $name = 'user_label';
 
     /**
      * Phân loại thẻ
      * @param \think\Model $query
      * @param $value
-     */
-    public function searchLabelCateAttr($query, $value)
+     */    public function searchLabelCateAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('label_cate', $value);
@@ -51,8 +47,7 @@ class UserLabel extends BaseModel
     /**
      * Phân loại thẻ liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function cateName()
+     */    public function cateName()
     {
         return $this->hasOne(Category::class, 'id', 'label_cate')->where('type', 0)->field(['id', 'name'])->bind(['cate_name' => 'name']);
     }
@@ -61,8 +56,7 @@ class UserLabel extends BaseModel
      * idsNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchIdsAttr($query, $value)
+     */    public function searchIdsAttr($query, $value)
     {
         if ($value) $query->whereIn('id', $value);
     }

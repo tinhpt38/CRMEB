@@ -32,8 +32,7 @@ class OrderCreateAfterJob extends BaseJobs
      * @param $order
      * @param $data
      * @return bool
-     */
-    public function doJob($orderInfo, $data, $activity)
+     */    public function doJob($orderInfo, $data, $activity)
     {
         $uid = (int)$orderInfo['uid'];
         $orderId = (int)$orderInfo['id'];
@@ -42,19 +41,16 @@ class OrderCreateAfterJob extends BaseJobs
             $priceData = $data['priceData'] ?? [];
             $addressId = $data['addressId'] ?? 0;
             $spread_ids = [];
-            /** @var StoreOrderCreateServices $createService */
-            $createService = app()->make(StoreOrderCreateServices::class);
+            /** @var StoreOrderCreateServices $createService */            $createService = app()->make(StoreOrderCreateServices::class);
             if ($cartInfo && $priceData) {
-                /** @var StoreOrderCartInfoServices $cartServices */
-                $cartServices = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $cartServices */                $cartServices = app()->make(StoreOrderCartInfoServices::class);
                 [$cartInfo, $spread_ids] = $createService->computeOrderProductTruePrice($cartInfo, $priceData, $addressId, $uid, $orderInfo);
                 $cartServices->updateCartInfo($orderId, $cartInfo);
             }
 
             $orderData = [];
             $spread_uid = $spread_two_uid = 0;
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             if ($spread_ids) {
                 [$spread_uid, $spread_two_uid] = $spread_ids;
                 $orderData['spread_uid'] = $spread_uid;
@@ -75,13 +71,11 @@ class OrderCreateAfterJob extends BaseJobs
             $isCommission = 0;
             if ($orderInfo['combination_id']) {
                 //Kiểm tra xem việc mua theo nhóm có được hưởng chiết khấu hoa hồng hay không
-                /** @var StoreCombinationServices $combinationServices */
-                $combinationServices = app()->make(StoreCombinationServices::class);
+                /** @var StoreCombinationServices $combinationServices */                $combinationServices = app()->make(StoreCombinationServices::class);
                 $isCommission = $combinationServices->value(['id' => $orderInfo['combination_id']], 'is_commission');
             }
             if ($cartInfo && (!$activity || $isCommission)) {
-                /** @var StoreOrderComputedServices $orderComputed */
-                $orderComputed = app()->make(StoreOrderComputedServices::class);
+                /** @var StoreOrderComputedServices $orderComputed */                $orderComputed = app()->make(StoreOrderComputedServices::class);
                 if ($userServices->checkUserPromoter($spread_uid)) $orderData['one_brokerage'] = $orderComputed->getOrderSumPrice($cartInfo, 'one_brokerage', false);
                 if ($userServices->checkUserPromoter($spread_two_uid)) $orderData['two_brokerage'] = $orderComputed->getOrderSumPrice($cartInfo, 'two_brokerage', false);
                 $orderData['staff_brokerage'] = $orderComputed->getOrderSumPrice($cartInfo, 'staff_brokerage', false);

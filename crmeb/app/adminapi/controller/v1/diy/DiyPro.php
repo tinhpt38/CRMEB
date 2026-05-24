@@ -114,7 +114,7 @@ class DiyPro extends AuthController
             ['salesOrder', ''], //Phân loại khối lượng bán hàng
             ['priceOrder', ''], //sắp xếp giá
             ['store_label_id', []], //NhãnID
-            ['ids', ''], //hàng hóaID
+            ['ids', ''], //ID sản phẩm
         ]);
         $where['is_show'] = 1;
         $where['is_del'] = 0;
@@ -150,10 +150,10 @@ class DiyPro extends AuthController
         // Lấy đường dẫn tạm thời của tập tin
         $tempPath = $file->getRealPath();
 
-        // Đọc nội dung bằng luồng tệp
+        // Đọc Nội dung bằng luồng tệp
         $content = file_get_contents($tempPath);
 
-        // Lưu nội dung
+        // Lưu Nội dung
         $this->services->importDIYData($content);
         return app('json')->success('Nhập thành công');
     }
@@ -161,9 +161,9 @@ class DiyPro extends AuthController
     public function textField()
     {
         $user = [
-            ['label' => 'Tên người dùng', 'value' => 'nickname'],
-            ['label' => 'người dùngid', 'value' => 'uid'],
-            ['label' => 'Hình đại diện của người dùng', 'value' => 'image'],
+            ['label' => 'Tên Khách hàng', 'value' => 'nickname'],
+            ['label' => 'Khách hàngid', 'value' => 'uid'],
+            ['label' => 'Hình đại diện của Khách hàng', 'value' => 'image'],
             ['label' => 'Sản phẩm yêu thích', 'value' => 'collection_num'],
             ['label' => 'Mua thêm sản phẩm', 'value' => 'cart_num'],
             ['label' => 'Tổng số đơn đặt hàng', 'value' => 'order_num'],

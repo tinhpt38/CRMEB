@@ -21,16 +21,14 @@ use app\services\BaseServices;
  * @package app\services\user
  * @method getUserFrozenPrice(int $uid, bool $isFrozen) Nhận hoa hồng bị đóng băng và hết hạn trong một tài khoản
  * @method updateFrozen(string $orderId) Sửa đổi trạng thái đóng băng hoa hồng
- * @method getFrozenBrokerage() Lấy mảng hoa hồng cố định của người dùng
+ * @method getFrozenBrokerage() Lấy mảng hoa hồng cố định của Khách hàng
  * @method getSumFrozenBrokerage() Nhận số tiền hoa hồng cố định
- */
-class UserBrokerageFrozenServices extends BaseServices
+ */class UserBrokerageFrozenServices extends BaseServices
 {
     /**
      * UserBrokerageFrozenServices constructor.
      * @param UserBrokerageFrozenDao $dao
-     */
-    public function __construct(UserBrokerageFrozenDao $dao)
+     */    public function __construct(UserBrokerageFrozenDao $dao)
     {
         $this->dao = $dao;
     }
@@ -42,8 +40,7 @@ class UserBrokerageFrozenServices extends BaseServices
      * @param int $uillId
      * @param string $orderId
      * @return mixed
-     */
-    public function saveBrokage(int $uid, string $price, int $uillId, string $orderId)
+     */    public function saveBrokage(int $uid, string $price, int $uillId, string $orderId)
     {
         $broken_time = intval(sys_config('extract_time'));
         $data = [

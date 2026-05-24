@@ -18,14 +18,12 @@ use app\services\BaseServices;
 /**
  * Class AgentLevelTaskRecordServices
  * @package app\services\agent
- */
-class AgentLevelTaskRecordServices extends BaseServices
+ */class AgentLevelTaskRecordServices extends BaseServices
 {
     /**
      * AgentLevelTaskRecordServices constructor.
      * @param AgentLevelTaskRecordDao $dao
-     */
-    public function __construct(AgentLevelTaskRecordDao $dao)
+     */    public function __construct(AgentLevelTaskRecordDao $dao)
     {
         $this->dao = $dao;
     }

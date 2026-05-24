@@ -18,15 +18,13 @@ use app\model\wechat\WechatMedia;
  * Phương tiện truyền thông WeChat
  * Class WechatMediaDao
  * @package app\dao\wechat
- */
-class WechatMediaDao extends BaseDao
+ */class WechatMediaDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return WechatMedia::class;
     }

@@ -21,21 +21,18 @@ class CapitalFlow extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'capital_flow';
+     */    protected $name = 'capital_flow';
 
     /**
      * Trình tìm loại giao dịch
      * @param $query
      * @param $value
-     */
-    public function searchTradingTypeAttr($query, $value)
+     */    public function searchTradingTypeAttr($query, $value)
     {
         if ($value) $query->where('trading_type', $value);
     }
@@ -44,8 +41,7 @@ class CapitalFlow extends BaseModel
      * người tìm kiếm từ khóa
      * @param $query
      * @param $value
-     */
-    public function searchKeywordsAttr($query, $value)
+     */    public function searchKeywordsAttr($query, $value)
     {
         if ($value !== '') $query->where('order_id|uid|nickname|phone', 'like', '%' . $value . '%');
     }
@@ -54,8 +50,7 @@ class CapitalFlow extends BaseModel
      * công cụ tìm kiếm id hàng loạt
      * @param $query
      * @param $value
-     */
-    public function searchIdsAttr($query, $value)
+     */    public function searchIdsAttr($query, $value)
     {
         if ($value != '') $query->whereIn('id', $value);
     }

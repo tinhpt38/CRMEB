@@ -19,15 +19,13 @@ use think\facade\App;
 /**
  * Class TradeStatistic
  * @package app\controller\admin\v1\statistic
- */
-class TradeStatistic extends AuthController
+ */class TradeStatistic extends AuthController
 {
     /**
      * TradeStatistic constructor.
      * @param App $app
      * @param TradeStatisticServices $services
-     */
-    public function __construct(App $app, TradeStatisticServices $services)
+     */    public function __construct(App $app, TradeStatisticServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -36,8 +34,7 @@ class TradeStatistic extends AuthController
     /**
      * dữ liệu hàng đầu
      * @return mixed
-     */
-    public function topTrade()
+     */    public function topTrade()
     {
         $leftToday = $this->services->getTopLeftTrade(['time' => 'today']);
         $leftyestoday = $this->services->getTopLeftTrade(['time' => 'yestoday']);
@@ -61,8 +58,7 @@ class TradeStatistic extends AuthController
     /**
      * dữ liệu dưới cùng
      * @return mixed
-     */
-    public function bottomTrade()
+     */    public function bottomTrade()
     {
         $day = $this->request->getMore([
             ['data', ""],

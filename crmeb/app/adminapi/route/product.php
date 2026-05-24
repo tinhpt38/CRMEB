@@ -12,8 +12,7 @@ use think\facade\Route;
 
 Route::group('product', function () {
 
-    /** Phân loại sản phẩm */
-    Route::group(function () {
+    /** Danh mục sản phẩm */    Route::group(function () {
         Route::get('category', 'v1.product.StoreCategory/index')->option(['real_name' => 'Danh sách danh mục sản phẩm']);
         //Danh sách cây sản phẩm
         Route::get('category/tree/:type', 'v1.product.StoreCategory/tree_list')->option(['real_name' => 'Danh sách cây phân loại sản phẩm']);
@@ -35,16 +34,15 @@ Route::group('product', function () {
         Route::put('category/set_category/:id', 'v1.product.StoreCategory/set_category')->option(['real_name' => 'Chỉnh sửa nhanh các danh mục sản phẩm']);
     })->option(['parent' => 'product', 'cate_name' => 'Danh mục sản phẩm']);
 
-    /** hàng hóa */
-    Route::group(function () {
+    /** sản phẩm */    Route::group(function () {
         //Danh sách sản phẩm
         Route::get('product', 'v1.product.StoreProduct/index')->option(['real_name' => 'Danh sách sản phẩm']);
         //Thoát dữ liệu chưa được lưu
         Route::get('cache', 'v1.product.StoreProduct/getCacheData')->option(['real_name' => 'Lấy dữ liệu chưa lưu']);
         //1Tiết kiệm dữ liệu mỗi phút
         Route::post('cache', 'v1.product.StoreProduct/saveCacheData')->option(['real_name' => 'Lưu dữ liệu chưa gửi']);
-        //Nhận danh sách tất cả các sản phẩm
-        Route::get('product/list', 'v1.product.StoreProduct/search_list')->option(['real_name' => 'Lấy danh sách tất cả sản phẩm']);
+        //Nhận danh sách Tất cả các sản phẩm
+        Route::get('product/list', 'v1.product.StoreProduct/search_list')->option(['real_name' => 'Lấy danh sách Tất cả sản phẩm']);
         //Nhận thông số kỹ thuật sản phẩm
         Route::get('product/attrs/:id/:type', 'v1.product.StoreProduct/get_attrs')->option(['real_name' => 'Nhận thông số kỹ thuật sản phẩm']);
         //Tiêu đề danh sách sản phẩm
@@ -77,9 +75,9 @@ Route::group('product', function () {
         Route::get('product/import_card', 'v1.product.StoreProduct/import_card')->option(['real_name' => 'Nhập mã thẻ sản phẩm ảo']);
         //Chi tiết sản phẩm
         Route::get('product/:id', 'v1.product.StoreProduct/get_product_info')->option(['real_name' => 'Chi tiết sản phẩm']);
-        //Thêm vào thùng rác
+        //Thêm mới thùng rác
         Route::delete('product/:id', 'v1.product.StoreProduct/delete')->option(['real_name' => 'Bỏ sản phẩm vào thùng rác']);
-        //Thêm vào thùng rác
+        //Thêm mới thùng rác
         Route::post('product/batch_delete', 'v1.product.StoreProduct/batchDelete')->option(['real_name' => 'Bỏ các mục vào thùng rác theo đợt']);
         //Khôi phục hàng loạt từ Thùng rác
         Route::post('product/batch_recover', 'v1.product.StoreProduct/batchRecover')->option(['real_name' => 'Khôi phục hàng loạt từ Thùng rác']);
@@ -91,7 +89,7 @@ Route::group('product', function () {
         Route::post('batch/setting', 'v1.product.StoreProduct/batchSetting')->option(['real_name' => 'Cài đặt hàng loạt sản phẩm']);
         //Giao diện loại sản phẩm
         Route::get('product_type_config', 'v1.product.StoreProduct/productTypeConfig')->option(['real_name' => 'Giao diện loại sản phẩm']);
-        //Xuất khẩu di chuyển sản phẩm
+        //Xuất file sản phẩm
         Route::get('product_export', 'v1.product.StoreProduct/productExport')->option(['real_name' => 'Xuất file di chuyển sản phẩm']);
         //Di chuyển và nhập khẩu sản phẩm
         Route::post('product_import', 'v1.product.StoreProduct/productImport')->option(['real_name' => 'Nhập file sản phẩm']);
@@ -103,26 +101,24 @@ Route::group('product', function () {
 
     })->option(['parent' => 'product', 'cate_name' => 'Sản phẩm']);
 
-    /** đánh giá sản phẩm */
-    Route::group(function () {
+    /** Đánh giá sản phẩm */    Route::group(function () {
         //Danh sách bình luận
-        Route::get('reply', 'v1.product.StoreProductReply/index')->option(['real_name' => 'Danh sách đánh giá sản phẩm']);
+        Route::get('reply', 'v1.product.StoreProductReply/index')->option(['real_name' => 'Danh sách Đánh giá sản phẩm']);
         //Trả lời bình luận
-        Route::put('reply/set_reply/:id', 'v1.product.StoreProductReply/set_reply')->option(['real_name' => 'Trả lời đánh giá sản phẩm']);
+        Route::put('reply/set_reply/:id', 'v1.product.StoreProductReply/set_reply')->option(['real_name' => 'Trả lời Đánh giá sản phẩm']);
         //Xóa bình luận
-        Route::delete('reply/:id', 'v1.product.StoreProductReply/delete')->option(['real_name' => 'Xóa đánh giá sản phẩm']);
+        Route::delete('reply/:id', 'v1.product.StoreProductReply/delete')->option(['real_name' => 'Xóa Đánh giá sản phẩm']);
         //Đưa ra mẫu bình luận ảo
         Route::get('reply/fictitious_reply/:product_id', 'v1.product.StoreProductReply/fictitious_reply')->option(['real_name' => 'Mẫu bình luận ảo']);
         //Lưu đánh giá ảo
         Route::post('reply/save_fictitious_reply', 'v1.product.StoreProductReply/save_fictitious_reply')->option(['real_name' => 'Lưu đánh giá ảo']);
-        //Đánh giá đánh giá sản phẩm
-        Route::put('reply/set_status/:id/:status', 'v1.product.StoreProductReply/set_status')->option(['real_name' => 'Duyệt trạng thái đánh giá sản phẩm']);
+        //Đánh giá Đánh giá sản phẩm
+        Route::put('reply/set_status/:id/:status', 'v1.product.StoreProductReply/set_status')->option(['real_name' => 'Duyệt trạng thái Đánh giá sản phẩm']);
         //Đánh giá sản phẩm theo đợt
-        Route::post('reply/batch_set_status', 'v1.product.StoreProductReply/batch_set_status')->option(['real_name' => 'Duyệt đánh giá sản phẩm hàng loạt']);
+        Route::post('reply/batch_set_status', 'v1.product.StoreProductReply/batch_set_status')->option(['real_name' => 'Duyệt Đánh giá sản phẩm hàng loạt']);
     })->option(['parent' => 'product', 'cate_name' => 'Đánh giá sản phẩm']);
 
-    /** Bộ sưu tập sản phẩm */
-    Route::group(function () {
+    /** Sản phẩm yêu thích */    Route::group(function () {
         //Lấy dữ liệu sản phẩm
         Route::post('crawl', 'v1.product.CopyTaobao/get_request_contents')->option(['real_name' => 'Nhận dữ liệu sản phẩm được thu thập']);
         //Nhận cấu hình sản phẩm sao chép
@@ -133,8 +129,7 @@ Route::group('product', function () {
         Route::post('crawl/save', 'v1.product.CopyTaobao/save_product')->option(['real_name' => 'Lưu dữ liệu sản phẩm đã thu thập']);
     })->option(['parent' => 'product', 'cate_name' => 'Sản phẩm yêu thích']);
 
-    /** Thẻ sản phẩm */
-    Route::group(function () {
+    /** Nhãn sản phẩm */    Route::group(function () {
         //Phân loại nhãn sản phẩm
         Route::get('label_cate/list', 'v1.product.StoreProductLabel/labelCateList')->option(['real_name' => 'Phân loại nhãn sản phẩm']);
         Route::get('label_cate/form/:id', 'v1.product.StoreProductLabel/labelCateForm')->option(['real_name' => 'Lấy form danh mục nhãn sản phẩm']);
@@ -149,8 +144,7 @@ Route::group('product', function () {
         Route::get('label/use_list', 'v1.product.StoreProductLabel/labelUseList')->option(['real_name' => 'Danh sách nhãn sản phẩm đang sử dụng']);
     })->option(['parent' => 'product', 'cate_name' => 'Nhãn sản phẩm']);
 
-    /** Thông số sản phẩm */
-    Route::group(function () {
+    /** Thuộc tính sản phẩm */    Route::group(function () {
         Route::get('param/list', 'v1.product.StoreProductParam/getParamList')->option(['real_name' => 'Danh sách thông số sản phẩm']);
         Route::get('param/info/:id', 'v1.product.StoreProductParam/getParamInfo')->option(['real_name' => 'Chi tiết thông số sản phẩm']);
         Route::get('param/value/:id', 'v1.product.StoreProductParam/getParamValue')->option(['real_name' => 'Giá trị thông số sản phẩm']);
@@ -159,8 +153,7 @@ Route::group('product', function () {
         Route::delete('param/del/:id', 'v1.product.StoreProductParam/delParamData')->option(['real_name' => 'Xóa thông số sản phẩm']);
     })->option(['parent' => 'product', 'cate_name' => 'Thuộc tính sản phẩm']);
 
-    /** Bảo vệ sản phẩm */
-    Route::group(function () {
+    /** Bảo hành sản phẩm */    Route::group(function () {
         Route::get('protection/list', 'v1.product.StoreProductProtection/protectionList')->option(['real_name' => 'Danh sách bảo vệ sản phẩm']);
         Route::get('protection/info/:id', 'v1.product.StoreProductProtection/protectionInfo')->option(['real_name' => 'Chi tiết bảo vệ sản phẩm']);
         Route::get('protection/form/:id', 'v1.product.StoreProductProtection/protectionForm')->option(['real_name' => 'Mẫu bảo vệ sản phẩm']);

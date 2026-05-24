@@ -11,8 +11,7 @@ use app\model\system\NoticeChannel;
 
 /**
  * Notice channel DAO.
- */
-class NoticeChannelDao extends BaseDao
+ */class NoticeChannelDao extends BaseDao
 {
     protected function setModel(): string
     {

@@ -27,30 +27,26 @@ use app\dao\activity\bargain\StoreBargainUserDao;
  * @method update(int $bargainId, array $data)
  * @method getOne(array $where, ?string $field = '*', array $with = [])
  * @method updateBargainStatus(int $id, ?int $status = 3)
- */
-class StoreBargainUserServices extends BaseServices
+ */class StoreBargainUserServices extends BaseServices
 {
 
     /**
      * StoreBargainUserServices constructor.
      * @param StoreBargainUserDao $dao
-     */
-    public function __construct(StoreBargainUserDao $dao)
+     */    public function __construct(StoreBargainUserDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
      * TODO Lấy số lượng người tham gia dựa trên số lượng sản phẩm thương lượng
-     * @param int $bargainId $bargainId  mặt hàng giá hờiID
+     * @param int $bargainId $bargainId  Sản phẩm trả giáID
      * @param int $status $status  Trạng thái 1 Đang tiến hành 2 Không thể kết thúc 3 Đã kết thúc thành công
      * @return array
-     */
-    public function getUserIdList($bargainId = 0, $status = 1)
+     */    public function getUserIdList($bargainId = 0, $status = 1)
     {
         $ids = $this->dao->getColumn(['bargain_id' => $bargainId], 'id');
-        /** @var StoreBargainUserHelpServices $bargainHelp */
-        $bargainHelp = app()->make(StoreBargainUserHelpServices::class);
+        /** @var StoreBargainUserHelpServices $bargainHelp */        $bargainHelp = app()->make(StoreBargainUserHelpServices::class);
         return $bargainHelp->getCount([['bargain_user_id', 'in', $ids], ['bargain_id', '=', $bargainId]]);
     }
 
@@ -60,17 +56,15 @@ class StoreBargainUserServices extends BaseServices
      * @param int $bargainId
      * @param int $bargainUserUid
      * @return mixed
-     */
-    public function helpCount(Request $request, int $bargainId, int $bargainUserUid)
+     */    public function helpCount(Request $request, int $bargainId, int $bargainUserUid)
     {
-        $bargainUserTableId = $this->dao->value(['bargain_id' => $bargainId, 'uid' => $bargainUserUid, 'is_del' => 0, 'status' => 1]);//TODO Lấy số bảng thương lượng tham gia của người dùng
+        $bargainUserTableId = $this->dao->value(['bargain_id' => $bargainId, 'uid' => $bargainUserUid, 'is_del' => 0, 'status' => 1]);//TODO Lấy số bảng thương lượng tham gia của Khách hàng
         $data['userBargainStatus'] = $this->isBargainUserHelpCount($bargainId, $request->uid(), $bargainUserTableId);
-        /** @var StoreBargainUserHelpServices $helpService */
-        $helpService = app()->make(StoreBargainUserHelpServices::class);
+        /** @var StoreBargainUserHelpServices $helpService */        $helpService = app()->make(StoreBargainUserHelpServices::class);
         if ($bargainUserTableId) {
             $count = $helpService->count(['bargain_user_id' => $bargainUserTableId, 'bargain_id' => $bargainId]);//TODO Lấy tổng số người giúp đỡ thương lượng
             $price = $this->getSurplusPrice($bargainUserTableId, 1);//TODO Nhận số tiền còn lại của món hời
-            $alreadyPrice = $this->dao->value(['id' => $bargainUserTableId], 'price');//TODO Giá mà người dùng đã cắt giảm. Nhận mức giá mà người dùng đã cắt sau khi người bạn đã mặc cả.
+            $alreadyPrice = $this->dao->value(['id' => $bargainUserTableId], 'price');//TODO Giá mà Khách hàng đã cắt giảm. Nhận mức giá mà Khách hàng đã cắt sau khi người bạn đã mặc cả.
             $pricePercent = $this->getSurplusPrice($bargainUserTableId, 2);//TODO Nhận thanh tiến trình thương lượng
             $data['count'] = $count;
             $data['price'] = $price;
@@ -78,8 +72,7 @@ class StoreBargainUserServices extends BaseServices
             $data['alreadyPrice'] = $alreadyPrice;
             $data['pricePercent'] = $pricePercent > 10 ? $pricePercent : 10;
         } else {
-            /** @var StoreBargainServices $bargainService */
-            $bargainService = app()->make(StoreBargainServices::class);
+            /** @var StoreBargainServices $bargainService */            $bargainService = app()->make(StoreBargainServices::class);
             $data['count'] = 0;
             $data['price'] = $bargainService->value(['id' => $bargainId], 'price - min_price');
             $data['status'] = $this->dao->value(['id' => $bargainUserTableId], 'status') ?? 0;
@@ -96,11 +89,9 @@ class StoreBargainUserServices extends BaseServices
      * @param int $bargainUserHelpUid
      * @param $bargainUserTableId
      * @return bool
-     */
-    public function isBargainUserHelpCount($bargainId, $bargainUserHelpUid, $bargainUserTableId)
+     */    public function isBargainUserHelpCount($bargainId, $bargainUserHelpUid, $bargainUserTableId)
     {
-        /** @var StoreBargainUserHelpServices $userHelp */
-        $userHelp = app()->make(StoreBargainUserHelpServices::class);
+        /** @var StoreBargainUserHelpServices $userHelp */        $userHelp = app()->make(StoreBargainUserHelpServices::class);
         $count = $userHelp->count(['bargain_id' => $bargainId, 'bargain_user_id' => $bargainUserTableId, 'uid' => $bargainUserHelpUid]);
         if (!$count) return true;
         else return false;
@@ -111,13 +102,12 @@ class StoreBargainUserServices extends BaseServices
      * @param $bargainUserTableId
      * @param $type
      * @return float
-     */
-    public function getSurplusPrice($bargainUserTableId, $type)
+     */    public function getSurplusPrice($bargainUserTableId, $type)
     {
-        $coverPrice = $this->getBargainUserDiffPriceFloat($bargainUserTableId);//TODO Nhận số tiền mà người dùng có thể cắt giảm. Nhận số tiền thương lượng sau khi người bạn mặc cả.
-        $alreadyPrice = $this->dao->value(['id' => $bargainUserTableId], 'price');//TODO Giá mà người dùng đã cắt giảm. Nhận mức giá mà người dùng đã cắt sau khi người bạn đã mặc cả.
+        $coverPrice = $this->getBargainUserDiffPriceFloat($bargainUserTableId);//TODO Nhận số tiền mà Khách hàng có thể cắt giảm. Nhận số tiền thương lượng sau khi người bạn mặc cả.
+        $alreadyPrice = $this->dao->value(['id' => $bargainUserTableId], 'price');//TODO Giá mà Khách hàng đã cắt giảm. Nhận mức giá mà Khách hàng đã cắt sau khi người bạn đã mặc cả.
         if ($type == 1) {
-            return (float)bcsub((string)$coverPrice, (string)$alreadyPrice, 2);//TODO Mức giá mà thặng dư người dùng cần phải được cắt giảm
+            return (float)bcsub((string)$coverPrice, (string)$alreadyPrice, 2);//TODO Mức giá mà thặng dư Khách hàng cần phải được cắt giảm
         } else {
             if ($alreadyPrice) return (int)bcmul((string)bcdiv((string)$alreadyPrice, (string)$coverPrice, 2), '100', 0);
             else return 100;
@@ -125,11 +115,10 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * Nhận số tiền mà người dùng có thể cắt giảm. Nhận số tiền thương lượng sau khi người bạn mặc cả.
+     * Nhận số tiền mà Khách hàng có thể cắt giảm. Nhận số tiền thương lượng sau khi người bạn mặc cả.
      * @param $id
      * @return float
-     */
-    public function getBargainUserDiffPriceFloat($id)
+     */    public function getBargainUserDiffPriceFloat($id)
     {
         $price = $this->dao->get($id);
         return (float)bcsub((string)$price['bargain_price'], (string)$price['bargain_price_min'], 2);
@@ -141,8 +130,7 @@ class StoreBargainUserServices extends BaseServices
      * @param int $bargainUserUid
      * @param array $bargainInfo
      * @return mixed
-     */
-    public function setBargain(int $bargainId, int $bargainUserUid, array $bargainInfo)
+     */    public function setBargain(int $bargainId, int $bargainUserUid, array $bargainInfo)
     {
         $data['bargain_id'] = $bargainId;
         $data['uid'] = $bargainUserUid;
@@ -160,12 +148,10 @@ class StoreBargainUserServices extends BaseServices
      * Sửa đổi trạng thái thương lượng
      * @param $uid
      * @return bool
-     */
-    public function editBargainUserStatus($uid)
+     */    public function editBargainUserStatus($uid)
     {
         $currentBargain = $this->dao->getColumn(['uid' => $uid, 'is_del' => 0, 'status' => 1], 'bargain_id');
-        /** @var StoreBargainServices $bargainService */
-        $bargainService = app()->make(StoreBargainServices::class);
+        /** @var StoreBargainServices $bargainService */        $bargainService = app()->make(StoreBargainServices::class);
         $bargainProduct = $bargainService->validWhere()->column('id');
         $closeBargain = [];
         foreach ($currentBargain as $key => &$item) {
@@ -178,11 +164,10 @@ class StoreBargainUserServices extends BaseServices
 
 
     /**
-     * TODO Nhận vật phẩm giá hời của người dùng
-     * @param int $bargainUserUid $bargainUserUid  Kích hoạt ID người dùng thương lượng
+     * TODO Nhận vật phẩm giá hời của Khách hàng
+     * @param int $bargainUserUid $bargainUserUid  Kích hoạt ID Khách hàng thương lượng
      * @return array
-     */
-    public function getBargainUserAll(int $bargainUserUid)
+     */    public function getBargainUserAll(int $bargainUserUid)
     {
         if (!$bargainUserUid) return [];
         [$page, $limit] = $this->getPageValue();
@@ -204,8 +189,7 @@ class StoreBargainUserServices extends BaseServices
      * @param $bargainId
      * @param $uid
      * @return mixed
-     */
-    public function cancelBargain($bargainId, $uid)
+     */    public function cancelBargain($bargainId, $uid)
     {
         $status = $this->dao->getBargainUserStatus($bargainId, $uid);
         if ($status != 1) return app('json')->fail('Hủy không thành công');
@@ -216,13 +200,11 @@ class StoreBargainUserServices extends BaseServices
     /**
      * Sửa đổi trạng thái thương lượng khi xóa và xóa món hời. Cuộc mặc cả thất bại.
      * @param $bargain_id
-     */
-    public function userBargainStatusFail($bargain_id, $is_true)
+     */    public function userBargainStatusFail($bargain_id, $is_true)
     {
         if ($is_true) {
             $this->dao->delete(['bargain_id' => $bargain_id]);
-            /** @var StoreBargainUserHelpServices $service */
-            $service = app()->make(StoreBargainUserHelpServices::class);
+            /** @var StoreBargainUserHelpServices $service */            $service = app()->make(StoreBargainUserHelpServices::class);
             $service->delete(['bargain_id' => $bargain_id]);
         } else {
             $this->dao->update(['bargain_id' => $bargain_id, 'status' => 1], ['status' => 2]);
@@ -231,20 +213,18 @@ class StoreBargainUserServices extends BaseServices
     }
 
     /**
-     * Danh sách mặc cả
+     * Lịch sử trả giá
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function bargainUserList($where)
+     */    public function bargainUserList($where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->bargainUserList($where, $page, $limit);
         $count = $this->dao->count($where);
-        /** @var StoreBargainUserHelpServices $bargainUserHelpService */
-        $bargainUserHelpService = app()->make(StoreBargainUserHelpServices::class);
+        /** @var StoreBargainUserHelpServices $bargainUserHelpService */        $bargainUserHelpService = app()->make(StoreBargainUserHelpServices::class);
         $nums = $bargainUserHelpService->getNums();
         foreach ($list as &$item) {
             $item['num'] = $item['people_num'] - $nums[$item['id']];

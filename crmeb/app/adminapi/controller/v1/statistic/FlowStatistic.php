@@ -20,18 +20,16 @@ class FlowStatistic extends AuthController
     /**
      * @param App $app
      * @param CapitalFlowServices $services
-     */
-    public function __construct(App $app, CapitalFlowServices $services)
+     */    public function __construct(App $app, CapitalFlowServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Dòng vốn
+     * Dòng tiền
      * @return mixed
-     */
-    public function getFlowList()
+     */    public function getFlowList()
     {
         $where = $this->request->getMore([
             ['time', ''],
@@ -48,8 +46,7 @@ class FlowStatistic extends AuthController
      * Lưu ý về dòng vốn
      * @param $id
      * @return mixed
-     */
-    public function setMark($id)
+     */    public function setMark($id)
     {
         $data = $this->request->postMore([
             ['mark', '']
@@ -59,10 +56,9 @@ class FlowStatistic extends AuthController
     }
 
     /**
-     * hồ sơ thanh toán
+     * Lịch sử thanh toán
      * @return mixed
-     */
-    public function getFlowRecord()
+     */    public function getFlowRecord()
     {
         $where = $this->request->getMore([
             ['type', 'day'],

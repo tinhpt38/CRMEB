@@ -24,15 +24,13 @@ use crmeb\exceptions\ApiException;
  * @method mixed saveAll(array $data) Lưu dữ liệu theo lô
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  *
- */
-class MessageSystemServices extends BaseServices
+ */class MessageSystemServices extends BaseServices
 {
 
     /**
      * SystemNotificationServices constructor.
      * @param MessageSystemDao $dao
-     */
-    public function __construct(MessageSystemDao $dao)
+     */    public function __construct(MessageSystemDao $dao)
     {
         $this->dao = $dao;
     }
@@ -44,8 +42,7 @@ class MessageSystemServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMessageSystemList($uid)
+     */    public function getMessageSystemList($uid)
     {
         [$page, $limit] = $this->getPageValue();
         $where['is_del'] = 0;
@@ -69,8 +66,7 @@ class MessageSystemServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getInfo($where)
+     */    public function getInfo($where)
     {
         $info = $this->dao->getOne($where);
         if (!$info || $info['is_del'] == 1) {
@@ -94,7 +90,7 @@ class MessageSystemServices extends BaseServices
                 $code = 'Bạn có một đơn hàng đã thanh toán thành công cần được xử lý, mã số đơn hàng{:order_id}！';
                 break;
             case 'bind_spread_uid':
-                $code = 'Xin chúc mừng, một thành viên mạnh mẽ khác sẽ gắn bó vĩnh viễn với nhóm của bạn, người dùng{:nickname}Tham gia nhóm của bạn！';
+                $code = 'Xin chúc mừng, một thành viên mạnh mẽ khác sẽ gắn bó vĩnh viễn với nhóm của bạn, Khách hàng{:nickname}Tham gia nhóm của bạn！';
                 break;
             case 'order_pay_success':
                 $code = 'Hàng bạn mua đã được thanh toán thành công, số tiền thanh toán {:pay_price} đ, số đơn hàng {:order_id}, cảm ơn bạn đã ghé thăm！';
@@ -147,7 +143,7 @@ class MessageSystemServices extends BaseServices
                 break;
             case 'order_deliver_success':
             case 'order_postage_success':
-                $code = 'Kính gửi người dùng{:nickname}sản phẩm của bạn{:store_name}，Số đơn hàng{:order_id}Đã gửi hàng rồi, bạn kiểm tra nhé';
+                $code = 'Kính gửi Khách hàng{:nickname}sản phẩm của bạn{:store_name}，Số đơn hàng{:order_id}Đã gửi hàng rồi, bạn kiểm tra nhé';
                 break;
             case 'send_order_pink_clone':
                 $code = 'Bạn thân mến, chuyến tham quan theo nhóm của bạn đã bị hủy, tên sự kiện là{:title}';

@@ -18,19 +18,16 @@ use think\Request;
 /**
  * Class UserInvoiceController
  * @package app\api\controller\v2\user
- */
-class UserInvoiceController
+ */class UserInvoiceController
 {
     /**
      * @var UserInvoiceServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * UserInvoiceController constructor.
      * @param UserInvoiceServices $services
-     */
-    public function __construct(UserInvoiceServices $services)
+     */    public function __construct(UserInvoiceServices $services)
     {
         $this->services = $services;
     }
@@ -42,8 +39,7 @@ class UserInvoiceController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function invoice($id)
+     */    public function invoice($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -55,8 +51,7 @@ class UserInvoiceController
      * Danh sách hóa đơn
      * @param Request $request
      * @return mixed
-     */
-    public function invoiceList(Request $request)
+     */    public function invoiceList(Request $request)
     {
         $data = $request->postMore([
             ['header_type', ''],
@@ -70,8 +65,7 @@ class UserInvoiceController
      * Đặt hóa đơn mặc định
      * @param Request $request
      * @return mixed
-     */
-    public function setDefaultInvoice(Request $request)
+     */    public function setDefaultInvoice(Request $request)
     {
         list($id) = $request->getMore([['id', 0]], true);
         if (!$id || !is_numeric($id)) return app('json')->fail('Lỗi tham số');
@@ -84,8 +78,7 @@ class UserInvoiceController
      * Nhận hóa đơn mặc định
      * @param Request $request
      * @return mixed
-     */
-    public function getDefaultInvoice(Request $request)
+     */    public function getDefaultInvoice(Request $request)
     {
         [$type] = $request->postMore(['type', 1], true);
         $uid = (int)$request->uid();
@@ -101,8 +94,7 @@ class UserInvoiceController
      * Sửa đổi Thêm hóa đơn
      * @param Request $request
      * @return mixed
-     */
-    public function saveInvoice(Request $request)
+     */    public function saveInvoice(Request $request)
     {
         $data = $request->postMore([
             [['id', 'd'], 0],
@@ -157,8 +149,7 @@ class UserInvoiceController
      * Xóa hóa đơn
      * @param Request $request
      * @return mixed
-     */
-    public function delInvoice(Request $request)
+     */    public function delInvoice(Request $request)
     {
         [$id] = $request->postMore([['id', 0]], true);
         if (!$id || !is_numeric($id)) return app('json')->fail('Lỗi tham số');

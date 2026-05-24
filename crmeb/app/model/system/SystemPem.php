@@ -20,13 +20,11 @@ class SystemPem extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_pem';
+     */    protected $name = 'system_pem';
     protected $autoWriteTimestamp = false;
 }

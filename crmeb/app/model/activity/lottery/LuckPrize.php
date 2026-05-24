@@ -20,8 +20,7 @@ use think\Model;
  *
  * Class LuckPrizeDao
  * @package app\model\activity\lottery
- */
-class LuckPrize extends BaseModel
+ */class LuckPrize extends BaseModel
 {
 
     use ModelTrait;
@@ -29,21 +28,18 @@ class LuckPrize extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'luck_prize';
+     */    protected $name = 'luck_prize';
 
 
     /**
      * Xổ số liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function lottery()
+     */    public function lottery()
     {
         return $this->hasOne(LuckLottery::class, 'id', 'lottery_id');
     }
@@ -52,8 +48,7 @@ class LuckPrize extends BaseModel
      * Người tìm kiếm id xổ số
      * @param $query Model
      * @param $value
-     */
-    public function searchLotteryIdAttr($query, $value)
+     */    public function searchLotteryIdAttr($query, $value)
     {
         if ($value) $query->where('lottery_id', $value);
     }
@@ -62,8 +57,7 @@ class LuckPrize extends BaseModel
      * Công cụ tìm loại giải thưởng
      * @param $query Model
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value) $query->where('type', $value);
     }
@@ -72,8 +66,7 @@ class LuckPrize extends BaseModel
      * công cụ tìm trạng thái
      * @param $query Model
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') $query->where('status', $value);
     }
@@ -82,8 +75,7 @@ class LuckPrize extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param $query Model
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }

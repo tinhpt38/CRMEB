@@ -19,29 +19,25 @@ use think\Model;
  * Quy tắc cấp phép quản trị viên
  * Class SystemRole
  * @package app\model\system\admin
- */
-class SystemRole extends BaseModel
+ */class SystemRole extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_role';
+     */    protected $name = 'system_role';
 
     /**
      * Công cụ sửa đổi quy tắc
      * @param Model $value
      * @return string
-     */
-    public static function setRulesAttr($value)
+     */    public static function setRulesAttr($value)
     {
         return is_array($value) ? implode(',', $value) : $value;
     }
@@ -50,8 +46,7 @@ class SystemRole extends BaseModel
      * Trình tìm trạng thái đặc tả quyền
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('status', $value);
@@ -62,8 +57,7 @@ class SystemRole extends BaseModel
      * Trình tìm cấp đặc quyền
      * @param Model $query
      * @param $value
-     */
-    public function searchLevelAttr($query, $value)
+     */    public function searchLevelAttr($query, $value)
     {
         $query->where('level', $value);
     }
@@ -72,8 +66,7 @@ class SystemRole extends BaseModel
      * idNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchIdAttr($query, $value)
+     */    public function searchIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('id', $value);
@@ -86,8 +79,7 @@ class SystemRole extends BaseModel
      * Tìm kiếm quản lý danh tính
      * @param Model $query
      * @param $value
-     */
-    public function searchRoleNameAttr($query, $value)
+     */    public function searchRoleNameAttr($query, $value)
     {
         if ($value) {
             $query->whereLike('role_name', '%' . $value . '%');

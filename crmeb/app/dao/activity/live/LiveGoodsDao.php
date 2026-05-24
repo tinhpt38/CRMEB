@@ -19,8 +19,7 @@ use app\model\activity\live\LiveGoods;
 /**
  * Class LiveGoodsDao
  * @package app\dao\live
- */
-class LiveGoodsDao extends BaseDao
+ */class LiveGoodsDao extends BaseDao
 {
 
     protected function setModel(): string
@@ -39,8 +38,7 @@ class LiveGoodsDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', array $with = [], int $page, int $limit)
+     */    public function getList(array $where, string $field = '*', array $with = [], int $page, int $limit)
     {
         return $this->search($where)->field($field)->with($with)->page($page, $limit)->order('sort desc,add_time desc')->select()->toArray();
     }
@@ -56,8 +54,7 @@ class LiveGoodsDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function goodsList(array $ids)
+     */    public function goodsList(array $ids)
     {
         return $this->getModel()->whereIn('id', $ids)->where('is_del', 0)->where('audit_status', 2)->select()->toArray();
     }

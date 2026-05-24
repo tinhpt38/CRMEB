@@ -18,30 +18,25 @@ use crmeb\basic\BaseModel;
  * lưu trữ đám mây
  * Class SystemStorage
  * @package app\model\system\config
- */
-class SystemStorage extends BaseModel
+ */class SystemStorage extends BaseModel
 {
 
     /**
      * @var string
-     */
-    protected $name = 'system_storage';
+     */    protected $name = 'system_storage';
 
     /**
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * @var bool
-     */
-    protected $autoWriteTimestamp = false;
+     */    protected $autoWriteTimestamp = false;
 
     /**
      * @param $query
      * @param $value
-     */
-    public function searchNameAttr($query, $value)
+     */    public function searchNameAttr($query, $value)
     {
         $query->where('name', $value);
     }
@@ -50,8 +45,7 @@ class SystemStorage extends BaseModel
      * Nhập trình tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value) $query->where('type', $value);
     }
@@ -60,8 +54,7 @@ class SystemStorage extends BaseModel
      * công cụ tìm trạng thái
      * @param $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') $query->where('status', $value);
     }

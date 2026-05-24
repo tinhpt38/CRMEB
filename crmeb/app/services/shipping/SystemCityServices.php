@@ -27,16 +27,14 @@ use crmeb\services\FormBuilder as Form;
  * @method save(array $data) lưu dữ liệu
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  * @method value(array $where, ?string $field = '') Lấy một phần dữ liệu
- * @method getShippingCity() Nhận dữ liệu thành phố mẫu vận chuyển hàng hóa
- */
-class SystemCityServices extends BaseServices
+ * @method getShippingCity() Nhận dữ liệu thành phố mẫu vận chuyển sản phẩm
+ */class SystemCityServices extends BaseServices
 {
     /**
      * Người xây dựng
      * SystemCityServices constructor.
      * @param SystemCityDao $dao
-     */
-    public function __construct(SystemCityDao $dao)
+     */    public function __construct(SystemCityDao $dao)
     {
         $this->dao = $dao;
     }
@@ -48,8 +46,7 @@ class SystemCityServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCityList(array $where)
+     */    public function getCityList(array $where)
     {
 //        $list = $this->dao->getCityList($where);
 //        $cityIds = array_column($list, 'parent_id');
@@ -70,8 +67,7 @@ class SystemCityServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSonCityList($pid = 0)
+     */    public function getSonCityList($pid = 0)
     {
         $list = $this->dao->getCityList(['parent_id' => $pid], 'id,city_id,level,name');
         $parent_name = $pid ? $this->dao->value(['city_id' => $pid], 'name') : 'Việt Nam';
@@ -103,8 +99,7 @@ class SystemCityServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createCityForm(int $parentId)
+     */    public function createCityForm(int $parentId)
     {
         if ($parentId) {
             $info = $this->dao->getOne(['city_id' => $parentId], 'level,city_id,name');
@@ -123,8 +118,7 @@ class SystemCityServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function updateCityForm(int $id)
+     */    public function updateCityForm(int $id)
     {
         $info = $this->dao->get($id);
         if (!$info) {
@@ -144,8 +138,7 @@ class SystemCityServices extends BaseServices
     /**
      * Nhận dữ liệu thành phố
      * @return mixed
-     */
-    public function cityList()
+     */    public function cityList()
     {
         return CacheService::remember('CITY_LIST', function () {
             $allCity = $this->dao->getCityList([], 'city_id as v,name as n,parent_id');
@@ -156,8 +149,7 @@ class SystemCityServices extends BaseServices
     /**
      * Nhận danh sách đầy đủ dữ liệu thành phố
      * @return mixed
-     */
-    public function fullList($field = '*')
+     */    public function fullList($field = '*')
     {
         return CacheService::remember('CITY_FULL_LIST', function () use ($field) {
             return $this->fullListTree($this->dao->fullList($field));
@@ -173,8 +165,7 @@ class SystemCityServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/10
-     */
-    function fullListTree($data, $pid = 0, $navList = [])
+     */    function fullListTree($data, $pid = 0, $navList = [])
     {
         foreach ($data as $k => $menu) {
             if ($menu['parent_id'] == $pid) {

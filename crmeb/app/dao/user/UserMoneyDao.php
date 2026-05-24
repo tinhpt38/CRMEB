@@ -19,8 +19,7 @@ class UserMoneyDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserMoney::class;
     }
@@ -33,8 +32,7 @@ class UserMoneyDao extends BaseDao
      * @param int $limit
      * @param array $typeWhere
      * @return array
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0)
+     */    public function getList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -48,8 +46,7 @@ class UserMoneyDao extends BaseDao
      * @param $field
      * @param $str
      * @return mixed
-     */
-    public function getBalanceTrend($time, $timeType, $field, $str, $orderStatus = '')
+     */    public function getBalanceTrend($time, $timeType, $field, $str, $orderStatus = '')
     {
         return $this->getModel()->where(function ($query) use ($field, $orderStatus) {
             if ($orderStatus == 'add') {
@@ -71,8 +68,7 @@ class UserMoneyDao extends BaseDao
      * @param array $where
      * @param string $field
      * @return float
-     */
-    public function getWhereSumField(array $where, string $field)
+     */    public function getWhereSumField(array $where, string $field)
     {
         return $this->search($where, false)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -82,7 +78,7 @@ class UserMoneyDao extends BaseDao
     }
 
     /**
-     * Truy vấn nhóm dựa trên một trường nhất định
+     * Tìm kiếm nhóm dựa trên một trường nhất định
      * @param array $where
      * @param string $field
      * @param string $group
@@ -90,8 +86,7 @@ class UserMoneyDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGroupField(array $where, string $field, string $group)
+     */    public function getGroupField(array $where, string $field, string $group)
     {
         return $this->search($where, false)
             ->when(isset($where['timeKey']), function ($query) use ($where, $field, $group) {

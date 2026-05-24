@@ -17,25 +17,22 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO Bộ sưu tập phiếu giảm giá của người dùng quầy lễ tânModel
+ * TODO Bộ sưu tập phiếu giảm giá của Khách hàng quầy lễ tânModel
  * Class StoreCouponIssueUser
  * @package app\model\coupon
- */
-class StoreCouponIssueUser extends BaseModel
+ */class StoreCouponIssueUser extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_coupon_issue_user';
+     */    protected $name = 'store_coupon_issue_user';
 
     /**
      * Lấy tên và hình đại diện của người nhận
      * @return \think\model\relation\HasOne
-     */
-    public function userInfo()
+     */    public function userInfo()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field('uid,nickname,avatar')->bind(['nickname','avatar']);
     }
@@ -44,19 +41,17 @@ class StoreCouponIssueUser extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         return date('Y-m-d H:i:s', $value);
     }
 
     /**
-     * Nhận công cụ tìm người dùng
+     * Nhận công cụ tìm Khách hàng
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchUidAttr($query, $value, $data)
+     */    public function searchUidAttr($query, $value, $data)
     {
         $query->where('uid', $value);
     }
@@ -66,8 +61,7 @@ class StoreCouponIssueUser extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIssueCouponIdAttr($query, $value, $data)
+     */    public function searchIssueCouponIdAttr($query, $value, $data)
     {
         $query->where('issue_coupon_id', $value);
     }

@@ -23,8 +23,7 @@ use think\db\exception\ModelNotFoundException;
 /** thẻ thành viên
  * Class MemberCardController
  * @package app\api\controller\v1\user
- */
-class MemberCardController
+ */class MemberCardController
 {
     protected $services = NUll;
 
@@ -33,8 +32,7 @@ class MemberCardController
     /** Khởi tạo xử lý lớp dịch vụ
      * MemberCardController constructor.
      * @param MemberCardServices $memberCardServices
-     */
-    public function __construct(MemberCardServices $memberCardServices)
+     */    public function __construct(MemberCardServices $memberCardServices)
     {
         $this->services = $memberCardServices;
     }
@@ -46,20 +44,16 @@ class MemberCardController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function index(Request $request)
+     */    public function index(Request $request)
     {
         $member_rights = $this->services->getMemberRightsInfo();
-        /** @var AgreementServices $agreementService */
-        $agreementService = app()->make(AgreementServices::class);
+        /** @var AgreementServices $agreementService */        $agreementService = app()->make(AgreementServices::class);
         $member_explain = $agreementService->getAgreementBytype(1);
         $member_explain = (isset($member_explain['status']) && $member_explain['status'] == 1) ? $member_explain : "";
         $member_type = $this->services->DoMemberType();
-        /** @var OtherOrderServices $OtherOrderServices */
-        $OtherOrderServices = app()->make(OtherOrderServices::class);
+        /** @var OtherOrderServices $OtherOrderServices */        $OtherOrderServices = app()->make(OtherOrderServices::class);
         $is_get_free = $OtherOrderServices->isCanGetFree((int)$request->uid());
-        /** @var StoreCouponUserServices $couponUserService */
-        $couponUserService = app()->make(StoreCouponUserServices::class);
+        /** @var StoreCouponUserServices $couponUserService */        $couponUserService = app()->make(StoreCouponUserServices::class);
         $coupons = $couponUserService->getMemberCoupon($request->uid());
         return app('json')->success([
             'member_rights' => $member_rights['member_right'],
@@ -74,8 +68,7 @@ class MemberCardController
      * Bí mật thẻ nhận thẻ thành viên
      * @param Request $request
      * @return mixed
-     */
-    public function draw_member_card(Request $request)
+     */    public function draw_member_card(Request $request)
     {
         $data = $request->postMore([
             ['member_card_code', ''],
@@ -97,11 +90,9 @@ class MemberCardController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function memberCouponList(Request $request)
+     */    public function memberCouponList(Request $request)
     {
-        /** @var StoreCouponUserServices $couponUserService */
-        $couponUserService = app()->make(StoreCouponUserServices::class);
+        /** @var StoreCouponUserServices $couponUserService */        $couponUserService = app()->make(StoreCouponUserServices::class);
         $coupons = $couponUserService->getMemberCoupon($request->uid());
         return app('json')->success($coupons);
     }
@@ -110,8 +101,7 @@ class MemberCardController
      * Tính ngày thành viên
      * @param Request $request
      * @return mixed
-     */
-    public function getOverdueTime(Request $request)
+     */    public function getOverdueTime(Request $request)
     {
         $params = $request->getMore([
             ['member_type', ''],
@@ -120,8 +110,7 @@ class MemberCardController
         ]);
         $member_type = $params['member_type'];
         $vip_day = $params['vip_day'];
-        /** @var \app\services\user\UserServices $userServices */
-        $userServices = app()->make(\app\services\user\UserServices::class);
+        /** @var \app\services\user\UserServices $userServices */        $userServices = app()->make(\app\services\user\UserServices::class);
         $user_info = $userServices->getUserInfo($request->uid());
         if ($member_type == 'ever') {
             $overdue_time = 0;

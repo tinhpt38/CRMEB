@@ -23,8 +23,7 @@ use think\facade\Route;
 /**
  * Class TemplateJob
  * @package app\jobs
- */
-class TemplateJob extends BaseJobs
+ */class TemplateJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -36,8 +35,7 @@ class TemplateJob extends BaseJobs
      * @param $link
      * @param $color
      * @return bool|mixed
-     */
-    public function doJob($type, $openid, $tempId, $data, $link, $color, $wechatToRoutine = 0)
+     */    public function doJob($type, $openid, $tempId, $data, $link, $color, $wechatToRoutine = 0)
     {
         try {
             if (!$openid) return true;

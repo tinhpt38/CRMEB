@@ -18,8 +18,7 @@ use app\model\service\StoreServiceFeedback;
 /**
  * Class StoreServiceFeedbackDao
  * @package app\dao\service
- */
-class StoreServiceFeedbackDao extends BaseDao
+ */class StoreServiceFeedbackDao extends BaseDao
 {
 
     protected function setModel(): string
@@ -28,7 +27,7 @@ class StoreServiceFeedbackDao extends BaseDao
     }
 
     /**
-     * Lấy danh sách thông tin phản hồi của người dùng
+     * Lấy danh sách thông tin phản hồi của Khách hàng
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -36,8 +35,7 @@ class StoreServiceFeedbackDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFeedback(array $where, int $page, int $limit)
+     */    public function getFeedback(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->order('id DESC')->select()->toArray();
     }

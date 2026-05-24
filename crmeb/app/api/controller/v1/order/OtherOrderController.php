@@ -23,20 +23,17 @@ use app\Request;
 /**
  * Class OtherOrderController
  * @package app\api\controller\v1\order
- */
-class OtherOrderController
+ */class OtherOrderController
 {
     /**
      * @var OtherOrderServices
-     */
-    protected $services;
+     */    protected $services;
     protected $channelType = ['weixin' => 'wechat', 'weixinh5' => 'weixinh5', 'routine' => 'routine'];
 
     /**
      * OtherOrderController constructor.
      * @param OtherOrderServices $services
-     */
-    public function __construct(OtherOrderServices $services)
+     */    public function __construct(OtherOrderServices $services)
     {
         $this->services = $services;
     }
@@ -45,21 +42,18 @@ class OtherOrderController
      * Tính số tiền thanh toán ngoại tuyến của thành viên
      * @param Request $request
      * @return mixed
-     */
-    public function computed_offline_pay_price(Request $request)
+     */    public function computed_offline_pay_price(Request $request)
     {
         list($pay_price) = $request->getMore([['pay_price', 0]], true);
         $old_price = $pay_price;
         if (!$pay_price || !is_numeric($pay_price)) return app('json')->fail('Vui lòng nhập số tiền thanh toán');
         $uid = $request->uid();
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $user_info = $userService->get($uid, ['is_money_level']);
         //Thành viên được hưởng giảm giá ngoại tuyến
         if ($user_info->is_money_level > 0) {
             //Kiểm tra xem giảm giá ngoại tuyến có được bật hay không
-            /** @var MemberCardServices $memberCardService */
-            $memberCardService = app()->make(MemberCardServices::class);
+            /** @var MemberCardServices $memberCardService */            $memberCardService = app()->make(MemberCardServices::class);
             $offline_rule_number = $memberCardService->isOpenMemberCard('offline');
             if ($offline_rule_number) {
                 $pay_price = bcmul($pay_price, bcdiv($offline_rule_number, '100', 2), 2);
@@ -77,14 +71,11 @@ class OtherOrderController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function create(Request $request)
+     */    public function create(Request $request)
     {
         $uid = (int)$request->uid();
-        /** @var OtherOrderServices $OtherOrderServices */
-        $OtherOrderServices = app()->make(OtherOrderServices::class);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var OtherOrderServices $OtherOrderServices */        $OtherOrderServices = app()->make(OtherOrderServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         [$payType, $type, $from, $memberType, $price, $money, $quitUrl, $mcId] = $request->postMore([
             ['pay_type', 'yue'],
             ['type', 0],
@@ -98,8 +89,7 @@ class OtherOrderController
         if ($money <= 0.00) return app('json')->fail('Số tiền thanh toán không thể là 0 nhân dân tệ');
         $payType = strtolower($payType);
         if (in_array($type, [1, 2])) {
-            /** @var MemberCardServices $memberCardService */
-            $memberCardService = app()->make(MemberCardServices::class);
+            /** @var MemberCardServices $memberCardService */            $memberCardService = app()->make(MemberCardServices::class);
             $isOpenMember = $memberCardService->isOpenMemberCard();
             if (!$isOpenMember) return app('json')->fail('Chức năng thành viên trả phí chưa được kích hoạt');
         }
@@ -128,8 +118,7 @@ class OtherOrderController
         if ($order_id) {
             switch ($payType) {
                 case PayServices::YUE_PAY:
-                    /** @var YuePayServices $yueServices */
-                    $yueServices = app()->make(YuePayServices::class);
+                    /** @var YuePayServices $yueServices */                    $yueServices = app()->make(YuePayServices::class);
                     $pay = $yueServices->yueOrderPay($orderInfo, $uid);
                     if ($pay['status'] === true)
                         return app('json')->status('success', 'Thanh toán số dư thành công', $info);
@@ -152,8 +141,7 @@ class OtherOrderController
     /**
      * Phương thức thanh toán ngoại tuyến
      * @return mixed
-     */
-    public function pay_type(Request $request)
+     */    public function pay_type(Request $request)
     {
         $payType['ali_pay_status'] = sys_config('ali_pay_status', '0') != '0';
         $payType['pay_weixin_open'] = sys_config('pay_weixin_open', '0') != '0';

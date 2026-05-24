@@ -18,16 +18,14 @@ use app\services\BaseServices;
 /**
  * Class StoreProductVisitServices
  * @package app\services\product\product
- * @method getUserVisitProductList(array $where, int $page, int $limit) Lịch sử duyệt sản phẩm của người dùng
- */
-class StoreProductVisitServices extends BaseServices
+ * @method getUserVisitProductList(array $where, int $page, int $limit) Lịch sử duyệt sản phẩm của Khách hàng
+ */class StoreProductVisitServices extends BaseServices
 {
 
     /**
      * StoreProductVisitServices constructor.
      * @param StoreProductVisitDao $dao
-     */
-    public function __construct(StoreProductVisitDao $dao)
+     */    public function __construct(StoreProductVisitDao $dao)
     {
         $this->dao = $dao;
     }

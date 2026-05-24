@@ -18,14 +18,12 @@ use app\model\sms\SmsRecord;
  * Bản ghi gửi SMS
  * Class SmsRecordDao
  * @package app\dao\sms
- */
-class SmsRecordDao extends BaseDao
+ */class SmsRecordDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    public function setModel(): string
+     */    public function setModel(): string
     {
         return SmsRecord::class;
     }
@@ -39,8 +37,7 @@ class SmsRecordDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRecordList(array $where, int $page, int $limit)
+     */    public function getRecordList(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->order('add_time DESC')->select()->toArray();
     }
@@ -48,8 +45,7 @@ class SmsRecordDao extends BaseDao
     /**
      * Nhận 20 bản ghi tin nhắn văn bản không trạng thái trong 10 phút qua
      * @return array
-     */
-    public function getCodeNull()
+     */    public function getCodeNull()
     {
         return $this->getModel()->where([
             ['resultcode', '=', null],

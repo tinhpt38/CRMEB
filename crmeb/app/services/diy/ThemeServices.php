@@ -22,7 +22,7 @@ use crmeb\utils\DiyHomeLabelMap;
  * Lớp dịch vụ chủ đề
  *
  * Tổng quan về chức năng:
- * Chịu trách nhiệm quản lý các chủ đề hệ thống, bao gồm thêm, xóa, sửa đổi và kiểm tra các chủ đề, nhập và xuất, chuyển đổi ứng dụng và các chức năng khác.
+ * Chịu trách nhiệm quản lý các chủ đề hệ thống, bao gồm thêm, xóa, sửa đổi và kiểm tra các chủ đề, nhập và xuất, chuyển đổi Ứng dụng và các chức năng khác.
  * Cung cấp khả năng quản lý và kết hợp dữ liệu độc lập trên trang chủ, trang danh mục, trang chi tiết, trung tâm cá nhân và các trang khác.
  *
  * Chức năng chính:
@@ -36,8 +36,7 @@ use crmeb\utils\DiyHomeLabelMap;
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2025/12/18
- */
-class ThemeServices extends BaseServices
+ */class ThemeServices extends BaseServices
 {
     /**
      * Trình xây dựng - khởi tạo các phụ thuộc
@@ -48,8 +47,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function __construct(ThemeDao $dao)
+     */    public function __construct(ThemeDao $dao)
     {
         $this->dao = $dao;
     }
@@ -59,7 +57,7 @@ class ThemeServices extends BaseServices
      *
      * Tổng quan về chức năng:
      * Theo các điều kiện truy vấn đến, dữ liệu danh sách chủ đề được lấy trong các trang và dữ liệu trả về được định dạng.
-     * Xử lý nội dung bao gồm: chuyển đổi dấu thời gian thành chuỗi ngày, chuyển đổi đường dẫn hình ảnh thành URL hoàn chỉnh, phân tích dữ liệu JSON, v.v.。
+     * Xử lý Nội dung bao gồm: chuyển đổi dấu thời gian thành chuỗi ngày, chuyển đổi đường dẫn hình ảnh thành URL hoàn chỉnh, phân tích dữ liệu JSON, v.v.。
      *
      * @param array $where Mảng điều kiện truy vấn
      * @return array Một mảng chứa danh sách dữ liệu danh sách và tổng số
@@ -69,8 +67,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function getThemeList($where)
+     */    public function getThemeList($where)
     {
         [$page, $limit] = $this->getPageValue();
         $field = 'id,title,info,type,home_image,category_image,detail_image,user_image,theme_data,add_time,up_time,is_use,page_type';
@@ -112,8 +109,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function getThemeVersion($id)
+     */    public function getThemeVersion($id)
     {
         $where = $id == 0 ? ['is_use' => 1] : ['id' => $id];
         return $this->dao->value($where, 'version');
@@ -124,7 +120,7 @@ class ThemeServices extends BaseServices
      *
      * Tổng quan về chức năng:
      * Nhận chi tiết chủ đề dựa trên ID chủ đề và loại.
-     * Hỗ trợ lấy tất cả thông tin hoặc dữ liệu thuộc các loại được chỉ định (chẳng hạn như trang chủ, trang danh mục, trang chi tiết, v.v.).
+     * Hỗ trợ lấy Tất cả thông tin hoặc dữ liệu thuộc các loại được chỉ định (chẳng hạn như trang chủ, trang danh mục, trang chi tiết, v.v.).
      * Thực hiện định dạng cần thiết và điền giá trị mặc định trên dữ liệu trả về.
      *
      * Trả về cấu trúc dữ liệu:
@@ -143,8 +139,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function getThemeInfo($id, $type = 'all')
+     */    public function getThemeInfo($id, $type = 'all')
     {
         $where = $id == 0 ? ['is_use' => 1] : ['id' => $id];
         $info = $this->dao->get($where);
@@ -191,8 +186,7 @@ class ThemeServices extends BaseServices
      *
      * @param mixed $payload
      * @return mixed
-     */
-    protected function translateHomeDiyText($payload)
+     */    protected function translateHomeDiyText($payload)
     {
         if (is_string($payload)) {
             return $this->translateHomeDiyString($payload);
@@ -209,8 +203,7 @@ class ThemeServices extends BaseServices
     /**
      * @param string $value
      * @return string
-     */
-    protected function translateHomeDiyString(string $value): string
+     */    protected function translateHomeDiyString(string $value): string
     {
         $trimmed = trim($value);
         if ($trimmed === '') return $value;
@@ -241,8 +234,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function saveTheme($id, $data)
+     */    public function saveTheme($id, $data)
     {
         // Khởi tạo mảng cần ghi
         $saveData = [];
@@ -312,7 +304,7 @@ class ThemeServices extends BaseServices
                 break;
 
             case 'user':
-                // Trung tâm người dùng
+                // Trung tâm Khách hàng
                 $saveData['user_data'] = $value;
                 $saveData['user_data_update_time'] = time();
                 if ($type == 0) {
@@ -363,8 +355,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function saveThemeTitle($id, $data)
+     */    public function saveThemeTitle($id, $data)
     {
         // Nếu ID chủ đề mẫu (tid) được chỉ định, dữ liệu của nó sẽ được sao chép trước tiên làm cơ sở
         if ($data['tid'] !== 0) {
@@ -398,7 +389,7 @@ class ThemeServices extends BaseServices
      * Lưu thông tin hình ảnh chủ đề
      *
      * Tổng quan về chức năng:
-     * Cập nhật hình ảnh xem trước của từng module của chủ đề (trang chủ, trang chi tiết, trung tâm người dùng).
+     * Cập nhật hình ảnh xem trước của từng module của chủ đề (trang chủ, trang chi tiết, trung tâm Khách hàng).
      * Nếu đó là chủ đề mặc định（type=0），Cấu hình hình ảnh mặc định sẽ được cập nhật đồng bộ.
      * Tự động cập nhật số phiên bản và thời gian sửa đổi lần cuối。
      *
@@ -408,8 +399,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function saveThemeImage($id, $data)
+     */    public function saveThemeImage($id, $data)
     {
         $type = $id ? $this->dao->value(['id' => $id], 'type') : 0;
         switch ($data['type']) {
@@ -444,15 +434,14 @@ class ThemeServices extends BaseServices
      *
      * Tổng quan về chức năng:
      * Lưu dữ liệu cấu hình chủ đề được nhập từ bên ngoài vào cơ sở dữ liệu.
-     * Chứa tất cả các cấu hình trang của chủ đề (trang chủ, danh mục, chi tiết, trung tâm cá nhân) và cấu hình mặc định tương ứng của chúng。
+     * Chứa Tất cả các cấu hình trang của chủ đề (trang chủ, danh mục, chi tiết, trung tâm cá nhân) và cấu hình mặc định tương ứng của chúng。
      *
      * @param array $config Mảng dữ liệu cấu hình chủ đề
      * @return hỗn hợp chủ đề mớiID
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function importThemeData($config)
+     */    public function importThemeData($config)
     {
         $data = [];
         $data['version'] = uniqid(); // số phiên bản
@@ -492,15 +481,14 @@ class ThemeServices extends BaseServices
      *
      * Tổng quan về chức năng:
      * Đặt chủ đề đã chỉ định về trạng thái hiện được bật.
-     * Thao tác này trước tiên sẽ tắt tất cả các chủ đề, sau đó kích hoạt chủ đề với ID được chỉ định。
+     * Thao tác này trước tiên sẽ tắt Tất cả các chủ đề, sau đó kích hoạt chủ đề với ID được chỉ định。
      *
      * @param int $id ID chủ đề để kích hoạt
      * @return bool Thao tác trả về thành công true
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function useTheme(int $id)
+     */    public function useTheme(int $id)
     {
         $this->dao->update(['is_use' => 1], ['is_use' => 0]);
         $this->dao->update($id, ['is_use' => 1]);
@@ -516,14 +504,13 @@ class ThemeServices extends BaseServices
      *
      * @param int $id dữ liệu chủ đề mục tiêuID
      * @param int $theme_id chủ đề nguồnID
-     * @param string $type Kiểu dữ liệu (trang chủ/danh mục/chi tiết/người dùng/chủ đề)
+     * @param string $type Kiểu dữ liệu (trang chủ/danh mục/chi tiết/Khách hàng/chủ đề)
      * @return bool Trả về true nếu thao tác thành công
      * @throws AdminException được ném ra khi dữ liệu chủ đề nguồn không tồn tại
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function useThemeData(int $id, int $theme_id, string $type)
+     */    public function useThemeData(int $id, int $theme_id, string $type)
     {
         $data = $this->dao->get(['id' => $theme_id]);
         if (!$data) throw new AdminException('Dữ liệu chủ đề không tồn tại');
@@ -536,7 +523,7 @@ class ThemeServices extends BaseServices
      * Nhận thông tin về chủ đề hiện đang được sử dụng
      *
      * Tổng quan về chức năng:
-     * Truy vấn các chủ đề hiện được bật（is_use=1），Và tổng hợp dữ liệu từ các mô-đun liên quan của nó (trang chủ, danh mục, chi tiết, v.v.).
+     * Tìm kiếm các chủ đề hiện được bật（is_use=1），Và tổng hợp dữ liệu từ các mô-đun liên quan của nó (trang chủ, danh mục, chi tiết, v.v.).
      * Nếu sử dụng chế độ kết hợp (tham chiếu các mô-đun của các chủ đề khác), thông tin tiêu đề và hình ảnh của chủ đề nguồn thực tế sẽ được phân tích cú pháp.
      *
      * Trả về cấu trúc dữ liệu:
@@ -550,10 +537,9 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function getUsingTheme()
+     */    public function getUsingTheme()
     {
-        // Truy vấn bản ghi chủ đề hiện đang được sử dụng（is_use = 1）
+        // Tìm bản ghi chủ đề hiện đang được sử dụng（is_use = 1）
         $data = $this->dao->get(['is_use' => 1]);
         if (!$data) throw new AdminException('Không có chủ đề nào được sử dụng');
 
@@ -562,7 +548,7 @@ class ThemeServices extends BaseServices
             $data['home_data_id'],      // Các chủ đề liên quan đến mô-đun trang chủID
             $data['category_data_id'],  // Chủ đề liên quan đến mô-đun trang danh mụcID
             $data['detail_data_id'],    // Các chủ đề liên quan đến mô-đun trang chi tiếtID
-            $data['user_data_id'],      // Các chủ đề liên quan đến mô-đun trung tâm người dùngID
+            $data['user_data_id'],      // Các chủ đề liên quan đến mô-đun trung tâm ID khách hàng
             $data['theme_data_id'],     // Các chủ đề liên quan đến dữ liệu riêng của chủ đềID
         ]);
 
@@ -600,9 +586,9 @@ class ThemeServices extends BaseServices
             ],
             [
                 'key' => 'user',
-                'title' => $themeData[$data['user_data_id']] ?? $data['title'], // Tiêu đề mô-đun trung tâm người dùng (ưu tiên tiêu đề chủ đề liên quan)）
-                'image' => set_file_url($data['user_image']), // Xem trước trung tâm người dùng
-                'update_time' => date('Y-m-d H:i:s', $data['user_data_update_time']), // Thời gian cập nhật dữ liệu trung tâm người dùng
+                'title' => $themeData[$data['user_data_id']] ?? $data['title'], // Tiêu đề mô-đun trung tâm Khách hàng (ưu tiên tiêu đề chủ đề liên quan)）
+                'image' => set_file_url($data['user_image']), // Xem trước trung tâm Khách hàng
+                'update_time' => date('Y-m-d H:i:s', $data['user_data_update_time']), // Thời gian cập nhật dữ liệu trung tâm Khách hàng
             ],
         ];
         $theme['theme_data'] = json_decode($data['theme_data'], true); // Dữ liệu riêng của chủ đề (định dạng JSON）
@@ -614,8 +600,7 @@ class ThemeServices extends BaseServices
      * @description: Khôi phục chủ đề
      * @param int $id chủ đềID
      * @return void
-     */
-    public function restoreTheme(int $id)
+     */    public function restoreTheme(int $id)
     {
         $data = $this->dao->get($id);
         if (!$data) throw new AdminException('Chủ đề không tồn tại');
@@ -656,8 +641,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function deleteTheme(int $id)
+     */    public function deleteTheme(int $id)
     {
         $data = $this->dao->get($id);
         if (!$data) throw new AdminException('Chủ đề không tồn tại');
@@ -677,10 +661,9 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function themeNavigation()
+     */    public function themeNavigation()
     {
-        // Truy vấn dữ liệu trang chủ của theme hiện đang được sử dụng (chuỗi JSON）
+        // Tìm kiếm dữ liệu trang chủ của theme hiện đang được sử dụng (chuỗi JSON）
         $value = $this->dao->value(['is_use' => 1], 'home_data');
         if (!$value) {
             throw new ApiException('Dữ liệu không tồn tại');
@@ -714,7 +697,7 @@ class ThemeServices extends BaseServices
      * Trang vi truy vấn phân trang（page_type='micro'）Liệt kê dữ liệu.
      *
      * Chức năng chính:
-     * 1. Truy vấn phân trang - Nhận dữ liệu dựa trên các tham số phân trang của hệ thống
+     * 1. Tìm kiếm phân trang - Nhận dữ liệu dựa trên các tham số phân trang của hệ thống
      * 2. Lọc dữ liệu - chỉ các bản ghi truy vấn chưa bị xóa và thuộc loại trang vi mô
      * 3. Định dạng - Chuyển đổi dấu thời gian sang định dạng ngày tháng có thể đọc được
      *
@@ -725,8 +708,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/02/03
-     */
-    public function getMicroPageList()
+     */    public function getMicroPageList()
     {
         [$page, $limit] = $this->getPageValue(); // Nhận thông số phân trang
         $field = 'id,title,info,type,add_time,up_time,page_type'; // Trường truy vấn
@@ -757,8 +739,7 @@ class ThemeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function exportThemePackage($info): string
+     */    public function exportThemePackage($info): string
     {
         // 1. Đặt thư mục tạm thời xuất
         $dir = public_path() . 'theme/download/' . $info['id'] . '/';

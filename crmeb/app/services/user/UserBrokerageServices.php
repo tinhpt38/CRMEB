@@ -16,18 +16,16 @@ use app\services\BaseServices;
 use crmeb\exceptions\ApiException;
 
 /**
- * Hoa hồng người dùng
+ * Hoa hồng Khách hàng
  * Class UserBrokerageServices
  * @package app\services\user
- * @method getUserFrozenPrice(int $uid) Nhận hoa hồng cố định của người dùng
- */
-class UserBrokerageServices extends BaseServices
+ * @method getUserFrozenPrice(int $uid) Nhận hoa hồng cố định của Khách hàng
+ */class UserBrokerageServices extends BaseServices
 {
     /**
-     * Mẫu hồ sơ người dùng
+     * Mẫu hồ sơ Khách hàng
      * @var array[]
-     */
-    protected $incomeData = [
+     */    protected $incomeData = [
         'get_self_member_brokerage' => [
             'title' => 'Nhận hoa hồng thành viên trả phí khi tự mua hàng',
             'type' => 'self_member_brokerage',
@@ -71,9 +69,9 @@ class UserBrokerageServices extends BaseServices
             'pm' => 1
         ],
         'get_user_brokerage' => [
-            'title' => 'Nhận hoa hồng khi quảng bá người dùng',
+            'title' => 'Nhận hoa hồng khi quảng bá Khách hàng',
             'type' => 'brokerage_user',
-            'mark' => 'Quảng bá người dùng thành công：{%nickname%},Hoa hồng khuyến mãi thưởng{%number%}',
+            'mark' => 'Quảng bá Khách hàng thành công：{%nickname%},Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
@@ -139,8 +137,7 @@ class UserBrokerageServices extends BaseServices
     /**
      * UserBrokerageServices constructor.
      * @param UserBrokerageDao $dao
-     */
-    public function __construct(UserBrokerageDao $dao)
+     */    public function __construct(UserBrokerageDao $dao)
     {
         $this->dao = $dao;
     }
@@ -153,8 +150,7 @@ class UserBrokerageServices extends BaseServices
      * @param int|string $balance
      * @param $linkId
      * @return bool|mixed
-     */
-    public function income(string $type, int $uid, $number, $balance, $linkId)
+     */    public function income(string $type, int $uid, $number, $balance, $linkId)
     {
         $data = $this->incomeData[$type] ?? null;
         if (!$data) {
@@ -182,14 +178,13 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * Tổng hoa hồng của một người dùng nhất định
+     * Tổng hoa hồng của một Khách hàng nhất định
      * @param int $uid
      * @param array|string[] $type
      * @param string $time
      * @return float
      * @throws \ReflectionException
-     */
-    public function getUserBrokerageSum(int $uid, array $type = ['one_brokerage', 'two_brokerage', 'brokerage_user'], $time = '')
+     */    public function getUserBrokerageSum(int $uid, array $type = ['one_brokerage', 'two_brokerage', 'brokerage_user'], $time = '')
     {
         $where = ['uid' => $uid];
         if ($type) $where['type'] = $type;
@@ -204,8 +199,7 @@ class UserBrokerageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderRefundBrokerageBack($order)
+     */    public function orderRefundBrokerageBack($order)
     {
         $id = (int)$order['id'];
         $where = [
@@ -229,8 +223,7 @@ class UserBrokerageServices extends BaseServices
         }
         $res = true;
         if ($brokerageList) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $brokerages = $userServices->getColumn([['uid', 'in', array_column($brokerageList, 'uid')]], 'brokerage_price', 'uid');
             $brokerageData = [];
 
@@ -269,8 +262,7 @@ class UserBrokerageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function brokerageRankList(string $time = 'week')
+     */    public function brokerageRankList(string $time = 'week')
     {
         $where = ['pm' => 1];
         if ($time) {
@@ -294,15 +286,14 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * Nhận xếp hạng người dùng
+     * Nhận xếp hạng Khách hàng
      * @param int $uid
      * @param string $time
      * @return false|int|string
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserBrokerageRank(int $uid, string $time = 'week')
+     */    public function getUserBrokerageRank(int $uid, string $time = 'week')
     {
         $where = ['pm' => 1];
         if ($time) {
@@ -335,16 +326,13 @@ class UserBrokerageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function commission(int $uid)
+     */    public function commission(int $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         if (!$userServices->getUserInfo($uid)) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
-        /** @var UserExtractServices $userExtract */
-        $userExtract = app()->make(UserExtractServices::class);
+        /** @var UserExtractServices $userExtract */        $userExtract = app()->make(UserExtractServices::class);
         $data = [];
         $data['uid'] = $uid;
         $data['pm'] = 1;
@@ -365,8 +353,7 @@ class UserBrokerageServices extends BaseServices
      * @param int $time
      * @return mixed
      * @throws \ReflectionException
-     */
-    public function getUsersBokerageSum(array $where, $time = 0)
+     */    public function getUsersBokerageSum(array $where, $time = 0)
     {
         $where_data = [
             'status' => 1,
@@ -387,8 +374,7 @@ class UserBrokerageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getBrokerageList($uid, $type)
+     */    public function getBrokerageList($uid, $type)
     {
         $where = [];
         $where['uid'] = $uid;
@@ -399,8 +385,7 @@ class UserBrokerageServices extends BaseServices
         if ($type == 3) {
             $where['not_type'] = ['extract_fail'];
         }
-        /** @var UserExtractServices $userExtractService */
-        $userExtractService = app()->make(UserExtractServices::class);
+        /** @var UserExtractServices $userExtractService */        $userExtractService = app()->make(UserExtractServices::class);
         $userExtract = $userExtractService->getColumn(['uid' => $uid], 'fail_msg,extract_type,state,wechat_order_id,status', 'id');
         $list = $this->dao->getList($where, '*', $page, $limit);
         $count = $this->dao->count($where);
@@ -439,18 +424,16 @@ class UserBrokerageServices extends BaseServices
     }
 
     /**
-     * Dữ liệu trang xếp hạng hoa hồng giao diện người dùng
+     * Dữ liệu trang xếp hạng hoa hồng giao diện Khách hàng
      * @param int $uid
      * @param $type
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function brokerageRank(int $uid, $type)
+     */    public function brokerageRank(int $uid, $type)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         if (!$userService->getUserInfo($uid)) {
             throw new ApiException('Dữ liệu không tồn tại');
         }

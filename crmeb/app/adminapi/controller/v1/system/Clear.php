@@ -19,8 +19,7 @@ use app\adminapi\controller\AuthController;
  * Class Clear
  * @package app\admin\controller
  *
- */
-class Clear extends AuthController
+ */class Clear extends AuthController
 {
     public function __construct(App $app, ClearServices $services)
     {
@@ -30,8 +29,7 @@ class Clear extends AuthController
 
     /**
      * Làm mới bộ đệm dữ liệu
-     */
-    public function refresh_cache()
+     */    public function refresh_cache()
     {
         $this->services->refresCache();
         return app('json')->success('Đã làm mới bộ đệm dữ liệu thành công');
@@ -40,8 +38,7 @@ class Clear extends AuthController
 
     /**
      * Xóa nhật ký
-     */
-    public function delete_log()
+     */    public function delete_log()
     {
         $this->services->deleteLog();
         return app('json')->success('Xóa thành công');

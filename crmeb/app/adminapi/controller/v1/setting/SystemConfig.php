@@ -23,16 +23,14 @@ use think\facade\App;
  * Cấu hình hệ thống
  * Class SystemConfig
  * @package app\adminapi\controller\v1\setting
- */
-class SystemConfig extends AuthController
+ */class SystemConfig extends AuthController
 {
 
     /**
      * SystemConfig constructor.
      * @param App $app
      * @param SystemConfigServices $services
-     */
-    public function __construct(App $app, SystemConfigServices $services)
+     */    public function __construct(App $app, SystemConfigServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -44,8 +42,7 @@ class SystemConfig extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['tab_id', 0],
@@ -68,8 +65,7 @@ class SystemConfig extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function create()
+     */    public function create()
     {
         [$type, $tabId] = $this->request->getMore([
             [['type', 'd'], ''],
@@ -81,8 +77,7 @@ class SystemConfig extends AuthController
     /**
      * Lưu tài nguyên mới
      * @return \think\Response
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['menu_name', ''],
@@ -144,8 +139,7 @@ class SystemConfig extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function read($id)
+     */    public function read($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -159,8 +153,7 @@ class SystemConfig extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->editConfigForm((int)$id));
     }
@@ -170,8 +163,7 @@ class SystemConfig extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $type = request()->post('type');
         if ($type == 'text' || $type == 'textarea' || $type == 'radio' || ($type == 'upload' && (request()->post('upload_type') == 1 || request()->post('upload_type') == 3))) {
@@ -217,8 +209,7 @@ class SystemConfig extends AuthController
      * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$this->services->delete($id))
             return app('json')->fail('Xóa không thành công');
@@ -233,8 +224,7 @@ class SystemConfig extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if ($status == '' || $id == 0) {
             return app('json')->fail('Lỗi tham số');
@@ -246,8 +236,7 @@ class SystemConfig extends AuthController
 
     /**
      * Cấu hình cơ bản
-     * */
-    public function edit_basics(Request $request)
+     * */    public function edit_basics(Request $request)
     {
         $tabId = $this->request->param('tab_id', 1);
         if (!$tabId) {
@@ -259,8 +248,7 @@ class SystemConfig extends AuthController
 
     /**
      * lưu dữ liệu    true
-     * */
-    public function save_basics(Request $request)
+     * */    public function save_basics(Request $request)
     {
         $post = $this->request->post();
         foreach ($post as $k => $v) {
@@ -387,7 +375,7 @@ class SystemConfig extends AuthController
         }
         if (isset($post['customer_phone'])) {
             if (!ctype_digit($post['customer_phone']) || strlen($post['customer_phone']) > 11) {
-                return app('json')->fail('Số điện thoại dịch vụ khách hàng là 11 chữ số');
+                return app('json')->fail('Số điện thoại CSKH là 11 chữ số');
             }
         }
         if (isset($post['refund_time_available'])) {
@@ -472,8 +460,7 @@ class SystemConfig extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/10/21
-     */
-    public function getPemPath(string $path)
+     */    public function getPemPath(string $path)
     {
         if (strstr($path, 'http://') || strstr($path, 'https://')) {
             $path = parse_url($path)['path'] ?? '';
@@ -486,14 +473,13 @@ class SystemConfig extends AuthController
     }
 
     /**
-     * Lấy danh mục tiêu đề cài đặt hệ thống
+     * Lấy danh mục tiêu đề Cài đặt hệ thống
      * @param SystemConfigTabServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function header_basics(SystemConfigTabServices $services)
+     */    public function header_basics(SystemConfigTabServices $services)
     {
         [$type, $pid] = $this->request->getMore([
             [['type', 'd'], 0],
@@ -512,19 +498,17 @@ class SystemConfig extends AuthController
      * Nhận giá trị của một cấu hình
      * @param $name
      * @return mixed
-     */
-    public function get_system($name)
+     */    public function get_system($name)
     {
         $value = sys_config($name);
         return app('json')->success(compact('value'));
     }
 
     /**
-     * Nhận tất cả các cấu hình theo một danh mục nhất định
+     * Nhận Tất cả các cấu hình theo một danh mục nhất định
      * @param $tabId
      * @return mixed
-     */
-    public function get_config_list($tabId)
+     */    public function get_config_list($tabId)
     {
         $list = $this->services->getConfigTabAllList($tabId);
         $data = [];
@@ -537,8 +521,7 @@ class SystemConfig extends AuthController
     /**
      * Nhận thông tin số phiên bản
      * @return mixed
-     */
-    public function getVersion()
+     */    public function getVersion()
     {
         $version = get_crmeb_version();
         return app('json')->success([

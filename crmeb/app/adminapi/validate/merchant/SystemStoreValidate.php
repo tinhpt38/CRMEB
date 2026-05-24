@@ -19,8 +19,7 @@ class SystemStoreValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'name' => 'require',
         'introduction' => 'require',
         'phone' => 'require',
@@ -36,8 +35,7 @@ class SystemStoreValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'name.require' => 'Vui lòng điền tên cửa hàng',
         'introduction.require' => 'Vui lòng điền vào hồ sơ cửa hàng',
         'phone.require' => 'Vui lòng điền số điện thoại của cửa hàng',

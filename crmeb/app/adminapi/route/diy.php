@@ -13,8 +13,7 @@ use think\facade\Route;
 
 /**
  * diy Các tuyến đường liên quan
- */
-Route::group('diy', function () {
+ */Route::group('diy', function () {
 
     Route::get('get_list', 'v1.diy.Diy/getList')->option(['real_name' => 'DiyDanh sách mẫu']);
     Route::get('get_info/:id', 'v1.diy.Diy/getInfo')->option(['real_name' => 'DiyChi tiết dữ liệu mẫu']);
@@ -33,7 +32,7 @@ Route::group('diy', function () {
     Route::get('get_by_category', 'v1.diy.Diy/getByCategory')->option(['real_name' => 'Nhận Tất cả các danh mục phụ']);
     Route::get('set_recovery/:id', 'v1.diy.Diy/setRecovery')->option(['real_name' => 'Đặt dữ liệu mặc định DIY']);
     Route::get('get_product_list', 'v1.diy.Diy/getProductList')->option(['real_name' => 'Nhận danh sách sản phẩm']);
-    Route::get('get_color_change/:type', 'v1.diy.Diy/getColorChange')->option(['real_name' => 'Nhận cài đặt kiểu']);
+    Route::get('get_color_change/:type', 'v1.diy.Diy/getColorChange')->option(['real_name' => 'Nhận Cài đặt kiểu']);
     Route::put('color_change/:status/:type', 'v1.diy.Diy/colorChange')->option(['real_name' => 'Thay đổi màu sắc và lưu phân loại']);
     Route::get('get_member', 'v1.diy.Diy/getMember')->option(['real_name' => 'Chi tiết trung tâm cá nhân']);
     Route::get('get_page_category', 'v1.diy.PageLink/getCategory')->option(['real_name' => 'Nhận danh mục liên kết trang']);
@@ -60,8 +59,7 @@ Route::group('diy', function () {
 
 /**
  * diy_pro Các tuyến đường liên quan
- */
-Route::group('diy_pro', function () {
+ */Route::group('diy_pro', function () {
     Route::get('get_list', 'v1.diy.DiyPro/getList')->option(['real_name' => 'DiyProDanh sách mẫu']);
     Route::get('get_info/:id', 'v1.diy.DiyPro/getInfo')->option(['real_name' => 'DiyProChi tiết mẫu']);
     Route::post('save/:id', 'v1.diy.DiyPro/saveInfo')->option(['real_name' => 'DiyProLưu mẫu']);
@@ -80,8 +78,7 @@ Route::group('diy_pro', function () {
 
 /**
  * Định tuyến liên quan đến chủ đề
- */
-Route::group('theme', function () {
+ */Route::group('theme', function () {
     Route::get('list', 'v1.diy.Theme/getThemeList')->option(['real_name' => 'Danh sách chủ đề']);
     Route::get('info/:id/[:type]', 'v1.diy.Theme/getThemeInfo')->option(['real_name' => 'Chi tiết chủ đề']);
     Route::post('save/:id', 'v1.diy.Theme/saveTheme')->option(['real_name' => 'lưu chủ đề']);
@@ -108,8 +105,7 @@ Route::group('theme', function () {
 
 /**
  * Định tuyến liên quan đến thành phần chủ đề
- */
-Route::group('theme_module', function () {
+ */Route::group('theme_module', function () {
     Route::get('list', 'v1.diy.ThemeModule/index')->option(['real_name' => 'Danh sách các thành phần chủ đề']);
     Route::post('save', 'v1.diy.ThemeModule/save')->option(['real_name' => 'Thêm các thành phần chủ đề mới']);
     Route::delete('del/:id', 'v1.diy.ThemeModule/delete')->option(['real_name' => 'Xóa các thành phần chủ đề']);

@@ -23,19 +23,16 @@ use think\Request;
 /**
  * Class StoreOrderInvoiceController
  * @package app\api\controller\v2\order
- */
-class StoreOrderInvoiceController
+ */class StoreOrderInvoiceController
 {
     /**
      * @var StoreOrderInvoiceServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * StoreOrderInvoiceController constructor.
      * @param StoreOrderInvoiceServices $services
-     */
-    public function __construct(StoreOrderInvoiceServices $services)
+     */    public function __construct(StoreOrderInvoiceServices $services)
     {
         $this->services = $services;
     }
@@ -44,8 +41,7 @@ class StoreOrderInvoiceController
      * Lập hoá đơn đặt hàng
      * @param Request $request
      * @return mixed
-     */
-    public function makeUp(Request $request)
+     */    public function makeUp(Request $request)
     {
         [$order_id, $invoice_id] = $request->postMore([
             ['order_id', 0],
@@ -59,20 +55,18 @@ class StoreOrderInvoiceController
      * Hồ sơ hóa đơn
      * @param Request $request
      * @return mixed
-     */
-    public function list(Request $request)
+     */    public function list(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->getOrderInvoiceList(['uid' => $uid]));
     }
 
     /**
-     * Chi tiết đặt hàng
+     * Chi tiết đơn hàng
      * @param \app\Request $request
      * @param $uni
      * @return mixed
-     */
-    public function detail(StoreOrderServices $services, Request $request, $uni)
+     */    public function detail(StoreOrderServices $services, Request $request, $uni)
     {
         if (!strlen(trim($uni))) return app('json')->fail('Lỗi tham số');
         $order = $services->getUserOrderDetail($uni, (int)$request->uid(), []);
@@ -93,13 +87,11 @@ class StoreOrderInvoiceController
         }
         $order['add_time_y'] = date('Y-m-d', $order['add_time']);
         $order['add_time_h'] = date('H:i:s', $order['add_time']);
-        /** @var SystemStoreServices $storeServices */
-        $storeServices = app()->make(SystemStoreServices::class);
+        /** @var SystemStoreServices $storeServices */        $storeServices = app()->make(SystemStoreServices::class);
         $order['system_store'] = $storeServices->getStoreDispose($order['store_id']);
         if (($order['shipping_type'] === 2 || $order['delivery_uid'] != 0) && $order['verify_code']) {
             $name = $order['verify_code'] . '.jpg';
-            /** @var SystemAttachmentServices $attachmentServices */
-            $attachmentServices = app()->make(SystemAttachmentServices::class);
+            /** @var SystemAttachmentServices $attachmentServices */            $attachmentServices = app()->make(SystemAttachmentServices::class);
             $imageInfo = $attachmentServices->getInfo(['name' => $name]);
             $siteUrl = sys_config('site_url');
             if (!$imageInfo) {
@@ -127,8 +119,7 @@ class StoreOrderInvoiceController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/14
-     */
-    public function downInvoice($id)
+     */    public function downInvoice($id)
     {
         $info = $this->services->getOne(['id' => $id]);
         $invoice = app()->make(ServeServices::class)->invoice();

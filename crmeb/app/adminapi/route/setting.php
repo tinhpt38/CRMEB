@@ -11,12 +11,10 @@
 use think\facade\Route;
 
 /**
- * Bảo trì cài đặt hệ thống, quản lý quyền hệ thống, quản lý menu hệ thống, cấu hình hệ thống, định tuyến liên quan
- */
-Route::group('setting', function () {
+ * Bảo trì Cài đặt hệ thống, quản lý quyền hệ thống, quản lý menu hệ thống, cấu hình hệ thống, định tuyến liên quan
+ */Route::group('setting', function () {
 
-    /** quản trị viên */
-    Route::group(function () {
+    /** quản trị viên */    Route::group(function () {
         //Định tuyến tài nguyên quản trị viên
         Route::resource('admin', 'v1.setting.SystemAdmin')->except(['read'])->option([
             'real_name' => [
@@ -40,8 +38,7 @@ Route::group('setting', function () {
         Route::put('set_file_password', 'v1.setting.SystemAdmin/set_file_password')->name('SystemAdminSetFilePassword')->option(['real_name' => 'Đặt mật khẩu quản lý tập tin hiện tại']);
     })->option(['parent' => 'setting', 'cate_name' => 'quản trị viên']);
 
-    /** Trình đơn quyền */
-    Route::group(function () {
+    /** Trình đơn quyền */    Route::group(function () {
         //Nhận quyền của menu và số nhận dạng quyền
         Route::get('menus/unique', 'v1.setting.SystemMenus/unique')->name('SystemMenusUnique')->option(['real_name' => 'Nhận quyền của menu và số nhận dạng quyền']);
         //Quyền lưu hàng loạt
@@ -66,8 +63,7 @@ Route::group('setting', function () {
         Route::put('menus/show/:id', 'v1.setting.SystemMenus/show')->name('SystemMenusShow')->option(['real_name' => 'Sửa đổi trạng thái hiển thị thông số quyền']);
     })->option(['parent' => 'setting', 'cate_name' => 'Trình đơn quyền']);
 
-    /** Trạng thái quản trị viên */
-    Route::group(function () {
+    /** Trạng thái quản trị viên */    Route::group(function () {
         //danh sách nhận dạng
         Route::get('role', 'v1.setting.SystemRole/index')->option(['real_name' => 'Danh sách nhận dạng quản trị viên']);
         //Danh sách quyền nhận dạng
@@ -82,8 +78,7 @@ Route::group('setting', function () {
         Route::delete('role/:id', 'v1.setting.SystemRole/delete')->option(['real_name' => 'Xóa vai trò quản trị viên']);
     })->option(['parent' => 'setting', 'cate_name' => 'Trạng thái quản trị viên']);
 
-    /** Cấu hình hệ thống */
-    Route::group(function () {
+    /** Cấu hình hệ thống */    Route::group(function () {
         //Định cấu hình định tuyến tài nguyên được phân loại
         Route::resource('config_class', 'v1.setting.SystemConfigTab')->except(['read'])->option([
             'real_name' => [
@@ -120,12 +115,11 @@ Route::group('setting', function () {
         Route::post('config/upload', 'v1.setting.SystemConfig/file_upload')->option(['real_name' => 'Tệp tải lên cấu hình cơ bản']);
         //Nhận một giá trị cấu hình duy nhất
         Route::get('config/get_system/:name', 'v1.setting.SystemConfig/get_system')->option(['real_name' => 'Mẫu chỉnh sửa cấu hình cơ bản']);
-        //Nhận tất cả thông tin cấu hình theo một danh mục nhất định
+        //Nhận Tất cả thông tin cấu hình theo một danh mục nhất định
         Route::get('config_list/:tabId', 'v1.setting.SystemConfig/get_config_list')->option(['real_name' => 'Nhận Tất cả thông tin cấu hình theo một danh mục nhất định']);
     })->option(['parent' => 'setting', 'cate_name' => 'Cấu hình hệ thống']);
 
-    /** Dữ liệu kết hợp */
-    Route::group(function () {
+    /** Dữ liệu kết hợp */    Route::group(function () {
         //Định tuyến tài nguyên dữ liệu kết hợp
         Route::resource('group', 'v1.setting.SystemGroup')->option([
             'real_name' => [
@@ -156,10 +150,10 @@ Route::group('setting', function () {
         Route::put('group_data/set_status/:id/:status', 'v1.setting.SystemGroupData/set_status')->option(['real_name' => 'Sửa đổi trạng thái dữ liệu kết hợp']);
         //Lưu cấu hình dữ liệu
         Route::post('group_data/save_all', 'v1.setting.SystemGroupData/saveAll')->option(['real_name' => 'Gửi cấu hình dữ liệu']);
-        //Nhận quảng cáo dịch vụ khách hàng
-        Route::get('get_kf_adv', 'v1.setting.SystemGroupData/getKfAdv')->option(['real_name' => 'Nhận quảng cáo dịch vụ khách hàng']);
-        //Thiết lập quảng cáo dịch vụ khách hàng
-        Route::post('set_kf_adv', 'v1.setting.SystemGroupData/setKfAdv')->option(['real_name' => 'Thiết lập quảng cáo dịch vụ khách hàng']);
+        //Nhận quảng cáo CSKH
+        Route::get('get_kf_adv', 'v1.setting.SystemGroupData/getKfAdv')->option(['real_name' => 'Nhận quảng cáo CSKH']);
+        //Thiết lập quảng cáo CSKH
+        Route::post('set_kf_adv', 'v1.setting.SystemGroupData/setKfAdv')->option(['real_name' => 'Thiết lập quảng cáo CSKH']);
         //Tài nguyên cấu hình ngày nhận phòng
         Route::resource('sign_data', 'v1.setting.SystemGroupData')->except(['read'])->option([
             'real_name' => [
@@ -241,8 +235,7 @@ Route::group('setting', function () {
         Route::post('set_user_agreement', 'v1.setting.SystemGroupData/setUserAgreement')->option(['real_name' => 'Đặt thỏa thuận quyền riêng tư']);
     })->option(['parent' => 'setting', 'cate_name' => 'Dữ liệu kết hợp']);
 
-    /** dữ liệu thành phố */
-    Route::group(function () {
+    /** dữ liệu thành phố */    Route::group(function () {
         //Nhận danh sách đầy đủ dữ liệu thành phố
         Route::get('city/full_list', 'v1.setting.SystemCity/fullList')->option(['real_name' => 'Nhận danh sách đầy đủ dữ liệu thành phố']);
         //Lấy danh sách dữ liệu thành phố
@@ -259,11 +252,10 @@ Route::group('setting', function () {
         Route::get('city/clean_cache', 'v1.setting.SystemCity/clean_cache')->option(['real_name' => 'Xóa bộ nhớ đệm dữ liệu thành phố']);
     })->option(['parent' => 'setting', 'cate_name' => 'dữ liệu thành phố']);
 
-    /** Mẫu vận chuyển hàng hóa */
-    Route::group(function () {
-        //Danh sách mẫu vận chuyển hàng hóa
+    /** Mẫu vận chuyển sản phẩm */    Route::group(function () {
+        //Danh sách mẫu vận chuyển sản phẩm
         Route::get('shipping_templates/list', 'v1.setting.ShippingTemplates/temp_list')->option(['real_name' => 'Danh sách mẫu vận chuyển sản phẩm']);
-        //Sửa đổi dữ liệu mẫu vận chuyển hàng hóa
+        //Sửa đổi dữ liệu mẫu vận chuyển sản phẩm
         Route::get('shipping_templates/:id/edit', 'v1.setting.ShippingTemplates/edit')->option(['real_name' => 'Sửa đổi dữ liệu mẫu vận chuyển sản phẩm']);
         //Lưu những thay đổi mới
         Route::post('shipping_templates/save/:id', 'v1.setting.ShippingTemplates/save')->option(['real_name' => 'Thêm hoặc sửa đổi mẫu vận chuyển sản phẩm']);
@@ -274,8 +266,7 @@ Route::group('setting', function () {
     })->option(['parent' => 'setting', 'cate_name' => 'Mẫu vận chuyển sản phẩm']);
 
 
-    /** Thông báo hệ thống */
-    Route::group(function () {
+    /** Thông báo hệ thống */    Route::group(function () {
         //Danh sách thông báo hệ thống
         Route::get('notification/index', 'v1.setting.SystemNotification/index')->option(['real_name' => 'Danh sách thông báo hệ thống']);
         //Thêm thông báo tùy chỉnh để sửa đổi biểu mẫu
@@ -286,8 +277,8 @@ Route::group('setting', function () {
         Route::post('notification/not_form_save/:id', 'v1.setting.SystemNotification/notFormSave')->option(['real_name' => 'Lưu tin nhắn tùy chỉnh']);
         //Nhận một phần dữ liệu
         Route::get('notification/info', 'v1.setting.SystemNotification/info')->option(['real_name' => 'Nhận dữ liệu thông báo duy nhất']);
-        //Lưu cài đặt thông báo
-        Route::post('notification/save', 'v1.setting.SystemNotification/save')->option(['real_name' => 'Lưu cài đặt thông báo']);
+        //Lưu Cài đặt thông báo
+        Route::post('notification/save', 'v1.setting.SystemNotification/save')->option(['real_name' => 'Lưu Cài đặt thông báo']);
         //Gửi thử thông báo Telegram
         Route::post('notification/test_telegram', 'v1.setting.SystemNotification/testTelegram')->option(['real_name' => 'Gửi thử thông báo Telegram']);
         //Sửa đổi trạng thái tin nhắn
@@ -297,8 +288,7 @@ Route::group('setting', function () {
         Route::get('notification/telegram_channels', 'v1.setting.NoticeChannel/telegramOptions')->option(['real_name' => 'Danh sách kênh Telegram']);
     })->option(['parent' => 'setting', 'cate_name' => 'Thông báo hệ thống']);
 
-    /** Kênh thông báo tập trung */
-    Route::group(function () {
+    /** Kênh thông báo tập trung */    Route::group(function () {
         //Danh sách kênh
         Route::get('notice_channel/index', 'v1.setting.NoticeChannel/index')->option(['real_name' => 'Danh sách kênh thông báo']);
         //Thêm kênh
@@ -313,18 +303,16 @@ Route::group('setting', function () {
         Route::post('notice_channel/test_telegram', 'v1.setting.NoticeChannel/testTelegram')->option(['real_name' => 'Gửi thử Telegram kênh']);
     })->option(['parent' => 'setting', 'cate_name' => 'Thông báo hệ thống']);
 
-    /** Thỏa thuận bản quyền */
-    Route::group(function () {
-        //Cài đặt giao thức
-        Route::get('get_agreement/:type', 'v1.setting.SystemAgreement/getAgreement')->option(['real_name' => 'Nhận nội dung thỏa thuận']);
-        Route::post('save_agreement', 'v1.setting.SystemAgreement/saveAgreement')->option(['real_name' => 'Đặt nội dung giao thức']);
+    /** Thỏa thuận bản quyền */    Route::group(function () {
+        //Điều khoản & chính sách
+        Route::get('get_agreement/:type', 'v1.setting.SystemAgreement/getAgreement')->option(['real_name' => 'Nhận Nội dung thỏa thuận']);
+        Route::post('save_agreement', 'v1.setting.SystemAgreement/saveAgreement')->option(['real_name' => 'Đặt Nội dung giao thức']);
         //Nhận thông tin bản quyền
         Route::get('get_version', 'v1.setting.SystemConfig/getVersion')->option(['real_name' => 'Nhận thông tin bản quyền']);
     })->option(['parent' => 'setting', 'cate_name' => 'Thỏa thuận bản quyền']);
 
 
-    /** Giao diện bên ngoài */
-    Route::group(function () {
+    /** Kết nối API ngoài */    Route::group(function () {
         //Thông tin tài khoản giao diện bên ngoài
         Route::get('system_out_account/index', 'v1.setting.SystemOutAccount/index')->option(['real_name' => 'Thông tin tài khoản giao diện bên ngoài']);
         //Thêm tài khoản giao diện bên ngoài
@@ -353,8 +341,7 @@ Route::group('setting', function () {
     })->option(['parent' => 'setting', 'cate_name' => 'Kết nối API ngoài']);
 
 
-    /** đa ngôn ngữ */
-    Route::group(function () {
+    /** đa ngôn ngữ */    Route::group(function () {
         //Danh sách quốc gia ngôn ngữ
         Route::get('lang_country/list', 'v1.setting.LangCountry/langCountryList')->option(['real_name' => 'Danh sách quốc gia ngôn ngữ']);
         //Thêm biểu mẫu ngôn ngữ

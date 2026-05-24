@@ -17,31 +17,28 @@ use app\services\activity\bargain\StoreBargainUserServices;
 use think\facade\App;
 
 /**
- * Quản lý mặc cả
+ * Quản lý trả giá
  * Class StoreBargain
  * @package app\adminapi\controller\v1\marketing
- */
-class StoreBargain extends AuthController
+ */class StoreBargain extends AuthController
 {
     /**
      * StoreBargain constructor.
      * @param App $app
      * @param StoreBargainServices $services
-     */
-    public function __construct(App $app, StoreBargainServices $services)
+     */    public function __construct(App $app, StoreBargainServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Danh sách mặc cả
+     * Lịch sử trả giá
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['start_status', ''],
@@ -58,8 +55,7 @@ class StoreBargain extends AuthController
      * Lưu lại những món hàng giá hời
      * @param $id
      * @return mixed
-     */
-    public function save($id)
+     */    public function save($id)
     {
         $data = $this->request->postMore([
             ['title', ''],
@@ -123,8 +119,7 @@ class StoreBargain extends AuthController
      * Nhận thông tin chi tiết
      * @param $id
      * @return mixed
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->getInfo($id);
         return app('json')->success(compact('info'));
@@ -134,12 +129,10 @@ class StoreBargain extends AuthController
      * Xóa món hời
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         $this->services->update($id, ['is_del' => 1]);
-        /** @var StoreBargainUserServices $bargainUserService */
-        $bargainUserService = app()->make(StoreBargainUserServices::class);
+        /** @var StoreBargainUserServices $bargainUserService */        $bargainUserService = app()->make(StoreBargainUserServices::class);
         $bargainUserService->userBargainStatusFail($id, true);
         return app('json')->success('Xóa thành công');
     }
@@ -149,11 +142,9 @@ class StoreBargain extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
-        /** @var StoreBargainUserServices $bargainUserService */
-        $bargainUserService = app()->make(StoreBargainUserServices::class);
+        /** @var StoreBargainUserServices $bargainUserService */        $bargainUserService = app()->make(StoreBargainUserServices::class);
         if ($status == 0) {
             $bargainUserService->userBargainStatusFail($id, false);
         } else {
@@ -167,17 +158,15 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * Danh sách mặc cả
+     * Lịch sử trả giá
      * @return mixed
-     */
-    public function bargainList()
+     */    public function bargainList()
     {
         $where = $this->request->getMore([
             ['status', ''],
             ['data', '', '', 'time'],
         ]);
-        /** @var StoreBargainUserServices $bargainUserService */
-        $bargainUserService = app()->make(StoreBargainUserServices::class);
+        /** @var StoreBargainUserServices $bargainUserService */        $bargainUserService = app()->make(StoreBargainUserServices::class);
         $list = $bargainUserService->bargainUserList($where);
         return app('json')->success($list);
     }
@@ -186,11 +175,9 @@ class StoreBargain extends AuthController
      * Thông tin mặc cả
      * @param $id
      * @return mixed
-     */
-    public function bargainListInfo($id)
+     */    public function bargainListInfo($id)
     {
-        /** @var StoreBargainUserHelpServices $bargainUserHelpService */
-        $bargainUserHelpService = app()->make(StoreBargainUserHelpServices::class);
+        /** @var StoreBargainUserHelpServices $bargainUserHelpService */        $bargainUserHelpService = app()->make(StoreBargainUserHelpServices::class);
         $list = $bargainUserHelpService->getHelpList((int)$id);
         return app('json')->success(compact('list'));
     }
@@ -199,19 +186,17 @@ class StoreBargain extends AuthController
      * Thống kê mặc cả
      * @param $id
      * @return mixed
-     */
-    public function bargainStatistics($id)
+     */    public function bargainStatistics($id)
     {
         $data = $this->services->bargainStatistics($id);
         return app('json')->success($data);
     }
 
     /**
-     * Danh sách mặc cả
+     * Lịch sử trả giá
      * @param $id
      * @return mixed
-     */
-    public function bargainStatisticsList($id)
+     */    public function bargainStatisticsList($id)
     {
         $where = $this->request->getMore([
             ['real_name', ''],
@@ -221,11 +206,10 @@ class StoreBargain extends AuthController
     }
 
     /**
-     * lệnh mặc cả
+     * Đơn hàng mặc cả
      * @param $id
      * @return mixed
-     */
-    public function bargainStatisticsOrder($id)
+     */    public function bargainStatisticsOrder($id)
     {
         $where = $this->request->getMore([
             ['real_name', ''],

@@ -19,16 +19,14 @@ use think\facade\App;
  * Quản lý đơn hàng
  * Class StoreOrder
  * @package app\outapi\controller
- */
-class StoreOrder extends AuthController
+ */class StoreOrder extends AuthController
 {
     /**
      * StoreOrder constructor.
      * @param App $app
      * @param OutStoreOrderServices $service
      * @method temp
-     */
-    public function __construct(App $app, OutStoreOrderServices $service)
+     */    public function __construct(App $app, OutStoreOrderServices $service)
     {
         parent::__construct($app);
         $this->services = $service;
@@ -37,8 +35,7 @@ class StoreOrder extends AuthController
     /**
      * Nhận danh sách đặt hàng
      * @return mixed
-     */
-    public function lst()
+     */    public function lst()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -59,8 +56,7 @@ class StoreOrder extends AuthController
     /**
      * Danh sách công ty chuyển phát nhanh
      * @return mixed
-     */
-    public function express(ExpressServices $services)
+     */    public function express(ExpressServices $services)
     {
         [$status] = $this->request->getMore([
             ['status', ''],
@@ -74,11 +70,10 @@ class StoreOrder extends AuthController
     }
 
     /**
-     * Đơn hàng đã được vận chuyển
+     * Đã giao cho ĐVVC
      * @param string $order_id Số đơn hàng
      * @return mixed
-     */
-    public function delivery(string $order_id)
+     */    public function delivery(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
@@ -95,8 +90,7 @@ class StoreOrder extends AuthController
      * Lấy danh sách các mặt hàng có thể được vận chuyển riêng cho một đơn hàng
      * @param string $order_id Số đơn hàng
      * @return mixed
-     */
-    public function splitCartInfo(string $order_id)
+     */    public function splitCartInfo(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->getCartList($order_id));
@@ -106,8 +100,7 @@ class StoreOrder extends AuthController
      * Chia đơn hàng và gửi hàng
      * @param string $order_id Số đơn hàng
      * @return mixed
-     */
-    public function splitDelivery(string $order_id)
+     */    public function splitDelivery(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
@@ -136,12 +129,11 @@ class StoreOrder extends AuthController
     }
 
     /**
-     * xác nhận đã nhận hàng
+     * Xác nhận nhận hàng
      * @param string $order_id Số đơn hàng
      * @return mixed
      * @throws \Exception
-     */
-    public function receive(string $order_id)
+     */    public function receive(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         $this->services->receive($order_id);
@@ -152,8 +144,7 @@ class StoreOrder extends AuthController
      * Thiết lập thông tin hóa đơn
      * @param string $order_id Số đơn hàng
      * @return mixed
-     */
-    public function setInvoice(string $order_id)
+     */    public function setInvoice(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
@@ -202,8 +193,7 @@ class StoreOrder extends AuthController
      * Đặt trạng thái hóa đơn
      * @param string $order_id Số đơn hàng
      * @return mixed
-     */
-    public function setInvoiceStatus(string $order_id)
+     */    public function setInvoiceStatus(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
@@ -221,11 +211,10 @@ class StoreOrder extends AuthController
     }
 
     /**
-     * Chi tiết đặt hàng
+     * Chi tiết đơn hàng
      * @param string $order_id Số đơn hàng
      * @return mixed
-     */
-    public function read(string $order_id)
+     */    public function read(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->getInfo($order_id));
@@ -235,8 +224,7 @@ class StoreOrder extends AuthController
      * Sửa đổi nhận xét
      * @param string $order_id Số đơn hàng
      * @return mixed
-     */
-    public function remark(string $order_id)
+     */    public function remark(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([['remark', '']]);
@@ -256,8 +244,7 @@ class StoreOrder extends AuthController
      * Sửa đổi thông tin vận chuyển
      * @param string $order_id Số đơn hàng
      * @return mixed
-     */
-    public function updateDistribution(string $order_id)
+     */    public function updateDistribution(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([['delivery_name', ''], ['delivery_code', ''], ['delivery_id', '']]);

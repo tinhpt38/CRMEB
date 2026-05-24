@@ -18,21 +18,18 @@ use crmeb\traits\ModelTrait;
 /**
  * Class WechatMedia
  * @package app\model\wechat
- */
-class WechatMedia extends BaseModel
+ */class WechatMedia extends BaseModel
 {
     use ModelTrait;
 
     /**
      * khóa chính
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * tên bảng
      * @var string
-     */
-    protected $name = 'wechat_media';
+     */    protected $name = 'wechat_media';
 
 }

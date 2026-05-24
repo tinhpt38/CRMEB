@@ -23,14 +23,12 @@ use think\facade\Route as Url;
 /**
  * Class AgentLevelServices
  * @package app\services\agent
- */
-class AgentLevelServices extends BaseServices
+ */class AgentLevelServices extends BaseServices
 {
     /**
      * AgentLevelServices constructor.
      * @param AgentLevelDao $dao
-     */
-    public function __construct(AgentLevelDao $dao)
+     */    public function __construct(AgentLevelDao $dao)
     {
         $this->dao = $dao;
     }
@@ -44,8 +42,7 @@ class AgentLevelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLevelInfo(int $id, string $field = '*', array $with = [])
+     */    public function getLevelInfo(int $id, string $field = '*', array $with = [])
     {
         return $this->dao->getOne(['id' => $id, 'is_del' => 0], $field, $with);
     }
@@ -57,8 +54,7 @@ class AgentLevelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLevelList(array $where)
+     */    public function getLevelList(array $where)
     {
         $where['is_del'] = 0;
         [$page, $limit] = $this->getPageValue();
@@ -80,15 +76,13 @@ class AgentLevelServices extends BaseServices
      * Trung tâm mua sắm có được danh sách cấp nhà phân phối
      * @param int $uid
      * @return array
-     */
-    public function getUserlevelList(int $uid)
+     */    public function getUserlevelList(int $uid)
     {
         //Phân phối trung tâm mua sắm có được kích hoạt không?
         if (!sys_config('brokerage_func_status')) {
             return [];
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Người dùng không tồn tại');
@@ -110,11 +104,9 @@ class AgentLevelServices extends BaseServices
         }
         $sum_task = $finish_task = 0;
         if ($levelInfo) {
-            /** @var AgentLevelTaskServices $levelTaskServices */
-            $levelTaskServices = app()->make(AgentLevelTaskServices::class);
+            /** @var AgentLevelTaskServices $levelTaskServices */            $levelTaskServices = app()->make(AgentLevelTaskServices::class);
             $sum_task = $levelTaskServices->count(['level_id' => $levelInfo['id'], 'is_del' => 0, 'status' => 1]);
-            /** @var AgentLevelTaskRecordServices $levelTaskRecordServices */
-            $levelTaskRecordServices = app()->make(AgentLevelTaskRecordServices::class);
+            /** @var AgentLevelTaskRecordServices $levelTaskRecordServices */            $levelTaskRecordServices = app()->make(AgentLevelTaskRecordServices::class);
             $finish_task = $levelTaskRecordServices->count(['level_id' => $levelInfo['id'], 'uid' => $uid]);
         }
         $levelInfo['sum_task'] = $sum_task;
@@ -129,8 +121,7 @@ class AgentLevelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getNextLevelInfo(int $level_id = 0)
+     */    public function getNextLevelInfo(int $level_id = 0)
     {
         $grade = 0;
         if ($level_id) {
@@ -140,22 +131,20 @@ class AgentLevelServices extends BaseServices
     }
 
     /**
-     * Kiểm tra xem người dùng có thể nâng cấp không
+     * Kiểm tra xem Khách hàng có thể nâng cấp không
      * @param int $uid
      * @param array $uids
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkUserLevelFinish(int $uid, array $uids = [])
+     */    public function checkUserLevelFinish(int $uid, array $uids = [])
     {
         //Phân phối trung tâm mua sắm có được kích hoạt không?
         if (!sys_config('brokerage_func_status')) {
             return false;
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if (!$userInfo) {
             return false;
@@ -186,8 +175,7 @@ class AgentLevelServices extends BaseServices
                 if (!$levelInfo || $levelInfo['grade'] <= $now_grade) {
                     continue;
                 }
-                /** @var AgentLevelTaskServices $levelTaskServices */
-                $levelTaskServices = app()->make(AgentLevelTaskServices::class);
+                /** @var AgentLevelTaskServices $levelTaskServices */                $levelTaskServices = app()->make(AgentLevelTaskServices::class);
                 $task_list = $levelTaskServices->getTaskList(['level_id' => $levelInfo['id'], 'is_del' => 0, 'status' => 1]);
                 if (!$task_list) {
                     continue;
@@ -195,8 +183,7 @@ class AgentLevelServices extends BaseServices
                 foreach ($task_list as $task) {
                     $levelTaskServices->checkLevelTaskFinish($uid, (int)$task['id'], $task);
                 }
-                /** @var AgentLevelTaskRecordServices $levelTaskRecordServices */
-                $levelTaskRecordServices = app()->make(AgentLevelTaskRecordServices::class);
+                /** @var AgentLevelTaskRecordServices $levelTaskRecordServices */                $levelTaskRecordServices = app()->make(AgentLevelTaskRecordServices::class);
                 $ids = array_column($task_list, 'id');
                 $finish_task = $levelTaskRecordServices->count(['level_id' => $levelInfo['id'], 'uid' => $uid, 'task_id' => $ids]);
                 //Hoàn thành nhiệm vụ và nâng cấp lên cấp độ này
@@ -221,11 +208,9 @@ class AgentLevelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAgentLevelBrokerage($storeBrokerageRatio, $storeBrokerageTwo, $spread_one_uid, $spread_two_uid)
+     */    public function getAgentLevelBrokerage($storeBrokerageRatio, $storeBrokerageTwo, $spread_one_uid, $spread_two_uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $one_agent_level = $userServices->value(['uid' => $spread_one_uid], 'agent_level') ?? 0;
         $two_agent_level = $userServices->value(['uid' => $spread_two_uid], 'agent_level') ?? 0;
 
@@ -251,8 +236,7 @@ class AgentLevelServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm()
+     */    public function createForm()
     {
         $field[] = Form::input('name', 'Tên cấp độ')->maxlength(8)->col(24);
         $field[] = Form::number('grade', 'cấp', 0)->min(0)->precision(0);
@@ -276,8 +260,7 @@ class AgentLevelServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function editForm(int $id)
+     */    public function editForm(int $id)
     {
         $levelInfo = $this->getLevelInfo($id);
         if (!$levelInfo)
@@ -310,11 +293,9 @@ class AgentLevelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function levelForm(int $uid)
+     */    public function levelForm(int $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if (!$userInfo) {
             throw new AdminException('Người dùng không tồn tại');
@@ -340,11 +321,9 @@ class AgentLevelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function givelevel(int $uid, int $id)
+     */    public function givelevel(int $uid, int $id)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid, 'uid');
         if (!$userInfo) {
             throw new AdminException('Người dùng không tồn tại');
@@ -361,10 +340,9 @@ class AgentLevelServices extends BaseServices
 
     /**
      * Nhận biểu mẫu số lượng nhiệm vụ cho cấp độ phân phối được chỉ định
-     * @param int $id Cấp độ phân phốiID
+     * @param int $id Cấp bậc AffiliateID
      * @return array|string
-     */
-    public function getTaskNumForm($id)
+     */    public function getTaskNumForm($id)
     {
         // Nhận thông tin về mức phân phối được chỉ định
         $levelInfo = $this->getLevelInfo($id);
@@ -376,12 +354,11 @@ class AgentLevelServices extends BaseServices
 
     /**
      * Đặt số lượng nhiệm vụ cho mức phân phối được chỉ định
-     * @param int $id Cấp độ phân phốiID
+     * @param int $id Cấp bậc AffiliateID
      * @param array $data Mảng chứa số lượng nhiệm vụ
-     * @return bool Trả về true để cho biết cài đặt thành công
+     * @return bool Trả về true để cho biết Cài đặt thành công
      * @throws AdminException Nếu mức phân phối không tồn tại hoặc số lượng tác vụ trống hoặc số lượng tác vụ lớn hơn số lượng tác vụ hiện có, một ngoại lệ sẽ được đưa ra
-     */
-    public function setTaskNum($id, $data)
+     */    public function setTaskNum($id, $data)
     {
         // Xác định xem mức độ phân phối có tồn tại hay không
         if (!$id) throw new AdminException('Cấp bậc Affiliate không tồn tại');
@@ -393,7 +370,7 @@ class AgentLevelServices extends BaseServices
         if ($data['task_num'] > $count) throw new AdminException('Số lượng nhiệm vụ không thể lớn hơn số lượng nhiệm vụ hiện có');
         // Cập nhật số lượng nhiệm vụ cho cấp độ phân phối
         $this->dao->update($id, ['task_num' => $data['task_num']]);
-        // Trả về true để cho biết cài đặt thành công
+        // Trả về true để cho biết Cài đặt thành công
         return true;
     }
 
@@ -403,8 +380,7 @@ class AgentLevelServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/6/16
-     */
-    public function getAgentLevelArr()
+     */    public function getAgentLevelArr()
     {
         return $this->dao->getColumn(['status'=>1,'is_del'=>0], 'name', 'grade');
     }

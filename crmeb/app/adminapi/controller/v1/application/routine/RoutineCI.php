@@ -23,22 +23,21 @@ use think\facade\App;
  * Thông qua các giao diện này, quản trị viên có thể tải trực tiếp mã chương trình nhỏ lên máy chủ WeChat ở chế độ nền mà không cần sử dụng các công cụ dành cho nhà phát triển WeChat.
  *
  * Chức năng chính:
- * 1. Phát hiện môi trường - phát hiện xem Node.js và miniprogram-ci có được cài đặt trên máy chủ hay không
- * 2. Hướng dẫn cài đặt - Cung cấp hướng dẫn cài đặt cho các hệ điều hành khác nhau.
+ * 1. Phát hiện môi trường - phát hiện xem Node.js và miniprogram-ci có được Cài đặt trên máy chủ hay không
+ * 2. Hướng dẫn Cài đặt - Cung cấp hướng dẫn Cài đặt cho các hệ điều hành khác nhau.
  * 3. Quản lý cấu hình - Quản lý khóa tải lên chương trình mini và cấu hình AppId
  * 4. Tải mã lên - Tải mã chương trình mini lên phiên bản phát triển WeChat
  * 5. Chức năng xem trước - tạo mã QR xem trước chương trình nhỏ để thử nghiệm
  *
  * Điều kiện sử dụng:
- * - Máy chủ đã được cài đặt Node.js (>=14.0.0) và npm
- * - được cài đặt trên toàn cầu miniprogram-ci (npm install miniprogram-ci -g)
+ * - Máy chủ đã được Cài đặt Node.js (>=14.0.0) và npm
+ * - được Cài đặt trên toàn cầu miniprogram-ci (npm install miniprogram-ci -g)
  * - Đã nhận được khóa tải lên mã chương trình nhỏ trên nền tảng công cộng WeChat
  * - Máy chủ PHP exec() Chức năng không bị vô hiệu hóa
  * 
  * @see https://developers.weixin.qq.com/miniprogram/dev/devtools/ci.html Tài liệu CI chính thức của WeChat
  * @package app\adminapi\controller\v1\application\routine
- */
-class RoutineCI extends AuthController
+ */class RoutineCI extends AuthController
 {
     /**
      * Node.js Ví dụ về dịch vụ phát hiện môi trường
@@ -46,12 +45,11 @@ class RoutineCI extends AuthController
      * Được sử dụng để phát hiện xem môi trường máy chủ có đáp ứng các yêu cầu để tải lên chương trình mini hay không:
      * - Node.js Phát hiện phiên bản
      * - kiểm tra tính khả dụng của npm
-     * - phát hiện trạng thái cài đặt miniprogram-ci
+     * - phát hiện trạng thái Cài đặt miniprogram-ci
      * - Nhận dạng loại hệ điều hành
      * 
      * @var NodeEnvironmentServices
-     */
-    protected $envServices;
+     */    protected $envServices;
 
     /**
      * Phiên bản dịch vụ lõi CI chương trình nhỏ
@@ -63,8 +61,7 @@ class RoutineCI extends AuthController
      * - Tạo mã QR xem trước
      * 
      * @var RoutineCIServices
-     */
-    protected $ciServices;
+     */    protected $ciServices;
 
     /**
      * Trình xây dựng - khởi tạo các phụ thuộc dịch vụ
@@ -72,11 +69,10 @@ class RoutineCI extends AuthController
      * Tiêm các phiên bản lớp dịch vụ được yêu cầu thông qua việc chèn phụ thuộc,
      * Vùng chứa của ThinkPHP sẽ tự động phân giải và đưa vào các phần phụ thuộc này。
      * 
-     * @param App $app ThinkPHP Ví dụ ứng dụng
+     * @param App $app ThinkPHP Ví dụ Ứng dụng
      * @param NodeEnvironmentServices $envServices Dịch vụ kiểm tra môi trường
      * @param RoutineCIServices $ciServices CI Dịch vụ tải lên
-     */
-    public function __construct(App $app, NodeEnvironmentServices $envServices, RoutineCIServices $ciServices)
+     */    public function __construct(App $app, NodeEnvironmentServices $envServices, RoutineCIServices $ciServices)
     {
         parent::__construct($app);
         $this->envServices = $envServices;
@@ -86,41 +82,39 @@ class RoutineCI extends AuthController
     /**
      * Nhận trạng thái môi trường đang chạy của máy chủ
      *
-     * Phát hiện và trả về tất cả thông tin môi trường cần thiết để tải lên chương trình mini và giao diện người dùng sẽ trả về kết quả dựa trên
-     * Hiển thị trạng thái sẵn sàng của môi trường hoặc hướng dẫn người dùng hoàn tất cấu hình môi trường.
+     * Phát hiện và trả về Tất cả thông tin môi trường cần thiết để tải lên chương trình mini và giao diện Khách hàng sẽ trả về kết quả dựa trên
+     * Hiển thị trạng thái sẵn sàng của môi trường hoặc hướng dẫn Khách hàng hoàn tất cấu hình môi trường.
      *
      * Trả về cấu trúc dữ liệu:
      * - os: Thông tin hệ điều hành (family, type, version)
-     * - node: Node.js tình trạng (installed, version, path, meets_requirement)
-     * - npm: npm tình trạng (installed, version)
+     * - node: Node.js Trạng thái (installed, version, path, meets_requirement)
+     * - npm: npm Trạng thái (installed, version)
      * - miniprogram_ci: CItrạng thái công cụ (installed, version)
      * - ready: Giá trị Boolean, cho dù môi trường đã hoàn toàn sẵn sàng
-     * - can_install: Có hỗ trợ cài đặt tự động hay không
+     * - can_install: Có hỗ trợ Cài đặt tự động hay không
      * - exec_enabled: execChức năng này có sẵn không?
      * - message: Tin nhắn nhắc nhở
      *
      * @return phản hồi JSON hỗn hợp, bao gồm thông tin trạng thái môi trường hoàn chỉnh
-     */
-    public function environment()
+     */    public function environment()
     {
         $data = $this->envServices->getEnvironmentStatus();
         return app('json')->success($data);
     }
 
     /**
-     * Nhận hướng dẫn cài đặt môi trường
+     * Nhận hướng dẫn Cài đặt môi trường
      *
-     * Trả về các bước cài đặt Node.js và miniprogram-ci tương ứng tùy theo loại hệ điều hành máy chủ.
+     * Trả về các bước Cài đặt Node.js và miniprogram-ci tương ứng tùy theo loại hệ điều hành máy chủ.
      * Hệ điều hành được hỗ trợ: CentOS/RHEL、Ubuntu/Debian、macOS、Windows
      * 
      * Trả về cấu trúc dữ liệu:
-     * - title: Tiêu đề hướng dẫn (Chẳng hạn như "Hướng dẫn cài đặt CentOS/RHEL")
-     * - steps: Mảng các bước cài đặt, chứa hướng dẫn dòng lệnh
-     * - script_url: Địa chỉ URL của tập lệnh cài đặt bằng một cú nhấp chuột
+     * - title: Tiêu đề hướng dẫn (Chẳng hạn như "Hướng dẫn Cài đặt CentOS/RHEL")
+     * - steps: Mảng các bước Cài đặt, chứa hướng dẫn dòng lệnh
+     * - script_url: Địa chỉ URL của tập lệnh Cài đặt bằng một cú nhấp chuột
      *
-     * @return phản hồi JSON hỗn hợp, chứa hướng dẫn cài đặt phù hợp với hệ thống hiện tại
-     */
-    public function installGuide()
+     * @return phản hồi JSON hỗn hợp, chứa hướng dẫn Cài đặt phù hợp với hệ thống hiện tại
+     */    public function installGuide()
     {
         $guide = $this->envServices->getInstallGuide();
         return app('json')->success($guide);
@@ -129,7 +123,7 @@ class RoutineCI extends AuthController
     /**
      * Nhận trạng thái cấu hình tải lên chương trình nhỏ
      *
-     * Trả về thông tin cấu hình được tải lên hiện tại, được sử dụng cho giao diện người dùng để hiển thị trạng thái cấu hình và hướng dẫn quá trình cấu hình.
+     * Trả về thông tin cấu hình được tải lên hiện tại, được sử dụng cho giao diện Khách hàng để hiển thị trạng thái cấu hình và hướng dẫn quá trình cấu hình.
      *
      * Trả về cấu trúc dữ liệu:
      * - app_id: Chương trình nhỏ AppId
@@ -140,8 +134,7 @@ class RoutineCI extends AuthController
      * - project_exists: Thư mục dự án có tồn tại không?
      *
      * @return phản hồi JSON hỗn hợp, bao gồm thông tin trạng thái cấu hình tải lên
-     */
-    public function uploadConfig()
+     */    public function uploadConfig()
     {
         $config = $this->ciServices->getUploadConfig();
         return app('json')->success($config);
@@ -151,10 +144,10 @@ class RoutineCI extends AuthController
      * Lưu khóa tải lên mã chương trình mini
      *
      * Nhận và lưu khóa tải lên mã chương trình nhỏ được tải xuống từ nền tảng công cộng WeChat.
-     * Key dùng để xác thực bằng công cụ miniprogram-ci, đảm bảo chỉ những người dùng được ủy quyền mới có thể tải mã lên.
+     * Key dùng để xác thực bằng công cụ miniprogram-ci, đảm bảo chỉ những Khách hàng được ủy quyền mới có thể tải mã lên.
      *
      * Yêu cầu thông số:
-     * - key_content: string, Bắt buộc, nội dung khóa riêng RSA (Bắt đầu với -----BEGIN RSA PRIVATE KEY-----)
+     * - key_content: string, Bắt buộc, Nội dung khóa riêng RSA (Bắt đầu với -----BEGIN RSA PRIVATE KEY-----)
      * 
      * Phương pháp lấy chìa khóa:
      * Nền tảng công cộng WeChat -> quản lý phát triển -> Cài đặt phát triển -> Tải lên mã chương trình nhỏ -> Khóa tải xuống
@@ -165,15 +158,14 @@ class RoutineCI extends AuthController
      * - Không cam kết tệp chính vào hệ thống kiểm soát phiên bản
      *
      * @return phản hồi JSON hỗn hợp, thông tin nhắc nhở được trả về nếu thành công, lý do lỗi được trả về nếu thất bại
-     */
-    public function savePrivateKey()
+     */    public function savePrivateKey()
     {
-        // Nhận nội dung chính từ yêu cầu POST
+        // Nhận Nội dung chính từ yêu cầu POST
         $keyContent = $this->request->post('key_content', '');
 
         // Nội dung khóa xác minh không được để trống
         if (empty($keyContent)) {
-            return app('json')->fail('Vui lòng cung cấp nội dung chính');
+            return app('json')->fail('Vui lòng cung cấp Nội dung chính');
         }
 
         // Gọi lớp dịch vụ để lưu khóa (lớp dịch vụ sẽ xác minh định dạng khóa）
@@ -207,8 +199,7 @@ class RoutineCI extends AuthController
      * - output: Đầu ra thực hiện lệnh
      *
      * @return phản hồi JSON hỗn hợp, bao gồm thông tin kết quả tải lên
-     */
-    public function upload()
+     */    public function upload()
     {
         // Nhận tham số yêu cầu theo lô
         [$version, $desc, $isLive] = $this->request->postMore([
@@ -260,8 +251,7 @@ class RoutineCI extends AuthController
      * - Chỉ những nhà phát triển và trải nghiệm các chương trình mini mới có thể quét mã để xem trước
      *
      * @return phản hồi JSON hỗn hợp, bao gồm thông tin mã QR xem trước
-     */
-    public function preview()
+     */    public function preview()
     {
         // Nhận thông số đường dẫn trang xem trước
         $pagePath = $this->request->post('page_path', '');

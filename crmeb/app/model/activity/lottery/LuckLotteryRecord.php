@@ -21,8 +21,7 @@ use think\Model;
  *
  * Class LuckLotteryRecordDao
  * @package app\model\activity\lottery
- */
-class LuckLotteryRecord extends BaseModel
+ */class LuckLotteryRecord extends BaseModel
 {
 
     use ModelTrait;
@@ -30,21 +29,18 @@ class LuckLotteryRecord extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'luck_lottery_record';
+     */    protected $name = 'luck_lottery_record';
 
     /**
      * Biên nhận sửa đổi thông tin
      * @param $value
      * @return false|string
-     */
-    protected function setReceiveInfoAttr($value)
+     */    protected function setReceiveInfoAttr($value)
     {
         if ($value) {
             return is_array($value) ? json_encode($value) : $value;
@@ -57,8 +53,7 @@ class LuckLotteryRecord extends BaseModel
      * @param $value
      * @param $data
      * @return mixed
-     */
-    protected function getReceiveInfoAttr($value)
+     */    protected function getReceiveInfoAttr($value)
     {
         return $value ? json_decode($value, true) : [];
     }
@@ -67,8 +62,7 @@ class LuckLotteryRecord extends BaseModel
      * Công cụ sửa đổi thông tin vận chuyển
      * @param $value
      * @return false|string
-     */
-    protected function setDeliverInfoAttr($value)
+     */    protected function setDeliverInfoAttr($value)
     {
         if ($value) {
             return is_array($value) ? json_encode($value) : $value;
@@ -81,8 +75,7 @@ class LuckLotteryRecord extends BaseModel
      * @param $value
      * @param $data
      * @return mixed
-     */
-    protected function getDeliverInfoAttr($value)
+     */    protected function getDeliverInfoAttr($value)
     {
         return $value ? json_decode($value, true) : [];
     }
@@ -90,8 +83,7 @@ class LuckLotteryRecord extends BaseModel
     /**
      * Xổ số liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function lottery()
+     */    public function lottery()
     {
         return $this->hasOne(LuckLottery::class, 'id', 'lottery_id');
     }
@@ -99,8 +91,7 @@ class LuckLotteryRecord extends BaseModel
     /**
      * Giải thưởng liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function prize()
+     */    public function prize()
     {
         return $this->hasOne(LuckPrize::class, 'id', 'prize_id');
     }
@@ -108,18 +99,16 @@ class LuckLotteryRecord extends BaseModel
     /**
      * Người dùng được liên kết
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field('uid,real_name,nickname,phone');
     }
 
     /**
-     * Trình tìm kiếm uid người dùng
+     * Trình tìm kiếm uid Khách hàng
      * @param $query Model
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value) $query->where('uid', $value);
     }
@@ -128,8 +117,7 @@ class LuckLotteryRecord extends BaseModel
      * người tìm kiếm từ khóa
      * @param $query Model
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value !== '') {
             $query->where(function ($query1) use ($value) {
@@ -148,8 +136,7 @@ class LuckLotteryRecord extends BaseModel
      * Người tìm kiếm id xổ số
      * @param $query Model
      * @param $value
-     */
-    public function searchLotteryIdAttr($query, $value)
+     */    public function searchLotteryIdAttr($query, $value)
     {
         if ($value !== '') $query->where('lottery_id', $value);
     }
@@ -158,8 +145,7 @@ class LuckLotteryRecord extends BaseModel
      * người tìm kiếm id giải thưởng
      * @param $query Model
      * @param $value
-     */
-    public function searchPrizeIdAttr($query, $value)
+     */    public function searchPrizeIdAttr($query, $value)
     {
         if ($value) $query->where('prize_id', $value);
     }
@@ -168,8 +154,7 @@ class LuckLotteryRecord extends BaseModel
      * Công cụ tìm loại giải thưởng
      * @param $query Model
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value) {
             if (is_array($value)) {
@@ -184,8 +169,7 @@ class LuckLotteryRecord extends BaseModel
      * Giải thưởng không còn có sẵn trong loại tìm kiếm này
      * @param $query Model
      * @param $value
-     */
-    public function searchNotTypeAttr($query, $value)
+     */    public function searchNotTypeAttr($query, $value)
     {
         if ($value) {
             if (is_array($value)) {
@@ -200,8 +184,7 @@ class LuckLotteryRecord extends BaseModel
      * Có nhận được không
      * @param $query Model
      * @param $value
-     */
-    public function searchIsReceiveAttr($query, $value)
+     */    public function searchIsReceiveAttr($query, $value)
     {
         if ($value !== '') $query->where('is_reveive', $value);
     }
@@ -210,8 +193,7 @@ class LuckLotteryRecord extends BaseModel
      * Có gửi hàng hay không
      * @param $query Model
      * @param $value
-     */
-    public function searchIsDeliverAttr($query, $value)
+     */    public function searchIsDeliverAttr($query, $value)
     {
         if ($value !== '') $query->where('is_deliver', $value);
     }

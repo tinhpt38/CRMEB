@@ -24,16 +24,14 @@ use think\Request;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\adminapi\controller\v1\setting
- */
-class SystemRouteCate extends AuthController
+ */class SystemRouteCate extends AuthController
 {
 
     /**
      * SystemRouteCate constructor.
      * @param App $app
      * @param SystemRouteCateServices $services
-     */
-    public function __construct(App $app, SystemRouteCateServices $services)
+     */    public function __construct(App $app, SystemRouteCateServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -44,8 +42,7 @@ class SystemRouteCate extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function index()
+     */    public function index()
     {
         return app('json')->success($this->services->getAllList());
     }
@@ -55,8 +52,7 @@ class SystemRouteCate extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->getFrom(0, $this->request->get('app_name', 'adminapi')));
     }
@@ -67,8 +63,7 @@ class SystemRouteCate extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function save(Request $request)
+     */    public function save(Request $request)
     {
         $data = $request->postMore([
             ['path', []],
@@ -96,8 +91,7 @@ class SystemRouteCate extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->getFrom($id, $this->request->get('app_name', 'adminapi')));
     }
@@ -109,8 +103,7 @@ class SystemRouteCate extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function update(Request $request, $id)
+     */    public function update(Request $request, $id)
     {
         $data = $request->postMore([
             ['path', []],
@@ -136,8 +129,7 @@ class SystemRouteCate extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function delete(SystemRouteServices $service, $id)
+     */    public function delete(SystemRouteServices $service, $id)
     {
         if (!$id) {
             return app('json')->fail('giao diện không tồn tại');

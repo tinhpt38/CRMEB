@@ -23,15 +23,13 @@ use crmeb\services\sms\Sms;
  * Đăng ký và đăng nhập nền tảng SMS
  * Class SmsAdminServices
  * @package app\services\message\sms
- */
-class SmsAdminServices extends BaseServices
+ */class SmsAdminServices extends BaseServices
 {
     /**
      * Người xây dựng
      * SmsAdminServices constructor.
      * @param SystemConfigDao $dao
-     */
-    public function __construct(SystemConfigDao $dao)
+     */    public function __construct(SystemConfigDao $dao)
     {
         $this->dao = $dao;
     }
@@ -41,8 +39,7 @@ class SmsAdminServices extends BaseServices
      * @param string $account
      * @param string $password
      * @return mixed
-     */
-    public function updateSmsConfig(string $account, string $password)
+     */    public function updateSmsConfig(string $account, string $password)
     {
         return $this->transaction(function () use ($account, $password) {
             $this->dao->update('sms_account', ['value' => json_encode($account)], 'menu_name');
@@ -60,11 +57,9 @@ class SmsAdminServices extends BaseServices
      * @param int $code
      * @param string $sign
      * @return bool
-     */
-    public function register(string $account, string $password, string $url, string $phone, string $code, string $sign)
+     */    public function register(string $account, string $password, string $url, string $phone, string $code, string $sign)
     {
-        /** @var Sms $sms */
-        $sms = app()->make(Sms::class, ['yihaotong']);
+        /** @var Sms $sms */        $sms = app()->make(Sms::class, ['yihaotong']);
         $status = $sms->register($account, md5(trim($password)), $url, $phone, $code, $sign);
         if ($status['status'] == 400) {
             throw new AdminException('nền tảng tin nhắn SMS：{:msg}', ['msg' => $status['msg']]);
@@ -77,11 +72,9 @@ class SmsAdminServices extends BaseServices
      * Gửi mã xác minh
      * @param string $phone
      * @return mixed
-     */
-    public function captcha(string $phone)
+     */    public function captcha(string $phone)
     {
-        /** @var Sms $sms */
-        $sms = app()->make(Sms::class, ['yihaotong']);
+        /** @var Sms $sms */        $sms = app()->make(Sms::class, ['yihaotong']);
         //TODO
         $res = json_decode(HttpService::getRequest($sms->getSmsUrl(), compact('phone')), true);
         if (!isset($res['status']) && $res['status'] !== 200) {
@@ -96,11 +89,9 @@ class SmsAdminServices extends BaseServices
      * @param string $token
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function login(string $account, string $token)
+     */    public function login(string $account, string $token)
     {
-        /** @var Sms $sms */
-        $sms = app()->make(Sms::class, [
+        /** @var Sms $sms */        $sms = app()->make(Sms::class, [
             'yihaotong', [
                 'sms_account' => $account,
                 'sms_token' => $token,
@@ -129,8 +120,7 @@ class SmsAdminServices extends BaseServices
     /**
      * Nhận thông tin tài khoản SMS hiện đang đăng nhập
      * @return mixed
-     */
-    public function getSmsData()
+     */    public function getSmsData()
     {
         $account = sys_config('sms_account');
         $sms = app()->make(Sms::class, ['yihaotong', [
@@ -146,8 +136,7 @@ class SmsAdminServices extends BaseServices
             $info['number'] = $countInfo['data']['number'];
             $info['total_number'] = $countInfo['data']['send_total'];
         }
-        /** @var SmsRecordServices $service */
-        $service = app()->make(SmsRecordServices::class);
+        /** @var SmsRecordServices $service */        $service = app()->make(SmsRecordServices::class);
         $info['record_number'] = $service->count(['uid' => $account]);
         $info['sms_account'] = $account;
         return $info;

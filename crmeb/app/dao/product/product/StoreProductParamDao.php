@@ -14,12 +14,11 @@ use app\dao\BaseDao;
 use app\model\product\product\StoreProductParam;
 
 /**
- * Thông số sản phẩm
+ * Thuộc tính sản phẩm
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2024/12/17
- */
-class StoreProductParamDao extends BaseDao
+ */class StoreProductParamDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
@@ -27,8 +26,7 @@ class StoreProductParamDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductParam::class;
     }
@@ -40,8 +38,7 @@ class StoreProductParamDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function conditionSearch($where)
+     */    public function conditionSearch($where)
     {
         return $this->getModel()
             ->when(isset($where['name']) && $where['name'] !== '', function ($query) use ($where) {
@@ -66,8 +63,7 @@ class StoreProductParamDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function getParamList(array $where = [], string $field = '*', int $page = 0, int $limit = 0)
+     */    public function getParamList(array $where = [], string $field = '*', int $page = 0, int $limit = 0)
     {
         return $this->conditionSearch($where)->field($field)->order('sort DESC')->page($page, $limit)->select()->toArray();
     }
@@ -79,8 +75,7 @@ class StoreProductParamDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function getParamCount(array $where = [])
+     */    public function getParamCount(array $where = [])
     {
         return $this->conditionSearch($where)->count();
     }

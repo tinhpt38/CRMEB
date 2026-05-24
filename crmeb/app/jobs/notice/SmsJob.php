@@ -27,13 +27,11 @@ class SmsJob extends BaseJobs
      * @param $adminList
      * @param $order
      * @return bool
-     */
-    public function doJob($phone, array $data, string $template)
+     */    public function doJob($phone, array $data, string $template)
     {
 
         try{
-            /** @var SmsService $smsServices */
-            $smsServices = app()->make(SmsService::class);
+            /** @var SmsService $smsServices */            $smsServices = app()->make(SmsService::class);
             $smsServices->send(true, $phone, $data, $template);
             return true;
         }catch (\Throwable $e) {

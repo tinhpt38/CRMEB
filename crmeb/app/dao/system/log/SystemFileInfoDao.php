@@ -17,14 +17,12 @@ use app\model\system\log\SystemFileInfo;
  * @author thủy triều
  * @email 442384644@qq.com
  * @date 2023/04/07
- */
-class SystemFileInfoDao extends BaseDao
+ */class SystemFileInfoDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemFileInfo::class;
     }

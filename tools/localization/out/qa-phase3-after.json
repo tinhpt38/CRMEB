@@ -1,0 +1,217 @@
+{
+  "roots": [
+    "template/admin/src",
+    "crmeb/app",
+    "f-chan/src"
+  ],
+  "summary": {
+    "files": 1777,
+    "filesWithHits": 13,
+    "totalHits": 18,
+    "countByKind": {
+      "han": 0,
+      "suspect": 18,
+      "hon": 0
+    }
+  },
+  "countByTerm": {
+    "bật lên": 12,
+    "Thứ tự": 1,
+    "Giao diện editor": 2,
+    "hàng hóa": 1,
+    "sáng tạo": 2
+  },
+  "perFile": [
+    {
+      "file": "template/admin/src/components/verifition/Verify/VerifyPoints.vue",
+      "hits": [
+        {
+          "line": 72,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/verifition/Verify/VerifySlide.vue",
+      "hits": [
+        {
+          "line": 87,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/routine/ciUpload/index.vue",
+      "hits": [
+        {
+          "line": 440,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Trạng thái bật lên"
+        },
+        {
+          "line": 1545,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        },
+        {
+          "line": 1579,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên hướng dẫn cài đặt"
+        },
+        {
+          "line": 1913,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên tải lên khóa"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeBargain/create.vue",
+      "hits": [
+        {
+          "line": 921,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Chỉ định đường dẫn của trang trong lớp bật lên. Chỉ có các trang được hỗ trợ ở đây. Vui lòng tham khảo Câu hỏi thường gặp để biết đường dẫn. 2"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productAdd/components/MarketingSetting.vue",
+      "hits": [
+        {
+          "line": 216,
+          "kind": "suspect",
+          "context": "template",
+          "term": "Thứ tự",
+          "preview": "<el-form-item label=\"Thứ tự sắp xếp：\">"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemOutInterface/components/MonacoEditor.vue",
+      "hits": [
+        {
+          "line": 52,
+          "kind": "suspect",
+          "context": "script",
+          "term": "Giao diện editor",
+          "preview": "theme: 'vs', // Giao diện editor：vs, hc-black, or vs-dark，Để có thêm lựa chọn, hãy xem trang web chính thức"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/components/themeSelect/index.vue",
+      "hits": [
+        {
+          "line": 335,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/editTheme/components/StyleConfig.vue",
+      "hits": [
+        {
+          "line": 572,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/backendRouting/components/MonacoEditor.vue",
+      "hits": [
+        {
+          "line": 52,
+          "kind": "suspect",
+          "context": "script",
+          "term": "Giao diện editor",
+          "preview": "theme: 'vs', // Giao diện editor：vs, hc-black, or vs-dark，Để có thêm lựa chọn, hãy xem trang web chính thức"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/api/route/v2.php",
+      "hits": [
+        {
+          "line": 57,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "//Đơn hàng hóa đơn Ứng dụng"
+        },
+        {
+          "line": 101,
+          "kind": "suspect",
+          "context": "code",
+          "term": "bật lên",
+          "preview": "Route::get('get_today_coupon', 'v2.store.StoreCouponsController/getTodayCoupon')->option(['real_name' => 'Giao diện Hoạt động phiếu giảm giá mới']);//Giao diện "
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/dao/activity/coupon/StoreCouponIssueDao.php",
+      "hits": [
+        {
+          "line": 308,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "* Nhận danh sách bật lên phiếu giảm giá"
+        }
+      ]
+    },
+    {
+      "file": "crmeb/app/services/system/SystemTicketServices.php",
+      "hits": [
+        {
+          "line": 58,
+          "kind": "suspect",
+          "context": "code",
+          "term": "bật lên",
+          "preview": "$field[] = Form::radio('status', 'Công tắc in', $info['status'] ?? 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);"
+        }
+      ]
+    },
+    {
+      "file": "f-chan/src/mock/products.json",
+      "hits": [
+        {
+          "line": 81,
+          "kind": "suspect",
+          "context": "code",
+          "term": "sáng tạo",
+          "preview": "\"detail\": \"Bắp cải tím có màu sắc bắt mắt, giàu chất chống oxy hóa, thích hợp cho mọi bữa ăn và chế biến sáng tạo.\""
+        },
+        {
+          "line": 171,
+          "kind": "suspect",
+          "context": "code",
+          "term": "sáng tạo",
+          "preview": "\"detail\": \"Bắp cải mini có hương vị tươi mới, giàu dưỡng chất, dễ chế biến cho các món ăn nhanh và sáng tạo.\""
+        }
+      ]
+    }
+  ]
+}

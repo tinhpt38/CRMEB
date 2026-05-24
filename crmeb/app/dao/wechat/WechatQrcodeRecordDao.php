@@ -18,8 +18,7 @@ class WechatQrcodeRecordDao extends BaseDao
 {
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return WechatQrcodeRecord::class;
     }
@@ -34,8 +33,7 @@ class WechatQrcodeRecordDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList($where, $page = 0, $limit = 0, $is_distinct = 0)
+     */    public function getList($where, $page = 0, $limit = 0, $is_distinct = 0)
     {
         return $this->search($where)->with(['user'])->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -53,8 +51,7 @@ class WechatQrcodeRecordDao extends BaseDao
      * @param $str
      * @param string $orderStatus
      * @return mixed
-     */
-    public function getRecordTrend($qid, $time, $timeType, $field, $str, $orderStatus = '')
+     */    public function getRecordTrend($qid, $time, $timeType, $field, $str, $orderStatus = '')
     {
         return $this->getModel()->where(function ($query) use ($field, $orderStatus) {
             if ($orderStatus == 'yes') {

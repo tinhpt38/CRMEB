@@ -31,8 +31,7 @@ class ProductController
      * @param Request $request
      * @param StoreCategoryServices $services
      * @return mixed
-     */
-    public function getProductList(Request $request, StoreCategoryServices $services)
+     */    public function getProductList(Request $request, StoreCategoryServices $services)
     {
         $where = $request->getMore([
             [['sid', 'd'], 0],
@@ -65,8 +64,7 @@ class ProductController
      * PCMã applet chi tiết sản phẩm cuối cùng
      * @param Request $request
      * @return mixed
-     */
-    public function getProductRoutineCode(Request $request)
+     */    public function getProductRoutineCode(Request $request)
     {
         list($product_id, $type) = $request->getMore([
             ['product_id', 0],
@@ -81,11 +79,9 @@ class ProductController
      * @param Request $request
      * @param $type
      * @return mixed
-     */
-    public function getRecommendList(Request $request, $type)
+     */    public function getRecommendList(Request $request, $type)
     {
-        /** @var StoreProductServices $product */
-        $product = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $product */        $product = app()->make(StoreProductServices::class);
         $data = [];
         $data['list'] = [];
         $where['is_show'] = 1;
@@ -120,11 +116,9 @@ class ProductController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGoodProduct()
+     */    public function getGoodProduct()
     {
-        /** @var StoreProductServices $product */
-        $product = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $product */        $product = app()->make(StoreProductServices::class);
         $list = get_thumb_water($product->getProducts(['is_good' => 1, 'is_del' => 0, 'is_show' => 1]), 'mid');
         return app('json')->success(compact('list'));
     }

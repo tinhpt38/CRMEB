@@ -26,14 +26,12 @@ use think\facade\Config;
 /**
  * Class WechatQrcodeServices
  * @package app\services\wechat
- */
-class WechatQrcodeServices extends BaseServices
+ */class WechatQrcodeServices extends BaseServices
 {
     /**
      * WechatQrcodeServices constructor.
      * @param WechatQrcodeDao $dao
-     */
-    public function __construct(WechatQrcodeDao $dao)
+     */    public function __construct(WechatQrcodeDao $dao)
     {
         $this->dao = $dao;
     }
@@ -45,11 +43,9 @@ class WechatQrcodeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function qrcodeList($where)
+     */    public function qrcodeList($where)
     {
-        /** @var UserLabelServices $userLabel */
-        $userLabel = app()->make(UserLabelServices::class);
+        /** @var UserLabelServices $userLabel */        $userLabel = app()->make(UserLabelServices::class);
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
         foreach ($list as &$item) {
@@ -70,8 +66,7 @@ class WechatQrcodeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function qrcodeInfo($id)
+     */    public function qrcodeInfo($id)
     {
         $info = $this->dao->get($id);
         if ($info) {
@@ -79,14 +74,12 @@ class WechatQrcodeServices extends BaseServices
         } else {
             throw new AdminException('Dữ liệu không tồn tại');
         }
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $info['label_id'] = explode(',', $info['label_id']);
         foreach ($info['label_id'] as &$item) {
             $item = (int)$item;
         }
-        /** @var UserLabelServices $userLabelServices */
-        $userLabelServices = app()->make(UserLabelServices::class);
+        /** @var UserLabelServices $userLabelServices */        $userLabelServices = app()->make(UserLabelServices::class);
         $info['label_id'] = $userLabelServices->getLabelList(['ids' => $info['label_id']], ['id', 'label_name']);
         $info['time'] = $info['continue_time'];
         $info['content'] = json_decode($info['content'], true);
@@ -103,15 +96,13 @@ class WechatQrcodeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveQrcode($id, $data)
+     */    public function saveQrcode($id, $data)
     {
         $data['label_id'] = implode(',', $data['label_id']);
         $data['add_time'] = time();
         $data['continue_time'] = $data['time'];
         $data['end_time'] = $data['time'] ? $data['add_time'] + ($data['time'] * 86400) : 0;
-        /** @var WechatReplyServices $replyServices */
-        $replyServices = app()->make(WechatReplyServices::class);
+        /** @var WechatReplyServices $replyServices */        $replyServices = app()->make(WechatReplyServices::class);
         $type = $data['type'];
         if ($data['type'] == 'url') $type = 'text';
         $content = $data['content'];
@@ -142,17 +133,14 @@ class WechatQrcodeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getChannelCode($id = 0)
+     */    public function getChannelCode($id = 0)
     {
-        /** @var SystemAttachmentServices $systemAttachment */
-        $systemAttachment = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachment */        $systemAttachment = app()->make(SystemAttachmentServices::class);
         $name = 'wechatqrcode_' . $id . '.jpg';
         $siteUrl = sys_config('site_url', '');
         $imageInfo = $systemAttachment->getInfo(['name' => $name]);
         if (!$imageInfo) {
-            /** @var QrcodeServices $qrCode */
-            $qrCode = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrCode */            $qrCode = app()->make(QrcodeServices::class);
             //Tài khoản chính thức
             $resCode = $qrCode->getForeverQrcode('wechatqrcode', $id);
             if ($resCode) {
@@ -176,8 +164,7 @@ class WechatQrcodeServices extends BaseServices
      * @param int $w
      * @param int $h
      * @return string
-     */
-    public function downloadImage($url = '', $name = '', $type = 0, $timeout = 30, $w = 0, $h = 0)
+     */    public function downloadImage($url = '', $name = '', $type = 0, $timeout = 30, $w = 0, $h = 0)
     {
         if (!strlen(trim($url))) return '';
         if (!strlen(trim($name))) {
@@ -236,8 +223,7 @@ class WechatQrcodeServices extends BaseServices
      * @param string $url
      * @param string $ex
      * @return array|string[]
-     */
-    public function getImageExtname($url = '', $ex = 'jpg')
+     */    public function getImageExtname($url = '', $ex = 'jpg')
     {
         $_empty = ['file_name' => '', 'ext_name' => $ex];
         if (!$url) return $_empty;
@@ -259,14 +245,12 @@ class WechatQrcodeServices extends BaseServices
      * @param $spreadInfo
      * @param int $isFollow
      * @return mixed
-     */
-    public function wechatQrcodeRecord($qrcodeInfo, $userInfo, $spreadInfo, $isFollow = 1)
+     */    public function wechatQrcodeRecord($qrcodeInfo, $userInfo, $spreadInfo, $isFollow = 1)
     {
         $response = $this->transaction(function () use ($qrcodeInfo, $userInfo, $spreadInfo, $isFollow) {
 
-            //Ràng buộc thẻ người dùng
-            /** @var UserLabelRelationServices $labelServices */
-            $labelServices = app()->make(UserLabelRelationServices::class);
+            //Liên kết thẻ Khách hàng
+            /** @var UserLabelRelationServices $labelServices */            $labelServices = app()->make(UserLabelRelationServices::class);
             foreach ($qrcodeInfo['label_id'] as $item) {
                 $labelArr[] = [
                     'uid' => $userInfo['uid'],
@@ -279,15 +263,14 @@ class WechatQrcodeServices extends BaseServices
             $this->dao->upFollowAndScan($qrcodeInfo['id'], $isFollow);
 
             //Viết bản ghi mã quét
-            /** @var WechatQrcodeRecordServices $recordServices */
-            $recordServices = app()->make(WechatQrcodeRecordServices::class);
+            /** @var WechatQrcodeRecordServices $recordServices */            $recordServices = app()->make(WechatQrcodeRecordServices::class);
             $data['qid'] = $qrcodeInfo['id'];
             $data['uid'] = $userInfo['uid'];
             $data['is_follow'] = $isFollow;
             $data['add_time'] = time();
             $recordServices->save($data);
 
-            //Trả lời nội dung tin nhắn
+            //Trả lời Nội dung tin nhắn
             return $this->replyDataByMessage($qrcodeInfo['type'], $qrcodeInfo['data']);
         });
         return $response;
@@ -298,8 +281,7 @@ class WechatQrcodeServices extends BaseServices
      * @param $type
      * @param $data
      * @return array|\EasyWeChat\Message\Image|\EasyWeChat\Message\News|\EasyWeChat\Message\Text|\EasyWeChat\Message\Voice
-     */
-    public function replyDataByMessage($type, $data)
+     */    public function replyDataByMessage($type, $data)
     {
         if ($type == 'text') {
             return WechatService::textMessage($data['content']);

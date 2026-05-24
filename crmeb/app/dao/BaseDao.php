@@ -12,7 +12,6 @@
  * @author: liaofei<136327134@qq.com>
  * @day: 2020/7/6
  */
-
 namespace app\dao;
 
 use crmeb\basic\BaseModel;
@@ -22,33 +21,28 @@ use think\Model;
 /**
  * Class BaseDao
  * @package app\dao
- */
-abstract class BaseDao
+ */abstract class BaseDao
 {
     /**
      * Bí danh tên bảng hiện tại
      * @var string
-     */
-    protected $alias;
+     */    protected $alias;
 
     /**
      * joinbí danh bảng
      * @var string
-     */
-    protected $joinAlis;
+     */    protected $joinAlis;
 
 
     /**
      * Lấy mô hình hiện tại
      * @return string
-     */
-    abstract protected function setModel(): string;
+     */    abstract protected function setModel(): string;
 
     /**
      * Đặt mô hình danh sách liên kết tham gia
      * @return string
-     */
-    protected function setJoinModel(): string
+     */    protected function setJoinModel(): string
     {
     }
 
@@ -58,8 +52,7 @@ abstract class BaseDao
      * @param bool $search
      * @return int
      * @throws \ReflectionException
-     */
-    public function count(array $where = [], bool $search = true)
+     */    public function count(array $where = [], bool $search = true)
     {
         return $this->search($where, $search)->count();
     }
@@ -77,8 +70,7 @@ abstract class BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function selectList(array $where, string $field = '*', int $page = 0, int $limit = 0, string $order = '', array $with = [], bool $search = false)
+     */    public function selectList(array $where, string $field = '*', int $page = 0, int $limit = 0, string $order = '', array $with = [], bool $search = false)
     {
         return $this->selectModel($where, $field, $page, $limit, $order, $with, $search)->select();
     }
@@ -96,8 +88,7 @@ abstract class BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/14
-     */
-    public function selectModel(array $where, string $field = '*', int $page = 0, int $limit = 0, string $order = '', array $with = [], bool $search = false)
+     */    public function selectModel(array $where, string $field = '*', int $page = 0, int $limit = 0, string $order = '', array $with = [], bool $search = false)
     {
         if ($search) {
             $model = $this->search($where);
@@ -117,8 +108,7 @@ abstract class BaseDao
      * Lấy tổng số điều kiện nhất định
      * @param array $where
      * @return int
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         return $this->getModel()->where($where)->count();
     }
@@ -132,8 +122,7 @@ abstract class BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDistinctCount(array $where, $field, bool $search = true)
+     */    public function getDistinctCount(array $where, $field, bool $search = true)
     {
         if ($search) {
             return $this->search($where)->field('COUNT(distinct(' . $field . ')) as count')->select()->toArray()[0]['count'] ?? 0;
@@ -145,8 +134,7 @@ abstract class BaseDao
     /**
      * Nhận mô hình
      * @return BaseModel
-     */
-    protected function getModel()
+     */    protected function getModel()
     {
         return app()->make($this->setModel());
     }
@@ -154,8 +142,7 @@ abstract class BaseDao
     /**
      * Nhận khóa chính
      * @return array|string
-     */
-    protected function getPk()
+     */    protected function getPk()
     {
         return $this->getModel()->getPk();
     }
@@ -165,8 +152,7 @@ abstract class BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/8
-     */
-    public function getTableName()
+     */    public function getTableName()
     {
         return $this->getModel()->getName();
     }
@@ -180,8 +166,7 @@ abstract class BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function get($id, ?array $field = [], ?array $with = [])
+     */    public function get($id, ?array $field = [], ?array $with = [])
     {
         if (is_array($id)) {
             $where = $id;
@@ -194,12 +179,11 @@ abstract class BaseDao
     }
 
     /**
-     * Truy vấn xem một phần dữ liệu có tồn tại không
+     * Tìm kiếm xem một phần dữ liệu có tồn tại không
      * @param $map
      * @param string $field
      * @return bool tồn tại
-     */
-    public function be($map, string $field = '')
+     */    public function be($map, string $field = '')
     {
         if (!is_array($map) && empty($field)) $field = $this->getPk();
         $map = !is_array($map) ? [$field => $map] : $map;
@@ -215,8 +199,7 @@ abstract class BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOne(array $where, ?string $field = '*', array $with = [])
+     */    public function getOne(array $where, ?string $field = '*', array $with = [])
     {
         $field = explode(',', $field);
         return $this->get($where, $field, $with);
@@ -227,8 +210,7 @@ abstract class BaseDao
      * @param $where
      * @param string|null $field
      * @return mixed
-     */
-    public function value($where, ?string $field = '')
+     */    public function value($where, ?string $field = '')
     {
         $pk = $this->getPk();
         return $this->search($this->setWhere($where))->value($field ?: $pk);
@@ -240,19 +222,17 @@ abstract class BaseDao
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getColumn(array $where, string $field, string $key = '')
+     */    public function getColumn(array $where, string $field, string $key = '')
     {
         return $this->getModel()->where($where)->column($field, $key);
     }
 
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int|string|array $id
      * @return mixed
-     */
-    public function delete($id, ?string $key = null)
+     */    public function delete($id, ?string $key = null)
     {
         if (is_array($id)) {
             $where = $id;
@@ -270,8 +250,7 @@ abstract class BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/15
-     */
-    public function destroy(int $id, bool $force = false)
+     */    public function destroy(int $id, bool $force = false)
     {
         return $this->getModel()->destroy($id, $force);
     }
@@ -282,8 +261,7 @@ abstract class BaseDao
      * @param array $data
      * @param string|null $key
      * @return BaseModel
-     */
-    public function update($id, array $data, ?string $key = null)
+     */    public function update($id, array $data, ?string $key = null)
     {
         if (is_array($id)) {
             $where = $id;
@@ -299,8 +277,7 @@ abstract class BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    protected function setWhere($where, ?string $key = null)
+     */    protected function setWhere($where, ?string $key = null)
     {
         if (!is_array($where)) {
             $where = [is_null($key) ? $this->getPk() : $key => $where];
@@ -314,8 +291,7 @@ abstract class BaseDao
      * @param array $data
      * @param string|null $key
      * @return BaseModel
-     */
-    public function batchUpdate(array $ids, array $data, ?string $key = null)
+     */    public function batchUpdate(array $ids, array $data, ?string $key = null)
     {
         return $this->getModel()->whereIn(is_null($key) ? $this->getPk() : $key, $ids)->update($data);
     }
@@ -324,8 +300,7 @@ abstract class BaseDao
      * Chèn dữ liệu
      * @param array $data
      * @return mixed
-     */
-    public function save(array $data)
+     */    public function save(array $data)
     {
         return $this->getModel()::create($data);
     }
@@ -335,8 +310,7 @@ abstract class BaseDao
      * @param array $data
      * @return \think\Collection
      * @throws \Exception
-     */
-    public function saveAll(array $data)
+     */    public function saveAll(array $data)
     {
         return $this->getModel()->saveAll($data);
     }
@@ -348,8 +322,7 @@ abstract class BaseDao
      * @param string|null $valueKey
      * @param array|string[] $where
      * @return mixed
-     */
-    public function getFieldValue($value, string $filed, ?string $valueKey = '', ?array $where = [])
+     */    public function getFieldValue($value, string $filed, ?string $valueKey = '', ?array $where = [])
     {
         return $this->getModel()->getFieldValue($value, $filed, $valueKey, $where);
     }
@@ -362,8 +335,7 @@ abstract class BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/18
-     */
-    private function getSearchData(array $where)
+     */    private function getSearchData(array $where)
     {
         $with = [];
         $otherWhere = [];
@@ -386,7 +358,7 @@ abstract class BaseDao
     }
 
     /**
-     * Nhận nội dung tìm kiếm dựa trên công cụ tìm kiếm
+     * Nhận Nội dung tìm kiếm dựa trên công cụ tìm kiếm
      * @param $where
      * @param $search
      * @return BaseModel
@@ -394,8 +366,7 @@ abstract class BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/18
-     */
-    protected function withSearchSelect($where, $search)
+     */    protected function withSearchSelect($where, $search)
     {
         [$with, $otherWhere] = $this->getSearchData($where);
         return $this->getModel()->withSearch($with, $where)->when($search, function ($query) use ($otherWhere) {
@@ -410,8 +381,7 @@ abstract class BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/11
-     */
-    protected function filterWhere(array $where = [])
+     */    protected function filterWhere(array $where = [])
     {
         $fields = $this->getModel()->getTableFields();
         foreach ($where as $key => $item) {
@@ -431,8 +401,7 @@ abstract class BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/18
-     */
-    public function search(array $where = [], bool $search = true)
+     */    public function search(array $where = [], bool $search = true)
     {
         if ($where) {
             return $this->withSearchSelect($where, $search);
@@ -448,8 +417,7 @@ abstract class BaseDao
      * @param bool $search
      * @return float
      * @throws \ReflectionException
-     */
-    public function sum(array $where, string $field, bool $search = false)
+     */    public function sum(array $where, string $field, bool $search = false)
     {
         if ($search) {
             return $this->search($where)->sum($field);
@@ -469,8 +437,7 @@ abstract class BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function bcInc($key, string $incField, string $inc, string $keyField = null, int $acc = 2)
+     */    public function bcInc($key, string $incField, string $inc, string $keyField = null, int $acc = 2)
     {
         return $this->bc($key, $incField, $inc, $keyField, 1);
     }
@@ -486,8 +453,7 @@ abstract class BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function bcDec($key, string $decField, string $dec, string $keyField = null, int $acc = 2)
+     */    public function bcDec($key, string $decField, string $dec, string $keyField = null, int $acc = 2)
     {
         return $this->bc($key, $decField, $dec, $keyField, 2);
     }
@@ -504,8 +470,7 @@ abstract class BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function bc($key, string $incField, string $inc, string $keyField = null, int $type = 1, int $acc = 2)
+     */    public function bc($key, string $incField, string $inc, string $keyField = null, int $type = 1, int $acc = 2)
     {
         if ($keyField === null) {
             $result = $this->get($key);
@@ -534,8 +499,7 @@ abstract class BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function decStockIncSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales')
+     */    public function decStockIncSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales')
     {
         $isQuota = false;
         if (isset($where['type']) && $where['type']) {
@@ -561,8 +525,7 @@ abstract class BaseDao
      * @param string $stock
      * @param string $sales
      * @return mixed
-     */
-    public function incStockDecSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales')
+     */    public function incStockDecSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales')
     {
         $isQuota = false;
         if (isset($where['type']) && $where['type']) {
@@ -589,8 +552,7 @@ abstract class BaseDao
      * @param array $where
      * @param string $field
      * @return mixed
-     */
-    public function getMax(array $where = [], string $field = '')
+     */    public function getMax(array $where = [], string $field = '')
     {
         return $this->getModel()->where($where)->max($field);
     }
@@ -600,14 +562,13 @@ abstract class BaseDao
      * @param array $where
      * @param string $field
      * @return mixed
-     */
-    public function getMin(array $where = [], string $field = '')
+     */    public function getMin(array $where = [], string $field = '')
     {
         return $this->getModel()->where($where)->min($field);
     }
 
     /**
-     * lấy(tình trạng)theo(loại)Điều 1
+     * lấy(Trạng thái)theo(loại)Điều 1
      * @param array $where
      * @param string $order
      * @return mixed
@@ -617,8 +578,7 @@ abstract class BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/9/12
-     */
-    public function getOrderOne(array $where = [], string $order = 'id desc')
+     */    public function getOrderOne(array $where = [], string $order = 'id desc')
     {
         return $this->getModel()->where($where)->order($order)->find();
     }
@@ -630,8 +590,7 @@ abstract class BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/11
-     */
-    public function insertGetId(array $data)
+     */    public function insertGetId(array $data)
     {
         return $this->getModel()->insertGetId($data);
     }

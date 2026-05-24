@@ -11,8 +11,7 @@ use think\Response;
 
 /**
  * Theme công khai cho Zalo Mini App.
- */
-class ZaloThemeController
+ */class ZaloThemeController
 {
     protected ZaloMiniAppThemeServices $services;
 
@@ -23,8 +22,7 @@ class ZaloThemeController
 
     /**
      * GET /api/zalo/theme
-     */
-    public function theme(): Response
+     */    public function theme(): Response
     {
         $payload = $this->services->getPublicThemePayload();
         $etag = 'W/"zalo-theme-' . $payload['version'] . '"';

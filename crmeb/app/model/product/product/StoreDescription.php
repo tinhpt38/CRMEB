@@ -18,14 +18,12 @@ use crmeb\traits\ModelTrait;
  *  Chi tiết sản phẩmModel
  * Class StoreDescription
  * @package app\model\product\product
- */
-class StoreDescription extends BaseModel
+ */class StoreDescription extends BaseModel
 {
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_description';
+     */    protected $name = 'store_product_description';
 
     use ModelTrait;
 
@@ -38,8 +36,7 @@ class StoreDescription extends BaseModel
      * Trình tìm kiếm ID sản phẩm
      * @param $query
      * @param $value
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         if ($value) $query->where('product_id', $value);
     }
@@ -48,8 +45,7 @@ class StoreDescription extends BaseModel
      * Nhập trình tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }

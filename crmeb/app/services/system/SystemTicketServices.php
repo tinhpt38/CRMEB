@@ -43,8 +43,8 @@ class SystemTicketServices extends BaseServices
             ->options([['label' => 'Yilianyun', 'value' => 1], ['label' => 'Đám mây ngỗng bay', 'value' => 2]])
             ->appendControl(1, [
                     Form::input('yly_user_id', 'ID khách hàng：', $info['yly_user_id'] ?? '')->required('Vui lòng nhập ID khách hàng')->placeholder('Nhà phát triển đám mây YilianID'),
-                    Form::input('yly_app_id', 'ứng dụngID：', $info['yly_app_id'] ?? '')->required('Vui lòng nhập đơn đăng kýID')->placeholder('Ứng dụng YilianID'),
-                    Form::input('yly_app_secret', 'phím ứng dụng：', $info['yly_app_secret'] ?? '')->required('Vui lòng nhập mã ứng dụng')->placeholder('Khóa ứng dụng Yilian'),
+                    Form::input('yly_app_id', 'Ứng dụngID：', $info['yly_app_id'] ?? '')->required('Vui lòng nhập đơn đăng kýID')->placeholder('Ứng dụng YilianID'),
+                    Form::input('yly_app_secret', 'phím Ứng dụng：', $info['yly_app_secret'] ?? '')->required('Vui lòng nhập mã Ứng dụng')->placeholder('Khóa Ứng dụng Yilian'),
                     Form::input('yly_sn', 'số thiết bị đầu cuối：', $info['yly_sn'] ?? '')->required('Vui lòng nhập số thiết bị đầu cuối')->placeholder('Số thiết bị đầu cuối máy in Yilianyun, model máy in: Máy in Yilianyun K4 phiên bản không dây'),
                 ]
             )->appendControl(2, [
@@ -55,8 +55,8 @@ class SystemTicketServices extends BaseServices
             );
         $field[] = Form::number('times', 'In số lượng câu đối', $info['times'] ?? 1)->min(1)->required('Vui lòng nhập số in')->placeholder('Số tờ được máy in in cùng một lúc');
         $field[] = Form::radio('print_type', 'Thời gian in', $info['print_type'] ?? 1)->options([['label' => 'In sau khi thanh toán', 'value' => 1], ['label' => 'In sau khi đặt hàng', 'value' => 2]]);
-        $field[] = Form::radio('status', 'Công tắc in', $info['status'] ?? 1)->options([['label' => 'bật lên', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
-        return create_form('In biên lai', $field, $this->url('/system/ticket/save/' . $id), 'POST');
+        $field[] = Form::radio('status', 'Công tắc in', $info['status'] ?? 1)->options([['label' => 'Bật', 'value' => 1], ['label' => 'Tắt', 'value' => 0]]);
+        return create_form('In phiếu giao hàng', $field, $this->url('/system/ticket/save/' . $id), 'POST');
     }
 
     public function ticketSave($id, $data)
@@ -109,7 +109,7 @@ class SystemTicketServices extends BaseServices
                     'terminal' => $item['yly_sn']
                 ];
                 $print_content = json_decode($item['print_content'], true);
-                if (is_null($print_content) || !count($print_content)) throw new AdminException('Vui lòng định cấu hình nội dung in trước');
+                if (is_null($print_content) || !count($print_content)) throw new AdminException('Vui lòng định cấu hình Nội dung in trước');
                 $content = $this->ylyContent($print_content, $order, $product, $item['times'], $print_type);
             } else { //Đám mây ngỗng bay
                 $name = 'fei_e_yun';
@@ -119,7 +119,7 @@ class SystemTicketServices extends BaseServices
                     'feySn' => $item['fey_sn']
                 ];
                 $print_content = json_decode($item['print_content'], true);
-                if (is_null($print_content) || !count($print_content)) throw new AdminException('Vui lòng định cấu hình nội dung in trước');
+                if (is_null($print_content) || !count($print_content)) throw new AdminException('Vui lòng định cấu hình Nội dung in trước');
                 $content = $this->feyContent($print_content, $order, $product, $print_type);
             }
             $printer = new Printer($name, $configData);
@@ -173,7 +173,7 @@ class SystemTicketServices extends BaseServices
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
         }
         if (in_array(0, $printContent['goods'])) {
-            $content .= '*************hàng hóa***************';
+            $content .= '*************sản phẩm***************';
             $content .= '      \r';
             $content .= $goodsStr;
             $content .= '********************************\r';
@@ -202,7 +202,7 @@ class SystemTicketServices extends BaseServices
                         $content .= '<RA>Phương thức thanh toán: Thanh toán Alipay</RA>';
                         break;
                     case 'yue':
-                        $content .= '<RA>Phương thức thanh toán: thanh toán số dư</RA>';
+                        $content .= '<RA>Phương thức thanh toán: Thanh toán bằng số dư</RA>';
                         break;
                     case 'offline':
                         $content .= '<RA>Phương thức thanh toán: thanh toán ngoại tuyến</RA>';
@@ -216,7 +216,7 @@ class SystemTicketServices extends BaseServices
             }
         }
         if (in_array(1, $printContent['pay'])) {
-            $content .= '<RA>thanh toán thực tế：' . $orderInfo['pay_price'] . 'Nhân dân tệ</RA>';
+            $content .= '<RA>Thanh toán thực tế：' . $orderInfo['pay_price'] . 'Nhân dân tệ</RA>';
         }
         if (count($printContent['pay'])) {
             $content .= '<FH2><FW2>----------------</FW2></FH2>';
@@ -228,7 +228,7 @@ class SystemTicketServices extends BaseServices
             $content .= 'thời gian đặt hàng：' . $addTime . '\r';
         }
         if (in_array(2, $printContent['order'])) {
-            $content .= 'thời gian thanh toán：' . $payTime . '\r';
+            $content .= 'Thời gian thanh toán：' . $payTime . '\r';
         }
         if (in_array(3, $printContent['order'])) {
             $content .= 'Thời gian in：' . $printTime . '\r';
@@ -274,7 +274,7 @@ class SystemTicketServices extends BaseServices
         }
         if (in_array(0, $printContent['goods'])) {
             $content .= '<BR>';
-            $content .= '**************hàng hóa**************<BR>';
+            $content .= '**************sản phẩm**************<BR>';
             $content .= '<BR>';
             $content .= 'Tên Đơn vị Giá Số lượng Số lượng<BR>';
             foreach ($product as $item) {
@@ -391,7 +391,7 @@ class SystemTicketServices extends BaseServices
                         $content .= '<RIGHT>Phương thức thanh toán: Thanh toán Alipay</RIGHT><BR>';
                         break;
                     case 'yue':
-                        $content .= '<RIGHT>Phương thức thanh toán: thanh toán số dư</RIGHT><BR>';
+                        $content .= '<RIGHT>Phương thức thanh toán: Thanh toán bằng số dư</RIGHT><BR>';
                         break;
                     case 'offline':
                         $content .= '<RIGHT>Phương thức thanh toán: thanh toán ngoại tuyến</RIGHT><BR>';
@@ -405,7 +405,7 @@ class SystemTicketServices extends BaseServices
             }
         }
         if (in_array(1, $printContent['pay'])) {
-            $content .= '<RIGHT>thanh toán thực tế：' . number_format($orderInfo['pay_price'], 2) . 'Nhân dân tệ</RIGHT>';
+            $content .= '<RIGHT>Thanh toán thực tế：' . number_format($orderInfo['pay_price'], 2) . 'Nhân dân tệ</RIGHT>';
         }
         if (count($printContent['pay'])) {
             $content .= '--------------------------------<BR>';
@@ -417,7 +417,7 @@ class SystemTicketServices extends BaseServices
             $content .= 'thời gian đặt hàng: ' . $addTime . '<BR>';
         }
         if (in_array(2, $printContent['order'])) {
-            $content .= 'thời gian thanh toán: ' . $payTime . '<BR>';
+            $content .= 'Thời gian thanh toán: ' . $payTime . '<BR>';
         }
         if (in_array(3, $printContent['order'])) {
             $content .= 'Thời gian in: ' . $printTime . '<BR>';

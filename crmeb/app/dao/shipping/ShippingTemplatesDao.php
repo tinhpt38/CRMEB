@@ -19,15 +19,13 @@ use app\model\shipping\ShippingTemplates;
  *
  * Class ShippingTemplatesDao
  * @package app\dao\shipping
- */
-class ShippingTemplatesDao extends BaseDao
+ */class ShippingTemplatesDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return ShippingTemplates::class;
     }
@@ -35,8 +33,7 @@ class ShippingTemplatesDao extends BaseDao
     /**
      * Nhận danh sách các mẫu đã chọn
      * @return array
-     */
-    public function getSelectList()
+     */    public function getSelectList()
     {
         return $this->search()->order('sort DESC,id DESC')->column('id,name');
     }
@@ -50,8 +47,7 @@ class ShippingTemplatesDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getShippingList(array $where, int $page, int $limit)
+     */    public function getShippingList(array $where, int $page, int $limit)
     {
         return $this->search($where)->order('sort DESC,id DESC')->page($page, $limit)->select()->toArray();
     }
@@ -60,20 +56,18 @@ class ShippingTemplatesDao extends BaseDao
      * Chèn dữ liệu và trả về khóa chínhid
      * @param array $data
      * @return int|string
-     */
-    public function insertGetId(array $data)
+     */    public function insertGetId(array $data)
     {
         return $this->getModel()->insertGetId($data);
     }
 
     /**
-     * Nhận dữ liệu theo các điều kiện quy định của mẫu vận chuyển hàng hóa
+     * Nhận dữ liệu theo các điều kiện quy định của mẫu vận chuyển sản phẩm
      * @param array $where
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getShippingColumn(array $where, string $field, string $key)
+     */    public function getShippingColumn(array $where, string $field, string $key)
     {
         return $this->search($where)->column($field, $key);
     }

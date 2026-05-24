@@ -21,16 +21,14 @@ use think\facade\App;
  * Dịch vụ hậu cần nền tảng Yihaotong
  * Class Export
  * @package app\adminapi\controller\v1\serve
- */
-class Export extends AuthController
+ */class Export extends AuthController
 {
 
     /**
      * Export constructor.
      * @param App $app
      * @param ExpressServices $services
-     */
-    public function __construct(App $app, ExpressServices $services)
+     */    public function __construct(App $app, ExpressServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class Export extends AuthController
     /**
      * Công ty hậu cần
      * @return mixed
-     */
-    public function getExportAll()
+     */    public function getExportAll()
     {
         return app('json')->success($this->services->expressList());
     }
@@ -50,8 +47,7 @@ class Export extends AuthController
      * Nhận thông tin thứ tự khuôn mặt
      * @param string $com
      * @return mixed
-     */
-    public function getExportTemp(ServeServices $services)
+     */    public function getExportTemp(ServeServices $services)
     {
         [$com] = $this->request->getMore([
             ['com', ''],
@@ -62,8 +58,7 @@ class Export extends AuthController
     /**
      * Việc in các biểu mẫu điện tử có được bật không?
      * @return mixed
-     */
-    public function dumpIsOpen(ServeServices $services)
+     */    public function dumpIsOpen(ServeServices $services)
     {
         $userInfo = $services->user()->getUser();
         $res = false;
@@ -87,8 +82,7 @@ class Export extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/5/15
-     */
-    public function getShipmentOrderList(ServeServices $services)
+     */    public function getShipmentOrderList(ServeServices $services)
     {
         $where = $this->request->getMore([
             ['page', 1],

@@ -22,8 +22,7 @@ use crmeb\services\CacheService;
  * Phần mềm trung gian xác minh đăng nhập phụ trợ
  * Class AdminAuthTokenMiddleware
  * @package app\adminapi\middleware
- */
-class AdminAuthTokenMiddleware implements MiddlewareInterface
+ */class AdminAuthTokenMiddleware implements MiddlewareInterface
 {
     /**
      * @param Request $request
@@ -35,15 +34,13 @@ class AdminAuthTokenMiddleware implements MiddlewareInterface
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/07
-     */
-    public function handle(Request $request, \Closure $next)
+     */    public function handle(Request $request, \Closure $next)
     {
         $token = trim(ltrim($request->header(Config::get('cookie.token_name', 'Authori-zation')), 'Bearer'));
         if (!$token) {
             $token = trim(ltrim($request->get('token')));
         }
-        /** @var AdminAuthServices $service */
-        $service = app()->make(AdminAuthServices::class);
+        /** @var AdminAuthServices $service */        $service = app()->make(AdminAuthServices::class);
         $adminInfo = $service->parseToken($token);
         $request->macro('isAdminLogin', function () use (&$adminInfo) {
             return !is_null($adminInfo);

@@ -22,17 +22,15 @@ use crmeb\services\FormBuilder;
 /**
  * Class UserWechatuserServices
  * @package app\services\user
- * @method delete($id, ?string $key = null)  xóa bỏ
+ * @method delete($id, ?string $key = null)  Xóa
  * @method update($id, array $data, ?string $key = null) Cập nhật dữ liệu
- */
-class WechatReplyServices extends BaseServices
+ */class WechatReplyServices extends BaseServices
 {
 
     /**
      * UserWechatuserServices constructor.
      * @param WechatReplyDao $dao
-     */
-    public function __construct(WechatReplyDao $dao)
+     */    public function __construct(WechatReplyDao $dao)
     {
         $this->dao = $dao;
     }
@@ -40,8 +38,7 @@ class WechatReplyServices extends BaseServices
     /**
      * Loại tin nhắn
      * @return string[]
-     */
-    public function replyType()
+     */    public function replyType()
     {
         return ['text', 'image', 'news', 'voice'];
     }
@@ -50,8 +47,7 @@ class WechatReplyServices extends BaseServices
      * Tổng số truy vấn đơn giản tùy chỉnh
      * @param array $where
      * @return int
-     */
-    public function getCount(array $where): int
+     */    public function getCount(array $where): int
     {
         return $this->dao->getCount($where);
     }
@@ -61,8 +57,7 @@ class WechatReplyServices extends BaseServices
      * @param array $where
      * @param string $field
      * @return array
-     */
-    public function getWhereUserList(array $where, string $field): array
+     */    public function getWhereUserList(array $where, string $field): array
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getListByModel($where, $field, $page, $limit);
@@ -77,11 +72,9 @@ class WechatReplyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDataByKey(string $key)
+     */    public function getDataByKey(string $key)
     {
-        /** @var WechatKeyServices $services */
-        $services = app()->make(WechatKeyServices::class);
+        /** @var WechatKeyServices $services */        $services = app()->make(WechatKeyServices::class);
         $data = $services->getOne(['keys' => $key]);
         $resdata = $this->dao->getOne(['id' => $data['reply_id'] ?? 0]);
         $resdata['data'] = isset($resdata['data']) ? json_decode($resdata['data'], true) : [];
@@ -97,8 +90,7 @@ class WechatReplyServices extends BaseServices
      * @param $type
      * @param int $status
      * @return bool
-     */
-    public function redact($data, $id, $key, $type, $status = 1)
+     */    public function redact($data, $id, $key, $type, $status = 1)
     {
         $method = 'tidy' . ucfirst($type);
         if ($id == 'undefined') {
@@ -112,8 +104,7 @@ class WechatReplyServices extends BaseServices
         }
         if (!$res) return false;
         $arr = [];
-        /** @var WechatKeyServices $keyServices */
-        $keyServices = app()->make(WechatKeyServices::class);
+        /** @var WechatKeyServices $keyServices */        $keyServices = app()->make(WechatKeyServices::class);
         $count = $this->dao->getCount(['id' => $id]);
         if ($count) {
             $keyServices->delete($id, 'reply_id');
@@ -145,17 +136,14 @@ class WechatReplyServices extends BaseServices
     }
 
     /**
-     * Nhận tất cả từ khóa
+     * Nhận Tất cả từ khóa
      * @param array $where
      * @return array
-     */
-    public function getKeyAll($where = array())
+     */    public function getKeyAll($where = array())
     {
-        /** @var WechatReplyKeyServices $replyKeyServices */
-        $replyKeyServices = app()->make(WechatReplyKeyServices::class);
+        /** @var WechatReplyKeyServices $replyKeyServices */        $replyKeyServices = app()->make(WechatReplyKeyServices::class);
         $data = $replyKeyServices->getReplyKeyAll($where);
-        /** @var WechatKeyServices $keyServices */
-        $keyServices = app()->make(WechatKeyServices::class);
+        /** @var WechatKeyServices $keyServices */        $keyServices = app()->make(WechatKeyServices::class);
         foreach ($data['list'] as &$item) {
             if ($item['data']) $item['data'] = json_decode($item['data'], true);
             switch ($item['type']) {
@@ -179,18 +167,16 @@ class WechatReplyServices extends BaseServices
     }
 
     /**
-     * Truy vấn một
+     * Tìm kiếm một
      * @param $key
      * @return array|null|\think\Model
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function getKeyInfo(int $id)
+     */    public function getKeyInfo(int $id)
     {
         $resdata = $this->dao->getOne(['id' => $id]);
-        /** @var WechatKeyServices $keyServices */
-        $keyServices = app()->make(WechatKeyServices::class);
+        /** @var WechatKeyServices $keyServices */        $keyServices = app()->make(WechatKeyServices::class);
         $keys = $keyServices->getColumn(['reply_id' => $resdata['id']], 'keys');
         $resdata['data'] = $resdata['data'] ? json_decode($resdata['data'], true) : [];
         $resdata['key'] = implode(',', $keys);
@@ -202,12 +188,11 @@ class WechatReplyServices extends BaseServices
      * @param $data
      * @param $key
      * @return array|bool
-     */
-    public function tidyText($data, $id)
+     */    public function tidyText($data, $id)
     {
         $res = [];
         if (!isset($data['content']) || $data['content'] == '') {
-            throw new AdminException('Vui lòng nhập nội dung tin nhắn trả lời');
+            throw new AdminException('Vui lòng nhập Nội dung tin nhắn trả lời');
         }
         $res['content'] = $data['content'];
         return $res;
@@ -221,8 +206,7 @@ class WechatReplyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function tidyImage($data, $id)
+     */    public function tidyImage($data, $id)
     {
         if (!isset($data['src']) || $data['src'] == '') {
             throw new AdminException('Vui lòng tải lên hình ảnh câu trả lời của bạn');
@@ -242,8 +226,7 @@ class WechatReplyServices extends BaseServices
             }
             $res['media_id'] = $material->media_id;
             $dataEvent = ['type' => 'image', 'media_id' => $material->media_id, 'path' => $res['src'], 'url' => $material->url];
-            /** @var WechatMediaServices $mateServices */
-            $mateServices = app()->make(WechatMediaServices::class);
+            /** @var WechatMediaServices $mateServices */            $mateServices = app()->make(WechatMediaServices::class);
             $mateServices->save($dataEvent);
         }
         return $res;
@@ -257,8 +240,7 @@ class WechatReplyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function tidyVoice($data, $id)
+     */    public function tidyVoice($data, $id)
     {
         if (!isset($data['src']) || $data['src'] == '') {
             throw new AdminException('Vui lòng tải lên giọng nói trả lời của bạn');
@@ -278,8 +260,7 @@ class WechatReplyServices extends BaseServices
             }
             $res['media_id'] = $material->media_id;
             $dataEvent = ['media_id' => $material->media_id, 'path' => $res['src'], 'type' => 'voice'];
-            /** @var WechatMediaServices $mateServices */
-            $mateServices = app()->make(WechatMediaServices::class);
+            /** @var WechatMediaServices $mateServices */            $mateServices = app()->make(WechatMediaServices::class);
             $mateServices->save($dataEvent);
         }
         return $res;
@@ -290,8 +271,7 @@ class WechatReplyServices extends BaseServices
      * @param $data
      * @param $id
      * @return bool
-     */
-    public function tidyNews($data, $id = 0)
+     */    public function tidyNews($data, $id = 0)
     {
 //        if ($id != 0) {
 //            $data = $data['list'][0];
@@ -313,13 +293,11 @@ class WechatReplyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function reply($key, string $openId = '')
+     */    public function reply($key, string $openId = '')
     {
         $res = $this->dao->getKey($key);
         if (empty($res)) {
-            /** @var KefuServices $services */
-            $services = app()->make(KefuServices::class);
+            /** @var KefuServices $services */            $services = app()->make(KefuServices::class);
             $services->replyTransferService($key, $openId);
             return WechatService::transfer();
         }
@@ -327,11 +305,10 @@ class WechatReplyServices extends BaseServices
     }
 
     /**
-     * Trả về nội dung tương ứng dựa trên nội dung từ khóa
+     * Trả về Nội dung tương ứng dựa trên Nội dung từ khóa
      * @param array $res
      * @return array|\EasyWeChat\Message\Image|\EasyWeChat\Message\News|\EasyWeChat\Message\Text|\EasyWeChat\Message\Voice
-     */
-    public function replyDataByMessage(array $res)
+     */    public function replyDataByMessage(array $res)
     {
         $res['data'] = json_decode($res['data'], true);
         if ($res['type'] == 'text') {
@@ -350,7 +327,7 @@ class WechatReplyServices extends BaseServices
     }
 
     /**
-     * Thêm và sửa đổi biểu mẫu trả lời tự động của dịch vụ khách hàng
+     * Thêm và sửa đổi biểu mẫu trả lời tự động của CSKH
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
@@ -360,8 +337,7 @@ class WechatReplyServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function autoReplyForm($id = 0)
+     */    public function autoReplyForm($id = 0)
     {
         $replyInfo = [];
         if ($id) {
@@ -370,7 +346,7 @@ class WechatReplyServices extends BaseServices
         }
         $field[] = FormBuilder::input('keys', 'Từ khóa', $replyInfo['keys'] ?? '')->col(24)->required();
         $field[] = FormBuilder::radio('type', 'Kiểu trả lời', (string)($replyInfo['type'] ?? 'text'))->appendControl('text', [
-            FormBuilder::input('data', 'Trả lời nội dung', (string)($replyInfo['data']['content'] ?? ''))->required(),
+            FormBuilder::input('data', 'Trả lời Nội dung', (string)($replyInfo['data']['content'] ?? ''))->required(),
         ])->appendControl('image', [
             FormBuilder::frameImage('data', 'Trả lời hình ảnh', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'data'], true), (string)($replyInfo['data']['src'] ?? ''))->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false]),
         ])->options([['label' => 'tin nhắn văn bản', 'value' => 'text'], ['label' => 'tin nhắn hình ảnh', 'value' => 'image']]);
@@ -386,8 +362,7 @@ class WechatReplyServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function autoReplySave($id, $data)
+     */    public function autoReplySave($id, $data)
     {
         if ($id) {
             $this->dao->update($id, [
@@ -419,8 +394,7 @@ class WechatReplyServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function autoReplyDel($id)
+     */    public function autoReplyDel($id)
     {
         $this->dao->delete($id);
         app()->make(WechatKeyServices::class)->delete(['reply_id' => $id]);

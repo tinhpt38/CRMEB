@@ -19,8 +19,7 @@ use crmeb\services\GroupDataService;
  * Sản phẩm giảm giá chớp nhoáng
  * Class StoreSeckillController
  * @package app\api\controller\activity
- */
-class StoreSeckillController
+ */class StoreSeckillController
 {
 
     protected $services;
@@ -33,8 +32,7 @@ class StoreSeckillController
     /**
      * Khoảng thời gian của sản phẩm flash sale
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         //khoảng thời gian flash sale
         $seckillTime = GroupDataService::getData('routine_seckill_time') ?? [];
@@ -103,8 +101,7 @@ class StoreSeckillController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst($time)
+     */    public function lst($time)
     {
         if (!$time) return app('json')->fail('Lỗi tham số');
         $seckillInfo = $this->services->getListByTime($time);
@@ -119,8 +116,7 @@ class StoreSeckillController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function detail(Request $request, $id)
+     */    public function detail(Request $request, $id)
     {
         [$time_id] = $request->getMore([
             ['time_id', 0]
@@ -134,14 +130,12 @@ class StoreSeckillController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function code(Request $request, $id)
+     */    public function code(Request $request, $id)
     {
         [$time_id] = $request->getMore([
             ['time_id', 0]
         ], true);
-        /** @var QrcodeServices $qrcodeService */
-        $qrcodeService = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrcodeService */        $qrcodeService = app()->make(QrcodeServices::class);
         $url = $qrcodeService->getRoutineQrcodePath($id, $request->uid(), 2, ['time_id' => $time_id]);
         if ($url) {
             return app('json')->success(['code' => $url]);

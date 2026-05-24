@@ -19,24 +19,21 @@ use crmeb\services\HttpService;
 use think\facade\Log;
 
 /**
- * Đơn hàng sau bán hàng
+ * Yêu cầu trả hàng / hoàn tiền
  * Class OutStoreOrderRefundServices
  * @package app\services\order
- */
-class OutStoreOrderRefundServices extends BaseServices
+ */class OutStoreOrderRefundServices extends BaseServices
 {
     /**
-     * Đặt hàngservices
+     * Đơn hàngservices
      * @var StoreOrderServices
-     */
-    protected $storeOrderServices;
+     */    protected $storeOrderServices;
 
     /**
      * Người xây dựng
      * OutStoreOrderRefundServices constructor.
      * @param StoreOrderRefundDao $dao
-     */
-    public function __construct(StoreOrderRefundDao $dao, OutStoreOrderServices $storeOrderServices)
+     */    public function __construct(StoreOrderRefundDao $dao, OutStoreOrderServices $storeOrderServices)
     {
         $this->dao = $dao;
         $this->storeOrderServices = $storeOrderServices;
@@ -46,8 +43,7 @@ class OutStoreOrderRefundServices extends BaseServices
      * Danh sách đơn hàng sau bán hàng
      * @param array $where
      * @return void
-     */
-    public function refundList(array $where)
+     */    public function refundList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $field = 'id, store_order_id, uid, order_id, refund_type, refund_num, refund_price, refunded_price, refund_phone, refund_express, refund_express_name, 
@@ -67,8 +63,7 @@ class OutStoreOrderRefundServices extends BaseServices
      * Định dạng các mục đơn hàng
      * @param array $carts
      * @return array
-     */
-    public function tidyCartList(array $carts): array
+     */    public function tidyCartList(array $carts): array
     {
         $list = [];
         foreach ($carts as $cart) {
@@ -87,10 +82,9 @@ class OutStoreOrderRefundServices extends BaseServices
     /**
      * Chi tiết đơn hàng hoàn tiền
      * @param string $orderId Số đơn hàng sau bán hàng
-     * @param int $id Đơn hàng sau bán hàngID
+     * @param int $id Yêu cầu trả hàng / hoàn tiềnID
      * @return mixed
-     */
-    public function getInfo(string $orderId = '', int $id = 0)
+     */    public function getInfo(string $orderId = '', int $id = 0)
     {
         $field = ['id', 'store_order_id', 'order_id', 'uid', 'refund_type', 'refund_num', 'refund_price',
             'refunded_price', 'refund_phone', 'refund_express', 'refund_express_name', 'refund_explain',
@@ -117,8 +111,7 @@ class OutStoreOrderRefundServices extends BaseServices
         }
         $refund['vip_true_price'] = $vipTruePrice;
 
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
         $refund['use_integral'] = $refundServices->getOrderSumPrice($refund['cart_info'], 'use_integral', false);
         $refund['coupon_price'] = $refundServices->getOrderSumPrice($refund['cart_info'], 'coupon_price', false);
         $refund['deduction_price'] = $refundServices->getOrderSumPrice($refund['cart_info'], 'integral_price', false);
@@ -147,15 +140,13 @@ class OutStoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function remark(string $orderId, string $remark): bool
+     */    public function remark(string $orderId, string $remark): bool
     {
         $order = $this->dao->get(['order_id' => $orderId]);
         if (!$order) {
             throw new ApiException('Đơn hàng không tồn tại');
         }
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
         return $refundServices->updateRemark((int)$order['id'], $remark);
     }
 
@@ -167,8 +158,7 @@ class OutStoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refundPrice(string $orderId, string $refundPrice): bool
+     */    public function refundPrice(string $orderId, string $refundPrice): bool
     {
         $orderRefund = $this->dao->get(['order_id' => $orderId]);
         if (!$orderRefund) {
@@ -189,8 +179,7 @@ class OutStoreOrderRefundServices extends BaseServices
         $data['refund_type'] = 6;
         $data['refunded_time'] = time();
 
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
 
         //0hoàn lại tiền nhân dân tệ
         if ($orderRefund['refund_price'] == 0 && in_array($orderRefund['refund_type'], [1, 5])) {
@@ -234,16 +223,14 @@ class OutStoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function agree(string $orderId): bool
+     */    public function agree(string $orderId): bool
     {
         $orderRefund = $this->dao->get(['order_id' => $orderId]);
         if (!$orderRefund) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
 
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
         return $refundServices->agreeExpress((int)$orderRefund['id']);
     }
 
@@ -255,16 +242,14 @@ class OutStoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refuse(string $orderId, string $refundReason): bool
+     */    public function refuse(string $orderId, string $refundReason): bool
     {
         $orderRefund = $this->dao->get(['order_id' => $orderId]);
         if (!$orderRefund) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
 
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
         $refundServices->refuse((int)$orderRefund['id'], $refundReason);
         return true;
     }
@@ -274,12 +259,10 @@ class OutStoreOrderRefundServices extends BaseServices
      * @param int $id
      * @param string $pushUrl
      * @return bool
-     */
-    public function refundCreatePush(int $id, string $pushUrl): bool
+     */    public function refundCreatePush(int $id, string $pushUrl): bool
     {
         $refundInfo = $this->getInfo('', $id);
-        /** @var OutStoreOrderServices $orderServices */
-        $orderServices = app()->make(OutStoreOrderServices::class);
+        /** @var OutStoreOrderServices $orderServices */        $orderServices = app()->make(OutStoreOrderServices::class);
         $orderInfo = $orderServices->get($refundInfo['store_order_id'], ['id', 'order_id']);
         if (!$orderInfo) {
             throw new AdminException('Đơn hàng không tồn tại');
@@ -293,12 +276,10 @@ class OutStoreOrderRefundServices extends BaseServices
      * @param int $id
      * @param string $pushUrl
      * @return bool
-     */
-    public function cancelApplyPush(int $id, string $pushUrl): bool
+     */    public function cancelApplyPush(int $id, string $pushUrl): bool
     {
         $refundInfo = $this->getInfo('', $id);
-        /** @var OutStoreOrderServices $orderServices */
-        $orderServices = app()->make(OutStoreOrderServices::class);
+        /** @var OutStoreOrderServices $orderServices */        $orderServices = app()->make(OutStoreOrderServices::class);
         $orderInfo = $orderServices->get($refundInfo['store_order_id'], ['id', 'order_id']);
         if (!$orderInfo) {
             throw new AdminException('Đơn hàng không tồn tại');

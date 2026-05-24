@@ -26,17 +26,12 @@ class AutoCommentJob extends BaseJobs
      * @param $id
      * @param $cart_ids
      * @return bool
-     */
-    public function doJob($id, $cart_ids)
+     */    public function doJob($id, $cart_ids)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
-        /** @var StoreOrderCartInfoServices $cartInfoServices */
-        $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
-        /** @var  $replyServices */
-        $replyServices = app()->make(StoreProductReplyServices::class);
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
+        /** @var StoreOrderCartInfoServices $cartInfoServices */        $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var  $replyServices */        $replyServices = app()->make(StoreProductReplyServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $list = $cartInfoServices->getColumn([['cart_id', 'in', $cart_ids]], 'cart_info,uid,oid,unique,product_id');
         $uids = array_column($list, 'uid');
         $userInfos = $userServices->getColumn([['uid', 'in', $uids]], 'nickname,avatar', 'uid');

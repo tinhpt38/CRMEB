@@ -18,14 +18,12 @@ use app\model\system\config\SystemStorage;
 /**
  * Class SystemStorageDao
  * @package app\dao\system\config
- */
-class SystemStorageDao extends BaseDao
+ */class SystemStorageDao extends BaseDao
 {
 
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemStorage::class;
     }
@@ -42,8 +40,7 @@ class SystemStorageDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [], array $field = ['*'], int $page = 0, int $limit = 0, $sort = null, array $with = [])
+     */    public function getList(array $where = [], array $field = ['*'], int $page = 0, int $limit = 0, $sort = null, array $with = [])
     {
         return $this->search($where)->field($field)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -67,8 +64,7 @@ class SystemStorageDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->when(isset($where['type']), function ($query) use ($where) {
             $query->where('type', $where['type']);

@@ -18,15 +18,13 @@ use app\model\user\UserLabelCate;
 /**
  * Class UserLabelCateDao
  * @package app\dao\user
- */
-class UserLabelCateDao extends BaseDao
+ */class UserLabelCateDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserLabelCate::class;
     }
@@ -40,8 +38,7 @@ class UserLabelCateDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLabelList(array $where, int $page, int $limit)
+     */    public function getLabelList(array $where, int $page, int $limit)
     {
         return $this->search($where)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -49,13 +46,12 @@ class UserLabelCateDao extends BaseDao
     }
 
     /**
-     * Nhận tất cả các loại thẻ
+     * Nhận Tất cả các loại thẻ
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAll(array $with = [])
+     */    public function getAll(array $with = [])
     {
         return $this->getModel()->when(count($with), function ($query) use ($with) {
             $query->with($with);

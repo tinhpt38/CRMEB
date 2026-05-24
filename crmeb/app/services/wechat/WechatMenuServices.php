@@ -21,15 +21,13 @@ use crmeb\services\app\WechatService;
  * Trình đơn WeChat
  * Class WechatMenuServices
  * @package app\services\wechat
- */
-class WechatMenuServices extends BaseServices
+ */class WechatMenuServices extends BaseServices
 {
     /**
      * Người xây dựng
      * WechatMenuServices constructor.
      * @param WechatMenuDao $dao
-     */
-    public function __construct(WechatMenuDao $dao)
+     */    public function __construct(WechatMenuDao $dao)
     {
         $this->dao = $dao;
     }
@@ -37,8 +35,7 @@ class WechatMenuServices extends BaseServices
     /**
      * Nhận menu WeChat
      * @return array|mixed
-     */
-    public function getWechatMenu()
+     */    public function getWechatMenu()
     {
         $menus = $this->dao->value(['key' => 'wechat_menus'], 'result');
         return $menus ? json_decode($menus, true) : [];
@@ -48,8 +45,7 @@ class WechatMenuServices extends BaseServices
      * Lưu menu WeChat
      * @param array $buttons
      * @return bool
-     */
-    public function saveMenu(array $buttons)
+     */    public function saveMenu(array $buttons)
     {
         try {
             WechatService::menuService()->add($buttons);

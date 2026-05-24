@@ -37,15 +37,13 @@ use crmeb\services\CacheService;
  * @method getPinkIdsArray(array $ids, array $field)
  * @method getOne(array $where, ?string $field = '*', array $with = []) Nhận một phần dữ liệu dựa trên các điều kiện
  * @method get(int $id, array $field) Lấy một phần dữ liệu
- */
-class StoreCombinationServices extends BaseServices
+ */class StoreCombinationServices extends BaseServices
 {
 
     /**
      * StoreCombinationServices constructor.
      * @param StoreCombinationDao $dao
-     */
-    public function __construct(StoreCombinationDao $dao)
+     */    public function __construct(StoreCombinationDao $dao)
     {
         $this->dao = $dao;
     }
@@ -53,16 +51,14 @@ class StoreCombinationServices extends BaseServices
     /**
      * Lấy số lượng vật phẩm theo điều kiện quy định
      * @param array $where
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         $this->dao->count($where);
     }
 
     /**
      * Nhận xem có sản phẩm nhóm hay không
-     * */
-    public function validCombination()
+     * */    public function validCombination()
     {
         return $this->dao->count([
             'is_del' => 0,
@@ -75,8 +71,7 @@ class StoreCombinationServices extends BaseServices
      * Thêm sản phẩm nhóm
      * @param int $id
      * @param array $data
-     */
-    public function saveData(int $id, array $data)
+     */    public function saveData(int $id, array $data)
     {
         $description = $data['description'];
         $detail = $data['attrs'];
@@ -91,12 +86,9 @@ class StoreCombinationServices extends BaseServices
         $data['stock'] = array_sum(array_column($detail, 'stock'));
         $data['logistics'] = implode(',', $data['logistics']);
         unset($data['section_time'], $data['description'], $data['attrs'], $data['items']);
-        /** @var StoreDescriptionServices $storeDescriptionServices */
-        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
-        /** @var StoreProductServices $storeProductServices */
-        $storeProductServices = app()->make(StoreProductServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionServices */        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductServices $storeProductServices */        $storeProductServices = app()->make(StoreProductServices::class);
         if ($data['quota'] > $storeProductServices->value(['id' => $data['product_id']], 'stock')) {
             throw new AdminException('Giới hạn không thể vượt quá số lượng sản phẩm tồn kho');
         }
@@ -122,17 +114,15 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * Danh sách nhóm nhóm
+     * Đơn hàng mua chung
      * @param array $where
      * @return array
-     */
-    public function systemPage(array $where)
+     */    public function systemPage(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
         $count = $this->dao->count($where);
-        /** @var StorePinkServices $storePinkServices */
-        $storePinkServices = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $storePinkServices */        $storePinkServices = app()->make(StorePinkServices::class);
         $countAll = $storePinkServices->getPinkCount([]);
         $countTeam = $storePinkServices->getPinkCount(['k_id' => 0, 'status' => 2]);
         $countPeople = $storePinkServices->getPinkCount(['k_id' => 0]);
@@ -168,8 +158,7 @@ class StoreCombinationServices extends BaseServices
      * Nhận thông tin chi tiết
      * @param int $id
      * @return array|\think\Model|null
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         $info = $this->dao->get($id);
         if (!$info) {
@@ -193,8 +182,7 @@ class StoreCombinationServices extends BaseServices
         $info['weight'] = floatval($info['weight']);
         $info['volume'] = floatval($info['volume']);
         $info['logistics'] = explode(',', $info['logistics']);
-        /** @var StoreDescriptionServices $storeDescriptionServices */
-        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionServices */        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
         $info['description'] = $storeDescriptionServices->getDescription(['product_id' => $id, 'type' => 3]);
         $info['attrs'] = $this->attrList($id, $info['product_id']);
         return $info;
@@ -205,13 +193,10 @@ class StoreCombinationServices extends BaseServices
      * @param int $id
      * @param int $pid
      * @return mixed
-     */
-    public function attrList(int $id, int $pid)
+     */    public function attrList(int $id, int $pid)
     {
-        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */
-        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
-        /** @var StoreProductAttrServices $storeProductAttrService */
-        $storeProductAttrService = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrService */        $storeProductAttrService = app()->make(StoreProductAttrServices::class);
         $combinationResult = $storeProductAttrResultServices->value(['product_id' => $id, 'type' => 3], 'result');
         $items = json_decode($combinationResult, true)['attr'];
         $productAttr = $storeProductAttrService->getProductAttr(['product_id' => $pid, 'type' => 0]);
@@ -268,11 +253,9 @@ class StoreCombinationServices extends BaseServices
      * @param $id
      * @param $type
      * @return array
-     */
-    public function getAttr($attr, $id, $type)
+     */    public function getAttr($attr, $id, $type)
     {
-        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
         list($value, $head) = attr_format($attr);
         $valueNew = [];
         $count = 0;
@@ -312,7 +295,6 @@ class StoreCombinationServices extends BaseServices
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      */
-
     public function getCombinationList()
     {
         [$page, $limit] = $this->getPageValue();
@@ -332,8 +314,7 @@ class StoreCombinationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getHomeList($where)
+     */    public function getHomeList($where)
     {
         [$page, $limit] = $this->getPageValue();
         $where['is_del'] = 0;
@@ -354,8 +335,7 @@ class StoreCombinationServices extends BaseServices
     /**
      * Thiết kế trang phụ trợ để lấy danh sách nhóm nhóm
      * @param $where
-     */
-    public function getDiyCombinationList($where)
+     */    public function getDiyCombinationList($where)
     {
         $where['pinkIngTime'] = true;
         $where['storeProductId'] = true;
@@ -363,8 +343,7 @@ class StoreCombinationServices extends BaseServices
         $list = $this->dao->diyCombinationList($where, $page, $limit);
         $count = $this->dao->getCount($where);
         $cateIds = implode(',', array_column($list, 'cate_id'));
-        /** @var StoreCategoryServices $storeCategoryServices */
-        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $storeCategoryServices */        $storeCategoryServices = app()->make(StoreCategoryServices::class);
         $cateList = $storeCategoryServices->getCateArray($cateIds);
         foreach ($list as &$item) {
             $cateName = array_filter($cateList, function ($val) use ($item) {
@@ -388,8 +367,7 @@ class StoreCombinationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function combinationDetail(Request $request, int $id)
+     */    public function combinationDetail(Request $request, int $id)
     {
         $uid = (int)$request->uid();
         $storeInfo = $this->dao->getOne(['id' => $id], '*', ['description', 'total']);
@@ -404,8 +382,7 @@ class StoreCombinationServices extends BaseServices
         $storeInfo['image_base'] = set_file_url($storeInfo['image'], $siteUrl);
         $storeInfo['sale_stock'] = 0;
         if ($storeInfo['stock'] > 0) $storeInfo['sale_stock'] = 1;
-        /** @var StoreProductRelationServices $storeProductRelationServices */
-        $storeProductRelationServices = app()->make(StoreProductRelationServices::class);
+        /** @var StoreProductRelationServices $storeProductRelationServices */        $storeProductRelationServices = app()->make(StoreProductRelationServices::class);
         $storeInfo['userCollect'] = $storeProductRelationServices->isProductRelation(['uid' => $uid, 'product_id' => $id, 'type' => 'collect', 'category' => 'product']);
         $storeInfo['userLike'] = false;
         $storeInfo['store_name'] = $storeInfo['title'];
@@ -413,8 +390,7 @@ class StoreCombinationServices extends BaseServices
 
 
         if (sys_config('share_qrcode', 0) && request()->isWechat()) {
-            /** @var QrcodeServices $qrcodeService */
-            $qrcodeService = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrcodeService */            $qrcodeService = app()->make(QrcodeServices::class);
             $storeInfo['wechat_code'] = $qrcodeService->getTemporaryQrcode('combination-' . $id, $uid)->url;
         } else {
             $storeInfo['wechat_code'] = '';
@@ -424,33 +400,29 @@ class StoreCombinationServices extends BaseServices
         $storeInfoNew = get_thumb_water($storeInfo, 'small');
         $data['storeInfo']['small_image'] = $storeInfoNew['image'];
 
-        /** @var StorePinkServices $pinkService */
-        $pinkService = app()->make(StorePinkServices::class);
-        list($pink, $pinkAll) = $pinkService->getPinkList($id, true);//Danh sách nhóm nhóm
+        /** @var StorePinkServices $pinkService */        $pinkService = app()->make(StorePinkServices::class);
+        list($pink, $pinkAll) = $pinkService->getPinkList($id, true);//Đơn hàng mua chung
         $data['pink_ok_list'] = $pinkService->getPinkOkList($uid);
         $data['pink_ok_sum'] = $pinkService->getPinkOkSumTotalNum();
         $data['pink'] = $pink;
         $data['pinkAll'] = $pinkAll;
 
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $data['buy_num'] = $storeOrderServices->getBuyCount($uid, 'combination_id', $id);
 
-        /** @var StoreProductReplyServices $storeProductReplyService */
-        $storeProductReplyService = app()->make(StoreProductReplyServices::class);
+        /** @var StoreProductReplyServices $storeProductReplyService */        $storeProductReplyService = app()->make(StoreProductReplyServices::class);
         $data['reply'] = get_thumb_water($storeProductReplyService->getRecProductReply($storeInfo['product_id']), 'small', ['pics']);
         [$replyCount, $goodReply, $replyChance] = $storeProductReplyService->getProductReplyData((int)$storeInfo['product_id']);
         $data['replyChance'] = $replyChance;
         $data['replyCount'] = $replyCount;
 
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
         list($productAttr, $productValue) = $storeProductAttrServices->getProductAttrDetail($id, $uid, 0, 3, $storeInfo['product_id']);
         $data['productAttr'] = $productAttr;
         $data['productValue'] = $productValue;
         $data['routine_contact_type'] = sys_config('routine_contact_type', 0);
 
-        //Sự kiện truy cập của người dùng
+        //Sự kiện truy cập của Khách hàng
         event('UserVisitListener', [$uid, $id, 'combination', $storeInfo['product_id'], 'view']);
         //Lịch sử duyệt web
         ProductLogJob::dispatch(['visit', ['uid' => $uid, 'product_id' => $storeInfo['product_id']]]);
@@ -462,13 +434,11 @@ class StoreCombinationServices extends BaseServices
      * @param $num
      * @param $CombinationId
      * @return bool
-     */
-    public function decCombinationStock(int $num, int $CombinationId, string $unique)
+     */    public function decCombinationStock(int $num, int $CombinationId, string $unique)
     {
         $product_id = $this->dao->value(['id' => $CombinationId], 'product_id');
         if ($unique) {
-            /** @var StoreProductAttrValueServices $skuValueServices */
-            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrValueServices $skuValueServices */            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
             //Trừ đi tồn kho sku của các sản phẩm nhóm làm tăng doanh số bán hàng
             $res = false !== $skuValueServices->decProductAttrStock($CombinationId, $unique, $num, 3);
             //Trừ hàng tồn kho nhóm nhóm
@@ -480,8 +450,7 @@ class StoreCombinationServices extends BaseServices
         } else {
             $res = false !== $this->dao->decStockIncSales(['id' => $CombinationId, 'type' => 3], $num);
         }
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         //trừ đi hàng tồn kho chung
         $res = $res && $services->decProductStock($num, $product_id);
         return $res;
@@ -493,18 +462,16 @@ class StoreCombinationServices extends BaseServices
      * @param int $CombinationId
      * @param string $unique
      * @return bool
-     */
-    public function incCombinationStock(int $num, int $CombinationId, string $unique)
+     */    public function incCombinationStock(int $num, int $CombinationId, string $unique)
     {
         $product_id = $this->dao->value(['id' => $CombinationId], 'product_id');
         if ($unique) {
-            /** @var StoreProductAttrValueServices $skuValueServices */
-            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrValueServices $skuValueServices */            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
             //Tăng tồn kho SKU của các sản phẩm nhóm,trừ doanh số bán hàng
             $res = false !== $skuValueServices->incProductAttrStock($CombinationId, $unique, $num, 3);
             //Tăng khoảng không quảng cáo nhóm nhóm
             $res = $res && $this->dao->incStockDecSales(['id' => $CombinationId, 'type' => 3], $num);
-            //Tăng lượng tồn kho của mã hàng hóa thông thường hiện tại,trừ doanh số bán hàng
+            //Tăng lượng tồn kho của mã sản phẩm thông thường hiện tại,trừ doanh số bán hàng
             $suk = $skuValueServices->value(['unique' => $unique, 'product_id' => $CombinationId], 'suk');
             $productUnique = $skuValueServices->value(['suk' => $suk, 'product_id' => $product_id], 'unique');
             if ($productUnique) {
@@ -513,8 +480,7 @@ class StoreCombinationServices extends BaseServices
         } else {
             $res = false !== $this->dao->incStockDecSales(['id' => $CombinationId, 'type' => 3], $num);
         }
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         //Tăng hàng tồn kho nói chung
         $res = $res && $services->incProductStock($num, $product_id);
         return $res;
@@ -525,8 +491,7 @@ class StoreCombinationServices extends BaseServices
      * @param $id
      * @param $field
      * @return mixed
-     */
-    public function getCombinationOne($id, $field = '*')
+     */    public function getCombinationOne($id, $field = '*')
     {
         return $this->dao->validProduct($id, $field);
     }
@@ -539,14 +504,12 @@ class StoreCombinationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPinkInfo(Request $request, int $id)
+     */    public function getPinkInfo(Request $request, int $id)
     {
-        /** @var StorePinkServices $pinkService */
-        $pinkService = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $pinkService */        $pinkService = app()->make(StorePinkServices::class);
 
         $is_ok = 0;//Xác định xem cuộc chiến nhóm đã hoàn thành chưa
-        $userBool = 0;//Xác định xem người dùng hiện tại có thuộc nhóm 0 không thuộc 1 có thuộc nhóm không
+        $userBool = 0;//Xác định xem Khách hàng hiện tại có thuộc nhóm 0 không thuộc 1 có thuộc nhóm không
         $pinkBool = 0;//Xác định xem cuộc chiến nhóm có thành công hay không 0 không có mặt 1 có mặt
         $user = $request->user();
         if (!$id) throw new ApiException('Lỗi tham số');
@@ -601,10 +564,8 @@ class StoreCombinationServices extends BaseServices
         $data['store_combination_host'] = $this->dao->getCombinationHost();
         $data['current_pink_order'] = $pinkService->getCurrentPink($id, $user['uid']);
 
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
-        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
 
         list($productAttr, $productValue) = $storeProductAttrServices->getProductAttrDetail($combinationOne['id'], $user['uid'], 0, 3, $combinationOne['product_id']);
         foreach ($productValue as $k => $v) {
@@ -613,8 +574,7 @@ class StoreCombinationServices extends BaseServices
         $data['store_combination']['productAttr'] = $productAttr;
         $data['store_combination']['productValue'] = $productValue;
 
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $data['order_pid'] = $orderServices->value(['order_id' => $data['current_pink_order']], 'pid');
 
         return $data;
@@ -630,11 +590,9 @@ class StoreCombinationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkCombinationStock(int $uid, int $combinationId, int $cartNum = 1, string $unique = '')
+     */    public function checkCombinationStock(int $uid, int $combinationId, int $cartNum = 1, string $unique = '')
     {
-        /** @var StoreProductAttrValueServices $attrValueServices */
-        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $attrValueServices */        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
         if ($unique == '') {
             $unique = $attrValueServices->value(['product_id' => $combinationId, 'type' => 3], 'unique');
         }
@@ -646,8 +604,7 @@ class StoreCombinationServices extends BaseServices
         if (!$StoreCombinationInfo) {
             throw new ApiException('Sản phẩm này đã bị gỡ bỏ khỏi kệ hoặc bị xóa');
         }
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $userBuyCount = $orderServices->getBuyCount($uid, 'combination_id', $combinationId);
         if ($StoreCombinationInfo['once_num'] < $cartNum) {
             throw new ApiException('Giới hạn mua mỗi đơn hàng{:num}miếng', ['num' => $StoreCombinationInfo['once_num']]);
@@ -666,13 +623,10 @@ class StoreCombinationServices extends BaseServices
      * Thống kê nhóm nhóm
      * @param $id
      * @return array
-     */
-    public function combinationStatistics($id)
+     */    public function combinationStatistics($id)
     {
-        /** @var StorePinkServices $pinkServices */
-        $pinkServices = app()->make(StorePinkServices::class);
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StorePinkServices $pinkServices */        $pinkServices = app()->make(StorePinkServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $people_count = $pinkServices->getDistinctCount([['cid', '=', $id]], 'uid', false);
         $spread_count = $pinkServices->getDistinctCount([['cid', '=', $id], ['k_id', '>', 0]], 'uid', false);
         $start_count = $pinkServices->count(['cid' => $id, 'k_id' => 0]);
@@ -683,15 +637,13 @@ class StoreCombinationServices extends BaseServices
     }
 
     /**
-     * Thứ tự nhóm
+     * Đơn hàng mua chung
      * @param $id
      * @param array $where
      * @return array
-     */
-    public function combinationStatisticsOrder($id, $where = [])
+     */    public function combinationStatisticsOrder($id, $where = [])
     {
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         [$page, $limit] = $this->getPageValue();
         $where = $where + ['paid' => 1, 'refund_status' => 0, 'is_del' => 0];
         $list = $orderServices->combinationStatisticsOrder($id, $where, $page, $limit);

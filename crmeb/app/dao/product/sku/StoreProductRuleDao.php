@@ -17,14 +17,12 @@ use app\model\product\sku\StoreProductRule;
 /**
  * Class StoreProductRuleDao
  * @package app\dao\product\sku
- */
-class StoreProductRuleDao extends BaseDao
+ */class StoreProductRuleDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductRule::class;
     }
@@ -38,8 +36,7 @@ class StoreProductRuleDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [], int $page = 0, int $limit = 0)
+     */    public function getList(array $where = [], int $page = 0, int $limit = 0)
     {
         return $this->search($where)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -50,8 +47,7 @@ class StoreProductRuleDao extends BaseDao
      * Xóa dữ liệu
      * @param string $ids
      * @throws \Exception
-     */
-    public function del(string $ids)
+     */    public function del(string $ids)
     {
         return $this->getModel()->whereIn('id', $ids)->delete();
     }
@@ -64,8 +60,7 @@ class StoreProductRuleDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductRuleList(array $where, $field = "*"): array
+     */    public function getProductRuleList(array $where, $field = "*"): array
     {
 
         return $this->search($where)->field($field)->select()->toArray();

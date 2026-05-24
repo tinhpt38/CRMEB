@@ -17,26 +17,23 @@ use app\services\BaseServices;
 /**
  * Class ArticleContentServices
  * @package app\services\article
- * @method save(array $data)cứu
+ * @method save(array $data)Lưu
  * @method update($id, array $data, ?string $key = null)
- */
-class ArticleContentServices extends BaseServices
+ */class ArticleContentServices extends BaseServices
 {
     /**
      * ArticleContentServices constructor.
      * @param ArticleContentDao $dao
-     */
-    public function __construct(ArticleContentDao $dao)
+     */    public function __construct(ArticleContentDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
      * @return bool
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
         return $this->dao->del($id);
     }

@@ -18,22 +18,19 @@ use crmeb\traits\ModelTrait;
 /**
  * Class WechatUser
  * @package app\model\wechat
- */
-class WechatUser extends BaseModel
+ */class WechatUser extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'uid';
+     */    protected $pk = 'uid';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'wechat_user';
+     */    protected $name = 'wechat_user';
 
     protected $insert = ['add_time'];
 
@@ -51,18 +48,16 @@ class WechatUser extends BaseModel
     /**
      * sự kết hợpuser
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid');
     }
 
     /**
-     * Ràng buộc tài khoản chính thức
+     * Liên kết tài khoản chính thức
      * @param Model $query
      * @param $value
-     */
-    public function searchUnionidAttr($query, $value)
+     */    public function searchUnionidAttr($query, $value)
     {
         return $query->where('unionid', $value);
     }
@@ -71,8 +66,7 @@ class WechatUser extends BaseModel
      * Tài khoản công khai duy nhấtid
      * @param Model $query
      * @param $value
-     */
-    public function searchOpenidAttr($query, $value)
+     */    public function searchOpenidAttr($query, $value)
     {
         return $query->where('openid', $value);
     }
@@ -81,8 +75,7 @@ class WechatUser extends BaseModel
      * Nhóm
      * @param Model $query
      * @param $value
-     */
-    public function searchGroupIdAttr($query, $value)
+     */    public function searchGroupIdAttr($query, $value)
     {
         return $query->where('group_id', $value);
     }
@@ -91,8 +84,7 @@ class WechatUser extends BaseModel
      * giới tính
      * @param Model $query
      * @param $value
-     */
-    public function searchSexAttr($query, $value)
+     */    public function searchSexAttr($query, $value)
     {
         return $query->where('sex', $value);
     }
@@ -101,28 +93,25 @@ class WechatUser extends BaseModel
      * Bạn có chú ý không?
      * @param Model $query
      * @param $value
-     */
-    public function searchSubscribeAttr($query, $value)
+     */    public function searchSubscribeAttr($query, $value)
     {
         return $query->where('subscribe', $value);
     }
 
     /**
-     * Loại người dùng
+     * Loại Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         return $query->where('user_type', $value);
     }
 
     /**
-     * Loại người dùng
+     * Loại Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchUserTypeAttr($query, $value)
+     */    public function searchUserTypeAttr($query, $value)
     {
         return $query->where('user_type', $value);
     }
@@ -135,8 +124,7 @@ class WechatUser extends BaseModel
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/03
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if($value !== '') return $query->where('is_del', $value);
     }

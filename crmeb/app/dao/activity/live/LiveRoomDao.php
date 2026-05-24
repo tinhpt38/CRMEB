@@ -19,16 +19,14 @@ use app\model\activity\live\LiveRoom;
 /**
  * Class LiveRoomDao
  * @package app\dao\live
- */
-class LiveRoomDao extends BaseDao
+ */class LiveRoomDao extends BaseDao
 {
 
     /**
      * @return string
      * @author xaboy
      * @day 2020/7/29
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return LiveRoom::class;
     }
@@ -43,8 +41,7 @@ class LiveRoomDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', array $with = [], int $page, int $limit)
+     */    public function getList(array $where, string $field = '*', array $with = [], int $page, int $limit)
     {
         return $this->search($where)->field($field)->with($with)->page($page, $limit)->order('sort desc,id desc')->select()->toArray();
     }
@@ -55,8 +52,7 @@ class LiveRoomDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function validRoom($roomId)
+     */    public function validRoom($roomId)
     {
         return $this->getModel()->where('id', $roomId)->where('status', 'IN', [0, 2])->where('is_del', 0)->find();
     }

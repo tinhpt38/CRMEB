@@ -21,16 +21,14 @@ use crmeb\exceptions\AdminException;
  * Class ShippingTemplatesRegionServices
  * @package app\services\shipping
  * @method  delete($id, ?string $key = null) Xóa dữ liệu
- * @method getTempRegionList(array $tempIds, array $cityId) Nhận danh sách dữ liệu vận chuyển miễn phí dựa trên id mẫu vận chuyển hàng hóa và id thành phố
- */
-class ShippingTemplatesRegionServices extends BaseServices
+ * @method getTempRegionList(array $tempIds, array $cityId) Nhận danh sách dữ liệu vận chuyển miễn phí dựa trên id mẫu vận chuyển sản phẩm và id thành phố
+ */class ShippingTemplatesRegionServices extends BaseServices
 {
     /**
      * Người xây dựng
      * ShippingTemplatesRegionServices constructor.
      * @param ShippingTemplatesRegionDao $dao
-     */
-    public function __construct(ShippingTemplatesRegionDao $dao)
+     */    public function __construct(ShippingTemplatesRegionDao $dao)
     {
         $this->dao = $dao;
     }
@@ -42,8 +40,7 @@ class ShippingTemplatesRegionServices extends BaseServices
      * @param int $tempId
      * @return bool
      * @throws \Exception
-     */
-    public function saveRegion(array $regionInfo, int $type = 0, $tempId = 0)
+     */    public function saveRegion(array $regionInfo, int $type = 0, $tempId = 0)
     {
         $res = true;
         if ($tempId) {
@@ -93,14 +90,13 @@ class ShippingTemplatesRegionServices extends BaseServices
     }
 
     /**
-     * Nhận dữ liệu thành phố theo mẫu vận chuyển hàng hóa nhất định
+     * Nhận dữ liệu thành phố theo mẫu vận chuyển sản phẩm nhất định
      * @param int $tempId
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRegionList(int $tempId)
+     */    public function getRegionList(int $tempId)
     {
         $regionList = $this->dao->getShippingGroupArray(['temp_id' => $tempId], 'uniqid', 'uniqid', '');
         $regionData = [];
@@ -149,11 +145,9 @@ class ShippingTemplatesRegionServices extends BaseServices
      * @param string $uniqid
      * @param int $provinceId
      * @return array
-     */
-    public function getRegionTemp(string $uniqid, int $provinceId)
+     */    public function getRegionTemp(string $uniqid, int $provinceId)
     {
-        /** @var ShippingTemplatesRegionCityServices $services */
-        $services = app()->make(ShippingTemplatesRegionCityServices::class);
+        /** @var ShippingTemplatesRegionCityServices $services */        $services = app()->make(ShippingTemplatesRegionCityServices::class);
         $infoList = $services->getUniqidList(['uniqid' => $uniqid]);
         $childrenData = [];
         foreach ($infoList as $item) {
@@ -171,11 +165,9 @@ class ShippingTemplatesRegionServices extends BaseServices
      * @param string $uniqid
      * @param int $provinceId
      * @return array
-     */
-    public function getCityTemp(string $uniqid, int $provinceId)
+     */    public function getCityTemp(string $uniqid, int $provinceId)
     {
-        /** @var ShippingTemplatesRegionCityServices $services */
-        $services = app()->make(ShippingTemplatesRegionCityServices::class);
+        /** @var ShippingTemplatesRegionCityServices $services */        $services = app()->make(ShippingTemplatesRegionCityServices::class);
         $infoList = $services->getUniqidList(['uniqid' => $uniqid, 'province_id' => $provinceId], false);
         $childrenData = [];
         foreach ($infoList as $item) {

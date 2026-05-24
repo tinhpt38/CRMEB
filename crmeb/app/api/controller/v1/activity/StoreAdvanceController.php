@@ -18,14 +18,12 @@ use app\services\activity\advance\StoreAdvanceServices;
  * Bộ điều khiển trước khi bán
  * Class StoreAdvanceController
  * @package app\api\controller\v1\activity
- */
-class StoreAdvanceController
+ */class StoreAdvanceController
 {
     /**
      * StoreAdvanceController constructor.
      * @param StoreAdvanceServices $services
-     */
-    public function __construct(StoreAdvanceServices $services)
+     */    public function __construct(StoreAdvanceServices $services)
     {
         $this->services = $services;
     }
@@ -37,8 +35,7 @@ class StoreAdvanceController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index(Request $request)
+     */    public function index(Request $request)
     {
         $where = $request->getMore([
             ['time_type', 0]
@@ -56,8 +53,7 @@ class StoreAdvanceController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function detail(Request $request, $id)
+     */    public function detail(Request $request, $id)
     {
         $data = $this->services->getAdvanceinfo($request, $id);
         return app('json')->success($data);

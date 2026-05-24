@@ -16,32 +16,28 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * Mô hình cài đặt cấp hệ thống
+ * Mô hình Cài đặt cấp hệ thống
  * Class SystemUserLevel
  * @package app\model\system
- */
-class SystemUserLevel extends BaseModel
+ */class SystemUserLevel extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_user_level';
+     */    protected $name = 'system_user_level';
 
     /**
      * Công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         return date('Y-m-d H:i:s', (int)$value);
     }
@@ -50,8 +46,7 @@ class SystemUserLevel extends BaseModel
      * Công cụ tính tỷ lệ chiết khấu
      * @param $value
      * @return int
-     */
-    public function getDiscountAttr($value)
+     */    public function getDiscountAttr($value)
     {
         return (int)$value;
     }
@@ -60,8 +55,7 @@ class SystemUserLevel extends BaseModel
      * Có hiển thị hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsShowAttr($query, $value)
+     */    public function searchIsShowAttr($query, $value)
     {
         $query->where('is_show',$value);
     }
@@ -71,8 +65,7 @@ class SystemUserLevel extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         $query->where('is_del', $value ?? 0);
     }
@@ -80,8 +73,7 @@ class SystemUserLevel extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchTitleAttr($query, $value)
+     */    public function searchTitleAttr($query, $value)
     {
         $query->where('title','LIKE', "%$value%");
     }

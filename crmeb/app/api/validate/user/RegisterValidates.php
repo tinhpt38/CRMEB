@@ -18,8 +18,7 @@ use think\Validate;
  * Xác minh đăng ký
  * Class RegisterValidates
  * @package app\http\validates\user
- */
-class RegisterValidates extends Validate
+ */class RegisterValidates extends Validate
 {
     protected $regex = ['phone' => PhoneValidate::VN_MOBILE_PATTERN];
 

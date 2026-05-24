@@ -31,15 +31,13 @@ use think\facade\Route as Url;
  *
  * Class DiyServices
  * @package app\services\diy
- */
-class DiyServices extends BaseServices
+ */class DiyServices extends BaseServices
 {
 
     /**
      * DiyServices constructor.
      * @param DiyDao $dao
-     */
-    public function __construct(DiyDao $dao)
+     */    public function __construct(DiyDao $dao)
     {
         $this->dao = $dao;
     }
@@ -51,8 +49,7 @@ class DiyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDiyList(array $where)
+     */    public function getDiyList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $where['is_del'] = 0;
@@ -69,8 +66,7 @@ class DiyServices extends BaseServices
      * tiết kiệm tài nguyên
      * @param int $id
      * @param array $data
-     */
-    public function saveData(int $id = 0, array $data = [])
+     */    public function saveData(int $id = 0, array $data = [])
     {
         if ($id) {
             $data['update_time'] = time();
@@ -90,8 +86,7 @@ class DiyServices extends BaseServices
     /**
      * Xóa mẫu DIY
      * @param int $id
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
         if ($id == 1) throw new AdminException('Không thể xóa mẫu mặc định');
         $count = $this->dao->getCount(['id' => $id, 'status' => 1]);
@@ -105,8 +100,7 @@ class DiyServices extends BaseServices
     /**
      * Đặt mẫu để sử dụng
      * @param int $id
-     */
-    public function setStatus(int $id)
+     */    public function setStatus(int $id)
     {
         $this->dao->update(['is_diy' => 1], ['is_show' => 1, 'type' => 2]);
         $this->dao->update([['id', '<>', $id]], ['status' => 0]);
@@ -122,8 +116,7 @@ class DiyServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/05/08
-     */
-    public function getDiyVersion(int $id)
+     */    public function getDiyVersion(int $id)
     {
         if ($id) {
             $where = ['id' => $id];
@@ -145,8 +138,7 @@ class DiyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDiy($id = 0)
+     */    public function getDiy($id = 0)
     {
         $field = 'name,value,is_show,is_bg_color,color_picker,bg_pic,bg_tab_val,is_bg_pic,order_status,is_diy,title';
 
@@ -186,8 +178,7 @@ class DiyServices extends BaseServices
      * Thêm biểu mẫu
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm()
+     */    public function createForm()
     {
         $field = array();
         $title = 'Thêm mẫu';
@@ -202,17 +193,12 @@ class DiyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function ProductList(array $where)
+     */    public function ProductList(array $where)
     {
-        /** @var StoreProductServices $StoreProductServices */
-        $StoreProductServices = app()->make(StoreProductServices::class);
-        /** @var StoreBargainServices $StoreBargainServices */
-        $StoreBargainServices = app()->make(StoreBargainServices::class);
-        /** @var  $StoreCombinationServices StoreCombinationServices */
-        $StoreCombinationServices = app()->make(StoreCombinationServices::class);
-        /** @var  $StoreSeckillServices  StoreSeckillServices */
-        $StoreSeckillServices = app()->make(StoreSeckillServices::class);
+        /** @var StoreProductServices $StoreProductServices */        $StoreProductServices = app()->make(StoreProductServices::class);
+        /** @var StoreBargainServices $StoreBargainServices */        $StoreBargainServices = app()->make(StoreBargainServices::class);
+        /** @var  $StoreCombinationServices StoreCombinationServices */        $StoreCombinationServices = app()->make(StoreCombinationServices::class);
+        /** @var  $StoreSeckillServices  StoreSeckillServices */        $StoreSeckillServices = app()->make(StoreSeckillServices::class);
         $type = $where['type'];
         unset($where['type']);
         $data = [];
@@ -255,17 +241,12 @@ class DiyServices extends BaseServices
     /**
      * Giao diện front-end để lấy dữ liệu trang chủ
      * @param array $where
-     */
-    public function homeProductList(array $where, int $uid)
+     */    public function homeProductList(array $where, int $uid)
     {
-        /** @var StoreProductServices $StoreProductServices */
-        $StoreProductServices = app()->make(StoreProductServices::class);
-        /** @var StoreBargainServices $StoreBargainServices */
-        $StoreBargainServices = app()->make(StoreBargainServices::class);
-        /** @var  $StoreCombinationServices StoreCombinationServices */
-        $StoreCombinationServices = app()->make(StoreCombinationServices::class);
-        /** @var  $StoreSeckillServices  StoreSeckillServices */
-        $StoreSeckillServices = app()->make(StoreSeckillServices::class);
+        /** @var StoreProductServices $StoreProductServices */        $StoreProductServices = app()->make(StoreProductServices::class);
+        /** @var StoreBargainServices $StoreBargainServices */        $StoreBargainServices = app()->make(StoreBargainServices::class);
+        /** @var  $StoreCombinationServices StoreCombinationServices */        $StoreCombinationServices = app()->make(StoreCombinationServices::class);
+        /** @var  $StoreSeckillServices  StoreSeckillServices */        $StoreSeckillServices = app()->make(StoreSeckillServices::class);
         $type = $where['type'];
         $data = [];
         switch ($type) {
@@ -316,8 +297,7 @@ class DiyServices extends BaseServices
      * Danh mục, trung tâm cá nhân, thay đổi màu sắc chỉ bằng một cú nhấp chuột
      * @param string $name
      * @return mixed
-     */
-    public function getColorChange(string $name)
+     */    public function getColorChange(string $name)
     {
         return $this->dao->value(['template_name' => $name, 'type' => 1], 'value');
     }
@@ -328,10 +308,8 @@ class DiyServices extends BaseServices
         $status = (int)$info['value'];
         $order_status = $info['order_status'] ? (int)$info['order_status'] : 1;
         $color_change = (int)$this->getColorChange('color_change');
-        /** @var SystemGroupDataServices $systemGroupDataServices */
-        $systemGroupDataServices = app()->make(SystemGroupDataServices::class);
-        /** @var SystemGroupServices $systemGroupServices */
-        $systemGroupServices = app()->make(SystemGroupServices::class);
+        /** @var SystemGroupDataServices $systemGroupDataServices */        $systemGroupDataServices = app()->make(SystemGroupDataServices::class);
+        /** @var SystemGroupServices $systemGroupServices */        $systemGroupServices = app()->make(SystemGroupServices::class);
         $menus_gid = $systemGroupServices->value(['config_name' => 'routine_my_menus'], 'id');
         $banner_gid = $systemGroupServices->value(['config_name' => 'routine_my_banner'], 'id');
         $routine_my_menus = $systemGroupDataServices->getGroupDataList(['gid' => $menus_gid], 'all');
@@ -357,11 +335,9 @@ class DiyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function memberSaveData(array $data)
+     */    public function memberSaveData(array $data)
     {
-        /** @var SystemGroupDataServices $systemGroupDataServices */
-        $systemGroupDataServices = app()->make(SystemGroupDataServices::class);
+        /** @var SystemGroupDataServices $systemGroupDataServices */        $systemGroupDataServices = app()->make(SystemGroupDataServices::class);
         if (!$data['status']) throw new AdminException('Lỗi tham số');
         $info = $this->dao->get(['template_name' => 'member', 'type' => 1]);
         if ($info) {
@@ -384,8 +360,7 @@ class DiyServices extends BaseServices
      * Nhận điều hướng phía dưới
      * @param string $template_name
      * @return array|mixed
-     */
-    public function getNavigation(string $template_name)
+     */    public function getNavigation(string $template_name)
     {
         $value = $this->dao->value(['status' => 1], 'value');
         if (!$value) {
@@ -406,21 +381,19 @@ class DiyServices extends BaseServices
     }
 
     /**
-     * Lấy một ứng dụng DIY duy nhất để xem trước mã QR
+     * Lấy một Ứng dụng DIY duy nhất để xem trước mã QR
      * @param int $id
      * @return string
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRoutineCode(int $id)
+     */    public function getRoutineCode(int $id)
     {
         $diy = $this->dao->getOne(['id' => $id, 'is_del' => 0]);
         if (!$diy) {
             throw new AdminException('Dữ liệu không tồn tại');
         }
-        /** @var QrcodeServices $QrcodeService */
-        $QrcodeService = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $QrcodeService */        $QrcodeService = app()->make(QrcodeServices::class);
         return $QrcodeService->getRoutineQrcodePath($id, 0, 6, [], false);
     }
 }

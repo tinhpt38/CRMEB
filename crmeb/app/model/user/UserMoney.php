@@ -16,29 +16,25 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * Thay đổi số dư người dùng
- */
-class UserMoney extends BaseModel
+ * Thay đổi số dư Khách hàng
+ */class UserMoney extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_money';
+     */    protected $name = 'user_money';
 
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value != '') $query->where('type', $value);
     }
@@ -46,8 +42,7 @@ class UserMoney extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchNotTypeAttr($query, $value)
+     */    public function searchNotTypeAttr($query, $value)
     {
         if (is_array($value) && count($value)) $query->whereNotIn('type', $value);
     }
@@ -55,8 +50,7 @@ class UserMoney extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchPmAttr($query, $value)
+     */    public function searchPmAttr($query, $value)
     {
         if ($value !== '') $query->where('pm', $value);
     }
@@ -64,8 +58,7 @@ class UserMoney extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value !== '') $query->where('uid', $value);
     }

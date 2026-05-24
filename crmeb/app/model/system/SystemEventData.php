@@ -20,12 +20,10 @@ class SystemEventData extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_event_data';
+     */    protected $name = 'system_event_data';
 }

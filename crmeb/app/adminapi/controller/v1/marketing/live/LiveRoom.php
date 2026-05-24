@@ -18,15 +18,13 @@ use think\facade\App;
  * Phòng phát sóng trực tiếp
  * Class LiveRoom
  * @package app\adminapi\controller\v1\marketing\live
- */
-class LiveRoom extends AuthController
+ */class LiveRoom extends AuthController
 {
     /**
      * LiveRoom constructor.
      * @param App $app
      * @param LiveRoomServices $services
-     */
-    public function __construct(App $app, LiveRoomServices $services)
+     */    public function __construct(App $app, LiveRoomServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -35,8 +33,7 @@ class LiveRoom extends AuthController
     /**
      * Danh sách phòng phát sóng trực tiếp
      * @return mixed
-     */
-    public function list()
+     */    public function list()
     {
         $where = $this->request->postMore([
             ['kerword', ''],
@@ -49,8 +46,7 @@ class LiveRoom extends AuthController
      * Chi tiết phòng phát sóng trực tiếp
      * @param $id
      * @return mixed
-     */
-    public function detail($id)
+     */    public function detail($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->get((int)$id)->toArray());
@@ -59,8 +55,7 @@ class LiveRoom extends AuthController
     /**
      * Thêm phòng phát sóng trực tiếp
      * @return mixed
-     */
-    public function add()
+     */    public function add()
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -92,8 +87,7 @@ class LiveRoom extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function addGoods()
+     */    public function addGoods()
     {
         [$room_id, $goods_ids] = $this->request->postMore([
             ['room_id', 0],
@@ -107,8 +101,7 @@ class LiveRoom extends AuthController
      * Gửi để xem xét
      * @param $id
      * @return mixed
-     */
-    public function apply($id)
+     */    public function apply($id)
     {
         [$status, $msg] = $this->request->postMore([
             ['status', ''],
@@ -123,8 +116,7 @@ class LiveRoom extends AuthController
      * @param $id
      * @param $is_show
      * @return mixed
-     */
-    public function setShow($id, $is_show)
+     */    public function setShow($id, $is_show)
     {
         $this->services->isShow((int)$id, $is_show);
         return app('json')->success('Thiết lập thành công');
@@ -134,8 +126,7 @@ class LiveRoom extends AuthController
      * Xóa phòng trực tiếp
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         $this->services->delete($id);
         return app('json')->success('Xóa thành công');
@@ -144,8 +135,7 @@ class LiveRoom extends AuthController
     /**
      * Phòng phát sóng trực tiếp đồng bộ
      * @return mixed
-     */
-    public function syncRoom()
+     */    public function syncRoom()
     {
         $this->services->syncRoomStatus();
         return app('json')->success('Đồng bộ hóa thành công');

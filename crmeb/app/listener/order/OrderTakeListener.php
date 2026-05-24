@@ -20,21 +20,18 @@ use think\facade\Log;
  * Biên nhận xác nhận đơn hàng
  * Class OrderTakeListener
  * @package app\listener\order
- */
-class OrderTakeListener implements ListenerInterface
+ */class OrderTakeListener implements ListenerInterface
 {
     public function handle($event): void
     {
         [$order, $userInfo, $storeTitle] = $event;
         try {
             //Sửa đổi trạng thái biên nhận
-            /** @var UserBillServices $userBillServices */
-            $userBillServices = app()->make(UserBillServices::class);
+            /** @var UserBillServices $userBillServices */            $userBillServices = app()->make(UserBillServices::class);
             $userBillServices->takeUpdate((int)$order['uid'], (int)$order['id']);
 
             //Thêm trạng thái đơn hàng giao hàng
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $statusService->save([
                 'oid' => $order['id'],
                 'change_type' => 'take_delivery',
@@ -44,8 +41,7 @@ class OrderTakeListener implements ListenerInterface
 
             //Kiểm tra xem trạng thái của đơn hàng chính có cần sửa đổi không
             if ($order['pid'] > 0) {
-                /** @var StoreOrderTakeServices $storeOrderTake */
-                $storeOrderTake = app()->make(StoreOrderTakeServices::class);
+                /** @var StoreOrderTakeServices $storeOrderTake */                $storeOrderTake = app()->make(StoreOrderTakeServices::class);
                 $storeOrderTake->checkMaster($order['pid']);
             }
         } catch (\Throwable $e) {

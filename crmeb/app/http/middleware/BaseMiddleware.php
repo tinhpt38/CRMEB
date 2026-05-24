@@ -18,8 +18,7 @@ use crmeb\interfaces\MiddlewareInterface;
 /**
  * Class BaseMiddleware
  * @package app\api\middleware
- */
-class BaseMiddleware implements MiddlewareInterface
+ */class BaseMiddleware implements MiddlewareInterface
 {
     /**
      * @param Request $request
@@ -29,8 +28,7 @@ class BaseMiddleware implements MiddlewareInterface
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/07
-     */
-    public function handle(Request $request, \Closure $next, bool $force = true)
+     */    public function handle(Request $request, \Closure $next, bool $force = true)
     {
         if (!$request->hasMacro('uid')) {
             $request->macro('uid', function(){ return 0; });

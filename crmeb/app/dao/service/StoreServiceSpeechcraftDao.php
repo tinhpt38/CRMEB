@@ -19,14 +19,12 @@ use app\model\service\StoreServiceSpeechcraft;
  * Kỹ năng phục vụ khách hàngdao
  * Class StoreServiceSpeechcraftDao
  * @package app\dao\service
- */
-class StoreServiceSpeechcraftDao extends BaseDao
+ */class StoreServiceSpeechcraftDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreServiceSpeechcraft::class;
     }
@@ -40,8 +38,7 @@ class StoreServiceSpeechcraftDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSpeechcraftList(array $where, int $page, int $limit)
+     */    public function getSpeechcraftList(array $where, int $page, int $limit)
     {
         return $this->search($where)->with(['cateName'])->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);

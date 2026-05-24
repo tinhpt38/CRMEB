@@ -19,13 +19,11 @@ use app\model\wechat\WechatUser;
  *
  * Class UserWechatUserDao
  * @package app\dao\user
- */
-class WechatUserDao extends BaseDao
+ */class WechatUserDao extends BaseDao
 {
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return WechatUser::class;
     }
@@ -41,8 +39,7 @@ class WechatUserDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', string $order = 'id desc', int $page = 0, int $limit = 0)
+     */    public function getList(array $where, string $field = '*', string $order = 'id desc', int $page = 0, int $limit = 0)
     {
         return $this->getModel()->where($where)->field($field)->order($order)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -50,14 +47,13 @@ class WechatUserDao extends BaseDao
     }
 
     /**
-     * Nhận số liệu thống kê người dùng WeChat
+     * Nhận số liệu thống kê Khách hàng WeChat
      * @param $time
      * @param $where
      * @param $timeType
      * @param $key
      * @return mixed
-     */
-    public function getWechatTrendData($time, $where, $timeType, $key)
+     */    public function getWechatTrendData($time, $where, $timeType, $key)
     {
         return $this->getModel()->where('user_type', 'wechat')
             ->where($where)
@@ -73,12 +69,11 @@ class WechatUserDao extends BaseDao
     }
 
     /**
-     * Tất cả người dùng trong khu vực
+     * Tất cả Khách hàng trong khu vực
      * @param $time
      * @param $userType
      * @return mixed
-     */
-    public function getRegionAll($time, $userType)
+     */    public function getRegionAll($time, $userType)
     {
         return $this->getModel()->when($userType != '', function ($query) use ($userType) {
             $query->where('user_type', $userType);
@@ -93,8 +88,7 @@ class WechatUserDao extends BaseDao
      * @param $time
      * @param $userType
      * @return mixed
-     */
-    public function getRegionNew($time, $userType)
+     */    public function getRegionNew($time, $userType)
     {
         return $this->getModel()->when($userType != '', function ($query) use ($userType) {
             $query->where('user_type', $userType);
@@ -110,12 +104,11 @@ class WechatUserDao extends BaseDao
     }
 
     /**
-     * Nhận giới tính người dùng
+     * Nhận giới tính Khách hàng
      * @param $time
      * @param $userType
      * @return mixed
-     */
-    public function getSex($time, $userType)
+     */    public function getSex($time, $userType)
     {
         return $this->getModel()->when($userType != '', function ($query) use ($userType) {
             $query->where('user_type', $userType);
@@ -134,8 +127,7 @@ class WechatUserDao extends BaseDao
      * Có được tài khoản công cộng hoặc chương trình nhỏopenid
      * @param int $uid
      * @return mixed
-     */
-    public function getWechatOpenid(int $uid, string $userType = 'wechat')
+     */    public function getWechatOpenid(int $uid, string $userType = 'wechat')
     {
         return $this->getModel()->where('uid', $uid)->where('user_type', $userType)->value('openid');
     }

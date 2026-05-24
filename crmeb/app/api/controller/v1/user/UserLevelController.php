@@ -18,26 +18,23 @@ use app\services\user\UserLevelServices;
  * Hạng mục cấp thành viên
  * Class UserLevelController
  * @package app\api\controller\user
- */
-class UserLevelController
+ */class UserLevelController
 {
     protected $services = NUll;
 
     /**
      * UserLevelController constructor.
      * @param UserLevelServices $services
-     */
-    public function __construct(UserLevelServices $services)
+     */    public function __construct(UserLevelServices $services)
     {
         $this->services = $services;
     }
 
     /**
-     * Kiểm tra xem người dùng có thể trở thành thành viên hay không
+     * Kiểm tra xem Khách hàng có thể trở thành thành viên hay không
      * @param Request $request
      * @return mixed
-     */
-    public function detection(Request $request)
+     */    public function detection(Request $request)
     {
         return app('json')->success($this->services->detection((int)$request->uid()));
     }
@@ -46,8 +43,7 @@ class UserLevelController
      * Danh sách cấp thành viên
      * @param Request $request
      * @return mixed
-     */
-    public function grade(Request $request)
+     */    public function grade(Request $request)
     {
         return app('json')->success(['list'=>$this->services->grade((int)$request->uid()),'task'=>['list'=>[],'task'=>[]]]);
     }
@@ -57,8 +53,7 @@ class UserLevelController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function task(Request $request, $id)
+     */    public function task(Request $request, $id)
     {
         return app('json')->success((new SystemUserTask())->getTashList($id, $request->uid()));
     }
@@ -67,8 +62,7 @@ class UserLevelController
      * Chi tiết thành viên
      * @param Request $request
      * @return mixed
-     */
-    public function userLevelInfo(Request $request)
+     */    public function userLevelInfo(Request $request)
     {
         return app('json')->success($this->services->getUserLevelInfo((int)$request->uid()));
     }
@@ -77,8 +71,7 @@ class UserLevelController
      * Danh sách kinh nghiệm
      * @param Request $request
      * @return mixed
-     */
-    public function expList(Request $request)
+     */    public function expList(Request $request)
     {
         return app('json')->success($this->services->expList((int)$request->uid()));
     }

@@ -28,21 +28,19 @@ use crmeb\services\oauth\OAuth;
  *
  * Class RoutineServices
  * @package app\services\wechat
- */
-class RoutineServices extends BaseServices
+ */class RoutineServices extends BaseServices
 {
 
     /**
      * RoutineServices constructor.
      * @param WechatUserDao $dao
-     */
-    public function __construct(WechatUserDao $dao)
+     */    public function __construct(WechatUserDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Trả về khóa bộ đệm của thông tin người dùng và trả về việc có buộc buộc liên kết số điện thoại di động hay không.
+     * Trả về khóa bộ đệm của thông tin Khách hàng và trả về việc có buộc buộc liên kết số điện thoại di động hay không.
      * @param $code
      * @param $spread
      * @param $spid
@@ -50,8 +48,7 @@ class RoutineServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function authType($code, $spread, $spid)
+     */    public function authType($code, $spread, $spid)
     {
         $agent_id = 0;
         $userInfoConfig = app()->make(OAuth::class, ['mini_program'])->oauth($code, ['silence' => true]);
@@ -93,11 +90,10 @@ class RoutineServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function authLogin($key)
+     */    public function authLogin($key)
     {
         $createData = CacheService::get($key);
-        //Viết thông tin người dùng
+        //Viết thông tin Khách hàng
         $user = app()->make(WechatUserServices::class)->wechatOauthAfter($createData);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
@@ -124,8 +120,7 @@ class RoutineServices extends BaseServices
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function authBindingPhone($code, $iv, $encryptedData, $spread, $spid, $key = '')
+     */    public function authBindingPhone($code, $iv, $encryptedData, $spread, $spid, $key = '')
     {
         $wechatInfo = [];
         $agent_id = 0;
@@ -134,20 +129,18 @@ class RoutineServices extends BaseServices
             [$openid, $wechatInfo, $spreadId, $agent_id, $login_type, $userType] = CacheService::get($key);
         }
 
-        /** @var OAuth $oauth */
-        $oauth = app()->make(OAuth::class, ['mini_program']);
+        /** @var OAuth $oauth */        $oauth = app()->make(OAuth::class, ['mini_program']);
         [$userInfoCong, $userInfo] = $oauth->oauth($code, [
             'iv' => $iv,
             'encryptedData' => $encryptedData
         ]);
         $session_key = $userInfoCong['session_key'];
         if (!$userInfo || !isset($userInfo['purePhoneNumber'])) {
-            throw new ApiException('Không thể lấy được thông tin người dùng');
+            throw new ApiException('Không thể lấy được thông tin Khách hàng');
         }
 
         $spreadId = $spid ?? 0;
-        /** @var QrcodeServices $qrcode */
-        $qrcode = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrcode */        $qrcode = app()->make(QrcodeServices::class);
         if ($spread && ($info = $qrcode->getOne(['id' => $spread, 'status' => 1]))) {
             $spreadId = $info['third_id'];
         }
@@ -158,9 +151,8 @@ class RoutineServices extends BaseServices
         $wechatInfo['code'] = $spread;
         $wechatInfo['session_key'] = $session_key;
         $wechatInfo['phone'] = $userInfo['purePhoneNumber'];
-        /** @var WechatUserServices $wechatUserServices */
-        $wechatUserServices = app()->make(WechatUserServices::class);
-        //Viết thông tin người dùng
+        /** @var WechatUserServices $wechatUserServices */        $wechatUserServices = app()->make(WechatUserServices::class);
+        //Viết thông tin Khách hàng
         $user = $wechatUserServices->wechatOauthAfter([$openid, $wechatInfo, $spreadId, $agent_id, $login_type, $userType]);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
@@ -190,8 +182,7 @@ class RoutineServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function phoneLogin($key, $phone, $spread = '', $agent_id = '', $spid = '', $code = '')
+     */    public function phoneLogin($key, $phone, $spread = '', $agent_id = '', $spid = '', $code = '')
     {
         if ($code == '') {
             [$openid, $routineInfo, $spid, $agent_id, $login_type, $userType] = CacheService::get($key);
@@ -216,7 +207,7 @@ class RoutineServices extends BaseServices
             $routineInfo['phone'] = $phone;
             $createData = [$openid, $routineInfo, $spid, $agent_id, 'routine', 'routine'];
         }
-        //Viết thông tin người dùng
+        //Viết thông tin Khách hàng
         $user = app()->make(WechatUserServices::class)->wechatOauthAfter($createData);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
@@ -240,15 +231,14 @@ class RoutineServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
-     */
-    public function bindingPhone($code, $iv, $encryptedData)
+     */    public function bindingPhone($code, $iv, $encryptedData)
     {
         [$userInfoCong, $userInfo] = app()->make(OAuth::class, ['mini_program'])->oauth($code, [
             'iv' => $iv,
             'encryptedData' => $encryptedData
         ]);
         if (!$userInfo || !isset($userInfo['purePhoneNumber'])) {
-            throw new ApiException('Không thể lấy được thông tin người dùng');
+            throw new ApiException('Không thể lấy được thông tin Khách hàng');
         }
         $uid = app()->make(WechatUserServices::class)->openidToUid($userInfoCong['openid']);
         $userServices = app()->make(UserServices::class);
@@ -261,11 +251,10 @@ class RoutineServices extends BaseServices
     }
 
     /**
-     * Applet trả về sau khi tạo người dùnguid
+     * Applet trả về sau khi tạo Khách hànguid
      * @param $routine
      * @return array
-     */
-    public function routineOauth($routine)
+     */    public function routineOauth($routine)
     {
         $routineInfo['nickname'] = filter_emoji($routine['nickName']);//Tên
         $routineInfo['sex'] = $routine['gender'];//giới tính
@@ -276,13 +265,12 @@ class RoutineServices extends BaseServices
         $routineInfo['headimgurl'] = $routine['avatarUrl'];//hình đại diện
         $routineInfo['openid'] = $routine['openId'];
         $routineInfo['session_key'] = $routine['session_key'];//khóa phiên
-        $routineInfo['unionid'] = $routine['unionId'];//Mã định danh duy nhất của người dùng trên nền tảng mở
-        $routineInfo['user_type'] = 'routine';//Loại người dùng
+        $routineInfo['unionid'] = $routine['unionId'];//Mã định danh duy nhất của Khách hàng trên nền tảng mở
+        $routineInfo['user_type'] = 'routine';//Loại Khách hàng
         $routineInfo['phone'] = $routine['phone'] ?? $routine['purePhoneNumber'] ?? '';
         $spid = $routine['spid'] ?? 0;//Uid mối quan hệ ràng buộc
         //Nhận xem có quét mã để vào chương trình mini hay không
-        /** @var QrcodeServices $qrcode */
-        $qrcode = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrcode */        $qrcode = app()->make(QrcodeServices::class);
         if (isset($routine['code']) && $routine['code'] && ($info = $qrcode->get($routine['code']))) {
             $spid = $info['third_id'];
         }
@@ -293,8 +281,7 @@ class RoutineServices extends BaseServices
      * Gọi lại thanh toán chương trình nhỏ
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \EasyWeChat\Core\Exceptions\FaultException
-     */
-    public function notify()
+     */    public function notify()
     {
         return MiniProgramService::handleNotify();
     }
@@ -302,12 +289,10 @@ class RoutineServices extends BaseServices
     /**
      * Nhận tin nhắn đăng ký chương trình nhỏid
      * @return bool|mixed|null
-     */
-    public function tempIds()
+     */    public function tempIds()
     {
         return CacheService::remember('TEMP_IDS_LIST', function () {
-            /** @var SystemNotificationServices $sysNotify */
-            $sysNotify = app()->make(SystemNotificationServices::class);
+            /** @var SystemNotificationServices $sysNotify */            $sysNotify = app()->make(SystemNotificationServices::class);
             return $sysNotify->getColumn([['routine_tempid', '<>', '']], 'routine_tempid', 'mark');
         });
     }
@@ -317,8 +302,7 @@ class RoutineServices extends BaseServices
      * @param $page
      * @param $limit
      * @return array|bool|mixed
-     */
-    public function live($page, $limit)
+     */    public function live($page, $limit)
     {
         $list = CacheService::remember('WECHAT_LIVE_LIST_' . $page . '_' . $limit, function () use ($page, $limit) {
             $list = MiniProgramService::getLiveInfo((int)$page, (int)$limit);
@@ -331,18 +315,16 @@ class RoutineServices extends BaseServices
     }
 
     /**
-     * Cập nhật thông tin người dùng
+     * Cập nhật thông tin Khách hàng
      * @param $uid
      * @param array $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateUserInfo($uid, array $data)
+     */    public function updateUserInfo($uid, array $data)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Dữ liệu không tồn tại');
@@ -356,10 +338,9 @@ class RoutineServices extends BaseServices
         $userInfo['country'] = $data['country'] ?? '';//Quốc gia
         $userInfo['headimgurl'] = $data['avatarUrl'] ?? '';//hình đại diện
         $userInfo['is_complete'] = 1;
-        /** @var LoginServices $loginService */
-        $loginService = app()->make(LoginServices::class);
+        /** @var LoginServices $loginService */        $loginService = app()->make(LoginServices::class);
         $loginService->updateUserInfo($userInfo, $user);
-        //Cập nhật thông tin người dùng
+        //Cập nhật thông tin Khách hàng
         if (!$this->dao->update(['uid' => $user['uid'], 'user_type' => 'routine'], $userInfo)) {
             throw new ApiException('Cập nhật không thành công');
         }

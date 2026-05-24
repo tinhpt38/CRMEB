@@ -17,24 +17,21 @@ use crmeb\traits\QueueTrait;
 use think\facade\Log;
 
 /**
- * In biên lai
+ * In phiếu giao hàng
  * Class PrintJob
  * @package app\jobs\notice
- */
-class PrintJob extends BaseJobs
+ */class PrintJob extends BaseJobs
 {
     use QueueTrait;
 
     /**
-     * In biên lai
+     * In phiếu giao hàng
      * @param $id
      * @return bool|void
-     */
-    public function doJob($id, $print_type)
+     */    public function doJob($id, $print_type)
     {
         try {
-            /** @var StoreOrderServices $orderServices */
-            $orderServices = app()->make(StoreOrderServices::class);
+            /** @var StoreOrderServices $orderServices */            $orderServices = app()->make(StoreOrderServices::class);
             $orderServices->orderPrintTicket((int)$id, $print_type);
             return true;
         } catch (\Throwable $e) {

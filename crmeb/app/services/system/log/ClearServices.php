@@ -18,14 +18,12 @@ use crmeb\services\CacheService;
 /**
  * Class ClearServices
  * @package app\services\system\log
- */
-class ClearServices extends BaseServices
+ */class ClearServices extends BaseServices
 {
     /** Xóa tập tin đệ quy
      * @param $dirName
      * @param bool $subdir
-     */
-    protected function delDirAndFile($dirName)
+     */    protected function delDirAndFile($dirName)
     {
         $list = glob($dirName . '*');
         foreach ($list as $file) {
@@ -39,8 +37,7 @@ class ClearServices extends BaseServices
 
     /**
      * Xóa nhật ký
-     */
-    public function deleteLog()
+     */    public function deleteLog()
     {
         $root = app()->getRootPath() . 'runtime' . DS;
         $this->delDirAndFile($root . 'admin' . DS . 'log' . DS);
@@ -50,8 +47,7 @@ class ClearServices extends BaseServices
 
     /**
      * Làm mới bộ đệm dữ liệu
-     */
-    public function refresCache()
+     */    public function refresCache()
     {
         $root = app()->getRootPath() . 'runtime' . DS;
         $adminRoute = $root . 'admin';

@@ -20,18 +20,16 @@ class UserBalance extends AuthController
      * UserBalance constructor.
      * @param App $app
      * @param UserMoneyServices $services
-     */
-    public function __construct(App $app, UserMoneyServices $services)
+     */    public function __construct(App $app, UserMoneyServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Hồ sơ số dư
+     * Biến động số dư
      * @return mixed
-     */
-    public function balanceList()
+     */    public function balanceList()
     {
         $where = $this->request->getMore([
             ['time', ''],
@@ -44,8 +42,7 @@ class UserBalance extends AuthController
     /**
      * Ghi chú về số dư
      * @return mixed
-     */
-    public function balanceRecordRemark($id = 0)
+     */    public function balanceRecordRemark($id = 0)
     {
         [$mark] = $this->request->postMore([
             ['mark', '']

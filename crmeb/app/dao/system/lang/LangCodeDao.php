@@ -18,8 +18,7 @@ class LangCodeDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return LangCode::class;
     }

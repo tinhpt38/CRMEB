@@ -19,15 +19,13 @@ use app\model\other\Qrcode;
  *
  * Class QrcodeDao
  * @package app\dao\other
- */
-class QrcodeDao extends BaseDao
+ */class QrcodeDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return Qrcode::class;
     }
@@ -40,8 +38,7 @@ class QrcodeDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getQrcode($id, $type = 'id')
+     */    public function getQrcode($id, $type = 'id')
     {
         return $this->getModel()->where($type, $id)->find();
     }
@@ -51,8 +48,7 @@ class QrcodeDao extends BaseDao
      * @param $id
      * @param string $type
      * @return mixed
-     */
-    public function scanQrcode($id, $type = 'id')
+     */    public function scanQrcode($id, $type = 'id')
     {
         return $this->getModel()->where($type, $id)->inc('scan')->update();
     }

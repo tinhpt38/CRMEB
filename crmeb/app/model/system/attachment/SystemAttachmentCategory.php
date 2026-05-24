@@ -19,30 +19,26 @@ use think\Model;
  * Mô hình phân loại quản lý tệp đính kèm
  * Class SystemAttachmentCategory
  * @package app\model\system\attachment
- */
-class SystemAttachmentCategory extends BaseModel
+ */class SystemAttachmentCategory extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_attachment_category';
+     */    protected $name = 'system_attachment_category';
 
 
     /**
      * Trình tìm kiếm biệt hiệu phân loại tệp đính kèm
      * @param Model $query
      * @param $value
-     */
-    public function searchNameAttr($query, $value)
+     */    public function searchNameAttr($query, $value)
     {
         if ($value != '') $query->where('name', 'like', '%' . $value . '%');
     }
@@ -51,8 +47,7 @@ class SystemAttachmentCategory extends BaseModel
      * pidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchPidAttr($query, $value)
+     */    public function searchPidAttr($query, $value)
     {
         if ($value !== '') $query->where('pid', $value);
     }

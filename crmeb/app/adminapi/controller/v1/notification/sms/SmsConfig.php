@@ -21,16 +21,14 @@ use think\facade\App;
  * cấu hình tin nhắn
  * Class SmsConfig
  * @package app\admin\controller\sms
- */
-class SmsConfig extends AuthController
+ */class SmsConfig extends AuthController
 {
     /**
      * Người xây dựng
      * SmsConfig constructor.
      * @param App $app
      * @param SmsAdminServices $services
-     */
-    public function __construct(App $app, SmsAdminServices $services)
+     */    public function __construct(App $app, SmsAdminServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -40,8 +38,7 @@ class SmsConfig extends AuthController
      * Lưu cấu hình SMS
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function save_basics()
+     */    public function save_basics()
     {
         [$account, $token] = $this->request->postMore([
             ['sms_account', ''],
@@ -62,8 +59,7 @@ class SmsConfig extends AuthController
      * @param ServeServices $services
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function is_login(ServeServices $services)
+     */    public function is_login(ServeServices $services)
     {
         $configServices = app()->make(SystemConfigServices::class);
         $sms_info = CacheService::get('sms_account');
@@ -102,8 +98,7 @@ class SmsConfig extends AuthController
      * từ bỏ
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function logout()
+     */    public function logout()
     {
         CacheService::delete('sms_account');
         $this->services->updateSmsConfig('', '');
@@ -115,8 +110,7 @@ class SmsConfig extends AuthController
      * Bản ghi gửi SMS
      * @param ServeServices $services
      * @return mixed
-     */
-    public function record(ServeServices $services)
+     */    public function record(ServeServices $services)
     {
         [$page, $limit, $status] = $this->request->getMore([
             [['page', 'd'], 0],
@@ -129,8 +123,7 @@ class SmsConfig extends AuthController
     /**
      * Nhận thông tin tài khoản SMS hiện đang đăng nhập
      * @return mixed
-     */
-    public function data()
+     */    public function data()
     {
         return app('json')->success($this->services->getSmsData());
     }

@@ -19,8 +19,7 @@ use crmeb\exceptions\AdminException;
 /**
  * Class AgreementServices
  * @package app\services\other
- */
-class AgreementServices extends BaseServices
+ */class AgreementServices extends BaseServices
 {
 
     public function __construct(AgreementDao $dao)
@@ -28,17 +27,16 @@ class AgreementServices extends BaseServices
         $this->dao = $dao;
     }
 
-    /** Sửa đổi nội dung thỏa thuận
+    /** Sửa đổi Nội dung thỏa thuận
      * @param array $where
      * @param $content
      * @return bool|\crmeb\basic\BaseModel
-     */
-    public function saveAgreement(array $data, $id = 0)
+     */    public function saveAgreement(array $data, $id = 0)
     {
         if (!$data) return false;
         if (!isset($data['type']) || !$data['type'] || $data['type'] == 0) throw new AdminException('Loại giao thức bị thiếu');
         if (!isset($data['title']) || !$data['title']) throw new AdminException('Vui lòng điền tên thỏa thuận');
-        if (!isset($data['content']) || !$data['content']) throw new AdminException('Vui lòng điền nội dung thỏa thuận');
+        if (!isset($data['content']) || !$data['content']) throw new AdminException('Vui lòng điền Nội dung thỏa thuận');
         if (!$id) {
             $getOne = $this->getAgreementBytype($data['type']);
             if ($getOne) throw new AdminException('Loại thỏa thuận này đã tồn tại');
@@ -52,8 +50,7 @@ class AgreementServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAgreementBytype($type)
+     */    public function getAgreementBytype($type)
     {
         if (!$type) return [];
         $data = $this->dao->getOne(['type' => $type]);

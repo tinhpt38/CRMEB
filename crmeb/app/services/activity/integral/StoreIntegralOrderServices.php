@@ -29,22 +29,19 @@ use crmeb\services\printer\Printer;
  * @package app\services\order
  * @method getOrderIdsCount(array $ids) Lấy số lượng đơn hàng chưa bị xóa theo id đơn hàng
  * @method getUserOrderDetail(string $key, int $uid) Nhận chi tiết đơn hàng
- * @method getBuyCount($uid, $type) Lấy số lượng vật phẩm người dùng đã mua cho sự kiện này
- */
-class StoreIntegralOrderServices extends BaseServices
+ * @method getBuyCount($uid, $type) Lấy số lượng vật phẩm Khách hàng đã mua cho sự kiện này
+ */class StoreIntegralOrderServices extends BaseServices
 {
 
     /**
      * Loại vận chuyển
      * @var string[]
-     */
-    public $deliveryType = ['send' => 'giao hàng của người bán', 'express' => 'chuyển phát nhanh', 'fictitious' => 'giao hàng ảo'];
+     */    public $deliveryType = ['send' => 'giao hàng của người bán', 'express' => 'chuyển phát nhanh', 'fictitious' => 'giao hàng ảo'];
 
     /**
      * StoreIntegralOrderServices constructor.
      * @param StoreIntegralOrderDao $dao
-     */
-    public function __construct(StoreIntegralOrderDao $dao)
+     */    public function __construct(StoreIntegralOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -56,8 +53,7 @@ class StoreIntegralOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderList(array $where, array $field = ['*'], array $with = [])
+     */    public function getOrderList(array $where, array $field = ['*'], array $with = [])
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getOrderList($where, $field, $page, $limit, $with);
@@ -75,8 +71,7 @@ class StoreIntegralOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getExportList(array $where, int $limit = 0)
+     */    public function getExportList(array $where, int $limit = 0)
     {
         if ($limit) {
             [$page] = $this->getPageValue();
@@ -97,8 +92,7 @@ class StoreIntegralOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderApiList(array $where, array $field = ['*'], array $with = [])
+     */    public function getOrderApiList(array $where, array $field = ['*'], array $with = [])
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getOrderList($where, $field, $page, $limit, $with);
@@ -109,8 +103,7 @@ class StoreIntegralOrderServices extends BaseServices
      * Định dạng dữ liệu chi tiết đơn hàng
      * @param $order
      * @return mixed
-     */
-    public function tidyOrder($order)
+     */    public function tidyOrder($order)
     {
         $order['add_time'] = date('Y-m-d H:i:s', $order['add_time']);
         if ($order['status'] == 1) {
@@ -129,8 +122,7 @@ class StoreIntegralOrderServices extends BaseServices
      * chuyển đổi dữ liệu
      * @param array $data
      * @return array
-     */
-    public function tidyOrderList(array $data)
+     */    public function tidyOrderList(array $data)
     {
         foreach ($data as &$item) {
             $item['add_time'] = date('Y-m-d H:i:s', $item['add_time']);
@@ -156,19 +148,16 @@ class StoreIntegralOrderServices extends BaseServices
      * @param $num
      * @param $productInfo
      * @throws \Exception
-     */
-    public function createOrder($uid, $addressId, $mark = '', $userInfo, $num, $productInfo)
+     */    public function createOrder($uid, $addressId, $mark = '', $userInfo, $num, $productInfo)
     {
-        /** @var UserAddressServices $addressServices */
-        $addressServices = app()->make(UserAddressServices::class);
+        /** @var UserAddressServices $addressServices */        $addressServices = app()->make(UserAddressServices::class);
         if (!$addressId) {
             throw new ApiException('Vui lòng chọn địa chỉ giao hàng');
         }
         if (!$addressInfo = $addressServices->getOne(['uid' => $uid, 'id' => $addressId, 'is_del' => 0])) throw new ApiException('Chọn sai địa chỉ');
         $addressInfo = $addressInfo->toArray();
         $total_price = bcmul($productInfo['price'], $num, 2);
-        /** @var UserBillServices $userBillServices */
-        $userBillServices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillServices */        $userBillServices = app()->make(UserBillServices::class);
         $usable_integral = bcsub((string)$userInfo['integral'], (string)$userBillServices->getBillSum(['uid' => $userInfo['uid'], 'is_frozen' => 1]), 0);
         if ($total_price > $usable_integral) throw new ApiException('Không đủ điểm');
         $orderInfo = [
@@ -201,8 +190,7 @@ class StoreIntegralOrderServices extends BaseServices
             $this->deductIntegral($userInfo, $total_price, (int)$userInfo['uid'], $order->id);
             return $order;
         });
-        /** @var StoreIntegralOrderStatusServices $statusService */
-        $statusService = app()->make(StoreIntegralOrderStatusServices::class);
+        /** @var StoreIntegralOrderStatusServices $statusService */        $statusService = app()->make(StoreIntegralOrderStatusServices::class);
         $statusService->save([
             'oid' => $order['id'],
             'change_type' => 'cache_key_create_order',
@@ -219,16 +207,13 @@ class StoreIntegralOrderServices extends BaseServices
      * @param array $priceData
      * @param int $uid
      * @param string $key
-     */
-    public function deductIntegral(array $userInfo, $priceIntegral, int $uid, string $orderId)
+     */    public function deductIntegral(array $userInfo, $priceIntegral, int $uid, string $orderId)
     {
         $res2 = true;
         if ($userInfo['integral'] > 0) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $res2 = false !== $userServices->bcDec($userInfo['uid'], 'integral', $priceIntegral, 'uid');
-            /** @var UserBillServices $userBillServices */
-            $userBillServices = app()->make(UserBillServices::class);
+            /** @var UserBillServices $userBillServices */            $userBillServices = app()->make(UserBillServices::class);
             $res3 = $userBillServices->income('storeIntegral_use_integral', $uid, $priceIntegral, $userInfo['integral'] - $priceIntegral, $orderId);
             $res2 = $res2 && false != $res3;
         }
@@ -243,12 +228,10 @@ class StoreIntegralOrderServices extends BaseServices
      * @param int $combinationId
      * @param int $seckillId
      * @param int $bargainId
-     */
-    public function decGoodsStock(array $productInfo, int $num)
+     */    public function decGoodsStock(array $productInfo, int $num)
     {
         $res5 = true;
-        /** @var StoreIntegralServices $StoreIntegralServices */
-        $StoreIntegralServices = app()->make(StoreIntegralServices::class);
+        /** @var StoreIntegralServices $StoreIntegralServices */        $StoreIntegralServices = app()->make(StoreIntegralServices::class);
         try {
             $res5 = $res5 && $StoreIntegralServices->decIntegralStock((int)$num, $productInfo['product_id'], $productInfo['unique']);
             if (!$res5) {
@@ -263,8 +246,7 @@ class StoreIntegralOrderServices extends BaseServices
      * Tạo đơn hàng bằng thuật toán bông tuyếtID
      * @return string
      * @throws \Exception
-     */
-    public function getNewOrderId(string $prefix = 'wx')
+     */    public function getNewOrderId(string $prefix = 'wx')
     {
         $snowflake = new \Godruoyi\Snowflake\Snowflake();
         //32Chút
@@ -280,10 +262,9 @@ class StoreIntegralOrderServices extends BaseServices
      *Nhận số lượng đặt hàng
      * @param array $where
      * @return mixed
-     */
-    public function orderCount(array $where)
+     */    public function orderCount(array $where)
     {
-        //Tất cả các đơn đặt hàng
+        //Tất cả đơn hàng
         $data['statusAll'] = (string)$this->dao->count($where + ['is_system_del' => 0]);
         //Không được vận chuyển
         $data['unshipped'] = (string)$this->dao->count($where + ['status' => 1, 'is_system_del' => 0]);
@@ -303,8 +284,7 @@ class StoreIntegralOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderPrint($order)
+     */    public function orderPrint($order)
     {
         $data = [
             'clientId' => sys_config('printing_client_id', ''),
@@ -331,11 +311,9 @@ class StoreIntegralOrderServices extends BaseServices
      * @param array $user
      * @param $cartId
      * @return mixed
-     */
-    public function getOrderConfirmData(array $user, $unique, $num)
+     */    public function getOrderConfirmData(array $user, $unique, $num)
     {
-        /** @var StoreProductAttrValueServices $StoreProductAttrValueServices */
-        $StoreProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $StoreProductAttrValueServices */        $StoreProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
         $attrValue = $StoreProductAttrValueServices->uniqueByField($unique, 'product_id,suk,price,image,unique');
         if (!$attrValue || !isset($attrValue['storeIntegral']) || !$attrValue['storeIntegral']) {
             throw new ApiException('Sản phẩm này đã bị gỡ bỏ khỏi kệ hoặc bị xóa');
@@ -343,8 +321,7 @@ class StoreIntegralOrderServices extends BaseServices
         $data = [];
         $attrValue = is_object($attrValue) ? $attrValue->toArray() : $attrValue;
         $attrValue['price'] = (int)$attrValue['price'];
-        /** @var UserBillServices $userBillServices */
-        $userBillServices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillServices */        $userBillServices = app()->make(UserBillServices::class);
         $data['integral'] = bcsub((string)$user['integral'], (string)$userBillServices->getBillSum(['uid' => $user['uid'], 'is_frozen' => 1]), 0);
         $data['num'] = $num;
         $data['total_price'] = bcmul($num, $attrValue['price']);
@@ -357,16 +334,14 @@ class StoreIntegralOrderServices extends BaseServices
      * @param $uni
      * @param $uid
      * @return bool
-     */
-    public function removeOrder(string $order_id, int $uid)
+     */    public function removeOrder(string $order_id, int $uid)
     {
         $order = $this->getUserOrderDetail($order_id, $uid);
         if ($order['status'] != 3)
             throw new ApiException('Xóa không thành công');
 
         $order->is_del = 1;
-        /** @var StoreIntegralOrderStatusServices $statusService */
-        $statusService = app()->make(StoreIntegralOrderStatusServices::class);
+        /** @var StoreIntegralOrderStatusServices $statusService */        $statusService = app()->make(StoreIntegralOrderStatusServices::class);
         $res = $statusService->save([
             'oid' => $order['id'],
             'change_type' => 'remove_order',
@@ -380,12 +355,11 @@ class StoreIntegralOrderServices extends BaseServices
     }
 
     /**
-     * Đơn hàng đã được vận chuyển
+     * Đã giao cho ĐVVC
      * @param int $id
      * @param array $data
      * @return bool
-     */
-    public function delivery(int $id, array $data)
+     */    public function delivery(int $id, array $data)
     {
         $orderInfo = $this->dao->get($id);
         if (!$orderInfo) {
@@ -401,8 +375,7 @@ class StoreIntegralOrderServices extends BaseServices
         unset($data['type']);
         if ($type == 1) {
             // Phát hiện mã công ty chuyển phát nhanh
-            /** @var ExpressServices $expressServices */
-            $expressServices = app()->make(ExpressServices::class);
+            /** @var ExpressServices $expressServices */            $expressServices = app()->make(ExpressServices::class);
             if (!$expressServices->be(['code' => $data['delivery_code']])) {
                 throw new AdminException('Vui lòng kiểm tra mã công ty chuyển phát nhanh');
             }
@@ -428,15 +401,13 @@ class StoreIntegralOrderServices extends BaseServices
      * giao hàng ảo
      * @param int $id
      * @param array $data
-     */
-    public function orderVirtualDelivery(int $id, array $data)
+     */    public function orderVirtualDelivery(int $id, array $data)
     {
         $data['delivery_type'] = 'fictitious';
         $data['status'] = 2;
         unset($data['sh_delivery_name'], $data['sh_delivery_id'], $data['delivery_name'], $data['delivery_id']);
         //Lưu thông tin
-        /** @var StoreIntegralOrderStatusServices $services */
-        $services = app()->make(StoreIntegralOrderStatusServices::class);
+        /** @var StoreIntegralOrderStatusServices $services */        $services = app()->make(StoreIntegralOrderStatusServices::class);
         $this->transaction(function () use ($id, $data, $services) {
             $this->dao->update($id, $data);
             $services->save([
@@ -449,11 +420,10 @@ class StoreIntegralOrderServices extends BaseServices
     }
 
     /**
-     * Đặt hàng giao hàng
+     * Đơn hàng giao hàng
      * @param int $id
      * @param array $data
-     */
-    public function orderDelivery(int $id, array $data, $orderInfo)
+     */    public function orderDelivery(int $id, array $data, $orderInfo)
     {
         $data['delivery_type'] = 'send';
         $data['delivery_name'] = $data['sh_delivery_name'];
@@ -479,8 +449,7 @@ class StoreIntegralOrderServices extends BaseServices
         $orderInfo->delivery_name = $data['delivery_name'];
         $orderInfo->delivery_id = $data['delivery_id'];
         $orderInfo->status = $data['status'];
-        /** @var StoreIntegralOrderStatusServices $services */
-        $services = app()->make(StoreIntegralOrderStatusServices::class);
+        /** @var StoreIntegralOrderStatusServices $services */        $services = app()->make(StoreIntegralOrderStatusServices::class);
         $this->transaction(function () use ($id, $data, $services) {
             $this->dao->update($id, $data);
             //Ghi lại trạng thái đơn hàng
@@ -498,8 +467,7 @@ class StoreIntegralOrderServices extends BaseServices
      * Chuyển phát nhanh các đơn hàng
      * @param int $id
      * @param array $data
-     */
-    public function orderDeliverGoods(int $id, array $data, $orderInfo)
+     */    public function orderDeliverGoods(int $id, array $data, $orderInfo)
     {
         if (!$data['delivery_name']) {
             throw new AdminException('Hãy chọn công ty chuyển phát nhanh');
@@ -521,8 +489,7 @@ class StoreIntegralOrderServices extends BaseServices
             if (!$data['to_addr']) {
                 throw new AdminException('Vui lòng điền địa chỉ chi tiết của người gửi');
             }
-            /** @var ServeServices $ServeServices */
-            $ServeServices = app()->make(ServeServices::class);
+            /** @var ServeServices $ServeServices */            $ServeServices = app()->make(ServeServices::class);
             $expData['com'] = $data['delivery_code'];
             $expData['to_name'] = $orderInfo->real_name;
             $expData['to_tel'] = $orderInfo->user_phone;
@@ -560,8 +527,7 @@ class StoreIntegralOrderServices extends BaseServices
         $orderInfo->delivery_type = $data['delivery_type'];
         $orderInfo->delivery_name = $data['delivery_name'];
         $orderInfo->status = $data['status'];
-        /** @var StoreIntegralOrderStatusServices $services */
-        $services = app()->make(StoreIntegralOrderStatusServices::class);
+        /** @var StoreIntegralOrderStatusServices $services */        $services = app()->make(StoreIntegralOrderStatusServices::class);
         $this->transaction(function () use ($id, $data, $services) {
             $res = $this->dao->update($id, $data);
             $res = $res && $services->save([
@@ -578,10 +544,9 @@ class StoreIntegralOrderServices extends BaseServices
     }
 
     /**
-     * Lệnh xóa sổ tạo ra mã xóa sổ
+     * Lệnh xác nhận tạo ra mã xác nhận
      * @return false|string
-     */
-    public function getStoreCode()
+     */    public function getStoreCode()
     {
         mt_srand();
         list($msec, $sec) = explode(' ', microtime());
@@ -601,8 +566,7 @@ class StoreIntegralOrderServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function distributionForm(int $id)
+     */    public function distributionForm(int $id)
     {
         if (!$orderInfo = $this->dao->get($id))
             throw new AdminException('Đơn hàng không tồn tại');
@@ -615,8 +579,7 @@ class StoreIntegralOrderServices extends BaseServices
                 $f[] = Form::input('delivery_id', 'Số điện thoại người giao hàng', $orderInfo->getData('delivery_id'))->required('Vui lòng nhập số điện thoại người giao hàng');
                 break;
             case 'express':
-                /** @var ExpressServices $expressServices */
-                $expressServices = app()->make(ExpressServices::class);
+                /** @var ExpressServices $expressServices */                $expressServices = app()->make(ExpressServices::class);
                 $f[] = Form::select('delivery_code', 'công ty chuyển phát nhanh', (string)$orderInfo->getData('delivery_code'))->setOptions($expressServices->expressSelectForm(['is_show' => 1]))->required('Hãy chọn công ty chuyển phát nhanh');
                 $f[] = Form::input('delivery_id', 'Số theo dõi nhanh', $orderInfo->getData('delivery_id'))->required('Vui lòng điền số chuyển phát nhanh');
                 break;
@@ -625,12 +588,11 @@ class StoreIntegralOrderServices extends BaseServices
     }
 
     /**
-     * Biên nhận đặt hàng của người dùng
+     * Biên nhận đặt hàng của Khách hàng
      * @param $uni
      * @param $uid
      * @return bool
-     */
-    public function takeOrder(string $order_id, int $uid)
+     */    public function takeOrder(string $order_id, int $uid)
     {
         $order = $this->dao->getUserOrderDetail($order_id, $uid);
         if (!$order) {
@@ -640,8 +602,7 @@ class StoreIntegralOrderServices extends BaseServices
             throw new ApiException('Lỗi trạng thái đơn hàng');
         }
         $order->status = 3;
-        /** @var StoreIntegralOrderStatusServices $statusService */
-        $statusService = app()->make(StoreIntegralOrderStatusServices::class);
+        /** @var StoreIntegralOrderStatusServices $statusService */        $statusService = app()->make(StoreIntegralOrderStatusServices::class);
         $res = $order->save() && $statusService->save([
                 'oid' => $order['id'],
                 'change_type' => 'user_take_delivery',
@@ -656,10 +617,9 @@ class StoreIntegralOrderServices extends BaseServices
 
     /**
      * Sửa đổi thông tin vận chuyển
-     * @param int $id Đặt hàngid
+     * @param int $id Đơn hàngid
      * @return mixed
-     */
-    public function updateDistribution(int $id, array $data)
+     */    public function updateDistribution(int $id, array $data)
     {
         $order = $this->dao->get($id);
         if (!$order) {
@@ -679,8 +639,7 @@ class StoreIntegralOrderServices extends BaseServices
                 break;
             case 'express':
                 // Phát hiện mã công ty chuyển phát nhanh
-                /** @var ExpressServices $expressServices */
-                $expressServices = app()->make(ExpressServices::class);
+                /** @var ExpressServices $expressServices */                $expressServices = app()->make(ExpressServices::class);
                 if ($name = $expressServices->value(['code' => $data['delivery_code']], 'name')) {
                     $data['delivery_name'] = $name;
                 } else {
@@ -690,8 +649,7 @@ class StoreIntegralOrderServices extends BaseServices
             default:
                 throw new AdminException('Vui lòng gửi hàng trước rồi sửa đổi thông tin giao hàng.');
         }
-        /** @var StoreIntegralOrderStatusServices $statusService */
-        $statusService = app()->make(StoreIntegralOrderStatusServices::class);
+        /** @var StoreIntegralOrderStatusServices $statusService */        $statusService = app()->make(StoreIntegralOrderStatusServices::class);
         $statusService->save([
             'oid' => $id,
             'change_type' => 'distribution',
@@ -702,10 +660,9 @@ class StoreIntegralOrderServices extends BaseServices
     }
 
     /**
-     * Xóa các đơn hàng đã bị người dùng xóa theo đợt
+     * Xóa các đơn hàng đã bị Khách hàng xóa theo đợt
      * @return string|null
-     */
-    public function delOrders(array $ids)
+     */    public function delOrders(array $ids)
     {
         if (!count($ids)) throw new AdminException('Lỗi tham số');
         if ($this->getOrderIdsCount($ids)) throw new AdminException('Đơn hàng không tồn tại');
@@ -716,11 +673,10 @@ class StoreIntegralOrderServices extends BaseServices
      * Xóa đơn hàng
      * @param $id
      * @return bool
-     */
-    public function delOrder(int $id)
+     */    public function delOrder(int $id)
     {
         if (!$id || !($orderInfo = $this->get($id))) throw new AdminException('Đơn hàng không tồn tại');
-        if (!$orderInfo->is_del) throw new AdminException('Đơn hàng bạn chọn đã tồn tại và chưa bị người dùng xóa.');
+        if (!$orderInfo->is_del) throw new AdminException('Đơn hàng bạn chọn đã tồn tại và chưa bị Khách hàng xóa.');
         $orderInfo->is_system_del = 1;
         return $orderInfo->save();
     }
@@ -733,8 +689,7 @@ class StoreIntegralOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function remark(int $id, string $remark)
+     */    public function remark(int $id, string $remark)
     {
         if (!$remark) throw new AdminException('Chú thích không được để trống');
         if (!$id) throw new AdminException('Lỗi tham số');

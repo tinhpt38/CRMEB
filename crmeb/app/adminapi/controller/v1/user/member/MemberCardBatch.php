@@ -21,20 +21,17 @@ use think\facade\App;
 /**
  * Class MemberCardBatch
  * @package app\adminapi\controller\v1\user\member
- */
-class MemberCardBatch extends AuthController
+ */class MemberCardBatch extends AuthController
 {
     /**
      * @var MemberCardBatchServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * MemberCardBatch constructor.
      * @param App $app
      * @param MemberCardBatchServices $memberCardBatchServices
-     */
-    public function __construct(App $app, MemberCardBatchServices $memberCardBatchServices)
+     */    public function __construct(App $app, MemberCardBatchServices $memberCardBatchServices)
     {
         parent::__construct($app);
         $this->services = $memberCardBatchServices;
@@ -43,8 +40,7 @@ class MemberCardBatch extends AuthController
     /**
      * Danh sách tài nguyên lô thẻ thành viên
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['title', ''],
@@ -57,8 +53,7 @@ class MemberCardBatch extends AuthController
      * Tiết kiệm tài nguyên thẻ
      * @param $id
      * @return mixed
-     */
-    public function save($id)
+     */    public function save($id)
     {
         $data = $this->request->postMore([
             ['title', ''],
@@ -75,8 +70,7 @@ class MemberCardBatch extends AuthController
      * Liệt kê các thao tác
      * @param $id
      * @return mixed
-     */
-    public function set_value($id)
+     */    public function set_value($id)
     {
 
         $data = $this->request->getMore([
@@ -89,14 +83,12 @@ class MemberCardBatch extends AuthController
 
     /**Mã QR thành viên, thẻ đổi quà
      * @return mixed
-     */
-    public function member_scan()
+     */    public function member_scan()
     {
         //Tạo địa chỉ h5
         $weixinPage = "/pages/annex/vip_active/index";
         $weixinFileName = "wechat_member_card.png";
-        /** @var QrcodeServices $QrcodeService */
-        $QrcodeService = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $QrcodeService */        $QrcodeService = app()->make(QrcodeServices::class);
         $wechatQrcode = $QrcodeService->getWechatQrcodePath($weixinFileName,$weixinPage, false, false);
         //Tạo địa chỉ chương trình nhỏ
         $routineQrcode = $QrcodeService->getRoutineQrcodePath(4,6,4, [], false);
@@ -107,8 +99,7 @@ class MemberCardBatch extends AuthController
      * @param int $id
      * @param AgreementServices $agreementServices
      * @return mixed
-     */
-    public function save_member_agreement($id = 0, AgreementServices $agreementServices)
+     */    public function save_member_agreement($id = 0, AgreementServices $agreementServices)
     {
         $data = $this->request->postMore([
             ['type', 1],
@@ -126,8 +117,7 @@ class MemberCardBatch extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAgreement(AgreementServices $agreementServices)
+     */    public function getAgreement(AgreementServices $agreementServices)
     {
         $list = $agreementServices->getAgreementBytype(1);
         return app('json')->success($list);

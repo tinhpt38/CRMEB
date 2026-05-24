@@ -19,15 +19,13 @@ use app\model\activity\bargain\StoreBargain;
  *
  * Class StoreBargainDao
  * @package app\dao\activity
- */
-class StoreBargainDao extends BaseDao
+ */class StoreBargainDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreBargain::class;
     }
@@ -41,8 +39,7 @@ class StoreBargainDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0)
+     */    public function getList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where, false)->where('is_del', 0)
             ->when(isset($where['start_status']) && $where['start_status'] !== '', function ($query) use ($where) {
@@ -67,11 +64,10 @@ class StoreBargainDao extends BaseDao
 
     /**
      * Nhận ID thương lượng khi hoạt động được bắt đầu và trả lại dưới dạng mảng
-     * @param array $ids Trả lại tất cả nếu trống
+     * @param array $ids Trả lại Tất cả nếu trống
      * @param array $field
      * @return array
-     */
-    public function getBargainIdsArray(array $ids = [], array $field = [])
+     */    public function getBargainIdsArray(array $ids = [], array $field = [])
     {
         return $this->search(['is_del' => 0, 'status' => 1])->where('start_time', '<=', time())
             ->where('stop_time', '>=', time())
@@ -88,8 +84,7 @@ class StoreBargainDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function idByBargainList(array $ids, string $field)
+     */    public function idByBargainList(array $ids, string $field)
     {
         return $this->getModel()->whereIn('id', $ids)->field($field)->select()->toArray();
     }
@@ -98,15 +93,14 @@ class StoreBargainDao extends BaseDao
      * Hoạt động thương lượng đang bắt đầu ngay bây giờ
      * @param int $status
      * @return StoreBargain
-     */
-    public function validWhere(int $status = 1)
+     */    public function validWhere(int $status = 1)
     {
         return $this->getModel()->where('is_del', 0)->where('status', $status)->where('start_time', '<', time())->where('stop_time', '>', time());
 
     }
 
     /**
-     * Danh sách mặc cả
+     * Lịch sử trả giá
      * @param int $page
      * @param int $limit
      * @param string $field
@@ -114,8 +108,7 @@ class StoreBargainDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function bargainList(int $page, int $limit, string $field = '*')
+     */    public function bargainList(int $page, int $limit, string $field = '*')
     {
         return $this->search(['is_del' => 0, 'status' => 1])
             ->where('start_time', '<=', time())
@@ -134,8 +127,7 @@ class StoreBargainDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function DiyBargainList(array $where, int $page, int $limit)
+     */    public function DiyBargainList(array $where, int $page, int $limit)
     {
         return $this->search($where, false)
             ->when(isset($where['sid']) && $where['sid'], function ($query) use ($where) {
@@ -164,8 +156,7 @@ class StoreBargainDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getHomeList(array $where, int $page, int $limit)
+     */    public function getHomeList(array $where, int $page, int $limit)
     {
         return $this->search($where, false)
             ->when(isset($where['sid']) && $where['sid'], function ($query) use ($where) {
@@ -214,8 +205,7 @@ class StoreBargainDao extends BaseDao
      * Số lượng mua lại có điều kiện
      * @param array $where
      * @return int
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         return $this->search($where, false)
             ->when(isset($where['sid']) && $where['sid'], function ($query) use ($where) {
@@ -240,8 +230,7 @@ class StoreBargainDao extends BaseDao
      * @param int $id
      * @param string $field
      * @return mixed
-     */
-    public function addBargain(int $id, string $field)
+     */    public function addBargain(int $id, string $field)
     {
         return $this->getModel()->where('id', $id)->inc($field, 1)->update();
     }

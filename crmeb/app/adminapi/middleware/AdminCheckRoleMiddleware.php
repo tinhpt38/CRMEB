@@ -20,8 +20,7 @@ use crmeb\interfaces\MiddlewareInterface;
  * Xác minh quy tắc cấp phép
  * Class AdminCheckRoleMiddleware
  * @package app\http\middleware
- */
-class AdminCheckRoleMiddleware implements MiddlewareInterface
+ */class AdminCheckRoleMiddleware implements MiddlewareInterface
 {
     /**
      * Xác minh quy tắc cấp phép
@@ -29,15 +28,13 @@ class AdminCheckRoleMiddleware implements MiddlewareInterface
      * @param \Closure $next
      * @return mixed
      * @throws \throwable
-     */
-    public function handle(Request $request, \Closure $next)
+     */    public function handle(Request $request, \Closure $next)
     {
         if (!$request->adminId() || !$request->adminInfo())
             throw new AuthException('Lỗi tham số');
 
         if ($request->adminInfo()['level']) {
-            /** @var SystemRoleServices $systemRoleService */
-            $systemRoleService = app()->make(SystemRoleServices::class);
+            /** @var SystemRoleServices $systemRoleService */            $systemRoleService = app()->make(SystemRoleServices::class);
             $systemRoleService->verifyAuth($request);
         }
 

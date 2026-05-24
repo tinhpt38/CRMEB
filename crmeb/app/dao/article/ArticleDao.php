@@ -18,14 +18,12 @@ use think\exception\ValidateException;
  * bài báodao
  * Class ArticleDao
  * @package app\dao\article
- */
-class ArticleDao extends BaseDao
+ */class ArticleDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return Article::class;
     }
@@ -39,8 +37,7 @@ class ArticleDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/20
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)
             ->when(isset($where['ids']) && count($where['ids']), function ($query) use ($where) {
@@ -61,8 +58,7 @@ class ArticleDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page, int $limit, string $order = 'sort desc,id desc')
+     */    public function getList(array $where, int $page, int $limit, string $order = 'sort desc,id desc')
     {
         return $this->search($where)->with(['content', 'storeInfo', 'cateName'])->page($page, $limit)->order($order)->select()->toArray();
     }
@@ -75,8 +71,7 @@ class ArticleDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $data = $this->search()->with(['content', 'storeInfo', 'cateName'])->find($id);
         if (!$data) throw new ValidateException('Bài viết không tồn tại');
@@ -91,8 +86,7 @@ class ArticleDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function articleLists($new_id)
+     */    public function articleLists($new_id)
     {
         return $this->getModel()->where('hide', 0)->where('id', 'in', $new_id)->select();
     }
@@ -104,8 +98,7 @@ class ArticleDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function articleContentList($new_id)
+     */    public function articleContentList($new_id)
     {
         return $this->getModel()->where('hide', 0)->where('id', 'in', $new_id)->with('content')->select();
     }

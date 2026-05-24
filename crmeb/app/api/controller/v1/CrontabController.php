@@ -25,24 +25,21 @@ use app\services\system\crontab\SystemCrontabServices;
  * @tác giả Ngô triều
  * @email 442384644@qq.com
  * @date 2023/02/21
- */
-class CrontabController
+ */class CrontabController
 {
     /**
      * Giao diện gọi nhiệm vụ theo lịch trình
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/02/17
-     */
-    public function crontabRun()
+     */    public function crontabRun()
     {
         app()->make(SystemCrontabServices::class)->crontabApiRun();
     }
 
     /**
      * Kiểm tra xem tác vụ đã lên lịch có bình thường hay không và phải được thực thi 6 giây một lần.
-     */
-    public function crontabCheck()
+     */    public function crontabCheck()
     {
         file_put_contents(root_path() . 'runtime/.timer', time());
     }
@@ -52,11 +49,9 @@ class CrontabController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderUnpaidCancel()
+     */    public function orderUnpaidCancel()
     {
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $orderServices->orderUnpaidCancel();
     }
 
@@ -64,82 +59,66 @@ class CrontabController
      * Xử lý đơn hàng nhóm nhóm đã hết hạn
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function pinkExpiration()
+     */    public function pinkExpiration()
     {
-        /** @var StorePinkServices $storePinkServices */
-        $storePinkServices = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $storePinkServices */        $storePinkServices = app()->make(StorePinkServices::class);
         $storePinkServices->statusPink();
     }
 
     /**
      * Tự động hủy liên kết ràng buộc cấp trên
-     */
-    public function agentUnbind()
+     */    public function agentUnbind()
     {
-        /** @var AgentManageServices $agentManage */
-        $agentManage = app()->make(AgentManageServices::class);
+        /** @var AgentManageServices $agentManage */        $agentManage = app()->make(AgentManageServices::class);
         $agentManage->removeSpread();
     }
 
     /**
      * Cập nhật trạng thái sản phẩm trực tiếp
-     */
-    public function syncGoodStatus()
+     */    public function syncGoodStatus()
     {
-        /** @var LiveGoodsServices $liveGoods */
-        $liveGoods = app()->make(LiveGoodsServices::class);
+        /** @var LiveGoodsServices $liveGoods */        $liveGoods = app()->make(LiveGoodsServices::class);
         $liveGoods->syncGoodStatus();
     }
 
     /**
      * Cập nhật trạng thái phòng trực tiếp
-     */
-    public function syncRoomStatus()
+     */    public function syncRoomStatus()
     {
-        /** @var LiveRoomServices $liveRoom */
-        $liveRoom = app()->make(LiveRoomServices::class);
+        /** @var LiveRoomServices $liveRoom */        $liveRoom = app()->make(LiveRoomServices::class);
         $liveRoom->syncRoomStatus();
     }
 
     /**
      * Tự động nhận
-     */
-    public function autoTakeOrder()
+     */    public function autoTakeOrder()
     {
-        /** @var StoreOrderTakeServices $services */
-        $services = app()->make(StoreOrderTakeServices::class);
+        /** @var StoreOrderTakeServices $services */        $services = app()->make(StoreOrderTakeServices::class);
         $services->autoTakeOrder();
     }
 
     /**
      * Kiểm tra xem các sản phẩm đã hết hạn bán trước có tự động bị loại khỏi kệ hay không
-     */
-    public function downAdvance()
+     */    public function downAdvance()
     {
-        /** @var StoreProductServices $product */
-        $product = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $product */        $product = app()->make(StoreProductServices::class);
         $product->downAdvance();
     }
 
     /**
      * Khen ngợi tự động
-     */
-    public function autoComment()
+     */    public function autoComment()
     {
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $orderServices->autoComment();
     }
 
     /**
      * Xóa áp phích ngày hôm qua
      * @throws \Exception
-     */
-    public function emptyYesterdayAttachment()
+     */    public function emptyYesterdayAttachment()
     {
-        /** @var SystemAttachmentServices $attach */
-        $attach = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $attach */        $attach = app()->make(SystemAttachmentServices::class);
         $attach->emptyYesterdayAttachment();
     }
 }

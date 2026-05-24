@@ -10,8 +10,7 @@ use crmeb\traits\ModelTrait;
 
 /**
  * Kênh thông báo dùng chung (Telegram, Zalo, SMS...).
- */
-class NoticeChannel extends BaseModel
+ */class NoticeChannel extends BaseModel
 {
     use ModelTrait;
 

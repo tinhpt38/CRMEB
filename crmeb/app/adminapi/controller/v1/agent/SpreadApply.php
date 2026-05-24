@@ -18,25 +18,22 @@ class SpreadApply extends AuthController
 {
     /**
      * @var SpreadApplyServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * SpreadApply constructor.
      * @param App $app
      * @param SpreadApplyServices $services
-     */
-    public function __construct(App $app, SpreadApplyServices $services)
+     */    public function __construct(App $app, SpreadApplyServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Danh sách ứng dụng
+     * Danh sách Ứng dụng
      * @return mixed
-     */
-    public function applyList()
+     */    public function applyList()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -46,13 +43,12 @@ class SpreadApply extends AuthController
     }
 
     /**
-     * xem xét ứng dụng
+     * xem xét Ứng dụng
      * @param $id
      * @param $uid
      * @param $status
      * @return mixed
-     */
-    public function applyExamine($id, $uid, $status)
+     */    public function applyExamine($id, $uid, $status)
     {
         [$refusal_reason] = $this->request->postMore([
             ['refusal_reason', ''],
@@ -62,11 +58,10 @@ class SpreadApply extends AuthController
     }
 
     /**
-     * Xóa ứng dụng
+     * Xóa Ứng dụng
      * @param $id
      * @return mixed
-     */
-    public function applyDelete($id)
+     */    public function applyDelete($id)
     {
         $this->services->applyDelete($id);
         return app('json')->success('Xóa thành công');

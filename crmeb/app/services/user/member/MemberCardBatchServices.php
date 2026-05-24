@@ -23,8 +23,7 @@ class MemberCardBatchServices extends BaseServices
      * Khởi tạo và lấy phần xử lý lớp dao
      * MemberCardServices constructor.
      * @param MemberCardBatchDao $memberCardDao
-     */
-    public function __construct(MemberCardBatchDao $memberCardBatchDao)
+     */    public function __construct(MemberCardBatchDao $memberCardBatchDao)
     {
         $this->dao = $memberCardBatchDao;
     }
@@ -36,8 +35,7 @@ class MemberCardBatchServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [])
+     */    public function getList(array $where = [])
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
@@ -55,8 +53,7 @@ class MemberCardBatchServices extends BaseServices
     /**
      * @param int $id
      * @param array $data
-     */
-    public function save(int $id, array $data)
+     */    public function save(int $id, array $data)
     {
         if (!$data['title']) throw new AdminException('Vui lòng điền tên lô');
         if (!$data['total_num']) throw new AdminException('Vui lòng điền số lượng thẻ cần tạo');
@@ -66,8 +63,7 @@ class MemberCardBatchServices extends BaseServices
         if ($data['use_day'] < 0) throw new AdminException('Số ngày sử dụng miễn phí chỉ được là số nguyên dương');
         /**
          * Dùng thử trong một khoảng thời gian cụ thể, doanh nghiệp cần được mở
-         */
-//        $use_start_time = strtotime($data['use_start_time']);
+         *///        $use_start_time = strtotime($data['use_start_time']);
 //        $use_end_time = strtotime($data['use_end_time']);
 //        if (!$use_start_time) {
 //            $use_start_time = strtotime(date('Y-m-d 00:00:00', strtotime('+1 day')));
@@ -93,8 +89,7 @@ class MemberCardBatchServices extends BaseServices
                 return $this->dao->update($id, $data);
                 //return ['status' => 1, "msg" => "Chỉnh sửa thẻ hàng loạt thành công"];
             } else {
-                /** @var MemberCardServices $memberCardService */
-                $memberCardService = app()->make(MemberCardServices::class);
+                /** @var MemberCardServices $memberCardService */                $memberCardService = app()->make(MemberCardServices::class);
                 $res = $this->dao->save($data);
                 $add_card['card_batch_id'] = $res->id;
                 $add_card['total_num'] = $data['total_num'];
@@ -108,8 +103,7 @@ class MemberCardBatchServices extends BaseServices
      * Liệt kê các thao tác
      * @param int $id
      * @param array $data
-     */
-    public function setValue(int $id, array $data)
+     */    public function setValue(int $id, array $data)
     {
         if (!is_numeric($id) || !$id) throw new AdminException('Lỗi tham số');
         if (!isset($data['field']) || !isset($data['value']) || !$data['field']) throw new AdminException('Lỗi tham số');
@@ -126,8 +120,7 @@ class MemberCardBatchServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOne(int $bid, $field = '*')
+     */    public function getOne(int $bid, $field = '*')
     {
         if (is_string($field)) $field = explode(',', $field);
         return $this->dao->get($bid, $field);
@@ -142,8 +135,7 @@ class MemberCardBatchServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function useCardSetInc(int $id, string $field, int $inc = 1)
+     */    public function useCardSetInc(int $id, string $field, int $inc = 1)
     {
         return $this->dao->bcInc($id, $field, $inc);
     }

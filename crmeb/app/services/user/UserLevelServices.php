@@ -25,15 +25,13 @@ use think\facade\Route as Url;
  * Class UserLevelServices
  * @package app\services\user
  * @method getDiscount(int $uid, string $field)
- */
-class UserLevelServices extends BaseServices
+ */class UserLevelServices extends BaseServices
 {
 
     /**
      * UserLevelServices constructor.
      * @param UserLevelDao $dao
-     */
-    public function __construct(UserLevelDao $dao)
+     */    public function __construct(UserLevelDao $dao)
     {
         $this->dao = $dao;
     }
@@ -43,30 +41,27 @@ class UserLevelServices extends BaseServices
      * @param array $where
      * @param string $field
      * @return mixed
-     */
-    public function getWhereLevel(array $where, string $field = '*')
+     */    public function getWhereLevel(array $where, string $field = '*')
     {
         return $this->getOne($where, $field);
     }
 
     /**
-     * Nhận một số thông tin cấp độ người dùng
+     * Nhận một số thông tin cấp độ Khách hàng
      * @param array $uids
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getUsersLevelInfo(array $uids)
+     */    public function getUsersLevelInfo(array $uids)
     {
         return $this->dao->getColumn([['uid', 'in', $uids]], 'level_id,is_forever,valid_time', 'uid');
     }
 
     /**
-     * Xóa cấp độ người dùng
+     * Xóa cấp độ Khách hàng
      * @param $uids
      * @return \crmeb\basic\BaseModel|mixed
-     */
-    public function delUserLevel($uids)
+     */    public function delUserLevel($uids)
     {
         $where = [];
         if (is_array($uids)) {
@@ -77,20 +72,18 @@ class UserLevelServices extends BaseServices
             $re = $this->dao->update($uids, ['is_del' => 1, 'status' => 0], 'uid');
         }
         if (!$re)
-            throw new AdminException('Không thể sửa đổi thông tin cấp độ người dùng');
+            throw new AdminException('Không thể sửa đổi thông tin cấp độ Khách hàng');
         $where[] = ['category', 'IN', ['exp']];
-        /** @var UserBillServices $userbillServices */
-        $userbillServices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userbillServices */        $userbillServices = app()->make(UserBillServices::class);
         $userbillServices->update($where, ['status' => -1]);
         return true;
     }
 
     /**
-     * Nhận thông tin chi tiết cấp độ người dùng dựa trên uid người dùng
+     * Nhận thông tin chi tiết cấp độ Khách hàng dựa trên uid Khách hàng
      * @param int $uid
      * @param string $field
-     */
-    public function getUerLevelInfoByUid(int $uid, string $field = '')
+     */    public function getUerLevelInfoByUid(int $uid, string $field = '')
     {
         $userLevelInfo = $this->dao->getUserLevel($uid);
         $data = [];
@@ -109,38 +102,35 @@ class UserLevelServices extends BaseServices
     }
 
     /**
-     * Đặt cấp độ người dùng
-     * @param $uid người dùnguid
+     * Đặt cấp độ Khách hàng
+     * @param $uid Khách hànguid
      * @param $level_id cấpid
      * @return UserLevel|bool|\think\Model
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function setUserLevel(int $uid, int $level_id, $vipinfo = [])
+     */    public function setUserLevel(int $uid, int $level_id, $vipinfo = [])
     {
-        /** @var SystemUserLevelServices $systemLevelServices */
-        $systemLevelServices = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemLevelServices */        $systemLevelServices = app()->make(SystemUserLevelServices::class);
         if (!$vipinfo) {
             $vipinfo = $systemLevelServices->getLevel($level_id);
             if (!$vipinfo) {
                 throw new AdminException('Hạng khách hàng không tồn tại');
             }
         }
-        /** @var  $user */
-        $user = app()->make(UserServices::class);
+        /** @var  $user */        $user = app()->make(UserServices::class);
         $userinfo = $user->getUserInfo($uid);
         //Vô hiệu hóa cấp độ trước đó
         $this->dao->update(['uid' => $uid], ['status' => 0, 'is_del' => 1]);
         //Kiểm tra nếu đã mua
         $uservipinfo = $this->getWhereLevel(['uid' => $uid, 'level_id' => $level_id]);
-        $data['mark'] = 'Kính gửi người dùng' . $userinfo['nickname'] . 'hiện hữu' . date('Y-m-d H:i:s', time()) . 'đã trở thành' . $vipinfo['name'];
+        $data['mark'] = 'Kính gửi Khách hàng' . $userinfo['nickname'] . 'hiện hữu' . date('Y-m-d H:i:s', time()) . 'đã trở thành' . $vipinfo['name'];
         $data['add_time'] = time();
         if ($uservipinfo) {
             $data['status'] = 1;
             $data['is_del'] = 0;
             if (!$this->dao->update(['id' => $uservipinfo['id']], $data))
-                throw new AdminException('Không thể sửa đổi thông tin cấp độ người dùng');
+                throw new AdminException('Không thể sửa đổi thông tin cấp độ Khách hàng');
         } else {
             $data = array_merge($data, [
                 'is_forever' => $vipinfo->is_forever,
@@ -177,8 +167,7 @@ class UserLevelServices extends BaseServices
         $bill_data['mark'] = $mark;
         $bill_data['status'] = 1;
         $bill_data['add_time'] = time();
-        /** @var UserBillServices $userBillService */
-        $userBillService = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillService */        $userBillService = app()->make(UserBillServices::class);
         if (!$userBillService->save($bill_data)) throw new AdminException('Lưu không thành công');
         if (!$user->update(['uid' => $uid], ['level' => $level_id, 'exp' => $vipinfo['exp_num']])) throw new AdminException('Sửa đổi không thành công');
         return true;
@@ -188,11 +177,9 @@ class UserLevelServices extends BaseServices
      * Danh sách thành viên
      * @param $where
      * @return mixed
-     */
-    public function getSytemList($where)
+     */    public function getSytemList($where)
     {
-        /** @var SystemUserLevelServices $systemLevelServices */
-        $systemLevelServices = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemLevelServices */        $systemLevelServices = app()->make(SystemUserLevelServices::class);
         return $systemLevelServices->getLevelList($where);
     }
 
@@ -201,8 +188,7 @@ class UserLevelServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit(int $id)
+     */    public function edit(int $id)
     {
 
         if ($id) {
@@ -213,16 +199,16 @@ class UserLevelServices extends BaseServices
                 throw new AdminException('Dữ liệu không tồn tại');
             }
             $field[] = Form::hidden('id', $id);
-            $msg = 'Chỉnh sửa cấp độ người dùng';
+            $msg = 'Chỉnh sửa cấp độ Khách hàng';
         } else {
-            $msg = 'Thêm cấp độ người dùng';
+            $msg = 'Thêm cấp độ Khách hàng';
         }
         $field[] = Form::input('name', 'Tên cấp độ', isset($vipInfo) ? $vipInfo->name : '')->maxlength(10)->col(24)->required();
         $field[] = Form::number('grade', 'cấp', isset($vipInfo) ? $vipInfo->grade : 0)->min(0)->precision(0)->required();
         $field[] = Form::number('discount', 'tận hưởng giảm giá', isset($vipInfo) ? $vipInfo->discount : 100)->min(0)->max(100)->placeholder('Nhập số giảm giá là 100, đại diện cho giá gốc và 90, đại diện cho mức giảm giá 10%.')->required();
         $field[] = Form::number('exp_num', 'Mở khóa điểm kinh nghiệm', isset($vipInfo) ? $vipInfo->exp_num : 0)->min(0)->precision(0)->required();
         $field[] = Form::frameImage('icon', 'biểu tượng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'icon')), isset($vipInfo) ? $vipInfo->icon : '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $field[] = Form::frameImage('image', 'Nền cấp độ người dùng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')), isset($vipInfo) ? $vipInfo->image : '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
+        $field[] = Form::frameImage('image', 'Nền cấp độ Khách hàng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image')), isset($vipInfo) ? $vipInfo->image : '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
         $field[] = Form::radio('is_show', 'Có hiển thị hay không', isset($vipInfo) ? $vipInfo->is_show : 0)->options([['label' => 'trình diễn', 'value' => 1], ['label' => 'trốn', 'value' => 0]])->col(24);
         return create_form($msg, $field, Url::buildUrl('/user/user_level'), 'POST');
     }
@@ -231,29 +217,27 @@ class UserLevelServices extends BaseServices
      * Thêm hoặc sửa đổi cấp độ thành viên
      * @param $id mức độ sửa đổiid
      * @return json
-     * */
-    public function save(int $id, array $data)
+     * */    public function save(int $id, array $data)
     {
-        /** @var SystemUserLevelServices $systemUserLevel */
-        $systemUserLevel = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemUserLevel */        $systemUserLevel = app()->make(SystemUserLevelServices::class);
         $levelOne = $systemUserLevel->getWhereLevel(['is_del' => 0, 'grade' => $data['grade']]);
         $levelTwo = $systemUserLevel->getWhereLevel(['is_del' => 0, 'exp_num' => $data['exp_num']]);
         $levelThree = $systemUserLevel->getWhereLevel(['is_del' => 0, 'name' => $data['name']]);
         $levelPre = $systemUserLevel->getPreLevel($data['grade']);
         $levelNext = $systemUserLevel->getNextLevel($data['grade']);
         if ($levelPre && $data['exp_num'] <= $levelPre['exp_num']) {
-            throw new AdminException('Trải nghiệm ở cấp độ người dùng phải lớn hơn trải nghiệm được đặt cho cấp độ trước đó');
+            throw new AdminException('Trải nghiệm ở cấp độ Khách hàng phải lớn hơn trải nghiệm được đặt cho cấp độ trước đó');
         }
         if ($levelNext && $data['exp_num'] >= $levelNext['exp_num']) {
-            throw new AdminException('Trải nghiệm ở cấp độ người dùng phải nhỏ hơn trải nghiệm được đặt cho cấp độ tiếp theo');
+            throw new AdminException('Trải nghiệm ở cấp độ Khách hàng phải nhỏ hơn trải nghiệm được đặt cho cấp độ tiếp theo');
         }
-        //Ôn lại
+        //Sửa
         if ($id) {
             if (($levelOne && $levelOne['id'] != $id) || ($levelThree && $levelThree['id'] != $id)) {
                 throw new AdminException('Hạng khách hàng bạn đặt đã được phát hiện. Mức độ này không thể lặp lại.');
             }
             if ($levelTwo && $levelTwo['id'] != $id) {
-                throw new AdminException('Chúng tôi đã phát hiện thấy rằng bạn đã đặt giá trị trải nghiệm cho cấp độ người dùng này. Giá trị kinh nghiệm không thể lặp lại.');
+                throw new AdminException('Chúng tôi đã phát hiện thấy rằng bạn đã đặt giá trị trải nghiệm cho cấp độ Khách hàng này. Giá trị kinh nghiệm không thể lặp lại.');
             }
             if (!$systemUserLevel->update($id, $data)) {
                 throw new AdminException('Sửa đổi không thành công');
@@ -264,7 +248,7 @@ class UserLevelServices extends BaseServices
                 throw new AdminException('Hạng khách hàng bạn đặt đã được phát hiện. Mức độ này không thể lặp lại.');
             }
             if ($levelTwo) {
-                throw new AdminException('Chúng tôi đã phát hiện thấy rằng bạn đã đặt giá trị trải nghiệm cho cấp độ người dùng này. Giá trị kinh nghiệm không thể lặp lại.');
+                throw new AdminException('Chúng tôi đã phát hiện thấy rằng bạn đã đặt giá trị trải nghiệm cho cấp độ Khách hàng này. Giá trị kinh nghiệm không thể lặp lại.');
             }
             //Mới
             $data['add_time'] = time();
@@ -279,11 +263,9 @@ class UserLevelServices extends BaseServices
      * xóa giả
      * @param int $id
      * @return mixed
-     */
-    public function delLevel(int $id)
+     */    public function delLevel(int $id)
     {
-        /** @var SystemUserLevelServices $systemUserLevel */
-        $systemUserLevel = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemUserLevel */        $systemUserLevel = app()->make(SystemUserLevelServices::class);
         $level = $systemUserLevel->getWhereLevel(['id' => $id]);
         if ($level && $level['is_del'] != 1) {
             if (!$systemUserLevel->update($id, ['is_del' => 1]))
@@ -297,11 +279,9 @@ class UserLevelServices extends BaseServices
      * @param int $id
      * @param $is_show
      * @return mixed
-     */
-    public function setShow(int $id, int $is_show)
+     */    public function setShow(int $id, int $is_show)
     {
-        /** @var SystemUserLevelServices $systemUserLevel */
-        $systemUserLevel = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemUserLevel */        $systemUserLevel = app()->make(SystemUserLevelServices::class);
         if (!$systemUserLevel->getWhereLevel(['id' => $id]))
             throw new AdminException('Dữ liệu không tồn tại');
         if ($systemUserLevel->update($id, ['is_show' => $is_show])) {
@@ -316,11 +296,9 @@ class UserLevelServices extends BaseServices
      * @param int $id
      * @param $is_show
      * @return mixed
-     */
-    public function setValue(int $id, array $data)
+     */    public function setValue(int $id, array $data)
     {
-        /** @var SystemUserLevelServices $systemUserLevel */
-        $systemUserLevel = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemUserLevel */        $systemUserLevel = app()->make(SystemUserLevelServices::class);
         if (!$systemUserLevel->getWhereLevel(['id' => $id]))
             throw new AdminException('Dữ liệu không tồn tại');
         if ($systemUserLevel->update($id, [$data['field'] => $data['value']])) {
@@ -331,24 +309,21 @@ class UserLevelServices extends BaseServices
     }
 
     /**
-     * Phát hiện nâng cấp thành viên người dùng
+     * Phát hiện nâng cấp thành viên Khách hàng
      * @param $uid
      * @return bool
-     */
-    public function detection(int $uid)
+     */    public function detection(int $uid)
     {
         //Thành viên trung tâm mua sắm có được kích hoạt không?
         if (!sys_config('member_func_status')) {
             return true;
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
-            throw new ApiException('Nếu không có người dùng này, không thể phát hiện được cấp độ người dùng nâng cấp.');
+            throw new ApiException('Nếu không có Khách hàng này, không thể phát hiện được cấp độ Khách hàng nâng cấp.');
         }
-        /** @var SystemUserLevelServices $systemUserLevel */
-        $systemUserLevel = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemUserLevel */        $systemUserLevel = app()->make(SystemUserLevelServices::class);
         $userAllLevel = $systemUserLevel->getList([['is_del', '=', 0], ['is_show', '=', 1], ['exp_num', '<=', (float)$user['exp']]]);
         if (!$userAllLevel) {
             return true;
@@ -360,7 +335,7 @@ class UserLevelServices extends BaseServices
             if (in_array($vipinfo['id'], $userLevel)) {
                 continue;
             }
-            $data['mark'] = 'Kính gửi người dùng' . $user['nickname'] . 'hiện hữu' . date('Y-m-d H:i:s', time()) . 'đã trở thành' . $vipinfo['name'];
+            $data['mark'] = 'Kính gửi Khách hàng' . $user['nickname'] . 'hiện hữu' . date('Y-m-d H:i:s', time()) . 'đã trở thành' . $vipinfo['name'];
             $uservip = $this->dao->getOne(['uid' => $uid, 'level_id' => $vipinfo['id']]);
             if ($uservip) {
                 //Hạ cấp trong trường hợp nâng cấp
@@ -394,18 +369,16 @@ class UserLevelServices extends BaseServices
     /**
      * Danh sách cấp thành viên
      * @param int $uid
-     */
-    public function grade(int $uid)
+     */    public function grade(int $uid)
     {
         //Thành viên trung tâm mua sắm có được kích hoạt không?
         if (!sys_config('member_func_status')) {
             return [];
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
-            throw new ApiException('Nếu không có người dùng này, không thể phát hiện được cấp độ người dùng nâng cấp.');
+            throw new ApiException('Nếu không có Khách hàng này, không thể phát hiện được cấp độ Khách hàng nâng cấp.');
         }
         $userLevelInfo = $this->getUerLevelInfoByUid($uid);
         if (empty($userLevelInfo)) {
@@ -413,8 +386,7 @@ class UserLevelServices extends BaseServices
         } else {
             $level_id = $userLevelInfo['level_id'];
         }
-        /** @var SystemUserLevelServices $systemUserLevel */
-        $systemUserLevel = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemUserLevel */        $systemUserLevel = app()->make(SystemUserLevelServices::class);
         return $systemUserLevel->getLevelListAndGrade($level_id);
     }
 
@@ -422,23 +394,20 @@ class UserLevelServices extends BaseServices
      * Nhận thông tin thành viên
      * @param int $uid
      * @return array[]
-     */
-    public function getUserLevelInfo(int $uid)
+     */    public function getUserLevelInfo(int $uid)
     {
         $data = ['user' => [], 'level_info' => [], 'level_list' => [], 'task' => []];
         //Thành viên trung tâm mua sắm có được kích hoạt không?
         if (!sys_config('member_func_status')) {
             return $data;
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Người dùng không tồn tại');
         }
         $data['user'] = $user;
-        /** @var SystemUserLevelServices $systemUserLevel */
-        $systemUserLevel = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemUserLevel */        $systemUserLevel = app()->make(SystemUserLevelServices::class);
         $levelList = $systemUserLevel->getList(['is_del' => 0, 'is_show' => 1]);
         $i = 0;
         foreach ($levelList as &$level) {
@@ -450,12 +419,10 @@ class UserLevelServices extends BaseServices
         $data['level_list'] = $levelList;
         $data['level_info'] = $this->getUerLevelInfoByUid($uid);
         $data['level_info']['exp'] = $user['exp'] ?? 0;
-        /** @var UserBillServices $userBillservices */
-        $userBillservices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillservices */        $userBillservices = app()->make(UserBillServices::class);
         $data['level_info']['today_exp'] = $userBillservices->getExpSum($uid, 'today');
         $task = [];
-        /** @var UserSignServices $userSignServices */
-        $userSignServices = app()->make(UserSignServices::class);
+        /** @var UserSignServices $userSignServices */        $userSignServices = app()->make(UserSignServices::class);
         $task['sign_count'] = $userSignServices->getSignSumDay($uid);
         $task['sign'] = sys_config('sign_give_exp', 0);
         $task['order'] = sys_config('order_give_exp', 0);
@@ -468,17 +435,14 @@ class UserLevelServices extends BaseServices
      * Danh sách kinh nghiệm
      * @param int $uid
      * @return array
-     */
-    public function expList(int $uid)
+     */    public function expList(int $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Người dùng không tồn tại');
         }
-        /** @var UserBillServices $userBill */
-        $userBill = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBill */        $userBill = app()->make(UserBillServices::class);
         $data = $userBill->getExpList($uid, [], 'id,title,number,pm,add_time');
         $list = $data['list'] ?? [];
         return $list;

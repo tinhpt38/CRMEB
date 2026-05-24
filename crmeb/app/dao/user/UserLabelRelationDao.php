@@ -19,28 +19,25 @@ use app\model\user\UserLabelRelation;
  *
  * Class UserLabelRelationDao
  * @package app\dao\user
- */
-class UserLabelRelationDao extends BaseDao
+ */class UserLabelRelationDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserLabelRelation::class;
     }
 
     /**
-     * Nhận danh sách thẻ người dùng được nhóm theo ID người dùng
+     * Nhận danh sách thẻ Khách hàng được nhóm theo ID Khách hàng
      * @param array $uids
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLabelList(array $uids)
+     */    public function getLabelList(array $uids)
     {
         return $this->search(['uid' => $uids])->with('label')->select()->toArray();
     }

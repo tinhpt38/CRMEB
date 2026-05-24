@@ -22,14 +22,12 @@ use think\facade\App;
 /**
  * Class Login
  * @package app\kefu\controller
- */
-class Login extends BaseController
+ */class Login extends BaseController
 {
     /**
      * Login constructor.
      * @param LoginServices $services
-     */
-    public function __construct(App $app, LoginServices $services)
+     */    public function __construct(App $app, LoginServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -41,14 +39,13 @@ class Login extends BaseController
     }
 
     /**
-     * Đăng nhập dịch vụ khách hàng
+     * Đăng nhập CSKH
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function login(Request $request)
+     */    public function login(Request $request)
     {
         [$account, $password] = $request->postMore([
             ['account', ''],
@@ -66,8 +63,7 @@ class Login extends BaseController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function wechatAuth()
+     */    public function wechatAuth()
     {
         return app('json')->success($this->services->wechatAuth());
     }
@@ -75,8 +71,7 @@ class Login extends BaseController
     /**
      * Nhận nền tảng công cộngid
      * @return mixed
-     */
-    public function getAppid()
+     */    public function getAppid()
     {
         return app('json')->success([
             'appid' => sys_config('wechat_open_app_id', 'wxc736972a4ca1e2a1'),
@@ -90,8 +85,7 @@ class Login extends BaseController
     /**
      * Chỉ nhận được thông tin đăng nhậpcode
      * @return mixed
-     */
-    public function getLoginKey()
+     */    public function getLoginKey()
     {
         $key = md5(time() . uniqid());
         $time = time() + 600;
@@ -107,8 +101,7 @@ class Login extends BaseController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function scanLogin(string $key)
+     */    public function scanLogin(string $key)
     {
         return app('json')->success($this->services->scanLogin($key));
     }

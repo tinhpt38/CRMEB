@@ -18,23 +18,20 @@ use think\Model;
  *   Thuộc tính sản phẩmModel
  * Class StoreProductAttr
  * @package app\common\model\product
- */
-class StoreProductAttr extends BaseModel
+ */class StoreProductAttr extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_attr';
+     */    protected $name = 'store_product_attr';
 
     /**
      * Bộ thu thập thông số kỹ thuật
      * @param $value
      * @return false|string[]
-     */
-    protected function getAttrValuesAttr($value)
+     */    protected function getAttrValuesAttr($value)
     {
         return explode(',', $value);
     }
@@ -43,8 +40,7 @@ class StoreProductAttr extends BaseModel
      * Công cụ sửa đổi thông số kỹ thuật
      * @param $value
      * @return string
-     */
-    protected function setAttrValuesAttr($value)
+     */    protected function setAttrValuesAttr($value)
     {
         return is_array($value) ? implode(',', $value) : $value;
     }
@@ -54,8 +50,7 @@ class StoreProductAttr extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         $query->where('product_id', $value);
     }
@@ -65,8 +60,7 @@ class StoreProductAttr extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }

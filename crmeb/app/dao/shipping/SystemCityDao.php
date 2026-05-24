@@ -19,14 +19,12 @@ use app\model\shipping\SystemCity;
  * dữ liệu thành phố
  * Class SystemCityDao
  * @package app\dao\shipping
- */
-class SystemCityDao extends BaseDao
+ */class SystemCityDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemCity::class;
     }
@@ -38,8 +36,7 @@ class SystemCityDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCityList(array $where, string $field = '*')
+     */    public function getCityList(array $where, string $field = '*')
     {
         return $this->search($where)->field($field)->select()->toArray();
     }
@@ -50,8 +47,7 @@ class SystemCityDao extends BaseDao
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getCityArray(array $where, string $field, string $key)
+     */    public function getCityArray(array $where, string $field, string $key)
     {
         return $this->search($where)->column($field, $key);
     }
@@ -61,8 +57,7 @@ class SystemCityDao extends BaseDao
      * @param int $cityId
      * @return bool
      * @throws \Exception
-     */
-    public function deleteCity(int $cityId)
+     */    public function deleteCity(int $cityId)
     {
         return $this->getModel()->where('city_id', $cityId)->whereOr('parent_id', $cityId)->delete();
     }
@@ -70,20 +65,18 @@ class SystemCityDao extends BaseDao
     /**
      * Nhận giá trị tối đa của city_id
      * @return mixed
-     */
-    public function getCityIdMax()
+     */    public function getCityIdMax()
     {
         return $this->getModel()->max('city_id');
     }
 
     /**
-     * Nhận lựa chọn thành phố mẫu vận chuyển hàng hóa
+     * Nhận lựa chọn thành phố mẫu vận chuyển sản phẩm
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getShippingCity()
+     */    public function getShippingCity()
     {
         return $this->getModel()->with('children')->where('parent_id', 0)->order('id asc')->select()->toArray();
     }
@@ -93,8 +86,7 @@ class SystemCityDao extends BaseDao
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/04/10
-     */
-    public function fullList($field = '*')
+     */    public function fullList($field = '*')
     {
         return $this->getModel()->order('id asc')->field($field)->select()->toArray();
     }

@@ -19,26 +19,23 @@ use app\model\system\log\SystemFile;
  * Mô hình xác minh tập tin
  * Class SystemFileDao
  * @package app\dao\system\log
- */
-class SystemFileDao extends BaseDao
+ */class SystemFileDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemFile::class;
     }
 
     /**
-     * Nhận tất cả
+     * Nhận Tất cả
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAll()
+     */    public function getAll()
     {
         return $this->getModel()->order('atime desc')->select()->toArray();
     }

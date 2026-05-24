@@ -19,15 +19,13 @@ use app\model\activity\lottery\LuckLotteryRecord;
  *
  * Class LuckLotteryRecordDao
  * @package app\dao\activity\lottery
- */
-class LuckLotteryRecordDao extends BaseDao
+ */class LuckLotteryRecordDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return LuckLotteryRecord::class;
     }
@@ -43,8 +41,7 @@ class LuckLotteryRecordDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, $field = '*', array $with = [], int $page = 0, int $limit = 10)
+     */    public function getList(array $where, $field = '*', array $with = [], int $page = 0, int $limit = 10)
     {
         return $this->search($where)->when($with, function ($query) use ($with) {
             $query->with($with);
@@ -57,8 +54,7 @@ class LuckLotteryRecordDao extends BaseDao
      * @param array $where
      * @param string $group
      * @return int
-     */
-    public function getCount(array $where, string $group = '')
+     */    public function getCount(array $where, string $group = '')
     {
         return $this->getModel()->where($where)->when($group, function ($query) use ($group) {
             $query->group($group);

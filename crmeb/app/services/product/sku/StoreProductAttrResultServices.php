@@ -20,14 +20,12 @@ use crmeb\exceptions\AdminException;
  * Class StoreProductAttrResultService
  * @package app\services\product\sku
  * @method value(array $where, string $field)
- */
-class StoreProductAttrResultServices extends BaseServices
+ */class StoreProductAttrResultServices extends BaseServices
 {
     /**
      * StoreProductAttrResultServices constructor.
      * @param StoreProductAttrResultDao $dao
-     */
-    public function __construct(StoreProductAttrResultDao $dao)
+     */    public function __construct(StoreProductAttrResultDao $dao)
     {
         $this->dao = $dao;
     }
@@ -36,8 +34,7 @@ class StoreProductAttrResultServices extends BaseServices
      * Nhận thông số kỹ thuật thuộc tính
      * @param array $where
      * @return mixed
-     */
-    public function getResult(array $where)
+     */    public function getResult(array $where)
     {
         return json_decode($this->dao->value($where, 'result'), true);
     }
@@ -47,8 +44,7 @@ class StoreProductAttrResultServices extends BaseServices
      * @param int $id
      * @param int $type
      * @return bool
-     */
-    public function del(int $id, int $type)
+     */    public function del(int $id, int $type)
     {
         return $this->dao->del($id, $type);
     }
@@ -58,8 +54,7 @@ class StoreProductAttrResultServices extends BaseServices
      * @param array $data
      * @param int $id
      * @param int $type
-     */
-    public function setResult(array $data, int $id, int $type)
+     */    public function setResult(array $data, int $id, int $type)
     {
         $res = $this->dao->save(['product_id' => $id, 'result' => json_encode($data), 'change_time' => time(), 'type' => $type]);
         if (!$res) throw new AdminException('Lưu không thành công');

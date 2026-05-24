@@ -24,16 +24,14 @@ use think\facade\App;
  * Quản lý hóa đơn
  * Class StoreOrderInvoice
  * @package app\adminapi\controller\v1\order
- */
-class StoreOrderInvoice extends AuthController
+ */class StoreOrderInvoice extends AuthController
 {
 
     /**
      * StoreOrderInvoice constructor.
      * @param App $app
      * @param StoreOrderInvoiceServices $services
-     */
-    public function __construct(App $app, StoreOrderInvoiceServices $services)
+     */    public function __construct(App $app, StoreOrderInvoiceServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -42,8 +40,7 @@ class StoreOrderInvoice extends AuthController
     /**
      * Nhận số lượng loại đơn đặt hàng
      * @return mixed
-     */
-    public function chart()
+     */    public function chart()
     {
         $where = $this->request->getMore([
             ['data', '', '', 'time'],
@@ -56,10 +53,9 @@ class StoreOrderInvoice extends AuthController
     }
 
     /**
-     * Truy vấn danh sách hóa đơn
+     * Tìm kiếm danh sách hóa đơn
      * @return mixed
-     */
-    public function list()
+     */    public function list()
     {
         $where = $this->request->getMore([
             ['status', 0],
@@ -77,8 +73,7 @@ class StoreOrderInvoice extends AuthController
      * Đặt trạng thái hóa đơn
      * @param string $id
      * @return mixed
-     */
-    public function set_invoice($id = '')
+     */    public function set_invoice($id = '')
     {
         if ($id == '') return app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
@@ -94,20 +89,18 @@ class StoreOrderInvoice extends AuthController
     }
 
     /**
-     * Chi tiết đặt hàng
-     * @param $id Đặt hàngid
+     * Chi tiết đơn hàng
+     * @param $id Đơn hàngid
      * @return mixed
-     */
-    public function orderInfo(StoreProductServices $productServices, StoreOrderServices $orderServices, $id)
+     */    public function orderInfo(StoreProductServices $productServices, StoreOrderServices $orderServices, $id)
     {
         if (!$id || !($orderInfo = $orderServices->get($id))) {
             return app('json')->fail('Đơn hàng không tồn tại');
         }
-        /** @var UserServices $services */
-        $services = app()->make(UserServices::class);
+        /** @var UserServices $services */        $services = app()->make(UserServices::class);
         $userInfo = $services->get($orderInfo['uid']);
         if (!$userInfo) {
-            return app('json')->fail('Thông tin người dùng không tồn tại');
+            return app('json')->fail('Thông tin Khách hàng không tồn tại');
         }
         $userInfo = $userInfo->hidden(['pwd', 'add_ip', 'last_ip', 'login_type']);
         $userInfo['spread_name'] = '';
@@ -126,8 +119,7 @@ class StoreOrderInvoice extends AuthController
             $item['class_name'] = $cateData[$item['product_id']] ?? '';
         }
         if ($orderInfo['store_id'] && $orderInfo['shipping_type'] == 2) {
-            /** @var  $storeServices */
-            $storeServices = app()->make(SystemStoreServices::class);
+            /** @var  $storeServices */            $storeServices = app()->make(SystemStoreServices::class);
             $orderInfo['_store_name'] = $storeServices->value(['id' => $orderInfo['store_id']], 'name');
         } else {
             $orderInfo['_store_name'] = '';
@@ -143,8 +135,7 @@ class StoreOrderInvoice extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/16
-     */
-    public function elecInvoiceConfig()
+     */    public function elecInvoiceConfig()
     {
         $data = [
             'elec_invoice' => (int)sys_config('elec_invoice'),
@@ -164,8 +155,7 @@ class StoreOrderInvoice extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/13
-     */
-    public function invoiceIssuanceUrl($id)
+     */    public function invoiceIssuanceUrl($id)
     {
         if (sys_config('elec_invoice', 1) != 1) {
             return app('json')->fail('Chức năng hóa đơn điện tử chưa được kích hoạt. Vui lòng kích hoạt nó trong One Number Connect và kích hoạt nó trong cấu hình One Number Connect trong phần phụ trợ của trung tâm mua sắm.');
@@ -205,8 +195,7 @@ class StoreOrderInvoice extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/14
-     */
-    public function saveInvoiceInfo($id)
+     */    public function saveInvoiceInfo($id)
     {
         $data = $this->request->postMore([
             ['invoice_num', ''],
@@ -228,8 +217,7 @@ class StoreOrderInvoice extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/14
-     */
-    public function invoiceInfo($id)
+     */    public function invoiceInfo($id)
     {
         $info = $this->services->getOne(['id' => $id]);
         $invoice = app()->make(ServeServices::class)->invoice();
@@ -243,8 +231,7 @@ class StoreOrderInvoice extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/14
-     */
-    public function downInvoice($id)
+     */    public function downInvoice($id)
     {
         $info = $this->services->getOne(['id' => $id]);
         $invoice = app()->make(ServeServices::class)->invoice();
@@ -257,8 +244,7 @@ class StoreOrderInvoice extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/15
-     */
-    public function invoiceCategory()
+     */    public function invoiceCategory()
     {
         $where = $this->request->getMore([
             ['name', ''],
@@ -280,8 +266,7 @@ class StoreOrderInvoice extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/15
-     */
-    public function invoiceIssuance($id)
+     */    public function invoiceIssuance($id)
     {
         $this->services->invoiceIssuance($id);
         return app('json')->success('Xuất hóa đơn thành công');
@@ -297,8 +282,7 @@ class StoreOrderInvoice extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/16
-     */
-    public function redInvoiceIssuance($id)
+     */    public function redInvoiceIssuance($id)
     {
         $this->services->redInvoiceIssuance($id);
         return app('json')->success('Hóa đơn âm được phát hành thành công');

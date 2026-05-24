@@ -21,15 +21,13 @@ use crmeb\exceptions\AdminException;
  * Nhật ký truy cập sản phẩm
  * Class StoreProductLogServices
  * @package app\services\product\product
- * @method getProductTrend($time, $timeType, $str) Xu hướng hàng hóa
- */
-class StoreProductLogServices extends BaseServices
+ * @method getProductTrend($time, $timeType, $str) Xu hướng sản phẩm
+ */class StoreProductLogServices extends BaseServices
 {
     /**
      * StoreProductLogServices constructor.
      * @param StoreProductLogDao $dao
-     */
-    public function __construct(StoreProductLogDao $dao)
+     */    public function __construct(StoreProductLogDao $dao)
     {
         $this->dao = $dao;
     }
@@ -39,14 +37,13 @@ class StoreProductLogServices extends BaseServices
      * @param string $type
      * @param array $data
      * @return bool
-     */
-    public function createLog(string $type, array $data)
+     */    public function createLog(string $type, array $data)
     {
         if (!in_array($type, ['order', 'pay', 'refund']) && (!isset($data['product_id']) || !$data['product_id'])) {
             throw new AdminException('Thiếu vật phẩmID');
         }
         if ($type != 'visit' && (!isset($data['uid']) || !$data['uid'])) {
-            throw new AdminException('Thiếu người dùngUID');
+            throw new AdminException('Thiếu Khách hàngUID');
         }
         $log_data = $log_data_all = [];
         $log_data['type'] = $type;
@@ -63,12 +60,11 @@ class StoreProductLogServices extends BaseServices
             case 'collect'://sưu tầm
                 $log_data['collect_num'] = isset($data['collect_num']) && $data['collect_num'] ? $data['collect_num'] : 1;
                 break;
-            case 'order'://Đặt hàng
+            case 'order'://Đơn hàng
                 if (!isset($data['order_id']) || !$data['order_id']) {
                     throw new AdminException('Thiếu đơn hàngID');
                 }
-                /** @var StoreOrderCartInfoServices $cartInfoServices */
-                $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $cartInfoServices */                $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
                 $cartInfo = $cartInfoServices->getOrderCartInfo($data['order_id']);
                 foreach ($cartInfo as $value) {
                     $product = $value['cart_info'];
@@ -81,8 +77,7 @@ class StoreProductLogServices extends BaseServices
                 if (!isset($data['order_id']) || !$data['order_id']) {
                     throw new AdminException('Thiếu đơn hàngID');
                 }
-                /** @var StoreOrderCartInfoServices $cartInfoServices */
-                $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $cartInfoServices */                $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
                 $cartInfo = $cartInfoServices->getOrderCartInfo($data['order_id']);
                 foreach ($cartInfo as $value) {
                     $product = $value['cart_info'];
@@ -98,8 +93,7 @@ class StoreProductLogServices extends BaseServices
                 if (!isset($data['order_id']) || !$data['order_id']) {
                     throw new AdminException('Thiếu đơn hàngID');
                 }
-                /** @var StoreOrderCartInfoServices $cartInfoServices */
-                $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $cartInfoServices */                $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
                 $cartInfo = $cartInfoServices->getOrderCartInfo($data['order_id']);
                 foreach ($cartInfo as $value) {
                     $product = $value['cart_info'];
@@ -129,8 +123,7 @@ class StoreProductLogServices extends BaseServices
      * Tìm thứ hạng của sản phẩm đã mua
      * @param $where
      * @return mixed
-     */
-    public function getRanking(array $where)
+     */    public function getRanking(array $where)
     {
         $list = $this->dao->getRanking($where);
         foreach ($list as &$item) {
@@ -154,8 +147,7 @@ class StoreProductLogServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $group = '', string $field = '*')
+     */    public function getList(array $where, string $group = '', string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $field, $page, $limit, $group);

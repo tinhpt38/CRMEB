@@ -18,14 +18,12 @@ use crmeb\exceptions\AdminException;
 
 /**
  * Lớp dịch vụ thành phần chủ đề
- */
-class ThemeModuleServices extends BaseServices
+ */class ThemeModuleServices extends BaseServices
 {
     /**
      * Người xây dựng
      * @param ThemeModuleDao $dao
-     */
-    public function __construct(ThemeModuleDao $dao)
+     */    public function __construct(ThemeModuleDao $dao)
     {
         $this->dao = $dao;
     }
@@ -37,8 +35,7 @@ class ThemeModuleServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getModuleList(array $where)
+     */    public function getModuleList(array $where)
     {
         $list = $this->dao->themeModuleList($where, '*', 1, 100, 'id desc');
         $count = $this->dao->themeModuleCount($where);
@@ -52,8 +49,7 @@ class ThemeModuleServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getModuleInfo(int $id)
+     */    public function getModuleInfo(int $id)
     {
         $info = $this->dao->get($id);
         if (!$info) {
@@ -69,8 +65,7 @@ class ThemeModuleServices extends BaseServices
      * @param int $id
      * @param array $data
      * @return int
-     */
-    public function saveModule(int $id, array $data)
+     */    public function saveModule(int $id, array $data)
     {
         $save = [];
         if (isset($data['type'])) {
@@ -98,8 +93,7 @@ class ThemeModuleServices extends BaseServices
      * Xóa thành phần
      * @param int $id
      * @return bool
-     */
-    public function deleteModule(int $id)
+     */    public function deleteModule(int $id)
     {
         if (!$this->dao->get($id)) {
             throw new AdminException('Dữ liệu không tồn tại');

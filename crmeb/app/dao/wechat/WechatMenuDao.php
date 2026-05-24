@@ -17,14 +17,12 @@ use app\model\other\Cache;
 /**
  * Class WechatMenuDao
  * @package app\dao\wechat
- */
-class WechatMenuDao extends BaseDao
+ */class WechatMenuDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    public function setModel(): string
+     */    public function setModel(): string
     {
         return Cache::class;
     }

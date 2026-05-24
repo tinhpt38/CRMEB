@@ -18,8 +18,7 @@ use crmeb\interfaces\ListenerInterface;
  * Tạo đơn hàng sau bán hàng
  * Class orderRefundCreateAfter
  * @package app\listener\order
- */
-class OrderRefundCreateAfterListener implements ListenerInterface
+ */class OrderRefundCreateAfterListener implements ListenerInterface
 {
     public function handle($event): void
     {

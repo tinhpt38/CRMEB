@@ -41,15 +41,13 @@ use Guzzle\Http\EntityBody;
  * @method value(array $where, string $field)
  * @method getColumn(array $where, string $field, ?string $key)
  * @method update(array $where, array $data)
- */
-class StorePinkServices extends BaseServices
+ */class StorePinkServices extends BaseServices
 {
 
     /**
      * StorePinkServices constructor.
      * @param StorePinkDao $dao
-     */
-    public function __construct(StorePinkDao $dao)
+     */    public function __construct(StorePinkDao $dao)
     {
         $this->dao = $dao;
     }
@@ -60,8 +58,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function systemPage(array $where)
+     */    public function systemPage(array $where)
     {
         $where['k_id'] = 0;
         [$page, $limit] = $this->getPageValue();
@@ -78,8 +75,7 @@ class StorePinkServices extends BaseServices
     /**
      * Danh sách trưởng nhóm
      * @return array
-     */
-    public function getStatistics()
+     */    public function getStatistics()
     {
         $res = [
             ['col' => 6, 'count' => $this->dao->count(), 'name' => 'Số lượng người tham gia(mọi người)', 'className' => 'iconfaqirenshu'],
@@ -95,8 +91,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPinkMember(int $id)
+     */    public function getPinkMember(int $id)
     {
         return $this->dao->getList(['k_id' => $id]);
     }
@@ -108,8 +103,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setRefundPink($order)
+     */    public function setRefundPink($order)
     {
         $res = true;
         if ($order['pink_id']) {
@@ -153,8 +147,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPinkList(int $id, bool $type)
+     */    public function getPinkList(int $id, bool $type)
     {
         $where['cid'] = $id;
         $where['k_id'] = 0;
@@ -201,8 +194,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPinkOkList(int $uid)
+     */    public function getPinkOkList(int $uid)
     {
         $list = $this->dao->successList($uid);
         $msg = [];
@@ -219,8 +211,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPinkMemberAndPinkK($pink)
+     */    public function getPinkMemberAndPinkK($pink)
     {
         //Tìm thành viên nhóm và trưởng nhóm
         if ($pink['k_id']) {
@@ -234,7 +225,7 @@ class StorePinkServices extends BaseServices
         $count = $pinkT['people'] - $count;
         $idAll = [];
         $uidAll = [];
-        //Thu thập ID người dùng mua nhóm và mua nhómid
+        //Thu thập ID Khách hàng mua nhóm và mua nhómid
         foreach ($pinkAll as $k => $v) {
             $idAll[$k] = $v['id'];
             $uidAll[$k] = $v['uid'];
@@ -252,13 +243,10 @@ class StorePinkServices extends BaseServices
      * @param bool $isRunErr
      * @param bool $isIds
      * @return array|int
-     */
-    public function pinkFail($pinkAll, $pinkT, $pinkBool, $isRunErr = true, $isIds = false)
+     */    public function pinkFail($pinkAll, $pinkT, $pinkBool, $isRunErr = true, $isIds = false)
     {
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
-        /** @var StoreOrderRefundServices $orderRefundService */
-        $orderRefundService = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderRefundServices $orderRefundService */        $orderRefundService = app()->make(StoreOrderRefundServices::class);
         $pinkIds = [];
         try {
             if ($pinkT['stop_time'] < time()) {//Hoàn tiền nếu vượt quá thời gian nhóm
@@ -305,8 +293,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderPinkAfterNo($uid, $pid, $isRemove = false, $channel)
+     */    public function orderPinkAfterNo($uid, $pid, $isRemove = false, $channel)
     {
         $pink = $this->dao->getOne([['id|k_id', '=', $pid], ['uid', '=', $uid]], '*', ['getProduct']);
         if ($isRemove) {
@@ -322,8 +309,7 @@ class StorePinkServices extends BaseServices
      * Xác định trạng thái nhóm nhóm
      * @param $pinkId
      * @return bool
-     */
-    public function isPinkStatus($pinkId)
+     */    public function isPinkStatus($pinkId)
     {
         if (!$pinkId) return false;
         $stopTime = $this->dao->value(['id' => $pinkId], 'stop_time');
@@ -336,13 +322,11 @@ class StorePinkServices extends BaseServices
      * @param int $id
      * @param int $uid
      * @return mixed
-     */
-    public function getCurrentPink(int $id, int $uid)
+     */    public function getCurrentPink(int $id, int $uid)
     {
         $oid = $this->dao->value(['id' => $id, 'uid' => $uid], 'order_id_key');
         if (!$oid) $oid = $this->dao->value(['k_id' => $id, 'uid' => $uid], 'order_id_key');
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
         return $orderService->value(['id' => $oid], 'order_id');
     }
 
@@ -353,8 +337,7 @@ class StorePinkServices extends BaseServices
      * @param $uid
      * @param $pinkT
      * @return int
-     */
-    public function pinkComplete($uidAll, $idAll, $uid, $pinkT)
+     */    public function pinkComplete($uidAll, $idAll, $uid, $pinkT)
     {
         $pinkBool = 6;
         try {
@@ -380,21 +363,18 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderPinkAfter($uidAll, $pid)
+     */    public function orderPinkAfter($uidAll, $pid)
     {
-        //Xóa người dùng ảo trước khi gửi tin nhắn
+        //Xóa Khách hàng ảo trước khi gửi tin nhắn
         foreach ($uidAll as $key => $uid) {
             if ($uid == 0) unset($uidAll[$key]);
         }
-        /** @var StoreCombinationServices $storeCombinationServices */
-        $storeCombinationServices = app()->make(StoreCombinationServices::class);
+        /** @var StoreCombinationServices $storeCombinationServices */        $storeCombinationServices = app()->make(StoreCombinationServices::class);
         $title = $storeCombinationServices->value(['id' => $this->dao->value(['id' => $pid], 'cid')], 'title');
         $pinkList = $this->dao->getColumn([['id|k_id', '=', $pid], ['uid', '<>', 0]], '*', 'uid');
         $pinkT_name = $this->dao->value(['id' => $pid], 'nickname');
         $order_ids = array_column($pinkList, 'order_id');
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
         $order_channels = $orderService->getColumn([['order_id', 'in', $order_ids]], 'is_channel', 'order_id');
         if (!$pinkList) return false;
         foreach ($pinkList as $item) {
@@ -415,8 +395,7 @@ class StorePinkServices extends BaseServices
         foreach ($orderInfos as $orderInfo) {
             if (in_array($orderInfo['virtual_type'], [1, 2])) {
                 $orderInfo['cart_id'] = json_decode($orderInfo['cart_id'], true);
-                /** @var StoreOrderDeliveryServices $orderDeliveryServices */
-                $orderDeliveryServices = app()->make(StoreOrderDeliveryServices::class);
+                /** @var StoreOrderDeliveryServices $orderDeliveryServices */                $orderDeliveryServices = app()->make(StoreOrderDeliveryServices::class);
                 $orderDeliveryServices->virtualSend($orderInfo);
             }
         }
@@ -427,22 +406,19 @@ class StorePinkServices extends BaseServices
      * Tạo chuyến tham quan theo nhóm
      * @param $order
      * @return mixed
-     */
-    public function createPink(array $orderInfo)
+     */    public function createPink(array $orderInfo)
     {
-        /** @var StoreCombinationServices $services */
-        $services = app()->make(StoreCombinationServices::class);
+        /** @var StoreCombinationServices $services */        $services = app()->make(StoreCombinationServices::class);
         $product = $services->getOne(['id' => $orderInfo['combination_id']], 'effective_time,title,people');
         if (!$product) {
             return false;
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($orderInfo['uid']);
         if ($orderInfo['pink_id']) {
             //Tham gia nhóm tồn tại
             $res = false;
-            $pink['uid'] = $orderInfo['uid'];//người dùngid
+            $pink['uid'] = $orderInfo['uid'];//Khách hàngid
             $pink['nickname'] = $userInfo['nickname'];
             $pink['avatar'] = $userInfo['avatar'];
             if ($this->isPinkBe($pink, $orderInfo['pink_id'])) return false;
@@ -452,8 +428,8 @@ class StorePinkServices extends BaseServices
             $pink['total_price'] = $orderInfo['pay_price'];//số tiền một lần
             $pink['k_id'] = $orderInfo['pink_id'];//Chia sẻ nhómid
             foreach ($orderInfo['cartInfo'] as $v) {
-                $pink['cid'] = $v['combination_id'];//Nhóm sản phẩmid
-                $pink['pid'] = $v['product_id'];//hàng hóaid
+                $pink['cid'] = $v['combination_id'];//Sản phẩm mua chungid
+                $pink['pid'] = $v['product_id'];//ID sản phẩm
                 $pink['people'] = $product['people'];//Một nhóm gồm nhiều người
                 $pink['price'] = $v['productInfo']['price'];//đơn giá
                 $pink['stop_time'] = 0;//thời gian kết thúc
@@ -477,7 +453,7 @@ class StorePinkServices extends BaseServices
         } else {
             //Tạo chuyến tham quan theo nhóm
             $res = false;
-            $pink['uid'] = $orderInfo['uid'];//người dùngid
+            $pink['uid'] = $orderInfo['uid'];//Khách hàngid
             $pink['nickname'] = $userInfo['nickname'];
             $pink['avatar'] = $userInfo['avatar'];
             $pink['order_id'] = $orderInfo['order_id'];//Tạo id đơn hàng
@@ -485,11 +461,10 @@ class StorePinkServices extends BaseServices
             $pink['total_num'] = $orderInfo['total_num'];//Số lượng mua
             $pink['total_price'] = $orderInfo['pay_price'];//số tiền một lần
             $pink['k_id'] = 0;//Chia sẻ nhómid
-            /** @var StoreOrderServices $orderServices */
-            $orderServices = app()->make(StoreOrderServices::class);
+            /** @var StoreOrderServices $orderServices */            $orderServices = app()->make(StoreOrderServices::class);
             foreach ($orderInfo['cartInfo'] as $v) {
-                $pink['cid'] = $v['combination_id'];//Nhóm sản phẩmid
-                $pink['pid'] = $v['product_id'];//hàng hóaid
+                $pink['cid'] = $v['combination_id'];//Sản phẩm mua chungid
+                $pink['pid'] = $v['product_id'];//ID sản phẩm
                 $pink['people'] = $product['people'];//Một nhóm gồm nhiều người
                 $pink['price'] = $v['productInfo']['price'];//đơn giá
                 $pink['stop_time'] = time() + $product->effective_time * 3600;//thời gian kết thúc
@@ -514,8 +489,7 @@ class StorePinkServices extends BaseServices
      * @param array $data
      * @param int $id
      * @return int
-     */
-    public function isPinkBe(array $data, int $id)
+     */    public function isPinkBe(array $data, int $id)
     {
         $data['id'] = $id;
         $count = $this->dao->getCount($data);
@@ -536,8 +510,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function removePink(int $uid, int $cid, int $pink_id, $nextPinkT = null)
+     */    public function removePink(int $uid, int $cid, int $pink_id, $nextPinkT = null)
     {
         $pinkT = $this->dao->getOne([
             ['uid', '=', $uid],
@@ -561,10 +534,8 @@ class StorePinkServices extends BaseServices
                 throw new ApiException('Việc đặt vé theo nhóm đã hoàn tất và không thể hủy được');
             }
         }
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
-        /** @var StoreOrderRefundServices $orderRefundService */
-        $orderRefundService = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderRefundServices $orderRefundService */        $orderRefundService = app()->make(StoreOrderRefundServices::class);
         //Hủy chuyến tham quan
         $order = $orderService->get($pinkT['order_id_key']);
         $refundData = [
@@ -592,12 +563,10 @@ class StorePinkServices extends BaseServices
      * @param $from
      * @param $user
      * @return string
-     */
-    public function getPinkPoster($pinkId, $from, $user)
+     */    public function getPinkPoster($pinkId, $from, $user)
     {
         $pinkInfo = $this->dao->get((int)$pinkId);
-        /** @var StoreCombinationServices $combinationService */
-        $combinationService = app()->make(StoreCombinationServices::class);
+        /** @var StoreCombinationServices $combinationService */        $combinationService = app()->make(StoreCombinationServices::class);
         $storeCombinationInfo = $combinationService->getOne(['id' => $pinkInfo['cid']], '*', ['getPrice']);
         $data['title'] = $storeCombinationInfo['title'];
         $data['image'] = $storeCombinationInfo['image'];
@@ -608,8 +577,7 @@ class StorePinkServices extends BaseServices
         $count = count($pinkAll);
         $data['msg'] = 'giá gốc ' . format_vnd($storeCombinationInfo['product_price']) . ' Không đủ tốt' . ($pinkInfo['people'] - $count) . 'Mọi người hợp tác thành công';
 
-        /** @var SystemAttachmentServices $systemAttachmentServices */
-        $systemAttachmentServices = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentServices */        $systemAttachmentServices = app()->make(SystemAttachmentServices::class);
 
         try {
             $siteUrl = sys_config('site_url');
@@ -619,8 +587,7 @@ class StorePinkServices extends BaseServices
                 $imageInfo = $systemAttachmentServices->getInfo(['name' => $name]);
                 if (!$imageInfo) {
                     $valueData = 'id=' . $pinkId;
-                    /** @var UserServices $userServices */
-                    $userServices = app()->make(UserServices::class);
+                    /** @var UserServices $userServices */                    $userServices = app()->make(UserServices::class);
                     if ($userServices->checkUserPromoter((int)$user['uid'], $user)) {
                         $valueData .= '&pid=' . $user['uid'];
                     }
@@ -728,8 +695,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function statusPink()
+     */    public function statusPink()
     {
         $pinkListEnd = $this->dao->pinkListEnd();
         foreach ($pinkListEnd as $key => $pink) {
@@ -744,8 +710,7 @@ class StorePinkServices extends BaseServices
      * @param array $pinkRegimental Số lãnh đạo thành công
      * @return bool
      * @throws \Exception
-     */
-    public function successPinkEdit(array $pinkRegimental)
+     */    public function successPinkEdit(array $pinkRegimental)
     {
         if (!count($pinkRegimental)) return true;
         foreach ($pinkRegimental as $key => &$item) {
@@ -766,8 +731,7 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function failPinkEdit(array $pinkRegimental)
+     */    public function failPinkEdit(array $pinkRegimental)
     {
         if (!count($pinkRegimental)) return true;
         foreach ($pinkRegimental as $key => &$item) {
@@ -776,8 +740,7 @@ class StorePinkServices extends BaseServices
             $pinkList = implode(',', $pinkList);
             $refundPinkList = $this->dao->getColumn([['id', 'in', $pinkList]], 'order_id,uid', 'id');
             if ($refundPinkList) {
-                /** @var StoreOrderRefundServices $orderRefundService */
-                $orderRefundService = app()->make(StoreOrderRefundServices::class);
+                /** @var StoreOrderRefundServices $orderRefundService */                $orderRefundService = app()->make(StoreOrderRefundServices::class);
                 $refundData = [
                     'refund_reason' => 'Đã hết thời gian nhóm',
                     'refund_explain' => 'Đã hết thời gian nhóm',
@@ -799,15 +762,13 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function virtualCombination($pinkId, $operator = 'auto')
+     */    public function virtualCombination($pinkId, $operator = 'auto')
     {
         $pinkInfo = $this->dao->get($pinkId);
         $people = $pinkInfo['people'];
         $count = $this->dao->count(['k_id' => $pinkId]) + 1;
         $percent1 = bcdiv((string)$count, (string)$people, 2) * 100;
-        /** @var StoreCombinationServices $services */
-        $services = app()->make(StoreCombinationServices::class);
+        /** @var StoreCombinationServices $services */        $services = app()->make(StoreCombinationServices::class);
         $percent2 = $services->value(['id' => $pinkInfo['cid']], 'virtual');
         if ($percent1 >= $percent2 || $operator == 'admin') {
             $time = time();
@@ -855,12 +816,10 @@ class StorePinkServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function posterInfo(int $id, $user)
+     */    public function posterInfo(int $id, $user)
     {
         $pinkInfo = $this->dao->get($id);
-        /** @var StoreCombinationServices $combinationService */
-        $combinationService = app()->make(StoreCombinationServices::class);
+        /** @var StoreCombinationServices $combinationService */        $combinationService = app()->make(StoreCombinationServices::class);
         $storeCombinationInfo = $combinationService->getOne(['id' => $pinkInfo['cid']], '*', ['getPrice']);
         $data['title'] = $storeCombinationInfo['title'];
         $data['url'] = '';
@@ -872,8 +831,7 @@ class StorePinkServices extends BaseServices
         $count = count($pinkAll);
         $data['msg'] = 'giá gốc ' . format_vnd($storeCombinationInfo['product_price']) . ' Không đủ tốt' . ($pinkInfo['people'] - $count) . 'Mọi người hợp tác thành công';
 
-        /** @var SystemAttachmentServices $systemAttachmentServices */
-        $systemAttachmentServices = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentServices */        $systemAttachmentServices = app()->make(SystemAttachmentServices::class);
 
         try {
             $siteUrl = sys_config('site_url');
@@ -883,8 +841,7 @@ class StorePinkServices extends BaseServices
                 $imageInfo = $systemAttachmentServices->getInfo(['name' => $name]);
                 if (!$imageInfo) {
                     $valueData = 'id=' . $id;
-                    /** @var UserServices $userServices */
-                    $userServices = app()->make(UserServices::class);
+                    /** @var UserServices $userServices */                    $userServices = app()->make(UserServices::class);
                     if ($userServices->checkUserPromoter((int)$user['uid'], $user)) {
                         $valueData .= '&pid=' . $user['uid'];
                     }
@@ -920,8 +877,7 @@ class StorePinkServices extends BaseServices
                     $data['url'] = $siteUrl . $url;
             } else {
                 if (sys_config('share_qrcode', 0) && request()->isWechat()) {
-                    /** @var QrcodeServices $qrcodeService */
-                    $qrcodeService = app()->make(QrcodeServices::class);
+                    /** @var QrcodeServices $qrcodeService */                    $qrcodeService = app()->make(QrcodeServices::class);
                     $data['url'] = $qrcodeService->getTemporaryQrcode('pink-' . $id, $user['uid'])->url;
                 }
             }

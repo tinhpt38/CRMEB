@@ -18,14 +18,12 @@ use think\facade\App;
  * Ứng dụng mẫu SMS
  * Class SmsTemplateApply
  * @package app\admin\controller\sms
- */
-class SmsTemplateApply extends AuthController
+ */class SmsTemplateApply extends AuthController
 {
     /**
      * @param App $app
      * @param ServeServices $services
-     */
-    public function __construct(App $app, ServeServices $services)
+     */    public function __construct(App $app, ServeServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -34,8 +32,7 @@ class SmsTemplateApply extends AuthController
     /**
      * Nhận danh sách mẫu không đồng bộ
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             [['type', 'd'], 0],
@@ -57,7 +54,7 @@ class SmsTemplateApply extends AuthController
                     $item['type'] = 'thông báo';
                     break;
                 case 30:
-                    $item['type'] = 'SMS tiếp thị';
+                    $item['type'] = 'SMS Marketing';
                     break;
             }
         }
@@ -68,8 +65,7 @@ class SmsTemplateApply extends AuthController
      * Hiển thị trang biểu mẫu tạo tài nguyên
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->getSmsTemplateForm());
     }
@@ -77,8 +73,7 @@ class SmsTemplateApply extends AuthController
     /**
      * Lưu tài nguyên mới
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['title', ''],
@@ -89,7 +84,7 @@ class SmsTemplateApply extends AuthController
             return app('json')->fail('Vui lòng nhập tên mẫu');
         }
         if (!strlen(trim($data['content']))) {
-            return app('json')->fail('Vui lòng nhập nội dung mẫu');
+            return app('json')->fail('Vui lòng nhập Nội dung mẫu');
         }
         $this->services->sms()->apply($data['title'], $data['content'], $data['type']);
         return app('json')->success('Ứng dụng thành công');

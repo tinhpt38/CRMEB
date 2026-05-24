@@ -15,17 +15,15 @@ use app\dao\BaseDao;
 use app\model\service\StoreServiceLog;
 
 /**
- * Lịch sử trò chuyện dịch vụ khách hàngdao
+ * Lịch sử trò chuyện CSKHdao
  * Class StoreServiceLogDao
  * @package app\dao\service
- */
-class StoreServiceLogDao extends BaseDao
+ */class StoreServiceLogDao extends BaseDao
 {
 
     /**
      * StoreServiceLogDao constructor.
-     */
-    public function __construct()
+     */    public function __construct()
     {
         //Xóa lịch sử trò chuyện từ năm ngoái
 //        $this->removeChat();
@@ -35,8 +33,7 @@ class StoreServiceLogDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreServiceLog::class;
     }
@@ -45,8 +42,7 @@ class StoreServiceLogDao extends BaseDao
      * Lấy uid và bản ghi trò chuyệnto_uid
      * @param int $uid
      * @return mixed
-     */
-    public function getServiceUserUids(int $uid)
+     */    public function getServiceUserUids(int $uid)
     {
         return $this->search(['uid' => $uid])->group('uid,to_uid')->field(['uid', 'to_uid'])->select()->toArray();
     }
@@ -60,8 +56,7 @@ class StoreServiceLogDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceList(array $where, int $page, int $limit, array $field = ['*'])
+     */    public function getServiceList(array $where, int $page, int $limit, array $field = ['*'])
     {
         return $this->search($where)->with('user')->field($field)->order('add_time DESC')->page($page, $limit)->select()->toArray();
     }
@@ -76,8 +71,7 @@ class StoreServiceLogDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getChatList(array $where, int $limit = 20, int $upperId = 0)
+     */    public function getChatList(array $where, int $limit = 20, int $upperId = 0)
     {
         return $this->search($where)->when($upperId, function ($query) use ($upperId, $limit) {
             $query->where('id', '<', $upperId)->limit($limit)->order('id DESC');
@@ -89,17 +83,15 @@ class StoreServiceLogDao extends BaseDao
     /**
      * Xóa lịch sử trò chuyện từ năm ngoái
      * @return bool
-     */
-    public function removeChat()
+     */    public function removeChat()
     {
         return $this->search(['time' => 'last year'])->delete();
     }
 
     /**
-     * Xóa lịch sử trò chuyện của người dùng khách vào tuần trước
+     * Xóa lịch sử trò chuyện của Khách hàng khách vào tuần trước
      * @return bool
-     */
-    public function removeYesterDayChat()
+     */    public function removeYesterDayChat()
     {
         return $this->search(['time' => 'last week', 'is_tourist' => 1])->delete();
     }
@@ -109,8 +101,7 @@ class StoreServiceLogDao extends BaseDao
      * Lấy số lượng vật phẩm dựa trên điều kiện
      * @param array $where
      * @return int
-     */
-    public function whereByCount(array $where)
+     */    public function whereByCount(array $where)
     {
         return $this->search(['uid' => $where['uid']])->order('id DESC')->where('add_time', '<', time() - 300)->count();
     }
@@ -119,8 +110,7 @@ class StoreServiceLogDao extends BaseDao
      * Lấy số lượng tin nhắn chưa đọc
      * @param array $where
      * @return int
-     */
-    public function getMessageNum(array $where)
+     */    public function getMessageNum(array $where)
     {
         return $this->getModel()->where($where)->count();
     }
@@ -132,8 +122,7 @@ class StoreServiceLogDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMessageList(array $where)
+     */    public function getMessageList(array $where)
     {
         return $this->search(['chat' => $where['chat']])->when(isset($where['add_time']) && $where['add_time'], function ($query) use ($where) {
             $query->where('add_time', '>', $where['add_time']);

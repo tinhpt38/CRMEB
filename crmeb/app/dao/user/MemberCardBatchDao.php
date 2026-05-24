@@ -19,8 +19,7 @@ class MemberCardBatchDao extends BaseDao
 {
     /** Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         // TODO: Implement setModel() method.
         return MemberCardBatch::class;
@@ -37,8 +36,7 @@ class MemberCardBatchDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0, string $order = '')
+     */    public function getList(array $where, int $page = 0, int $limit = 0, string $order = '')
     {
         return $this->search($where)
             ->order(($order ? $order . ' ,' : '') . 'sort desc,id desc')

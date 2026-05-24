@@ -19,8 +19,7 @@ use think\Model;
 /**
  * Class UserInvoice
  * @package app\model\live
- */
-class UserInvoice extends BaseModel
+ */class UserInvoice extends BaseModel
 {
     use ModelTrait;
 
@@ -41,8 +40,7 @@ class UserInvoice extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         if (!empty($value)) {
             return date('Y-m-d H:i:s', (int)$value);
@@ -54,8 +52,7 @@ class UserInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value !== '') $query->where('uid', $value);
     }
@@ -63,8 +60,7 @@ class UserInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchHeaderTypeAttr($query, $value)
+     */    public function searchHeaderTypeAttr($query, $value)
     {
         if ($value !== '') $query->where('header_type', $value);
     }
@@ -72,8 +68,7 @@ class UserInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value !== '') $query->where('type', $value);
     }
@@ -81,8 +76,7 @@ class UserInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDefaultAttr($query, $value)
+     */    public function searchIsDefaultAttr($query, $value)
     {
         if ($value !== '') $query->whereLike('is_default', $value);
     }
@@ -90,8 +84,7 @@ class UserInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }

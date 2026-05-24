@@ -16,23 +16,20 @@ use app\dao\BaseDao;
 use app\model\activity\integral\StoreIntegralOrder;
 
 /**
- * Đặt hàng
+ * Đơn hàng
  * Class StoreOrderDao
  * @package app\dao\order
- */
-class StoreIntegralOrderDao extends BaseDao
+ */class StoreIntegralOrderDao extends BaseDao
 {
 
     /**
      * Giới hạn các trường truy vấn chính xác
      * @var string[]
-     */
-    protected $withField = ['uid', 'order_id', 'real_name', 'user_phone', 'store_name'];
+     */    protected $withField = ['uid', 'order_id', 'real_name', 'user_phone', 'store_name'];
 
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreIntegralOrder::class;
     }
@@ -43,8 +40,7 @@ class StoreIntegralOrderDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         $isDel = isset($where['is_del']) && $where['is_del'] !== '' && $where['is_del'] != -1;
         $realName = $where['real_name'] ?? '';
@@ -80,8 +76,7 @@ class StoreIntegralOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderList(array $where, array $field, int $page, int $limit, array $with = [])
+     */    public function getOrderList(array $where, array $field, int $page, int $limit, array $with = [])
     {
         return $this->search($where)->field($field)->with(array_merge(['user'], $with))->page($page, $limit)->order('add_time DESC,id DESC')->select()->toArray();
     }
@@ -92,8 +87,7 @@ class StoreIntegralOrderDao extends BaseDao
      * @param bool $search
      * @return int
      * @throws \ReflectionException
-     */
-    public function count(array $where = [], bool $search = true)
+     */    public function count(array $where = [], bool $search = true)
     {
         return $this->search($where)->count();
     }
@@ -105,8 +99,7 @@ class StoreIntegralOrderDao extends BaseDao
      * @param string $key
      * @param string $group
      * @return array
-     */
-    public function column(array $where, string $field, string $key = '', string $group = '')
+     */    public function column(array $where, string $field, string $key = '', string $group = '')
     {
         return $this->search($where)->when($group, function ($query) use ($group) {
             $query->group($group);
@@ -121,19 +114,17 @@ class StoreIntegralOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserOrderDetail(string $key, int $uid)
+     */    public function getUserOrderDetail(string $key, int $uid)
     {
         return $this->getOne(['order_id' => $key, 'uid' => $uid, 'is_del' => 0]);
     }
 
     /**
-     * Lấy số lượng vật phẩm người dùng đã mua cho sự kiện này
+     * Lấy số lượng vật phẩm Khách hàng đã mua cho sự kiện này
      * @param $uid
      * @param $productId
      * @return int
-     */
-    public function getBuyCount($uid, $productId): int
+     */    public function getBuyCount($uid, $productId): int
     {
         return $this->getModel()
                 ->where('uid', $uid)

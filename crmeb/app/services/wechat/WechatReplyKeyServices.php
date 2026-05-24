@@ -19,16 +19,14 @@ use app\dao\wechat\WechatReplyKeyDao;
  *
  * Class UserWechatuserServices
  * @package app\services\user
- */
-class WechatReplyKeyServices extends BaseServices
+ */class WechatReplyKeyServices extends BaseServices
 {
 
     /**
      * Người xây dựng
      * WechatReplyKeyServices constructor.
      * @param WechatReplyKeyDao $dao
-     */
-    public function __construct(WechatReplyKeyDao $dao)
+     */    public function __construct(WechatReplyKeyDao $dao)
     {
         $this->dao = $dao;
     }
@@ -36,8 +34,7 @@ class WechatReplyKeyServices extends BaseServices
     /**
      * @param array $where
      * @return mixed
-     */
-    public function getReplyKeyAll(array $where)
+     */    public function getReplyKeyAll(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getReplyKeyList($where, $page, $limit);

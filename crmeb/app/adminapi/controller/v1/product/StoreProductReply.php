@@ -18,21 +18,18 @@ use think\facade\App;
  * Bộ điều khiển quản lý bình luận
  * Class StoreProductReply
  * @package app\admin\controller\store
- */
-class StoreProductReply extends AuthController
+ */class StoreProductReply extends AuthController
 {
     /**
      * @var StoreProductReplyServices
-     */
-    protected $services;
+     */    protected $services;
     
     /**
      * Người xây dựng
      * @param App $app
      * @param StoreProductReplyServices $service
      * @var StoreProductReplyServices $services
-     */
-    public function __construct(App $app, StoreProductReplyServices $service)
+     */    public function __construct(App $app, StoreProductReplyServices $service)
     {
         parent::__construct($app);
         $this->services = $service;
@@ -42,8 +39,7 @@ class StoreProductReply extends AuthController
      * Hiển thị danh sách tài nguyên
      *
      * @return \think\Response
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['is_reply', ''],
@@ -63,8 +59,7 @@ class StoreProductReply extends AuthController
      * Xóa bình luận
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         $this->services->del($id);
         return app('json')->success('Xóa thành công');
@@ -74,8 +69,7 @@ class StoreProductReply extends AuthController
      * Trả lời bình luận
      * @param $id
      * @return mixed
-     */
-    public function set_reply($id)
+     */    public function set_reply($id)
     {
         [$content] = $this->request->postMore([
             ['content', '']
@@ -88,8 +82,7 @@ class StoreProductReply extends AuthController
      * Tạo một mẫu bình luận ảo
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function fictitious_reply($product_id = 0)
+     */    public function fictitious_reply($product_id = 0)
     {
         if (!$product_id) {
             $product_id = (int)$this->request->param('product_id', 0);
@@ -100,8 +93,7 @@ class StoreProductReply extends AuthController
     /**
      * Lưu đánh giá ảo
      * @return mixed
-     */
-    public function save_fictitious_reply()
+     */    public function save_fictitious_reply()
     {
         $data = $this->request->postMore([
             ['image', ''],
@@ -124,28 +116,26 @@ class StoreProductReply extends AuthController
     }
 
     /**
-     * Đánh giá đánh giá sản phẩm
+     * Đánh giá Đánh giá sản phẩm
      * @param $id
      * @param $status
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/4/22
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         $this->services->update($id, ['status' => $status]);
         return app('json')->success($status == 1 ? 'Duyệt thành công' : 'Từ chối thành công');
     }
 
     /**
-     * Đánh giá đánh giá sản phẩm hàng loạt
+     * Đánh giá Đánh giá sản phẩm hàng loạt
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/6/18
-     */
-    public function batch_set_status()
+     */    public function batch_set_status()
     {
         list($ids, $status) = $this->request->postMore([
             ['ids', []],

@@ -20,14 +20,12 @@ use think\facade\Route as Url;
 /**
  * Class AppVersionServices
  * @package app\services\system
- */
-class AppVersionServices extends BaseServices
+ */class AppVersionServices extends BaseServices
 {
     /**
      * DiyServices constructor.
      * @param AppVersionDao $dao
-     */
-    public function __construct(AppVersionDao $dao)
+     */    public function __construct(AppVersionDao $dao)
     {
         $this->dao = $dao;
     }
@@ -36,8 +34,7 @@ class AppVersionServices extends BaseServices
      * Danh sách phiên bản
      * @param $platform
      * @return array
-     */
-    public function versionList($platform)
+     */    public function versionList($platform)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->versionList($platform, $page, $limit);
@@ -52,8 +49,7 @@ class AppVersionServices extends BaseServices
      * Thêm mẫu phiên bản
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm($id = 0)
+     */    public function createForm($id = 0)
     {
         if ($id) {
             $info = $this->dao->get($id);
@@ -65,7 +61,7 @@ class AppVersionServices extends BaseServices
         $field[] = Form::input('url', 'Liên kết tải xuống', $info['url'] ?? '')->appendRule('suffix', [
             'type' => 'div',
             'class' => 'tips-info',
-            'domProps' => ['innerHTML' => 'Điền vào liên kết tải xuống. Đối với Android, đó là địa chỉ url của gói nén. Bấm để nâng cấp, gói nén sẽ tự động được tải xuống và thay thế để cài đặt, ví dụ: tên miền/xxx.zip; đối với iOS, đó là địa chỉ liên kết của cửa hàng ứng dụng, chẳng hạn sẽ chuyển thẳng đến AppStore.：itms-apps://itunes.apple.com/cn/app/id1234567890']
+            'domProps' => ['innerHTML' => 'Điền vào liên kết tải xuống. Đối với Android, đó là địa chỉ url của gói nén. Bấm để nâng cấp, gói nén sẽ tự động được tải xuống và thay thế để Cài đặt, ví dụ: tên miền/xxx.zip; đối với iOS, đó là địa chỉ liên kết của cửa hàng Ứng dụng, chẳng hạn sẽ chuyển thẳng đến AppStore.：itms-apps://itunes.apple.com/cn/app/id1234567890']
         ]);
         $field[] = Form::radio('is_force', 'lực lượng', $info['is_force'] ?? 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
         $field[] = Form::radio('is_new', 'Đây có phải là cái mới nhất không', $info['is_new'] ?? 1)->options([['label' => 'Đúng', 'value' => 1], ['label' => 'KHÔNG', 'value' => 0]]);
@@ -78,8 +74,7 @@ class AppVersionServices extends BaseServices
      * @param $id
      * @param $data
      * @return mixed
-     */
-    public function versionSave($id, $data)
+     */    public function versionSave($id, $data)
     {
         if ($id) {
             return $this->transaction(function () use ($data, $id) {
@@ -105,8 +100,7 @@ class AppVersionServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getNewInfo($platform)
+     */    public function getNewInfo($platform)
     {
         $res = $this->dao->get(['platform' => $platform, 'is_new' => 1]);
         if ($res) {

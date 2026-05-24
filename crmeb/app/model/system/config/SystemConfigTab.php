@@ -19,29 +19,25 @@ use think\Model;
  * Cấu hình mô hình phân loại
  * Class SystemConfigTab
  * @package app\model\system\config
- */
-class SystemConfigTab extends BaseModel
+ */class SystemConfigTab extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_config_tab';
+     */    protected $name = 'system_config_tab';
 
     /**
      * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value != '') {
             $query->where('status', $value);
@@ -52,8 +48,7 @@ class SystemConfigTab extends BaseModel
      * pidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchPidAttr($query, $value)
+     */    public function searchPidAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('pid', $value);
@@ -66,8 +61,7 @@ class SystemConfigTab extends BaseModel
      * Nhập trình tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('status', 1);
         if ($value > -1) {
@@ -79,8 +73,7 @@ class SystemConfigTab extends BaseModel
      * Trình tìm kiếm tên danh mục
      * @param Model $query
      * @param $value
-     */
-    public function searchTitleAttr($query, $value)
+     */    public function searchTitleAttr($query, $value)
     {
         $query->whereLike('title', '%' . $value . '%');
     }

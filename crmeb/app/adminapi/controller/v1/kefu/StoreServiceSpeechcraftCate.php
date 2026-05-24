@@ -20,16 +20,14 @@ use app\services\kefu\service\StoreServiceSpeechcraftCateServices;
 /**
  * Class StoreServiceSpeechcraftCate
  * @package app\adminapi\controller\v1\application\wechat
- */
-class StoreServiceSpeechcraftCate extends AuthController
+ */class StoreServiceSpeechcraftCate extends AuthController
 {
 
     /**
      * StoreServiceSpeechcraftCate constructor.
      * @param App $app
      * @param StoreServiceSpeechcraftCateServices $services
-     */
-    public function __construct(App $app, StoreServiceSpeechcraftCateServices $services)
+     */    public function __construct(App $app, StoreServiceSpeechcraftCateServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -41,8 +39,7 @@ class StoreServiceSpeechcraftCate extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['name', '']
@@ -56,8 +53,7 @@ class StoreServiceSpeechcraftCate extends AuthController
      * Nhận biểu mẫu tạo
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->createForm());
     }
@@ -65,8 +61,7 @@ class StoreServiceSpeechcraftCate extends AuthController
     /**
      * lưu dữ liệu
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -96,8 +91,7 @@ class StoreServiceSpeechcraftCate extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->editForm((int)$id));
     }
@@ -107,8 +101,7 @@ class StoreServiceSpeechcraftCate extends AuthController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function update(Request $request, $id)
+     */    public function update(Request $request, $id)
     {
         $data = $request->postMore([
             ['name', ''],
@@ -129,11 +122,10 @@ class StoreServiceSpeechcraftCate extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if ($id == 0) return app('json')->fail('Không thể xóa danh mục hệ thống');
         $cateInfo = $this->services->get($id);

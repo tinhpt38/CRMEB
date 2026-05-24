@@ -17,8 +17,7 @@ use app\services\activity\coupon\StoreCouponIssueServices;
  * Danh mục phiếu giảm giá
  * Class StoreCouponsController
  * @package app\api\controller\store
- */
-class StoreCouponsController
+ */class StoreCouponsController
 {
     protected $services;
 
@@ -34,8 +33,7 @@ class StoreCouponsController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst(Request $request)
+     */    public function lst(Request $request)
     {
         $where = $request->getMore([
             ['type', 0],
@@ -53,16 +51,14 @@ class StoreCouponsController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function receive(Request $request)
+     */    public function receive(Request $request)
     {
         list($couponId) = $request->getMore([
             ['couponId', 0]
         ], true);
         if (!$couponId || !is_numeric($couponId)) return app('json')->fail('Lỗi tham số');
 
-        /** @var StoreCouponIssueServices $couponIssueService */
-        $couponIssueService = app()->make(StoreCouponIssueServices::class);
+        /** @var StoreCouponIssueServices $couponIssueService */        $couponIssueService = app()->make(StoreCouponIssueServices::class);
         $couponIssueService->issueUserCoupon($couponId, $request->user(), true);
         return app('json')->success('Đã nhận thành công');
     }
@@ -72,8 +68,7 @@ class StoreCouponsController
      * @param Request $request
      * @param $types
      * @return mixed
-     */
-    public function user(Request $request, $types)
+     */    public function user(Request $request, $types)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->getUserCouponList($uid, $types));
@@ -91,8 +86,7 @@ class StoreCouponsController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function order(Request $request, StoreCouponIssueServices $service, $cartId, $new, $shippingType)
+     */    public function order(Request $request, StoreCouponIssueServices $service, $cartId, $new, $shippingType)
     {
         return app('json')->success($service->beUsableCouponList((int)$request->uid(), $cartId, !!$new, (int)$shippingType));
     }

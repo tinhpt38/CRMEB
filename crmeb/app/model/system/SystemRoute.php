@@ -21,21 +21,18 @@ use think\model\concern\SoftDelete;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\model\system
- */
-class SystemRoute extends BaseModel
+ */class SystemRoute extends BaseModel
 {
 
     use SoftDelete;
 
     /**
      * @var string
-     */
-    protected $name = 'system_route';
+     */    protected $name = 'system_route';
 
     /**
      * @var string
-     */
-    protected $key = 'id';
+     */    protected $key = 'id';
 
     public function searchNameLikeAttr($query, $value)
     {

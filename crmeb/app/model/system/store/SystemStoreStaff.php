@@ -20,22 +20,19 @@ use think\Model;
  * người mẫu thư ký
  * Class SystemStoreStaff
  * @package app\model\system\store
- */
-class SystemStoreStaff extends BaseModel
+ */class SystemStoreStaff extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_store_staff';
+     */    protected $name = 'system_store_staff';
 
     /**
-     * userLiên kết một-một trong bảng người dùng
+     * userLiên kết một-một trong bảng Khách hàng
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname'])->bind([
             'nickname' => 'nickname'
@@ -45,8 +42,7 @@ class SystemStoreStaff extends BaseModel
     /**
      * Lưu trữ liên kết một-một trong bảng
      * @return \think\model\relation\HasOne
-     */
-    public function store()
+     */    public function store()
     {
         return $this->hasOne(SystemStore::class, 'id', 'store_id')->field(['id', 'name'])->bind([
             'name' => 'name'
@@ -57,18 +53,16 @@ class SystemStoreStaff extends BaseModel
      * Trình lấy dấu thời gian cho đến nay
      * @param $value
      * @return false|string
-     */
-    public static function getAddTimeAttr($value)
+     */    public static function getAddTimeAttr($value)
     {
         return date('Y-m-d H:i:s', $value);
     }
 
     /**
-     * Có người tìm kiếm thẩm quyền xóa sổ không?
+     * Có người tìm kiếm thẩm quyền xác nhận không?
      * @param Model $query
-     * @param $value người dùnguid
-     */
-    public function searchIsStatusAttr($query, $value)
+     * @param $value Khách hànguid
+     */    public function searchIsStatusAttr($query, $value)
     {
         $query->where(['uid' => $value, 'status' => 1, 'verify_status' => 1]);
     }
@@ -77,8 +71,7 @@ class SystemStoreStaff extends BaseModel
      * uidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -87,8 +80,7 @@ class SystemStoreStaff extends BaseModel
      * Trình tìm kiếm ID cửa hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchStoreIdAttr($query, $value)
+     */    public function searchStoreIdAttr($query, $value)
     {
         if ($value && $value > 0) {
             $query->where('store_id', $value);

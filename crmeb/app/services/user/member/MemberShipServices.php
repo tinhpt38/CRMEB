@@ -18,8 +18,7 @@ use crmeb\exceptions\AdminException;
 /**
  * Class MemberShipServices
  * @package app\services\user
- */
-class MemberShipServices extends BaseServices
+ */class MemberShipServices extends BaseServices
 {
 
     public function __construct(MemberShipDao $memberShipDao)
@@ -30,8 +29,7 @@ class MemberShipServices extends BaseServices
     /**Nhận loại thành viên trong nền
      * @param array $where
      * @return array
-     */
-    public function getSearchList(array $where = [])
+     */    public function getSearchList(array $where = [])
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getSearchList($where, $page, $limit);
@@ -42,8 +40,7 @@ class MemberShipServices extends BaseServices
 
     /**Nhận giao diện api thẻ thành viên
      * @return mixed
-     */
-    public function getApiList(array $where)
+     */    public function getApiList(array $where)
     {
         return $this->dao->getApiList($where);
     }
@@ -51,8 +48,7 @@ class MemberShipServices extends BaseServices
     /** Lưu chỉnh sửa loại thẻ
      * @param int $id
      * @param array $data
-     */
-    public function save(int $id, array $data)
+     */    public function save(int $id, array $data)
     {
         if (!$data['title']) throw new AdminException('Vui lòng điền tên thẻ thành viên');
         if (!$data['type']) throw new AdminException('Thiếu loại thẻ thành viên');
@@ -80,8 +76,7 @@ class MemberShipServices extends BaseServices
     /**Nhận ngày làm thẻ thành viên
      * @param array $where
      * @return mixed
-     */
-    public function getVipDay(array $where)
+     */    public function getVipDay(array $where)
     {
         return $this->dao->value($where, 'vip_day');
     }
@@ -91,8 +86,7 @@ class MemberShipServices extends BaseServices
      * @param $id
      * @param $is_del
      * @return bool
-     */
-    public function setStatus($id, $is_del)
+     */    public function setStatus($id, $is_del)
     {
         $res = $this->dao->update($id, ['is_del' => $is_del]);
         if ($res) return true;

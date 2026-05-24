@@ -19,8 +19,7 @@ use crmeb\traits\ModelTrait;
  * Bàn phụ
  * Class Auxiliary
  * @package app\model\other
- */
-class Auxiliary extends BaseModel
+ */class Auxiliary extends BaseModel
 {
 
     use ModelTrait;
@@ -28,21 +27,18 @@ class Auxiliary extends BaseModel
     /**
      * trình diễn
      * @var string
-     */
-    protected $name = 'auxiliary';
+     */    protected $name = 'auxiliary';
     protected $insert = ['add_time'];
     protected $autoWriteTimestamp = false;
     /**
      * khóa chính
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**Nhập trình tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }
@@ -50,8 +46,7 @@ class Auxiliary extends BaseModel
     /**loại tìm kiếm id ràng buộc
      * @param $query
      * @param $value
-     */
-    public function searchBindingIdAttr($query, $value)
+     */    public function searchBindingIdAttr($query, $value)
     {
         $query->where('binding_id', $value);
     }
@@ -59,16 +54,14 @@ class Auxiliary extends BaseModel
     /**Nhập Trình tìm trạng thái
      * @param $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->whereIn('status', $value);
     }
     /**gõ công cụ tìm kiếm id liên kết
      * @param $query
      * @param $value
-     */
-    public function searchRelationIdAttr($query, $value)
+     */    public function searchRelationIdAttr($query, $value)
     {
         $query->where('relation_id', $value);
     }

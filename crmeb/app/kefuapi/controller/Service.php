@@ -21,29 +21,26 @@ use app\services\kefu\service\StoreServiceSpeechcraftServices;
 /**
  * Class Service
  * @package app\kefuapi\controller
- */
-class Service extends AuthController
+ */class Service extends AuthController
 {
     /**
      * Service constructor.
      * @param App $app
      * @param KefuServices $services
-     */
-    public function __construct(App $app, KefuServices $services)
+     */    public function __construct(App $app, KefuServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Chuyển danh sách dịch vụ khách hàng
+     * Chuyển danh sách CSKH
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceList(Request $request, $uid = 0)
+     */    public function getServiceList(Request $request, $uid = 0)
     {
         $where = $request->getMore([
             ['nickname', ''],
@@ -59,8 +56,7 @@ class Service extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSpeechcraftList(Request $request, StoreServiceSpeechcraftServices $services)
+     */    public function getSpeechcraftList(Request $request, StoreServiceSpeechcraftServices $services)
     {
         $where = $request->getMore([
             ['title', ''],
@@ -81,8 +77,7 @@ class Service extends AuthController
      * @param Request $request
      * @param CategoryServices $services
      * @return mixed
-     */
-    public function saveCate(Request $request, CategoryServices $services)
+     */    public function saveCate(Request $request, CategoryServices $services)
     {
         $data = $request->postMore([
             ['name', ''],
@@ -101,13 +96,12 @@ class Service extends AuthController
     }
 
     /**
-     * Sửa đổi phân loại
+     * Sửa danh mục
      * @param Request $request
      * @param CategoryServices $services
      * @param $id
      * @return mixed
-     */
-    public function editCate(Request $request, CategoryServices $services, $id)
+     */    public function editCate(Request $request, CategoryServices $services, $id)
     {
         $data = $request->postMore([
             ['name', ''],
@@ -137,8 +131,7 @@ class Service extends AuthController
      * @param CategoryServices $services
      * @param $id
      * @return mixed
-     */
-    public function deleteCate(CategoryServices $services, $id)
+     */    public function deleteCate(CategoryServices $services, $id)
     {
         $cateInfo = $services->get($id);
         if (!$cateInfo) {
@@ -153,14 +146,13 @@ class Service extends AuthController
     }
 
     /**
-     * Nhận danh mục dịch vụ khách hàng hiện tại
+     * Nhận danh mục CSKH hiện tại
      * @param CategoryServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCateList(CategoryServices $services, $type)
+     */    public function getCateList(CategoryServices $services, $type)
     {
         return app('json')->success($services->getCateList(['owner_id' => $type ? $this->kefuId : 0, 'type' => 1], ['id', 'name', 'sort']));
     }
@@ -170,8 +162,7 @@ class Service extends AuthController
      * @param Request $request
      * @param StoreServiceSpeechcraftServices $services
      * @return mixed
-     */
-    public function saveSpeechcraft(Request $request, StoreServiceSpeechcraftServices $services, CategoryServices $categoryServices)
+     */    public function saveSpeechcraft(Request $request, StoreServiceSpeechcraftServices $services, CategoryServices $categoryServices)
     {
         $data = $request->postMore([
             ['title', ''],
@@ -186,7 +177,7 @@ class Service extends AuthController
             return app('json')->fail('Danh mục không tồn tại');
         }
         if ($services->count(['message' => $data['message']])) {
-            return app('json')->fail('Đã thêm nội dung trùng lặp');
+            return app('json')->fail('Đã thêm Nội dung trùng lặp');
         }
         $data['add_time'] = time();
         $data['kefu_id'] = $this->kefuId;
@@ -205,8 +196,7 @@ class Service extends AuthController
      * @param StoreServiceSpeechcraftServices $services
      * @param $id
      * @return mixed
-     */
-    public function editSpeechcraft(Request $request, StoreServiceSpeechcraftServices $services, CategoryServices $categoryServices, $id)
+     */    public function editSpeechcraft(Request $request, StoreServiceSpeechcraftServices $services, CategoryServices $categoryServices, $id)
     {
         $data = $request->postMore([
             ['title', ''],
@@ -245,8 +235,7 @@ class Service extends AuthController
      * @param StoreServiceSpeechcraftServices $services
      * @param $id
      * @return mixed
-     */
-    public function deleteSpeechcraft(StoreServiceSpeechcraftServices $services, $id)
+     */    public function deleteSpeechcraft(StoreServiceSpeechcraftServices $services, $id)
     {
         $speechcraft = $services->get($id);
         if (!$speechcraft) {
@@ -266,8 +255,7 @@ class Service extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getChatList(Request $request)
+     */    public function getChatList(Request $request)
     {
         [$uid, $upperId, $is_tourist] = $request->postMore([
             ['uid', 0],
@@ -281,20 +269,18 @@ class Service extends AuthController
     }
 
     /**
-     * Chi tiết dịch vụ khách hàng hiện tại
+     * Chi tiết CSKH hiện tại
      * @return mixed
-     */
-    public function getServiceInfo()
+     */    public function getServiceInfo()
     {
         $this->kefuInfo['site_name'] = sys_config('site_name');
         return app('json')->success($this->kefuInfo->toArray());
     }
 
     /**
-     * Chuyển dịch vụ khách hàng
+     * Chuyển CSKH
      * @return mixed
-     */
-    public function transfer()
+     */    public function transfer()
     {
         [$kefuToUid, $uid] = $this->request->postMore([
             ['kefuToUid', 0],

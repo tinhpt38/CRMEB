@@ -20,14 +20,12 @@ use crmeb\exceptions\ApiException;
 /**
  * Class StoreProductRelationService
  * @package app\services\product\product
- */
-class StoreProductRelationServices extends BaseServices
+ */class StoreProductRelationServices extends BaseServices
 {
     /**
      * StoreProductRelationServices constructor.
      * @param StoreProductRelationDao $dao
-     */
-    public function __construct(StoreProductRelationDao $dao)
+     */    public function __construct(StoreProductRelationDao $dao)
     {
         $this->dao = $dao;
     }
@@ -39,8 +37,7 @@ class StoreProductRelationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function isProductRelation(array $where)
+     */    public function isProductRelation(array $where)
     {
         $res = $this->dao->getOne($where);
         if ($res) {
@@ -51,11 +48,10 @@ class StoreProductRelationServices extends BaseServices
     }
 
     /**
-     * Lấy số lượng bộ sưu tập của người dùng
+     * Lấy số lượng bộ sưu tập của Khách hàng
      * @param int $uid
      * @return int
-     */
-    public function getUserCollectCount(int $uid)
+     */    public function getUserCollectCount(int $uid)
     {
         return $this->dao->count(['uid' => $uid, 'type' => 'collect']);
     }
@@ -70,8 +66,7 @@ class StoreProductRelationServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function getUserCollectProduct(int $uid)
+     */    public function getUserCollectProduct(int $uid)
     {
         $where['uid'] = $uid;
         $where['type'] = 'collect';
@@ -103,8 +98,7 @@ class StoreProductRelationServices extends BaseServices
      * @param string $relationType
      * @param string $category
      * @return bool
-     */
-    public function productRelation(int $productId, int $uid, string $relationType, string $category = 'product')
+     */    public function productRelation(int $productId, int $uid, string $relationType, string $category = 'product')
     {
         $relationType = strtolower($relationType);
         $category = strtolower($category);
@@ -119,7 +113,7 @@ class StoreProductRelationServices extends BaseServices
         //Hồ sơ thu thập
         ProductLogJob::dispatch(['collect', ['uid' => $uid, 'product_id' => $productId]]);
 
-        //Bộ sưu tập sản phẩm của người dùng sự kiện tùy chỉnh
+        //Sản phẩm yêu thích của Khách hàng sự kiện tùy chỉnh
         event('CustomEventListener', ['user_product_collect', [
             'product_id' => $productId,
             'uid' => $uid,
@@ -137,8 +131,7 @@ class StoreProductRelationServices extends BaseServices
      * @param string $category
      * @return bool
      * @throws \Exception
-     */
-    public function unProductRelation(array $productId, int $uid, string $relationType, string $category = 'product')
+     */    public function unProductRelation(array $productId, int $uid, string $relationType, string $category = 'product')
     {
         $relationType = strtolower($relationType);
         $category = strtolower($category);
@@ -159,8 +152,7 @@ class StoreProductRelationServices extends BaseServices
      * @param string $relationType
      * @param string $category
      * @return bool
-     */
-    public function productRelationAll(array $productIdS, int $uid, string $relationType, string $category = 'product')
+     */    public function productRelationAll(array $productIdS, int $uid, string $relationType, string $category = 'product')
     {
         $relationType = strtolower($relationType);
         $category = strtolower($category);

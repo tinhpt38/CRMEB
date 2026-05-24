@@ -21,15 +21,13 @@ use app\model\user\UserBill;
  *
  * Class UserUserBillDao
  * @package app\dao\user
- */
-class UserUserBillDao extends BaseDao
+ */class UserUserBillDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return User::class;
     }
@@ -44,13 +42,11 @@ class UserUserBillDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    public function getModel(string $alias = 'u', string $join_alias = 'b', $join = 'left')
+     */    public function getModel(string $alias = 'u', string $join_alias = 'b', $join = 'left')
     {
         $this->alias = $alias;
         $this->join_alis = $join_alias;
-        /** @var $userBiil $userBiil */
-        $userBiil = app()->make($this->joinModel());
+        /** @var $userBiil $userBiil */        $userBiil = app()->make($this->joinModel());
         $table = $userBiil->getName();
         return parent::getModel()->join($table . ' ' . $join_alias, $alias . '.uid = ' . $join_alias . '.uid', $join)->alias($alias);
     }
@@ -59,8 +55,7 @@ class UserUserBillDao extends BaseDao
      * Danh sách truy vấn mô hình điều kiện kết hợp
      * @param Model $model
      * @return array
-     */
-    public function getList(array $where, string $field = '', string $order = '', int $page = 0, int $limit = 0)
+     */    public function getList(array $where, string $field = '', string $order = '', int $page = 0, int $limit = 0)
     {
         return $this->getModel()->where($where)->field($field)->group('u.uid')->order($order)->order('id desc')
             ->when($page && $limit, function ($query) use ($page, $limit) {
@@ -72,8 +67,7 @@ class UserUserBillDao extends BaseDao
      * Lấy số lượng mặt hàng
      * @param array $where
      * @return mixed
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         return $this->getModel()->where($where)->group('u.uid')->count();
     }

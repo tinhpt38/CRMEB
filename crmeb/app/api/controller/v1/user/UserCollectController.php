@@ -18,16 +18,14 @@ use app\services\product\product\StoreProductRelationServices;
  * Người dùng yêu thích
  * Class UserCollectController
  * @package app\api\controller\v1\user
- */
-class UserCollectController
+ */class UserCollectController
 {
     protected $services = NUll;
 
     /**
      * UserCollectController constructor.
      * @param StoreProductRelationServices $services
-     */
-    public function __construct(StoreProductRelationServices $services)
+     */    public function __construct(StoreProductRelationServices $services)
     {
         $this->services = $services;
     }
@@ -37,19 +35,17 @@ class UserCollectController
      * Nhận mục yêu thích
      * @param Request $request
      * @return mixed
-     */
-    public function collect_user(Request $request)
+     */    public function collect_user(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->getUserCollectProduct($uid));
     }
 
     /**
-     * Thêm vào mục yêu thích
+     * Thêm mới mục yêu thích
      * @param Request $request
      * @return mixed
-     */
-    public function collect_add(Request $request)
+     */    public function collect_add(Request $request)
     {
         [$id, $category] = $request->postMore([
             ['id', 0],
@@ -69,8 +65,7 @@ class UserCollectController
      * @param Request $request
      * @return mixed
      * @throws \Exception
-     */
-    public function collect_del(Request $request)
+     */    public function collect_del(Request $request)
     {
         [$id, $category] = $request->postMore([
             ['id', []],
@@ -86,8 +81,7 @@ class UserCollectController
      * Bộ sưu tập hàng loạt
      * @param Request $request
      * @return mixed
-     */
-    public function collect_all(Request $request)
+     */    public function collect_all(Request $request)
     {
         $collectInfo = $request->postMore([
             ['id', ''],

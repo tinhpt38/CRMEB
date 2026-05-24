@@ -20,8 +20,7 @@ class StoreProductLogDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductLog::class;
     }
@@ -56,8 +55,7 @@ class StoreProductLogDao extends BaseDao
      * @param $timeType
      * @param $str
      * @return mixed
-     */
-    public function getProductTrend($time, $timeType, $str)
+     */    public function getProductTrend($time, $timeType, $str)
     {
         return $this->getModel()->where(function ($query) use ($time) {
             if ($time[0] == $time[1]) {
@@ -80,8 +78,7 @@ class StoreProductLogDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0, string $group = '')
+     */    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0, string $group = '')
     {
         return $this->search($where)->with(['storeName'])->field($field)
             ->when($page != 0 && $limit != 0, function ($query) use ($page, $limit) {
@@ -92,14 +89,13 @@ class StoreProductLogDao extends BaseDao
     }
 
     /**
-     * Lấy số lượng sản phẩm được người dùng truy cập
+     * Lấy số lượng sản phẩm được Khách hàng truy cập
      * @param $uid
      * @return int
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/2/17
-     */
-    public function getCountByUser($uid)
+     */    public function getCountByUser($uid)
     {
         return $this->getModel()->where('uid', $uid)
             ->where('type', 'visit')

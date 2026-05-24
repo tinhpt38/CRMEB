@@ -16,15 +16,13 @@ use think\facade\Log;
 
 /**
  * Gửi thông báo qua Telegram Bot API.
- */
-class TelegramService extends NoticeService
+ */class TelegramService extends NoticeService
 {
     /**
      * Gửi tin nhắn Telegram theo cấu hình của từng sự kiện thông báo.
      * @param array $data
      * @return bool
-     */
-    public function send(array $data): bool
+     */    public function send(array $data): bool
     {
         // Ưu tiên routing kênh tập trung (event + channel registry).
         if (!empty($this->event)) {

@@ -16,17 +16,15 @@ use app\dao\BaseDao;
 use app\model\activity\coupon\StoreCoupon;
 
 /**
- * Phiếu giảm giá
+ * Mã giảm giá
  * Class StoreCouponDao
  * @package app\dao\coupon
- */
-class StoreCouponDao extends BaseDao
+ */class StoreCouponDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreCoupon::class;
     }
@@ -37,8 +35,7 @@ class StoreCouponDao extends BaseDao
      * @param int $page
      * @param int $limit
      * @return mixed
-     */
-    public function getList(array $where, int $page, int $limit)
+     */    public function getList(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->order('sort desc,id desc')->select()->toArray();
     }
@@ -56,8 +53,7 @@ class StoreCouponDao extends BaseDao
      * @param int $is_give_subscribe
      * @param int $is_full_give
      * @return \crmeb\basic\BaseModel|\think\Model
-     */
-    public function setIssue($cid, $total_count = 0, $start_time = 0, $end_time = 0, $remain_count = 0, $status = 0, $is_permanent = 0, $full_reduction = 0, $is_give_subscribe = 0, $is_full_give = 0)
+     */    public function setIssue($cid, $total_count = 0, $start_time = 0, $end_time = 0, $remain_count = 0, $status = 0, $is_permanent = 0, $full_reduction = 0, $is_give_subscribe = 0, $is_full_give = 0)
     {
         $add_time = time();
         $data['cid'] = $cid;

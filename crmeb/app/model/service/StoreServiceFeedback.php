@@ -17,30 +17,26 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * Phản hồi tin nhắn dịch vụ khách hàng
+ * Phản hồi tin nhắn CSKH
  * Class StoreServiceFeedback
  * @package app\model\service
- */
-class StoreServiceFeedback extends BaseModel
+ */class StoreServiceFeedback extends BaseModel
 {
 
     use ModelTrait;
 
     /**
      * @var string
-     */
-    protected $name = 'store_service_feedback';
+     */    protected $name = 'store_service_feedback';
 
     /**
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         return date('Y-m-d H:i:s', $value);
     }
@@ -49,8 +45,7 @@ class StoreServiceFeedback extends BaseModel
      * Tìm kiếm tiêu đề
      * @param Model $query
      * @param $value
-     */
-    public function searchTitleAttr($query, $value)
+     */    public function searchTitleAttr($query, $value)
     {
         $value && $query->whereLike('rela_name|phone|content|uid', "%" . $value . "%");
     }

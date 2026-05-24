@@ -18,20 +18,17 @@ use think\facade\App;
  * Quản lý bài viết
  * Class Article
  * @package app\adminapi\controller\v1\cms
- */
-class Article extends AuthController
+ */class Article extends AuthController
 {
     /**
      * @var ArticleServices
-     */
-    protected $service;
+     */    protected $service;
 
     /**
      * Article constructor.
      * @param App $app
      * @param ArticleServices $service
-     */
-    public function __construct(App $app, ArticleServices $service)
+     */    public function __construct(App $app, ArticleServices $service)
     {
         parent::__construct($app);
         $this->service = $service;
@@ -44,8 +41,7 @@ class Article extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['title', ''],
@@ -58,8 +54,7 @@ class Article extends AuthController
     /**
      * Lưu dữ liệu bài viết
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -89,8 +84,7 @@ class Article extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function read($id = 0)
+     */    public function read($id = 0)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $info = $this->service->read($id);
@@ -101,8 +95,7 @@ class Article extends AuthController
      * Xóa bài viết
      * @param int $id
      * @return mixed
-     */
-    public function delete($id = 0)
+     */    public function delete($id = 0)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->service->del($id);
@@ -113,8 +106,7 @@ class Article extends AuthController
      * Sản phẩm liên quan đến bài viết
      * @param int $id
      * @return mixed
-     */
-    public function relation($id)
+     */    public function relation($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         list($product_id) = $this->request->postMore([
@@ -132,8 +124,7 @@ class Article extends AuthController
      * Hủy liên kết sản phẩm
      * @param int $id
      * @return mixed
-     */
-    public function unrelation($id)
+     */    public function unrelation($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $res = $this->service->bindProduct($id);

@@ -19,8 +19,7 @@ class ShippingTemplatesValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'name' => 'require',
         'region_info' => 'array',
         'appoint_info' => 'array',
@@ -36,8 +35,7 @@ class ShippingTemplatesValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'name.require' => 'Vui lòng điền tên mẫu vận chuyển sản phẩm',
         'region_info.array' => 'Thông tin vận chuyển phải là một mảng',
         'appoint_info.array' => 'Thông tin miễn phí vận chuyển phải là một mảng',

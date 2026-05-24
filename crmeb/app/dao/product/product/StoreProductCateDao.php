@@ -17,14 +17,12 @@ use app\model\product\product\StoreProductCate;
 /**
  * Class StoreProductCateDao
  * @package app\dao\product\product
- */
-class StoreProductCateDao extends BaseDao
+ */class StoreProductCateDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductCate::class;
     }
@@ -33,8 +31,7 @@ class StoreProductCateDao extends BaseDao
      * lưu dữ liệu
      * @param array $data
      * @return mixed|void
-     */
-    public function saveAll(array $data)
+     */    public function saveAll(array $data)
     {
         $this->getModel()->insertAll($data);
     }
@@ -43,8 +40,7 @@ class StoreProductCateDao extends BaseDao
      * Nhận phân loại dựa trên id sản phẩmid
      * @param array $productId
      * @return array
-     */
-    public function productIdByCateId(array $productId)
+     */    public function productIdByCateId(array $productId)
     {
         return $this->getModel()->whereIn('product_id', $productId)->column('cate_id');
     }
@@ -53,8 +49,7 @@ class StoreProductCateDao extends BaseDao
      * Nhận sản phẩm theo danh mụcid
      * @param array $cate_id
      * @return array
-     */
-    public function cateIdByProduct(array $cate_id)
+     */    public function cateIdByProduct(array $cate_id)
     {
         return $this->getModel()->whereIn('cate_id', $cate_id)->column('product_id');
     }

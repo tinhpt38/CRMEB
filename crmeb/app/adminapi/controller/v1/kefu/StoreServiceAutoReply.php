@@ -13,7 +13,6 @@
  * @email: 442384644@qq.com
  * @date: 2023/8/3
  */
-
 namespace app\adminapi\controller\v1\kefu;
 
 use app\adminapi\controller\AuthController;
@@ -26,8 +25,7 @@ class StoreServiceAutoReply extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function autoReplyList()
+     */    public function autoReplyList()
     {
         $where = $this->request->getMore([
             ['key', ''],
@@ -49,8 +47,7 @@ class StoreServiceAutoReply extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function autoReplyForm($id = 0)
+     */    public function autoReplyForm($id = 0)
     {
         return app('json')->success(app()->make(WechatReplyServices::class)->autoReplyForm($id));
     }
@@ -62,8 +59,7 @@ class StoreServiceAutoReply extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function autoReplySave($id = 0)
+     */    public function autoReplySave($id = 0)
     {
         $data = $this->request->postMore([
             ['keys', ''],
@@ -82,8 +78,7 @@ class StoreServiceAutoReply extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/3
-     */
-    public function autoReplyDel($id)
+     */    public function autoReplyDel($id)
     {
         app()->make(WechatReplyServices::class)->autoReplyDel($id);
         return app('json')->success('Xóa thành công');

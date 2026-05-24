@@ -19,14 +19,12 @@ use app\model\article\ArticleCategory;
  * Phân loại bài viết
  * Class ArticleCategoryDao
  * @package app\dao\article
- */
-class ArticleCategoryDao extends BaseDao
+ */class ArticleCategoryDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return ArticleCategory::class;
     }
@@ -41,8 +39,7 @@ class ArticleCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0)
+     */    public function getList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where)->when(!$page && !$limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -55,8 +52,7 @@ class ArticleCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getArticleCategory()
+     */    public function getArticleCategory()
     {
         return $this->search(['hidden' => 0, 'is_del' => 0, 'status' => 1, 'pid' => 0])->with(['children'])
             ->order('sort DESC,id DESC')
@@ -70,8 +66,7 @@ class ArticleCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getArticleTwoCategory()
+     */    public function getArticleTwoCategory()
     {
         return $this->getModel()
             ->where('hidden', 0)
@@ -87,8 +82,7 @@ class ArticleCategoryDao extends BaseDao
      * @param array $where
      * @return array
      * @throws \ReflectionException
-     */
-    public function getMenus(array $where)
+     */    public function getMenus(array $where)
     {
         return $this->search($where)->order('sort desc,id desc')->column('title,pid,id,is_del,status');
     }
@@ -105,8 +99,7 @@ class ArticleCategoryDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/9/7
-     */
-    public function getTreeList(array $where, array $field)
+     */    public function getTreeList(array $where, array $field)
     {
         return $this->search($where)->field($field)->order('sort desc,id desc')->select()->toArray();
     }

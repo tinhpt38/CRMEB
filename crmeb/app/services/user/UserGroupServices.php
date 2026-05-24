@@ -22,15 +22,13 @@ use think\facade\Route as Url;
  *
  * Class UserGroupServices
  * @package app\services\user
- */
-class UserGroupServices extends BaseServices
+ */class UserGroupServices extends BaseServices
 {
 
     /**
      * UserGroupServices constructor.
      * @param UserGroupDao $dao
-     */
-    public function __construct(UserGroupDao $dao)
+     */    public function __construct(UserGroupDao $dao)
     {
         $this->dao = $dao;
     }
@@ -39,8 +37,7 @@ class UserGroupServices extends BaseServices
      * Nhận một nhóm nhất định
      * @param int $id
      * @return array|\think\Model|null
-     */
-    public function getGroup(int $id)
+     */    public function getGroup(int $id)
     {
         return $this->dao->get($id);
     }
@@ -52,8 +49,7 @@ class UserGroupServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGroupList(string $field = 'id,group_name', bool $is_page = false): array
+     */    public function getGroupList(string $field = 'id,group_name', bool $is_page = false): array
     {
         $page = $limit = 0;
         if ($is_page) {
@@ -66,11 +62,10 @@ class UserGroupServices extends BaseServices
     }
 
     /**
-     * Lấy tên nhóm của một số người dùng
+     * Lấy tên nhóm của một số Khách hàng
      * @param array $ids
      * @return array
-     */
-    public function getUsersGroupName(array $ids)
+     */    public function getUsersGroupName(array $ids)
     {
         return $this->dao->getColumn([['id', 'IN', $ids]], 'group_name', 'id');
     }
@@ -79,8 +74,7 @@ class UserGroupServices extends BaseServices
      * Thêm/sửa đổi trang nhóm
      * @param int $id
      * @return string
-     */
-    public function add(int $id)
+     */    public function add(int $id)
     {
         $group = $this->getGroup($id);
         $field = array();
@@ -96,12 +90,11 @@ class UserGroupServices extends BaseServices
     }
 
     /**
-     * Thêm vào|Ôn lại
+     * Thêm mới|Sửa
      * @param int $id
      * @param array $data
      * @return mixed
-     */
-    public function save(int $id, array $data)
+     */    public function save(int $id, array $data)
     {
         $groupName = $this->dao->getOne(['group_name' => $data['group_name']]);
         if ($id) {
@@ -130,11 +123,10 @@ class UserGroupServices extends BaseServices
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
      * @return string
-     */
-    public function delGroup(int $id)
+     */    public function delGroup(int $id)
     {
         if ($this->getGroup($id)) {
             if (!$this->dao->delete($id)) {

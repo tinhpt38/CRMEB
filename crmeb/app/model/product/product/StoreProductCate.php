@@ -18,28 +18,24 @@ use think\Model;
  *  Hiệp hội danh mục sản phẩmModel
  * Class StoreProductCate
  * @package app\model\product\product
- */
-class StoreProductCate extends Model
+ */class StoreProductCate extends Model
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_cate';
+     */    protected $name = 'store_product_cate';
 
     /**
      * Liên kết một-một để có được tên danh mục
      * @return \think\model\relation\HasOne
-     */
-    public function cateName()
+     */    public function cateName()
     {
         return $this->hasOne(StoreCategory::class, 'id', 'cate_id')->bind([
             'cate_name' => 'cate_name'

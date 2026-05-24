@@ -18,40 +18,36 @@ use app\services\wechat\WechatUserServices;
 
 
 /**
- * Lớp người dùng
+ * Lớp Khách hàng
  * Class UserController
  * @package app\api\controller\store
- */
-class UserController
+ */class UserController
 {
     protected $services = NUll;
 
     /**
      * UserController constructor.
      * @param UserServices $services
-     */
-    public function __construct(UserServices $services)
+     */    public function __construct(UserServices $services)
     {
         $this->services = $services;
     }
 
     /**
-     * Lấy thông tin người dùng
+     * Lấy thông tin Khách hàng
      * @param Request $request
      * @return mixed
-     */
-    public function userInfo(Request $request)
+     */    public function userInfo(Request $request)
     {
         $info = $request->user()->toArray();
         return app('json')->success($this->services->userInfo($info));
     }
 
     /**
-     * Thống kê quỹ người dùng
+     * Thống kê quỹ Khách hàng
      * @param Request $request
      * @return mixed
-     */
-    public function balance(Request $request)
+     */    public function balance(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->balance($uid));
@@ -61,8 +57,7 @@ class UserController
      * Trung tâm cá nhân
      * @param Request $request
      * @return mixed
-     */
-    public function user(Request $request)
+     */    public function user(Request $request)
     {
         $user = $request->user()->toArray();
         return app('json')->success($this->services->personalHome($user, $request->tokenData()));
@@ -71,18 +66,16 @@ class UserController
     /**
      * Nhận trạng thái hoạt động
      * @return mixed
-     */
-    public function activity()
+     */    public function activity()
     {
         return app('json')->success($this->services->activity());
     }
 
     /**
-     * Thông tin người dùng sửa đổi
+     * Thông tin Khách hàng sửa đổi
      * @param Request $request
      * @return mixed
-     */
-    public function edit(Request $request)
+     */    public function edit(Request $request)
     {
         list($avatar, $nickname) = $request->postMore([
             ['avatar', ''],
@@ -104,8 +97,7 @@ class UserController
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function rank(Request $request)
+     */    public function rank(Request $request)
     {
         $data = $request->getMore([
             ['page', ''],
@@ -119,8 +111,7 @@ class UserController
      * Thêm bản ghi truy cập
      * @param Request $request
      * @return mixed
-     */
-    public function set_visit(Request $request)
+     */    public function set_visit(Request $request)
     {
         $data = $request->postMore([
             ['url', ''],
@@ -143,8 +134,7 @@ class UserController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function spread(Request $request)
+     */    public function spread(Request $request)
     {
         [$spreadUid, $code, $agent_id] = $request->postMore([
             ['puid', 0],
@@ -160,8 +150,7 @@ class UserController
      * Người dùng được đề xuất
      * @param Request $request
      * @return mixed
-     */
-    public function spread_people(Request $request)
+     */    public function spread_people(Request $request)
     {
         $spreadInfo = $request->postMore([
             ['grade', 0],
@@ -179,12 +168,10 @@ class UserController
      * Bạn có chú ý không?
      * @param Request $request
      * @return mixed
-     */
-    public function subscribe(Request $request)
+     */    public function subscribe(Request $request)
     {
         if ($request->uid()) {
-            /** @var WechatUserServices $wechatUserService */
-            $wechatUserService = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUserService */            $wechatUserService = app()->make(WechatUserServices::class);
             $subscribe = (bool)$wechatUserService->value(['uid' => $request->uid()], 'subscribe');
             return app('json')->success(['subscribe' => $subscribe]);
         } else {
@@ -193,14 +180,12 @@ class UserController
     }
 
     /**
-     * Đăng xuất người dùng
+     * Đăng xuất Khách hàng
      * @param Request $request
      * @return mixed
-     */
-    public function SetUserCancel(Request $request)
+     */    public function SetUserCancel(Request $request)
     {
-        /** @var UserCancelServices $userCancelServices */
-        $userCancelServices = app()->make(UserCancelServices::class);
+        /** @var UserCancelServices $userCancelServices */        $userCancelServices = app()->make(UserCancelServices::class);
         $userCancelServices->SetUserCancel($request->uid());
         return app('json')->success('Đăng xuất thành công');
     }
@@ -213,8 +198,7 @@ class UserController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function visitList(Request $request, StoreProductLogServices $services)
+     */    public function visitList(Request $request, StoreProductLogServices $services)
     {
         $where['uid'] = (int)$request->uid();
         $where['type'] = 'visit';
@@ -243,8 +227,7 @@ class UserController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function visitDelete(Request $request, StoreProductLogServices $services)
+     */    public function visitDelete(Request $request, StoreProductLogServices $services)
     {
         $uid = (int)$request->uid();
         [$ids] = $request->postMore([

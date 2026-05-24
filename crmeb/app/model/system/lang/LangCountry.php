@@ -20,21 +20,18 @@ class LangCountry extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'lang_country';
+     */    protected $name = 'lang_country';
 
     /**
      * type_idNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchTypeIdAttr($query, $value)
+     */    public function searchTypeIdAttr($query, $value)
     {
         if ($value !== '') $query->where('type_id', $value);
     }
@@ -43,8 +40,7 @@ class LangCountry extends BaseModel
      * code/nameNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value !== '') $query->where('name|code', 'like', '%' . $value . '%');
     }

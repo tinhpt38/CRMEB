@@ -20,15 +20,13 @@ use think\facade\App;
  *
  * Class AppVersion
  * @package app\adminapi\controller\v1\system
- */
-class AppVersion extends AuthController
+ */class AppVersion extends AuthController
 {
     /**
      * user constructor.
      * @param App $app
      * @param AppVersionServices $services
-     */
-    public function __construct(App $app, AppVersionServices $services)
+     */    public function __construct(App $app, AppVersionServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -40,8 +38,7 @@ class AppVersion extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/4/2
-     */
-    public function list()
+     */    public function list()
     {
         [$platform] = $this->request->getMore([
             ['platform', '']
@@ -57,8 +54,7 @@ class AppVersion extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/4/2
-     */
-    public function crate($id)
+     */    public function crate($id)
     {
         return app('json')->success($this->services->createForm($id));
     }
@@ -69,8 +65,7 @@ class AppVersion extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/4/2
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -88,14 +83,13 @@ class AppVersion extends AuthController
     }
 
     /**
-     * Xóa phiên bản ứng dụng
+     * Xóa phiên bản Ứng dụng
      * @param $id
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/4/2
-     */
-    public function del($id)
+     */    public function del($id)
     {
         $this->services->delete($id);
         return app('json')->success('Xóa thành công');

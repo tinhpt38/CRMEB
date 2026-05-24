@@ -23,15 +23,13 @@ use think\facade\Route as Url;
  * Class UserLabelServices
  * @package app\services\user
  *  * @method getColumn(array $where, string $field, string $key = '') Nhận một mảng trường
- */
-class UserLabelServices extends BaseServices
+ */class UserLabelServices extends BaseServices
 {
 
     /**
      * UserLabelServices constructor.
      * @param UserLabelDao $dao
-     */
-    public function __construct(UserLabelDao $dao)
+     */    public function __construct(UserLabelDao $dao)
     {
         $this->dao = $dao;
     }
@@ -43,22 +41,20 @@ class UserLabelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLable($id)
+     */    public function getLable($id)
     {
         return $this->dao->get($id);
     }
 
     /**
-     * Nhận tất cả các thẻ người dùng
+     * Nhận Tất cả các thẻ Khách hàng
      * @param array $where
      * @param array|string[] $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLabelList(array $where = [], array $field = ['*'])
+     */    public function getLabelList(array $where = [], array $field = ['*'])
     {
         return $this->dao->getList(0, 0, $where, $field);
     }
@@ -69,8 +65,7 @@ class UserLabelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($page, $limit, $where);
@@ -84,13 +79,11 @@ class UserLabelServices extends BaseServices
      * @param int $cateId
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function add(int $id, int $cateId)
+     */    public function add(int $id, int $cateId)
     {
         $label = $this->getLable($id);
         $field = array();
-        /** @var UserLabelCateServices $service */
-        $service = app()->make(UserLabelCateServices::class);
+        /** @var UserLabelCateServices $service */        $service = app()->make(UserLabelCateServices::class);
         $options[] = ['value' => 0, 'label' => 'Tất cả'];
         foreach ($service->getLabelCateAll() as $item) {
             $options[] = ['value' => $item['id'], 'label' => $item['name']];
@@ -116,8 +109,7 @@ class UserLabelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function save(int $id, array $data)
+     */    public function save(int $id, array $data)
     {
         if (!$data['label_cate']) {
             throw new AdminException('Vui lòng chọn danh mục nhãn');
@@ -149,14 +141,13 @@ class UserLabelServices extends BaseServices
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function delLabel(int $id)
+     */    public function delLabel(int $id)
     {
         if ($this->getLable($id)) {
             if (!$this->dao->delete($id)) {
@@ -171,8 +162,7 @@ class UserLabelServices extends BaseServices
      * @param array $cate
      * @param array $label
      * @return array
-     */
-    public function get_tree_children(array $cate, array $label)
+     */    public function get_tree_children(array $cate, array $label)
     {
         if ($cate) {
             foreach ($cate as $key => $value) {

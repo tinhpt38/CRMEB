@@ -16,18 +16,16 @@ use app\dao\BaseDao;
 use app\model\user\UserSearch;
 
 /**
- * Tìm kiếm người dùng
+ * Tìm kiếm Khách hàng
  * Class UserSearchDao
  * @package app\dao\user
- */
-class UserSearchDao extends BaseDao
+ */class UserSearchDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserSearch::class;
     }
@@ -42,8 +40,7 @@ class UserSearchDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [], string $order = 'id desc', int $page = 0, int $limit = 0): array
+     */    public function getList(array $where = [], string $order = 'id desc', int $page = 0, int $limit = 0): array
     {
         return $this->search($where)->order($order)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -51,7 +48,7 @@ class UserSearchDao extends BaseDao
     }
 
     /**
-     * * Có được bức tranh toàn cầu|Kết quả tìm kiếm của người dùng cho một từ khóa nhất định
+     * * Có được bức tranh toàn cầu|Kết quả tìm kiếm của Khách hàng cho một từ khóa nhất định
      * @param int $uid
      * @param string $keyword từ khóa
      * @param int $preTime Mất bao lâu để một tập hợp kết quả được coi là hợp lệ?
@@ -59,8 +56,7 @@ class UserSearchDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getKeywordResult(int $uid, string $keyword, int $preTime = 7200)
+     */    public function getKeywordResult(int $uid, string $keyword, int $preTime = 7200)
     {
         if (!$keyword) return [];
         $where = ['keyword' => $keyword];

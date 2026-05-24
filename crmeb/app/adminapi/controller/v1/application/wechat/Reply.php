@@ -21,16 +21,14 @@ use think\facade\App;
  * Bộ điều khiển quản lý từ khóa
  * Class Reply
  * @package app\admin\controller\wechat
- */
-class Reply extends AuthController
+ */class Reply extends AuthController
 {
     /**
      * Người xây dựng
      * Menus constructor.
      * @param App $app
      * @param WechatReplyServices $services
-     */
-    public function __construct(App $app, WechatReplyServices $services)
+     */    public function __construct(App $app, WechatReplyServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -42,8 +40,7 @@ class Reply extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function reply()
+     */    public function reply()
     {
         $where = $this->request->getMore([
             ['key', ''],
@@ -56,8 +53,7 @@ class Reply extends AuthController
     /**
      * Danh sách trả lời từ khóa
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['key', ''],
@@ -74,8 +70,7 @@ class Reply extends AuthController
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->getKeyInfo($id);
         return app('json')->success(compact('info'));
@@ -85,8 +80,7 @@ class Reply extends AuthController
      * Lưu từ khóa
      * @param int $id
      * @return mixed
-     */
-    public function save($id = 0)
+     */    public function save($id = 0)
     {
         $data = $this->request->postMore([
             'key',
@@ -118,14 +112,12 @@ class Reply extends AuthController
      * Xóa từ khóa
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$this->services->delete($id)) {
             return app('json')->fail('Xóa không thành công');
         } else {
-            /** @var WechatKeyServices $keyServices */
-            $keyServices = app()->make(WechatKeyServices::class);
+            /** @var WechatKeyServices $keyServices */            $keyServices = app()->make(WechatKeyServices::class);
             $res = $keyServices->delete($id, 'reply_id');
             if (!$res) {
                 return app('json')->fail('Xóa không thành công');
@@ -139,8 +131,7 @@ class Reply extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['status' => $status], 'id');
@@ -154,14 +145,12 @@ class Reply extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function code_reply($id)
+     */    public function code_reply($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
         }
-        /** @var QrcodeServices $qrcode */
-        $qrcode = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrcode */        $qrcode = app()->make(QrcodeServices::class);
         $code = $qrcode->getForeverQrcode('reply', $id);
         if (!$code['ticket']) {
             return app('json')->fail('Tạo mã QR không thành công');

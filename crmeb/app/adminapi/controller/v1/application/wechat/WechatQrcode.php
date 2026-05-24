@@ -26,8 +26,7 @@ class WechatQrcode extends AuthController
      * WechatQrcode constructor.
      * @param App $app
      * @param WechatQrcodeCateServices $services
-     */
-    public function __construct(App $app, WechatQrcodeCateServices $qrcodeCateServices, WechatQrcodeServices $wechatQrcodeServices, WechatQrcodeRecordServices $qrcodeRecordServices)
+     */    public function __construct(App $app, WechatQrcodeCateServices $qrcodeCateServices, WechatQrcodeServices $wechatQrcodeServices, WechatQrcodeRecordServices $qrcodeRecordServices)
     {
         parent::__construct($app);
         $this->qrcodeCateServices = $qrcodeCateServices;
@@ -38,8 +37,7 @@ class WechatQrcode extends AuthController
     /**
      * Danh sách danh mục
      * @return mixed
-     */
-    public function getCateList()
+     */    public function getCateList()
     {
         $data = $this->qrcodeCateServices->getCateList();
         $count = $this->qrcodeCateServices->count(['is_del' => 0]);
@@ -54,8 +52,7 @@ class WechatQrcode extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createForm($id)
+     */    public function createForm($id)
     {
         return app('json')->success($this->qrcodeCateServices->createForm($id));
     }
@@ -63,8 +60,7 @@ class WechatQrcode extends AuthController
     /**
      * lưu dữ liệu
      * @return mixed
-     */
-    public function saveCate()
+     */    public function saveCate()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -78,8 +74,7 @@ class WechatQrcode extends AuthController
      * Xóa danh mục
      * @param $id
      * @return mixed
-     */
-    public function delCate($id)
+     */    public function delCate($id)
     {
         $this->qrcodeCateServices->delCate($id);
         return app('json')->success('Đã lưu thành công');
@@ -89,8 +84,7 @@ class WechatQrcode extends AuthController
      * Lưu mã kênh
      * @param $id
      * @return mixed
-     */
-    public function saveQrcode($id = 0)
+     */    public function saveQrcode($id = 0)
     {
         $data = $this->request->postMore([
             ['uid', 0],
@@ -109,8 +103,7 @@ class WechatQrcode extends AuthController
     /**
      * Lấy danh sách mã kênh
      * @return mixed
-     */
-    public function qrcodeList()
+     */    public function qrcodeList()
     {
         $where = $this->request->getMore([
             ['name', ''],
@@ -125,8 +118,7 @@ class WechatQrcode extends AuthController
      * Nhận thông tin chi tiết
      * @param int $id
      * @return mixed
-     */
-    public function qrcodeInfo($id = 0)
+     */    public function qrcodeInfo($id = 0)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $info = $this->wechatQrcodeServices->qrcodeInfo($id);
@@ -137,8 +129,7 @@ class WechatQrcode extends AuthController
      * Xóa mã kênh
      * @param int $id
      * @return mixed
-     */
-    public function delQrcode($id = 0)
+     */    public function delQrcode($id = 0)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->wechatQrcodeServices->update($id, ['is_del' => 1]);
@@ -150,8 +141,7 @@ class WechatQrcode extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function setStatus($id, $status)
+     */    public function setStatus($id, $status)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->wechatQrcodeServices->update($id, ['status' => $status]);
@@ -159,14 +149,13 @@ class WechatQrcode extends AuthController
     }
 
     /**
-     * Danh sách người dùng
+     * Danh sách Khách hàng
      * @param $qid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function userList($qid)
+     */    public function userList($qid)
     {
         return app('json')->success($this->qrcodeRecordServices->userList($qid));
     }
@@ -176,8 +165,7 @@ class WechatQrcode extends AuthController
      * Thống kê mã kênh
      * @param $qid
      * @return mixed
-     */
-    public function qrcodeStatistic($qid)
+     */    public function qrcodeStatistic($qid)
     {
         [$time] = $this->request->getMore([
             ['time', ''],

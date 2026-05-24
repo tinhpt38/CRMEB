@@ -29,26 +29,22 @@ use app\services\shipping\ShippingTemplatesServices;
  * Số tiền tính toán đơn hàng
  * Class StoreOrderComputedServices
  * @package app\services\order
- */
-class StoreOrderComputedServices extends BaseServices
+ */class StoreOrderComputedServices extends BaseServices
 {
     /**
      * Hình thức thanh toán
      * @var string[]
-     */
-    public $payType = ['weixin' => 'Thanh toán WeChat', 'yue' => 'thanh toán số dư', 'offline' => 'Thanh toán ngoại tuyến', 'pc' => 'pc'];
+     */    public $payType = ['weixin' => 'Thanh toán WeChat', 'yue' => 'Thanh toán bằng số dư', 'offline' => 'Thanh toán ngoại tuyến', 'pc' => 'pc'];
 
     /**
      * thông số bổ sung
      * @var array
-     */
-    protected $paramData = [];
+     */    protected $paramData = [];
 
     /**
      * StoreOrderComputedServices constructor.
      * @param StoreOrderDao $dao
-     */
-    public function __construct(StoreOrderDao $dao)
+     */    public function __construct(StoreOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -57,8 +53,7 @@ class StoreOrderComputedServices extends BaseServices
      * Đặt tham số bổ sung
      * @param array $paramData
      * @return $this
-     */
-    public function setParamData(array $paramData)
+     */    public function setParamData(array $paramData)
     {
         $this->paramData = $paramData;
         return $this;
@@ -76,15 +71,13 @@ class StoreOrderComputedServices extends BaseServices
      * @param bool $is_create
      * @param int $shipping_type
      * @return array
-     */
-    public function computedOrder(int $uid, array $userInfo = [], array $cartGroup, int $addressId, string $payType, bool $useIntegral = false, int $couponId = 0, bool $isCreate = false, int $shippingType = 1, int $is_gift = 0)
+     */    public function computedOrder(int $uid, array $userInfo = [], array $cartGroup, int $addressId, string $payType, bool $useIntegral = false, int $couponId = 0, bool $isCreate = false, int $shippingType = 1, int $is_gift = 0)
     {
         $offlinePayStatus = (int)sys_config('offline_pay_status') ?? (int)2;
         $systemPayType = PayServices::PAY_TYPE;
         if ($offlinePayStatus == 2) unset($systemPayType['offline']);
         if (!$userInfo) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->getUserInfo($uid);
             if (!$userInfo) {
                 throw new ApiException('Người dùng không tồn tại');
@@ -97,8 +90,7 @@ class StoreOrderComputedServices extends BaseServices
         $addr = $cartGroup['addr'] ?? [];
         $postage = $priceGroup;
         if (!$addr || $addr['id'] != $addressId) {
-            /** @var UserAddressServices $addressServices */
-            $addressServices = app()->make(UserAddressServices::class);
+            /** @var UserAddressServices $addressServices */            $addressServices = app()->make(UserAddressServices::class);
             $addr = $addressServices->getAddress($addressId) ?? [];
             if ($addr) {
                 $addr = $addr->toArray();
@@ -153,14 +145,12 @@ class StoreOrderComputedServices extends BaseServices
      * @param $cartInfo
      * @param $payPrice
      * @param bool $is_create
-     */
-    public function useCouponId(int $couponId, int $uid, $cartInfo, $payPrice, bool $isCreate)
+     */    public function useCouponId(int $couponId, int $uid, $cartInfo, $payPrice, bool $isCreate)
     {
         //Sử dụng phiếu giảm giá
         $res1 = true;
         if ($couponId) {
-            /** @var StoreCouponUserServices $couponServices */
-            $couponServices = app()->make(StoreCouponUserServices::class);
+            /** @var StoreCouponUserServices $couponServices */            $couponServices = app()->make(StoreCouponUserServices::class);
             $couponInfo = $couponServices->getOne([['id', '=', $couponId], ['uid', '=', $uid], ['is_fail', '=', 0], ['status', '=', 0], ['start_time', '<', time()], ['end_time', '>', time()]], '*', ['issue']);
             if (!$couponInfo) {
                 throw new ApiException('Mã giảm giá đã chọn không hợp lệ');
@@ -177,9 +167,8 @@ class StoreOrderComputedServices extends BaseServices
                         $count++;
                     }
                     break;
-                case 1://Phiếu giảm giá danh mục
-                    /** @var StoreCategoryServices $storeCategoryServices */
-                    $storeCategoryServices = app()->make(StoreCategoryServices::class);
+                case 1://Mã giảm giá danh mục
+                    /** @var StoreCategoryServices $storeCategoryServices */                    $storeCategoryServices = app()->make(StoreCategoryServices::class);
                     $coupon_category = explode(',', (string)$couponInfo['category_id']);
                     $category_ids = $storeCategoryServices->getAllById($coupon_category);
                     if ($category_ids) {
@@ -228,11 +217,9 @@ class StoreOrderComputedServices extends BaseServices
      * @param $payPrice
      * @param $other
      * @return array
-     */
-    public function useIntegral(bool $useIntegral, $userInfo, string $payPrice, array $other)
+     */    public function useIntegral(bool $useIntegral, $userInfo, string $payPrice, array $other)
     {
-        /** @var UserBillServices $userBillServices */
-        $userBillServices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillServices */        $userBillServices = app()->make(UserBillServices::class);
         // Điểm có sẵn
         $usable = bcsub((string)$userInfo['integral'], (string)$userBillServices->getBillSum(['uid' => $userInfo['uid'], 'is_frozen' => 1]), 0);
 
@@ -274,8 +261,7 @@ class StoreOrderComputedServices extends BaseServices
      * @param string $payPrice
      * @param array $other
      * @return array
-     */
-    public function computedPayPostage(int $shipping_type, string $payType, array $cartInfo, array $addr, string $payPrice, array $postage = [], array $other, $userInfo = [], $is_gift = 0)
+     */    public function computedPayPostage(int $shipping_type, string $payType, array $cartInfo, array $addr, string $payPrice, array $postage = [], array $other, $userInfo = [], $is_gift = 0)
     {
         $storePostageDiscount = 0;
         $storeFreePostage = $postage['storeFreePostage'] ?? 0;
@@ -320,15 +306,14 @@ class StoreOrderComputedServices extends BaseServices
      * @param $addr
      * @param array $userInfo
      * @return array
-     */
-    public function getOrderPriceGroup($storeFreePostage, $cartInfo, $addr, $userInfo = [], $shipping_type = 1, $is_gift = 0)
+     */    public function getOrderPriceGroup($storeFreePostage, $cartInfo, $addr, $userInfo = [], $shipping_type = 1, $is_gift = 0)
     {
         $storePostage = 0;
         $storePostageDiscount = 0;
         $giftPrice = 0;
         $isStoreFreePostage = false;//Nếu vượt quá số lượng có được miễn phí vận chuyển không?
         $sumPrice = $this->getOrderSumPrice($cartInfo, 'sum_price');//Nhận tổng số tiền ban đầu của đơn hàng
-        $totalPrice = $this->getOrderSumPrice($cartInfo, 'truePrice');//Nhận tổng số tiền sau khi đặt hàng và giảm giá ở cấp độ người dùng
+        $totalPrice = $this->getOrderSumPrice($cartInfo, 'truePrice');//Nhận tổng số tiền sau khi đặt hàng và giảm giá ở cấp độ Khách hàng
         $costPrice = $this->getOrderSumPrice($cartInfo, 'costPrice');//Nhận giá vốn đặt hàng
         $vipPrice = $this->getOrderSumPrice($cartInfo, 'vip_truePrice');//Nhận mức đơn hàng và tổng số tiền chiết khấu của thành viên trả phí
         $levelPrice = $this->getOrderSumPrice($cartInfo, 'level');//Nhận lợi ích cấp thành viên
@@ -363,7 +348,7 @@ class StoreOrderComputedServices extends BaseServices
                 $isStoreFreePostage = true;
                 $storePostage = 0;
             } else {
-                //Tính toán số lượng/trọng lượng/khối lượng và tổng số lượng hàng hóa theo từng mẫu cước theo mẫu cước. Sắp xếp theo thứ tự ưu tiên giảm dần.
+                //Tính toán số lượng/trọng lượng/khối lượng và tổng số lượng sản phẩm theo từng mẫu cước theo mẫu cước. Sắp xếp theo thứ tự ưu tiên giảm dần.
                 $cityId = $addr['city_id'] ?? 0;
                 $tempIds[] = 1;
                 foreach ($cartInfo as $key_c => $item_c) {
@@ -372,11 +357,9 @@ class StoreOrderComputedServices extends BaseServices
                     }
                 }
                 $tempIds = array_unique($tempIds);
-                /** @var ShippingTemplatesServices $shippServices */
-                $shippServices = app()->make(ShippingTemplatesServices::class);
+                /** @var ShippingTemplatesServices $shippServices */                $shippServices = app()->make(ShippingTemplatesServices::class);
                 $temp = $shippServices->getShippingColumn(['id' => $tempIds], 'type,appoint', 'id');
-                /** @var ShippingTemplatesRegionServices $regionServices */
-                $regionServices = app()->make(ShippingTemplatesRegionServices::class);
+                /** @var ShippingTemplatesRegionServices $regionServices */                $regionServices = app()->make(ShippingTemplatesRegionServices::class);
                 $regions = $regionServices->getTempRegionList($tempIds, [$cityId, 0], 'temp_id,first,first_price,continue,continue_price', 'temp_id');
                 $temp_num = [];
                 foreach ($cartInfo as $cart) {
@@ -410,8 +393,7 @@ class StoreOrderComputedServices extends BaseServices
                         $temp_num[$tempId]['price'] += bcmul($cart['cart_num'], $cart['truePrice'], 2);
                     }
                 }
-                /** @var ShippingTemplatesFreeServices $freeServices */
-                $freeServices = app()->make(ShippingTemplatesFreeServices::class);
+                /** @var ShippingTemplatesFreeServices $freeServices */                $freeServices = app()->make(ShippingTemplatesFreeServices::class);
                 $freeList = $freeServices->isFreeList($tempIds, $addr['city_id'], 0, 'temp_id,number,price', 'temp_id');
                 if ($freeList) {
                     foreach ($temp_num as $k => $v) {
@@ -430,7 +412,7 @@ class StoreOrderComputedServices extends BaseServices
                 $storePostage_arr = [];
 
                 $i = 0;
-                //Mảng vận chuyển hàng hóa vòng
+                //Mảng vận chuyển sản phẩm vòng
                 foreach ($temp_num as $fk => $fv) {
                     //Tìm phí vận chuyển mặt hàng đầu tiên bằng giá trị tối đa
                     if ($fv['first_price'] == $maxFirstPrice) {
@@ -476,14 +458,12 @@ class StoreOrderComputedServices extends BaseServices
         if ($storePostage) {
             $express_rule_number = 100;
             if (!$userInfo) {
-                /** @var UserServices $userService */
-                $userService = app()->make(UserServices::class);
+                /** @var UserServices $userService */                $userService = app()->make(UserServices::class);
                 $userInfo = $userService->getUserInfo($addr['uid']);
             }
             if ($userInfo && isset($userInfo['is_money_level']) && $userInfo['is_money_level'] > 0) {
                 //Kiểm tra xem phần thưởng giảm giá thành viên có được bật hay không
-                /** @var MemberCardServices $memberCardService */
-                $memberCardService = app()->make(MemberCardServices::class);
+                /** @var MemberCardServices $memberCardService */                $memberCardService = app()->make(MemberCardServices::class);
                 $express_rule_number = $memberCardService->isOpenMemberCard('express');
                 $express_rule_number = $express_rule_number <= 0 ? 0 : $express_rule_number;
             }
@@ -548,8 +528,7 @@ class StoreOrderComputedServices extends BaseServices
      * @param string $key
      * @param bool $is_unit
      * @return int|string
-     */
-    public function getOrderSumPrice($cartInfo, $key = 'truePrice', $is_unit = true)
+     */    public function getOrderSumPrice($cartInfo, $key = 'truePrice', $is_unit = true)
     {
         $SumPrice = 0;
         foreach ($cartInfo as $cart) {

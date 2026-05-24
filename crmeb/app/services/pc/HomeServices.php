@@ -24,13 +24,10 @@ class HomeServices extends BaseServices
      * Nhà danh mục Sản phẩm
      * @param int $uid
      * @return array
-     */
-    public function getCategoryProduct(int $uid = 0)
+     */    public function getCategoryProduct(int $uid = 0)
     {
-        /** @var StoreCategoryServices $category */
-        $category = app()->make(StoreCategoryServices::class);
-        /** @var StoreProductServices $product */
-        $product = app()->make(StoreProductServices::class);
+        /** @var StoreCategoryServices $category */        $category = app()->make(StoreCategoryServices::class);
+        /** @var StoreProductServices $product */        $product = app()->make(StoreProductServices::class);
         $vip_user = $uid ? app()->make(UserServices::class)->value(['uid' => $uid], 'is_money_level') : 0;
         [$page, $limit] = $this->getPageValue();
         $list = $category->getCid($page, $limit);

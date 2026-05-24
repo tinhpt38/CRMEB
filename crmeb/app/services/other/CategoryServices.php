@@ -18,8 +18,7 @@ use app\services\BaseServices;
 /**
  * Class CategoryServices
  * @package app\services\other
- */
-class CategoryServices extends BaseServices
+ */class CategoryServices extends BaseServices
 {
 
     protected $cacheName = 'crmeb_cate';
@@ -27,8 +26,7 @@ class CategoryServices extends BaseServices
     /**
      * CategoryServices constructor.
      * @param CategoryDao $dao
-     */
-    public function __construct(CategoryDao $dao)
+     */    public function __construct(CategoryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -40,8 +38,7 @@ class CategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCateList(array $where = [], array $field = ['*'])
+     */    public function getCateList(array $where = [], array $field = ['*'])
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getCateList($where, $page, $limit, $field);

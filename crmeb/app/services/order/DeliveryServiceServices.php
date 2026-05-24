@@ -24,22 +24,19 @@ use crmeb\services\FormBuilder;
  * Vận chuyển
  * Class DeliveryServiceServices
  * @package app\services\order
- * @method getStoreServiceOrderNotice() Nhận dịch vụ khách hàng chấp nhận thông báo
- */
-class DeliveryServiceServices extends BaseServices
+ * @method getStoreServiceOrderNotice() Nhận CSKH chấp nhận thông báo
+ */class DeliveryServiceServices extends BaseServices
 {
     /**
      * Tạo biểu mẫu
      * @var Form
-     */
-    protected $builder;
+     */    protected $builder;
 
     /**Người xây dựng
      * DeliveryServiceServices constructor.
      * @param DeliveryServiceDao $dao
      * @param FormBuilder $builder
-     */
-    public function __construct(DeliveryServiceDao $dao, FormBuilder $builder)
+     */    public function __construct(DeliveryServiceDao $dao, FormBuilder $builder)
     {
         $this->dao = $dao;
         $this->builder = $builder;
@@ -52,8 +49,7 @@ class DeliveryServiceServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceList(array $where)
+     */    public function getServiceList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getServiceList($where, $page, $limit);
@@ -63,8 +59,7 @@ class DeliveryServiceServices extends BaseServices
 
     /**
      *Lấy danh sách người giao hàng
-     */
-    public function getDeliveryList()
+     */    public function getDeliveryList()
     {
         [$page, $limit] = $this->getPageValue();
         [$list, $count] = $this->dao->getList($page, $limit);
@@ -76,8 +71,7 @@ class DeliveryServiceServices extends BaseServices
      * @param array $formData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createServiceForm(array $formData = [])
+     */    public function createServiceForm(array $formData = [])
     {
         if ($formData) {
             $field[] = $this->builder->frameImage('avatar', 'Hình đại diện người giao hàng', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'avatar'], true), $formData['avatar'] ?? '')->icon('el-icon-user')->width('950px')->height('560px')->props(['footer' => false]);
@@ -96,8 +90,7 @@ class DeliveryServiceServices extends BaseServices
      * Tạo biểu mẫu mua lại đại lý giao hàng
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         return create_form('Thêm người giao hàng', $this->createServiceForm(), $this->url('/order/delivery/save'), 'POST');
     }
@@ -107,8 +100,7 @@ class DeliveryServiceServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit(int $id)
+     */    public function edit(int $id)
     {
         $serviceInfo = $this->dao->get($id);
         if (!$serviceInfo) {
@@ -118,19 +110,16 @@ class DeliveryServiceServices extends BaseServices
     }
 
     /**
-     * Lấy danh sách người dùng lịch sử trò chuyện của ai đó
+     * Lấy danh sách Khách hàng lịch sử trò chuyện của ai đó
      * @param int $uid
      * @return array|array[]
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getChatUser(int $uid)
+     */    public function getChatUser(int $uid)
     {
-        /** @var StoreServiceLogServices $serviceLog */
-        $serviceLog = app()->make(StoreServiceLogServices::class);
-        /** @var UserServices $serviceUser */
-        $serviceUser = app()->make(UserServices::class);
+        /** @var StoreServiceLogServices $serviceLog */        $serviceLog = app()->make(StoreServiceLogServices::class);
+        /** @var UserServices $serviceUser */        $serviceUser = app()->make(UserServices::class);
         $uids = $serviceLog->getChatUserIds($uid);
         if (!$uids) {
             return [];
@@ -139,14 +128,13 @@ class DeliveryServiceServices extends BaseServices
     }
 
     /**
-     * Kiểm tra xem người dùng có phải là người giao hàng không
+     * Kiểm tra xem Khách hàng có phải là người giao hàng không
      * @param int $uid
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkoutIsService(int $uid)
+     */    public function checkoutIsService(int $uid)
     {
         return (bool)$this->dao->count(['uid' => $uid, 'status' => 1]);
     }
@@ -155,13 +143,11 @@ class DeliveryServiceServices extends BaseServices
      * Lưu tài nguyên mới
      * @param array $data
      * @return void
-     */
-    public function saveDeliveryService(array $data)
+     */    public function saveDeliveryService(array $data)
     {
-        if ($data['image'] == '') throw new AdminException('Vui lòng chọn người dùng');
+        if ($data['image'] == '') throw new AdminException('Vui lòng chọn Khách hàng');
         $data['uid'] = $data['image']['uid'];
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $userInfo = $userService->get($data['uid']);
         if ($data['phone'] == '') {
             if (!$userInfo['phone']) {
@@ -194,8 +180,7 @@ class DeliveryServiceServices extends BaseServices
      * @param int $id
      * @param array $data
      * @return void
-     */
-    public function updateDeliveryService(int $id, array $data)
+     */    public function updateDeliveryService(int $id, array $data)
     {
         $delivery = $this->dao->get($id);
         if (!$delivery) {

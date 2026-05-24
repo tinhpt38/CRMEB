@@ -18,18 +18,16 @@ use app\model\user\UserBrokerage;
 
 
 /**
- * Hoa hồng liên kết người dùng
+ * Hoa hồng liên kết Khách hàng
  * Class UserUserBrokerageDao
  * @package app\dao\user
- */
-class UserUserBrokerageDao extends BaseDao
+ */class UserUserBrokerageDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return User::class;
     }
@@ -44,13 +42,11 @@ class UserUserBrokerageDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    public function getModel(string $alias = 'u', string $join_alias = 'b', $join = 'left')
+     */    public function getModel(string $alias = 'u', string $join_alias = 'b', $join = 'left')
     {
         $this->alias = $alias;
         $this->join_alis = $join_alias;
-        /** @var UserBrokerage $userBrokerage */
-        $userBrokerage = app()->make($this->joinModel());
+        /** @var UserBrokerage $userBrokerage */        $userBrokerage = app()->make($this->joinModel());
         $table = $userBrokerage->getName();
         return parent::getModel()
             ->join($table . ' ' . $join_alias, $alias . '.uid = ' . $join_alias . '.uid', $join)
@@ -65,8 +61,7 @@ class UserUserBrokerageDao extends BaseDao
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function getList(array $where, string $field = '', string $order = '', int $page = 0, int $limit = 0)
+     */    public function getList(array $where, string $field = '', string $order = '', int $page = 0, int $limit = 0)
     {
         $time = $where['time'];
         unset($where['time']);
@@ -118,8 +113,7 @@ class UserUserBrokerageDao extends BaseDao
      * Lấy số lượng mặt hàng
      * @param array $where
      * @return mixed
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         $time = $where['time'];
         unset($where['time']);
@@ -168,8 +162,7 @@ class UserUserBrokerageDao extends BaseDao
      * Nhận quý này time
      * @param int $ceil
      * @return array
-     */
-    public function getMonth(int $ceil = 0)
+     */    public function getMonth(int $ceil = 0)
     {
         if ($ceil != 0) {
             $season = ceil(date('n') / 3) - $ceil;

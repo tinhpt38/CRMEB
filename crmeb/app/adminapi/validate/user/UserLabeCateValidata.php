@@ -17,8 +17,7 @@ use think\Validate;
 /**
  * Class UserLabeCateValidata
  * @package app\adminapi\validate\user
- */
-class UserLabeCateValidata extends Validate
+ */class UserLabeCateValidata extends Validate
 {
 
     /**
@@ -26,8 +25,7 @@ class UserLabeCateValidata extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'name' => 'require',
         'sort' => 'require|number'
     ];
@@ -37,8 +35,7 @@ class UserLabeCateValidata extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'name.require' => 'Vui lòng điền tên danh mục nhãn',
         'sort.require' => 'Hãy điền vào nhãn phân loại phân loại',
         'sort.number' => 'Danh mục thẻ phải là số'

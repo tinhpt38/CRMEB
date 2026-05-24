@@ -20,27 +20,23 @@ use app\model\shipping\SystemCity;
  *
  * Class ShippingTemplatesRegionCityDao
  * @package app\dao\shipping
- */
-class ShippingTemplatesRegionCityDao extends BaseDao
+ */class ShippingTemplatesRegionCityDao extends BaseDao
 {
 
     /**
      * Bí danh bảng hiện tại
      * @var string
-     */
-    protected $alias = 'a';
+     */    protected $alias = 'a';
 
     /**
      * Đặt bí danh bảng tham gia
      * @var string
-     */
-    protected $joinAlis = 'c';
+     */    protected $joinAlis = 'c';
 
     /**
      * Đặt mô hình hiện tại
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return ShippingTemplatesRegion::class;
     }
@@ -48,8 +44,7 @@ class ShippingTemplatesRegionCityDao extends BaseDao
     /**
      * Thiết lập mô hình bảng tham gia
      * @return string
-     */
-    protected function setJoinModel(): string
+     */    protected function setJoinModel(): string
     {
         return SystemCity::class;
     }
@@ -59,11 +54,9 @@ class ShippingTemplatesRegionCityDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    protected function getModel(string $key = 'province_id', string $join = 'LEFT')
+     */    protected function getModel(string $key = 'province_id', string $join = 'LEFT')
     {
-        /** @var SystemCity $city */
-        $city = app()->make($this->setJoinModel());
+        /** @var SystemCity $city */        $city = app()->make($this->setJoinModel());
         $name = $city->getName();
         return parent::getModel()->join($name . ' ' . $this->joinAlis, $this->alias . '.' . $key . ' = ' . $this->joinAlis . '.city_id', $join)->alias($this->alias);
     }
@@ -72,8 +65,7 @@ class ShippingTemplatesRegionCityDao extends BaseDao
      * Nhận danh sách vận chuyển miễn phí theo các điều kiện được chỉ định
      * @param array $where
      * @return mixed
-     */
-    public function getUniqidList(array $where, bool $group = true)
+     */    public function getUniqidList(array $where, bool $group = true)
     {
         return $this->getModel($group ? 'province_id' : 'city_id')->when(isset($where['uniqid']), function ($query) use ($where) {
             $query->where($this->alias . '.uniqid', $where['uniqid']);

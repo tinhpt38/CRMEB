@@ -18,21 +18,18 @@ use think\Model;
 /**
  * Class UserLabelRelation
  * @package app\model\user
- */
-class UserLabelRelation extends BaseModel
+ */class UserLabelRelation extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_label_relation';
+     */    protected $name = 'user_label_relation';
 
     /**
      * @return \think\model\relation\HasOne
-     */
-    public function label()
+     */    public function label()
     {
         return $this->hasOne(UserLabel::class, 'id', 'label_id')->bind([
             'label_name' => 'label_name'
@@ -43,8 +40,7 @@ class UserLabelRelation extends BaseModel
      * uidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->whereIn('uid', $value);
     }

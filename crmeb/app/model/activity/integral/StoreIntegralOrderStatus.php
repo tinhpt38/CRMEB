@@ -19,16 +19,14 @@ use think\Model;
  * TODO Bản ghi trạng thái sửa đổi đơn hàngModel
  * Class StoreOrderStatus
  * @package app\model\order
- */
-class StoreIntegralOrderStatus extends BaseModel
+ */class StoreIntegralOrderStatus extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_integral_order_status';
+     */    protected $name = 'store_integral_order_status';
 
     protected $autoWriteTimestamp = 'int';
 
@@ -39,8 +37,7 @@ class StoreIntegralOrderStatus extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchOidAttr($query, $value, $data)
+     */    public function searchOidAttr($query, $value, $data)
     {
         $query->where('oid', $value);
     }
@@ -49,8 +46,7 @@ class StoreIntegralOrderStatus extends BaseModel
      * Thay đổi loại tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchChangeTypeAttr($query, $value)
+     */    public function searchChangeTypeAttr($query, $value)
     {
         $query->where('change_type', $value);
     }

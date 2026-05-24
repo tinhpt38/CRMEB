@@ -17,30 +17,26 @@ use crmeb\traits\ModelTrait;
 /**
  * Class UserSearch
  * @package app\model\user
- */
-class UserSearch extends BaseModel
+ */class UserSearch extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_search';
+     */    protected $name = 'user_search';
 
 
     /**
      * Nhận kết quả tìm kiếm
      * @param $value
      * @return array|mixed
-     */
-    public function getResultAttr($value)
+     */    public function getResultAttr($value)
     {
         return json_decode($value, true) ?? [];
     }

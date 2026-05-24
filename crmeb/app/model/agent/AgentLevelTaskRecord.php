@@ -20,8 +20,7 @@ use think\Model;
  * Hồ sơ nhà phân phối hoàn thành nhiệm vụ cấp độ
  * Class AgentLevelTaskRecord
  * @package app\model\agent
- */
-class AgentLevelTaskRecord extends BaseModel
+ */class AgentLevelTaskRecord extends BaseModel
 {
 
     use ModelTrait;
@@ -29,20 +28,17 @@ class AgentLevelTaskRecord extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'agent_level_task_record';
+     */    protected $name = 'agent_level_task_record';
 
     /**
      * Cấp độ nhà phân phối liên kết
      * @return \think\model\relation\HasOne
-     */
-    public function level()
+     */    public function level()
     {
         return $this->hasOne(AgentLevel::class, 'id', 'level_id');
     }
@@ -50,8 +46,7 @@ class AgentLevelTaskRecord extends BaseModel
     /**
      * Nhiệm vụ cấp nhà phân phối liên kết
      * @return \think\model\relation\HasOne
-     */
-    public function task()
+     */    public function task()
     {
         return $this->hasOne(AgentLevelTask::class, 'id', 'task_id');
     }
@@ -60,8 +55,7 @@ class AgentLevelTaskRecord extends BaseModel
      * Trình tìm kiếm cấp độ nhà phân phối
      * @param $query Model
      * @param $value
-     */
-    public function searchLevelIdAttr($query, $value)
+     */    public function searchLevelIdAttr($query, $value)
     {
         if ($value !== '') $query->where('level_id', $value);
     }
@@ -70,8 +64,7 @@ class AgentLevelTaskRecord extends BaseModel
      * Công cụ tìm kiếm cấp độ
      * @param $query Model
      * @param $value
-     */
-    public function searchTaskIdAttr($query, $value)
+     */    public function searchTaskIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('task_id', $value);
@@ -81,11 +74,10 @@ class AgentLevelTaskRecord extends BaseModel
     }
 
     /**
-     * Người tìm kiếm người dùng
+     * Người tìm kiếm Khách hàng
      * @param $query Model
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value !== '') $query->where('uid', $value);
     }
@@ -94,8 +86,7 @@ class AgentLevelTaskRecord extends BaseModel
      * công cụ tìm trạng thái
      * @param $query Model
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') $query->where('status', $value);
     }

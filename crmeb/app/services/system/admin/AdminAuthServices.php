@@ -24,15 +24,13 @@ use Firebase\JWT\ExpiredException;
  * adminỦy quyềnservice
  * Class AdminAuthServices
  * @package app\services\system\admin
- */
-class AdminAuthServices extends BaseServices
+ */class AdminAuthServices extends BaseServices
 {
     /**
      * Người xây dựng
      * AdminAuthServices constructor.
      * @param AdminAuthDao $dao
-     */
-    public function __construct(AdminAuthDao $dao)
+     */    public function __construct(AdminAuthDao $dao)
     {
         $this->dao = $dao;
     }
@@ -45,17 +43,14 @@ class AdminAuthServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function parseToken(string $token, string $msg = 'Đăng nhập đã hết hạn,Vui lòng đăng nhập lại'): array
+     */    public function parseToken(string $token, string $msg = 'Đăng nhập đã hết hạn,Vui lòng đăng nhập lại'): array
     {
-        /** @var CacheService $cacheService */
-        $cacheService = app()->make(CacheService::class);
+        /** @var CacheService $cacheService */        $cacheService = app()->make(CacheService::class);
 
         if (!$token || $token === 'undefined') {
             throw new AuthException($msg, [], 401);
         }
-        /** @var JwtAuth $jwtAuth */
-        $jwtAuth = app()->make(JwtAuth::class);
+        /** @var JwtAuth $jwtAuth */        $jwtAuth = app()->make(JwtAuth::class);
         //Thiết lập phân tích cú pháptoken
         [$id, $type, $pwd] = $jwtAuth->parseToken($token);
 
@@ -96,8 +91,7 @@ class AdminAuthServices extends BaseServices
 
     /**
      * tokenSự kiện lỗi sau xác thực
-     */
-    protected function authFailAfter($id, $type)
+     */    protected function authFailAfter($id, $type)
     {
         try {
             $postData = request()->post();
@@ -115,11 +109,9 @@ class AdminAuthServices extends BaseServices
      * Lưu dữ liệu gửi
      * @param $adminId
      * @param $postData
-     */
-    protected function saveProduct($adminId, $postData)
+     */    protected function saveProduct($adminId, $postData)
     {
-        /** @var CacheServices $cacheService */
-        $cacheService = app()->make(CacheServices::class);
+        /** @var CacheServices $cacheService */        $cacheService = app()->make(CacheServices::class);
         $cacheService->setDbCache($adminId . '_product_data', $postData, 68400);
     }
 }

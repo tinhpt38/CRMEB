@@ -20,8 +20,7 @@ class UserCancel extends AuthController
      * UserCancel constructor.
      * @param App $app
      * @param UserCancelServices $services
-     */
-    public function __construct(App $app, UserCancelServices $services)
+     */    public function __construct(App $app, UserCancelServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -30,8 +29,7 @@ class UserCancel extends AuthController
     /**
      * Nhận danh sách đăng xuất
      * @return mixed
-     */
-    public function getCancelList()
+     */    public function getCancelList()
     {
         $where = $this->request->postMore([
             ['status', 0],
@@ -44,8 +42,7 @@ class UserCancel extends AuthController
     /**
      * Nhận xét
      * @return mixed
-     */
-    public function setMark()
+     */    public function setMark()
     {
         [$id, $mark] = $this->request->postMore([
             ['id', 0],

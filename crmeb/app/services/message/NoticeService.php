@@ -17,25 +17,22 @@ use crmeb\services\CacheService;
 /**
  * Danh mục dịch vụ tin nhắn trang web
  * Class MessageSystemServices
- */
-class NoticeService extends BaseServices
+ */class NoticeService extends BaseServices
 {
     protected $noticeInfo;
     protected $event;
 
     /**
-     * cài đặt
+     * Cài đặt
      * @param string $event
      * @return $this
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setEvent(string $event)
+     */    public function setEvent(string $event)
     {
         if ($this->event != $event) {
-            /** @var SystemNotificationServices $services */
-            $services = app()->make(SystemNotificationServices::class);
+            /** @var SystemNotificationServices $services */            $services = app()->make(SystemNotificationServices::class);
             $noticeInfo = $services->getOneNotce(['mark' => $event]);
             $this->noticeInfo = $noticeInfo ? $noticeInfo->toArray() : [];
             $this->event = $event;

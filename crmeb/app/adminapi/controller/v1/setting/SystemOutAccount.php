@@ -20,16 +20,14 @@ use think\facade\App;
  * Tài khoản giao diện bên ngoài
  * Class SystemOutAccount
  * @package app\adminapi\controller\v1\setting
- */
-class SystemOutAccount extends AuthController
+ */class SystemOutAccount extends AuthController
 {
     /**
      * Người xây dựng
      * SystemOut constructor.
      * @param App $app
      * @param OutAccountServices $services
-     */
-    public function __construct(App $app, OutAccountServices $services)
+     */    public function __construct(App $app, OutAccountServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class SystemOutAccount extends AuthController
      * Thông tin tài khoản
      * @return string
      * @throws \Exception
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['name', '', ''],
@@ -54,8 +51,7 @@ class SystemOutAccount extends AuthController
      * @param string $status
      * @param string $id
      * @return mixed
-     */
-    public function set_status($id = '', $status = '')
+     */    public function set_status($id = '', $status = '')
     {
         if ($status == '' || $id == '') return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['status' => $status]);
@@ -63,11 +59,10 @@ class SystemOutAccount extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if ($id == '') return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['is_del' => 1]);
@@ -75,13 +70,12 @@ class SystemOutAccount extends AuthController
     }
 
     /**
-     * cứu
+     * Lưu
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             [['appid', 's'], ''],
@@ -103,14 +97,13 @@ class SystemOutAccount extends AuthController
     }
 
     /**
-     * Ôn lại
+     * Sửa
      * @param string $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function update($id = '')
+     */    public function update($id = '')
     {
         $data = $this->request->postMore([
             [['appsecret', 's'], ''],
@@ -135,8 +128,7 @@ class SystemOutAccount extends AuthController
      * Thiết lập giao diện đẩy tài khoản
      * @param $id
      * @return mixed
-     */
-    public function outSetUpSave($id)
+     */    public function outSetUpSave($id)
     {
         $data = $this->request->postMore([
             ['push_open', 0],
@@ -160,8 +152,7 @@ class SystemOutAccount extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function outInterfaceList(OutInterfaceServices $service)
+     */    public function outInterfaceList(OutInterfaceServices $service)
     {
         return app('json')->success($service->outInterfaceList());
     }
@@ -171,8 +162,7 @@ class SystemOutAccount extends AuthController
      * @param $id
      * @param OutInterfaceServices $service
      * @return mixed
-     */
-    public function saveInterface($id, OutInterfaceServices $service)
+     */    public function saveInterface($id, OutInterfaceServices $service)
     {
         $data = $this->request->postMore([
             ['pid', 0], //Thượng đẳngid
@@ -199,8 +189,7 @@ class SystemOutAccount extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function interfaceInfo($id, OutInterfaceServices $service)
+     */    public function interfaceInfo($id, OutInterfaceServices $service)
     {
         return app('json')->success($service->interfaceInfo($id));
     }
@@ -209,8 +198,7 @@ class SystemOutAccount extends AuthController
      * Sửa đổi tên giao diện
      * @param OutInterfaceServices $service
      * @return mixed
-     */
-    public function editInterfaceName(OutInterfaceServices $service)
+     */    public function editInterfaceName(OutInterfaceServices $service)
     {
         $data = $this->request->postMore([
             ['id', 0], //Thượng đẳngid
@@ -228,8 +216,7 @@ class SystemOutAccount extends AuthController
      * @param $id
      * @param OutInterfaceServices $service
      * @return mixed
-     */
-    public function delInterface($id, OutInterfaceServices $service)
+     */    public function delInterface($id, OutInterfaceServices $service)
     {
         if (!$id) return app('json')->success('Lỗi tham số');
         $service->delInterface($id);
@@ -242,8 +229,7 @@ class SystemOutAccount extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function textOutUrl()
+     */    public function textOutUrl()
     {
         $data = $this->request->postMore([
             ['push_account', 0],

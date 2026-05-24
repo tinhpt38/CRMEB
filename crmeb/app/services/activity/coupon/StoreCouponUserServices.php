@@ -25,15 +25,13 @@ use crmeb\utils\Arr;
  * @package app\services\coupon
  * @method useCoupon(int $id) Sử dụng phiếu giảm giá để sửa đổi trạng thái phiếu giảm giá
  * @method delUserCoupon(array $where)
- */
-class StoreCouponUserServices extends BaseServices
+ */class StoreCouponUserServices extends BaseServices
 {
 
     /**
      * StoreCouponUserServices constructor.
      * @param StoreCouponUserDao $dao
-     */
-    public function __construct(StoreCouponUserDao $dao)
+     */    public function __construct(StoreCouponUserDao $dao)
     {
         $this->dao = $dao;
     }
@@ -42,8 +40,7 @@ class StoreCouponUserServices extends BaseServices
      * Nhận danh sách
      * @param array $where
      * @return array
-     */
-    public function issueLog(array $where)
+     */    public function issueLog(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, 'uid,add_time', ['userInfo'], $page, $limit);
@@ -61,19 +58,16 @@ class StoreCouponUserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function systemPage(array $where)
+     */    public function systemPage(array $where)
     {
-        /** @var StoreCouponUserUserServices $storeCouponUserUserService */
-        $storeCouponUserUserService = app()->make(StoreCouponUserUserServices::class);
+        /** @var StoreCouponUserUserServices $storeCouponUserUserService */        $storeCouponUserUserService = app()->make(StoreCouponUserUserServices::class);
         return $storeCouponUserUserService->getList($where);
     }
 
     /**
-     * Nhận phiếu giảm giá người dùng
+     * Nhận phiếu giảm giá Khách hàng
      * @param int $id
-     */
-    public function getUserCouponList(int $id)
+     */    public function getUserCouponList(int $id)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList(['uid' => $id], '*', ['issue'], $page, $limit);
@@ -92,8 +86,7 @@ class StoreCouponUserServices extends BaseServices
      * khôi phục phiếu giảm giá
      * @param int $id
      * @return bool|mixed
-     */
-    public function recoverCoupon(int $id)
+     */    public function recoverCoupon(int $id)
     {
         $status = $this->dao->value(['id' => $id], 'status');
         if ($status) return $this->dao->update($id, ['status' => 0, 'use_time' => '']);
@@ -101,32 +94,29 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * Phiếu giảm giá hết hạn không hợp lệ
-     */
-    public function checkInvalidCoupon()
+     * Mã giảm giá hết hạn không hợp lệ
+     */    public function checkInvalidCoupon()
     {
         $this->dao->update([['end_time', '<', time()], ['status', '=', '0']], ['status' => 2]);
     }
 
     /**
-     * Lấy số lượng coupon hợp lệ cho người dùng
+     * Lấy số lượng coupon hợp lệ cho Khách hàng
      * @param int $uid
      * @return int
-     */
-    public function getUserValidCouponCount(int $uid)
+     */    public function getUserValidCouponCount(int $uid)
     {
         $this->checkInvalidCoupon();
         return $this->dao->getCount(['uid' => $uid, 'status' => 0]);
     }
 
     /**
-     * Phiếu giảm giá có sẵn được hiển thị trên trang đặt hàng
+     * Mã giảm giá có sẵn được hiển thị trên trang đặt hàng
      * @param $uid
      * @param $cartGroup
      * @param $price
      * @return array
-     */
-    public function getUsableCouponList(int $uid, array $cartGroup)
+     */    public function getUsableCouponList(int $uid, array $cartGroup)
     {
         $userCoupons = $this->dao->getUserAllCoupon($uid);
         $result = [];
@@ -143,9 +133,8 @@ class StoreCouponUserServices extends BaseServices
                             $count++;
                         }
                         break;
-                    case 1://Phiếu giảm giá danh mục
-                        /** @var StoreCategoryServices $storeCategoryServices */
-                        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+                    case 1://Mã giảm giá danh mục
+                        /** @var StoreCategoryServices $storeCategoryServices */                        $storeCategoryServices = app()->make(StoreCategoryServices::class);
                         $coupon_category = explode(',', (string)$coupon['category_id']);
                         $category_ids = $storeCategoryServices->getAllById($coupon_category);
                         if ($category_ids) {
@@ -185,13 +174,12 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * Phiếu giảm giá có sẵn được hiển thị trên trang đặt hàng
+     * Mã giảm giá có sẵn được hiển thị trên trang đặt hàng
      * @param $uid
      * @param $cartGroup
      * @param $price
      * @return array
-     */
-    public function getOldUsableCouponList(int $uid, array $cartGroup)
+     */    public function getOldUsableCouponList(int $uid, array $cartGroup)
     {
         $cartPrice = $cateIds = [];
         $productId = Arr::getUniqueKey($cartGroup['valid'], 'product_id');
@@ -200,12 +188,10 @@ class StoreCouponUserServices extends BaseServices
         }
         $maxPrice = count($cartPrice) ? max($cartPrice) : 0;
         if ($productId) {
-            /** @var StoreProductCateServices $productCateServices */
-            $productCateServices = app()->make(StoreProductCateServices::class);
+            /** @var StoreProductCateServices $productCateServices */            $productCateServices = app()->make(StoreProductCateServices::class);
             $cateId = $productCateServices->productIdByCateId($productId);
             if ($cateId) {
-                /** @var StoreCategoryServices $cateServices */
-                $cateServices = app()->make(StoreCategoryServices::class);
+                /** @var StoreCategoryServices $cateServices */                $cateServices = app()->make(StoreCategoryServices::class);
                 $catePids = $cateServices->cateIdByPid($cateId);
                 $cateIds = array_merge($cateId, $catePids);
             } else {
@@ -235,8 +221,7 @@ class StoreCouponUserServices extends BaseServices
      * @param $issueCouponInfo
      * @param string $type
      * @return mixed
-     */
-    public function addUserCoupon($uid, $issueCouponInfo, $type = 'get')
+     */    public function addUserCoupon($uid, $issueCouponInfo, $type = 'get')
     {
         $data = [];
         $data['cid'] = $issueCouponInfo['id'];
@@ -261,8 +246,7 @@ class StoreCouponUserServices extends BaseServices
      * @param $issueCouponInfo
      * @param string $type
      * @return mixed
-     */
-    public function addMemberUserCoupon($uid, $issueCouponInfo, $type = 'get')
+     */    public function addMemberUserCoupon($uid, $issueCouponInfo, $type = 'get')
     {
         $data = [];
         $data['cid'] = $issueCouponInfo['id'];
@@ -278,15 +262,14 @@ class StoreCouponUserServices extends BaseServices
     }
 
     /**
-     * Nhận phiếu giảm giá mà người dùng đã nhận được
+     * Nhận phiếu giảm giá mà Khách hàng đã nhận được
      * @param int $uid
      * @param $type
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserCounpon(int $uid, $type)
+     */    public function getUserCounpon(int $uid, $type)
     {
         $where = [];
         $where['uid'] = $uid;
@@ -313,8 +296,7 @@ class StoreCouponUserServices extends BaseServices
      * Định dạng phiếu giảm giá
      * @param $couponList
      * @return mixed
-     */
-    public function tidyCouponList($couponList)
+     */    public function tidyCouponList($couponList)
     {
         $time = time();
         foreach ($couponList as &$coupon) {
@@ -367,12 +349,10 @@ class StoreCouponUserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMemberCoupon($uid)
+     */    public function getMemberCoupon($uid)
     {
         if (!$uid) return [];
-        /** @var StoreCouponIssueServices $couponIssueService */
-        $couponIssueService = app()->make(StoreCouponIssueServices::class);
+        /** @var StoreCouponIssueServices $couponIssueService */        $couponIssueService = app()->make(StoreCouponIssueServices::class);
         $couponWhere['receive_type'] = 4;
         $couponInfo = $couponIssueService->getMemberCouponIssueList($couponWhere);
         $couponList = [];
@@ -395,8 +375,7 @@ class StoreCouponUserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function memberCouponUserGroupBymonth(array $where)
+     */    public function memberCouponUserGroupBymonth(array $where)
     {
         return $this->dao->memberCouponUserGroupBymonth($where);
     }
@@ -404,8 +383,7 @@ class StoreCouponUserServices extends BaseServices
     /**Phiếu thành viên hết hạn
      * @param $coupon_user_id
      * @return bool|mixed
-     */
-    public function memberCouponIsFail($coupon_user)
+     */    public function memberCouponIsFail($coupon_user)
     {
         if (!$coupon_user) return false;
         if ($coupon_user['use_time'] == 0) {
@@ -413,28 +391,26 @@ class StoreCouponUserServices extends BaseServices
         }
     }
 
-    /**Truy vấn phiếu giảm giá thành viên dựa trên ID
+    /**Tìm kiếm phiếu giảm giá thành viên dựa trên ID
      * @param $id
      * @return array|bool|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCouponUserOne($id)
+     */    public function getCouponUserOne($id)
     {
         if (!$id) return false;
         return $this->dao->getOne(['id' => $id]);
     }
 
     /**
-     * Truy vấn phiếu giảm giá người dùng dựa trên thời gian
+     * Tìm kiếm phiếu giảm giá Khách hàng dựa trên thời gian
      * @param array $where
      * @return array|bool|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserCounponByMonth(array $where, string $field = '*')
+     */    public function getUserCounponByMonth(array $where, string $field = '*')
     {
         if (!$where) return [];
         return $this->dao->getUserCounponByMonth($where, $field);
@@ -448,8 +424,7 @@ class StoreCouponUserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkHave($uid, $vipCouponIds)
+     */    public function checkHave($uid, $vipCouponIds)
     {
         $list = $this->dao->getVipCouponList($uid);
         $have = [];
@@ -481,9 +456,8 @@ class StoreCouponUserServices extends BaseServices
                             $count++;
                         }
                         break;
-                    case 1://Phiếu giảm giá danh mục
-                        /** @var StoreCategoryServices $storeCategoryServices */
-                        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+                    case 1://Mã giảm giá danh mục
+                        /** @var StoreCategoryServices $storeCategoryServices */                        $storeCategoryServices = app()->make(StoreCategoryServices::class);
                         $coupon_category = explode(',', (string)$canReceive['category_id']);
                         $category_ids = $storeCategoryServices->getAllById($coupon_category);
                         if ($category_ids) {
@@ -514,8 +488,7 @@ class StoreCouponUserServices extends BaseServices
         if ($canReceiveCoupon) {
             $data = [];
             $issueData = [];
-            /** @var StoreCouponIssueUserServices $storeCouponIssueUser */
-            $storeCouponIssueUser = app()->make(StoreCouponIssueUserServices::class);
+            /** @var StoreCouponIssueUserServices $storeCouponIssueUser */            $storeCouponIssueUser = app()->make(StoreCouponIssueUserServices::class);
             $data['cid'] = $canReceiveCoupon['id'];
             $data['uid'] = $uid;
             $data['coupon_title'] = $canReceiveCoupon['title'];

@@ -19,16 +19,14 @@ use app\services\system\admin\SystemAdminServices;
  * Bộ điều khiển bảng ghi hoạt động của quản trị viên
  * Class SystemLog
  * @package app\adminapi\controller\v1\system
- */
-class SystemLog extends AuthController
+ */class SystemLog extends AuthController
 {
     /**
      * Người xây dựng
      * SystemLog constructor.
      * @param App $app
      * @param SystemLogServices $services
-     */
-    public function __construct(App $app, SystemLogServices $services)
+     */    public function __construct(App $app, SystemLogServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -37,8 +35,7 @@ class SystemLog extends AuthController
 
     /**
      * Hiển thị lịch sử hoạt động
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['pages', ''],

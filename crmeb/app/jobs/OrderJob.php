@@ -38,8 +38,7 @@ use think\facade\Log;
  * Hàng đợi tin nhắn đặt hàng
  * Class OrderJob
  * @package crmeb\jobs
- */
-class OrderJob extends BaseJobs
+ */class OrderJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -47,8 +46,7 @@ class OrderJob extends BaseJobs
      * Gửi tin nhắn khi thanh toán đơn hàng được thực hiện thành công
      * @param $order
      * @return bool
-     */
-    public function doJob($order)
+     */    public function doJob($order)
     {
         //Tính toán tiết kiệm sản phẩm
         try {
@@ -56,17 +54,17 @@ class OrderJob extends BaseJobs
         } catch (\Throwable $e) {
             Log::error('Tính toán tiết kiệm,Lý do thất bại:' . $e->getMessage());
         }
-        //Cập nhật số lượng đơn hàng thanh toán của người dùng
+        //Cập nhật số lượng đơn hàng thanh toán của Khách hàng
         try {
             $this->setUserPayCountAndPromoter($order);
         } catch (\Throwable $e) {
-            Log::error('Không thể cập nhật số đơn đặt hàng của người dùng,Lý do thất bại:' . $e->getMessage());
+            Log::error('Không thể cập nhật số đơn đặt hàng của Khách hàng,Lý do thất bại:' . $e->getMessage());
         }
-        //Thêm thẻ người dùng
+        //Thêm thẻ Khách hàng
         try {
             $this->setUserLabel($order);
         } catch (\Throwable $e) {
-            Log::error('Thêm thẻ người dùng không thành công,Lý do thất bại:' . $e->getMessage());
+            Log::error('Thêm thẻ Khách hàng không thành công,Lý do thất bại:' . $e->getMessage());
         }
         try {
             if (in_array($order['is_channel'], [0, 2])) {//Tài khoản chính thức gửi tin nhắn mẫu
@@ -79,7 +77,7 @@ class OrderJob extends BaseJobs
         }
 
 
-        //In biên lai
+        //In phiếu giao hàng
 //        $switch = sys_config('pay_success_printing_switch') ? true : false;
 //        if ($switch) {
 //            try {
@@ -93,8 +91,7 @@ class OrderJob extends BaseJobs
 
         //Kiểm tra cấp độ thành viên
         try {
-            /** @var UserLevelServices $levelServices */
-            $levelServices = app()->make(UserLevelServices::class);
+            /** @var UserLevelServices $levelServices */            $levelServices = app()->make(UserLevelServices::class);
             $levelServices->detection((int)$order['uid']);
         } catch (\Throwable $e) {
             Log::error('Nâng cấp cấp thành viên không thành công,Lý do thất bại:' . $e->getMessage());
@@ -109,19 +106,16 @@ class OrderJob extends BaseJobs
     }
 
     /**
-     * Đặt số lượng người dùng mua hàng và thời gian phát hiện để trở thành người quảng bá
+     * Đặt số lượng Khách hàng mua hàng và thời gian phát hiện để trở thành người quảng bá
      * @param $order
-     */
-    public function setUserPayCountAndPromoter($order)
+     */    public function setUserPayCountAndPromoter($order)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($order['uid']);
         if ($userInfo) {
             $userInfo->pay_count = $userInfo->pay_count + 1;
             if (!$userInfo->is_promoter) {
-                /** @var StoreOrderServices $orderServices */
-                $orderServices = app()->make(StoreOrderServices::class);
+                /** @var StoreOrderServices $orderServices */                $orderServices = app()->make(StoreOrderServices::class);
                 $price = $orderServices->sum(['paid' => 1, 'refund_status' => 0, 'uid' => $userInfo['uid']], 'pay_price');
                 $status = is_brokerage_statu($price);
                 if ($status) {
@@ -133,20 +127,16 @@ class OrderJob extends BaseJobs
     }
 
     /**
-     * Đặt thẻ cho giao dịch mua của người dùng
+     * Đặt thẻ cho giao dịch mua của Khách hàng
      * @param $order
-     */
-    public function setUserLabel($order)
+     */    public function setUserLabel($order)
     {
-        /** @var StoreOrderCartInfoServices $cartInfoServices */
-        $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $cartInfoServices */        $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
         $productIds = $cartInfoServices->getCartColunm(['oid' => $order['id']], 'product_id', '');
-        /** @var StoreProductServices $productServices */
-        $productServices = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $productServices */        $productServices = app()->make(StoreProductServices::class);
         $label = $productServices->getColumn([['id', 'in', $productIds]], 'label_id');
         $labelIds = array_unique(explode(',', implode(',', $label)));
-        /** @var UserLabelRelationServices $labelServices */
-        $labelServices = app()->make(UserLabelRelationServices::class);
+        /** @var UserLabelRelationServices $labelServices */        $labelServices = app()->make(UserLabelRelationServices::class);
         $where = [
             ['label_id', 'in', $labelIds],
             ['uid', '=', $order['uid']]
@@ -171,25 +161,17 @@ class OrderJob extends BaseJobs
      * @param $order
      * @param int $type 1 Tài khoản chính thức 0 Chương trình nhỏ
      * @return string
-     */
-    public function sendOrderPaySuccessCustomerService($order, $type = 0)
+     */    public function sendOrderPaySuccessCustomerService($order, $type = 0)
     {
-        /** @var StoreServiceServices $services */
-        $services = app()->make(StoreServiceServices::class);
-        /** @var WechatUserServices $wechatUserServices */
-        $wechatUserServices = app()->make(WechatUserServices::class);
+        /** @var StoreServiceServices $services */        $services = app()->make(StoreServiceServices::class);
+        /** @var WechatUserServices $wechatUserServices */        $wechatUserServices = app()->make(WechatUserServices::class);
         $serviceOrderNotice = $services->getStoreServiceOrderNotice();
         if (count($serviceOrderNotice)) {
-            /** @var StoreProductServices $services */
-            $services = app()->make(StoreProductServices::class);
-            /** @var StoreSeckillServices $seckillServices */
-            $seckillServices = app()->make(StoreSeckillServices::class);
-            /** @var StoreCombinationServices $pinkServices */
-            $pinkServices = app()->make(StoreCombinationServices::class);
-            /** @var StoreBargainServices $bargainServices */
-            $bargainServices = app()->make(StoreBargainServices::class);
-            /** @var StoreOrderCartInfoServices $cartInfoServices */
-            $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+            /** @var StoreProductServices $services */            $services = app()->make(StoreProductServices::class);
+            /** @var StoreSeckillServices $seckillServices */            $seckillServices = app()->make(StoreSeckillServices::class);
+            /** @var StoreCombinationServices $pinkServices */            $pinkServices = app()->make(StoreCombinationServices::class);
+            /** @var StoreBargainServices $bargainServices */            $bargainServices = app()->make(StoreBargainServices::class);
+            /** @var StoreOrderCartInfoServices $cartInfoServices */            $cartInfoServices = app()->make(StoreOrderCartInfoServices::class);
             foreach ($serviceOrderNotice as $item) {
                 $userInfo = $wechatUserServices->getOne(['uid' => $item['uid'], 'user_type' => 'wechat']);
                 if ($userInfo) {
@@ -229,8 +211,8 @@ class OrderJob extends BaseJobs
                             }
                         } else {
                             // Tin nhắn văn bản đẩy
-                            $head = "Nhắc nhở dịch vụ khách hàng: thân mến,Bạn có một đơn đặt hàng mới \r\nSố đơn hàng:{$order['order_id']}\r\nSố tiền thanh toán：" . format_vnd($order['pay_price']) . "\r\nBình luận：{$order['mark']}\r\nNguồn đặt hàng: Chương trình nhỏ";
-                            if ($type) $head = "Nhắc nhở dịch vụ khách hàng: thân mến,Bạn có một đơn đặt hàng mới \r\nSố đơn hàng:{$order['order_id']}\r\nSố tiền thanh toán：" . format_vnd($order['pay_price']) . "\r\nBình luận：{$order['mark']}\r\nNguồn đặt hàng: Tài khoản chính thức";
+                            $head = "Nhắc nhở CSKH: thân mến,Bạn có một đơn đặt hàng mới \r\nSố đơn hàng:{$order['order_id']}\r\nSố tiền thanh toán：" . format_vnd($order['pay_price']) . "\r\nBình luận：{$order['mark']}\r\nNguồn đặt hàng: Chương trình nhỏ";
+                            if ($type) $head = "Nhắc nhở CSKH: thân mến,Bạn có một đơn đặt hàng mới \r\nSố đơn hàng:{$order['order_id']}\r\nSố tiền thanh toán：" . format_vnd($order['pay_price']) . "\r\nBình luận：{$order['mark']}\r\nNguồn đặt hàng: Tài khoản chính thức";
                             try {
                                 WechatService::staffService()->message($head)->to($userInfo['openid'])->send();
                             } catch (\Exception $e) {
@@ -251,19 +233,13 @@ class OrderJob extends BaseJobs
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setEconomizeMoney($order)
+     */    public function setEconomizeMoney($order)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
-        /** @var StoreOrderCartInfoServices $cartInfoService */
-        $cartInfoService = app()->make(StoreOrderCartInfoServices::class);
-        /** @var StoreCouponUserServices $couponService */
-        $couponService = app()->make(StoreCouponUserServices::class);
-        /** @var StoreOrderEconomizeServices $economizeService */
-        $economizeService = app()->make(StoreOrderEconomizeServices::class);
-        /** @var MemberCardServices $memberCardService */
-        $memberCardService = app()->make(MemberCardServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
+        /** @var StoreOrderCartInfoServices $cartInfoService */        $cartInfoService = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreCouponUserServices $couponService */        $couponService = app()->make(StoreCouponUserServices::class);
+        /** @var StoreOrderEconomizeServices $economizeService */        $economizeService = app()->make(StoreOrderEconomizeServices::class);
+        /** @var MemberCardServices $memberCardService */        $memberCardService = app()->make(MemberCardServices::class);
         $getOne = $economizeService->getOne(['order_id' => $order['order_id']]);
         if ($getOne) return false;
         //Kiểm tra xem bạn có phải là thành viên không

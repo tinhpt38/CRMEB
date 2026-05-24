@@ -27,15 +27,13 @@ use think\facade\Config;
  *
  * Class LoginServices
  * @package app\services\user
- */
-class LoginServices extends BaseServices
+ */class LoginServices extends BaseServices
 {
 
     /**
      * LoginServices constructor.
      * @param UserDao $dao
-     */
-    public function __construct(UserDao $dao)
+     */    public function __construct(UserDao $dao)
     {
         $this->dao = $dao;
     }
@@ -49,8 +47,7 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function login($account, $password, $spread, $agent_id)
+     */    public function login($account, $password, $spread, $agent_id)
     {
         $user = $this->dao->getOne(['account|phone' => $account, 'is_del' => 0]);
         if ($user) {
@@ -64,7 +61,7 @@ class LoginServices extends BaseServices
         if (!$user['status'])
             throw new ApiException('Bạn đã bị cấm đăng nhập, vui lòng liên hệ với quản trị viên');
 
-        //Cập nhật thông tin người dùng
+        //Cập nhật thông tin Khách hàng
         if ($agent_id) {
             $this->updateUserInfo(['code' => $agent_id, 'is_staff' => 1], $user);
         } else {
@@ -78,7 +75,7 @@ class LoginServices extends BaseServices
     }
 
     /**
-     * Cập nhật thông tin người dùng
+     * Cập nhật thông tin Khách hàng
      * @param $user
      * @param $userInfo
      * @param false $is_new
@@ -86,8 +83,7 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateUserInfo($user, $userInfo, $is_new = false)
+     */    public function updateUserInfo($user, $userInfo, $is_new = false)
     {
         $data = [];
         $data['phone'] = !isset($user['phone']) || !$user['phone'] ? $userInfo->phone : $user['phone'];
@@ -109,13 +105,13 @@ class LoginServices extends BaseServices
             $data['division_status'] = 1;
             $data['division_change_time'] = time();
             $data['division_end_time'] = $spreadInfo->division_end_time;
-            //Nếu nhân viên cửa hàng chuyển đổi đại lý, những người dùng được nhân viên cửa hàng trực thuộc đại lý trước thăng chức sẽ được cấp trên trực tiếp thay đổi từ nhân viên cửa hàng hiện tại sang đại lý trước đó.
+            //Nếu nhân viên cửa hàng chuyển đổi đại lý, những Khách hàng được nhân viên cửa hàng trực thuộc đại lý trước thăng chức sẽ được cấp trên trực tiếp thay đổi từ nhân viên cửa hàng hiện tại sang đại lý trước đó.
             if ($userInfo->agent_id != 0 && $userInfo->agent_id != $spreadInfo->agent_id) {
                 $this->dao->update(['staff_id' => $userInfo['uid'], 'spread_uid' => $userInfo['uid']], ['spread_uid' => $spreadInfo['agent_id'], 'staff_id' => 0]);
                 $this->dao->getSearch(['staff_id' => $userInfo['uid'], 'not_spread_uid' => $userInfo['uid']])->update(['staff_id' => 0]);
 
             }
-            //Liên kết người dùng sau sự kiện
+            //Liên kết Khách hàng sau sự kiện
             event('UserRegisterListener', [$spreadUid, $userInfo['user_type'], $userInfo['nickname'], $userInfo['uid'], $is_new]);
             //tin nhắn đẩy
             event('NoticeListener', [['spreadUid' => $spreadUid, 'user_type' => $userInfo['user_type'], 'nickname' => $userInfo['nickname']], 'bind_spread_uid']);
@@ -139,7 +135,7 @@ class LoginServices extends BaseServices
                     $data['agent_id'] = $spreadInfo->agent_id;
                     $data['division_id'] = $spreadInfo->division_id;
                     $data['staff_id'] = $spreadInfo->staff_id;
-                    //Liên kết người dùng sau sự kiện
+                    //Liên kết Khách hàng sau sự kiện
                     event('UserRegisterListener', [$spreadUid, $userInfo['user_type'], $userInfo['nickname'], $userInfo['uid'], 1]);
                     //tin nhắn đẩy
                     event('NoticeListener', [['spreadUid' => $spreadUid, 'user_type' => $userInfo['user_type'], 'nickname' => $userInfo['nickname']], 'bind_spread_uid']);
@@ -159,7 +155,7 @@ class LoginServices extends BaseServices
                 if ($userInfo->spread_uid && $store_brokerage_binding_status == 1 && !isset($user['is_staff'])) {
                     $data['login_type'] = $user['login_type'] ?? $userInfo->login_type;
                 } else {
-                    //Mối quan hệ phân phối ràng buộc = tất cả người dùng
+                    //Mối quan hệ phân phối ràng buộc = Tất cả Khách hàng
                     if (sys_config('brokerage_bindind', 1) == 1) {
                         //Loại ràng buộc phân phối là khoảng thời gian và hết hạn ｜｜tạm thời
                         $store_brokerage_binding_time = sys_config('store_brokerage_binding_time', 30);
@@ -172,7 +168,7 @@ class LoginServices extends BaseServices
                                 $data['agent_id'] = $spreadInfo->agent_id;
                                 $data['division_id'] = $spreadInfo->division_id;
                                 $data['staff_id'] = $spreadInfo->staff_id;
-                                //Liên kết người dùng sau sự kiện
+                                //Liên kết Khách hàng sau sự kiện
                                 event('UserRegisterListener', [$spreadUid, $userInfo['user_type'], $userInfo['nickname'], $userInfo['uid'], 0]);
                                 //tin nhắn đẩy
                                 event('NoticeListener', [['spreadUid' => $spreadUid, 'user_type' => $userInfo['user_type'], 'nickname' => $userInfo['nickname']], 'bind_spread_uid']);
@@ -212,7 +208,7 @@ class LoginServices extends BaseServices
     }
 
     /**
-     * H5Đăng ký người dùng
+     * H5Đăng ký Khách hàng
      * @param $account
      * @param $password
      * @param $spread
@@ -221,14 +217,12 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function register($account, $password, $spread, $user_type = 'h5')
+     */    public function register($account, $password, $spread, $user_type = 'h5')
     {
         if ($this->dao->getOne(['account|phone' => $account, 'is_del' => 0])) {
             throw new ApiException('Số điện thoại di động đã được đăng ký');
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $phone = $account;
         $data['account'] = $account;
         $data['pwd'] = md5((string)$password);
@@ -262,10 +256,10 @@ class LoginServices extends BaseServices
             throw new ApiException('Đăng ký không thành công');
         } else {
             $userServices->rewardNewUser((int)$re->uid);
-            //Sự kiện bài đăng do người dùng tạo
+            //Sự kiện bài đăng do Khách hàng tạo
             event('UserRegisterListener', [$spread, $user_type, $data['nickname'], $re->uid, 1]);
 
-            //Đăng ký người dùng sự kiện tùy chỉnh
+            //Đăng ký Khách hàng sự kiện tùy chỉnh
             event('CustomEventListener', ['user_register', [
                 'uid' => $re->uid,
                 'nickname' => $data['nickname'],
@@ -299,8 +293,7 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function reset($account, $password)
+     */    public function reset($account, $password)
     {
         $user = $this->dao->getOne(['account|phone' => $account, 'is_del' => 0], 'uid');
         if (!$user) {
@@ -321,15 +314,14 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function mobile($phone, $spread, string $user_type = 'h5', $agent_id = 0)
+     */    public function mobile($phone, $spread, string $user_type = 'h5', $agent_id = 0)
     {
-        //Truy vấn cơ sở dữ liệu
+        //Tìm kiếm cơ sở dữ liệu
         $user = $this->dao->getOne(['account|phone' => $phone, 'is_del' => 0]);
         if (!$user) {
             $user = $this->register($phone, '123456', $spread, $user_type);
             if (!$user) {
-                throw new ApiException('Đăng nhập người dùng không thành công,Không thể tạo người dùng mới,Vui lòng thử lại sau');
+                throw new ApiException('Đăng nhập Khách hàng không thành công,Không thể tạo Khách hàng mới,Vui lòng thử lại sau');
             }
         }
 
@@ -359,14 +351,13 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function switchAccount($user, $from)
+     */    public function switchAccount($user, $from)
     {
         if ($from === 'h5') {
             $where = [['phone', '=', $user['phone']], ['user_type', '<>', 'h5'], ['is_del', '=', 0]];
             $login_type = 'wechat';
         } else {
-            //Truy vấn cơ sở dữ liệu
+            //Tìm kiếm cơ sở dữ liệu
             $where = [['account|phone', '=', $user['phone']], ['user_type', '=', 'h5'], ['is_del', '=', 0]];
             $login_type = 'h5';
         }
@@ -379,7 +370,7 @@ class LoginServices extends BaseServices
         }
         $edit_data = ['login_type' => $login_type];
         if (!$this->dao->update($switch_user['uid'], $edit_data, 'uid')) {
-            throw new ApiException('Lỗi khi sửa đổi kiểu đăng nhập của người dùng mới');
+            throw new ApiException('Lỗi khi sửa đổi kiểu đăng nhập của Khách hàng mới');
         }
         $token = $this->createToken((int)$switch_user['uid'], 'api');
         if ($token) {
@@ -390,15 +381,14 @@ class LoginServices extends BaseServices
     }
 
     /**
-     * Ràng buộc số điện thoại di động(Thông tin người dùng im lặng chưa được viết)
+     * Liên kết số điện thoại(Thông tin Khách hàng im lặng chưa được viết)
      * @param $phone
      * @param string $key
      * @return array
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function bindind_phone($phone, string $key = '')
+     */    public function bindind_phone($phone, string $key = '')
     {
         if (!$key) {
             throw new ApiException('Vui lòng làm mới trang hoặc ủy quyền lại');
@@ -408,9 +398,8 @@ class LoginServices extends BaseServices
             throw new ApiException('Vui lòng làm mới trang hoặc ủy quyền lại');
         }
         $wechatInfo['phone'] = $phone;
-        /** @var WechatUserServices $wechatUser */
-        $wechatUser = app()->make(WechatUserServices::class);
-        //Cập nhật thông tin người dùng
+        /** @var WechatUserServices $wechatUser */        $wechatUser = app()->make(WechatUserServices::class);
+        //Cập nhật thông tin Khách hàng
         $user = $wechatUser->wechatOauthAfter([$openid, $wechatInfo, $spreadId, $agent_id, $login_type, $userType]);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
@@ -432,8 +421,7 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function userBindindPhone(int $uid, $phone, $step)
+     */    public function userBindindPhone(int $uid, $phone, $step)
     {
         $userInfo = $this->dao->get($uid);
         if (!$userInfo) {
@@ -466,8 +454,7 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateBindindPhone(int $uid, $phone)
+     */    public function updateBindindPhone(int $uid, $phone)
     {
         $userInfo = $this->dao->get(['uid' => $uid, 'is_del' => 0]);
         if (!$userInfo) {
@@ -499,8 +486,7 @@ class LoginServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/21
-     */
-    public function remoteRegister(string $out_token = '')
+     */    public function remoteRegister(string $out_token = '')
     {
         $info = JWT::jsonDecode(JWT::urlsafeB64Decode($out_token));
         $userInfo = $this->dao->get(['uid' => $info->uid]);

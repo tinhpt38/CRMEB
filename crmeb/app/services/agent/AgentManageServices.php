@@ -28,8 +28,7 @@ use app\services\other\UploadService;
  *
  * Class AgentManageServices
  * @package app\services\agent
- */
-class AgentManageServices extends BaseServices
+ */class AgentManageServices extends BaseServices
 {
 
     /**
@@ -39,16 +38,12 @@ class AgentManageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function agentSystemPage(array $where, $is_page = true)
+     */    public function agentSystemPage(array $where, $is_page = true)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $data = $userServices->getAgentUserList($where, '*', $is_page);
-        /** @var UserBrokerageServices $frozenPrices */
-        $frozenPrices = app()->make(UserBrokerageServices::class);
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var UserBrokerageServices $frozenPrices */        $frozenPrices = app()->make(UserBrokerageServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         foreach ($data['list'] as &$item) {
             $item['headimgurl'] = $item['avatar'];
             $item['extract_count_price'] = $item['extract'][0]['extract_count_price'] ?? 0;
@@ -90,26 +85,23 @@ class AgentManageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSpreadBadge($where)
+     */    public function getSpreadBadge($where)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $uids = $userServices->getAgentUserIds($where);
 
         //Số lượng nhà phân phối
         $data['uids'] = $uids;
         $data['sum_count'] = count($uids);
 
-        //Phát triển số lượng thành viên và lượng tiền mặt mà người dùng có thể rút
+        //Phát triển số lượng thành viên và lượng tiền mặt mà Khách hàng có thể rút
         $data['spread_sum'] = 0;
         $data['extract_price'] = 0;
         if ($data['sum_count']) {
             //Tăng số lượng thành viên
             $data['spread_sum'] = $userServices->getCount([['spread_uid', 'in', $uids]]);
-            //Nhận số tiền người dùng có thể rút
-            /** @var UserBrokerageFrozenServices $frozenPrices */
-            $frozenPrices = app()->make(UserBrokerageFrozenServices::class);
+            //Nhận số tiền Khách hàng có thể rút
+            /** @var UserBrokerageFrozenServices $frozenPrices */            $frozenPrices = app()->make(UserBrokerageFrozenServices::class);
             $data['extract_price'] = bcsub((string)$userServices->getSumBrokerage(['uid' => $uids]), $frozenPrices->getSumFrozenBrokerage($uids), 2);
         }
 
@@ -118,8 +110,7 @@ class AgentManageServices extends BaseServices
         $data['pay_price'] = 0;
         $data['extract_count'] = 0;
         if ($data['sum_count']) {
-            /** @var StoreOrderServices $storeOrder */
-            $storeOrder = app()->make(StoreOrderServices::class);
+            /** @var StoreOrderServices $storeOrder */            $storeOrder = app()->make(StoreOrderServices::class);
             //Tổng số đơn đặt hàng
             $data['order_count'] = $storeOrder->getCount([['uid', 'in', $uids], ['paid', '=', 1], ['refund_status', '=', 0], ['pid', '<=', 0]]);
             //Số tiền đặt hàng
@@ -136,7 +127,7 @@ class AgentManageServices extends BaseServices
                 'col' => 4,
             ],
             [
-                'name' => 'Số lượng người dùng được thăng cấp(mọi người)',
+                'name' => 'Số lượng Khách hàng được thăng cấp(mọi người)',
                 'count' => $data['spread_sum'],
                 'className' => 'icontuiguangrenshu',
                 'col' => 4,
@@ -169,14 +160,12 @@ class AgentManageServices extends BaseServices
     }
 
     /**
-     * Danh sách nhà quảng bá
+     * Danh sách người giới thiệu
      * @param array $where
      * @return mixed
-     */
-    public function getStairList(array $where)
+     */    public function getStairList(array $where)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $data = $userServices->getSairList($where);
         foreach ($data['list'] as &$item) {
             $item['spread_count'] = $item['spreadCount'][0]['spread_count'] ?? 0;
@@ -193,11 +182,9 @@ class AgentManageServices extends BaseServices
      * Thông tin người đứng đầu Promoter
      * @param array $where
      * @return array[]
-     */
-    public function getSairBadge(array $where)
+     */    public function getSairBadge(array $where)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $data['number'] = $userServices->getSairCount($where);
         $where['type'] = 1;
         $data['one_number'] = $userServices->getSairCount($where);
@@ -225,24 +212,21 @@ class AgentManageServices extends BaseServices
     }
 
     /**
-     * Đơn hàng khuyến mãi
+     * Đơn hàng Affiliate
      * @param int $uid
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStairOrderList(int $uid, array $where)
+     */    public function getStairOrderList(int $uid, array $where)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if (!$userInfo) {
             return ['count' => 0, 'list' => []];
         }
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
         $data = $storeOrder->getUserStairOrderList($uid, $where);
         if ($data['list']) {
             $uids = array_unique(array_column($data['list'], 'uid'));
@@ -253,8 +237,7 @@ class AgentManageServices extends BaseServices
             $orderIds = array_column($data['list'], 'id');
             $orderChangTimes = [];
             if ($orderIds) {
-                /** @var StoreOrderStatusServices $storeOrderStatus */
-                $storeOrderStatus = app()->make(StoreOrderStatusServices::class);
+                /** @var StoreOrderStatusServices $storeOrderStatus */                $storeOrderStatus = app()->make(StoreOrderStatusServices::class);
                 $orderChangTimes = $storeOrderStatus->getColumn([['oid', 'IN', $orderIds], ['change_type', '=', 'user_take_delivery']], 'change_time', 'oid');
             }
             foreach ($data['list'] as &$item) {
@@ -280,11 +263,9 @@ class AgentManageServices extends BaseServices
      * @param $type
      * @param $id
      * @return array|false|\PDOStatement|string|\think\Model
-     */
-    public function wechatCode(int $uid)
+     */    public function wechatCode(int $uid)
     {
-        /** @var QrcodeServices $qrcode */
-        $qrcode = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrcode */        $qrcode = app()->make(QrcodeServices::class);
         $code = $qrcode->getForeverQrcode('spread', $uid);
         if (!$code['ticket']) throw new AdminException('Lỗi thu thập mã QR vĩnh viễn');
         return $code;
@@ -293,8 +274,7 @@ class AgentManageServices extends BaseServices
     /**
      * TODO Xem mã QR khuyến mãi chương trình mini
      * @param string $uid
-     */
-    public function lookXcxCode(int $uid)
+     */    public function lookXcxCode(int $uid)
     {
         if (!sys_config('routine_appId') || !sys_config('routine_appsecret')) {
             throw new AdminException('Trước tiên hãy định cấu hình chương trình mini appid, appSecret và các tham số khác');
@@ -304,12 +284,10 @@ class AgentManageServices extends BaseServices
             throw new AdminException('Dữ liệu không tồn tại');
         }
         $name = $userInfo['uid'] . '_' . $userInfo['is_promoter'] . '_user.jpg';
-        /** @var SystemAttachmentServices $systemAttachmentModel */
-        $systemAttachmentModel = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentModel */        $systemAttachmentModel = app()->make(SystemAttachmentServices::class);
         $imageInfo = $systemAttachmentModel->getInfo(['name' => $name]);
         if (!$imageInfo) {
-            /** @var QrcodeServices $qrcode */
-            $qrcode = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrcode */            $qrcode = app()->make(QrcodeServices::class);
             $resForever = $qrcode->qrCodeForever($uid, 'spread_routine');
             if ($resForever) {
                 $resCode = MiniProgramService::appCodeUnlimitService($resForever->id, '', 280);
@@ -335,20 +313,17 @@ class AgentManageServices extends BaseServices
      * Xem mã QR khuyến mãi H5
      * @param string $uid
      * @return mixed|string
-     */
-    public function lookH5Code(int $uid)
+     */    public function lookH5Code(int $uid)
     {
         $userInfo = app()->make(UserServices::class)->getUserInfo($uid);
         if (!$userInfo) {
             throw new AdminException('Dữ liệu không tồn tại');
         }
         $name = $userInfo['uid'] . '_h5_' . $userInfo['is_promoter'] . '_user.jpg';
-        /** @var SystemAttachmentServices $systemAttachmentModel */
-        $systemAttachmentModel = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentModel */        $systemAttachmentModel = app()->make(SystemAttachmentServices::class);
         $imageInfo = $systemAttachmentModel->getInfo(['name' => $name]);
         if (!$imageInfo) {
-            /** @var QrcodeServices $qrcodeService */
-            $qrcodeService = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrcodeService */            $qrcodeService = app()->make(QrcodeServices::class);
             $urlCode = $qrcodeService->getWechatQrcodePathAgent($uid . '_h5_' . $userInfo['is_promoter'] . '_user.jpg', '?spread=' . $uid);
         } else $urlCode = $imageInfo['att_dir'];
         return ['code_src' => $urlCode];
@@ -358,8 +333,7 @@ class AgentManageServices extends BaseServices
      * Mối quan hệ thăng tiến rõ ràng
      * @param int $uid
      * @return mixed
-     */
-    public function delSpread(int $uid)
+     */    public function delSpread(int $uid)
     {
         $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
@@ -377,14 +351,12 @@ class AgentManageServices extends BaseServices
     }
 
     /**
-     * Bị loại khỏi chương trình khuyến mãi
+     * Hủy tư cách Affiliate mãi
      * @param int $uid
      * @return mixed
-     */
-    public function delSystemSpread(int $uid)
+     */    public function delSystemSpread(int $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         if (!$userServices->getUserInfo($uid, 'uid')) {
             throw new AdminException('Dữ liệu không tồn tại');
         }
@@ -397,8 +369,7 @@ class AgentManageServices extends BaseServices
     /**
      * Bỏ ràng buộc cấp trên
      * @return bool
-     */
-    public function removeSpread()
+     */    public function removeSpread()
     {
         //Chức năng phân phối trung tâm mua sắm có được bật hay không 0 tắt 1 bật
         if (!sys_config('brokerage_func_status')) return true;
@@ -411,8 +382,7 @@ class AgentManageServices extends BaseServices
             //Loại ràng buộc phân phối là khoảng thời gian và chưa hết hạn.
             $store_brokerage_binding_time = (int)sys_config('store_brokerage_binding_time', 30) * 24 * 3600;
             $spread_time = bcsub((string)time(), (string)$store_brokerage_binding_time, 0);
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $list = $userServices->getList(['not_spread_uid' => 0, 'status' => 1, 'spread_time' => ['<', $spread_time]], 'uid,spread_uid,spread_time');
             foreach ($list as $userInfo) {
                 $userServices->update($userInfo['uid'], ['spread_uid' => 0, 'spread_time' => 0], 'uid');
@@ -424,13 +394,11 @@ class AgentManageServices extends BaseServices
     /**
      * Định cấu hình chuyển đổi loại liên kết và đặt lại thời gian liên kết
      * @return bool
-     */
-    public function resetSpreadTime()
+     */    public function resetSpreadTime()
     {
         //Chức năng phân phối trung tâm mua sắm có được bật hay không 0 tắt 1 bật
         if (!sys_config('brokerage_func_status')) return true;
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $list = $userServices->getList(['not_spread_uid' => 0, 'status' => 1], 'uid');
         if ($list) {
             $uids = array_column($list, 'uid');

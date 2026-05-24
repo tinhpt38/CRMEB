@@ -30,8 +30,8 @@ class StoreCategoryValidate extends Validate
         'cate_name.max' => 'Tên danh mục không được vượt quá 32 ký tự',
         'pic.max' => 'Đường dẫn biểu tượng danh mục quá dài',
         'big_pic.max' => 'Đường dẫn ảnh danh mục lớn quá dài',
-        'sort.integer' => 'Thứ tự phải là số nguyên',
-        'sort.egt' => 'Thứ tự không được nhỏ hơn 0',
+        'sort.integer' => 'Đơn hàng phải là số nguyên',
+        'sort.egt' => 'Đơn hàng không được nhỏ hơn 0',
         'is_show.in' => 'Trạng thái hiển thị không hợp lệ',
     ];
 

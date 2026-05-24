@@ -27,28 +27,25 @@ use think\facade\Log;
 /**
  * Class KefuServices
  * @package app\services\kefu
- */
-class KefuServices extends BaseServices
+ */class KefuServices extends BaseServices
 {
 
     /**
      * KefuServices constructor.
      * @param StoreServiceDao $dao
-     */
-    public function __construct(StoreServiceDao $dao)
+     */    public function __construct(StoreServiceDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Nhận danh sách dịch vụ khách hàng
+     * Nhận danh sách CSKH
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceList(array $where, array $noId)
+     */    public function getServiceList(array $where, array $noId)
     {
         $where['status'] = 1;
         $where['noId'] = $noId;
@@ -68,31 +65,26 @@ class KefuServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getChatList(int $uid, int $toUid, int $upperId, int $is_tourist = 0)
+     */    public function getChatList(int $uid, int $toUid, int $upperId, int $is_tourist = 0)
     {
-        /** @var StoreServiceLogServices $service */
-        $service = app()->make(StoreServiceLogServices::class);
+        /** @var StoreServiceLogServices $service */        $service = app()->make(StoreServiceLogServices::class);
         [$page, $limit] = $this->getPageValue();
         return array_reverse($service->tidyChat($service->getServiceChatList(['chat' => [$uid, $toUid], 'is_tourist' => $is_tourist], $limit, $upperId)));
     }
 
     /**
-     * Chuyển dịch vụ khách hàng
+     * Chuyển CSKH
      * @param int $kfuUid
      * @param int $uid
      * @param int $toUid
      * @return mixed
-     */
-    public function setTransfer(int $kfuUid, int $uid, int $kfuToUid)
+     */    public function setTransfer(int $kfuUid, int $uid, int $kfuToUid)
     {
         if ($uid === $kfuToUid) {
             throw new ApiException('Bạn không thể chuyển nó cho chính mình');
         }
-        /** @var StoreServiceAuxiliaryServices $auxiliaryServices */
-        $auxiliaryServices = app()->make(StoreServiceAuxiliaryServices::class);
-        /** @var StoreServiceLogServices $service */
-        $service = app()->make(StoreServiceLogServices::class);
+        /** @var StoreServiceAuxiliaryServices $auxiliaryServices */        $auxiliaryServices = app()->make(StoreServiceAuxiliaryServices::class);
+        /** @var StoreServiceLogServices $service */        $service = app()->make(StoreServiceLogServices::class);
         $addTime = $auxiliaryServices->value(['binding_id' => $kfuUid, 'relation_id' => $uid], 'update_time');
         $list = $service->getMessageList(['chat' => [$kfuUid, $uid], 'add_time' => $addTime]);
         $data = [];
@@ -117,20 +109,18 @@ class KefuServices extends BaseServices
                 $res = true;
                 $messageData = [];
             }
-            /** @var StoreServiceRecordServices $serviceRecord */
-            $serviceRecord = app()->make(StoreServiceRecordServices::class);
+            /** @var StoreServiceRecordServices $serviceRecord */            $serviceRecord = app()->make(StoreServiceRecordServices::class);
             $info = $serviceRecord->get(['user_id' => $kfuUid, 'to_uid' => $uid], ['type', 'message_type', 'is_tourist', 'avatar', 'nickname']);
             $record = $serviceRecord->saveRecord($uid, $kfuToUid, $messageData['msn'] ?? '', $info['type'] ?? 1, $messageData['message_type'] ?? 1, $num, $info['is_tourist'] ?? 0, $info['nickname'] ?? "", $info['avatar'] ?? '');
             $res = $res && $auxiliaryServices->saveAuxliary(['binding_id' => $kfuUid, 'relation_id' => $uid]);
             if (!$res && !$record) {
-                throw new ApiException('Chuyển sang dịch vụ khách hàng không thành công');
+                throw new ApiException('Chuyển sang CSKH không thành công');
             }
             return $record;
         });
         try {
             if (!$record['is_tourist']) {
-                /** @var UserServices $userService */
-                $userService = app()->make(UserServices::class);
+                /** @var UserServices $userService */                $userService = app()->make(UserServices::class);
                 $_userInfo = $userService->getUserInfo($uid, 'nickname,avatar');
                 $record['nickname'] = $_userInfo['nickname'];
                 $record['avatar'] = $_userInfo['avatar'];
@@ -145,7 +135,7 @@ class KefuServices extends BaseServices
             ChannelService::instance()
                 ->setTrigger('crmeb_chat')
                 ->send('transfer', ['recored' => $record, 'kefuInfo' => $keufInfo, 'fun' => true], [$kfuToUid]);
-            //Thông báo cho người dùng trò chuyện với người dùng này
+            //Thông báo cho Khách hàng trò chuyện với Khách hàng này
             $keufToInfo = $this->dao->get(['uid' => $kfuToUid], ['avatar', 'nickname']);
             ChannelService::instance()
                 ->setTrigger('crmeb_chat')
@@ -163,17 +153,14 @@ class KefuServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function replyTransferService(string $reply, string $openId)
+     */    public function replyTransferService(string $reply, string $openId)
     {
-        /** @var WechatUserServices $userServices */
-        $userServices = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $userServices */        $userServices = app()->make(WechatUserServices::class);
         $userInfo = $userServices->get(['openid' => $openId], ['uid', 'nickname', 'headimgurl as avatar']);
         if (!$userInfo) {
             return true;
         }
-        /** @var StoreServiceServices $kfServices */
-        $kfServices = app()->make(StoreServiceServices::class);
+        /** @var StoreServiceServices $kfServices */        $kfServices = app()->make(StoreServiceServices::class);
         $serviceInfoList = $kfServices->getServiceList(['status' => 1, 'online' => 1]);
         if (!count($serviceInfoList)) {
             return true;
@@ -182,11 +169,10 @@ class KefuServices extends BaseServices
         if (!$uids) {
             return true;
         }
-        /** @var StoreServiceRecordServices $recordServices */
-        $recordServices = app()->make(StoreServiceRecordServices::class);
-        //Cuộc trò chuyện ưu tiên dịch vụ khách hàng cuối cùng
+        /** @var StoreServiceRecordServices $recordServices */        $recordServices = app()->make(StoreServiceRecordServices::class);
+        //Cuộc trò chuyện ưu tiên CSKH cuối cùng
         $toUid = $recordServices->getLatelyMsgUid(['to_uid' => $userInfo['uid']], 'user_id');
-        //Nếu khách hàng mà bạn trò chuyện lần trước không thuộc bộ phận dịch vụ khách hàng hiện tại, hãy tuyển nhân viên dịch vụ khách hàng mới
+        //Nếu khách hàng mà bạn trò chuyện lần trước không thuộc bộ phận CSKH hiện tại, hãy tuyển nhân viên CSKH mới
         if (!in_array($toUid, $uids)) {
             $toUid = 0;
         }
@@ -196,8 +182,7 @@ class KefuServices extends BaseServices
         if (!$toUid) {
             return true;
         }
-        /** @var StoreServiceLogServices $logServices */
-        $logServices = app()->make(StoreServiceLogServices::class);
+        /** @var StoreServiceLogServices $logServices */        $logServices = app()->make(StoreServiceLogServices::class);
         $num = $logServices->getMessageNum(['uid' => $userInfo['uid'], 'to_uid' => $toUid, 'type' => 0, 'is_tourist' => 0]);
         $record = $recordServices->saveRecord($userInfo['uid'], $toUid, $reply, 1, 1, $num, 0, $userInfo['nickname'] ?? "", $userInfo['avatar'] ?? '');
 

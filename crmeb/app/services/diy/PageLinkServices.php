@@ -23,15 +23,13 @@ use think\facade\Route as Url;
  *
  * Class DiyServices
  * @package app\services\diy
- */
-class PageLinkServices extends BaseServices
+ */class PageLinkServices extends BaseServices
 {
 
     /**
      * PageLinkServices constructor.
      * @param PageLinkDao $dao
-     */
-    public function __construct(PageLinkDao $dao)
+     */    public function __construct(PageLinkDao $dao)
     {
         $this->dao = $dao;
     }
@@ -40,8 +38,7 @@ class PageLinkServices extends BaseServices
      * Nhận liên kết trang
      * @param array $where
      * @return array
-     */
-    public function getLinkList(array $where)
+     */    public function getLinkList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, '*', $page, $limit);
@@ -54,10 +51,9 @@ class PageLinkServices extends BaseServices
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
         $res = $this->dao->delete($id);
         if (!$res) throw new AdminException('Xóa không thành công');

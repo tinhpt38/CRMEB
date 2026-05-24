@@ -21,8 +21,7 @@ class StoreServiceSpeechcraftValidata extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'message' => 'require',
         'sort' => 'require|number',
     ];
@@ -32,9 +31,8 @@ class StoreServiceSpeechcraftValidata extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
-        'message.require' => 'Hãy điền nội dung bài phát biểu',
+     */    protected $message = [
+        'message.require' => 'Hãy điền Nội dung bài phát biểu',
         'sort.require' => 'Vui lòng điền số sắp xếp',
         'sort.number' => 'Vui lòng điền số sắp xếp',
     ];

@@ -20,21 +20,18 @@ use think\facade\App;
 /**
  * Class MemberCard
  * @package app\adminapi\controller\v1\user\member
- */
-class MemberCard extends AuthController
+ */class MemberCard extends AuthController
 {
     /**
      * @var MemberCardServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * Khởi tạo xử lý lớp dịch vụ
      * MemberCard constructor.
      * @param App $app
      * @param MemberCardServices $memberCardServices
-     */
-    public function __construct(App $app, MemberCardServices $memberCardServices)
+     */    public function __construct(App $app, MemberCardServices $memberCardServices)
     {
         parent::__construct($app);
         $this->services = $memberCardServices;
@@ -44,8 +41,7 @@ class MemberCard extends AuthController
      * Danh sách thẻ thành viên
      * @param $card_batch_id
      * @return mixed
-     */
-    public function index($card_batch_id)
+     */    public function index($card_batch_id)
     {
         $where = $this->request->getMore([
             ['card_number', ""],
@@ -64,11 +60,9 @@ class MemberCard extends AuthController
     /**
      * Phân loại thành viên
      * @return mixed
-     */
-    public function member_ship()
+     */    public function member_ship()
     {
-        /** @var MemberShipServices $memberShipService */
-        $memberShipService = app()->make(MemberShipServices::class);
+        /** @var MemberShipServices $memberShipService */        $memberShipService = app()->make(MemberShipServices::class);
         $data = $memberShipService->getSearchList();
         return app('json')->success($data);
     }
@@ -78,8 +72,7 @@ class MemberCard extends AuthController
      * @param $id
      * @param MemberShipServices $memberShipServices
      * @return mixed
-     */
-    public function ship_save($id, MemberShipServices $memberShipServices)
+     */    public function ship_save($id, MemberShipServices $memberShipServices)
     {
         $data = $this->request->postMore([
             ['title', ''],
@@ -94,12 +87,11 @@ class MemberCard extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param $id
      * @param MemberShipServices $memberShipServices
      * @return mixed
-     */
-    public function delete($id,MemberShipServices $memberShipServices)
+     */    public function delete($id,MemberShipServices $memberShipServices)
     {
         if (!$id) return app('json')->fail('Dữ liệu không tồn tại');
         $res = $memberShipServices->delete((int)$id);
@@ -109,8 +101,7 @@ class MemberCard extends AuthController
     /**
      * Nhận hồ sơ thành viên
      * @return mixed
-     */
-    public function member_record()
+     */    public function member_record()
     {
         $where = $this->request->getMore([
             ['name', ""],
@@ -127,11 +118,9 @@ class MemberCard extends AuthController
     /**
      * Quyền thành viên
      * @return mixed
-     */
-    public function member_right()
+     */    public function member_right()
     {
-        /** @var MemberRightServices $memberRightService */
-        $memberRightService = app()->make(MemberRightServices::class);
+        /** @var MemberRightServices $memberRightService */        $memberRightService = app()->make(MemberRightServices::class);
         $data = $memberRightService->getSearchList();
         return app('json')->success($data);
     }
@@ -141,8 +130,7 @@ class MemberCard extends AuthController
      * @param $id
      * @param MemberRightServices $memberRightServices
      * @return mixed
-     */
-    public function right_save($id, MemberRightServices $memberRightServices)
+     */    public function right_save($id, MemberRightServices $memberRightServices)
     {
         $data = $this->request->postMore([
             ['title', ''],
@@ -161,8 +149,7 @@ class MemberCard extends AuthController
     /**
      * Sửa đổi trạng thái đóng băng kích hoạt thẻ thành viên
      * @return mixed
-     */
-    public function set_status()
+     */    public function set_status()
     {
         [$card_id, $status] = $this->request->getMore([
             ['card_id', 0],
@@ -176,15 +163,13 @@ class MemberCard extends AuthController
     /**
      * Bật/tắt loại thành viên trả phí
      * @return mixed
-     */
-    public function set_ship_status()
+     */    public function set_ship_status()
     {
         [$id, $is_del] = $this->request->getMore([
             ['id', 0],
             ['is_del', 0],
         ], true);
-        /** @var MemberShipServices $memberShipService */
-        $memberShipService = app()->make(MemberShipServices::class);
+        /** @var MemberShipServices $memberShipService */        $memberShipService = app()->make(MemberShipServices::class);
         $res = $memberShipService->setStatus($id, $is_del);
         if ($res) return app('json')->success('Hoạt động thành công');
         return app('json')->success('Thao tác không thành công');

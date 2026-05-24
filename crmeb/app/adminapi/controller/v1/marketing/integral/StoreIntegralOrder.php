@@ -25,16 +25,14 @@ use think\facade\App;
  * Quản lý đơn hàng
  * Class StoreOrder
  * @package app\controller\admin\v1\order
- */
-class StoreIntegralOrder extends AuthController
+ */class StoreIntegralOrder extends AuthController
 {
     /**
      * StoreIntegralOrder constructor.
      * @param App $app
      * @param StoreIntegralOrderServices $service
      * @method temp
-     */
-    public function __construct(App $app, StoreIntegralOrderServices $service)
+     */    public function __construct(App $app, StoreIntegralOrderServices $service)
     {
         parent::__construct($app);
         $this->services = $service;
@@ -43,8 +41,7 @@ class StoreIntegralOrder extends AuthController
     /**
      * Nhận số lượng loại đơn đặt hàng
      * @return mixed
-     */
-    public function chart()
+     */    public function chart()
     {
         $where = $this->request->getMore([
             ['data', '', '', 'time'],
@@ -57,8 +54,7 @@ class StoreIntegralOrder extends AuthController
     /**
      * Nhận danh sách đặt hàng
      * @return mixed
-     */
-    public function lst()
+     */    public function lst()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -75,8 +71,7 @@ class StoreIntegralOrder extends AuthController
     /**
      * Nhận công ty chuyển phát nhanh
      * @return mixed
-     */
-    public function express(ExpressServices $services)
+     */    public function express(ExpressServices $services)
     {
         [$status] = $this->request->getMore([
             ['status', ''],
@@ -87,10 +82,9 @@ class StoreIntegralOrder extends AuthController
     }
 
     /**
-     * Xóa các đơn hàng đã bị người dùng xóa theo đợt
+     * Xóa các đơn hàng đã bị Khách hàng xóa theo đợt
      * @return mixed
-     */
-    public function del_orders()
+     */    public function del_orders()
     {
         [$ids, $all, $where] = $this->request->postMore([
             ['ids', []],
@@ -107,8 +101,7 @@ class StoreIntegralOrder extends AuthController
      * Xóa đơn hàng
      * @param $id
      * @return mixed
-     */
-    public function del($id)
+     */    public function del($id)
     {
         if ($this->services->delOrder($id)) {
             return app('json')->success('Xóa thành công');
@@ -118,11 +111,10 @@ class StoreIntegralOrder extends AuthController
     }
 
     /**
-     * Đơn hàng đã được vận chuyển
+     * Đã giao cho ĐVVC
      * @param $id
      * @return mixed
-     */
-    public function update_delivery($id)
+     */    public function update_delivery($id)
     {
         $data = $this->request->postMore([
             ['type', 1],
@@ -147,11 +139,10 @@ class StoreIntegralOrder extends AuthController
     }
 
     /**
-     * xác nhận đã nhận hàng
+     * Xác nhận nhận hàng
      * @param $id
      * @return mixed
-     */
-    public function take_delivery($id)
+     */    public function take_delivery($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $order = $this->services->get($id);
@@ -168,8 +159,7 @@ class StoreIntegralOrder extends AuthController
             return app('json')->fail('Biên nhận không thành công,Vui lòng thử lại sau');
         } else {
             //Thêm trạng thái đơn hàng giao hàng
-            /** @var StoreIntegralOrderStatusServices $statusService */
-            $statusService = app()->make(StoreIntegralOrderStatusServices::class);
+            /** @var StoreIntegralOrderStatusServices $statusService */            $statusService = app()->make(StoreIntegralOrderStatusServices::class);
             $statusService->save([
                 'oid' => $order['id'],
                 'change_type' => 'take_delivery',
@@ -181,19 +171,17 @@ class StoreIntegralOrder extends AuthController
     }
 
     /**
-     * Chi tiết đặt hàng
-     * @param $id Đặt hàngid
+     * Chi tiết đơn hàng
+     * @param $id Đơn hàngid
      * @return mixed
-     */
-    public function order_info($id)
+     */    public function order_info($id)
     {
         if (!$id || !($orderInfo = $this->services->get($id))) {
             return app('json')->fail('Đơn hàng không tồn tại');
         }
-        /** @var UserServices $services */
-        $services = app()->make(UserServices::class);
+        /** @var UserServices $services */        $services = app()->make(UserServices::class);
         $userInfo = $services->get($orderInfo['uid']);
-        if (!$userInfo) return app('json')->fail('Thông tin người dùng không tồn tại');
+        if (!$userInfo) return app('json')->fail('Thông tin Khách hàng không tồn tại');
         $userInfo = $userInfo->hidden(['pwd', 'add_ip', 'last_ip', 'login_type']);
         $orderInfo = $this->services->tidyOrder($orderInfo->toArray());
         $userInfo = $userInfo->toArray();
@@ -201,11 +189,10 @@ class StoreIntegralOrder extends AuthController
     }
 
     /**
-     * Truy vấn thông tin hậu cần
-     * @param $id Đặt hàngid
+     * Tìm kiếm thông tin hậu cần
+     * @param $id Đơn hàngid
      * @return mixed
-     */
-    public function get_express($id, ExpressServices $services)
+     */    public function get_express($id, ExpressServices $services)
     {
         if (!$id || !($orderInfo = $this->services->get($id)))
             return app('json')->fail('Đơn hàng không tồn tại');
@@ -222,11 +209,10 @@ class StoreIntegralOrder extends AuthController
 
     /**
      * Nhận và sửa đổi cấu trúc biểu mẫu thông tin vận chuyển
-     * @param $id Đặt hàngid
+     * @param $id Đơn hàngid
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function distribution($id)
+     */    public function distribution($id)
     {
         if (!$id) {
             return app('json')->fail('Đơn hàng không tồn tại');
@@ -236,10 +222,9 @@ class StoreIntegralOrder extends AuthController
 
     /**
      * Sửa đổi thông tin vận chuyển
-     * @param $id  Đặt hàngid
+     * @param $id  Đơn hàngid
      * @return mixed
-     */
-    public function update_distribution($id)
+     */    public function update_distribution($id)
     {
         $data = $this->request->postMore([['delivery_name', ''], ['delivery_code', ''], ['delivery_id', '']]);
         if (!$id) return app('json')->fail('Lỗi tham số');
@@ -252,8 +237,7 @@ class StoreIntegralOrder extends AuthController
      * Sửa đổi nhận xét
      * @param $id
      * @return mixed
-     */
-    public function remark($id)
+     */    public function remark($id)
     {
         $data = $this->request->postMore([['remark', '']]);
         if ($this->services->remark($id, $data['remark'])) {
@@ -267,8 +251,7 @@ class StoreIntegralOrder extends AuthController
      * Nhận danh sách trạng thái đơn hàng và phân trang
      * @param $id
      * @return mixed
-     */
-    public function status(StoreIntegralOrderStatusServices $services, $id)
+     */    public function status(StoreIntegralOrderStatusServices $services, $id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($services->getStatusList(['oid' => $id])['list']);
@@ -278,8 +261,7 @@ class StoreIntegralOrder extends AuthController
      * In máy in đám mây Yilian
      * @param $id
      * @return mixed
-     */
-    public function order_print($id)
+     */    public function order_print($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $order = $this->services->get($id);
@@ -298,8 +280,7 @@ class StoreIntegralOrder extends AuthController
      * Mẫu biểu mẫu điện tử
      * @param $com
      * @return mixed
-     */
-    public function expr_temp(ServeServices $services, $com)
+     */    public function expr_temp(ServeServices $services, $com)
     {
         if (!$com) {
             return app('json')->fail('Thiếu số công ty chuyển phát nhanh');
@@ -310,8 +291,7 @@ class StoreIntegralOrder extends AuthController
 
     /**
      * Nhận mẫu
-     */
-    public function express_temp(ServeServices $services)
+     */    public function express_temp(ServeServices $services)
     {
         $data = $this->request->getMore([['com', '']]);
         $tpd = $services->express()->temp($data['com']);
@@ -323,8 +303,7 @@ class StoreIntegralOrder extends AuthController
      * @param $order_id
      * @param StoreOrderDeliveryServices $storeOrderDeliveryServices
      * @return mixed
-     */
-    public function order_dump($order_id, StoreOrderDeliveryServices $storeOrderDeliveryServices)
+     */    public function order_dump($order_id, StoreOrderDeliveryServices $storeOrderDeliveryServices)
     {
         return app('json')->success($storeOrderDeliveryServices->orderDump($order_id, 'integral_order'));
 
@@ -333,8 +312,7 @@ class StoreIntegralOrder extends AuthController
     /**
      * Nhận thông tin cấu hình
      * @return mixed
-     */
-    public function getDeliveryInfo()
+     */    public function getDeliveryInfo()
     {
         return app('json')->success([
             'express_temp_id' => sys_config('config_export_temp_id'),

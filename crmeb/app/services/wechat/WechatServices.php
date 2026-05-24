@@ -29,15 +29,13 @@ use crmeb\utils\Canvas;
  * Class WechatServices
  * @package app\services\wechat
  * @method value(array $where, ?string $field)
- */
-class WechatServices extends BaseServices
+ */class WechatServices extends BaseServices
 {
 
     /**
      * WechatServices constructor.
      * @param WechatUserDao $dao
-     */
-    public function __construct(WechatUserDao $dao)
+     */    public function __construct(WechatUserDao $dao)
     {
         $this->dao = $dao;
     }
@@ -46,8 +44,7 @@ class WechatServices extends BaseServices
      * Dịch vụ tài khoản công cộng WeChat
      * @return \think\Response
      * @throws \EasyWeChat\Server\BadRequestException
-     */
-    public function serve()
+     */    public function serve()
     {
         ob_clean();
         return WechatAuthService::serve();
@@ -57,8 +54,7 @@ class WechatServices extends BaseServices
      * Dịch vụ tài khoản công cộng WeChat
      * @return \think\Response
      * @throws \EasyWeChat\Server\BadRequestException
-     */
-    public function miniServe()
+     */    public function miniServe()
     {
         ob_clean();
         return MiniProgramService::serve();
@@ -68,8 +64,7 @@ class WechatServices extends BaseServices
      * Trả tiền gọi lại không đồng bộ
      * @return string
      * @throws \EasyWeChat\Core\Exceptions\FaultException
-     */
-    public function notify()
+     */    public function notify()
     {
         ob_clean();
         return WechatAuthService::handleNotify()->getContent();
@@ -82,11 +77,9 @@ class WechatServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/9/22
-     */
-    public function v3notify()
+     */    public function v3notify()
     {
-        /** @var Pay $pay */
-        $pay = app()->make(Pay::class, ['v3_wechat_pay']);
+        /** @var Pay $pay */        $pay = app()->make(Pay::class, ['v3_wechat_pay']);
         return $pay->handleNotify()->getContent();
     }
 
@@ -94,8 +87,7 @@ class WechatServices extends BaseServices
      * Lấy thông tin cấu hình quyền tài khoản công cộng
      * @param $url
      * @return mixed
-     */
-    public function config($url)
+     */    public function config($url)
     {
         return json_decode(WechatAuthService::jsSdk($url), true);
     }
@@ -111,11 +103,9 @@ class WechatServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function authLogin($spread = '', $agent_id = '')
+     */    public function authLogin($spread = '', $agent_id = '')
     {
-        /** @var OAuth $oauth */
-        $oauth = app()->make(OAuth::class);
+        /** @var OAuth $oauth */        $oauth = app()->make(OAuth::class);
         $wechatInfo = $oauth->oauth();
         if (!isset($wechatInfo['nickname'])) {
             $wechatInfo = $oauth->getUserInfo($wechatInfo['openid']);
@@ -128,8 +118,7 @@ class WechatServices extends BaseServices
         }
         $wechatInfo['user_type'] = 'wechat';
         $openid = $wechatInfo['openid'];
-        /** @var WechatUserServices $wechatUserServices */
-        $wechatUserServices = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $wechatUserServices */        $wechatUserServices = app()->make(WechatUserServices::class);
         $user = $wechatUserServices->getAuthUserInfo($openid, 'wechat');
         $createData = [$openid, $wechatInfo, $spread, $agent_id, 'wechat', 'wechat'];
         $storeUserMobile = sys_config('store_user_mobile');
@@ -166,12 +155,11 @@ class WechatServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function authBindingPhone($key, $phone)
+     */    public function authBindingPhone($key, $phone)
     {
         [$openid, $wechatInfo, $spreadId, $agent_id, $login_type, $userType] = CacheService::get($key);
         $wechatInfo['phone'] = $phone;
-        //Viết thông tin người dùng
+        //Viết thông tin Khách hàng
         $user = app()->make(WechatUserServices::class)->wechatOauthAfter([$openid, $wechatInfo, $spreadId, $agent_id, $login_type, $userType]);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
@@ -190,8 +178,7 @@ class WechatServices extends BaseServices
      * Thu hút sự chú ý bằng mã QR
      * @return string[]
      * @throws \Exception
-     */
-    public function follow()
+     */    public function follow()
     {
         $canvas = Canvas::instance();
         $path = 'uploads/follow/';
@@ -215,8 +202,7 @@ class WechatServices extends BaseServices
      * Bạn có chú ý không?
      * @param int $uid
      * @return bool
-     */
-    public function isSubscribe(int $uid)
+     */    public function isSubscribe(int $uid)
     {
         if ($uid) {
             $subscribe = (bool)$this->dao->value(['uid' => $uid], 'subscribe');
@@ -234,8 +220,7 @@ class WechatServices extends BaseServices
      * @return array|false
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function appAuth(array $userData, string $phone, string $userType = 'app')
+     */    public function appAuth(array $userData, string $phone, string $userType = 'app')
     {
         $openid = $userData['openId'] ?? "";
         $userInfo = [
@@ -254,16 +239,14 @@ class WechatServices extends BaseServices
             //Nhận xem có buộc liên kết số điện thoại di động hay không
             $storeUserMobile = sys_config('store_user_mobile');
             if ($userInfo['unionid'] && $storeUserMobile) {
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
                 $uid = $this->dao->value(['unionid' => $userInfo['unionid'], 'is_del' => 0], 'uid');
                 $res = $userServices->value(['uid' => $uid, 'is_del' => 0], 'phone');
                 if (!$uid && !$res) {
                     return false;
                 }
             } elseif ($openid && $storeUserMobile) {
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
                 $uid = $this->dao->value(['openid' => $openid], 'uid');
                 $res = $userServices->value(['uid' => $uid], 'phone');
                 if (!$uid && !$res) {
@@ -271,14 +254,12 @@ class WechatServices extends BaseServices
                 }
             }
         }
-        /** @var WechatUserServices $wechatUser */
-        $wechatUser = app()->make(WechatUserServices::class);
-        //Cập nhật thông tin người dùng
+        /** @var WechatUserServices $wechatUser */        $wechatUser = app()->make(WechatUserServices::class);
+        //Cập nhật thông tin Khách hàng
         $user = $wechatUser->wechatOauthAfter([$openid, $userInfo, $spreadId, 0, $login_type, $userType]);
         $token = $this->createToken((int)$user['uid'], 'api');
         if ($token) {
-            /** @var UserVisitServices $visitServices */
-            $visitServices = app()->make(UserVisitServices::class);
+            /** @var UserVisitServices $visitServices */            $visitServices = app()->make(UserVisitServices::class);
             $visitServices->loginSaveVisit($user);
             return [
                 'token' => $token['token'],

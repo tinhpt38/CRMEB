@@ -19,29 +19,25 @@ use think\Model;
  * Mô hình quy tắc thực đơn
  * Class SystemMenus
  * @package app\model\system
- */
-class SystemMenus extends BaseModel
+ */class SystemMenus extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_menus';
+     */    protected $name = 'system_menus';
 
     /**
      * Công cụ sửa đổi tham số
      * @param $value
      * @return false|string
-     */
-    public function setParamsAttr($value)
+     */    public function setParamsAttr($value)
     {
         $value = $value ? explode('/', $value) : [];
         $params = array_chunk($value, 2);
@@ -56,8 +52,7 @@ class SystemMenus extends BaseModel
      * Bộ lấy thông số
      * @param $_value
      * @return mixed
-     */
-    public function getParamsAttr($_value)
+     */    public function getParamsAttr($_value)
     {
         return json_decode($_value, true);
     }
@@ -66,18 +61,16 @@ class SystemMenus extends BaseModel
      * pidGetter
      * @param $value
      * @return mixed|string
-     */
-    public function getPidStrAttr($value)
+     */    public function getPidStrAttr($value)
     {
         return !$value ? 'Đứng đầu' : $this->where('pid', $value)->value('menu_name');
     }
 
     /**
-     * Truy vấn điều kiện mặc định
+     * Tìm kiếm điều kiện mặc định
      * @param Model $query
      * @param $value
-     */
-    public function searchDefaultAttr($query)
+     */    public function searchDefaultAttr($query)
     {
         $query->where(['is_show' => 1, 'access' => 1]);
     }
@@ -86,8 +79,7 @@ class SystemMenus extends BaseModel
      * Có hiển thị cho người tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsShowAttr($query, $value)
+     */    public function searchIsShowAttr($query, $value)
     {
         if ($value != '') {
             $query->where('is_show', $value);
@@ -98,8 +90,7 @@ class SystemMenus extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         $query->where('is_del', $value);
     }
@@ -108,8 +99,7 @@ class SystemMenus extends BaseModel
      * PidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchPidAttr($query, $value)
+     */    public function searchPidAttr($query, $value)
     {
         $query->where('pid', $value ?? 0);
     }
@@ -118,8 +108,7 @@ class SystemMenus extends BaseModel
      * Trình tìm kiếm thông số kỹ thuật
      * @param Model $query
      * @param $value
-     */
-    public function searchRuleAttr($query, $value)
+     */    public function searchRuleAttr($query, $value)
     {
         $query->whereIn('id', $value)->where('is_del', 0)->whereOr('pid', 0);
     }
@@ -128,8 +117,7 @@ class SystemMenus extends BaseModel
      * Trình đơn tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value != '') {
             $query->whereLike('menu_name|id|pid', "%$value%");
@@ -140,8 +128,7 @@ class SystemMenus extends BaseModel
      * công cụ tìm phương pháp
      * @param Model $query
      * @param $value
-     */
-    public function searchActionAttr($query, $value)
+     */    public function searchActionAttr($query, $value)
     {
         $query->where('action', $value);
     }
@@ -150,8 +137,7 @@ class SystemMenus extends BaseModel
      * Trình tìm kiếm bộ điều khiển
      * @param Model $query
      * @param $value
-     */
-    public function searchControllerAttr($query, $value)
+     */    public function searchControllerAttr($query, $value)
     {
         $query->where('controller', lcfirst($value));
     }
@@ -160,8 +146,7 @@ class SystemMenus extends BaseModel
      * Truy cập công cụ tìm địa chỉ
      * @param Model $query
      * @param $value
-     */
-    public function searchUrlAttr($query, $value)
+     */    public function searchUrlAttr($query, $value)
     {
         $query->where('api_url', $value);
     }
@@ -170,8 +155,7 @@ class SystemMenus extends BaseModel
      * Trình tìm kiếm tham số
      * @param Model $query
      * @param $value
-     */
-    public function searchParamsAttr($query, $value)
+     */    public function searchParamsAttr($query, $value)
     {
         $query->where(function ($query) use ($value) {
             $query->where('params', $value)->whereOr('params', "'[]'");
@@ -182,8 +166,7 @@ class SystemMenus extends BaseModel
      * Trình tìm kiếm ID quyền
      * @param Model $query
      * @param $value
-     */
-    public function searchUniqueAttr($query, $value)
+     */    public function searchUniqueAttr($query, $value)
     {
         $query->where('is_del', 0);
         if ($value) {
@@ -195,8 +178,7 @@ class SystemMenus extends BaseModel
      * Tìm kiếm thông số kỹ thuật menu
      * @param Model $query
      * @param $value
-     */
-    public function searchRouteAttr($query, $value)
+     */    public function searchRouteAttr($query, $value)
     {
         $query->where('auth_type', 1)->where('is_del', 0);
         if ($value) {
@@ -208,8 +190,7 @@ class SystemMenus extends BaseModel
      * IdNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchIdAttr($query, $value)
+     */    public function searchIdAttr($query, $value)
     {
         $query->whereIn('id', $value);
     }
@@ -218,8 +199,7 @@ class SystemMenus extends BaseModel
      * is_show_path
      * @param Model $query
      * @param $value
-     */
-    public function searchIsShowPathAttr($query, $value)
+     */    public function searchIsShowPathAttr($query, $value)
     {
         $query->where('is_show_path', $value);
     }
@@ -228,8 +208,7 @@ class SystemMenus extends BaseModel
      * auth_type
      * @param Model $query
      * @param $value
-     */
-    public function searchAuthTypeAttr($query, $value)
+     */    public function searchAuthTypeAttr($query, $value)
     {
         if ($value !== '') {
             if ($value == 3) {
@@ -244,8 +223,7 @@ class SystemMenus extends BaseModel
      * Phát hiện mô-đun
      * @param Model $query
      * @param $value
-     */
-    public function searchNoModelAttr($query, $value)
+     */    public function searchNoModelAttr($query, $value)
     {
         $query->when(!in_array('seckill', $value), function ($q1) {
             $q1->whereNotLike('menu_name', '%bán chớp nhoáng%');

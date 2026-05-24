@@ -19,23 +19,21 @@ class OtherOrderDao extends BaseDao
 {
     /** Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         // TODO: Implement setModel() method.
         return OtherOrder::class;
     }
 
     /**
-     * Biết có bao nhiêu người dùng là thành viên trả phí tại một thời điểm nhất định
+     * Biết có bao nhiêu Khách hàng là thành viên trả phí tại một thời điểm nhất định
      * @param $time
      * @param string $channel_type
      * @return int|mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPayUserCount(int $time, string $channel_type = '')
+     */    public function getPayUserCount(int $time, string $channel_type = '')
     {
         return $this->getModel()->when($channel_type != '', function ($query) use ($channel_type) {
             $query->where('channel_type', $channel_type);
@@ -51,8 +49,7 @@ class OtherOrderDao extends BaseDao
      * @param $type
      * @param $timeType
      * @return mixed
-     */
-    public function getTrendData($time, $type, $timeType)
+     */    public function getTrendData($time, $type, $timeType)
     {
         return $this->getModel()->where('member_type', '<>', 0)->when($type != '', function ($query) use ($type) {
             $query->where('channel_type', $type);
@@ -71,8 +68,7 @@ class OtherOrderDao extends BaseDao
      * @param array $where
      * @param string $sumField
      * @return float
-     */
-    public function getWhereSumField(array $where, string $sumField)
+     */    public function getWhereSumField(array $where, string $sumField)
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -81,13 +77,12 @@ class OtherOrderDao extends BaseDao
             ->sum($sumField);
     }
 
-    /**Truy vấn nhóm dựa trên một trường nhất định
+    /**Tìm kiếm nhóm dựa trên một trường nhất định
      * @param array $where
      * @param string $field
      * @param string $group
      * @return mixed
-     */
-    public function getGroupField(array $where, string $field, string $group)
+     */    public function getGroupField(array $where, string $field, string $group)
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where, $field, $group) {
@@ -117,13 +112,12 @@ class OtherOrderDao extends BaseDao
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      */
-
     public function getOneByWhere(array $where)
     {
         return $this->getModel()->where($where)->find();
     }
 
-    /**Thu ngân đặt hàng
+    /**Đơn hàng POS
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -132,8 +126,7 @@ class OtherOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getScanOrderList(array $where = [], int $page = 0, int $limit = 0, string $order = '')
+     */    public function getScanOrderList(array $where = [], int $page = 0, int $limit = 0, string $order = '')
     {
         foreach ($where as $k => $v) {
             if ($v == "") unset($where[$k]);
@@ -152,8 +145,7 @@ class OtherOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMemberRecord(array $where = [], int $page = 0, int $limit = 0, string $order = '')
+     */    public function getMemberRecord(array $where = [], int $page = 0, int $limit = 0, string $order = '')
     {
         return $this->search($where)
             ->with(['user'])
@@ -170,8 +162,7 @@ class OtherOrderDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/20
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->when(isset($where['name']) && $where['name'], function ($query) use ($where) {
             $query->where('uid', 'in', function ($que) use ($where) {
@@ -189,8 +180,7 @@ class OtherOrderDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/11
-     */
-    public function count(array $where = [], bool $search = true)
+     */    public function count(array $where = [], bool $search = true)
     {
         return $this->search($where, $search)->count();
     }

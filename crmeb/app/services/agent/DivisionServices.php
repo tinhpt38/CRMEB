@@ -33,11 +33,9 @@ class DivisionServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDivisionList(array $where = [])
+     */    public function getDivisionList(array $where = [])
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $data = $userServices->getDivisionList($where + ['status' => 1], 'uid,nickname,avatar,division_name,division_percent,division_end_time,division_status,division_invite');
         foreach ($data['list'] as &$item) {
             $item['division_end_time'] = date('Y-m-d', $item['division_end_time']);
@@ -60,11 +58,9 @@ class DivisionServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function divisionDownList($type, $uid)
+     */    public function divisionDownList($type, $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $where = [
             $type == 2 ? 'division_id' : 'agent_id' => $uid,
             'division_type' => $type
@@ -88,13 +84,10 @@ class DivisionServices extends BaseServices
      * @param $uid
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function getDivisionForm($uid)
+     */    public function getDivisionForm($uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
-        /** @var SystemAdminServices $adminService */
-        $adminService = app()->make(SystemAdminServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
+        /** @var SystemAdminServices $adminService */        $adminService = app()->make(SystemAdminServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if ($uid && !$userInfo) throw new AdminException('Lỗi tham số');
         if ($uid) {
@@ -120,24 +113,21 @@ class DivisionServices extends BaseServices
         $field[] = Form::input('account', 'Quản lý tài khoản', $adminInfo['account'] ?? '')->required('Vui lòng điền vào tài khoản quản trị viên');
         $field[] = Form::input('pwd', 'Mật khẩu quản trị viên')->type('password')->placeholder('Vui lòng điền mật khẩu quản trị viên');
         $field[] = Form::input('conf_pwd', 'Xác nhận mật khẩu')->type('password')->placeholder('Vui lòng nhập mật khẩu xác nhận');
-        /** @var SystemRoleServices $service */
-        $service = app()->make(SystemRoleServices::class);
+        /** @var SystemRoleServices $service */        $service = app()->make(SystemRoleServices::class);
         $options = $service->getRoleFormSelect(1);
         $field[] = Form::select('roles', 'Trạng thái quản trị viên', $adminInfo['roles'] ?? [])->setOptions(Form::setOptions($options))->multiple(true)->required('Vui lòng chọn danh tính quản trị viên');
         return create_form($title, $field, Route::buildUrl('/agent/division/save'), 'POST');
     }
 
     /**
-     * Lưu dữ liệu đơn vị kinh doanh
+     * Lưu dữ liệu Đơn vị kinh doanh
      * @param $data
      * @return mixed
-     */
-    public function divisionSave($data)
+     */    public function divisionSave($data)
     {
         if ((int)$data['uid'] == 0) $data['uid'] = $data['image']['uid'];
-        if ((int)$data['uid'] == 0) throw new AdminException('Vui lòng điền thông tin người dùngUID');
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        if ((int)$data['uid'] == 0) throw new AdminException('Vui lòng điền thông tin Khách hàngUID');
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         if ($data['aid'] == 0) {
             $userInfo = $userServices->getUserInfo($data['uid'], 'is_division,is_agent,is_staff');
             if (!$userInfo) throw new AdminException('Người dùng không tồn tại');
@@ -178,8 +168,7 @@ class DivisionServices extends BaseServices
             $agentData['division_invite'] = $userServices->value(['uid' => $uid], 'division_invite') ?: rand(10000000, 99999999);
             $userServices->update($uid, $agentData);
 
-            /** @var SystemAdminServices $adminService */
-            $adminService = app()->make(SystemAdminServices::class);
+            /** @var SystemAdminServices $adminService */            $adminService = app()->make(SystemAdminServices::class);
             if (!$aid) {
                 if ($adminData['pwd']) {
                     if (!$adminData['conf_pwd']) throw new AdminException('Vui lòng nhập mật khẩu xác nhận');
@@ -235,15 +224,13 @@ class DivisionServices extends BaseServices
 //    }
 
     /**
-     * Thêm cơ quan biên tập
+     * Thêm cơ quan Sửa
      * @param $uid
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function getDivisionAgentForm($uid)
+     */    public function getDivisionAgentForm($uid)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $userInfo = $userService->get($uid);
         if ($uid && !$userInfo) throw new AdminException('Người dùng không tồn tại');
         $field = [];
@@ -275,11 +262,9 @@ class DivisionServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function divisionAgentSave($data)
+     */    public function divisionAgentSave($data)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $uid = $data['uid'];
         $agentData = [
             'spread_uid' => $data['division_id'],
@@ -312,13 +297,10 @@ class DivisionServices extends BaseServices
      * @param $status
      * @param $uid
      * @return bool
-     */
-    public function setDivisionStatus($status, $uid)
+     */    public function setDivisionStatus($status, $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
-        /** @var SystemAdminServices $adminServices */
-        $adminServices = app()->make(SystemAdminServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
+        /** @var SystemAdminServices $adminServices */        $adminServices = app()->make(SystemAdminServices::class);
         $res = $userServices->update($uid, ['division_status' => $status]);
         $res = $res && $adminServices->update(['division_id' => $uid], ['status' => $status]);
         if ($res) {
@@ -333,12 +315,10 @@ class DivisionServices extends BaseServices
      * @param $type
      * @param $uid
      * @return mixed
-     */
-    public function delDivision($type, $uid)
+     */    public function delDivision($type, $uid)
     {
         return $this->transaction(function () use ($type, $uid) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->getUserInfo($uid);
             if (!$userInfo) throw new AdminException('Người dùng không tồn tại');
             $userInfo = $userInfo->toArray();
@@ -378,8 +358,7 @@ class DivisionServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2024/1/22
-     */
-    public function getDivisionStaffForm($uid)
+     */    public function getDivisionStaffForm($uid)
     {
         $field = [];
         $field[] = Form::frameImage('image', 'nhân viên', $this->url(config('app.admin_prefix', 'admin') . '/system.user/list', ['fodder' => 'image'], true))->icon('el-icon-user')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
@@ -389,7 +368,7 @@ class DivisionServices extends BaseServices
     }
 
     /**
-     * cứu nhân viên
+     * Lưu nhân viên
      * @param $data
      * @return true
      * @throws \think\db\exception\DataNotFoundException
@@ -398,12 +377,10 @@ class DivisionServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2024/1/22
-     */
-    public function divisionStaffSave($data)
+     */    public function divisionStaffSave($data)
     {
         $data['uid'] = $data['image']['uid'];
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($data['uid'], 'is_division,is_agent,is_staff,division_id,agent_id,staff_id,division_end_time,division_percent');
         if (!$userInfo) throw new AdminException('Người dùng không tồn tại');
         if ($userInfo['is_division']) throw new AdminException('Người dùng này là một bộ phận kinh doanh và không thể bị ràng buộc với tư cách là nhân viên');
@@ -446,20 +423,17 @@ class DivisionServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2024/2/2
-     */
-    public function agentSpreadStaff($uid, int $agentId = 0, int $agentCode = 0)
+     */    public function agentSpreadStaff($uid, int $agentId = 0, int $agentCode = 0)
     {
         if ($agentCode && !$agentId) {
-            /** @var QrcodeServices $qrCode */
-            $qrCode = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrCode */            $qrCode = app()->make(QrcodeServices::class);
             if ($info = $qrCode->getOne(['id' => $agentCode, 'third_type' => 'agent', 'status' => 1])) {
                 $agentId = $info['third_id'];
             }
         }
         if (!$agentId) return false;
         if ($uid == $agentId) return 'Tôi không thể giới thiệu bản thân mình';
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $agentInfo = $userServices->getUserInfo($agentId, 'division_id,agent_id,division_end_time,division_percent');
         if (!$agentInfo) return 'Người dùng cao cấp không tồn tại';
         $userInfo = $userServices->getUserInfo($uid, 'is_division,is_agent,is_staff,division_id,agent_id,staff_id,division_end_time,division_percent');
@@ -495,24 +469,20 @@ class DivisionServices extends BaseServices
      * @param $storeBrokerageRatioTwo
      * @param $isSelfBrokerage
      * @return array
-     */
-    public function getDivisionPercent($uid, $storeBrokerageRatio, $storeBrokerageRatioTwo, $isSelfBrokerage)
+     */    public function getDivisionPercent($uid, $storeBrokerageRatio, $storeBrokerageRatioTwo, $isSelfBrokerage)
     {
         $division_open = (int)sys_config('division_status', 1);
         if (!$division_open) {
-            /** Đại lý đã đóng cửa */
-            $storeBrokerageOne = $storeBrokerageRatio;
+            /** Đại lý đã đóng cửa */            $storeBrokerageOne = $storeBrokerageRatio;
             $storeBrokerageTwo = $storeBrokerageRatioTwo;
             $staffPercent = 0;
             $agentPercent = 0;
             $divisionPercent = 0;
         } else {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->get($uid);
             if ($userInfo['is_division'] == 1) {
-                /** Tôi là bộ phận kinh doanh */
-                $storeBrokerageOne = 0;
+                /** Tôi là bộ phận kinh doanh */                $storeBrokerageOne = 0;
                 $storeBrokerageTwo = 0;
                 $staffPercent = 0;
                 $agentPercent = 0;
@@ -522,8 +492,7 @@ class DivisionServices extends BaseServices
                     $divisionPercent = 0;
                 }
             } elseif ($userInfo['is_agent'] == 1) {
-                /** Tôi là một đại lý */
-                $divisionInfo = $userServices->get($userInfo['division_id']);
+                /** Tôi là một đại lý */                $divisionInfo = $userServices->get($userInfo['division_id']);
                 $storeBrokerageOne = 0;
                 $storeBrokerageTwo = 0;
                 $staffPercent = 0;
@@ -539,8 +508,7 @@ class DivisionServices extends BaseServices
                     $divisionPercent = 0;
                 }
             } elseif ($userInfo['is_staff'] == 1) { // tôi là một nhân viên
-                /** Tôi là nhân viên */
-                $agentInfo = $userServices->get($userInfo['agent_id']);
+                /** Tôi là nhân viên */                $agentInfo = $userServices->get($userInfo['agent_id']);
                 $divisionInfo = $userServices->get($userInfo['division_id']);
                 $storeBrokerageOne = 0;
                 $storeBrokerageTwo = 0;
@@ -562,15 +530,12 @@ class DivisionServices extends BaseServices
                     $divisionPercent = 0;
                 }
             } else {
-                /** Tôi là người dùng bình thường */
-                $staffInfo = $userServices->get($userInfo['staff_id']);
+                /** Tôi là Khách hàng bình thường */                $staffInfo = $userServices->get($userInfo['staff_id']);
                 $agentInfo = $userServices->get($userInfo['agent_id']);
                 $divisionInfo = $userServices->get($userInfo['division_id']);
                 if ($userInfo['staff_id']) {
-                    /** Người dùng này quảng cáo cho nhân viên */
-                    if ($userInfo['staff_id'] == $userInfo['spread_uid']) {
-                        /** Nhân viên báo cáo trực tiếp cho */
-                        $storeBrokerageOne = $isSelfBrokerage ? $storeBrokerageRatio : 0;
+                    /** Người dùng này quảng cáo cho nhân viên */                    if ($userInfo['staff_id'] == $userInfo['spread_uid']) {
+                        /** Nhân viên báo cáo trực tiếp cho */                        $storeBrokerageOne = $isSelfBrokerage ? $storeBrokerageRatio : 0;
                         $storeBrokerageTwo = 0;
                         if ($staffInfo['division_status'] == 1 && $staffInfo['division_end_time'] > time()) {
                             $staffPercent = bcsub($staffInfo['division_percent'], $storeBrokerageOne, 2);
@@ -614,8 +579,7 @@ class DivisionServices extends BaseServices
                         }
                     }
                 } elseif ($userInfo['agent_id']) {
-                    /** Người dùng này quảng bá cho đại lý */
-                    if ($userInfo['agent_id'] == $userInfo['spread_uid']) {
+                    /** Người dùng này quảng bá cho đại lý */                    if ($userInfo['agent_id'] == $userInfo['spread_uid']) {
                         $storeBrokerageOne = $isSelfBrokerage ? $storeBrokerageRatio : 0;
                         $storeBrokerageTwo = 0;
                         $staffPercent = 0;
@@ -650,10 +614,8 @@ class DivisionServices extends BaseServices
                         }
                     }
                 } elseif ($userInfo['division_id']) {
-                    /** Người dùng này quảng cáo bộ phận kinh doanh */
-                    if ($userInfo['division_id'] == $userInfo['spread_uid']) {
-                        /** Phòng kinh doanh báo cáo trực tiếp */
-                        $storeBrokerageOne = $isSelfBrokerage ? $storeBrokerageRatio : 0;
+                    /** Người dùng này quảng cáo bộ phận kinh doanh */                    if ($userInfo['division_id'] == $userInfo['spread_uid']) {
+                        /** Phòng kinh doanh báo cáo trực tiếp */                        $storeBrokerageOne = $isSelfBrokerage ? $storeBrokerageRatio : 0;
                         $storeBrokerageTwo = 0;
                         $staffPercent = 0;
                         $agentPercent = 0;
@@ -677,8 +639,7 @@ class DivisionServices extends BaseServices
                         }
                     }
                 } else {
-                    /** Không có mối quan hệ đại lý */
-                    $storeBrokerageOne = $storeBrokerageRatio;
+                    /** Không có mối quan hệ đại lý */                    $storeBrokerageOne = $storeBrokerageRatio;
                     $storeBrokerageTwo = $storeBrokerageRatioTwo;
                     $staffPercent = 0;
                     $agentPercent = 0;
@@ -690,7 +651,7 @@ class DivisionServices extends BaseServices
     }
 
     /**
-     * Thống kê đơn vị kinh doanh
+     * Thống kê Đơn vị kinh doanh
      * @param $type
      * @param $time
      * @param $page
@@ -701,8 +662,7 @@ class DivisionServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/4/8
-     */
-    public function divisionStatistics($type, $time, $page, $limit, $sort, $order)
+     */    public function divisionStatistics($type, $time, $page, $limit, $sort, $order)
     {
         switch ($type) {
             case 1:

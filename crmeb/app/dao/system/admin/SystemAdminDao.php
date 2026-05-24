@@ -17,8 +17,7 @@ use app\model\system\admin\SystemAdmin;
 /**
  * Class SystemAdminDao
  * @package app\dao\system\admin
- */
-class SystemAdminDao extends BaseDao
+ */class SystemAdminDao extends BaseDao
 {
     protected function setModel(): string
     {
@@ -31,8 +30,7 @@ class SystemAdminDao extends BaseDao
      * @param int $page
      * @param int $limit
      * @return mixed
-     */
-    public function getList(array $where, int $page, int $limit)
+     */    public function getList(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->select()->toArray();
     }
@@ -44,8 +42,7 @@ class SystemAdminDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function accountByAdmin(string $account)
+     */    public function accountByAdmin(string $account)
     {
         return $this->search(['account' => $account, 'is_del' => 0])->find();
     }
@@ -55,8 +52,7 @@ class SystemAdminDao extends BaseDao
      * @param string $account
      * @param int $id
      * @return int
-     */
-    public function isAccountUsable(string $account, int $id)
+     */    public function isAccountUsable(string $account, int $id)
     {
         return $this->search(['account' => $account, 'is_del' => 0])->where('id', '<>', $id)->count();
     }
@@ -65,8 +61,7 @@ class SystemAdminDao extends BaseDao
      * lấyadminid
      * @param int $level
      * @return array
-     */
-    public function getAdminIds(int $level)
+     */    public function getAdminIds(int $level)
     {
         return $this->getModel()->where('level', '>=', $level)->column('id', 'id');
     }
@@ -79,8 +74,7 @@ class SystemAdminDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrdAdmin(string $field = 'real_name,id', int $level = 0)
+     */    public function getOrdAdmin(string $field = 'real_name,id', int $level = 0)
     {
         return $this->getModel()->where('level', '>=', $level)->field($field)->select()->toArray();
     }
@@ -89,8 +83,7 @@ class SystemAdminDao extends BaseDao
      * Thu thập dữ liệu quản trị viên có điều kiện
      * @param $where
      * @return mixed
-     */
-    public function getInfo($where)
+     */    public function getInfo($where)
     {
         return $this->getModel()->where($where)->find();
     }
@@ -99,8 +92,7 @@ class SystemAdminDao extends BaseDao
      * Kiểm tra xem có quản trị viên nào sử dụng vai trò này không
      * @param int $id
      * @return bool
-     */
-    public function checkRoleUse(int $id): bool
+     */    public function checkRoleUse(int $id): bool
     {
         return (bool)$this->getModel()->where('level', '<>', 0)->where('is_del', 0)->whereFindInSet('roles', $id)->count();
     }

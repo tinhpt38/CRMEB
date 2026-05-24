@@ -31,8 +31,7 @@ class PublicController
      * Nhận dữ liệu thành phố
      * @param Request $request
      * @return mixed
-     */
-    public function getCity(Request $request)
+     */    public function getCity(Request $request)
     {
         list($pid) = $request->getMore([
             [['pid', 'd'], 0],
@@ -43,8 +42,7 @@ class PublicController
     /**
      * Nhận thông tin công ty
      * @return mixed
-     */
-    public function getCompanyInfo()
+     */    public function getCompanyInfo()
     {
         $data['contact_number'] = sys_config('contact_number');
         $data['company_address'] = sys_config('company_address');
@@ -70,8 +68,7 @@ class PublicController
     /**
      * Thu hút sự chú ý Mã QR WeChat
      * @return mixed
-     */
-    public function getWechatQrcode()
+     */    public function getWechatQrcode()
     {
         $data['wechat_qrcode'] = sys_config('wechat_qrcode');
         return app('json')->success($data);
@@ -84,8 +81,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/6
-     */
-    public function getNewsCategory(ArticleCategoryServices $services)
+     */    public function getNewsCategory(ArticleCategoryServices $services)
     {
         $cateInfo = CacheService::remember('ARTICLE_CATEGORY_PC', function () use ($services) {
             return $services->getArticleCategory();
@@ -105,8 +101,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/6
-     */
-    public function getNewsList(Request $request, ArticleServices $services)
+     */    public function getNewsList(Request $request, ArticleServices $services)
     {
         list($cid, $page, $limit) = $request->getMore([
             [['cid', 'd'], 0],
@@ -137,8 +132,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/6
-     */
-    public function getNewsDetail(ArticleServices $services, $id)
+     */    public function getNewsDetail(ArticleServices $services, $id)
     {
         $info = $services->getInfo($id);
         return app('json')->success($info);

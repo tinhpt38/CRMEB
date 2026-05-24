@@ -12,8 +12,7 @@ use think\facade\Route;
 
 /**
  * Định tuyến đơn hàng
- */
-Route::group('order', function () {
+ */Route::group('order', function () {
     //Nhận thông tin chuyển phát nhanh
     Route::get('kuaidi_coms', 'v1.order.StoreOrder/getKuaidiComs')->option(['real_name' => 'Nhận thông tin chuyển phát nhanh']);
     //Hủy vận chuyển của người bán
@@ -32,9 +31,9 @@ Route::group('order', function () {
     Route::get('edit/:id', 'v1.order.StoreOrder/edit')->name('StoreOrderEdit')->option(['real_name' => 'Nhận mẫu chỉnh sửa đơn hàng']);
     //Sửa đổi thứ tự
     Route::put('update/:id', 'v1.order.StoreOrder/update')->name('StoreOrderUpdate')->option(['real_name' => 'Sửa đổi thứ tự']);
-    //xác nhận đã nhận hàng
+    //Xác nhận nhận hàng
     Route::put('take/:id', 'v1.order.StoreOrder/take_delivery')->name('StoreOrderTakeDelivery')->option(['real_name' => 'Xác nhận nhận hàng']);
-    //Lô hàng số lượng lớn
+    //Giao hàng loạt
     Route::get('delivery/import_express', 'v1.order.StoreOrder/importExpress')->name('importExpress')->option(['real_name' => 'Giao hàng loạt']);
     //Gửi hàng
     Route::put('delivery/:id', 'v1.order.StoreOrder/update_delivery')->name('StoreOrderUpdateDelivery')->option(['real_name' => 'Đã giao cho ĐVVC']);
@@ -56,7 +55,7 @@ Route::group('order', function () {
     Route::get('express/:id', 'v1.order.StoreOrder/get_express')->name('StoreOrderUpdateExpress')->option(['real_name' => 'Nhận thông tin hậu cần']);
     //Nhận công ty hậu cần
     Route::get('express_list', 'v1.order.StoreOrder/express')->name('StoreOrdeRexpressList')->option(['real_name' => 'Nhận công ty hậu cần']);
-    //Chi tiết đặt hàng
+    //Chi tiết đơn hàng
     Route::get('info/:id', 'v1.order.StoreOrder/order_info')->name('StoreOrderorInfo')->option(['real_name' => 'Chi tiết đơn hàng']);
     //Nhận mẫu thông tin vận chuyển
     Route::get('distribution/:id', 'v1.order.StoreOrder/distribution')->name('StoreOrderorDistribution')->option(['real_name' => 'Nhận mẫu thông tin vận chuyển']);
@@ -92,7 +91,7 @@ Route::group('order', function () {
     Route::get('invoice/list', 'v1.order.StoreOrderInvoice/list')->name('StoreOrderorInvoiceList')->option(['real_name' => 'Yêu cầu danh sách hóa đơn']);
     //Đặt trạng thái hóa đơn
     Route::post('invoice/set/:id', 'v1.order.StoreOrderInvoice/set_invoice')->name('StoreOrderorInvoiceSet')->option(['real_name' => 'Đặt trạng thái hóa đơn']);
-    //Chi tiết đơn hàng hóa đơn
+    //Chi tiết đơn sản phẩm đơn
     Route::get('invoice_order_info/:id', 'v1.order.StoreOrderInvoice/orderInfo')->name('StoreOrderorInvoiceOrderInfo')->option(['real_name' => 'Chi tiết đơn sản phẩm đơn']);
     //Lấy địa chỉ iframe của trang phát hành hóa đơn
     Route::get('invoice_issuance_url/:id', 'v1.order.StoreOrderInvoice/invoiceIssuanceUrl')->name('invoiceIssuanceUrl')->option(['real_name' => 'Lấy địa chỉ iframe của trang phát hành hóa đơn']);
@@ -120,7 +119,7 @@ Route::group('order', function () {
     Route::get('delivery/:id/edit', 'v1.order.DeliveryService/edit')->option(['real_name' => 'Chỉnh sửa mẫu người giao hàng']);
     //Lưu dữ liệu đã chỉnh sửa
     Route::put('delivery/update/:id', 'v1.order.DeliveryService/update')->option(['real_name' => 'Sửa đổi người giao hàng']);
-    //xóa bỏ
+    //Xóa
     Route::delete('delivery/del/:id', 'v1.order.DeliveryService/delete')->option(['real_name' => 'Xóa người giao hàng']);
     //Sửa đổi trạng thái
     Route::get('delivery/set_status/:id/:status', 'v1.order.DeliveryService/set_status')->option(['real_name' => 'Sửa đổi trạng thái người giao hàng']);
@@ -149,12 +148,11 @@ Route::group('order', function () {
 
 /**
  * Các tuyến đường liên quan đến hậu mãi
- */
-Route::group('refund', function () {
+ */Route::group('refund', function () {
     //Danh sách hậu mãi
     Route::get('list', 'v1.order.RefundOrder/getRefundList')->option(['real_name' => 'Danh sách đơn hàng sau bán hàng']);
-    //Người bán đồng ý hoàn tiền và chờ người dùng trả lại hàng
-    Route::get('agree/:id', 'v1.order.RefundOrder/agreeExpress')->option(['real_name' => 'Người bán đồng ý hoàn tiền và chờ người dùng trả lại hàng']);
+    //Người bán đồng ý hoàn tiền và chờ Khách hàng trả lại hàng
+    Route::get('agree/:id', 'v1.order.RefundOrder/agreeExpress')->option(['real_name' => 'Người bán đồng ý hoàn tiền và chờ Khách hàng trả lại hàng']);
     //Ghi chú đơn hàng sau bán hàng
     Route::put('remark/:id', 'v1.order.RefundOrder/remark')->option(['real_name' => 'Ghi chú đơn hàng sau bán hàng']);
     //Mẫu hoàn tiền đơn hàng sau bán hàng

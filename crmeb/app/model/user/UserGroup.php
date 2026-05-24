@@ -17,20 +17,17 @@ use crmeb\traits\ModelTrait;
 /**
  * Class UserGroup
  * @package app\model\user
- */
-class UserGroup extends BaseModel
+ */class UserGroup extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_group';
+     */    protected $name = 'user_group';
 }

@@ -38,16 +38,14 @@ use think\facade\Log;
  * Sau khi thanh toán đơn hàng thành công
  * Class OrderPaySuccessListener
  * @package app\listener\order
- */
-class OrderPaySuccessListener implements ListenerInterface
+ */class OrderPaySuccessListener implements ListenerInterface
 {
     public function handle($event): void
     {
         [$orderInfo] = $event;
 
         //Viết sự kiện trạng thái đơn hàng
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $orderInfo['id'],
             'change_type' => 'pay_success',
@@ -55,10 +53,9 @@ class OrderPaySuccessListener implements ListenerInterface
             'change_time' => time()
         ]);
 
-        //Phiếu giảm giá miễn phí cho các sản phẩm đã mua chỉ được cung cấp cho các đơn đặt hàng sản phẩm thông thường.
+        //Mã giảm giá miễn phí cho các sản phẩm đã mua chỉ được cung cấp cho các đơn đặt hàng sản phẩm thông thường.
         if (!$orderInfo['seckill_id'] && !$orderInfo['bargain_id'] && !$orderInfo['combination_id']) {
-            /** @var StoreProductCouponServices $storeProductCouponServices */
-            $storeProductCouponServices = app()->make(StoreProductCouponServices::class);
+            /** @var StoreProductCouponServices $storeProductCouponServices */            $storeProductCouponServices = app()->make(StoreProductCouponServices::class);
             $storeProductCouponServices->giveOrderProductCoupon((int)$orderInfo['uid'], $orderInfo['id']);
         }
 
@@ -73,26 +70,23 @@ class OrderPaySuccessListener implements ListenerInterface
             }
         }
 
-        //Tự động phân phối hàng hóa ảo
+        //Tự động phân phối sản phẩm ảo
         if (in_array($orderInfo['virtual_type'], [1, 2]) && $orderInfo['combination_id'] == 0) {
-            /** @var StoreOrderDeliveryServices $orderDeliveryServices */
-            $orderDeliveryServices = app()->make(StoreOrderDeliveryServices::class);
+            /** @var StoreOrderDeliveryServices $orderDeliveryServices */            $orderDeliveryServices = app()->make(StoreOrderDeliveryServices::class);
             $orderDeliveryServices->virtualSend($orderInfo);
         }
 
         // Viết dòng vốn
         if (in_array($orderInfo['pay_type'], ['weixin', 'alipay', 'allinpay'])) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->get($orderInfo['uid']);
-            /** @var CapitalFlowServices $capitalFlowServices */
-            $capitalFlowServices = app()->make(CapitalFlowServices::class);
+            /** @var CapitalFlowServices $capitalFlowServices */            $capitalFlowServices = app()->make(CapitalFlowServices::class);
             $orderInfo['nickname'] = $userInfo['nickname'];
             $orderInfo['phone'] = $userInfo['phone'];
             $capitalFlowServices->setFlow($orderInfo, 'order');
         }
 
-        //In biên lai
+        //In phiếu giao hàng
         PrintJob::dispatch([$orderInfo['id'], 1]);
 
         //Gửi tin nhắn sau khi thanh toán thành công
@@ -101,7 +95,7 @@ class OrderPaySuccessListener implements ListenerInterface
         //Khoản thanh toán được chính bạn xử lý thành công và mức độ phân phối vượt trội được nâng cấp.
         AgentJob::dispatch([(int)$orderInfo['uid']]);
 
-        //Nhật ký sản phẩm hồ sơ thanh toán
+        //Nhật ký sản phẩm Lịch sử thanh toán
         ProductLogJob::dispatch(['pay', ['uid' => $orderInfo['uid'], 'order_id' => $orderInfo['id']]]);
     }
 }

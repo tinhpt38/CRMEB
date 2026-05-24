@@ -23,31 +23,27 @@ use app\services\kefu\service\StoreServiceRecordServices;
 /**
  * Class UserServices
  * @package app\services\kefu
- */
-class UserServices extends BaseServices
+ */class UserServices extends BaseServices
 {
 
     /**
      * UserServices constructor.
      * @param UserDao $dao
-     */
-    public function __construct(UserDao $dao)
+     */    public function __construct(UserDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Lấy thông tin người dùng
+     * Lấy thông tin Khách hàng
      * @param int $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserInfo(int $uid)
+     */    public function getUserInfo(int $uid)
     {
-        /** @var StoreServiceRecordServices $kefuService */
-        $kefuService = app()->make(StoreServiceRecordServices::class);
+        /** @var StoreServiceRecordServices $kefuService */        $kefuService = app()->make(StoreServiceRecordServices::class);
         if (!$kefuService->count(['to_uid' => $uid])) {
             throw new ApiException('Người dùng không tồn tại');
         }
@@ -55,11 +51,9 @@ class UserServices extends BaseServices
         if (!$userInfo) {
             throw new ApiException('Người dùng không tồn tại');
         }
-        /** @var UserLabelRelationServices $labalServices */
-        $labalServices = app()->make(UserLabelRelationServices::class);
+        /** @var UserLabelRelationServices $labalServices */        $labalServices = app()->make(UserLabelRelationServices::class);
         $labalId = $labalServices->getColumn(['uid' => $uid], 'label_id', 'label_id');
-        /** @var UserLabelServices $services */
-        $services = app()->make(UserLabelServices::class);
+        /** @var UserLabelServices $services */        $services = app()->make(UserLabelServices::class);
         $labelNames = $services->getColumn([['id', 'in', $labalId]], 'label_name');
         $userInfo->labelNames = $labelNames;
         $userInfo->spread_name = $userInfo->level_name = '';
@@ -67,8 +61,7 @@ class UserServices extends BaseServices
             $userInfo->spread_name = $this->dao->value(['uid' => $userInfo->spread_uid], 'nickname');
         }
         if ($userInfo->level) {
-            /** @var SystemUserLevelServices $levelService */
-            $levelService = app()->make(SystemUserLevelServices::class);
+            /** @var SystemUserLevelServices $levelService */            $levelService = app()->make(SystemUserLevelServices::class);
             $userInfo->level_name = $levelService->value(['id' => $userInfo->level], 'name');
         }
         if ($userInfo->userGroup) {

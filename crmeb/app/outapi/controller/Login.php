@@ -18,15 +18,13 @@ use app\services\out\OutAccountServices;
 /**
  * Class Login
  * @package app\out\controller
- */
-class Login extends AuthController
+ */class Login extends AuthController
 {
     /**
      * OutAccount constructor.
      * @param App $app
      * @param OutAccountServices $services
-     */
-    public function __construct(App $app, OutAccountServices $services)
+     */    public function __construct(App $app, OutAccountServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -38,14 +36,13 @@ class Login extends AuthController
     }
 
     /**
-     * Đăng nhập dịch vụ khách hàng
+     * Đăng nhập CSKH
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getToken(Request $request)
+     */    public function getToken(Request $request)
     {
         [$appid, $appsecret] = $request->postMore([
             ['appid', ''],
@@ -61,8 +58,7 @@ class Login extends AuthController
     /**
      * làm cho khỏe lạitoken
      * @return void
-     */
-    public function refreshToken(Request $request)
+     */    public function refreshToken(Request $request)
     {
         [$token] = $request->postMore([
             ['access_token', ''],

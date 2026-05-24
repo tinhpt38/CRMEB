@@ -26,14 +26,12 @@ use think\facade\Log;
 /**
  * Class StoreOrderInvoiceServices
  * @package app\services\order
- */
-class StoreOrderInvoiceServices extends BaseServices
+ */class StoreOrderInvoiceServices extends BaseServices
 {
     /**
      * LiveAnchorServices constructor.
      * @param StoreOrderInvoiceDao $dao
-     */
-    public function __construct(StoreOrderInvoiceDao $dao)
+     */    public function __construct(StoreOrderInvoiceDao $dao)
     {
         $this->dao = $dao;
     }
@@ -42,7 +40,7 @@ class StoreOrderInvoiceServices extends BaseServices
     {
         $where['is_pay'] = 1;
         $where['is_del'] = 0;
-        //tất cả
+        //Tất cả
         $data['all'] = (string)$this->dao->count($where);
         //Sẽ được mở
         $where['type'] = 1;
@@ -64,8 +62,7 @@ class StoreOrderInvoiceServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         [$page, $list] = $this->getPageValue();
         $field = 'id as invoice_id,order_id,header_type,type,name,duty_number,drawer_phone,email,tell,address,bank,card_number,is_invoice,invoice_number,remark as invoice_reamrk,invoice_time,add_time as invoice_add_time,unique_num,invoice_num,invoice_type,invoice_serial_number,red_invoice_num';
@@ -90,18 +87,16 @@ class StoreOrderInvoiceServices extends BaseServices
     }
 
     /**
-     * Giao diện người dùng lấy danh sách lập hóa đơn (có thông tin sản phẩm)）
+     * Giao diện Khách hàng lấy danh sách lập hóa đơn (có thông tin sản phẩm)）
      * @param $where
      * @return array
-     */
-    public function getOrderInvoiceList(array $where)
+     */    public function getOrderInvoiceList(array $where)
     {
         [$page, $list] = $this->getPageValue();
         $where['is_pay'] = 1;
         $where['is_del'] = 0;
         $list = $this->dao->getList($where, '*', ['order'], 'add_time desc', $page, $list);
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         foreach ($list as &$item) {
             if (isset($item['order']) && $item['order']) {
                 $item['order'] = $storeOrderServices->tidyOrder($item['order'], true);
@@ -124,16 +119,13 @@ class StoreOrderInvoiceServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function makeUp(int $uid, $order_id, int $invoice_id)
+     */    public function makeUp(int $uid, $order_id, int $invoice_id)
     {
         if (!$order_id) throw new AdminException('Lỗi tham số');
         if (!$invoice_id) throw new AdminException('Vui lòng chọn hóa đơn');
 
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
-        /** @var UserInvoiceServices $userInvoiceServices */
-        $userInvoiceServices = app()->make(UserInvoiceServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var UserInvoiceServices $userInvoiceServices */        $userInvoiceServices = app()->make(UserInvoiceServices::class);
         $order = $storeOrderServices->getOne(['order_id|id' => $order_id, 'is_del' => 0]);
         if (!$order) {
             throw new AdminException('Đơn hàng không tồn tại');
@@ -194,25 +186,23 @@ class StoreOrderInvoiceServices extends BaseServices
     }
 
     /**
-     * Chia đơn hàng đồng bộ hóa hồ sơ hóa đơn ứng dụng chia tách
+     * Chia đơn hàng đồng bộ hóa hồ sơ hóa đơn Ứng dụng chia tách
      * @param int $oid
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function splitOrderInvoice(int $oid)
+     */    public function splitOrderInvoice(int $oid)
     {
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $orderInfo = $storeOrderServices->getOne(['id' => $oid, 'is_del' => 0]);
         if (!$orderInfo) {
             throw new AdminException('Đơn hàng không tồn tại');
         }
         $pid = $orderInfo['pid'] > 0 ? $orderInfo['pid'] : $orderInfo['id'];
-        //Truy vấn hồ sơ thanh toán
+        //Tìm kiếm Lịch sử thanh toán
         $orderInvoice = $this->dao->get(['order_id' => $oid]);
-        //Thứ tự phụ truy vấn
+        //Đơn hàng phụ truy vấn
         $spliteOrder = $storeOrderServices->getColumn(['pid' => $pid, 'is_system_del' => 0], 'id,order_id');
         if ($spliteOrder && $orderInvoice) {
             $data = $orderInvoice->toArray();
@@ -248,8 +238,7 @@ class StoreOrderInvoiceServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/15
-     */
-    public function invoiceIssuance($id)
+     */    public function invoiceIssuance($id)
     {
         if (sys_config('elec_invoice', 1) != 1) {
             return app('json')->fail('Chức năng hóa đơn điện tử chưa được kích hoạt. Vui lòng kích hoạt nó trong One Number Connect và kích hoạt nó trong cấu hình One Number Connect trong phần phụ trợ của trung tâm mua sắm.');
@@ -311,8 +300,7 @@ class StoreOrderInvoiceServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/15
-     */
-    public function autoInvoice()
+     */    public function autoInvoice()
     {
         if (sys_config('elec_invoice', 1) != 1) {
             return true;
@@ -341,8 +329,7 @@ class StoreOrderInvoiceServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/15
-     */
-    public function autoInvoiceRed()
+     */    public function autoInvoiceRed()
     {
         if (sys_config('elec_invoice', 1) != 1) {
             return true;
@@ -376,8 +363,7 @@ class StoreOrderInvoiceServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/16
-     */
-    public function redInvoiceIssuance($id)
+     */    public function redInvoiceIssuance($id)
     {
         $invoiceInfo = $this->dao->get($id);
         if ($invoiceInfo['is_pay'] == 0 || $invoiceInfo['is_invoice'] == 0 || $invoiceInfo['unique_num'] == '') {

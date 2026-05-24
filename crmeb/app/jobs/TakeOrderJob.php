@@ -23,19 +23,16 @@ use think\facade\Log;
  * Hàng đợi tin nhắn nhận tự động
  * Class TakeOrderJob
  * @package crmeb\jobs
- */
-class TakeOrderJob extends BaseJobs
+ */class TakeOrderJob extends BaseJobs
 {
     use QueueTrait;
 
     /**
      * @param $id
      * @return bool
-     */
-    public function doJob($id)
+     */    public function doJob($id)
     {
-        /** @var StoreOrderTakeServices $services */
-        $services  = app()->make(StoreOrderTakeServices::class);
+        /** @var StoreOrderTakeServices $services */        $services  = app()->make(StoreOrderTakeServices::class);
         $orderInfo = $services->get($id);
         if (!$orderInfo) {
             return true;
@@ -46,15 +43,13 @@ class TakeOrderJob extends BaseJobs
         if ($orderInfo->refund_status == 2) {
             return true;
         }
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $order         = $orderServices->tidyOrder($orderInfo);
         if ($order['_status']['_type'] != 2) {
             return true;
         }
         $orderInfo->status = 2;
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $res           = $orderInfo->save() && $statusService->save([
                 'oid'            => $orderInfo['id'],
                 'change_type'    => 'take_delivery',

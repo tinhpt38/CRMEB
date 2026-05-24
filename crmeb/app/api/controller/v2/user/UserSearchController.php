@@ -18,19 +18,16 @@ use think\Request;
 /**
  * Class UserInvoiceController
  * @package app\api\controller\v2\user
- */
-class UserSearchController
+ */class UserSearchController
 {
     /**
      * @var UserSearchServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * UserSearchController constructor.
      * @param UserSearchServices $services
-     */
-    public function __construct(UserSearchServices $services)
+     */    public function __construct(UserSearchServices $services)
     {
         $this->services = $services;
     }

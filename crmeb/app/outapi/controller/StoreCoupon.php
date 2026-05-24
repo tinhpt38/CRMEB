@@ -18,16 +18,14 @@ use think\facade\App;
  * Bộ điều khiển phiếu giảm giá
  * Class StoreCoupon
  * @package app\outapi\controller
- */
-class StoreCoupon extends AuthController
+ */class StoreCoupon extends AuthController
 {
     /**
      * StoreCoupon constructor.
      * @param App $app
      * @param StoreCouponIssueServices $service
      * @method temp
-     */
-    public function __construct(App $app, StoreCouponIssueServices $services)
+     */    public function __construct(App $app, StoreCouponIssueServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class StoreCoupon extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst()
+     */    public function lst()
     {
         $where = $this->request->getMore([
             ['status', 1],
@@ -55,8 +52,7 @@ class StoreCoupon extends AuthController
     /**
      * Thêm phiếu giảm giá
      * @return void
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['coupon_title', ''],
@@ -88,8 +84,7 @@ class StoreCoupon extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function status($id, $status)
+     */    public function status($id, $status)
     {
         if ($id < 1 || !in_array((int)$status, [0, 1])) {
             return app('json')->fail('Lỗi tham số');
@@ -99,17 +94,15 @@ class StoreCoupon extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param string $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
 
         $this->services->update($id, ['is_del' => 1]);
-        /** @var StoreProductCouponServices $storeProductService */
-        $storeProductService = app()->make(StoreProductCouponServices::class);
+        /** @var StoreProductCouponServices $storeProductService */        $storeProductService = app()->make(StoreProductCouponServices::class);
         //Xóa phiếu giảm giá này được liên kết với sản phẩm
         $storeProductService->delete(['issue_coupon_id' => $id]);
         return app('json')->success('Xóa thành công');

@@ -21,49 +21,43 @@ use think\Model;
  *  Đánh giá sản phẩmModel
  * Class StoreProductReply
  * @package app\model\product\product
- */
-class StoreProductReply extends BaseModel
+ */class StoreProductReply extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_reply';
+     */    protected $name = 'store_product_reply';
 
     /**
      * hiệp hội một-một
      * Đánh giá sản phẩm các sản phẩm liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function productInfo()
+     */    public function productInfo()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id');
     }
 
     /**
      * hiệp hội một-một
-     * Đơn hàng liên quan đến đánh giá sản phẩm
+     * Đơn hàng liên quan đến Đánh giá sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function cartInfo()
+     */    public function cartInfo()
     {
         return $this->hasOne(StoreOrderCartInfo::class, 'unique', 'unique')->bind(['cart_info']);
     }
 
     /**
      * hiệp hội một-một
-     * Đơn hàng liên quan đến đánh giá sản phẩm
+     * Đơn hàng liên quan đến Đánh giá sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function userInfo()
+     */    public function userInfo()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field('is_money_level,uid')->bind(['is_money_level']);
     }
@@ -73,8 +67,7 @@ class StoreProductReply extends BaseModel
      * Xem lại công cụ sửa đổi hình ảnh
      * @param $value
      * @return false|string
-     */
-    protected function setPicsAttr($value)
+     */    protected function setPicsAttr($value)
     {
         return is_array($value) ? json_encode($value) : $value;
     }
@@ -83,18 +76,16 @@ class StoreProductReply extends BaseModel
      * Xem lại trình lấy ảnh
      * @param $value
      * @return mixed
-     */
-    protected function getPicsAttr($value)
+     */    protected function getPicsAttr($value)
     {
         return json_decode($value, true);
     }
 
     /**
-     * Người tìm kiếm người dùng
+     * Người tìm kiếm Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -103,8 +94,7 @@ class StoreProductReply extends BaseModel
      * Công cụ tìm sản phẩm
      * @param Model $query
      * @param $value
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         $query->where('product_id', $value);
     }
@@ -113,8 +103,7 @@ class StoreProductReply extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         $query->where('is_del', $value ?? 0);
     }
@@ -123,8 +112,7 @@ class StoreProductReply extends BaseModel
      * Có trả lời người tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsReplyAttr($query, $value)
+     */    public function searchIsReplyAttr($query, $value)
     {
         $query->where('is_reply', $value);
     }
@@ -132,8 +120,7 @@ class StoreProductReply extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchUniqueAttr($query, $value)
+     */    public function searchUniqueAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('unique', $value);
@@ -146,8 +133,7 @@ class StoreProductReply extends BaseModel
      * oidtìm kiếm id đơn hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchOidAttr($query, $value)
+     */    public function searchOidAttr($query, $value)
     {
         $query->where('oid', $value);
     }
@@ -156,8 +142,7 @@ class StoreProductReply extends BaseModel
      * Công cụ tìm điểm sản phẩm
      * @param Model $query
      * @param $value
-     */
-    public function searchProductScoreAttr($query, $value)
+     */    public function searchProductScoreAttr($query, $value)
     {
         $query->where('product_score', $value);
     }
@@ -166,8 +151,7 @@ class StoreProductReply extends BaseModel
      * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') $query->where('status', $value);
     }

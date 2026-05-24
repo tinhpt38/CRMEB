@@ -70,15 +70,13 @@ class StoreActivityServices extends BaseServices
         $info = $this->dao->get(['id' => $id]);
         if (!$info) throw new AdminException('Dữ liệu không tồn tại');
         $info = $info->toArray();
-        /** @var StoreSeckillServices $seckillServices */
-        $seckillServices = app()->make(StoreSeckillServices::class);
+        /** @var StoreSeckillServices $seckillServices */        $seckillServices = app()->make(StoreSeckillServices::class);
         $seckill = $seckillServices->getList(['activity_id' => $id, 'is_del' => 0], 0, 0);
         $info['section_time'] = [date('Y-m-d', $info['start_day']), date('Y-m-d', $info['end_day'])];
         $info['time_ids'] = array_map('intval', explode(',', $info['time_ids']));
         $productList = [];
         if ($seckill) {
-            /** @var StoreProductServices $productServices */
-            $productServices = app()->make(StoreProductServices::class);
+            /** @var StoreProductServices $productServices */            $productServices = app()->make(StoreProductServices::class);
             $productList = $productServices->searchList(['id' => array_column($seckill, 'product_id'), 'is_del' => 0]);
             $productList = $productList['list'] ?? [];
             $seckill = array_combine(array_column($seckill, 'product_id'), $seckill);
@@ -121,11 +119,9 @@ class StoreActivityServices extends BaseServices
         $this->dao->update($id, ['is_del' => 1]);
 
         if ($type == 1) {
-            /** @var StoreSeckillServices $storeSeckillServices */
-            $storeSeckillServices = app()->make(StoreSeckillServices::class);
+            /** @var StoreSeckillServices $storeSeckillServices */            $storeSeckillServices = app()->make(StoreSeckillServices::class);
             $ids = $storeSeckillServices->getColumn(['activity_id' => $id], 'id');
-            /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-            $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrValueServices $storeProductAttrValueServices */            $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
             foreach ($ids as $sid) {
                 $storeSeckillServices->update($sid, ['is_del' => 1]);
                 $unique = $storeProductAttrValueServices->value(['product_id' => $id, 'type' => 1], 'unique');
@@ -148,8 +144,7 @@ class StoreActivityServices extends BaseServices
         }
         $this->dao->update($id, ['status' => $status]);
         if ($type == 1) {
-            /** @var StoreSeckillServices $storeSeckillServices */
-            $storeSeckillServices = app()->make(StoreSeckillServices::class);
+            /** @var StoreSeckillServices $storeSeckillServices */            $storeSeckillServices = app()->make(StoreSeckillServices::class);
             $ids = $storeSeckillServices->getColumn(['activity_id' => $id], 'id');
             foreach ($ids as $sid) {
                 $storeSeckillServices->update($sid, ['status' => $status]);

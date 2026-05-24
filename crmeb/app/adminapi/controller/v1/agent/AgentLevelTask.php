@@ -19,20 +19,17 @@ use think\facade\App;
  * Bộ điều khiển tác vụ cấp phân phối
  * Class AgentLevelTask
  * @package app\controller\admin\v1\agent
- */
-class AgentLevelTask extends AuthController
+ */class AgentLevelTask extends AuthController
 {
     /**
      * @var AgentLevelTaskServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * AgentLevelTask constructor.
      * @param App $app
      * @param AgentLevelTaskServices $services
-     */
-    public function __construct(App $app, AgentLevelTaskServices $services)
+     */    public function __construct(App $app, AgentLevelTaskServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -44,8 +41,7 @@ class AgentLevelTask extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         // Nhận thông số yêu cầu: ID cấp độ, trạng thái, từ khóa
         $where = $this->request->getMore([
@@ -66,8 +62,7 @@ class AgentLevelTask extends AuthController
      * Biểu mẫu bổ sung nhiệm vụ cấp độ
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         // Nhận cấp độID
         [$level_id] = $this->request->postMore([
@@ -85,8 +80,7 @@ class AgentLevelTask extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function save()
+     */    public function save()
     {
         // Nhận và xác minh dữ liệu yêu cầu
         $data = $this->request->postMore([
@@ -117,8 +111,7 @@ class AgentLevelTask extends AuthController
     /**
      * Hiển thị tài nguyên được chỉ định
      * @param $id
-     */
-    public function read($id)
+     */    public function read($id)
     {
 
     }
@@ -128,8 +121,7 @@ class AgentLevelTask extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         // Gọi lớp dịch vụ để tạo biểu mẫu chỉnh sửa
         return app('json')->success($this->services->editForm((int)$id));
@@ -142,8 +134,7 @@ class AgentLevelTask extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function update($id)
+     */    public function update($id)
     {
         // Nhận và xác minh dữ liệu yêu cầu
         $data = $this->request->postMore([
@@ -178,8 +169,7 @@ class AgentLevelTask extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $levelTaskInfo = $this->services->getLevelTaskInfo((int)$id);
@@ -205,8 +195,7 @@ class AgentLevelTask extends AuthController
      * @param int $id
      * @param string $status
      * @return mixed
-     */
-    public function set_status($id = 0, $status = '')
+     */    public function set_status($id = 0, $status = '')
     {
         if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         // cập nhật trạng thái

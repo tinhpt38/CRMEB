@@ -19,8 +19,7 @@ use think\Model;
 /**
  * Class Qrcode
  * @package app\model\other
- */
-class Qrcode extends BaseModel
+ */class Qrcode extends BaseModel
 {
 
     use ModelTrait;
@@ -28,21 +27,18 @@ class Qrcode extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'qrcode';
+     */    protected $name = 'qrcode';
 
     /**
      * type Người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value != '') {
             $query->whereLike('type', $value);
@@ -53,8 +49,7 @@ class Qrcode extends BaseModel
      * status Người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value != '') {
             $query->whereLike('status', $value);
@@ -65,8 +60,7 @@ class Qrcode extends BaseModel
      * third_type Người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchThirdTypeAttr($query, $value)
+     */    public function searchThirdTypeAttr($query, $value)
     {
         if ($value != '') {
             $query->whereLike('third_type', $value);
@@ -77,8 +71,7 @@ class Qrcode extends BaseModel
      * third_id Người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchThirdIdAttr($query, $value)
+     */    public function searchThirdIdAttr($query, $value)
     {
         if ($value != '') {
             $query->whereLike('third_id', $value);

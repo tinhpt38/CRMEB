@@ -20,8 +20,7 @@ use app\services\BaseServices;
  * Class CacheServices
  * @package app\services\other
  * @method delectDeOverdueDbCache() Xóa bộ nhớ đệm đã hết hạn
- */
-class CacheServices extends BaseServices
+ */class CacheServices extends BaseServices
 {
 
     public function __construct(CacheDao $dao)
@@ -35,8 +34,7 @@ class CacheServices extends BaseServices
      * @param $default Nếu giá trị mặc định không tồn tại, hãy viết nó
      * @param int $expire
      * @return mixed|null
-     */
-    public function getDbCache(string $key, $default, int $expire = 0)
+     */    public function getDbCache(string $key, $default, int $expire = 0)
     {
         $this->delectDeOverdueDbCache();
         $result = $this->dao->value(['key' => $key], 'result');
@@ -64,8 +62,7 @@ class CacheServices extends BaseServices
      * @param string | array $result
      * @param int $expire
      * @return void
-     */
-    public function setDbCache(string $key, $result, $expire = 0)
+     */    public function setDbCache(string $key, $result, $expire = 0)
     {
         $this->delectDeOverdueDbCache();
         $addTime = $expire ? time() + $expire : 0;
@@ -90,8 +87,7 @@ class CacheServices extends BaseServices
      * Xóa bộ đệm
      * @param string $key
      * @return false|mixed
-     */
-    public function delectDbCache(string $key = '')
+     */    public function delectDbCache(string $key = '')
     {
         if ($key)
             return $this->dao->delete($key, 'key');
@@ -105,8 +101,7 @@ class CacheServices extends BaseServices
      * @param $result
      * @return bool
      * @throws \ReflectionException
-     */
-    public function checkDbCache(string $key = '', $result = ''): bool
+     */    public function checkDbCache(string $key = '', $result = ''): bool
     {
         // Kiểm tra xem bộ đệm có tồn tại không, nếu$valueNếu nó tồn tại, hãy kiểm tra xem giá trị được lưu trong bộ nhớ cache có nhất quán hay không.
         if ($key) {

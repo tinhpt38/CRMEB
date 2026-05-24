@@ -20,19 +20,17 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO Đặt hàngModel
+ * TODO Đơn hàngModel
  * Class StoreOrder
  * @package app\model\order
- */
-class StoreOrder extends BaseModel
+ */class StoreOrder extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Hình thức thanh toán
      * @var string[]
-     */
-    protected $pay_type = [
+     */    protected $pay_type = [
         1 => 'weixin',
         2 => 'yue',
         3 => 'offline',
@@ -42,28 +40,24 @@ class StoreOrder extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_order';
+     */    protected $name = 'store_order';
 
     protected $insert = ['add_time'];
 
     /**
      * Thời gian cập nhật
      * @var bool | string | int
-     */
-    protected $updateTime = false;
+     */    protected $updateTime = false;
 
     /**
      * Tạo công cụ sửa đổi thời gian
      * @return int
-     */
-    protected function setAddTimeAttr($time = 0)
+     */    protected function setAddTimeAttr($time = 0)
     {
         if ($time) return $time;
         return time();
@@ -73,8 +67,7 @@ class StoreOrder extends BaseModel
      * Công cụ sửa đổi biểu mẫu tùy chỉnh
      * @param $value
      * @return array|mixed
-     */
-    public function setCustomFormAttr($value)
+     */    public function setCustomFormAttr($value)
     {
         return is_array($value) ? json_encode($value) : $value;
     }
@@ -83,26 +76,23 @@ class StoreOrder extends BaseModel
      * Trình lấy biểu mẫu tùy chỉnh
      * @param $value
      * @return array|mixed
-     */
-    public function getCustomFormAttr($value)
+     */    public function getCustomFormAttr($value)
     {
         return is_string($value) ? json_decode($value, true) ?? [] : [];
     }
 
     /**
-     * Thứ tự phụ truy vấn liên quan một đến nhiều
+     * Đơn hàng phụ truy vấn liên quan một đến nhiều
      * @return \think\model\relation\HasMany
-     */
-    public function split()
+     */    public function split()
     {
         return $this->hasMany(StoreOrder::class, 'pid', 'id');
     }
 
     /**
-     * Liên kết một-một của các bảng người dùng
+     * Liên kết một-một của các bảng Khách hàng
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname', 'phone', 'avatar', 'spread_uid'])->bind([
             'nickname' => 'nickname',
@@ -119,10 +109,9 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * Liên kết một-một với thông tin người dùng vượt trội
+     * Liên kết một-một với thông tin Khách hàng vượt trội
      * @return \think\model\relation\HasOne
-     */
-    public function spread()
+     */    public function spread()
     {
         return $this->hasOne(User::class, 'uid', 'spread_uid')->field(['uid', 'nickname'])->bind([
             'spread_nickname' => 'nickname'
@@ -132,8 +121,7 @@ class StoreOrder extends BaseModel
     /**
      * Cuộc chiến nhóm một chọi một để giành được địa vị
      * @return \think\model\relation\HasOne
-     */
-    public function pink()
+     */    public function pink()
     {
         return $this->hasOne(StorePink::class, 'id', 'pink_id')->field(['id', 'order_id_key', 'status'])->bind([
             'pinkStatus' => 'status'
@@ -143,8 +131,7 @@ class StoreOrder extends BaseModel
     /**
      * Lưu trữ mối quan hệ một-một
      * @return \think\model\relation\HasOne
-     */
-    public function store()
+     */    public function store()
     {
         return $this->hasOne(SystemStore::class, 'id', 'store_id')->field(['id', 'name'])->bind([
             'store_name' => 'name'
@@ -154,8 +141,7 @@ class StoreOrder extends BaseModel
     /**
      * Nhân viên liên quan đặt hàng
      * @return \think\model\relation\HasOne
-     */
-    public function staff()
+     */    public function staff()
     {
         return $this->hasOne(SystemStoreStaff::class, 'uid', 'clerk_id')->field(['id', 'uid', 'store_id', 'staff_name'])->bind([
             'staff_uid' => 'uid',
@@ -167,8 +153,7 @@ class StoreOrder extends BaseModel
     /**
      * Người dùng liên quan đến thư ký cửa hàng
      * @return \think\model\relation\HasOne
-     */
-    public function staffUser()
+     */    public function staffUser()
     {
         return $this->hasOne(User::class, 'uid', 'staff_uid')->field(['uid', 'nickname'])->bind([
             'clerk_name' => 'nickname'
@@ -178,8 +163,7 @@ class StoreOrder extends BaseModel
     /**
      * Hóa đơn đặt hàng liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function invoice()
+     */    public function invoice()
     {
         return $this->hasOne(StoreOrderInvoice::class, 'order_id', 'id');
     }
@@ -187,8 +171,7 @@ class StoreOrder extends BaseModel
     /**
      * Lệnh hoàn tiền liên quan một đến nhiều
      * @return \think\model\relation\hasMany
-     */
-    public function refund()
+     */    public function refund()
     {
         return $this->hasMany(StoreOrderRefund::class, 'store_order_id', 'id')->where('refund_type', '<>', 3)->where('is_cancel', 0);
     }
@@ -197,8 +180,7 @@ class StoreOrder extends BaseModel
      * Công cụ sửa đổi ID giỏ hàng
      * @param $value
      * @return false|string
-     */
-    protected function setCartIdAttr($value)
+     */    protected function setCartIdAttr($value)
     {
         return is_array($value) ? json_encode($value) : $value;
     }
@@ -208,8 +190,7 @@ class StoreOrder extends BaseModel
      * @param $value
      * @param $data
      * @return mixed
-     */
-    protected function getCartIdAttr($value, $data)
+     */    protected function getCartIdAttr($value, $data)
     {
         return $value ? json_decode($value, true) : [];
     }
@@ -218,8 +199,7 @@ class StoreOrder extends BaseModel
      * Trình tìm kiếm ID đơn hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchOrderIdAttr($query, $value)
+     */    public function searchOrderIdAttr($query, $value)
     {
         $query->where('order_id', $value);
     }
@@ -228,8 +208,7 @@ class StoreOrder extends BaseModel
      * Trình tìm kiếm ID lớp cha
      * @param Model $query
      * @param $value
-     */
-    public function searchPidAttr($query, $value)
+     */    public function searchPidAttr($query, $value)
     {
         if ($value === 0) {
             $query->where('pid', '>=', 0);
@@ -242,8 +221,7 @@ class StoreOrder extends BaseModel
      * Không phân chia đơn hàng và đơn hàng phụ(0:Đối với lệnh tách -1: Lệnh chính đã được tách >0 :Đơn hàng phụ sau khi tách)
      * @param Model $query
      * @param $value
-     */
-    public function searchNotPidAttr($query, $value)
+     */    public function searchNotPidAttr($query, $value)
     {
         $query->where('pid', '<>', -1);
     }
@@ -251,8 +229,7 @@ class StoreOrder extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIdAttr($query, $value)
+     */    public function searchIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('id', $value);
@@ -265,8 +242,7 @@ class StoreOrder extends BaseModel
      * Công cụ tìm phương thức thanh toán
      * @param $query
      * @param $value
-     */
-    public function searchPayTypeAttr($query, $value)
+     */    public function searchPayTypeAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('pay_type', $value);
@@ -283,31 +259,28 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * Không bằng thanh toán số dư
+     * Không bằng Thanh toán bằng số dư
      * @param $query
      * @param $value
-     */
-    public function searchPayTypeNoAttr($query, $value)
+     */    public function searchPayTypeNoAttr($query, $value)
     {
         $query->where('pay_type', "<>", $value);
     }
 
     /**
-     * ID đơn hàng hoặc người tìm kiếm tên người dùng
+     * ID đơn hàng hoặc người tìm kiếm tên Khách hàng
      * @param $query
      * @param $value
-     */
-    public function searchOrderIdRealNameAttr($query, $value)
+     */    public function searchOrderIdRealNameAttr($query, $value)
     {
         $query->where('order_id|real_name', $value);
     }
 
     /**
-     * Trình tìm kiếm ID người dùng
+     * Trình tìm kiếm ID Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('uid|gift_uid', $value);
@@ -316,11 +289,10 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * Không bao gồm người tìm kiếm ID người dùng
+     * Không bao gồm người tìm kiếm ID Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchNotUidAttr($query, $value)
+     */    public function searchNotUidAttr($query, $value)
     {
         $query->where('uid', '<>', $value);
     }
@@ -329,8 +301,7 @@ class StoreOrder extends BaseModel
      * Trình tìm trạng thái thanh toán
      * @param Model $query
      * @param $value
-     */
-    public function searchPaidAttr($query, $value)
+     */    public function searchPaidAttr($query, $value)
     {
         if (in_array($value, [0, 1])) {
             $query->where('paid', $value);
@@ -342,8 +313,7 @@ class StoreOrder extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchRefundStatusAttr($query, $value, $data)
+     */    public function searchRefundStatusAttr($query, $value, $data)
     {
         if ($value !== '') {
             if (is_array($value)) {
@@ -359,8 +329,7 @@ class StoreOrder extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchRefundStatusInAttr($query, $value)
+     */    public function searchRefundStatusInAttr($query, $value)
     {
         $query->whereIn('refund_status', $value);
     }
@@ -369,8 +338,7 @@ class StoreOrder extends BaseModel
      * Đây có phải là lệnh nhóm không?
      * @param Model $query
      * @param $value
-     */
-    public function searchPinkIdAttr($query, $value)
+     */    public function searchPinkIdAttr($query, $value)
     {
         $query->where('pink_id', $value);
     }
@@ -379,8 +347,7 @@ class StoreOrder extends BaseModel
      * Trình tìm kiếm ID nhóm
      * @param Model $query
      * @param $value
-     */
-    public function searchCombinationIdAttr($query, $value)
+     */    public function searchCombinationIdAttr($query, $value)
     {
         $query->where('combination_id', $value);
     }
@@ -389,8 +356,7 @@ class StoreOrder extends BaseModel
      * Không có đơn hàng nhóm hoặc sản phẩm nhóm
      * @param Model $query
      * @param $value
-     */
-    public function searchCpIdGtAttr($query, $value)
+     */    public function searchCpIdGtAttr($query, $value)
     {
         $query->where('combination_id|pink_id', '>', $value);
     }
@@ -399,8 +365,7 @@ class StoreOrder extends BaseModel
      * Không phải là công cụ tìm kiếm flash sale
      * @param Model $query
      * @param $value
-     */
-    public function searchSeckillIdGtAttr($query, $value)
+     */    public function searchSeckillIdGtAttr($query, $value)
     {
         $query->where('seckill_id', '>', $value);
     }
@@ -409,8 +374,7 @@ class StoreOrder extends BaseModel
      * Trình tìm kiếm sản phẩm ID flash sale
      * @param Model $query
      * @param $value
-     */
-    public function searchSeckillIdAttr($query, $value)
+     */    public function searchSeckillIdAttr($query, $value)
     {
         $query->where('seckill_id', $value);
     }
@@ -419,8 +383,7 @@ class StoreOrder extends BaseModel
      * Trình tìm kiếm ID sản phẩm mặc cả
      * @param Model $query
      * @param $value
-     */
-    public function searchBargainIdAttr($query, $value)
+     */    public function searchBargainIdAttr($query, $value)
     {
         $query->where('bargain_id', $value);
     }
@@ -430,8 +393,7 @@ class StoreOrder extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchBargainIdGtAttr($query, $value)
+     */    public function searchBargainIdGtAttr($query, $value)
     {
         $query->where('bargain_id', '>', $value);
     }
@@ -440,8 +402,7 @@ class StoreOrder extends BaseModel
      * Trình tìm kiếm mã xác minh
      * @param Model $query
      * @param $value
-     */
-    public function searchVerifyCodeAttr($query, $value)
+     */    public function searchVerifyCodeAttr($query, $value)
     {
         $query->where('verify_code', $value);
     }
@@ -450,8 +411,7 @@ class StoreOrder extends BaseModel
      * Trình tìm trạng thái thanh toán
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value != '') $query->where('is_del', $value);
     }
@@ -460,8 +420,7 @@ class StoreOrder extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsSystemDelAttr($query, $value)
+     */    public function searchIsSystemDelAttr($query, $value)
     {
         if ($value != '') $query->where('is_system_del', $value);
     }
@@ -470,8 +429,7 @@ class StoreOrder extends BaseModel
      * Công cụ tìm trạng thái hoàn tiền
      * @param $query
      * @param $value
-     */
-    public function searchRefundTypeAttr($query, $value)
+     */    public function searchRefundTypeAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('refund_type', $value);
@@ -489,11 +447,10 @@ class StoreOrder extends BaseModel
     }
 
     /**
-     * Nguồn người dùng
+     * Nguồn Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchChannelTypeAttr($query, $value)
+     */    public function searchChannelTypeAttr($query, $value)
     {
         if ($value != '') $query->where('channel_type', $value);
     }
@@ -502,8 +459,7 @@ class StoreOrder extends BaseModel
      * Trình tìm ID hoàn tiền
      * @param Model $query
      * @param $value
-     */
-    public function searchRefundIdAttr($query, $value)
+     */    public function searchRefundIdAttr($query, $value)
     {
         if ($value) {
             $query->where('id', 'in', $value);
@@ -514,8 +470,7 @@ class StoreOrder extends BaseModel
      * Thượng đẳng｜Nhà quảng bá vượt trội
      * @param $query
      * @param $value
-     */
-    public function searchSpreadOrUidAttr($query, $value)
+     */    public function searchSpreadOrUidAttr($query, $value)
     {
         if ($value) $query->where('spread_uid|spread_two_uid', $value);
     }
@@ -529,8 +484,7 @@ class StoreOrder extends BaseModel
      * Nhà quảng bá cấp cao
      * @param $query
      * @param $value
-     */
-    public function searchSpreadUidAttr($query, $value)
+     */    public function searchSpreadUidAttr($query, $value)
     {
         if ($value) $query->where('spread_uid', $value);
     }
@@ -539,8 +493,7 @@ class StoreOrder extends BaseModel
      * Nhà quảng bá vượt trội
      * @param $query
      * @param $value
-     */
-    public function searchSpreadTwoUidAttr($query, $value)
+     */    public function searchSpreadTwoUidAttr($query, $value)
     {
         if ($value) $query->where('spread_two_uid', $value);
     }
@@ -549,19 +502,17 @@ class StoreOrder extends BaseModel
      * kênh thanh toán
      * @param $query
      * @param $value
-     */
-    public function searchIsChannelAttr($query, $value)
+     */    public function searchIsChannelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_channel', $value);
     }
 
     /**
-     * Truy vấn hoạt động 0 bình thường, 1 flash sale, 2 mặc cả, 3 mua theo nhóm, 4 bán trước
+     * Tìm kiếm hoạt động 0 bình thường, 1 flash sale, 2 mặc cả, 3 mua theo nhóm, 4 bán trước
      * @param $query
      * @param $value
      * @param $data
-     */
-    public function searchActivityTypeAttr($query, $value, $data)
+     */    public function searchActivityTypeAttr($query, $value, $data)
     {
         if ($value !== '') {
             switch ($value) {
@@ -590,8 +541,7 @@ class StoreOrder extends BaseModel
      * Lệnh khuyến mãi của bộ phận kinh doanh
      * @param $query
      * @param $value
-     */
-    public function searchDivisionIdAttr($query, $value)
+     */    public function searchDivisionIdAttr($query, $value)
     {
         if ($value !== '') $query->where('division_id', $value);
     }
@@ -600,8 +550,7 @@ class StoreOrder extends BaseModel
      * Lệnh khuyến mãi đại lý
      * @param $query
      * @param $value
-     */
-    public function searchAgentIdAttr($query, $value)
+     */    public function searchAgentIdAttr($query, $value)
     {
         if ($value !== '') $query->where('agent_id', $value);
     }
@@ -610,8 +559,7 @@ class StoreOrder extends BaseModel
      * Lệnh khuyến mãi đại lý
      * @param $query
      * @param $value
-     */
-    public function searchStaffIdAttr($query, $value)
+     */    public function searchStaffIdAttr($query, $value)
     {
         if ($value !== '') $query->where('staff_id', $value);
     }
@@ -619,8 +567,7 @@ class StoreOrder extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchIdsAttr($query, $value)
+     */    public function searchIdsAttr($query, $value)
     {
         if (is_string($value)) $value = explode(',', $value);
         if (count($value)) $query->whereIn('id', $value);

@@ -20,20 +20,17 @@ use think\Model;
  * TODO Tham gia thương lượngModel
  * Class StoreBargainUser
  * @package app\model\activity
- */
-class StoreBargainUser extends BaseModel
+ */class StoreBargainUser extends BaseModel
 {
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_bargain_user';
+     */    protected $name = 'store_bargain_user';
 
     use ModelTrait;
 
@@ -41,29 +38,26 @@ class StoreBargainUser extends BaseModel
      * hiệp hội một-một
      *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function getBargain()
+     */    public function getBargain()
     {
         return $this->hasOne(StoreBargain::class, 'id', 'bargain_id')->bind(['title', 'image', 'datatime' => 'stop_time', 'people_num']);
     }
 
     /**
      * hiệp hội một-một
-     * Có được người dùng thương lượng
+     * Có được Khách hàng thương lượng
      * @return \think\model\relation\HasOne
-     */
-    public function getUser()
+     */    public function getUser()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->bind(['avatar', 'nickname']);
     }
 
     /**
-     * Người tìm kiếm người dùng
+     * Người tìm kiếm Khách hàng
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchUidAttr($query, $value, $data)
+     */    public function searchUidAttr($query, $value, $data)
     {
         $query->where('uid', $value);
     }
@@ -73,8 +67,7 @@ class StoreBargainUser extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchBargainIdAttr($query, $value, $data)
+     */    public function searchBargainIdAttr($query, $value, $data)
     {
         $query->where('bargain_id', $value);
     }
@@ -84,8 +77,7 @@ class StoreBargainUser extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStatusAttr($query, $value, $data)
+     */    public function searchStatusAttr($query, $value, $data)
     {
         if ($value != '') $query->where('status', $value);
     }
@@ -95,8 +87,7 @@ class StoreBargainUser extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value);
     }

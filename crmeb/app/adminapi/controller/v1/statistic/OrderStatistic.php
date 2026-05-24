@@ -25,8 +25,7 @@ class OrderStatistic extends AuthController
     /**
      * Thông tin cơ bản về thống kê đơn hàng
      * @return mixed
-     */
-    public function getBasic()
+     */    public function getBasic()
     {
         $where = $this->request->getMore([
             ['time', '']
@@ -38,8 +37,7 @@ class OrderStatistic extends AuthController
     /**
      * Biểu đồ xu hướng thống kê đơn hàng
      * @return mixed
-     */
-    public function getTrend()
+     */    public function getTrend()
     {
         $where = $this->request->getMore([
             ['time', '']
@@ -51,8 +49,7 @@ class OrderStatistic extends AuthController
     /**
      * Nguồn đặt hàng
      * @return mixed
-     */
-    public function getChannel()
+     */    public function getChannel()
     {
         $where = $this->request->getMore([
             ['time', '']
@@ -62,10 +59,9 @@ class OrderStatistic extends AuthController
     }
 
     /**
-     * Loại lệnh
+     * Loại đơn hàng
      * @return mixed
-     */
-    public function getType()
+     */    public function getType()
     {
         $where = $this->request->getMore([
             ['time', '']

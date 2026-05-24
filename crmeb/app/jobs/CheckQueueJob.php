@@ -19,8 +19,7 @@ use crmeb\traits\QueueTrait;
  * Kiểm tra xem hàng đợi tin nhắn có được thực thi hay không
  * Class CheckQueueJob
  * @package app\jobs
- */
-class CheckQueueJob extends BaseJobs
+ */class CheckQueueJob extends BaseJobs
 {
     use QueueTrait;
 

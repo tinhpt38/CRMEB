@@ -13,11 +13,10 @@ namespace app\api\validate\user;
 use think\Validate;
 
 /**
- * Lớp xác minh địa chỉ người dùng
+ * Lớp xác minh địa chỉ Khách hàng
  * Class AddressValidate
  * @package app\http\validates\user
- */
-class AddressValidate extends Validate
+ */class AddressValidate extends Validate
 {
     //di chuyển
     protected $regex = ['phone' => '/^(?:\+84|84|0)(3|5|7|8|9)\d{8}$|^0\d{1,3}-?\d{7,8}$/'];

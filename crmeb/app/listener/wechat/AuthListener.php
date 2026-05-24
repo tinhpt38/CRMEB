@@ -14,11 +14,10 @@ namespace app\listener\wechat;
 use crmeb\interfaces\ListenerInterface;
 
 /**
- * Ủy quyền người dùng sau sự kiện
+ * Ủy quyền Khách hàng sau sự kiện
  * Class AuthListener
  * @package app\listener\wechat
- */
-class AuthListener implements ListenerInterface
+ */class AuthListener implements ListenerInterface
 {
     public function handle($event): void
     {

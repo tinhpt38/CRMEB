@@ -90,7 +90,7 @@ class DiyProServices extends BaseServices
                                 if ($cateIds) $where['cate_id'] = $cateIds;
                                 $item['productList']['list'] = $productServices->getSearchList($where, 0, $num, ['id,store_name,cate_id,image,IFNULL(sales, 0) + IFNULL(ficti, 0) as sales,price,stock,activity,ot_price,spec_type,recommend_image,unit_name,is_vip,vip_price']);
                                 break;
-                            case 4://Thẻ sản phẩm
+                            case 4://Nhãn sản phẩm
                                 $storeLabelIds = $item['goodsLabel']['activeValue'] ?? [];
                                 if ($storeLabelIds) $where['store_label_id'] = $storeLabelIds;
                                 $item['productList']['list'] = $productServices->getSearchList($where, 0, $num, ['id,store_name,cate_id,image,IFNULL(sales, 0) + IFNULL(ficti, 0) as sales,price,stock,activity,ot_price,spec_type,recommend_image,unit_name,is_vip,vip_price']);

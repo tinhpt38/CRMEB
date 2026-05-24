@@ -20,9 +20,8 @@ use app\services\BaseServices;
  * @package app\services\product\product
  * @method getSum($where,$field)
  * @method getDistinctCount(array $where, $field, $search = true)
- * @method getProductTrend($time, $timeType, $str) Xu hướng hàng hóa
- */
-class StoreVisitServices extends BaseServices
+ * @method getProductTrend($time, $timeType, $str) Xu hướng sản phẩm
+ */class StoreVisitServices extends BaseServices
 {
     public function __construct(StoreVisitDao $dao)
     {
@@ -37,8 +36,7 @@ class StoreVisitServices extends BaseServices
      * @param string $type
      * @param string $content
      * @param int $min
-     */
-    public function setView($uid, $product_id = 0, $product_type = 'product', $cate = 0, $type = '', $content = '', $min = 20)
+     */    public function setView($uid, $product_id = 0, $product_type = 'product', $cate = 0, $type = '', $content = '', $min = 20)
     {
 
         $view = $this->dao->getOne(['uid' => $uid, 'product_id' => $product_id, 'product_type' => $product_type], 'count,add_time,id');

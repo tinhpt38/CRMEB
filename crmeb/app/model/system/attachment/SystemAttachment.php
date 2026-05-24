@@ -19,29 +19,25 @@ use think\Model;
  * Mô hình quản lý tệp đính kèm
  * Class SystemAttachment
  * @package app\model\system\attachment
- */
-class SystemAttachment extends BaseModel
+ */class SystemAttachment extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'att_id';
+     */    protected $pk = 'att_id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_attachment';
+     */    protected $name = 'system_attachment';
 
     /**
      * Công cụ tìm loại hình ảnh
      * @param Model $query
      * @param $value
-     */
-    public function searchModuleTypeAttr($query, $value)
+     */    public function searchModuleTypeAttr($query, $value)
     {
         $query->where('module_type', $value ?: 1);
     }
@@ -50,8 +46,7 @@ class SystemAttachment extends BaseModel
      * pidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchPidAttr($query, $value)
+     */    public function searchPidAttr($query, $value)
     {
         if ($value) $query->where('pid', $value);
     }
@@ -60,8 +55,7 @@ class SystemAttachment extends BaseModel
      * nametìm kiếm mờ
      * @param Model $query
      * @param $value
-     */
-    public function searchLikeNameAttr($query, $value)
+     */    public function searchLikeNameAttr($query, $value)
     {
         if ($value) $query->where('name', 'LIKE', "$value%");
     }
@@ -70,8 +64,7 @@ class SystemAttachment extends BaseModel
      * real_nametìm kiếm mờ
      * @param Model $query
      * @param $value
-     */
-    public function searchRealNameAttr($query, $value)
+     */    public function searchRealNameAttr($query, $value)
     {
         if ($value != '') $query->where('real_name', 'LIKE', "%$value%");
     }

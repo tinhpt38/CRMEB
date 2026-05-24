@@ -19,8 +19,7 @@ use app\services\BaseServices;
  * Nhận danh sách bạn bè
  * Class UserFriendsServices
  * @package app\services\user
- */
-class UserFriendsServices extends BaseServices
+ */class UserFriendsServices extends BaseServices
 {
 
     public function __construct(UserFriendsDao $dao)
@@ -35,8 +34,7 @@ class UserFriendsServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFriendList(array $where, array $with = [])
+     */    public function getFriendList(array $where, array $with = [])
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getFriendList($where, $page, $limit, $with);
@@ -51,8 +49,7 @@ class UserFriendsServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveFriend(array $data)
+     */    public function saveFriend(array $data)
     {
         $userFriend = $this->dao->get(['uid' => $data['uid']]);
         if ($userFriend) {

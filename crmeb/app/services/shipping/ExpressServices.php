@@ -28,12 +28,11 @@ use crmeb\services\FormBuilder as Form;
  * @method get(int $id, ?array $field = []) Nhận dữ liệu
  * @method delete(int $id, ?string $key = null) Xóa dữ liệu
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
- */
-class ExpressServices extends BaseServices
+ */class ExpressServices extends BaseServices
 {
     public $_cacheKey = "plat_express_list";
 
-    //Truy vấn hậu cần công ty hậu cầncode
+    //Tìm kiếm hậu cần công ty hậu cầncode
     public $express_code = [
         'yunda' => 'yunda',
         'yundakuaiyun' => 'yunda56',
@@ -51,8 +50,7 @@ class ExpressServices extends BaseServices
      * Người xây dựng
      * ExpressServices constructor.
      * @param ExpressDao $dao
-     */
-    public function __construct(ExpressDao $dao)
+     */    public function __construct(ExpressDao $dao)
     {
         $this->dao = $dao;
     }
@@ -64,8 +62,7 @@ class ExpressServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getExpressList(array $where)
+     */    public function getExpressList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getExpressList($where, '*', $page, $limit);
@@ -83,13 +80,12 @@ class ExpressServices extends BaseServices
      * @param array $formData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createExpressForm(array $formData = [])
+     */    public function createExpressForm(array $formData = [])
     {
         $field = [];
         if (!isset($formData['id'])) {
             $field[] = Form::input('name', 'Tên công ty giao nhận', $formData['name'] ?? '')->required();
-            $field[] = Form::input('code', 'Mã đơn vị (duy nhất)', $formData['code'] ?? '')
+            $field[] = Form::input('code', 'Mã Đơn vị (duy nhất)', $formData['code'] ?? '')
                 ->placeholder('Ví dụ: GHN, GHTK, vn_post…')
                 ->required();
         }
@@ -111,7 +107,7 @@ class ExpressServices extends BaseServices
         if (isset($formData['is_code']) && $formData['is_code'] == 1) {
             $field[] = Form::input('code_name', 'Số hiệu trên vận đơn điện tử', $formData['code_name'] ?? '')->required();
         }
-        $field[] = Form::number('sort', 'Thứ tự sắp xếp', (int)($formData['sort'] ?? 0))->precision(0);
+        $field[] = Form::number('sort', 'Đơn hàng sắp xếp', (int)($formData['sort'] ?? 0))->precision(0);
         $field[] = Form::radio('is_show', 'Hiển thị', $formData['is_show'] ?? 1)
             ->options([['value' => 0, 'label' => 'Ẩn'], ['value' => 1, 'label' => 'Hiển thị']]);
         return $field;
@@ -121,8 +117,7 @@ class ExpressServices extends BaseServices
      * Tạo một biểu mẫu thông tin hậu cần để có được
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm()
+     */    public function createForm()
     {
         return create_form('Thêm công ty giao nhận', $this->createExpressForm(), $this->url('/freight/express'));
     }
@@ -132,8 +127,7 @@ class ExpressServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function updateForm(int $id)
+     */    public function updateForm(int $id)
     {
         $express = $this->dao->get($id);
         if (!$express) {
@@ -145,13 +139,10 @@ class ExpressServices extends BaseServices
     /**
      * Nền tảng để nhận chuyển phát nhanh
      * @return array|mixed
-     */
-    public function getPlatExpress()
+     */    public function getPlatExpress()
     {
-        /** @var ServeServices $expressService */
-        $expressService = app()->make(ServeServices::class);
-        /** @var CacheService $cacheService */
-        $cacheService = app()->make(CacheService::class);
+        /** @var ServeServices $expressService */        $expressService = app()->make(ServeServices::class);
+        /** @var CacheService $cacheService */        $cacheService = app()->make(CacheService::class);
         $data = [];
         if ($list = $cacheService::get($this->_cacheKey)) {
             $data = json_decode($list, true);
@@ -169,8 +160,7 @@ class ExpressServices extends BaseServices
      * Lấy thông tin hậu cần và kết hợp nó thành một mảng mới để trả về
      * @param array $where
      * @return array
-     */
-    public function express(array $where = [], string $k = 'id')
+     */    public function express(array $where = [], string $k = 'id')
     {
         $list = $this->expressList($where);
         $data = [];
@@ -188,8 +178,7 @@ class ExpressServices extends BaseServices
      * Lấy thông tin hậu cần và kết hợp nó thành một mảng mới để trả về
      * @param array $where
      * @return array
-     */
-    public function expressSelectForm(array $where = [])
+     */    public function expressSelectForm(array $where = [])
     {
         $list = $this->expressList();
         //$list = $this->dao->getExpress($where, 'name', 'id');
@@ -213,8 +202,7 @@ class ExpressServices extends BaseServices
      * @param string|null $com
      * @param string $phone
      * @return array
-     */
-    public function query(string $cacheName, string $expressNum, string $com = null, $phone = '')
+     */    public function query(string $cacheName, string $expressNum, string $com = null, $phone = '')
     {
         $resultData = CacheService::get($cacheName, null);
         if (!is_array($resultData) || empty($resultData)) {
@@ -222,8 +210,7 @@ class ExpressServices extends BaseServices
             $cacheTime = 0;
             switch ((int)sys_config('logistics_type')) {
                 case 1:
-                    /** @var ServeServices $services */
-                    $services = app()->make(ServeServices::class);
+                    /** @var ServeServices $services */                    $services = app()->make(ServeServices::class);
                     $result = $services->express()->query($expressNum, $com, $phone);
                     if (isset($result['ischeck']) && $result['ischeck'] == 1) {
                         $cacheTime = 0;
@@ -235,8 +222,7 @@ class ExpressServices extends BaseServices
                     }
                     break;
                 case 2:
-                    /** @var Express $services */
-                    $services = app()->make(Express::class, ['aliyun_express']);
+                    /** @var Express $services */                    $services = app()->make(Express::class, ['aliyun_express']);
                     $result = $services->query($expressNum, '', sys_config('system_express_app_code'));
                     if (is_array($result) &&
                         isset($result['result']) &&
@@ -258,8 +244,7 @@ class ExpressServices extends BaseServices
     /**
      * Công ty Logistics đồng bộ
      * @return bool
-     */
-    public function syncExpress()
+     */    public function syncExpress()
     {
         $expressList = $this->getPlatExpress();
         $data = $data_all = [];
@@ -286,14 +271,13 @@ class ExpressServices extends BaseServices
         return true;
     }
 
-    /** Truy vấn một công ty chuyển phát nhanh
+    /** Tìm kiếm một công ty chuyển phát nhanh
      * @param array $where
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOneByWhere(array $where)
+     */    public function getOneByWhere(array $where)
     {
         return $this->dao->getOne($where);
     }

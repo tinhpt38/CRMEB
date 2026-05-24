@@ -25,8 +25,7 @@ use crmeb\services\app\MiniProgramService;
 /**
  * Class RoutineTemplate
  * @package app\adminapi\controller\v1\application\routine
- */
-class RoutineTemplate extends AuthController
+ */class RoutineTemplate extends AuthController
 {
     protected $cacheTag = '_system_wechat';
 
@@ -35,8 +34,7 @@ class RoutineTemplate extends AuthController
      * WechatTemplate constructor.
      * @param App $app
      * @param SystemNotificationServices $services
-     */
-    public function __construct(App $app, SystemNotificationServices $services)
+     */    public function __construct(App $app, SystemNotificationServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -48,8 +46,7 @@ class RoutineTemplate extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function syncSubscribe()
+     */    public function syncSubscribe()
     {
         if (!sys_config('routine_appId') || !sys_config('routine_appsecret')) {
             throw new AdminException('Trước tiên hãy định cấu hình chương trình mini appid, appSecret và các tham số khác');
@@ -69,10 +66,9 @@ class RoutineTemplate extends AuthController
     }
 
     /**
-     * Tải xuống ứng dụng
+     * Tải xuống Ứng dụng
      * @return mixed
-     */
-    public function downloadTemp()
+     */    public function downloadTemp()
     {
         [$name, $is_live] = $this->request->postMore([
             ['name', ''],
@@ -82,8 +78,7 @@ class RoutineTemplate extends AuthController
         try {
             @unlink(public_path() . 'statics/download/routine.zip');
             //Sao chép tập tin nguồn
-            /** @var FileService $fileService */
-            $fileService = app(FileService::class);
+            /** @var FileService $fileService */            $fileService = app(FileService::class);
             $fileService->copyDir(public_path() . 'statics/mp_view', public_path() . 'statics/download');
             //Thay thế appid và tên
             $this->updateConfigJson(sys_config('routine_appId'), $name != '' ? $name : sys_config('routine_name'));
@@ -103,8 +98,7 @@ class RoutineTemplate extends AuthController
     /**
      * thay thếurl
      * @param $url
-     */
-    public function updateUrl($url)
+     */    public function updateUrl($url)
     {
         $fileUrl = app()->getRootPath() . "public/statics/download/common/vendor.js";
         $string = file_get_contents($fileUrl); //Tải tập tin cấu hình
@@ -117,8 +111,7 @@ class RoutineTemplate extends AuthController
     /**
      * Xác định xem có nên bắt đầu phát sóng trực tiếp hay không(Không được dùng nữa)
      * @param int $iszhibo
-     */
-    public function updateAppJson()
+     */    public function updateAppJson()
     {
         $fileUrl = app()->getRootPath() . "public/statics/download/app.json";
         $string = file_get_contents($fileUrl); //Tải tập tin cấu hình
@@ -138,8 +131,7 @@ class RoutineTemplate extends AuthController
      * thay thếappid
      * @param string $appid
      * @param string $projectanme
-     */
-    public function updateConfigJson($appId = '', $projectName = '')
+     */    public function updateConfigJson($appId = '', $projectName = '')
     {
         $fileUrl = app()->getRootPath() . "public/statics/download/project.config.json";
         $string = file_get_contents($fileUrl); //Tải tập tin cấu hình
@@ -162,20 +154,17 @@ class RoutineTemplate extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDownloadInfo()
+     */    public function getDownloadInfo()
     {
         $data['routine_name'] = sys_config('routine_name', '');
         if (sys_config('routine_appId') == '') {
             $data['code'] = '';
         } else {
             $name = $data['routine_name'] . '.jpg';
-            /** @var SystemAttachmentServices $systemAttachmentModel */
-            $systemAttachmentModel = app()->make(SystemAttachmentServices::class);
+            /** @var SystemAttachmentServices $systemAttachmentModel */            $systemAttachmentModel = app()->make(SystemAttachmentServices::class);
             $imageInfo = $systemAttachmentModel->getInfo(['name' => $name]);
             if (!$imageInfo) {
-                /** @var QrcodeServices $qrcode */
-                $qrcode = app()->make(QrcodeServices::class);
+                /** @var QrcodeServices $qrcode */                $qrcode = app()->make(QrcodeServices::class);
                 $resForever = $qrcode->qrCodeForever(0, 'code');
                 if ($resForever) {
                     $resCode = MiniProgramService::appCodeUnlimitService($resForever->id, '', 280);

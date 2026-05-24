@@ -30,25 +30,21 @@ use app\services\activity\coupon\StoreCouponProductServices;
  * Được sử dụng để xử lý việc di chuyển dữ liệu lịch sử trong quá trình nâng cấp nhiều phiên bản
  * Class DataMigrationServices
  * @package app\services\system
- */
-class DataMigrationServices extends BaseServices
+ */class DataMigrationServices extends BaseServices
 {
     /**
      * Tiền tố bộ nhớ đệm trạng thái di chuyển
-     */
-    const MIGRATION_STATUS_PREFIX = 'data_migration_';
+     */    const MIGRATION_STATUS_PREFIX = 'data_migration_';
     
     /**
      * Kích thước trang mặc định
-     */
-    const DEFAULT_LIMIT = 100;
+     */    const DEFAULT_LIMIT = 100;
 
     /**
      * Kiểm tra xem quá trình di chuyển đã hoàn tất chưa
      * @param string $name Tên di chuyển
      * @return bool
-     */
-    public function isMigrationCompleted(string $name): bool
+     */    public function isMigrationCompleted(string $name): bool
     {
         return Cache::get(self::MIGRATION_STATUS_PREFIX . $name) === 'completed';
     }
@@ -57,8 +53,7 @@ class DataMigrationServices extends BaseServices
      * Đánh dấu quá trình di chuyển đã hoàn tất
      * @param string $name Tên di chuyển
      * @return void
-     */
-    public function markMigrationCompleted(string $name): void
+     */    public function markMigrationCompleted(string $name): void
     {
         Cache::set(self::MIGRATION_STATUS_PREFIX . $name, 'completed', 86400 * 30);
     }
@@ -67,8 +62,7 @@ class DataMigrationServices extends BaseServices
      * Nhận tiến trình di chuyển
      * @param string $name Tên di chuyển
      * @return array
-     */
-    public function getMigrationProgress(string $name): array
+     */    public function getMigrationProgress(string $name): array
     {
         $page = Cache::get(self::MIGRATION_STATUS_PREFIX . $name . '_page', 1);
         $total = Cache::get(self::MIGRATION_STATUS_PREFIX . $name . '_total', 0);
@@ -87,8 +81,7 @@ class DataMigrationServices extends BaseServices
      * @param int $page Trang hiện tại
      * @param int $processed Số lượng đã xử lý
      * @return void
-     */
-    protected function updateMigrationProgress(string $name, int $page, int $processed): void
+     */    protected function updateMigrationProgress(string $name, int $page, int $processed): void
     {
         Cache::set(self::MIGRATION_STATUS_PREFIX . $name . '_page', $page, 86400);
         Cache::set(self::MIGRATION_STATUS_PREFIX . $name . '_processed', $processed, 86400);
@@ -98,8 +91,7 @@ class DataMigrationServices extends BaseServices
      * Thực thi bộ xử lý di chuyển dữ liệu
      * @param array $handler Cấu hình bộ xử lý
      * @return array ['success' => bool, 'message' => string, 'completed' => bool]
-     */
-    public function executeHandler(array $handler): array
+     */    public function executeHandler(array $handler): array
     {
         $name = $handler['name'] ?? '';
         $method = $handler['handler'] ?? '';
@@ -153,11 +145,10 @@ class DataMigrationServices extends BaseServices
     }
 
     /**
-     * Thực hiện tất cả các trình xử lý di chuyển dữ liệu (vòng lặp cho đến khi hoàn thành）
+     * Thực hiện Tất cả các trình xử lý di chuyển dữ liệu (vòng lặp cho đến khi hoàn thành）
      * @param array $handlers Danh sách bộ xử lý
      * @return array
-     */
-    public function executeAllHandlers(array $handlers): array
+     */    public function executeAllHandlers(array $handlers): array
     {
         $results = [];
         $allCompleted = true;
@@ -199,11 +190,9 @@ class DataMigrationServices extends BaseServices
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function handleMoney(int $page = 1, int $limit = 100): array
+     */    public function handleMoney(int $page = 1, int $limit = 100): array
     {
-        /** @var UserBillServices $userBillServices */
-        $userBillServices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillServices */        $userBillServices = app()->make(UserBillServices::class);
         $where = ['category' => 'now_money', 'type' => ['pay_product', 'pay_product_refund', 'system_add', 'system_sub', 'recharge', 'lottery_use', 'lottery_add']];
         $list = $userBillServices->getList($where, '*', $page, $limit, [], 'id asc');
         
@@ -227,8 +216,7 @@ class DataMigrationServices extends BaseServices
         }
         
         if ($allData) {
-            /** @var UserMoneyServices $userMoneyServices */
-            $userMoneyServices = app()->make(UserMoneyServices::class);
+            /** @var UserMoneyServices $userMoneyServices */            $userMoneyServices = app()->make(UserMoneyServices::class);
             $userMoneyServices->saveAll($allData);
         }
         
@@ -242,11 +230,9 @@ class DataMigrationServices extends BaseServices
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function handleBrokerage(int $page = 1, int $limit = 100): array
+     */    public function handleBrokerage(int $page = 1, int $limit = 100): array
     {
-        /** @var UserBillServices $userBillServices */
-        $userBillServices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillServices */        $userBillServices = app()->make(UserBillServices::class);
         $where = ['category' => ['', 'now_money'], 'type' => ['brokerage', 'brokerage_user', 'extract', 'refund', 'extract_fail']];
         $list = $userBillServices->getList($where, '*', $page, $limit, [], 'id asc');
         
@@ -255,8 +241,7 @@ class DataMigrationServices extends BaseServices
         }
         
         $allData = [];
-        /** @var UserBrokerageFrozenServices $brokerageFrozenServices */
-        $brokerageFrozenServices = app()->make(UserBrokerageFrozenServices::class);
+        /** @var UserBrokerageFrozenServices $brokerageFrozenServices */        $brokerageFrozenServices = app()->make(UserBrokerageFrozenServices::class);
         $frozenList = $brokerageFrozenServices->getColumn([['uill_id', 'in', array_column($list, 'id')], ['frozen_time', '>', time()]], 'uill_id,frozen_time', 'uill_id');
         
         foreach ($list as $item) {
@@ -281,8 +266,7 @@ class DataMigrationServices extends BaseServices
         }
         
         if ($allData) {
-            /** @var UserBrokerageServices $userBrokerageServices */
-            $userBrokerageServices = app()->make(UserBrokerageServices::class);
+            /** @var UserBrokerageServices $userBrokerageServices */            $userBrokerageServices = app()->make(UserBrokerageServices::class);
             $userBrokerageServices->saveAll($allData);
         }
         
@@ -296,11 +280,9 @@ class DataMigrationServices extends BaseServices
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function handleOrderRefund(int $page = 1, int $limit = 100): array
+     */    public function handleOrderRefund(int $page = 1, int $limit = 100): array
     {
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $list = $storeOrderServices->getSplitOrderList(['refund_status' => [1, 2], ['refund_type' => [1, 2, 4, 5, 6]]], ['*'], [], $page, $limit, 'id asc');
         
         if (empty($list)) {
@@ -308,10 +290,8 @@ class DataMigrationServices extends BaseServices
         }
         
         $allData = [];
-        /** @var StoreOrderCreateServices $storeOrderCreateServices */
-        $storeOrderCreateServices = app()->make(StoreOrderCreateServices::class);
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCreateServices $storeOrderCreateServices */        $storeOrderCreateServices = app()->make(StoreOrderCreateServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
         
         foreach ($list as $order) {
             $cartInfos = $storeOrderCartInfoServices->getCartColunm(['oid' => $order['id']], 'id,cart_id,cart_num,cart_info');
@@ -339,8 +319,7 @@ class DataMigrationServices extends BaseServices
         }
         
         if ($allData) {
-            /** @var StoreOrderRefundServices $storeOrderRefundServices */
-            $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
+            /** @var StoreOrderRefundServices $storeOrderRefundServices */            $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
             $storeOrderRefundServices->saveAll($allData);
         }
         
@@ -354,19 +333,16 @@ class DataMigrationServices extends BaseServices
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function handleCartInfo(int $page = 1, int $limit = 100): array
+     */    public function handleCartInfo(int $page = 1, int $limit = 100): array
     {
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
         $list = $storeOrderCartInfoServices->selectList(['uid' => 0], 'id,oid', $page, $limit)->toArray();
         
         if (empty($list)) {
             return ['completed' => true, 'processed' => 0];
         }
         
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $uids = $storeOrderServices->getColumn([['id', 'in', array_column($list, 'oid')]], 'uid', 'id');
         
         $allData = [];
@@ -391,11 +367,9 @@ class DataMigrationServices extends BaseServices
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function handleCoupon(int $page = 1, int $limit = 100): array
+     */    public function handleCoupon(int $page = 1, int $limit = 100): array
     {
-        /** @var StoreCouponIssueServices $couponIssueServices */
-        $couponIssueServices = app()->make(StoreCouponIssueServices::class);
+        /** @var StoreCouponIssueServices $couponIssueServices */        $couponIssueServices = app()->make(StoreCouponIssueServices::class);
         $list = $couponIssueServices->selectList([['category_id', '>', 0]], 'id,category_id', $page, $limit)->toArray();
         
         if (empty($list)) {
@@ -412,8 +386,7 @@ class DataMigrationServices extends BaseServices
         }
         
         if ($allData) {
-            /** @var StoreCouponProductServices $couponProductServices */
-            $couponProductServices = app()->make(StoreCouponProductServices::class);
+            /** @var StoreCouponProductServices $couponProductServices */            $couponProductServices = app()->make(StoreCouponProductServices::class);
             $couponProductServices->saveAll($allData);
         }
         

@@ -26,22 +26,19 @@ use think\facade\App;
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2025/12/18
- */
-class Theme extends AuthController
+ */class Theme extends AuthController
 {
 
     /**
      * @var ThemeServices Lớp dịch vụ chủ đề
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * hàm tạo
      * Tiêm dịch vụ ThemeServices
-     * @param App $app Phiên bản vùng chứa ứng dụng
+     * @param App $app Phiên bản vùng chứa Ứng dụng
      * @param ThemeServices $services Ví dụ dịch vụ chủ đề
-     */
-    public function __construct(App $app, ThemeServices $services)
+     */    public function __construct(App $app, ThemeServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -57,8 +54,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function getThemeList()
+     */    public function getThemeList()
     {
         // Nhận tham số yêu cầu và đặt giá trị mặc định
         $where = $this->request->getMore([
@@ -83,8 +79,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function getThemeInfo($id, $type = '')
+     */    public function getThemeInfo($id, $type = '')
     {
         $data = $this->services->getThemeInfo($id, $type);
         return app('json')->success($data);
@@ -97,8 +92,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function saveTheme($id)
+     */    public function saveTheme($id)
     {
         $data = $this->request->getMore([
             ['tid', 0],
@@ -118,8 +112,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function saveThemeTitle($id)
+     */    public function saveThemeTitle($id)
     {
         $data = $this->request->getMore([
             ['tid', 0],
@@ -138,8 +131,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function saveThemeImage($id)
+     */    public function saveThemeImage($id)
     {
         $data = $this->request->getMore([
             ['image', ''],
@@ -160,8 +152,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/12
-     */
-    public function getThemeArticleList()
+     */    public function getThemeArticleList()
     {
         $where = $this->request->getMore([
             ['ids', ''],
@@ -184,8 +175,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/13
-     */
-    public function getThemeCouponList()
+     */    public function getThemeCouponList()
     {
         $where = $this->request->getMore([
             ['ids', ''],
@@ -214,8 +204,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/13
-     */
-    public function getThemeProductList()
+     */    public function getThemeProductList()
     {
         $where = $this->request->getMore([
             ['ids', ''],
@@ -242,18 +231,17 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function exportTheme($id)
+     */    public function exportTheme($id)
     {
         // Xác định xem bộ đệm Redis có được sử dụng hay không và hàng đợi tin nhắn có được bật hay không
         $queueEnabled = sys_config('queue_open', 0) == 1 && \think\facade\Env::get('cache.driver', 'file') == 'redis';
         if (!$queueEnabled) {
-            return app('json')->fail('Chức năng xuất cần bật bộ nhớ đệm Redis và hàng đợi tin nhắn. Vui lòng vào phần cài đặt hệ thống để kích hoạt cấu hình tương ứng trước.');
+            return app('json')->fail('Chức năng xuất cần bật bộ nhớ đệm Redis và hàng đợi tin nhắn. Vui lòng vào phần Cài đặt hệ thống để kích hoạt cấu hình tương ứng trước.');
         }
 
         $id = (int)$id;
 
-        // 1. Truy vấn thông tin cơ bản của chủ đề và lấy tiêu đề
+        // 1. Tìm kiếm thông tin cơ bản của chủ đề và lấy tiêu đề
         $info = $this->services->getThemeInfo($id);
 
         // 2. Tạo thư mục đóng gói chủ đề
@@ -278,8 +266,7 @@ class Theme extends AuthController
         if (!is_dir($imagesDir)) mkdir($imagesDir, 0755, true);
 
         // 5. Viết các bản ghi đang chờ xử lý vào eb_theme_download (download_url chưa được điền）
-        /** @var ThemeDownloadServices $themeDownloadServices */
-        $themeDownloadServices = app()->make(ThemeDownloadServices::class);
+        /** @var ThemeDownloadServices $themeDownloadServices */        $themeDownloadServices = app()->make(ThemeDownloadServices::class);
         $recordId = $themeDownloadServices->addDownloadRecord($id, $info['title'], '');
 
         // 6. Đẩy nhiệm vụ đóng gói vào hàng đợi
@@ -290,18 +277,16 @@ class Theme extends AuthController
 
     /**
      * Bản ghi xuất chủ đề truy vấn
-     * Giao diện người dùng thăm dò giao diện và khi download_url không trống, hàng đợi đã hoàn tất.
+     * Giao diện Khách hàng thăm dò giao diện và khi download_url không trống, hàng đợi đã hoàn tất.
      *
      * @param int $record_id Lịch sử tải xuốngID
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function getExportRecord($record_id)
+     */    public function getExportRecord($record_id)
     {
-        /** @var ThemeDownloadServices $themeDownloadServices */
-        $themeDownloadServices = app()->make(ThemeDownloadServices::class);
+        /** @var ThemeDownloadServices $themeDownloadServices */        $themeDownloadServices = app()->make(ThemeDownloadServices::class);
         $record = $themeDownloadServices->getDownloadInfo((int)$record_id);
         return app('json')->success([
             'download_url' => $record['download_url'] ?? '',
@@ -320,8 +305,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/15
-     */
-    public function importTheme()
+     */    public function importTheme()
     {
         // 1 Nhận tập tin
         [$importUrl] = $this->request->postMore([
@@ -338,8 +322,7 @@ class Theme extends AuthController
             new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::CHILD_FIRST
         );
-        /** @var SplFileInfo $fileInfo */
-        foreach ($iterator as $fileInfo) {
+        /** @var SplFileInfo $fileInfo */        foreach ($iterator as $fileInfo) {
             if ($fileInfo->isDir()) {
                 @rmdir($fileInfo->getRealPath());
             } else {
@@ -355,10 +338,10 @@ class Theme extends AuthController
         $configPath = $dir . 'config.json';
         if (!file_exists($configPath)) return app('json')->fail('Tập tin không tồn tại');
         $config = json_decode(file_get_contents($configPath), true);
-        if (!is_array($config)) return app('json')->fail('Lỗi nội dung tập tin');
+        if (!is_array($config)) return app('json')->fail('Lỗi Nội dung tập tin');
 
         // 4. Xử lý di chuyển tài nguyên hình ảnh
-        // Di chuyển tất cả hình ảnh trong gói nén sang uploads/theme/{Dấu thời gian}/ dưới thư mục
+        // Di chuyển Tất cả hình ảnh trong gói nén sang uploads/theme/{Dấu thời gian}/ dưới thư mục
         $timestamp = date('YmdHis');
         $themeDir = 'uploads/theme/' . $timestamp . '/';
         if (!is_dir($themeDir)) mkdir($themeDir, 0755, true);
@@ -366,7 +349,7 @@ class Theme extends AuthController
         $rootPath = realpath($dir);
         $imageMap = []; // Ghi lại ánh xạ các đường dẫn tương đối tới các đường dẫn tải lên mới
 
-        // Quét đệ quy tất cả ảnh trong thư mục giải nén
+        // Quét đệ quy Tất cả ảnh trong thư mục giải nén
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS)
         );
@@ -477,8 +460,7 @@ class Theme extends AuthController
      * @description: Sử dụng chủ đề
      * @param int $id chủ đềID
      * @return array
-     */
-    public function useTheme(int $id)
+     */    public function useTheme(int $id)
     {
         $this->services->useTheme($id);
         return app('json')->success('Đã sử dụng thành công');
@@ -488,8 +470,7 @@ class Theme extends AuthController
      * @description: Sử dụng dữ liệu chủ đề
      * @param array $data Dữ liệu chủ đề
      * @return array
-     */
-    public function useThemeData($id)
+     */    public function useThemeData($id)
     {
         [$theme_id, $type] = $this->request->getMore([
             ['theme_id', 0],
@@ -502,8 +483,7 @@ class Theme extends AuthController
     /**
      * @description: Sử dụng chủ đề
      * @return array
-     */
-    public function getUsingTheme()
+     */    public function getUsingTheme()
     {
         $theme = $this->services->getUsingTheme();
         return app('json')->success($theme);
@@ -513,8 +493,7 @@ class Theme extends AuthController
      * @description: Khôi phục chủ đề
      * @param int $id chủ đềID
      * @return array
-     */
-    public function restoreTheme(int $id)
+     */    public function restoreTheme(int $id)
     {
         $this->services->restoreTheme($id);
         return app('json')->success('Khôi phục thành công');
@@ -524,8 +503,7 @@ class Theme extends AuthController
      * @description: Xóa chủ đề
      * @param int $id chủ đềID
      * @return array
-     */
-    public function deleteTheme(int $id)
+     */    public function deleteTheme(int $id)
     {
         $this->services->deleteTheme($id);
         return app('json')->success('Xóa thành công');
@@ -540,8 +518,7 @@ class Theme extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/20
-     */
-    public function getMicroPageList()
+     */    public function getMicroPageList()
     {
         $data = $this->services->getMicroPageList();
         return app('json')->success($data);

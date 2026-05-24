@@ -17,48 +17,42 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO Đặt hàngModel
+ * TODO Đơn hàngModel
  * Class StoreOrder
  * @package app\model\order
- */
-class StoreIntegralOrder extends BaseModel
+ */class StoreIntegralOrder extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_integral_order';
+     */    protected $name = 'store_integral_order';
 
     protected $insert = ['add_time'];
 
     /**
      * Thời gian cập nhật
      * @var bool | string | int
-     */
-    protected $updateTime = false;
+     */    protected $updateTime = false;
 
     /**
      * Tạo công cụ sửa đổi thời gian
      * @return int
-     */
-    protected function setAddTimeAttr()
+     */    protected function setAddTimeAttr()
     {
         return time();
     }
 
     /**
-     * Liên kết một-một của các bảng người dùng
+     * Liên kết một-một của các bảng Khách hàng
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname', 'phone', 'spread_uid'])->bind([
             'nickname' => 'nickname',
@@ -71,8 +65,7 @@ class StoreIntegralOrder extends BaseModel
      * Trình tìm kiếm ID đơn hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchOrderIdAttr($query, $value)
+     */    public function searchOrderIdAttr($query, $value)
     {
         $query->where('order_id', $value);
     }
@@ -81,8 +74,7 @@ class StoreIntegralOrder extends BaseModel
      * Trình tìm trạng thái đơn hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('status', $value);
@@ -93,8 +85,7 @@ class StoreIntegralOrder extends BaseModel
      * Trình tìm kiếm ID sản phẩm
      * @param Model $query
      * @param $value
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         if ($value !== '') {
             if(is_array($value)){
@@ -109,8 +100,7 @@ class StoreIntegralOrder extends BaseModel
      * Trình tìm kiếm mã xác minh
      * @param Model $query
      * @param $value
-     */
-    public function searchVerifyCodeAttr($query, $value)
+     */    public function searchVerifyCodeAttr($query, $value)
     {
         $query->where('verify_code', $value);
     }
@@ -118,8 +108,7 @@ class StoreIntegralOrder extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIdAttr($query, $value)
+     */    public function searchIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('id', $value);
@@ -129,21 +118,19 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * ID đơn hàng hoặc người tìm kiếm tên người dùng
+     * ID đơn hàng hoặc người tìm kiếm tên Khách hàng
      * @param $query
      * @param $value
-     */
-    public function searchOrderIdRealNameAttr($query, $value)
+     */    public function searchOrderIdRealNameAttr($query, $value)
     {
         $query->where('order_id|real_name', $value);
     }
 
     /**
-     * Trình tìm kiếm ID người dùng
+     * Trình tìm kiếm ID Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('uid', $value);
@@ -152,11 +139,10 @@ class StoreIntegralOrder extends BaseModel
     }
 
     /**
-     * Nguồn người dùng
+     * Nguồn Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchChannelTypeAttr($query, $value)
+     */    public function searchChannelTypeAttr($query, $value)
     {
         if ($value != '') $query->where('channel_type', $value);
     }

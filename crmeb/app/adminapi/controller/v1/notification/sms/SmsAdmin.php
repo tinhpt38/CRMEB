@@ -18,16 +18,14 @@ use think\facade\App;
  * tài khoản SMS
  * Class SmsAdmin
  * @package app\adminapi\controller\v1\sms
- */
-class SmsAdmin extends AuthController
+ */class SmsAdmin extends AuthController
 {
     /**
      * Người xây dựng
      * SmsAdmin constructor.
      * @param App $app
      * @param SmsAdminServices $services
-     */
-    public function __construct(App $app, SmsAdminServices $services)
+     */    public function __construct(App $app, SmsAdminServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -36,8 +34,7 @@ class SmsAdmin extends AuthController
     /**
      * Gửi mã xác minh
      * @return mixed
-     */
-    public function captcha()
+     */    public function captcha()
     {
         if (!request()->isPost()) {
             return app('json')->fail('Gửi không thành công');
@@ -52,8 +49,7 @@ class SmsAdmin extends AuthController
     /**
      * Sửa đổi/đăng ký tài khoản nền tảng SMS
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         [$account, $password, $phone, $code, $url, $sign] = $this->request->postMore([
             ['account', ''],

@@ -44,7 +44,7 @@ export async function shareProduct(
       type: "zmp",
       data: {
         title: product.name,
-        description: "Xem sản phẩm trên Mini App",
+        description: "Chi tiết sản phẩm trên Mini App",
         thumbnail,
         path: buildSharePath(product.id),
       },

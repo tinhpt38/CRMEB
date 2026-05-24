@@ -17,29 +17,25 @@ use crmeb\traits\ModelTrait;
 /**
  * Class UserVisit
  * @package app\model\user
- */
-class UserVisit extends BaseModel
+ */class UserVisit extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_visit';
+     */    protected $name = 'user_visit';
 
     /**
      * Truy cập Trình tìm nguồn
      * @param $query
      * @param $value
-     */
-    public function searchChannelTypeAttr($query, $value)
+     */    public function searchChannelTypeAttr($query, $value)
     {
         if ($value != '') $query->where('channel_type', $value);
     }

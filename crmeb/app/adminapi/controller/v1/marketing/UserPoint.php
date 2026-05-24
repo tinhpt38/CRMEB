@@ -18,16 +18,14 @@ use think\facade\App;
  * bộ điều khiển tích hợp
  * Class StoreCategory
  * @package app\admin\controller\system
- */
-class UserPoint extends AuthController
+ */class UserPoint extends AuthController
 {
 
     /**
      * Finance constructor.
      * @param App $app
      * @param UserBillServices $services
-     */
-    public function __construct(App $app, UserBillServices $services)
+     */    public function __construct(App $app, UserBillServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -36,8 +34,7 @@ class UserPoint extends AuthController
     /**
      * Danh sách ghi điểm
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['start_time', ''],
@@ -52,8 +49,7 @@ class UserPoint extends AuthController
     /**
      * Nhận thông tin tiêu đề của nhật ký điểm
      * @return mixed
-     */
-    public function integral_statistics()
+     */    public function integral_statistics()
     {
         $where = $this->request->getMore([
             ['start_time', ''],

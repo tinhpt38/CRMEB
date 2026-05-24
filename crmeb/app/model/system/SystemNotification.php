@@ -15,25 +15,22 @@ use crmeb\basic\BaseModel;
 use crmeb\traits\ModelTrait;
 
 /**
- * Mô hình cài đặt cấp hệ thống
+ * Mô hình Cài đặt cấp hệ thống
  * Class SystemUserLevel
  * @package app\model\system
- */
-class SystemNotification extends BaseModel
+ */class SystemNotification extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_notification';
+     */    protected $name = 'system_notification';
 
     public function searchTypeAttr($query, $value)
     {

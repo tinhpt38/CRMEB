@@ -1,0 +1,77 @@
+{
+  "dryRun": false,
+  "roots": [
+    "f-chan/src"
+  ],
+  "summary": {
+    "scanned": 83,
+    "changedFiles": 14,
+    "totalReplacements": 6
+  },
+  "stats": {
+    "perEntry": {
+      "Đặt hàng": 2,
+      "nội dung": 2,
+      "người dùng": 1,
+      "Xem sản phẩm": 1
+    },
+    "perFile": [
+      {
+        "file": "f-chan/src/components/product-item.tsx",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/components/transition-link.tsx",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/config.ts",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/hooks.ts",
+        "count": 3
+      },
+      {
+        "file": "f-chan/src/pages/home/banners.tsx",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/pages/orders/order-info.tsx",
+        "count": 1
+      },
+      {
+        "file": "f-chan/src/pages/profile/bind-phone.tsx",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/state.ts",
+        "count": 1
+      },
+      {
+        "file": "f-chan/src/types.d.ts",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/utils/crmeb/client.ts",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/utils/crmeb/envelope.ts",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/utils/crmeb/userProfile.ts",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/utils/session.ts",
+        "count": 0
+      },
+      {
+        "file": "f-chan/src/utils/shareProduct.ts",
+        "count": 1
+      }
+    ]
+  }
+}

@@ -23,26 +23,23 @@ class OrderShippingListener implements ListenerInterface
 {
     public function handle($event): void
     {
-        /** @var StoreOrder $order */
-        [$order_type, $order, $delivery_type, $delivery_id, $delivery_name] = $event;
+        /** @var StoreOrder $order */        [$order_type, $order, $delivery_type, $delivery_id, $delivery_name] = $event;
         $order_shipping_open = sys_config('order_shipping_open', 0);  // Công tắc dịch vụ quản lý thông tin phân phối chương trình mini
         $secs = 0;
         if ($order && $order_shipping_open) {
             //Xác định xem đơn hàng có được chia nhỏ hay không
             $delivery_mode = 1;
             $is_all_delivered = true;
-            if ($order_type == 'product') {  // Đặt hàng sản phẩm
+            if ($order_type == 'product') {  // Đơn hàng sản phẩm
                 if ($order['is_channel'] == 1 && $order['pay_type'] == 'weixin') {
                     $out_trade_no = $order['order_id'];
-                    /** @var StoreOrderCartInfoServices $orderInfoServices */
-                    $orderInfoServices = app()->make(StoreOrderCartInfoServices::class);
+                    /** @var StoreOrderCartInfoServices $orderInfoServices */                    $orderInfoServices = app()->make(StoreOrderCartInfoServices::class);
                     $item_desc = $orderInfoServices->getCarIdByProductTitle((int)$order['id'], true);
 
                     if ($order['pid'] > 0) {
                         $delivery_mode = 2;
-                        // Xác định xem tất cả các đơn đặt hàng đã được chuyển đi chưa
-                        /** @var StoreOrderServices $orderServices */
-                        $orderServices = app()->make(StoreOrderServices::class);
+                        // Xác định xem Tất cả các đơn đặt hàng đã được chuyển đi chưa
+                        /** @var StoreOrderServices $orderServices */                        $orderServices = app()->make(StoreOrderServices::class);
                         $is_all_delivered = $orderServices->checkSubOrderNotSend((int)$order['pid'], (int)$order['id']);
                         $p_order = $orderServices->get((int)$order['pid']);
                         if (!$p_order) {
@@ -69,7 +66,7 @@ class OrderShippingListener implements ListenerInterface
             } else if ($order_type == 'member') {  // Đơn hàng thành viên
                 if ($order['pay_type'] == 'weixin') {
                     $delivery_type = 3;
-                    $item_desc = 'Mua hàng của người dùng' . $order['member_type'] . 'thẻ thành viên';
+                    $item_desc = 'Mua hàng của Khách hàng' . $order['member_type'] . 'thẻ thành viên';
                     $out_trade_no = $order['order_id'];
                     $pay_uid = $order['uid'];
                     $secs = 10;
@@ -132,8 +129,7 @@ class OrderShippingListener implements ListenerInterface
                 $logistics_type = 4;
             }
             //Tìm người trả tiềnopenid
-            /** @var WechatUserServices $wechatUserService */
-            $wechatUserService = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUserService */            $wechatUserService = app()->make(WechatUserServices::class);
             $payer_openid = $wechatUserService->uidToOpenid($pay_uid, 'routine');
             if (empty($payer_openid)) {
                 throw new AdminException('Người thanh toán lệnh không bình thường');

@@ -20,21 +20,18 @@ class LangType extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'lang_type';
+     */    protected $name = 'lang_type';
 
     /**
      * is_delNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }
@@ -43,8 +40,7 @@ class LangType extends BaseModel
      * statusNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') $query->where('status', $value);
     }

@@ -20,26 +20,22 @@ use app\model\product\product\StoreProductReply;
  *
  * Class StoreProductReplyStoreProductDao
  * @package app\dao\product\product
- */
-class StoreProductReplyStoreProductDao extends BaseDao
+ */class StoreProductReplyStoreProductDao extends BaseDao
 {
     /**
      * bí danh bảng
      * @var string
-     */
-    protected $alias = '';
+     */    protected $alias = '';
 
     /**
      * Bí danh danh sách liên kết
      * @var string
-     */
-    protected $joinAlis = '';
+     */    protected $joinAlis = '';
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductReply::class;
     }
@@ -47,8 +43,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
     /**
      * mô hình danh sách liên kết
      * @return string
-     */
-    public function setJoinModel(): string
+     */    public function setJoinModel(): string
     {
         return StoreProduct::class;
     }
@@ -58,13 +53,11 @@ class StoreProductReplyStoreProductDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    public function getModel(string $alias = 'r', string $join_alias = 'p', $join = 'left')
+     */    public function getModel(string $alias = 'r', string $join_alias = 'p', $join = 'left')
     {
         $this->alias = $alias;
         $this->joinAlis = $join_alias;
-        /** @var StoreProduct $storeProduct */
-        $storeProduct = app()->make($this->setJoinModel());
+        /** @var StoreProduct $storeProduct */        $storeProduct = app()->make($this->setJoinModel());
         $table = $storeProduct->getName();
         return parent::getModel()->join($table . ' ' . $join_alias, $alias . '.product_id = ' . $join_alias . '.id', $join)->alias($alias);
     }
@@ -78,8 +71,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductReplyList(array $where, int $page, int $limit)
+     */    public function getProductReplyList(array $where, int $page, int $limit)
     {
         return $this->searchWhere($where)->page($page, $limit)->select()->toArray();
     }
@@ -88,8 +80,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
      * Lấy số lượng bình luận
      * @param array $where
      * @return int
-     */
-    public function replyCount(array $where)
+     */    public function replyCount(array $where)
     {
         return $this->searchWhere($where)->count();
     }
@@ -98,8 +89,7 @@ class StoreProductReplyStoreProductDao extends BaseDao
      * tìm kiếm
      * @param array $where
      * @return \crmeb\basic\BaseModel
-     */
-    public function searchWhere(array $where = [])
+     */    public function searchWhere(array $where = [])
     {
         $model = $this->getModel()->where('r.is_del', 0)->withSearch(['time'], ['time' => $where['data'], 'timeKey' => 'r.add_time'])->field('r.*,p.store_name,p.image,r.nickname as account,SUM(r.product_score+r.service_score) as score')->group('id');
         if ($where['is_reply'] != '') $model = $model->where('r.is_reply', $where['is_reply']);

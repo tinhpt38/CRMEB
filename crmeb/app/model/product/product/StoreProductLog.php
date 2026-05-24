@@ -22,14 +22,12 @@ class StoreProductLog extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_log';
+     */    protected $name = 'store_product_log';
 
     protected $autoWriteTimestamp = 'int';
 
@@ -38,8 +36,7 @@ class StoreProductLog extends BaseModel
     /**
      * Thêm công cụ sửa đổi thời gian
      * @return int
-     */
-    public function setAddTimeAttr()
+     */    public function setAddTimeAttr()
     {
         return time();
     }
@@ -48,8 +45,7 @@ class StoreProductLog extends BaseModel
      * hiệp hội một-một
      * Tên sản phẩm gắn liền với hồ sơ sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function storeName()
+     */    public function storeName()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')->bind([
             'store_name',
@@ -64,8 +60,7 @@ class StoreProductLog extends BaseModel
      * Trình tìm kiếm loại bản ghi
      * @param $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value != '') $query->where('type', $value);
     }
@@ -74,17 +69,15 @@ class StoreProductLog extends BaseModel
      * Trình tìm kiếm ID sản phẩm
      * @param $query
      * @param $value
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         if ($value != '') $query->where('product_id', $value);
     }
     /**
-     * Trình tìm kiếm ID người dùng
+     * Trình tìm kiếm ID Khách hàng
      * @param $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value != '') $query->where('uid', $value);
     }

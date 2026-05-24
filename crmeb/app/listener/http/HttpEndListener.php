@@ -18,8 +18,7 @@ use think\Response;
  * yêu cầu kết thúc sự kiện
  * Class Create
  * @package app\listener\http
- */
-class HttpEndListener
+ */class HttpEndListener
 {
     public function handle(Response $response): void
     {
@@ -36,7 +35,7 @@ class HttpEndListener
             $type = "fail";
         }
 
-        //ID người dùng hiện tại
+        //ID Khách hàng hiện tại
         if (!empty(request()->uid())) {
             $uid = request()->uid();
         } elseif (!empty(request()->adminId())) {
@@ -49,11 +48,11 @@ class HttpEndListener
 
         //Nội dung nhật ký
         $log = [
-            $uid,                                                                                 //người dùngID
+            $uid,                                                                                 //ID khách hàng
             request()->ip(),                                                                      //khách hàngip
             ceil(msectime() - (request()->time(true) * 1000)),                                    //Thời gian thực hiện (mili giây）
             request()->rule()->getMethod(),                                                       //Loại yêu cầu
-            str_replace("/", "", request()->rootUrl()),                                           //ứng dụng
+            str_replace("/", "", request()->rootUrl()),                                           //Ứng dụng
             request()->baseUrl(),                                                                 //lộ trình
             json_encode(request()->param(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),     //Thông số yêu cầu
             json_encode($response->getData(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),   //dữ liệu phản hồi

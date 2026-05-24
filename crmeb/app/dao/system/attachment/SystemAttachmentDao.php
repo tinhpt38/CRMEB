@@ -19,15 +19,13 @@ use app\model\system\attachment\SystemAttachment;
  *
  * Class SystemAttachmentDao
  * @package app\dao\attachment
- */
-class SystemAttachmentDao extends BaseDao
+ */class SystemAttachmentDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemAttachment::class;
     }
@@ -41,8 +39,7 @@ class SystemAttachmentDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page, int $limit)
+     */    public function getList(array $where, int $page, int $limit)
     {
         return $this->search($where)->where('module_type', 1)->page($page, $limit)->order('att_id DESC')->select()->toArray();
     }
@@ -51,8 +48,7 @@ class SystemAttachmentDao extends BaseDao
      * hình ảnh chuyển động
      * @param array $data
      * @return \crmeb\basic\BaseModel
-     */
-    public function move(array $data)
+     */    public function move(array $data)
     {
         return $this->getModel()->whereIn('att_id', $data['images'])->update(['pid' => $data['pid']]);
     }
@@ -66,8 +62,7 @@ class SystemAttachmentDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLikeNameList(array $where, int $page, int $limit)
+     */    public function getLikeNameList(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->order('att_id desc')->select()->toArray();
     }
@@ -78,8 +73,7 @@ class SystemAttachmentDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getYesterday()
+     */    public function getYesterday()
     {
         return $this->getModel()->whereTime('time', 'yesterday')->where('module_type', 2)->field(['name', 'att_dir', 'att_id', 'image_type'])->select();
     }
@@ -87,8 +81,7 @@ class SystemAttachmentDao extends BaseDao
     /**
      * Xóa poster được tạo của ngày hôm qua
      * @throws \Exception
-     */
-    public function delYesterday()
+     */    public function delYesterday()
     {
         $this->getModel()->whereTime('time', 'yesterday')->where('module_type', 2)->delete();
     }
@@ -103,8 +96,7 @@ class SystemAttachmentDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
-     */
-    public function scanUploadImage($scan_token)
+     */    public function scanUploadImage($scan_token)
     {
         return $this->getModel()->where('scan_token', $scan_token)->field('att_dir,att_id')->select()->toArray();
     }

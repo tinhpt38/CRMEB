@@ -20,15 +20,13 @@ use think\facade\App;
 /**
  * Class Sms
  * @package app\adminapi\controller\v1\serve
- */
-class Sms extends AuthController
+ */class Sms extends AuthController
 {
     /**
      * Sms constructor.
      * @param App $app
      * @param ServeServices $services
-     */
-    public function __construct(App $app, ServeServices $services)
+     */    public function __construct(App $app, ServeServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class Sms extends AuthController
      * Kích hoạt dịch vụ
      * @param string $sign
      * @return mixed
-     */
-    public function openServe(string $sign)
+     */    public function openServe(string $sign)
     {
         if (!$sign) {
             return app('json')->fail('Vui lòng thiết lập chữ ký SMS');
@@ -53,8 +50,7 @@ class Sms extends AuthController
      * Sửa đổi chữ ký SMS
      * @param string $sign
      * @return mixed
-     */
-    public function editSign(string $sign)
+     */    public function editSign(string $sign)
     {
         [$sign, $phone, $code] = $this->request->postMore([
             ['sign', ''],
@@ -74,8 +70,7 @@ class Sms extends AuthController
     /**
      * Nhận mẫu SMS
      * @return mixed
-     */
-    public function temps()
+     */    public function temps()
     {
         [$page, $limit, $type] = $this->request->getMore([
             ['page', 1],
@@ -89,8 +84,7 @@ class Sms extends AuthController
     /**
      * Mẫu đơn đăng ký
      * @return mixed
-     */
-    public function apply()
+     */    public function apply()
     {
         [$title, $content, $type] = $this->request->postMore([
             ['title', ''],
@@ -99,16 +93,15 @@ class Sms extends AuthController
         ], true);
 
         if (!$title || !$content || !$type) {
-            return app('json')->success('Vui lòng nhập nội dung mẫu');
+            return app('json')->success('Vui lòng nhập Nội dung mẫu');
         }
         return app('json')->success($this->services->sms()->apply($title, $content, (int)$type));
     }
 
     /**
-     * Nhận hồ sơ ứng dụng
+     * Nhận hồ sơ Ứng dụng
      * @return mixed
-     */
-    public function applyRecord()
+     */    public function applyRecord()
     {
         [$page, $limit, $tempType] = $this->request->getMore([
             [['page', 'd'], 1],

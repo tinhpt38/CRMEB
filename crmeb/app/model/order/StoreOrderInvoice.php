@@ -20,8 +20,7 @@ use think\Model;
 /**
  * Class StoreOrderInvoice
  * @package app\model\order
- */
-class StoreOrderInvoice extends BaseModel
+ */class StoreOrderInvoice extends BaseModel
 {
     use ModelTrait;
 
@@ -42,8 +41,7 @@ class StoreOrderInvoice extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         if (!empty($value)) {
             return is_string($value) ? $value : date('Y-m-d H:i:s', (int)$value);
@@ -79,8 +77,7 @@ class StoreOrderInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) $query->where('uid', $value);
     }
@@ -88,8 +85,7 @@ class StoreOrderInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchOrderIdAttr($query, $value)
+     */    public function searchOrderIdAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) $query->where('order_id', $value);
     }
@@ -97,8 +93,7 @@ class StoreOrderInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchInvoiceIdAttr($query, $value)
+     */    public function searchInvoiceIdAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) $query->where('invoice_id', $value);
     }
@@ -106,8 +101,7 @@ class StoreOrderInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchHeaderTypeAttr($query, $value)
+     */    public function searchHeaderTypeAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) $query->where('header_type', $value);
     }
@@ -115,8 +109,7 @@ class StoreOrderInvoice extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) $query->where('type', $value);
     }

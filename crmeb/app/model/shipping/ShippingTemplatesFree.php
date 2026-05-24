@@ -19,30 +19,26 @@ use think\Model;
  *  miễn phí vận chuyểnModel
  * Class ShippingTemplatesFree
  * @package app\model\shipping
- */
-class ShippingTemplatesFree extends BaseModel
+ */class ShippingTemplatesFree extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'shipping_templates_free';
+     */    protected $name = 'shipping_templates_free';
 
     /**
      * Công cụ tìm ID thành phố
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCityIdAttr($query, $value)
+     */    public function searchCityIdAttr($query, $value)
     {
         $query->where('city_id', $value);
     }
@@ -51,8 +47,7 @@ class ShippingTemplatesFree extends BaseModel
      * Tìm kiếm id mẫu
      * @param Model $query
      * @param $value
-     */
-    public function searchTempIdAttr($query, $value)
+     */    public function searchTempIdAttr($query, $value)
     {
         $query->where('temp_id', $value);
     }
@@ -61,8 +56,7 @@ class ShippingTemplatesFree extends BaseModel
      * uniqid Người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUniqidAttr($query, $value)
+     */    public function searchUniqidAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('uniqid', $value);

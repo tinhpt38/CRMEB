@@ -17,18 +17,16 @@ use app\dao\user\UserLevelDao;
 use app\services\system\SystemUserLevelServices;
 
 /**
- * Cấp độ người dùng
+ * Hạng khách hàng
  * Class OutUserLevelServices
  * @package app\services\user
- */
-class OutUserLevelServices extends BaseServices
+ */class OutUserLevelServices extends BaseServices
 {
 
     /**
      * OutUserLevelServices constructor.
      * @param UserLevelDao $dao
-     */
-    public function __construct(UserLevelDao $dao)
+     */    public function __construct(UserLevelDao $dao)
     {
         $this->dao = $dao;
     }
@@ -37,11 +35,9 @@ class OutUserLevelServices extends BaseServices
      * Danh sách thành viên
      * @param array $where
      * @return array
-     */
-    public function levelList(array $where): array
+     */    public function levelList(array $where): array
     {
-        /** @var SystemUserLevelServices $systemLevelServices */
-        $systemLevelServices = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemLevelServices */        $systemLevelServices = app()->make(SystemUserLevelServices::class);
         $field = 'id, name, grade, discount, image, icon, explain, exp_num, is_show, add_time';
         return $systemLevelServices->getLevelList($where, $field);
     }

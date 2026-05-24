@@ -30,18 +30,16 @@ use think\facade\Route as Url;
  *
  * Class UserRechargeServices
  * @package app\services\user
- * @method be($map, string $field = '') Truy vấn xem một phần dữ liệu có tồn tại không
+ * @method be($map, string $field = '') Tìm kiếm xem một phần dữ liệu có tồn tại không
  * @method getDistinctCount(array $where, $field, ?bool $search = true)
  * @method getTrendData($time, $type, $timeType)
- */
-class UserRechargeServices extends BaseServices
+ */class UserRechargeServices extends BaseServices
 {
 
     /**
      * UserRechargeServices constructor.
      * @param UserRechargeDao $dao
-     */
-    public function __construct(UserRechargeDao $dao)
+     */    public function __construct(UserRechargeDao $dao)
     {
         $this->dao = $dao;
     }
@@ -50,8 +48,7 @@ class UserRechargeServices extends BaseServices
      * Nhận một phần dữ liệu
      * @param int $id
      * @param array $field
-     */
-    public function getRecharge(int $id, array $field = [])
+     */    public function getRecharge(int $id, array $field = [])
     {
         return $this->dao->get($id, $field);
     }
@@ -61,8 +58,7 @@ class UserRechargeServices extends BaseServices
      * @param array $where
      * @param string $field
      * @return float
-     */
-    public function getRechargeSum(array $where, string $field = '')
+     */    public function getRechargeSum(array $where, string $field = '')
     {
         $whereData = [];
         if (isset($where['data'])) {
@@ -85,8 +81,7 @@ class UserRechargeServices extends BaseServices
      * @param array $where
      * @param string $field
      * @return array
-     */
-    public function getRechargeList(array $where, string $field = '*', $is_page = true)
+     */    public function getRechargeList(array $where, string $field = '*', $is_page = true)
     {
         $whereData = [];
         if (isset($where['data'])) {
@@ -127,10 +122,9 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * Nhận dữ liệu nạp tiền của người dùng
+     * Nhận dữ liệu nạp tiền của Khách hàng
      * @return array
-     */
-    public function user_recharge(array $where)
+     */    public function user_recharge(array $where)
     {
         $data = [];
         $data['sumPrice'] = $this->getRechargeSum($where, 'price');
@@ -179,8 +173,7 @@ class UserRechargeServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/24
-     */
-    public function refund_edit(int $id)
+     */    public function refund_edit(int $id)
     {
         $UserRecharge = $this->getRecharge($id);
         if (!$UserRecharge) {
@@ -209,8 +202,7 @@ class UserRechargeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refund_update(int $id, string $refund_price)
+     */    public function refund_update(int $id, string $refund_price)
     {
         $UserRecharge = $this->getRecharge($id);
         if (!$UserRecharge) {
@@ -238,12 +230,10 @@ class UserRechargeServices extends BaseServices
             } else {
                 $refund_data['trade_no'] = $UserRecharge['trade_no'];
                 $refund_data['order_id'] = $UserRecharge['order_id'];
-                /** @var WechatUserServices $wechatUserServices */
-                $wechatUserServices = app()->make(WechatUserServices::class);
+                /** @var WechatUserServices $wechatUserServices */                $wechatUserServices = app()->make(WechatUserServices::class);
                 $refund_data['open_id'] = $wechatUserServices->uidToOpenid((int)$UserRecharge['uid'], 'routine') ?? '';
                 $refund_data['pay_new_weixin_open'] = sys_config('pay_new_weixin_open');
-                /** @var StoreOrderCreateServices $storeOrderCreateServices */
-                $storeOrderCreateServices = app()->make(StoreOrderCreateServices::class);
+                /** @var StoreOrderCreateServices $storeOrderCreateServices */                $storeOrderCreateServices = app()->make(StoreOrderCreateServices::class);
                 $refund_data['refund_no'] = $storeOrderCreateServices->getNewOrderId('tk');
             }
             if ($recharge_type == 'allinpay') {
@@ -256,8 +246,7 @@ class UserRechargeServices extends BaseServices
                 $drivers = 'wechat_pay';
                 $trade_no = $UserRecharge['order_id'];
             }
-            /** @var Pay $pay */
-            $pay = app()->make(Pay::class, [$drivers]);
+            /** @var Pay $pay */            $pay = app()->make(Pay::class, [$drivers]);
             $pay->refund($trade_no, $refund_data);
         } catch (\Exception $e) {
             throw new AdminException($e->getMessage());
@@ -266,9 +255,8 @@ class UserRechargeServices extends BaseServices
             throw new AdminException('Sửa đổi không thành công');
         }
 
-        //Sửa đổi số dư người dùng
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        //Sửa đổi số dư Khách hàng
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($UserRecharge['uid']);
         if ($userInfo['now_money'] > $number) {
             $now_money = bcsub((string)$userInfo['now_money'], $number, 2);
@@ -279,15 +267,13 @@ class UserRechargeServices extends BaseServices
         $userServices->update((int)$UserRecharge['uid'], ['now_money' => $now_money], 'uid');
 
         //Viết dòng vốn
-        /** @var CapitalFlowServices $capitalFlowServices */
-        $capitalFlowServices = app()->make(CapitalFlowServices::class);
+        /** @var CapitalFlowServices $capitalFlowServices */        $capitalFlowServices = app()->make(CapitalFlowServices::class);
         $UserRecharge['nickname'] = $userInfo['nickname'];
         $UserRecharge['phone'] = $userInfo['phone'];
         $capitalFlowServices->setFlow($UserRecharge, 'refund_recharge');
 
         //Lưu hồ sơ số dư
-        /** @var UserMoneyServices $userMoneyServices */
-        $userMoneyServices = app()->make(UserMoneyServices::class);
+        /** @var UserMoneyServices $userMoneyServices */        $userMoneyServices = app()->make(UserMoneyServices::class);
         $userMoneyServices->income('user_recharge_refund', $UserRecharge['uid'], $number, $now_money, $id);
 
         //Đẩy lời nhắc
@@ -312,11 +298,10 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
      * @return bool
-     */
-    public function delRecharge(int $id)
+     */    public function delRecharge(int $id)
     {
         $rechargInfo = $this->getRecharge($id);
         if (!$rechargInfo) throw new AdminException('Dữ liệu không tồn tại');
@@ -332,8 +317,7 @@ class UserRechargeServices extends BaseServices
     /**
      * Tạo số thứ tự nạp tiền
      * @return bool|string
-     */
-    public function getOrderId()
+     */    public function getOrderId()
     {
         return 'wx' . date('YmdHis', time()) . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
     }
@@ -346,17 +330,14 @@ class UserRechargeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function importNowMoney(int $uid, $price)
+     */    public function importNowMoney(int $uid, $price)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Lỗi tham số');
         }
-        /** @var UserBrokerageServices $frozenPrices */
-        $frozenPrices = app()->make(UserBrokerageServices::class);
+        /** @var UserBrokerageServices $frozenPrices */        $frozenPrices = app()->make(UserBrokerageServices::class);
         $broken_commission = $frozenPrices->getUserFrozenPrice($uid);
         $commissionCount = bcsub((string)$user['brokerage_price'], (string)$broken_commission, 2);
         if ($price > $commissionCount) {
@@ -384,9 +365,8 @@ class UserRechargeServices extends BaseServices
             throw new ApiException('Không thể ghi số dư nạp lại');
         }
 
-        //Hồ sơ số dư
-        /** @var UserMoneyServices $userMoneyServices */
-        $userMoneyServices = app()->make(UserMoneyServices::class);
+        //Biến động số dư
+        /** @var UserMoneyServices $userMoneyServices */        $userMoneyServices = app()->make(UserMoneyServices::class);
         $userMoneyServices->income('brokerage_to_nowMoney', $uid, $price, $edit_data['now_money'], $re['id']);
 
         //Viết biên bản rút tiền
@@ -399,13 +379,11 @@ class UserRechargeServices extends BaseServices
             'add_time' => time(),
             'status' => 1
         ];
-        /** @var UserExtractServices $userExtract */
-        $userExtract = app()->make(UserExtractServices::class);
+        /** @var UserExtractServices $userExtract */        $userExtract = app()->make(UserExtractServices::class);
         $userExtract->save($extractInfo);
 
         //Hồ sơ rút tiền hoa hồng
-        /** @var UserBrokerageServices $userBrokerageServices */
-        $userBrokerageServices = app()->make(UserBrokerageServices::class);
+        /** @var UserBrokerageServices $userBrokerageServices */        $userBrokerageServices = app()->make(UserBrokerageServices::class);
         $userBrokerageServices->income('brokerage_to_nowMoney', $uid, $price, $edit_data['brokerage_price'], $re['id']);
         return true;
     }
@@ -422,11 +400,9 @@ class UserRechargeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function recharge(int $uid, $price, $recharId, $type, $from, bool $renten = false)
+     */    public function recharge(int $uid, $price, $recharId, $type, $from, bool $renten = false)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Người dùng không tồn tại');
@@ -435,8 +411,7 @@ class UserRechargeServices extends BaseServices
             case 0: //Thanh toán số dư nạp lại
                 $paid_price = 0;
                 if ($recharId) {
-                    /** @var SystemGroupDataServices $systemGroupData */
-                    $systemGroupData = app()->make(SystemGroupDataServices::class);
+                    /** @var SystemGroupDataServices $systemGroupData */                    $systemGroupData = app()->make(SystemGroupDataServices::class);
                     $data = $systemGroupData->getDateValue($recharId);
                     if ($data === false) {
                         throw new ApiException('Phương thức nạp tiền bạn chọn đã bị xóa khỏi kệ');
@@ -458,8 +433,7 @@ class UserRechargeServices extends BaseServices
                     throw new ApiException('Tạo lệnh nạp tiền không thành công');
                 }
                 try {
-                    /** @var RechargeServices $recharge */
-                    $recharge = app()->make(RechargeServices::class);
+                    /** @var RechargeServices $recharge */                    $recharge = app()->make(RechargeServices::class);
                     $order_info = $recharge->recharge($rechargeOrder);
                 } catch (\Exception $e) {
                     throw new ApiException($e->getMessage());
@@ -477,22 +451,20 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * Sau khi người dùng nạp tiền thành công
+     * Sau khi Khách hàng nạp tiền thành công
      * @param $orderId
      * @param array $other
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function rechargeSuccess($orderId, array $other = [])
+     */    public function rechargeSuccess($orderId, array $other = [])
     {
         $order = $this->dao->getOne(['order_id' => $orderId, 'paid' => 0]);
         if (!$order) {
             throw new ApiException('Đơn hàng không tồn tại');
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo((int)$order['uid']);
         if (!$user) {
             throw new ApiException('Người dùng không tồn tại');
@@ -502,15 +474,13 @@ class UserRechargeServices extends BaseServices
             throw new ApiException('Không thể sửa đổi thứ tự');
         }
         $now_money = bcadd((string)$user['now_money'], (string)$price, 2);
-        /** @var UserMoneyServices $userMoneyServices */
-        $userMoneyServices = app()->make(UserMoneyServices::class);
+        /** @var UserMoneyServices $userMoneyServices */        $userMoneyServices = app()->make(UserMoneyServices::class);
         $userMoneyServices->income('user_recharge', $user['uid'], ['number' => $price, 'price' => $order['price'], 'give_price' => $order['give_price']], $now_money, $order['id']);
         if (!$userServices->update((int)$order['uid'], ['now_money' => $now_money], 'uid')) {
-            throw new ApiException('Không thể sửa đổi thông tin người dùng');
+            throw new ApiException('Không thể sửa đổi thông tin Khách hàng');
         }
 
-        /** @var CapitalFlowServices $capitalFlowServices */
-        $capitalFlowServices = app()->make(CapitalFlowServices::class);
+        /** @var CapitalFlowServices $capitalFlowServices */        $capitalFlowServices = app()->make(CapitalFlowServices::class);
         $order['nickname'] = $user['nickname'];
         $order['phone'] = $user['phone'];
         $capitalFlowServices->setFlow($order, 'recharge');
@@ -527,7 +497,7 @@ class UserRechargeServices extends BaseServices
         // Dịch vụ đặt hàng chương trình nhỏ
         event('OrderShippingListener', ['recharge', $order, 3, '', '']);
 
-        //Nạp tiền cho người dùng sự kiện tùy chỉnh
+        //Nạp tiền cho Khách hàng sự kiện tùy chỉnh
         event('CustomEventListener', ['user_recharge', [
             'uid' => $order['uid'],
             'id' => (int)$order['id'],
@@ -544,14 +514,13 @@ class UserRechargeServices extends BaseServices
     }
 
     /**
-     * Theo số tiền nạp lại của người dùng truy vấn
+     * Theo số tiền nạp lại của Khách hàng truy vấn
      * @param array $where
      * @param string $rechargeSumField
      * @param string $selectType
      * @param string $group
      * @return float|int
-     */
-    public function getRechargeMoneyByWhere(array $where, string $rechargeSumField, string $selectType, string $group = "")
+     */    public function getRechargeMoneyByWhere(array $where, string $rechargeSumField, string $selectType, string $group = "")
     {
         switch ($selectType) {
             case "sum" :

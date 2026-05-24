@@ -20,8 +20,7 @@ class CapitalFlowServices extends BaseServices
 {
     /**
      * @param CapitalFlowDao $dao
-     */
-    public function __construct(CapitalFlowDao $dao)
+     */    public function __construct(CapitalFlowDao $dao)
     {
         $this->dao = $dao;
     }
@@ -30,8 +29,7 @@ class CapitalFlowServices extends BaseServices
      * Thêm dòng tiền
      * @param $orderInfo
      * @param string $type
-     */
-    public function setFlow($orderInfo, $type = '')
+     */    public function setFlow($orderInfo, $type = '')
     {
         $data['flow_id'] = 'ZJ' . date('Ymdhis', time()) . rand('1000', '9999');
         switch ($type) {
@@ -107,8 +105,7 @@ class CapitalFlowServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFlowList($where)
+     */    public function getFlowList($where)
     {
         $export = $where['export'] ?? 0;
         unset($where['export']);
@@ -123,7 +120,7 @@ class CapitalFlowServices extends BaseServices
         $count = $this->dao->count($where);
         if ($export) {
             $fileKey = ['flow_id', 'order_id', 'nickname', 'phone', 'price', 'trading_type', 'pay_type_name', 'add_time', 'mark'];
-            $header = ['Số giao dịch', 'Đơn hàng liên kết', 'người dùng', 'Điện thoại', 'Số lượng', 'Loại đơn hàng', 'Hình thức thanh toán', 'giờ giao dịch', 'Nhận xét'];
+            $header = ['Số giao dịch', 'Đơn hàng liên kết', 'Khách hàng', 'Điện thoại', 'Số lượng', 'Loại đơn hàng', 'Hình thức thanh toán', 'giờ giao dịch', 'Nhận xét'];
             $fileName = 'Xuất hóa đơn' . date('YmdHis') . rand(1000, 9999);
             return compact('list', 'fileKey', 'header', 'fileName');
         } else {
@@ -136,8 +133,7 @@ class CapitalFlowServices extends BaseServices
      * @param $id
      * @param $data
      * @return bool
-     */
-    public function setMark($id, $data)
+     */    public function setMark($id, $data)
     {
         $res = $this->dao->update($id, $data);
         if ($res) {
@@ -148,11 +144,10 @@ class CapitalFlowServices extends BaseServices
     }
 
     /**
-     * Nhận hồ sơ thanh toán
+     * Nhận Lịch sử thanh toán
      * @param $where
      * @return array
-     */
-    public function getFlowRecord($where)
+     */    public function getFlowRecord($where)
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getRecordList($where, $page, $limit);

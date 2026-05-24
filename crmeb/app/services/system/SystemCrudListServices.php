@@ -20,8 +20,7 @@ class SystemCrudListServices extends BaseServices
     /**
      * SystemCrudListServices constructor.
      * @param SystemCrudListDao $dao
-     */
-    public function __construct(SystemCrudListDao $dao)
+     */    public function __construct(SystemCrudListDao $dao)
     {
         $this->dao = $dao;
     }
@@ -37,8 +36,7 @@ class SystemCrudListServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryList($where)
+     */    public function dataDictionaryList($where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->selectList($where, '*', $page, $limit, '', [], true)->toArray();
@@ -60,8 +58,7 @@ class SystemCrudListServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryListCreate($id = 0)
+     */    public function dataDictionaryListCreate($id = 0)
     {
         $info = $this->dao->get($id);
         $field = [];
@@ -80,8 +77,7 @@ class SystemCrudListServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryListSave($id = 0, $data = [])
+     */    public function dataDictionaryListSave($id = 0, $data = [])
     {
         if ($id) {
             $this->dao->update($id, $data);
@@ -99,8 +95,7 @@ class SystemCrudListServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryListDel($id)
+     */    public function dataDictionaryListDel($id)
     {
         $res1 = $this->dao->delete($id);
         $res2 = app()->make(SystemCrudDataService::class)->delete(['cid' => $id]);

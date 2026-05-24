@@ -12,8 +12,7 @@ use think\facade\Route;
 
 /**
  * Quản lý thông báo tin nhắn, tin nhắn mẫu (danh sách, thông báo, thêm, chỉnh sửa), định tuyến liên quan đến SMS
- */
-Route::group('notify', function () {
+ */Route::group('notify', function () {
     //Lưu cấu hình Đăng nhập
     Route::post('sms/config', 'v1.notification.sms.SmsConfig/save_basics')->option(['real_name' => 'Lưu cấu hình SMS']);
     //Bản ghi gửi SMS

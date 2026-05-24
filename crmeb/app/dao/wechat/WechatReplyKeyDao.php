@@ -21,26 +21,22 @@ use app\model\wechat\WechatKey;
  *
  * Class UserWechatUserDao
  * @package app\dao\user
- */
-class WechatReplyKeyDao extends BaseDao
+ */class WechatReplyKeyDao extends BaseDao
 {
     /**
      * Bí danh bảng chính
      * @var string
-     */
-    protected $alias = 'r';
+     */    protected $alias = 'r';
 
     /**
      * Lên lịch bí danh
      * @var string
-     */
-    protected $joinAlis = 'k';
+     */    protected $joinAlis = 'k';
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return WechatReply::class;
     }
@@ -48,8 +44,7 @@ class WechatReplyKeyDao extends BaseDao
     /**
      * Đặt mô hình bảng tham gia
      * @return string
-     */
-    protected function setJoinModel(): string
+     */    protected function setJoinModel(): string
     {
         return WechatKey::class;
     }
@@ -59,22 +54,19 @@ class WechatReplyKeyDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    protected function getModel(string $key = 'id', string $join = 'LEFT')
+     */    protected function getModel(string $key = 'id', string $join = 'LEFT')
     {
-        /** @var WechatKey $keys */
-        $keys = app()->make($this->setJoinModel());
+        /** @var WechatKey $keys */        $keys = app()->make($this->setJoinModel());
         $name = $keys->getName();
         return parent::getModel()->join($name . ' ' . $this->joinAlis, $this->alias . '.' . $key . ' = ' . $this->joinAlis . '.reply_id', $join)->alias($this->alias);
     }
 
     /**
-     * Nhận tất cả từ khóa
+     * Nhận Tất cả từ khóa
      * @param array $where
      * @param bool $group
      * @return \crmeb\basic\BaseModel|mixed|Model
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return $this->getModel()->when(isset($where['key']) && $where['key'], function ($query) use ($where) {
             $query->where($this->joinAlis . '.keys', 'LIKE', "%$where[key]%");
@@ -96,8 +88,7 @@ class WechatReplyKeyDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getReplyKeyList(array $where, int $page, int $limit)
+     */    public function getReplyKeyList(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->group($this->alias . '.id')->field($this->alias . '.*,' . $this->joinAlis . '.keys')->select()->toArray();
     }
@@ -107,8 +98,7 @@ class WechatReplyKeyDao extends BaseDao
      * @param array $where
      * @param bool $search
      * @return int
-     */
-    public function count(array $where = [], bool $search = true)
+     */    public function count(array $where = [], bool $search = true)
     {
         return $this->search($where, $search)->group($this->alias . '.id')->count();
     }

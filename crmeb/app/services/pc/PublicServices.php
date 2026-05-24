@@ -22,11 +22,9 @@ class PublicServices extends BaseServices
      * Nhận dữ liệu thành phố
      * @param int $pid
      * @return mixed
-     */
-    public function getCity(int $pid)
+     */    public function getCity(int $pid)
     {
-        /** @var SystemCityServices $city */
-        $city = app()->make(SystemCityServices::class);
+        /** @var SystemCityServices $city */        $city = app()->make(SystemCityServices::class);
         $list = $city->getColumn(['parent_id' => $pid, 'is_show' => 1], 'city_id,name');
         return $list;
     }

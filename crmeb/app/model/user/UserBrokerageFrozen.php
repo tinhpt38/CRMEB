@@ -19,29 +19,25 @@ use think\Model;
  * Hoa hồng đóng băng
  * Class UserBrokerageFrozen
  * @package app\model\user
- */
-class UserBrokerageFrozen extends BaseModel
+ */class UserBrokerageFrozen extends BaseModel
 {
 
     /**
      * Đặt khóa chính
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Đặt tên bảng
      * @var string
-     */
-    protected $name = 'user_brokerage_frozen';
+     */    protected $name = 'user_brokerage_frozen';
 
 
     /**
-     * người tìm kiếm id người dùng
+     * người tìm kiếm id Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -50,8 +46,7 @@ class UserBrokerageFrozen extends BaseModel
      * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->where('status', $value);
     }
@@ -59,8 +54,7 @@ class UserBrokerageFrozen extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchOrderIdAttr($query, $value)
+     */    public function searchOrderIdAttr($query, $value)
     {
         $query->where('order_id', $value);
     }

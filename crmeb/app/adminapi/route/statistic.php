@@ -13,32 +13,29 @@ use think\facade\Route;
 
 /**
  * Định tuyến liên quan đến quản lý phân phối
- */
-Route::group('statistic', function () {
+ */Route::group('statistic', function () {
 
-    /** Thống kê người dùng */
-    Route::group(function () {
-        //Cơ sở người dùng
-        Route::get('user/get_basic', 'v1.statistic.UserStatistic/getBasic')->option(['real_name' => 'Thống kê cơ bản của người dùng']);
-        //Xu hướng tăng trưởng người dùng
-        Route::get('user/get_trend', 'v1.statistic.UserStatistic/getTrend')->option(['real_name' => 'Xu hướng tăng trưởng người dùng']);
+    /** Thống kê Khách hàng */    Route::group(function () {
+        //Cơ sở Khách hàng
+        Route::get('user/get_basic', 'v1.statistic.UserStatistic/getBasic')->option(['real_name' => 'Thống kê cơ bản của Khách hàng']);
+        //Xu hướng tăng trưởng Khách hàng
+        Route::get('user/get_trend', 'v1.statistic.UserStatistic/getTrend')->option(['real_name' => 'Xu hướng tăng trưởng Khách hàng']);
         //Người dùng WeChat
-        Route::get('user/get_wechat', 'v1.statistic.UserStatistic/getWechat')->option(['real_name' => 'Thống kê người dùng WeChat']);
-        //Xu hướng tăng trưởng người dùng WeChat
-        Route::get('user/get_wechat_trend', 'v1.statistic.UserStatistic/getWechatTrend')->option(['real_name' => 'Xu hướng tăng trưởng người dùng WeChat']);
-        //Xếp hạng địa lý của người dùng
-        Route::get('user/get_region', 'v1.statistic.UserStatistic/getRegion')->option(['real_name' => 'Xếp hạng địa lý của người dùng']);
-        //Giới tính người dùng
-        Route::get('user/get_sex', 'v1.statistic.UserStatistic/getSex')->option(['real_name' => 'Phân bổ giới tính người dùng']);
+        Route::get('user/get_wechat', 'v1.statistic.UserStatistic/getWechat')->option(['real_name' => 'Thống kê Khách hàng WeChat']);
+        //Xu hướng tăng trưởng Khách hàng WeChat
+        Route::get('user/get_wechat_trend', 'v1.statistic.UserStatistic/getWechatTrend')->option(['real_name' => 'Xu hướng tăng trưởng Khách hàng WeChat']);
+        //Xếp hạng địa lý của Khách hàng
+        Route::get('user/get_region', 'v1.statistic.UserStatistic/getRegion')->option(['real_name' => 'Xếp hạng địa lý của Khách hàng']);
+        //Giới tính Khách hàng
+        Route::get('user/get_sex', 'v1.statistic.UserStatistic/getSex')->option(['real_name' => 'Tiếp thị liên kết giới tính Khách hàng']);
         //Xuất dữ liệu sản phẩm
-        Route::get('user/get_excel', 'v1.statistic.UserStatistic/getExcel')->option(['real_name' => 'Xuất dữ liệu người dùng']);
-    })->option(['parent' => 'statistic', 'cate_name' => 'Thống kê người dùng']);
+        Route::get('user/get_excel', 'v1.statistic.UserStatistic/getExcel')->option(['real_name' => 'Xuất dữ liệu Khách hàng']);
+    })->option(['parent' => 'statistic', 'cate_name' => 'Thống kê Khách hàng']);
 
-    /** Thống kê sản phẩm */
-    Route::group(function () {
-        //cơ sở hàng hóa
+    /** Thống kê sản phẩm */    Route::group(function () {
+        //cơ sở sản phẩm
         Route::get('product/get_basic', 'v1.statistic.ProductStatistic/getBasic')->option(['real_name' => 'Thống kê sản phẩm cơ bản']);
-        //Xu hướng hàng hóa
+        //Xu hướng sản phẩm
         Route::get('product/get_trend', 'v1.statistic.ProductStatistic/getTrend')->option(['real_name' => 'Xu hướng sản phẩm']);
         //Xếp hạng sản phẩm
         Route::get('product/get_product_ranking', 'v1.statistic.ProductStatistic/getProductRanking')->option(['real_name' => 'Xếp hạng sản phẩm']);
@@ -46,34 +43,30 @@ Route::group('statistic', function () {
         Route::get('product/get_excel', 'v1.statistic.ProductStatistic/getExcel')->option(['real_name' => 'Xuất dữ liệu sản phẩm']);
     })->option(['parent' => 'statistic', 'cate_name' => 'Thống kê sản phẩm']);
 
-    /** Thống kê giao dịch */
-    Route::group(function () {
+    /** Thống kê giao dịch */    Route::group(function () {
         //Thống kê doanh thu ngày hôm nay
         Route::get('trade/top_trade', 'v1.statistic.TradeStatistic/topTrade')->option(['real_name' => 'Thống kê doanh thu ngày hôm nay']);
         Route::get('trade/bottom_trade', 'v1.statistic.TradeStatistic/bottomTrade')->option(['real_name' => 'Thống kê giao dịch dữ liệu đáy']);
     })->option(['parent' => 'statistic', 'cate_name' => 'Thống kê giao dịch']);
 
-    /** Thống kê đơn hàng */
-    Route::group(function () {
+    /** Thống kê đơn hàng */    Route::group(function () {
         //Cơ sở đặt hàng
         Route::get('order/get_basic', 'v1.statistic.OrderStatistic/getBasic')->option(['real_name' => 'Thống kê đơn hàng cơ bản']);
         //Xu hướng đặt hàng
         Route::get('order/get_trend', 'v1.statistic.OrderStatistic/getTrend')->option(['real_name' => 'Xu hướng đặt hàng']);
         //Nguồn đặt hàng
         Route::get('order/get_channel', 'v1.statistic.OrderStatistic/getChannel')->option(['real_name' => 'Nguồn đặt hàng']);
-        //Loại lệnh
+        //Loại đơn hàng
         Route::get('order/get_type', 'v1.statistic.OrderStatistic/getType')->option(['real_name' => 'Loại đơn hàng']);
     })->option(['parent' => 'statistic', 'cate_name' => 'Thống kê đơn hàng']);
 
-    /** Dòng vốn */
-    Route::group(function () {
+    /** Dòng tiền */    Route::group(function () {
         Route::get('flow/get_list', 'v1.statistic.FlowStatistic/getFlowList')->option(['real_name' => 'Dòng tiền']);
         Route::post('flow/set_mark/:id', 'v1.statistic.FlowStatistic/setMark')->option(['real_name' => 'Đặt ghi chú']);
         Route::get('flow/get_record', 'v1.statistic.FlowStatistic/getFlowRecord')->option(['real_name' => 'Lịch sử thanh toán']);
     })->option(['parent' => 'statistic', 'cate_name' => 'Dòng tiền']);
 
-    /** Thống kê số dư */
-    Route::group(function () {
+    /** Thống kê số dư */    Route::group(function () {
         //Cân bằng số liệu thống kê cơ bản
         Route::get('balance/get_basic', 'v1.statistic.BalanceStatistic/getBasic')->option(['real_name' => 'Cân bằng số liệu thống kê cơ bản']);
         //Xu hướng cân bằng

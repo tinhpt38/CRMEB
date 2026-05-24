@@ -20,8 +20,7 @@ class StoreCombinationValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'product_id' => 'require',
         'title' => 'require',
         'info' => 'require',
@@ -44,8 +43,7 @@ class StoreCombinationValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'product_id.require' => 'Vui lòng chọn sản phẩm',
         'title.require' => 'Vui lòng nhập tên sản phẩm',
         'info.require' => 'Vui lòng điền phần giới thiệu hoạt động',

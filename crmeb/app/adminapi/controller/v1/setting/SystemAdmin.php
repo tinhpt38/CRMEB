@@ -18,15 +18,13 @@ use think\facade\{App, Config};
 /**
  * Class SystemAdmin
  * @package app\adminapi\controller\v1\setting
- */
-class SystemAdmin extends AuthController
+ */class SystemAdmin extends AuthController
 {
     /**
      * SystemAdmin constructor.
      * @param App $app
      * @param SystemAdminServices $services
-     */
-    public function __construct(App $app, SystemAdminServices $services)
+     */    public function __construct(App $app, SystemAdminServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -36,8 +34,7 @@ class SystemAdmin extends AuthController
      * Hiển thị danh sách tài nguyên quản trị viên
      *
      * @return \think\Response
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['name', '', '', 'account_like'],
@@ -53,8 +50,7 @@ class SystemAdmin extends AuthController
      * Tạo biểu mẫu
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->createForm($this->adminInfo['level'] + 1));
     }
@@ -62,8 +58,7 @@ class SystemAdmin extends AuthController
     /**
      * lưu quản trị viên
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['account', ''],
@@ -86,8 +81,7 @@ class SystemAdmin extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         if (!$id) {
             return app('json')->fail('Không đọc được thông tin quản trị viên');
@@ -100,8 +94,7 @@ class SystemAdmin extends AuthController
      * Sửa đổi thông tin quản trị viên
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['account', ''],
@@ -125,8 +118,7 @@ class SystemAdmin extends AuthController
      * Xóa quản trị viên
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         if ($this->services->update((int)$id, ['is_del' => 1, 'status' => 0]))
@@ -140,8 +132,7 @@ class SystemAdmin extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         $this->services->update((int)$id, ['status' => $status]);
         return app('json')->success('Thiết lập thành công');
@@ -150,8 +141,7 @@ class SystemAdmin extends AuthController
     /**
      * Nhận thông tin về quản trị viên hiện đang đăng nhập
      * @return mixed
-     */
-    public function info()
+     */    public function info()
     {
         return app('json')->success($this->adminInfo);
     }
@@ -159,8 +149,7 @@ class SystemAdmin extends AuthController
     /**
      * Sửa đổi thông tin quản trị viên đăng nhập hiện tại
      * @return mixed
-     */
-    public function update_admin()
+     */    public function update_admin()
     {
         $data = $this->request->postMore([
             ['real_name', ''],
@@ -185,8 +174,7 @@ class SystemAdmin extends AuthController
     /**
      * Sửa đổi mật khẩu quản lý tập tin của quản trị viên hiện đang đăng nhập
      * @return mixed
-     */
-    public function set_file_password()
+     */    public function set_file_password()
     {
         $data = $this->request->postMore([
             ['file_pwd', ''],
@@ -204,8 +192,7 @@ class SystemAdmin extends AuthController
     /**
      * Đăng xuất
      * @return mixed
-     */
-    public function logout()
+     */    public function logout()
     {
         $key = trim(ltrim($this->request->header(Config::get('cookie.token_name')), 'Bearer'));
         CacheService::delete(md5($key));

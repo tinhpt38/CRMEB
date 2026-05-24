@@ -17,8 +17,7 @@ use crmeb\basic\BaseModel;
  *  giao thứcModel
  * Class Cache
  * @package app\model\other
- */
-class Agreement extends BaseModel
+ */class Agreement extends BaseModel
 {
     use ModelTrait;
 
@@ -26,6 +25,5 @@ class Agreement extends BaseModel
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'agreement';
+     */    protected $name = 'agreement';
 }

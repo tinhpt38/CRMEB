@@ -19,15 +19,13 @@ use think\facade\App;
 /**
  * Class CopyTaobao
  * @package app\adminapi\controller\v1\product
- */
-class CopyTaobao extends AuthController
+ */class CopyTaobao extends AuthController
 {
     /**
      * CopyTaobao constructor.
      * @param App $app
      * @param CopyTaobaoServices $services
-     */
-    public function __construct(App $app, CopyTaobaoServices $services)
+     */    public function __construct(App $app, CopyTaobaoServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -36,16 +34,14 @@ class CopyTaobao extends AuthController
     /**
      * Nhận thông tin cấu hình sản phẩm được sao chép
      * @return mixed
-     */
-    public function getConfig()
+     */    public function getConfig()
     {
         $data = [];
         $copy = sys_config('system_product_copy_type', 1);
         $data['copy_type'] = $copy;
         $data['copy_num'] = 0;
         if ($copy == 1) {//Thẻ một số
-            /** @var ServeServices $serverServices */
-            $serverServices = app()->make(ServeServices::class);
+            /** @var ServeServices $serverServices */            $serverServices = app()->make(ServeServices::class);
             try {
                 $info = $serverServices->user()->getUser();
             } catch (\Throwable $e) {
@@ -61,8 +57,7 @@ class CopyTaobao extends AuthController
     /**
      * Sao chép sản phẩm
      * @return mixed
-     */
-    public function copyProduct()
+     */    public function copyProduct()
     {
         list($type, $id, $shopid, $url) = $this->request->postMore([
             ['type', ''],
@@ -80,8 +75,7 @@ class CopyTaobao extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function save_product()
+     */    public function save_product()
     {
         $data = $this->request->postMore([
             ['cate_id', ''],

@@ -24,12 +24,10 @@ class ProductLogJob extends BaseJobs
      * @param $type  'visit','cart','order','pay','collect','refund'
      * @param $data
      * @return bool
-     */
-    public function doJob($type,$data)
+     */    public function doJob($type,$data)
     {
         try {
-            /** @var StoreProductLogServices $productLogServices */
-            $productLogServices = app()->make(StoreProductLogServices::class);
+            /** @var StoreProductLogServices $productLogServices */            $productLogServices = app()->make(StoreProductLogServices::class);
             $productLogServices->createLog($type, $data);
         }catch (\Throwable $e){
             Log::error('Đã xảy ra lỗi khi ghi hồ sơ sản phẩm,Lý do lỗi:' . $e->getMessage());

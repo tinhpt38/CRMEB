@@ -39,27 +39,24 @@ class Common extends BaseController
     }
 
     /**
-     * Lấy nội dung quảng cáo trên trang chăm sóc khách hàng
+     * Lấy Nội dung quảng cáo trên trang chăm sóc khách hàng
      * @return mixed
-     */
-    public function getKfAdv()
+     */    public function getKfAdv()
     {
-        /** @var CacheServices $cache */
-        $cache = app()->make(CacheServices::class);
+        /** @var CacheServices $cache */        $cache = app()->make(CacheServices::class);
         $content = $cache->getDbCache('kf_adv', '');
         return app('json')->success(compact('content'));
     }
 
     /**
-     * Nhận dịch vụ khách hàng ở chế độ khách
+     * Nhận CSKH ở chế độ khách
      * @param StoreServiceServices $services
      * @param UserServices $userServices
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceUser(StoreServiceServices $services, UserServices $userServices, StoreServiceRecordServices $recordServices, $token = '')
+     */    public function getServiceUser(StoreServiceServices $services, UserServices $userServices, StoreServiceRecordServices $recordServices, $token = '')
     {
         $serviceInfoList = $services->getServiceList(['status' => 1, 'online' => 1]);
         if (!count($serviceInfoList['list'])) {
@@ -69,8 +66,7 @@ class Common extends BaseController
         $toUid = $tourist_uid = $uid = 0;
         if ($token) {
             try {
-                /** @var UserAuthServices $service */
-                $service = app()->make(UserAuthServices::class);
+                /** @var UserAuthServices $service */                $service = app()->make(UserAuthServices::class);
                 $authInfo = $service->parseToken($token);
                 $uid = $authInfo['user']['uid'];
                 $toUid = $recordServices->value(['user_id' => $uid], 'to_uid');
@@ -112,8 +108,7 @@ class Common extends BaseController
      * @param Request $request
      * @param StoreServiceFeedbackServices $services
      * @return mixed
-     */
-    public function saveFeedback(Request $request, StoreServiceFeedbackServices $services)
+     */    public function saveFeedback(Request $request, StoreServiceFeedbackServices $services)
     {
         $data = $request->postMore([
             ['rela_name', ''],
@@ -130,10 +125,9 @@ class Common extends BaseController
     }
 
     /**
-     * Văn bản tiêu đề của trang phản hồi dịch vụ khách hàng
+     * Văn bản tiêu đề của trang phản hồi CSKH
      * @return mixed
-     */
-    public function getFeedbackInfo()
+     */    public function getFeedbackInfo()
     {
         return app('json')->success(['feedback' => sys_config('service_feedback')]);
     }
@@ -142,8 +136,7 @@ class Common extends BaseController
      * Lịch sử trò chuyện
      * @param $uid
      * @return mixed
-     */
-    public function getChatList(Request $request, KefuServices $services, JwtAuth $auth, $token = '')
+     */    public function getChatList(Request $request, KefuServices $services, JwtAuth $auth, $token = '')
     {
         [$uid, $upperId] = $request->postMore([
             ['uid', 0],
@@ -153,14 +146,13 @@ class Common extends BaseController
             return app('json')->fail('Lỗi tham số');
         }
         if (!$token) {
-            return app('json')->fail('Không lấy được mã thông báo truy cập của người dùng');
+            return app('json')->fail('Không lấy được mã thông báo truy cập của Khách hàng');
         }
         try {
-            /** @var UserAuthServices $service */
-            $service = app()->make(UserAuthServices::class);
+            /** @var UserAuthServices $service */            $service = app()->make(UserAuthServices::class);
             $authInfo = $service->parseToken($token);
         } catch (AuthException $e) {
-            return app('json')->fail('Mã thông báo không hợp lệ không thể tìm thấy lịch sử trò chuyện của người dùng');
+            return app('json')->fail('Mã thông báo không hợp lệ không thể tìm thấy lịch sử trò chuyện của Khách hàng');
         }
 
         return app('json')->success($services->getChatList($authInfo['user']['uid'], $uid, (int)$upperId));
@@ -174,8 +166,7 @@ class Common extends BaseController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductInfo(ProductServices $services, $id)
+     */    public function getProductInfo(ProductServices $services, $id)
     {
         return app('json')->success($services->getProductInfo((int)$id));
     }
@@ -186,18 +177,16 @@ class Common extends BaseController
      * @param $token
      * @param $order_id
      * @return mixed
-     */
-    public function getOrderInfo(StoreOrderServices $services, $token, $order_id)
+     */    public function getOrderInfo(StoreOrderServices $services, $token, $order_id)
     {
         try {
-            /** @var UserAuthServices $service */
-            $service = app()->make(UserAuthServices::class);
+            /** @var UserAuthServices $service */            $service = app()->make(UserAuthServices::class);
             $authInfo = $service->parseToken($token);
             if (!isset($authInfo['user']['uid'])) {
                 return app('json')->fail('Hoạt động trái phép');
             }
         } catch (AuthException $e) {
-            return app('json')->fail('Mã thông báo không hợp lệ không thể tìm thấy lịch sử trò chuyện của người dùng');
+            return app('json')->fail('Mã thông báo không hợp lệ không thể tìm thấy lịch sử trò chuyện của Khách hàng');
         }
         return app('json')->success($services->tidyOrder($services->getUserOrderDetail($order_id, $authInfo['user']['uid'])->toArray(), true));
     }
@@ -207,21 +196,19 @@ class Common extends BaseController
      * @param Request $request
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function upload(Request $request, SystemAttachmentServices $services)
+     */    public function upload(Request $request, SystemAttachmentServices $services)
     {
         $data = $request->postMore([
             ['filename', 'file'],
         ]);
         try {
-            /** @var UserAuthServices $service */
-            $service = app()->make(UserAuthServices::class);
+            /** @var UserAuthServices $service */            $service = app()->make(UserAuthServices::class);
             $authInfo = $service->parseToken($this->request->post('token'));
             if (!isset($authInfo['user']['uid'])) {
                 return app('json')->fail('Hoạt động trái phép');
             }
         } catch (AuthException $e) {
-            return app('json')->fail('Mã thông báo không hợp lệ không thể tìm thấy lịch sử trò chuyện của người dùng');
+            return app('json')->fail('Mã thông báo không hợp lệ không thể tìm thấy lịch sử trò chuyện của Khách hàng');
         }
         $uid = $authInfo['user']['uid'];
         if (!$data['filename']) return app('json')->fail('Lỗi tham số');

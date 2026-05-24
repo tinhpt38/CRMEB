@@ -1,0 +1,19 @@
+{
+  "roots": [
+    "template/admin/src",
+    "crmeb/app",
+    "f-chan/src"
+  ],
+  "summary": {
+    "files": 1777,
+    "filesWithHits": 0,
+    "totalHits": 0,
+    "countByKind": {
+      "han": 0,
+      "suspect": 0,
+      "hon": 0
+    }
+  },
+  "countByTerm": {},
+  "perFile": []
+}

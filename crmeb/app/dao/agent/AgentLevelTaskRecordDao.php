@@ -18,29 +18,26 @@ use app\model\agent\AgentLevelTaskRecord;
 /**
  * Class AgentLevelTaskRecordDao
  * @package app\dao\agent
- */
-class AgentLevelTaskRecordDao extends BaseDao
+ */class AgentLevelTaskRecordDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return AgentLevelTaskRecord::class;
     }
 
     /**
-     * Nhận tất cả các cấp độ nhà phân phối
+     * Nhận Tất cả các cấp độ nhà phân phối
      * @param array $where
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [], string $field = '*')
+     */    public function getList(array $where = [], string $field = '*')
     {
         return $this->search($where + ['is_del' => 0, 'status' => 1])->field($field)->order('sort desc,id desc')->select()->toArray();
     }

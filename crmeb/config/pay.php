@@ -19,6 +19,9 @@ return [
         'offline' => 'Thanh toán ngoại tuyến',
         'vn_cod' => 'Thanh toán khi nhận hàng (COD)',
         'vn_bank' => 'Chuyển khoản ngân hàng / VietQR',
+        'vnpay' => 'VNPay',
+        'momo' => 'MoMo',
+        'zalopay' => 'ZaloPay',
     ],
     //Phương thức rút tiền
     'extractType' => ['alipay', 'bank', 'weixin'],
@@ -32,5 +35,9 @@ return [
         'ali_pay' => [],
         //thanh toán số dư
         'yue' => [],
+        // Cổng thanh toán Việt Nam
+        'vnpay_pay' => [],
+        'momo_pay' => [],
+        'zalopay_pay' => [],
     ]
 ];

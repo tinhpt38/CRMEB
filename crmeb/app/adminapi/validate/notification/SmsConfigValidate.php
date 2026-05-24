@@ -16,14 +16,12 @@ use think\Validate;
  *
  * Class SmsConfigValidate
  * @package app\adminapi\validates
- */
-class SmsConfigValidate extends Validate
+ */class SmsConfigValidate extends Validate
 {
     /**
      * Xác định quy tắc xác thực
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'sms_account' => ['require'],
         'sms_token' => ['require'],
     ];
@@ -31,8 +29,7 @@ class SmsConfigValidate extends Validate
     /**
      * Xác định thông báo lỗi
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'sms_account.require' => 'Tài khoản SMS phải được điền vào',
         'sms_token.require' => 'Cần có mật khẩu SMS',
     ];

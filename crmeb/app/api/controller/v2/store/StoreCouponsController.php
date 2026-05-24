@@ -30,8 +30,7 @@ class StoreCouponsController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst(Request $request)
+     */    public function lst(Request $request)
     {
         $where = $request->getMore([
             ['type', 0],
@@ -47,13 +46,11 @@ class StoreCouponsController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getNewCoupon(Request $request)
+     */    public function getNewCoupon(Request $request)
     {
         $userInfo = $request->user();
         $data = [];
-        /** @var StoreCouponIssueServices $couponService */
-        $couponService = app()->make(StoreCouponIssueServices::class);
+        /** @var StoreCouponIssueServices $couponService */        $couponService = app()->make(StoreCouponIssueServices::class);
         $data['list'] = $couponService->getNewCoupon();
         $data['image'] = sys_config('coupon_img');
         if ($userInfo->add_time === $userInfo->last_time) {
@@ -65,20 +62,18 @@ class StoreCouponsController
     }
 
     /**
-     * Phiếu giảm giá miễn phí liên quan đến đơn hàng sau khi đặt hàng
+     * Mã giảm giá miễn phí liên quan đến đơn hàng sau khi đặt hàng
      * @param Request $request
      * @param $orderId
      * @return mixed
-     */
-    public function getOrderProductCoupon(Request $request, $orderId)
+     */    public function getOrderProductCoupon(Request $request, $orderId)
     {
 
         $uid = (int)$request->uid() ?? 0;
         if (!$orderId) {
             return app('json')->fail('Lỗi tham số');
         }
-        /** @var StoreProductCouponServices $storeProductCoupon */
-        $storeProductCoupon = app()->make(StoreProductCouponServices::class);
+        /** @var StoreProductCouponServices $storeProductCoupon */        $storeProductCoupon = app()->make(StoreProductCouponServices::class);
         $list = $storeProductCoupon->getOrderProductCoupon($uid, $orderId);
         return app('json')->success($list);
     }
@@ -86,12 +81,10 @@ class StoreCouponsController
     /**
      * Nhận phiếu giảm giá mới được thêm vào hàng ngày
      * @return mixed
-     */
-    public function getTodayCoupon(Request $request)
+     */    public function getTodayCoupon(Request $request)
     {
         $uid = $request->uid() ?? 0;
-        /** @var StoreCouponIssueServices $couponService */
-        $couponService = app()->make(StoreCouponIssueServices::class);
+        /** @var StoreCouponIssueServices $couponService */        $couponService = app()->make(StoreCouponIssueServices::class);
         $data['list'] = $couponService->getTodayCoupon($uid);
         $data['image'] = sys_config('coupon_img');
         return app('json')->success($data);

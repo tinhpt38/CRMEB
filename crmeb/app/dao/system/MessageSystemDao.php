@@ -19,15 +19,13 @@ use app\model\system\MessageSystem;
  *
  * Class MessageSystemDao
  * @package app\dao\system
- */
-class MessageSystemDao extends BaseDao
+ */class MessageSystemDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return MessageSystem::class;
     }
@@ -41,8 +39,7 @@ class MessageSystemDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMessageList(array $where, string $field = '*', int $page = 0, $limit = 0)
+     */    public function getMessageList(array $where, string $field = '*', int $page = 0, $limit = 0)
     {
         return $this->getModel()->where($where)->field($field)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);

@@ -25,15 +25,13 @@ use crmeb\exceptions\AdminException;
 /**
  * Class ProductStatisticServices
  * @package app\services\statistic
- */
-class ProductStatisticServices extends BaseServices
+ */class ProductStatisticServices extends BaseServices
 {
     /**
-     * cơ sở hàng hóa
+     * cơ sở sản phẩm
      * @param $where
      * @return array
-     */
-    public function getBasic($where)
+     */    public function getBasic($where)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Vui lòng chọn thời gian');
@@ -64,17 +62,12 @@ class ProductStatisticServices extends BaseServices
      * @param $where
      * @param $time
      * @return mixed
-     */
-    public function basicInfo($where, $time)
+     */    public function basicInfo($where, $time)
     {
-        /** @var StoreVisitServices $storeVisit */
-        $storeVisit = app()->make(StoreVisitServices::class);
-        /** @var StoreCartServices $storeCart */
-        $storeCart = app()->make(StoreCartServices::class);
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
-        /** @var StoreProductLogServices $productLog */
-        $productLog = app()->make(StoreProductLogServices::class);
+        /** @var StoreVisitServices $storeVisit */        $storeVisit = app()->make(StoreVisitServices::class);
+        /** @var StoreCartServices $storeCart */        $storeCart = app()->make(StoreCartServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var StoreProductLogServices $productLog */        $productLog = app()->make(StoreProductLogServices::class);
 
         $data['browse'] = $productLog->count($where + ['type' => 'visit']);//Lượt xem sản phẩm
         $data['user'] = $productLog->getDistinctCount($where + ['type' => 'visit'], 'uid');//Số lượng khách truy cập sản phẩm
@@ -100,18 +93,17 @@ class ProductStatisticServices extends BaseServices
         ], 'cost');//số tiền chi phí
         $data['refundPrice'] = $storeOrder->sum($where + ['refund_status' => 2], 'pay_price', true);//Số tiền hoàn lại
         $data['refund'] = $storeOrder->sum($where + ['refund_status' => 2], 'total_num', true);//Số lần hoàn tiền
-        $payPeople = $storeOrder->getDistinctCount($where + ['paid' => 1], 'uid');//Số lượng người dùng đã thực hiện giao dịch
+        $payPeople = $storeOrder->getDistinctCount($where + ['paid' => 1], 'uid');//Số lượng Khách hàng đã thực hiện giao dịch
         $data['payPercent'] = $data['user'] > 0 ? bcmul(bcdiv($payPeople, $data['user'], 4), 100, 2) : 0;//Tỷ lệ chuyển đổi từ truy cập sang thanh toán
         return $data;
     }
 
     /**
-     * Xu hướng hàng hóa
+     * Xu hướng sản phẩm
      * @param $where
      * @param $excel
      * @return array
-     */
-    public function getTrend($where, $excel = false)
+     */    public function getTrend($where, $excel = false)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Lỗi tham số');
@@ -130,22 +122,17 @@ class ProductStatisticServices extends BaseServices
     }
 
     /**
-     * Xu hướng hàng hóa
+     * Xu hướng sản phẩm
      * @param $time
      * @param $num
      * @param $excel
      * @return array
-     */
-    public function trend($time, $num, $excel = false)
+     */    public function trend($time, $num, $excel = false)
     {
-        /** @var StoreOrderRefundServices $orderRefund */
-        $orderRefund = app()->make(StoreOrderRefundServices::class);
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
-        /** @var StoreCartServices $storeCart */
-        $storeCart = app()->make(StoreCartServices::class);
-        /** @var StoreProductLogServices $productLog */
-        $productLog = app()->make(StoreProductLogServices::class);
+        /** @var StoreOrderRefundServices $orderRefund */        $orderRefund = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var StoreCartServices $storeCart */        $storeCart = app()->make(StoreCartServices::class);
+        /** @var StoreProductLogServices $productLog */        $productLog = app()->make(StoreProductLogServices::class);
 
         if ($num == 0) {
             $xAxis = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
@@ -198,8 +185,7 @@ class ProductStatisticServices extends BaseServices
                     'changes' => $changes
                 ];
             }
-            /** @var ExportServices $exportService */
-            $exportService = app()->make(ExportServices::class);
+            /** @var ExportServices $exportService */            $exportService = app()->make(ExportServices::class);
             $url = $exportService->productTrade($data);
             return compact('url');
         } else {
@@ -236,11 +222,9 @@ class ProductStatisticServices extends BaseServices
      * Xếp hạng sản phẩm
      * @param $where
      * @return mixed
-     */
-    public function getProductRanking($where)
+     */    public function getProductRanking($where)
     {
-        /** @var StoreProductLogServices $productLog */
-        $productLog = app()->make(StoreProductLogServices::class);
+        /** @var StoreProductLogServices $productLog */        $productLog = app()->make(StoreProductLogServices::class);
         return $productLog->getRanking($where);
     }
 }

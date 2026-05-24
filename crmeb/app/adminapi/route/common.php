@@ -12,16 +12,15 @@ use think\facade\Route;
 
 /**
  * Các tuyến liên quan đến tải xuống và xuất tệp
- */
-Route::group(function () {
+ */Route::group(function () {
     //Tải xuống bảng ghi bản sao lưu
     Route::get('backup/download', 'v1.system.SystemDatabackup/downloadFile')->option(['real_name' => 'Tải xuống bản ghi sao lưu bảng']);
     //Thống kê trang chủ
     Route::get('home/header', 'Common/homeStatics')->option(['real_name' => 'Thống kê trang chủ']);
     //Biểu đồ đặt hàng tại nhà
     Route::get('home/order', 'Common/orderChart')->option(['real_name' => 'Biểu đồ đặt hàng tại nhà']);
-    //Biểu đồ người dùng gia đình
-    Route::get('home/user', 'Common/userChart')->option(['real_name' => 'Biểu đồ người dùng gia đình']);
+    //Biểu đồ Khách hàng gia đình
+    Route::get('home/user', 'Common/userChart')->option(['real_name' => 'Biểu đồ Khách hàng gia đình']);
     //Xếp hạng khối lượng giao dịch trang chủ
     Route::get('home/rank', 'Common/purchaseRanking')->option(['real_name' => 'Xếp hạng khối lượng giao dịch trang chủ']);
     //Lời nhắc tin nhắn

@@ -18,14 +18,12 @@ use app\model\system\config\SystemConfig;
  * Tin nhắn ngắndao
  * Class SmsAdminDao
  * @package app\dao\sms
- */
-class SmsAdminDao extends BaseDao
+ */class SmsAdminDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemConfig::class;
     }

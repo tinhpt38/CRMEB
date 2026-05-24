@@ -15,35 +15,30 @@ use crmeb\basic\BaseController;
 use think\facade\Validate;
 
 /**
- * Lớp cơ sở Lớp mà tất cả các bộ điều khiển kế thừa từ đó
+ * Lớp cơ sở Lớp mà Tất cả các bộ điều khiển kế thừa từ đó
  * Class AuthController
  * @package app\adminapi\controller
- */
-class AuthController extends BaseController
+ */class AuthController extends BaseController
 {
     /**
      * Thông tin quản trị viên đã đăng nhập hiện tại
      * @var
-     */
-    protected $adminInfo;
+     */    protected $adminInfo;
 
     /**
      * Quản trị viên hiện đang đăng nhậpID
      * @var
-     */
-    protected $adminId;
+     */    protected $adminId;
 
     /**
-     * Quyền quản trị viên hiện tại
+     * Phân quyền quản trị viên hiện tại
      * @var array
-     */
-    protected $auth = [];
+     */    protected $auth = [];
 
 
     /**
      * khởi tạo
-     */
-    protected function initialize()
+     */    protected function initialize()
     {
         $this->adminId = $this->request->adminId();
         $this->adminInfo = $this->request->adminInfo();
@@ -57,8 +52,7 @@ class AuthController extends BaseController
      * @param null $message
      * @param bool $batch
      * @return bool
-     */
-    final protected function validate(array $data, $validate, $message = null, bool $batch = false)
+     */    final protected function validate(array $data, $validate, $message = null, bool $batch = false)
     {
         if (is_array($validate)) {
             $v = new Validate();

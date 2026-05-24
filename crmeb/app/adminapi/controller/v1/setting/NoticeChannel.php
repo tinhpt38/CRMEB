@@ -11,8 +11,7 @@ use think\facade\App;
 
 /**
  * Quản lý kênh thông báo tập trung.
- */
-class NoticeChannel extends AuthController
+ */class NoticeChannel extends AuthController
 {
     public function __construct(App $app, NoticeChannelServices $services)
     {

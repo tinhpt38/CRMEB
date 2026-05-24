@@ -23,19 +23,15 @@ use think\facade\Route as Url;
  * @package app\services\product\product
  * @method int count(array $where = []) Lấy số lượng mặt hàng
  * @method save(array $data) lưu dữ liệu
- */
-class StoreProductReplyServices extends BaseServices
+ */class StoreProductReplyServices extends BaseServices
 {
-    /** @var int Tên người dùng tối đa */
-    protected const MAX_REPLY_NICKNAME_LENGTH = 32;
-    /** @var int Nội dung đánh giá tối đa */
-    protected const MAX_REPLY_COMMENT_LENGTH = 500;
+    /** @var int Tên Khách hàng tối đa */    protected const MAX_REPLY_NICKNAME_LENGTH = 32;
+    /** @var int Nội dung đánh giá tối đa */    protected const MAX_REPLY_COMMENT_LENGTH = 500;
 
     /**
      * StoreProductReplyServices constructor.
      * @param StoreProductReplyDao $dao
-     */
-    public function __construct(StoreProductReplyDao $dao)
+     */    public function __construct(StoreProductReplyDao $dao)
     {
         $this->dao = $dao;
     }
@@ -44,11 +40,9 @@ class StoreProductReplyServices extends BaseServices
      * Lấy danh sách bình luận
      * @param array $where
      * @return array
-     */
-    public function sysPage(array $where)
+     */    public function sysPage(array $where)
     {
-        /** @var StoreProductReplyStoreProductServices $storeProductReplyStoreProductServices */
-        $storeProductReplyStoreProductServices = app()->make(StoreProductReplyStoreProductServices::class);
+        /** @var StoreProductReplyStoreProductServices $storeProductReplyStoreProductServices */        $storeProductReplyStoreProductServices = app()->make(StoreProductReplyStoreProductServices::class);
         $data = $storeProductReplyStoreProductServices->getProductReplyList($where);
         foreach ($data['list'] as &$item) {
             $item['add_time'] = date('Y-m-d H:i:s', $item['add_time']);
@@ -64,8 +58,7 @@ class StoreProductReplyServices extends BaseServices
      * @param int $product_id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm(int $product_id)
+     */    public function createForm(int $product_id)
     {
         if ($product_id == 0) {
             $field[] = Form::frameImage('image', 'Sản phẩm', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image')))
@@ -74,18 +67,18 @@ class StoreProductReplyServices extends BaseServices
         } else {
             $field[] = Form::hidden('product_id', $product_id);
         }
-        $field[] = Form::frameImage('avatar', 'Hình đại diện của người dùng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'avatar')))
+        $field[] = Form::frameImage('avatar', 'Hình đại diện của Khách hàng', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'avatar')))
             ->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false])
-            ->required('Vui lòng chọn hình đại diện người dùng');
-        $field[] = Form::input('nickname', 'Tên người dùng')
+            ->required('Vui lòng chọn hình đại diện Khách hàng');
+        $field[] = Form::input('nickname', 'Tên Khách hàng')
             ->maxlength(self::MAX_REPLY_NICKNAME_LENGTH)
-            ->placeholder('Vui lòng nhập tên người dùng')
-            ->required('Vui lòng nhập tên người dùng')
+            ->placeholder('Vui lòng nhập tên Khách hàng')
+            ->required('Vui lòng nhập tên Khách hàng')
             ->col(24);
         $field[] = Form::input('comment', 'Nội dung đánh giá')
             ->maxlength(self::MAX_REPLY_COMMENT_LENGTH)
-            ->placeholder('Vui lòng nhập nội dung đánh giá')
-            ->required('Vui lòng nhập nội dung đánh giá')
+            ->placeholder('Vui lòng nhập Nội dung đánh giá')
+            ->required('Vui lòng nhập Nội dung đánh giá')
             ->type('textarea');
         $field[] = Form::rate('product_score', 'Điểm sản phẩm', 0)->allowHalf(false)->required('Vui lòng chọn điểm sản phẩm');
         $field[] = Form::rate('service_score', 'Điểm dịch vụ', 0)->allowHalf(false)->required('Vui lòng chọn điểm dịch vụ');
@@ -97,8 +90,7 @@ class StoreProductReplyServices extends BaseServices
     /**
      * Thêm bình luận ảo
      * @param array $data
-     */
-    public function saveReply(array $data)
+     */    public function saveReply(array $data)
     {
         $time = time();
         $data['uid'] = 0;
@@ -120,10 +112,9 @@ class StoreProductReplyServices extends BaseServices
      * Trả lời bình luận
      * @param int $id
      * @param string $content
-     */
-    public function setReply(int $id, string $content)
+     */    public function setReply(int $id, string $content)
     {
-        if ($content == '') throw new AdminException('Vui lòng nhập nội dung trả lời');
+        if ($content == '') throw new AdminException('Vui lòng nhập Nội dung trả lời');
         $save['merchant_reply_content'] = $content;
         $save['merchant_reply_time'] = time();
         $save['is_reply'] = 1;
@@ -132,10 +123,9 @@ class StoreProductReplyServices extends BaseServices
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
         $res = $this->dao->update($id, ['is_del' => 1]);
         if (!$res) throw new AdminException('Xóa không thành công');
@@ -145,8 +135,7 @@ class StoreProductReplyServices extends BaseServices
      * Nhận bình luận gần đây tốt nhất
      * @param int $productId
      * @return array|\think\Model|null
-     */
-    public function getRecProductReply(int $productId)
+     */    public function getRecProductReply(int $productId)
     {
         $res = $this->dao->getProductReply($productId);
 
@@ -171,8 +160,7 @@ class StoreProductReplyServices extends BaseServices
      * Nhận dữ liệu đánh giá Tổng số đánh giá Tổng số đánh giá tích cực Tỷ lệ đánh giá tích cực
      * @param int $id
      * @return array
-     */
-    public function getProductReplyData(int $id)
+     */    public function getProductReplyData(int $id)
     {
         $goodReply = 0;
         $replyCount = $this->dao->replyCount($id);
@@ -189,20 +177,18 @@ class StoreProductReplyServices extends BaseServices
         return [$replyCount, $goodReply, $replyChance];
     }
 
-    /**Số lượng đánh giá sản phẩm
+    /**Số lượng Đánh giá sản phẩm
      * @return int
-     */
-    public function replyCount()
+     */    public function replyCount()
     {
         return $this->dao->count(['is_reply' => 0, 'is_del' => 0]);
     }
 
     /**
-     * Lấy số lượng đánh giá sản phẩm
+     * Lấy số lượng Đánh giá sản phẩm
      * @param int $id
      * @return mixed
-     */
-    public function productReplyCount(int $id)
+     */    public function productReplyCount(int $id)
     {
         $data['sum_count'] = $this->dao->replyCount($id);
         $data['good_count'] = $this->dao->replyCount($id, 1);
@@ -221,15 +207,14 @@ class StoreProductReplyServices extends BaseServices
     }
 
     /**
-     * Nhận danh sách đánh giá sản phẩm
+     * Nhận danh sách Đánh giá sản phẩm
      * @param int $id
      * @param int $type
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductReplyList(int $id, int $type)
+     */    public function getProductReplyList(int $id, int $type)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->replyList($id, $type, $page, $limit);

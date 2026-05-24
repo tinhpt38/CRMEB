@@ -19,20 +19,18 @@ use app\services\BaseServices;
  * Trình đơn WeChat
  * Class WechatMenuServices
  * @package app\services\wechat
- * @method delete($id, ?string $key = null)  xóa bỏ
+ * @method delete($id, ?string $key = null)  Xóa
  * @method getOne(array $where)  Lấy một phần dữ liệu
  * @method count(array $where)  Số mục dữ liệu được đọc
  * @method saveAll(array $where)  Chèn dữ liệu
  * @method getColumn($where,$key)  Nhận một mảng trường
- */
-class WechatKeyServices extends BaseServices
+ */class WechatKeyServices extends BaseServices
 {
     /**
      * Người xây dựng
      * WechatMenuServices constructor.
      * @param WechatKeyDao $dao
-     */
-    public function __construct(WechatKeyDao $dao)
+     */    public function __construct(WechatKeyDao $dao)
     {
         $this->dao = $dao;
     }

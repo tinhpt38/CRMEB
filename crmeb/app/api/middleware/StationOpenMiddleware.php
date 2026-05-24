@@ -19,8 +19,7 @@ use crmeb\interfaces\MiddlewareInterface;
 /**
  * Class StationOpenMiddleware
  * @package app\api\middleware
- */
-class StationOpenMiddleware implements MiddlewareInterface
+ */class StationOpenMiddleware implements MiddlewareInterface
 {
     public function handle(Request $request, \Closure $next)
     {

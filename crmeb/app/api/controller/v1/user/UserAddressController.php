@@ -15,19 +15,17 @@ use app\services\user\UserAddressServices;
 use app\services\wechat\WechatUserServices;
 
 /**
- * Lớp địa chỉ người dùng
+ * Lớp địa chỉ Khách hàng
  * Class UserController
  * @package app\api\controller\store
- */
-class UserAddressController
+ */class UserAddressController
 {
     protected $services = NUll;
 
     /**
      * UserController constructor.
      * @param UserAddressServices $services
-     */
-    public function __construct(UserAddressServices $services)
+     */    public function __construct(UserAddressServices $services)
     {
         $this->services = $services;
     }
@@ -37,8 +35,7 @@ class UserAddressController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function address(Request $request, $id)
+     */    public function address(Request $request, $id)
     {
         $uid = (int)$request->uid();
         if (!$id) {
@@ -53,8 +50,7 @@ class UserAddressController
      * danh sách địa chỉ
      * @param Request $request
      * @return mixed
-     */
-    public function address_list(Request $request)
+     */    public function address_list(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->getUserAddressList($uid, 'id,real_name,phone,province,city,district,detail,is_default,city_id'));
@@ -64,8 +60,7 @@ class UserAddressController
      * Đặt địa chỉ mặc định
      * @param Request $request
      * @return mixed
-     */
-    public function address_default_set(Request $request)
+     */    public function address_default_set(Request $request)
     {
         list($id) = $request->getMore([['id', 0]], true);
         if (!$id || !is_numeric($id)) return app('json')->fail('Lỗi tham số');
@@ -83,8 +78,7 @@ class UserAddressController
      * Nhận địa chỉ mặc định
      * @param Request $request
      * @return mixed
-     */
-    public function address_default(Request $request)
+     */    public function address_default(Request $request)
     {
         $uid = (int)$request->uid();
         $defaultAddress = $this->services->getUserDefaultAddress($uid, 'id,real_name,phone,province,city,district,detail,is_default');
@@ -99,8 +93,7 @@ class UserAddressController
      * Sửa đổi Thêm địa chỉ
      * @param Request $request
      * @return mixed
-     */
-    public function address_edit(Request $request)
+     */    public function address_edit(Request $request)
     {
         $addressInfo = $request->postMore([
             ['address', []],
@@ -132,8 +125,7 @@ class UserAddressController
      * Xóa địa chỉ
      * @param Request $request
      * @return mixed
-     */
-    public function address_del(Request $request)
+     */    public function address_del(Request $request)
     {
         list($id) = $request->postMore([['id', 0]], true);
         if (!$id || !is_numeric($id)) return app('json')->fail('Lỗi tham số');

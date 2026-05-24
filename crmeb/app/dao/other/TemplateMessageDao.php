@@ -19,14 +19,12 @@ use app\model\other\TemplateMessage;
  * tin nhắn mẫu
  * Class TemplateMessageDao
  * @package app\dao\other
- */
-class TemplateMessageDao extends BaseDao
+ */class TemplateMessageDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return TemplateMessage::class;
     }
@@ -40,8 +38,7 @@ class TemplateMessageDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTemplateList(array $where, int $page, int $limit)
+     */    public function getTemplateList(array $where, int $page, int $limit)
     {
 
         return $this->getModel()->when(isset($where['name']) && $where['name']!='', function ($query) use ($where) {

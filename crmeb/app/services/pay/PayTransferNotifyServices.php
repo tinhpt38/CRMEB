@@ -20,10 +20,9 @@ class PayTransferNotifyServices
 {
     /**
      * Rút tiền mặt
-     * @param string|null $order_id Đặt hàngid
+     * @param string|null $order_id Đơn hàngid
      * @return bool
-     */
-    public function wechatTx(string $order_id = null, string $trade_no = null, string $state = null, string $fail_reason = null)
+     */    public function wechatTx(string $order_id = null, string $trade_no = null, string $state = null, string $fail_reason = null)
     {
         try {
             $userExtractServices = app()->make(UserExtractServices::class);
@@ -37,12 +36,10 @@ class PayTransferNotifyServices
             }
             $userExtractServices->update($userExtractInfo['id'], $infoData);
             if ($state == 'SUCCESS') {
-                /** @var UserServices $userService */
-                $userService = app()->make(UserServices::class);
+                /** @var UserServices $userService */                $userService = app()->make(UserServices::class);
                 $user = $userService->getUserInfo($userExtractInfo['uid']);
                 $extractNumber = bcsub($userExtractInfo['extract_price'], $userExtractInfo['extract_fee'], 2);
-                /** @var CapitalFlowServices $capitalFlowServices */
-                $capitalFlowServices = app()->make(CapitalFlowServices::class);
+                /** @var CapitalFlowServices $capitalFlowServices */                $capitalFlowServices = app()->make(CapitalFlowServices::class);
                 $capitalFlowServices->setFlow([
                     'order_id' => $order_id,
                     'uid' => $userExtractInfo['uid'],
@@ -54,7 +51,7 @@ class PayTransferNotifyServices
 
                 event('NoticeListener', [['uid' => $userExtractInfo['uid'], 'userType' => strtolower($user['user_type']), 'extractNumber' => $extractNumber, 'nickname' => $user['nickname']], 'user_extract']);
 
-                //Thông báo tùy chỉnh-người dùng rút tiền thành công
+                //Thông báo tùy chỉnh-Khách hàng rút tiền thành công
                 $userExtract['nickname'] = $user['nickname'];
                 $userExtract['phone'] = $user['phone'];
                 $userExtract['time'] = date('Y-m-d H:i:s');
@@ -81,10 +78,9 @@ class PayTransferNotifyServices
 
     /**
      * phong bì màu đỏ
-     * @param string|null $order_id Đặt hàngid
+     * @param string|null $order_id Đơn hàngid
      * @return bool
-     */
-    public function wechatHb(string $order_id = null, string $trade_no = null, string $state = null, string $fail_reason = null)
+     */    public function wechatHb(string $order_id = null, string $trade_no = null, string $state = null, string $fail_reason = null)
     {
         try {
             $info = app()->make(LuckLotteryRecordServices::class)->getOne(['transfer_bill_no' => $trade_no]);

@@ -20,16 +20,14 @@ use app\model\product\product\StoreProduct;
 /**
  * Class StoreProductAttrValue
  * @package app\common\model\product
- */
-class StoreProductAttrValue extends BaseModel
+ */class StoreProductAttrValue extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_attr_value';
+     */    protected $name = 'store_product_attr_value';
 
     protected $insert = ['unique'];
 
@@ -37,8 +35,7 @@ class StoreProductAttrValue extends BaseModel
      * sku Viết hiện trường
      * @param $value
      * @return string
-     */
-    public function setSukAttr($value)
+     */    public function setSukAttr($value)
     {
         return is_array($value) ? implode(',', $value) : $value;
     }
@@ -48,8 +45,7 @@ class StoreProductAttrValue extends BaseModel
      * @param $value
      * @param $data
      * @return mixed
-     */
-    public function setUniqueAttr($value, $data)
+     */    public function setUniqueAttr($value, $data)
     {
         if (is_array($data['suk'])) {
             $data['suk'] = $this->setSukAttr($data['suk']);
@@ -62,8 +58,7 @@ class StoreProductAttrValue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('product_id', $value);
@@ -77,8 +72,7 @@ class StoreProductAttrValue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }
@@ -88,8 +82,7 @@ class StoreProductAttrValue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchSukAttr($query, $value)
+     */    public function searchSukAttr($query, $value)
     {
         if ($value) {
             $query->where('suk', $value);
@@ -101,8 +94,7 @@ class StoreProductAttrValue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchUniqueAttr($query, $value)
+     */    public function searchUniqueAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('unique', $value);
@@ -116,8 +108,7 @@ class StoreProductAttrValue extends BaseModel
     /**
      * Sản phẩm liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function product()
+     */    public function product()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')->field('store_name,id')->bind(['store_name']);
     }
@@ -125,8 +116,7 @@ class StoreProductAttrValue extends BaseModel
     /**
      * Bảng trung tâm mua sắm điểm liên kết
      * @return \think\model\relation\HasOne
-     */
-    public function storeIntegral()
+     */    public function storeIntegral()
     {
         return $this->hasOne(StoreIntegral::class, 'id', 'product_id')->field('title store_name,id')->where('is_show', 1)->where('is_del', 0)->bind(['store_name']);
     }
@@ -136,8 +126,7 @@ class StoreProductAttrValue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchBarCodeAttr($query, $value)
+     */    public function searchBarCodeAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('bar_code', $value);

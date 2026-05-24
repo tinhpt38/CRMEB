@@ -29,8 +29,7 @@ class SystemCrontab extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTimerList()
+     */    public function getTimerList()
     {
         $where = $this->request->getMore([
             ['custom', 0],
@@ -46,8 +45,7 @@ class SystemCrontab extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTimerInfo($id)
+     */    public function getTimerInfo($id)
     {
         return app('json')->success($this->services->getTimerInfo($id));
     }
@@ -55,8 +53,7 @@ class SystemCrontab extends AuthController
     /**
      * Nhận loại nhiệm vụ theo lịch trình
      * @return mixed
-     */
-    public function getMarkList()
+     */    public function getMarkList()
     {
         return app('json')->success($this->services->getMarkList());
     }
@@ -64,8 +61,7 @@ class SystemCrontab extends AuthController
     /**
      * Lưu các nhiệm vụ theo lịch trình
      * @return mixed
-     */
-    public function saveTimer()
+     */    public function saveTimer()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -90,7 +86,7 @@ class SystemCrontab extends AuthController
             $adminInfo = $this->request->adminInfo();
             if (!$adminInfo) return app('json')->fail('Hoạt động trái phép');
             if ($adminInfo['level'] != 0) return app('json')->fail('Chỉ quản trị viên cấp cao mới có thể Thao tác các tác vụ theo lịch trình');
-            if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('Có mã nguy hiểm trong nội dung tùy chỉnh, vui lòng kiểm tra mã');
+            if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('Có mã nguy hiểm trong Nội dung tùy chỉnh, vui lòng kiểm tra mã');
         }
         $this->services->saveTimer($data);
         return app('json')->success('Đã lưu thành công');
@@ -100,8 +96,7 @@ class SystemCrontab extends AuthController
      * Xóa nhiệm vụ đã lên lịch
      * @param $id
      * @return mixed
-     */
-    public function delTimer($id)
+     */    public function delTimer($id)
     {
         $this->services->delTimer($id);
         return app('json')->success('Xóa thành công');
@@ -112,24 +107,22 @@ class SystemCrontab extends AuthController
      * @param $id
      * @param $is_open
      * @return mixed
-     */
-    public function setTimerStatus($id, $is_open)
+     */    public function setTimerStatus($id, $is_open)
     {
         $this->services->setTimerStatus($id, $is_open);
         return app('json')->success('Thiết lập thành công');
     }
 
     /**
-     * Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi nội dung và hậu tố tệp, thực thi lệnh, v.v.
+     * Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi Nội dung và hậu tố tệp, thực thi lệnh, v.v.
      * @param $code
      * @return bool
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/6
-     */
-    function isSafePhpCode($code)
+     */    function isSafePhpCode($code)
     {
-        // Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi nội dung và hậu tố tệp, thực thi lệnh, v.v.
+        // Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi Nội dung và hậu tố tệp, thực thi lệnh, v.v.
         $dangerous_keywords = array(
             'delete',
             'destroy',
@@ -147,7 +140,7 @@ class SystemCrontab extends AuthController
                 return false;
             }
         }
-        return true; // Nếu tất cả các bước kiểm tra bảo mật đều vượt qua, hãy quay lại true
+        return true; // Nếu Tất cả các bước kiểm tra bảo mật đều vượt qua, hãy quay lại true
     }
 
 }

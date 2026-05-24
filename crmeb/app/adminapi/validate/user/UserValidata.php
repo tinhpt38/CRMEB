@@ -20,8 +20,7 @@ class UserValidata extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'account' => 'require|alphaNum',
         'pwd' => 'require',
         'true_pwd' => 'require',
@@ -33,8 +32,7 @@ class UserValidata extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'account.require' => 'Vui lòng nhập số tài khoản',
         'account.alphaNum' => 'Số tài khoản chỉ có thể là số và chữ',
         'pwd.require' => 'Vui lòng điền mật khẩu',

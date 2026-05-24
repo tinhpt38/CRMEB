@@ -21,8 +21,7 @@ use think\facade\Log;
  * Phát hiện nâng cấp cấp nhà phân phối
  * Class OrderJob
  * @package crmeb\jobs
- */
-class AgentJob extends BaseJobs
+ */class AgentJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -30,8 +29,7 @@ class AgentJob extends BaseJobs
      * Thực hiện nâng cấp phát hiện
      * @param $order
      * @return bool
-     */
-    public function doJob(int $uid)
+     */    public function doJob(int $uid)
     {
         //Phát hiện nâng cấp cấp nhà phân phối
         try {
@@ -39,8 +37,7 @@ class AgentJob extends BaseJobs
             if (!sys_config('brokerage_func_status')) {
                 return true;
             }
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->getUserInfo($uid);
             if (!$userInfo) {
                 return true;
@@ -53,8 +50,7 @@ class AgentJob extends BaseJobs
             }
             $uids = array_unique([$uid, $spread_uid, $two_spread_uid]);
 
-            /** @var AgentLevelServices $agentLevelServices */
-            $agentLevelServices = app()->make(AgentLevelServices::class);
+            /** @var AgentLevelServices $agentLevelServices */            $agentLevelServices = app()->make(AgentLevelServices::class);
             //Phát hiện nâng cấp
             $agentLevelServices->checkUserLevelFinish($uid, $uids);
 

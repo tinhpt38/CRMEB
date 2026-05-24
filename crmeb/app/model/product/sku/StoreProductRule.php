@@ -18,24 +18,21 @@ use think\Model;
  * Quy tắc sản phẩm
  * Class StoreProductRule
  * @package app\common\model\product
- */
-class StoreProductRule extends BaseModel
+ */class StoreProductRule extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_rule';
+     */    protected $name = 'store_product_rule';
 
     /**
      * Trình tìm kiếm tên mẫu thuộc tính
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchRuleNameAttr($query, $value)
+     */    public function searchRuleNameAttr($query, $value)
     {
         $query->where('rule_name', 'like', '%' . $value . '%');
     }

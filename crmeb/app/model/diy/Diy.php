@@ -23,14 +23,12 @@ class Diy extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'diy';
+     */    protected $name = 'diy';
 
     protected $updateTime = false;
 
@@ -38,8 +36,7 @@ class Diy extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         return date('Y-m-d H:i:s', $value);
     }
@@ -48,8 +45,7 @@ class Diy extends BaseModel
      * Bộ thu thời gian sửa đổi
      * @param $value
      * @return false|string
-     */
-    public function getUpdateTimeAttr($value)
+     */    public function getUpdateTimeAttr($value)
     {
         return $value ? date('Y-m-d H:i:s', $value) : 'Chưa có';
     }
@@ -58,8 +54,7 @@ class Diy extends BaseModel
      * Nhập trình tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value !== '') {
             if ($value == -1) {
@@ -74,8 +69,7 @@ class Diy extends BaseModel
      * Trình tìm kiếm số phiên bản
      * @param Model $query
      * @param $value
-     */
-    public function searchVersionAttr($query, $value)
+     */    public function searchVersionAttr($query, $value)
     {
         if ($value != '') $query->where('version', $value);
     }
@@ -84,8 +78,7 @@ class Diy extends BaseModel
      * Có nên sử dụng công cụ tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value != '') $query->where('status', $value);
     }
@@ -94,8 +87,7 @@ class Diy extends BaseModel
      * người tìm kiếm tên
      * @param Model $query
      * @param $value
-     */
-    public function searchNameAttr($query, $value)
+     */    public function searchNameAttr($query, $value)
     {
         if ($value != '') $query->where('name', $value);
     }
@@ -103,8 +95,7 @@ class Diy extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }

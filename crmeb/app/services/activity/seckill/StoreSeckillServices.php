@@ -38,15 +38,13 @@ use crmeb\utils\Arr;
  * @package app\services\activity
  * @method getSeckillIdsArray(array $ids, array $field)
  * @method get(int $id, array $field) Lấy một phần dữ liệu
- */
-class StoreSeckillServices extends BaseServices
+ */class StoreSeckillServices extends BaseServices
 {
 
     /**
      * StoreSeckillServices constructor.
      * @param StoreSeckillDao $dao
-     */
-    public function __construct(StoreSeckillDao $dao)
+     */    public function __construct(StoreSeckillDao $dao)
     {
         $this->dao = $dao;
     }
@@ -60,8 +58,7 @@ class StoreSeckillServices extends BaseServices
      * Flashsale có tồn tại không?
      * @param int $id
      * @return int
-     */
-    public function getSeckillCount(int $id = 0, string $field = 'time_id')
+     */    public function getSeckillCount(int $id = 0, string $field = 'time_id')
     {
         $where = [];
         $where[] = ['is_del', '=', 0];
@@ -99,8 +96,7 @@ class StoreSeckillServices extends BaseServices
      * lưu dữ liệu
      * @param int $id
      * @param array $data
-     */
-    public function saveData(int $id, array $data)
+     */    public function saveData(int $id, array $data)
     {
         if ($data['section_time']) {
             [$start_time, $end_time] = $data['section_time'];
@@ -144,12 +140,9 @@ class StoreSeckillServices extends BaseServices
         $data['logistics'] = implode(',', $data['logistics']);
         $data['time_id'] = implode(',', $data['time_id']);
         unset($data['section_time'], $data['description'], $data['attrs'], $data['items']);
-        /** @var StoreDescriptionServices $storeDescriptionServices */
-        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
-        /** @var StoreProductServices $storeProductServices */
-        $storeProductServices = app()->make(StoreProductServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionServices */        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductServices $storeProductServices */        $storeProductServices = app()->make(StoreProductServices::class);
         if ($data['quota'] > $storeProductServices->value(['id' => $data['product_id']], 'stock')) {
             throw new AdminException('Giới hạn không thể vượt quá số lượng sản phẩm tồn kho');
         }
@@ -181,8 +174,7 @@ class StoreSeckillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function systemPage(array $where)
+     */    public function systemPage(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
@@ -223,8 +215,7 @@ class StoreSeckillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDiySeckillList($where)
+     */    public function getDiySeckillList($where)
     {
         unset($where['is_show']);
         $where['storeProductId'] = true;
@@ -233,8 +224,7 @@ class StoreSeckillServices extends BaseServices
         $list = $this->dao->getList($where, $page, $limit);
         $count = $this->dao->getCount($where);
         $cateIds = implode(',', array_column($list, 'cate_id'));
-        /** @var StoreCategoryServices $storeCategoryServices */
-        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $storeCategoryServices */        $storeCategoryServices = app()->make(StoreCategoryServices::class);
         $cateList = $storeCategoryServices->getCateArray($cateIds);
         foreach ($list as &$item) {
             $cateName = '';
@@ -262,8 +252,7 @@ class StoreSeckillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getHomeSeckillList($where)
+     */    public function getHomeSeckillList($where)
     {
         $data = [];
         $seckillTime = sys_data('routine_seckill_time') ?: [];//khoảng thời gian flash sale
@@ -295,8 +284,7 @@ class StoreSeckillServices extends BaseServices
      * Nhận thông tin chi tiết về đợt giảm giá chớp nhoáng
      * @param int $id
      * @return array|\think\Model|null
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         $info = $this->dao->get($id);
         if ($info) {
@@ -318,8 +306,7 @@ class StoreSeckillServices extends BaseServices
             $info['weight'] = floatval($info['weight']);
             $info['volume'] = floatval($info['volume']);
             $info['logistics'] = explode(',', $info['logistics']);
-            /** @var StoreDescriptionServices $storeDescriptionServices */
-            $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+            /** @var StoreDescriptionServices $storeDescriptionServices */            $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
             $info['description'] = $storeDescriptionServices->getDescription(['product_id' => $id, 'type' => 1]);
             $info['attrs'] = $this->attrList($id, $info['product_id']);
             $info['time_id'] = strpos($info['time_id'], ',') === false ? [(int)$info['time_id']] : array_map('intval', explode(',', $info['time_id']));
@@ -332,11 +319,9 @@ class StoreSeckillServices extends BaseServices
      * @param int $id
      * @param int $pid
      * @return mixed
-     */
-    public function attrList(int $id, int $pid)
+     */    public function attrList(int $id, int $pid)
     {
-        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */
-        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
+        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
         $seckillResult = $storeProductAttrResultServices->value(['product_id' => $id, 'type' => 1], 'result');
         $items = json_decode($seckillResult, true)['attr'];
         $productAttr = $this->getAttr($items, $pid, 0);
@@ -374,11 +359,9 @@ class StoreSeckillServices extends BaseServices
      * @param $id
      * @param $type
      * @return array
-     */
-    public function getAttr($attr, $id, $type)
+     */    public function getAttr($attr, $id, $type)
     {
-        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
         list($value, $head) = attr_format($attr);
         $valueNew = [];
         $count = 0;
@@ -416,8 +399,7 @@ class StoreSeckillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getListByTime(int $time)
+     */    public function getListByTime(int $time)
     {
         [$page, $limit] = $this->getPageValue();
         $seckillInfo = $this->dao->getListByTime($time, $page, $limit);
@@ -446,8 +428,7 @@ class StoreSeckillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function seckillDetail(Request $request, int $id, int $time_id = 0)
+     */    public function seckillDetail(Request $request, int $id, int $time_id = 0)
     {
         $uid = (int)$request->uid();
         $storeInfo = $this->dao->getOne(['id' => $id], '*', ['description', 'product']);
@@ -464,19 +445,16 @@ class StoreSeckillServices extends BaseServices
         $storeInfo['product_is_show'] = app()->make(StoreProductServices::class)->value($storeInfo['product_id'], 'is_show');
 
         if (sys_config('share_qrcode', 0) && request()->isWechat()) {
-            /** @var QrcodeServices $qrcodeService */
-            $qrcodeService = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrcodeService */            $qrcodeService = app()->make(QrcodeServices::class);
             $storeInfo['wechat_code'] = $qrcodeService->getTemporaryQrcode('seckill-' . $id, $uid)->url;
         } else {
             $storeInfo['wechat_code'] = '';
         }
 
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $data['buy_num'] = $storeOrderServices->getBuyCount($uid, 'seckill_id', $id);
 
-        /** @var StoreProductRelationServices $storeProductRelationServices */
-        $storeProductRelationServices = app()->make(StoreProductRelationServices::class);
+        /** @var StoreProductRelationServices $storeProductRelationServices */        $storeProductRelationServices = app()->make(StoreProductRelationServices::class);
         $storeInfo['userCollect'] = $storeProductRelationServices->isProductRelation(['uid' => $uid, 'product_id' => $storeInfo['product_id'], 'type' => 'collect', 'category' => 'product']);
         $storeInfo['userLike'] = false;
         $storeInfo['uid'] = $uid;
@@ -497,8 +475,7 @@ class StoreSeckillServices extends BaseServices
             } elseif (($storeInfo['stop_time'] + 86400) < time()) {
                 $storeInfo['status'] = 0;
             } else {
-                /** @var SystemGroupDataServices $systemGroupDataService */
-                $systemGroupDataService = app()->make(SystemGroupDataServices::class);
+                /** @var SystemGroupDataServices $systemGroupDataService */                $systemGroupDataService = app()->make(SystemGroupDataServices::class);
                 $seckillTime = array_column($systemGroupDataService->getConfigNameValue('routine_seckill_time'), null, 'id');
                 $config = $seckillTime[$time_id] ?? false;
                 if (!$config) {
@@ -519,8 +496,7 @@ class StoreSeckillServices extends BaseServices
             $storeInfo['status'] = 0;
         }
 
-        /** @var SystemGroupDataServices $groupDataService */
-        $groupDataService = app()->make(SystemGroupDataServices::class);
+        /** @var SystemGroupDataServices $groupDataService */        $groupDataService = app()->make(SystemGroupDataServices::class);
         $timeInfo = json_decode($groupDataService->value(['id' => $time_id], 'value'), true);
         $today = strtotime(date('Y-m-d'));
         $activityEndHour = $timeInfo['time']['value'] + $timeInfo['continued']['value'];
@@ -531,21 +507,19 @@ class StoreSeckillServices extends BaseServices
         $storeInfoNew = get_thumb_water($storeInfo, 'small');
         $data['storeInfo']['small_image'] = $storeInfoNew['image'];
 
-        /** @var StoreProductReplyServices $storeProductReplyService */
-        $storeProductReplyService = app()->make(StoreProductReplyServices::class);
+        /** @var StoreProductReplyServices $storeProductReplyService */        $storeProductReplyService = app()->make(StoreProductReplyServices::class);
         $data['reply'] = get_thumb_water($storeProductReplyService->getRecProductReply($storeInfo['product_id']), 'small', ['pics']);
         [$replyCount, $goodReply, $replyChance] = $storeProductReplyService->getProductReplyData((int)$storeInfo['product_id']);
         $data['replyChance'] = $replyChance;
         $data['replyCount'] = $replyCount;
 
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
         list($productAttr, $productValue) = $storeProductAttrServices->getProductAttrDetail($id, $uid, 0, 1, $storeInfo['product_id']);
         $data['productAttr'] = $productAttr;
         $data['productValue'] = $productValue;
         $data['routine_contact_type'] = sys_config('routine_contact_type', 0);
 
-        //Sự kiện truy cập của người dùng
+        //Sự kiện truy cập của Khách hàng
         event('UserVisitListener', [$uid, $id, 'seckill', $storeInfo['product_id'], 'view']);
         //Lịch sử duyệt web
         ProductLogJob::dispatch(['visit', ['uid' => $uid, 'product_id' => $storeInfo['product_id']]]);
@@ -560,8 +534,7 @@ class StoreSeckillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSeckillColumn(array $ids, string $field = '')
+     */    public function getSeckillColumn(array $ids, string $field = '')
     {
         $seckillProduct = $systemGroupData = [];
         $seckillInfoField = 'id,image,price,ot_price,postage,give_integral,sales,stock,title as store_name,unit_name,is_show,is_del,is_postage,cost,temp_id,weight,volume,start_time,stop_time,time_id';
@@ -570,8 +543,7 @@ class StoreSeckillServices extends BaseServices
             if (!empty($seckillProduct)) {
                 $timeIds = Arr::getUniqueKey($seckillProduct, 'time_id');
                 $seckillProduct = array_combine(array_column($seckillProduct, 'id'), $seckillProduct);
-                /** @var SystemGroupDataServices $groupServices */
-                $groupServices = app()->make(SystemGroupDataServices::class);
+                /** @var SystemGroupDataServices $groupServices */                $groupServices = app()->make(SystemGroupDataServices::class);
                 $systemGroupData = $groupServices->getGroupDataColumn($timeIds);
             }
         }
@@ -591,11 +563,9 @@ class StoreSeckillServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function checkSeckillStock(int $uid, int $seckillId, int $cartNum = 1, string $unique = '')
+     */    public function checkSeckillStock(int $uid, int $seckillId, int $cartNum = 1, string $unique = '')
     {
-        /** @var StoreProductAttrValueServices $attrValueServices */
-        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $attrValueServices */        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
         if ($unique == '') {
             $unique = $attrValueServices->value(['product_id' => $seckillId, 'type' => 1], 'unique');
         }
@@ -604,8 +574,7 @@ class StoreSeckillServices extends BaseServices
         if ($StoreSeckillinfo['once_num'] < $cartNum) {
             throw new ApiException('Giới hạn mua mỗi đơn hàng{:num}miếng', ['num' => $StoreSeckillinfo['once_num']]);
         }
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $userBuyCount = $orderServices->getBuyCount($uid, 'seckill_id', $seckillId);
         if ($StoreSeckillinfo['num'] < ($userBuyCount + $cartNum)) {
             throw new ApiException('Tổng giới hạn mua hàng cho mỗi người{:num}miếng', ['num' => $StoreSeckillinfo['num']]);
@@ -635,13 +604,11 @@ class StoreSeckillServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function decSeckillStock(int $num, int $seckillId, string $unique = '')
+     */    public function decSeckillStock(int $num, int $seckillId, string $unique = '')
     {
         $product_id = $this->dao->value(['id' => $seckillId], 'product_id');
         if ($unique) {
-            /** @var StoreProductAttrValueServices $skuValueServices */
-            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrValueServices $skuValueServices */            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
             //Trừ đi sku tồn kho của các mặt hàng flash sale để tăng doanh số
             $res = false !== $skuValueServices->decProductAttrStock($seckillId, $unique, $num, 1);
             //Trừ hàng tồn kho flash sale
@@ -655,8 +622,7 @@ class StoreSeckillServices extends BaseServices
         } else {
             $res = false !== $this->dao->decStockIncSales(['id' => $seckillId, 'type' => 1], $num);
         }
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         //trừ đi hàng tồn kho chung
         return $res && $services->decProductStock($num, $product_id);
 
@@ -668,13 +634,11 @@ class StoreSeckillServices extends BaseServices
      * @param int $seckillId
      * @param string $unique
      * @return bool
-     */
-    public function incSeckillStock(int $num, int $seckillId, string $unique = '')
+     */    public function incSeckillStock(int $num, int $seckillId, string $unique = '')
     {
         $product_id = $this->dao->value(['id' => $seckillId], 'product_id');
         if ($unique) {
-            /** @var StoreProductAttrValueServices $skuValueServices */
-            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrValueServices $skuValueServices */            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
             //Trừ đi sku tồn kho của các mặt hàng flash sale để tăng doanh số
             $res = false !== $skuValueServices->incProductAttrStock($seckillId, $unique, $num, 1);
             //Trừ hàng tồn kho flash sale
@@ -688,8 +652,7 @@ class StoreSeckillServices extends BaseServices
         } else {
             $res = false !== $this->dao->incStockDecSales(['id' => $seckillId, 'type' => 1], $num);
         }
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         //trừ đi hàng tồn kho chung
         $res = $res && $services->incProductStock($num, $product_id);
         return $res;
@@ -703,8 +666,7 @@ class StoreSeckillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getValidProduct($id, $field = '*')
+     */    public function getValidProduct($id, $field = '*')
     {
         return $this->dao->validProduct($id, $field);
     }
@@ -716,11 +678,9 @@ class StoreSeckillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function seckillStatistics($id)
+     */    public function seckillStatistics($id)
     {
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $pay_count = $orderServices->getDistinctCount([['seckill_id', '=', $id], ['pid', '<>', -1], ['paid', '=', 1], ['refund_type', 'in', [0, 3]]], 'uid', false);
         $order_count = $orderServices->getDistinctCount([['seckill_id', '=', $id], ['pid', '<>', -1], ['refund_type', 'in', [0, 3]]], 'uid', false);
         $all_price = $orderServices->sum([['seckill_id', '=', $id], ['pid', '<>', -1], ['refund_type', 'in', [0, 3]], ['paid', '=', 1]], 'pay_price');
@@ -734,11 +694,9 @@ class StoreSeckillServices extends BaseServices
      * @param $id
      * @param string $keyword
      * @return array
-     */
-    public function seckillPeople($id, $keyword = '')
+     */    public function seckillPeople($id, $keyword = '')
     {
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         [$page, $limit] = $this->getPageValue();
         $list = $orderServices->seckillPeople($id, $keyword, $page, $limit);
         $count = $orderServices->getDistinctCount([['seckill_id', '=', $id], ['pid', '<>', -1], ['real_name|uid|user_phone', 'like', '%' . $keyword . '%']], 'uid', false);
@@ -753,11 +711,9 @@ class StoreSeckillServices extends BaseServices
      * @param $id
      * @param array $where
      * @return array
-     */
-    public function seckillOrder($id, $where = [])
+     */    public function seckillOrder($id, $where = [])
     {
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         [$page, $limit] = $this->getPageValue();
         $where = $where + ['paid' => 1, 'refund_status' => 0, 'is_del' => 0, 'pid' => 0];
         $list = $orderServices->seckillOrder($id, $where, $page, $limit);
@@ -808,14 +764,12 @@ class StoreSeckillServices extends BaseServices
 
             $productInfos = $data['product_infos'];
             $productIds = array_column($productInfos, 'id');
-            /** @var StoreProductServices $productServices */
-            $productServices = app()->make(StoreProductServices::class);
+            /** @var StoreProductServices $productServices */            $productServices = app()->make(StoreProductServices::class);
             $productList = $productServices->searchList(['id' => $productIds, 'is_del' => 0]);
             $productList = $productList['list'] ?? [];
             $productInfos = array_combine($productIds, $productInfos);
 
-            /** @var StoreActivityServices $StoreActivityServices */
-            $StoreActivityServices = app()->make(StoreActivityServices::class);
+            /** @var StoreActivityServices $StoreActivityServices */            $StoreActivityServices = app()->make(StoreActivityServices::class);
             if ($id) {
                 $StoreActivityServices->update($id, $data);
                 $this->clearActivitySeckill($id, $productIds);
@@ -862,7 +816,7 @@ class StoreSeckillServices extends BaseServices
                             throw new AdminException('Vui lòng điền vào sản phẩm（' . $product['store_name'] . ' | ' . $sattr['suk'] . '）Giá hoạt động');
                         }
 //                        if ($sattr['price'] > $sattr['ot_price']) {
-//                            throw new AdminException('hàng hóa（' . $product['store_name'] . ' | ' . $sattr['suk'] . '）Giá hoạt động không thể lớn hơn giá gốc');
+//                            throw new AdminException('sản phẩm（' . $product['store_name'] . ' | ' . $sattr['suk'] . '）Giá hoạt động không thể lớn hơn giá gốc');
 //                        }
                         if (!isset($sattr['quota']) || !$sattr['quota']) {
                             throw new AdminException('Vui lòng điền vào sản phẩm（' . $product['store_name'] . ' | ' . $sattr['suk'] . '）phiên bản giới hạn');
@@ -905,14 +859,10 @@ class StoreSeckillServices extends BaseServices
             }
         }
         if (count($seckillIds)) {
-            /** @var StoreProductAttrResultServices $storeProductAttrResultServices */
-            $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
-            /** @var StoreDescriptionServices $storeDescriptionServices */
-            $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
-            /** @var StoreProductAttrServices $storeProductAttrServices */
-            $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
-            /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-            $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrResultServices $storeProductAttrResultServices */            $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
+            /** @var StoreDescriptionServices $storeDescriptionServices */            $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+            /** @var StoreProductAttrServices $storeProductAttrServices */            $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+            /** @var StoreProductAttrValueServices $storeProductAttrValueServices */            $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
             $where = ['product_id' => $seckillIds, 'type' => 1];
             $storeProductAttrResultServices->delete($where);
             $storeDescriptionServices->delete($where);

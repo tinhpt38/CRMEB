@@ -19,15 +19,13 @@ use app\dao\user\UserStoreOrderDao;
  *
  * Class UserStoreOrderServices
  * @package app\services\user
- */
-class UserStoreOrderServices extends BaseServices
+ */class UserStoreOrderServices extends BaseServices
 {
 
     /**
      * UserStoreOrderServices constructor.
      * @param UserStoreOrderDao $dao
-     */
-    public function __construct(UserStoreOrderDao $dao)
+     */    public function __construct(UserStoreOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -45,8 +43,7 @@ class UserStoreOrderServices extends BaseServices
         [$page, $limit] = $this->getPageValue();
         $field = "u.uid,u.nickname,u.phone,u.avatar,from_unixtime(u.add_time,'%Y/%m/%d') as time,u.spread_time,u.spread_count as childCount,p.orderCount,p.numberCount";
         $list = $this->dao->getUserSpreadCountList($where, $field, $orderBy, $page, $limit);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         foreach ($list as &$item) {
             $item['childCount'] = count($userServices->getUserSpredadUids($item['uid'], 1)) ?? 0;
         }

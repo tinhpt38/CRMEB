@@ -22,8 +22,7 @@ use think\facade\App;
  *
  * Class ZaloConfig
  * @package app\adminapi\controller\v1\application\zalo
- */
-class ZaloConfig extends AuthController
+ */class ZaloConfig extends AuthController
 {
     public function __construct(App $app, ZaloConfigServices $services)
     {
@@ -45,8 +44,7 @@ class ZaloConfig extends AuthController
      *  _meta                     object  Thông tin tài liệu hướng dẫn
      *
      * @return mixed
-     */
-    public function getConfig()
+     */    public function getConfig()
     {
         $config = $this->services->getConfig();
         $config['_meta'] = [
@@ -73,8 +71,7 @@ class ZaloConfig extends AuthController
      *  zalo_mini_app_qr_image    string  đường dẫn file sau upload
      *
      * @return mixed
-     */
-    public function saveConfig()
+     */    public function saveConfig()
     {
         $data = $this->request->postMore([
             ['zalo_login_open',           0],
@@ -96,8 +93,7 @@ class ZaloConfig extends AuthController
      * Dùng để xác nhận App ID và App Secret đã nhập đúng
      *
      * @return mixed
-     */
-    public function testConnection()
+     */    public function testConnection()
     {
         $result = $this->services->testConnection();
         if ($result['status']) {
@@ -125,8 +121,7 @@ class ZaloConfig extends AuthController
 
     /**
      * Khôi phục theme mini app mặc định.
-     */
-    public function resetMiniAppTheme()
+     */    public function resetMiniAppTheme()
     {
         $result = app()->make(\app\services\zalo\ZaloMiniAppThemeServices::class)->resetTheme();
         return app('json')->success('Khôi phục giao diện Mini App thành công', $result);
@@ -134,8 +129,7 @@ class ZaloConfig extends AuthController
 
     /**
      * Nhập palette từ theme mall uni-app.
-     */
-    public function importMiniAppThemeFromMall()
+     */    public function importMiniAppThemeFromMall()
     {
         $result = app()->make(\app\services\zalo\ZaloMiniAppThemeServices::class)->importPaletteFromMallTheme();
         return app('json')->success('Đã nhập màu từ theme mall', $result);

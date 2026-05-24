@@ -20,8 +20,7 @@ use crmeb\services\pay\Pay;
  * Hoàn vốn
  * Class PayController
  * @package app\api\controller\v1
- */
-class PayController
+ */class PayController
 {
 
     /**
@@ -29,13 +28,11 @@ class PayController
      * @param string $type
      * @return string|void
      * @throws \EasyWeChat\Core\Exceptions\FaultException
-     */
-    public function notify(string $type)
+     */    public function notify(string $type)
     {
         switch (urldecode($type)) {
             case 'alipay':
-                /** @var Pay $pay */
-                $pay = app()->make(Pay::class, ['ali_pay']);
+                /** @var Pay $pay */                $pay = app()->make(Pay::class, ['ali_pay']);
                 return $pay->handleNotify();
             case 'v3wechat':
                 return app()->make(Pay::class, ['v3_wechat_pay'])->handleNotify()->getContent();
@@ -43,17 +40,23 @@ class PayController
                 return MiniProgramService::handleNotify();
             case 'wechat':
                 if (sys_config('pay_wechat_type')) {
-                    /** @var Pay $pay */
-                    $pay = app()->make(Pay::class, ['v3_wechat_pay']);
+                    /** @var Pay $pay */                    $pay = app()->make(Pay::class, ['v3_wechat_pay']);
                 } else {
-                    /** @var Pay $pay */
-                    $pay = app()->make(Pay::class);
+                    /** @var Pay $pay */                    $pay = app()->make(Pay::class);
                 }
                 return $pay->handleNotify()->getContent();
+            case 'vnpay':
+                /** @var Pay $pay */                $pay = app()->make(Pay::class, ['vnpay_pay']);
+                return $pay->handleNotify();
+            case 'momo':
+                /** @var Pay $pay */                $pay = app()->make(Pay::class, ['momo_pay']);
+                return $pay->handleNotify();
+            case 'zalopay':
+                /** @var Pay $pay */                $pay = app()->make(Pay::class, ['zalopay_pay']);
+                return $pay->handleNotify();
             default:
                 if (strstr($type, 'allin') !== false) {
-                    /** @var Pay $pay */
-                    $pay = app()->make(Pay::class, ['allin_pay']);
+                    /** @var Pay $pay */                    $pay = app()->make(Pay::class, ['allin_pay']);
                     return $pay->handleNotify($type);
                 }
         }
@@ -63,8 +66,7 @@ class PayController
      * Cấu hình thanh toán
      * @param Request $request
      * @return mixed
-     */
-    public function config(Request $request)
+     */    public function config(Request $request)
     {
         $config = [
             [
@@ -85,7 +87,7 @@ class PayController
             ],
             [
                 'icon' => 'icon-yuezhifu',
-                'name' => 'thanh toán số dư',
+                'name' => 'Thanh toán bằng số dư',
                 'value' => 'yue',
                 'title' => 'Số dư hiện có',
                 'number' => $request->user('now_money'),
@@ -114,6 +116,30 @@ class PayController
                 'title' => 'Chuyển khoản theo hướng dẫn cửa hàng',
                 'number' => null,
                 'payStatus' => (int)sys_config('vn_bank_pay_status', 2) === 1,
+            ],
+            [
+                'icon' => 'icon-zhifubao',
+                'name' => 'VNPay',
+                'value' => 'vnpay',
+                'title' => 'Thẻ ATM / Visa / QR VNPay',
+                'number' => null,
+                'payStatus' => (int)sys_config('vn_vnpay_pay_status', 2) === 1,
+            ],
+            [
+                'icon' => 'icon-zhifubao',
+                'name' => 'MoMo',
+                'value' => 'momo',
+                'title' => 'Thanh toán qua ví MoMo',
+                'number' => null,
+                'payStatus' => (int)sys_config('vn_momo_pay_status', 2) === 1,
+            ],
+            [
+                'icon' => 'icon-zhifubao',
+                'name' => 'ZaloPay',
+                'value' => 'zalopay',
+                'title' => 'Thanh toán qua ví ZaloPay',
+                'number' => null,
+                'payStatus' => (int)sys_config('vn_zalopay_pay_status', 2) === 1,
             ],
             [
                 'icon' => 'icon-haoyoudaizhifu',

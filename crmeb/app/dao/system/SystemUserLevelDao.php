@@ -19,15 +19,13 @@ use app\model\system\SystemUserLevel;
  *
  * Class SystemUserLevelDao
  * @package app\dao\system
- */
-class SystemUserLevelDao extends BaseDao
+ */class SystemUserLevelDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemUserLevel::class;
     }
@@ -40,8 +38,7 @@ class SystemUserLevelDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, $limit = 0)
+     */    public function getList(array $where, string $field = '*', int $page = 0, $limit = 0)
     {
         return $this->getModel()->where($where)->field($field)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -52,36 +49,33 @@ class SystemUserLevelDao extends BaseDao
      * Lấy tổng số điều kiện phức tạp
      * @param array $where
      * @return int
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         return $this->getModel()->where($where)->count();
     }
 
     /**
-     * Nhận cấp độ người dùng trước đó
+     * Nhận cấp độ Khách hàng trước đó
      * @param $grade
      * @param string $field
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPreLevel($grade, string $field = '*')
+     */    public function getPreLevel($grade, string $field = '*')
     {
         return $this->getModel()->where('grade', '<', $grade)->where('is_del', 0)->field($field)->order('grade desc')->find();
     }
 
     /**
-     * Nhận cấp độ người dùng tiếp theo
+     * Nhận cấp độ Khách hàng tiếp theo
      * @param $grade
      * @param string $field
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getNextLevel($grade, string $field = '*')
+     */    public function getNextLevel($grade, string $field = '*')
     {
         return $this->getModel()->where('grade', '>', $grade)->where('is_del', 0)->field($field)->order('grade asc')->find();
     }

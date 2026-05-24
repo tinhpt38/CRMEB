@@ -11,8 +11,7 @@
 /**
  * Tạo cấu hình mô-đun
  * php think build model_name
- */
-return [
+ */return [
     // Các tập tin cần được tạo tự động
     '__file__'   => ['.htaccess','ExecptionHandle.php'],
     // Các thư mục cần được tạo tự động

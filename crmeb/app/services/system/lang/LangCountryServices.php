@@ -21,8 +21,7 @@ class LangCountryServices extends BaseServices
 {
     /**
      * @param LangCountryDao $dao
-     */
-    public function __construct(LangCountryDao $dao)
+     */    public function __construct(LangCountryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -34,13 +33,11 @@ class LangCountryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function LangCountryList(array $where = []): array
+     */    public function LangCountryList(array $where = []): array
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->selectList($where, '*', $page, $limit, 'id desc', [], true)->toArray();
-        /** @var LangTypeServices $langTypeServices */
-        $langTypeServices = app()->make(LangTypeServices::class);
+        /** @var LangTypeServices $langTypeServices */        $langTypeServices = app()->make(LangTypeServices::class);
         $langTypeList = $langTypeServices->getColumn([], 'language_name,file_name,id', 'id');
         foreach ($list as &$item) {
             if (isset($langTypeList[$item['type_id']])) {
@@ -61,8 +58,7 @@ class LangCountryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function langCountryForm($id)
+     */    public function langCountryForm($id)
     {
         if ($id) $info = $this->dao->get($id);
         $field = [];
@@ -76,8 +72,7 @@ class LangCountryServices extends BaseServices
             'class' => 'tips-info',
             'domProps' => ['innerHTML' => 'Mã định danh ngôn ngữ trình duyệt']
         ]);
-        /** @var LangTypeServices $langTypeServices */
-        $langTypeServices = app()->make(LangTypeServices::class);
+        /** @var LangTypeServices $langTypeServices */        $langTypeServices = app()->make(LangTypeServices::class);
         $list = $langTypeServices->getColumn(['is_del' => 0, 'status' => 1], 'language_name,file_name,id', 'id');
         $setOption = function () use ($list) {
             $menus = [];
@@ -99,8 +94,7 @@ class LangCountryServices extends BaseServices
      * @param $id
      * @param $typeId
      * @return bool
-     */
-    public function LangCountrySave($id, $data)
+     */    public function LangCountrySave($id, $data)
     {
         if ($id) {
             $res = $this->dao->update(['id' => $id], $data);
@@ -116,8 +110,7 @@ class LangCountryServices extends BaseServices
      * Xóa ngôn ngữ
      * @param $id
      * @return bool
-     */
-    public function langCountryDel($id)
+     */    public function langCountryDel($id)
     {
         $res = $this->dao->delete($id);
         if (!$res) throw new AdminException('Xóa không thành công');

@@ -20,15 +20,13 @@ use think\facade\App;
 /**
  * Class SystemRole
  * @package app\adminapi\controller\v1\setting
- */
-class SystemRole extends AuthController
+ */class SystemRole extends AuthController
 {
     /**
      * SystemRole constructor.
      * @param App $app
      * @param SystemRoleServices $services
-     */
-    public function __construct(App $app, SystemRoleServices $services)
+     */    public function __construct(App $app, SystemRoleServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -37,8 +35,7 @@ class SystemRole extends AuthController
     /**
      * Hiển thị danh sách tài nguyên
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -55,8 +52,7 @@ class SystemRole extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function create(SystemMenusServices $services)
+     */    public function create(SystemMenusServices $services)
     {
         $menus = $services->getmenus($this->adminInfo['level'] == 0 ? [] : $this->adminInfo['roles']);
         return app('json')->success(compact('menus'));
@@ -66,8 +62,7 @@ class SystemRole extends AuthController
      * Lưu tài nguyên mới
      *
      * @return \think\Response
-     */
-    public function save($id)
+     */    public function save($id)
     {
         $data = $this->request->postMore([
             'role_name',
@@ -99,8 +94,7 @@ class SystemRole extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function edit(SystemMenusServices $services, $id)
+     */    public function edit(SystemMenusServices $services, $id)
     {
         $role = $this->services->get($id);
         if (!$role) {
@@ -115,8 +109,7 @@ class SystemRole extends AuthController
      * @param SystemAdminServices $adminServices
      * @param $id
      * @return mixed
-     */
-    public function delete(SystemAdminServices $adminServices, $id)
+     */    public function delete(SystemAdminServices $adminServices, $id)
     {
         if ($adminServices->checkRoleUse($id)) {
             return app('json')->fail('Danh tính đang được sử dụng và không thể xóa được.');
@@ -134,8 +127,7 @@ class SystemRole extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');

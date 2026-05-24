@@ -21,18 +21,16 @@ use crmeb\services\CacheService;
 use think\facade\App;
 
 /**
- * Quản lý dịch vụ khách hàng
+ * Quản lý CSKH
  * Class StoreService
  * @package app\admin\controller\store
- */
-class StoreService extends AuthController
+ */class StoreService extends AuthController
 {
     /**
      * StoreService constructor.
      * @param App $app
      * @param StoreServiceServices $services
-     */
-    public function __construct(App $app, StoreServiceServices $services)
+     */    public function __construct(App $app, StoreServiceServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -44,8 +42,7 @@ class StoreService extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         return app('json')->success($this->services->getServiceList([]));
     }
@@ -54,8 +51,7 @@ class StoreService extends AuthController
      * Hiển thị trang biểu mẫu tạo tài nguyên
      * @param UserWechatuserServices $services
      * @return mixed
-     */
-    public function create(UserWechatuserServices $services)
+     */    public function create(UserWechatuserServices $services)
     {
         $where = $this->request->getMore([
             ['nickname', ''],
@@ -71,11 +67,10 @@ class StoreService extends AuthController
     }
 
     /**
-     * Thêm biểu mẫu dịch vụ khách hàng
+     * Thêm biểu mẫu CSKH
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function add()
+     */    public function add()
     {
         return app('json')->success($this->services->create());
     }
@@ -83,8 +78,7 @@ class StoreService extends AuthController
     /**
      * Lưu tài nguyên mới
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['image', ''],
@@ -100,10 +94,9 @@ class StoreService extends AuthController
             ['nickname', ''],
             ['status', 1],
         ]);
-        if ($data['image'] == '') return app('json')->fail('Vui lòng chọn người dùng');
+        if ($data['image'] == '') return app('json')->fail('Vui lòng chọn Khách hàng');
         $data['uid'] = $data['image']['uid'];
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $userInfo = $userService->get($data['uid']);
         if ($data['phone'] == '') {
             if (!$userInfo['phone']) {
@@ -139,14 +132,14 @@ class StoreService extends AuthController
             return app('json')->fail('Dịch vụ khách hàng cho số điện thoại di động này đã tồn tại');
         }
         if ($this->services->count(['account' => $data['account']])) {
-            return app('json')->fail('Tài khoản dịch vụ khách hàng này đã tồn tại');
+            return app('json')->fail('Tài khoản CSKH này đã tồn tại');
         }
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $res = $this->services->save($data);
         if ($res) {
-            return app('json')->success('Đã thêm dịch vụ khách hàng thành công');
+            return app('json')->success('Đã thêm CSKH thành công');
         } else {
-            return app('json')->fail('Bổ sung dịch vụ khách hàng không thành công');
+            return app('json')->fail('Bổ sung CSKH không thành công');
         }
     }
 
@@ -155,8 +148,7 @@ class StoreService extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->edit((int)$id));
     }
@@ -165,8 +157,7 @@ class StoreService extends AuthController
      * Lưu tài nguyên mới
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['avatar', ''],
@@ -184,7 +175,7 @@ class StoreService extends AuthController
             return app('json')->fail('Dữ liệu không tồn tại');
         }
         if ($data["nickname"] == '') {
-            return app('json')->fail('Tên dịch vụ khách hàng không được để trống');
+            return app('json')->fail('Tên CSKH không được để trống');
         }
         if (!check_phone($data['phone'])) {
             return app('json')->fail('Lỗi định dạng số điện thoại di động');
@@ -214,8 +205,7 @@ class StoreService extends AuthController
      * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$this->services->delete($id))
             return app('json')->fail('Xóa không thành công');
@@ -229,15 +219,14 @@ class StoreService extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status(UserServices $services, $id, $status)
+     */    public function set_status(UserServices $services, $id, $status)
     {
         if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $info = $this->services->get($id, ['status', 'uid']);
         if (!$services->count(['uid' => $info['uid']])) {
             $info->status = 1;
             $info->save();
-            return app('json')->fail('Nếu người dùng không tồn tại, dịch vụ khách hàng sẽ buộc phải vô hiệu hóa đăng nhập.');
+            return app('json')->fail('Nếu Khách hàng không tồn tại, CSKH sẽ buộc phải vô hiệu hóa đăng nhập.');
         }
         $info->status = $status;
         $info->save();
@@ -251,8 +240,7 @@ class StoreService extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function chat_user($id)
+     */    public function chat_user($id)
     {
         $uid = $this->services->value(['id' => $id], 'uid');
         if (!$uid) {
@@ -269,8 +257,7 @@ class StoreService extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function chat_list(StoreServiceLogServices $services)
+     */    public function chat_list(StoreServiceLogServices $services)
     {
         $data = $this->request->getMore([
             ['uid', 0],
@@ -293,22 +280,21 @@ class StoreService extends AuthController
     }
 
     /**
-     * Đăng nhập dịch vụ khách hàng
+     * Đăng nhập CSKH
      * @param LoginServices $services
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function keufLogin(LoginServices $services, $id)
+     */    public function keufLogin(LoginServices $services, $id)
     {
         $serviceInfo = $services->get($id);
         if (!$serviceInfo) {
-            return app('json')->fail('Đăng nhập dịch vụ khách hàng không tồn tại');
+            return app('json')->fail('Đăng nhập CSKH không tồn tại');
         }
         if (!$serviceInfo->account || !$serviceInfo->password) {
-            return app('json')->fail('Vui lòng điền tài khoản và mật khẩu dịch vụ khách hàng trước khi thử vào nền tảng dịch vụ khách hàng');
+            return app('json')->fail('Vui lòng điền tài khoản và mật khẩu CSKH trước khi thử vào nền tảng CSKH');
         }
         return app('json')->success($services->authLogin($serviceInfo->account));
     }

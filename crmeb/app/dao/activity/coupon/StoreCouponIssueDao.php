@@ -19,15 +19,13 @@ use app\model\activity\coupon\StoreCouponIssue;
  *
  * Class StoreCouponIssueDao
  * @package app\dao\coupon
- */
-class StoreCouponIssueDao extends BaseDao
+ */class StoreCouponIssueDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreCouponIssue::class;
     }
@@ -37,8 +35,7 @@ class StoreCouponIssueDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->when(isset($where['type']) && $where['type'] != '', function ($query) use ($where) {
             if ($where['type'] == 'send') {
@@ -73,8 +70,7 @@ class StoreCouponIssueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page, int $limit, string $field = '*')
+     */    public function getList(array $where, int $page, int $limit, string $field = '*')
     {
         return $this->search($where)->field($field)
             ->page($page, $limit)->order('id desc')->select()->toArray();
@@ -85,15 +81,14 @@ class StoreCouponIssueDao extends BaseDao
      * @param $where
      * @return int
      * @throws \ReflectionException
-     */
-    public function couponCount($where): int
+     */    public function couponCount($where): int
     {
         return $this->search($where)->count();
     }
 
     /**
      * Nhận danh sách phiếu giảm giá
-     * @param int $uid người dùngID
+     * @param int $uid ID khách hàng
      * @param int $type 0Chung, 1 danh mục, 2 sản phẩm
      * @param array|int $typeId ID danh mục hoặc sản phẩmID
      * @param int $page
@@ -102,8 +97,7 @@ class StoreCouponIssueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getIssueCouponList(int $uid, int $type, $typeId, int $page, int $limit)
+     */    public function getIssueCouponList(int $uid, int $type, $typeId, int $page, int $limit)
     {
         return $this->getModel()->where('status', 1)
             ->where('is_del', 0)
@@ -147,8 +141,7 @@ class StoreCouponIssueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPcIssueCouponList(int $uid, $cate_ids = [], $product_id = 0, int $limit = 0)
+     */    public function getPcIssueCouponList(int $uid, $cate_ids = [], $product_id = 0, int $limit = 0)
     {
         return $this->getModel()->where('status', 1)
             ->where('is_del', 0)
@@ -179,8 +172,7 @@ class StoreCouponIssueDao extends BaseDao
      * @param $productId
      * @param $cateId
      * @return mixed
-     */
-    public function getIssueCouponCount($productId, $cateId)
+     */    public function getIssueCouponCount($productId, $cateId)
     {
         $model = function ($query) {
             $query->where('status', 1)
@@ -219,8 +211,7 @@ class StoreCouponIssueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         return $this->getModel()->where('status', 1)
             ->where('id', $id)
@@ -239,8 +230,7 @@ class StoreCouponIssueDao extends BaseDao
      * Nhận số tiền phiếu giảm giá lớn hơn số tiền
      * @param string $totalPrice
      * @return float
-     */
-    public function getUserIssuePrice(string $totalPrice)
+     */    public function getUserIssuePrice(string $totalPrice)
     {
         return $this->search(['status' => 1, 'is_full_give' => 1, 'is_del' => 0])
             ->where('full_reduction', '<=', $totalPrice)
@@ -253,8 +243,7 @@ class StoreCouponIssueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getNewCoupon()
+     */    public function getNewCoupon()
     {
         return $this->getModel()->where('status', 1)
             ->where('is_del', 0)
@@ -273,8 +262,7 @@ class StoreCouponIssueDao extends BaseDao
      * Nhận thông tin phiếu giảm giá
      * @param int $id
      * @return mixed
-     */
-    public function getCouponInfo(int $id)
+     */    public function getCouponInfo(int $id)
     {
         return $this->getModel()->where('id', $id)->where('status', 1)->where('is_del', 0)->find();
     }
@@ -287,8 +275,7 @@ class StoreCouponIssueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGiveCoupon(array $where, string $field = '*')
+     */    public function getGiveCoupon(array $where, string $field = '*')
     {
         return $this->getModel()->field($field)
             ->where('status', 1)
@@ -312,20 +299,18 @@ class StoreCouponIssueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function productCouponList($where, $field)
+     */    public function productCouponList($where, $field)
     {
         return $this->getModel()->where($where)->field($field)->select()->toArray();
     }
 
     /**
-     * Nhận danh sách bật lên phiếu giảm giá
+     * Nhận danh sách popup mã giảm giá
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTodayCoupon($uid)
+     */    public function getTodayCoupon($uid)
     {
         return $this->getModel()->where('status', 1)
             ->where('is_del', 0)
@@ -346,24 +331,22 @@ class StoreCouponIssueDao extends BaseDao
     }
 
 
-    /**apiPhiếu giảm giá thu thập dữ liệu
+    /**apiMã giảm giá thu thập dữ liệu
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getApiIssueList(array $where)
+     */    public function getApiIssueList(array $where)
     {
         return $this->getModel()->where($where)->select()->toArray();
     }
 
     /**
-     * Kiểm tra xem có phiếu giảm giá hàng hóa không
+     * Kiểm tra xem có phiếu giảm giá sản phẩm không
      * @param $product_id
      * @return bool
-     */
-    public function checkProductCoupon($product_id)
+     */    public function checkProductCoupon($product_id)
     {
         return (bool)$this->getModel()->whereFindInSet('product_id', $product_id)->count();
     }
@@ -398,7 +381,7 @@ class StoreCouponIssueDao extends BaseDao
     }
 
     /**
-     * Phiếu giảm giá thành phần tùy chỉnh
+     * Mã giảm giá thành phần tùy chỉnh
      * @param $where
      * @param $order
      * @param $limit
@@ -409,8 +392,7 @@ class StoreCouponIssueDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/13
-     */
-    public function getThemeCoupon($where, $order, $limit)
+     */    public function getThemeCoupon($where, $order, $limit)
     {
         $model = $this->getModel()->where('status', 1)->where('is_del', 0)->where('remain_count > 0 OR is_permanent = 1');
 

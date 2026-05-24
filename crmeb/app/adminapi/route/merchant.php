@@ -11,12 +11,10 @@
 use think\facade\Route;
 
 /**
- * Các tuyến đường liên quan đến mẫu vận chuyển hàng hóa
- */
-Route::group('merchant', function () {
+ * Các tuyến đường liên quan đến mẫu vận chuyển sản phẩm
+ */Route::group('merchant', function () {
 
-    /** cửa hàng */
-    Route::group(function () {
+    /** cửa hàng */    Route::group(function () {
         //Chi tiết thiết lập cửa hàng
         Route::get('store', 'v1.merchant.SystemStore/index')->option(['real_name' => 'Danh sách cửa hàng']);
         //Số lượng danh sách cửa hàng
@@ -33,8 +31,7 @@ Route::group('merchant', function () {
         Route::post('store/:id', 'v1.merchant.SystemStore/save')->option(['real_name' => 'Lưu và sửa đổi thông tin cửa hàng']);
     })->option(['parent' => 'merchant', 'cate_name' => 'cửa hàng']);
 
-    /** nhân viên văn phòng */
-    Route::group(function () {
+    /** nhân viên văn phòng */    Route::group(function () {
         //Lấy danh sách nhân viên
         Route::get('store_staff', 'v1.merchant.SystemStoreStaff/index')->option(['real_name' => 'Lấy danh sách nhân viên cửa hàng']);
         //Thêm biểu mẫu nhân viên cửa hàng
@@ -51,8 +48,7 @@ Route::group('merchant', function () {
         Route::delete('store_staff/del/:id', 'v1.merchant.SystemStoreStaff/delete')->option(['real_name' => 'Xóa thư ký']);
     })->option(['parent' => 'merchant', 'cate_name' => 'nhân viên văn phòng']);
 
-    /** Viết đơn đặt hàng */
-    Route::group(function () {
+    /** Xác nhận đơn hàng */    Route::group(function () {
         //Nhận danh sách các lệnh xóa nợ
         Route::get('verify_order', 'v1.merchant.SystemVerifyOrder/list')->option(['real_name' => 'Nhận danh sách các lệnh xóa nợ']);
         //Nhận người đứng đầu lệnh xóa nợ

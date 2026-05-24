@@ -30,16 +30,14 @@ use app\services\kefu\service\StoreServiceRecordServices;
 /**
  * Class Order
  * @package app\kefuapi\controller
- */
-class Order extends AuthController
+ */class Order extends AuthController
 {
 
     /**
      * Order constructor.
      * @param App $app
      * @param StoreOrderServices $services
-     */
-    public function __construct(App $app, StoreOrderServices $services)
+     */    public function __construct(App $app, StoreOrderServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -53,8 +51,7 @@ class Order extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserOrderList(Request $request, StoreServiceRecordServices $services, $uid)
+     */    public function getUserOrderList(Request $request, StoreServiceRecordServices $services, $uid)
     {
         $where = $request->getMore([
             ['type', '', '', 'status'],
@@ -65,7 +62,7 @@ class Order extends AuthController
         $where['is_system_del'] = 0;
         if ($where['status'] == -1) $where['refund_type'] = [1, 3, 6];
         if (!$services->count(['to_uid' => $uid])) {
-            return app('json')->fail('Uid người dùng không còn nằm trong phạm vi người dùng trò chuyện hiện tại');
+            return app('json')->fail('Uid Khách hàng không còn nằm trong phạm vi Khách hàng trò chuyện hiện tại');
         }
         if ($where['status'] == -1) {
             unset($where['status']);
@@ -79,13 +76,12 @@ class Order extends AuthController
     }
 
     /**
-     * Đơn hàng đã được vận chuyển
+     * Đã giao cho ĐVVC
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function delivery_keep(StoreOrderDeliveryServices $services, $id)
+     */    public function delivery_keep(StoreOrderDeliveryServices $services, $id)
     {
         $data = $this->request->postMore([
             ['type', 1],
@@ -113,8 +109,7 @@ class Order extends AuthController
      * Sửa đổi số tiền thanh toán, v.v.
      * @param $id
      * @return mixed|\think\response\Json|void
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         if (!$id) {
             return app('json')->fail('Dữ liệu không tồn tại');
@@ -126,8 +121,7 @@ class Order extends AuthController
      * Sửa đổi thứ tự
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -155,14 +149,13 @@ class Order extends AuthController
     }
 
     /**
-     * Ghi chú đặt hàng
+     * Ghi chú đơn hàng
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function remark(Request $request)
+     */    public function remark(Request $request)
     {
         [$order_id, $remark] = $request->postMore([
             ['order_id', ''],
@@ -185,11 +178,10 @@ class Order extends AuthController
 
     /**
      * Tạo biểu mẫu hoàn tiền
-     * @param $id Đặt hàngid
+     * @param $id Đơn hàngid
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function refundForm(StoreOrderRefundServices $services, $id)
+     */    public function refundForm(StoreOrderRefundServices $services, $id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -205,8 +197,7 @@ class Order extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function refund(Request $request, StoreOrderRefundServices $services)
+     */    public function refund(Request $request, StoreOrderRefundServices $services)
     {
         [$orderId, $price, $type] = $request->postMore([
             ['order_id', ''],
@@ -261,17 +252,15 @@ class Order extends AuthController
     }
 
     /**
-     * Chi tiết đặt hàng
-     * @param $id Đặt hàngid
+     * Chi tiết đơn hàng
+     * @param $id Đơn hàngid
      * @return mixed
-     */
-    public function orderInfo(StoreProductServices $productServices, $id)
+     */    public function orderInfo(StoreProductServices $productServices, $id)
     {
         if (!$id || !($orderInfo = $this->services->get($id))) {
             return app('json')->fail('Đơn hàng không tồn tại');
         }
-        /** @var UserServices $services */
-        $services = app()->make(UserServices::class);
+        /** @var UserServices $services */        $services = app()->make(UserServices::class);
         $userInfo = $services->get($orderInfo['uid']);
         if (!$userInfo) {
             return app('json')->fail('Người dùng không tồn tại');
@@ -287,8 +276,7 @@ class Order extends AuthController
             $item['class_name'] = $cateData[$item['product_id']] ?? '';
         }
         if ($orderInfo['store_id'] && $orderInfo['shipping_type'] == 2) {
-            /** @var  $storeServices */
-            $storeServices = app()->make(SystemStoreServices::class);
+            /** @var  $storeServices */            $storeServices = app()->make(SystemStoreServices::class);
             $orderInfo['_store_name'] = $storeServices->value(['id' => $orderInfo['store_id']], 'name');
         } else {
             $orderInfo['_store_name'] = '';
@@ -301,8 +289,7 @@ class Order extends AuthController
      * Nhận hậu cần
      * @param ExpressServices $services
      * @return mixed
-     */
-    public function export(ExpressServices $services)
+     */    public function export(ExpressServices $services)
     {
         return app('json')->success($services->express());
     }
@@ -312,8 +299,7 @@ class Order extends AuthController
      * Nhận thông tin thứ tự khuôn mặt
      * @param string $com
      * @return mixed
-     */
-    public function getExportTemp(ServeServices $services)
+     */    public function getExportTemp(ServeServices $services)
     {
         [$com] = $this->request->getMore([
             ['com', ''],
@@ -322,11 +308,10 @@ class Order extends AuthController
     }
 
     /**
-     * Nhận danh sách tất cả các nhà chuyển phát nhanh
+     * Nhận danh sách Tất cả các nhà chuyển phát nhanh
      * @param DeliveryServiceServices $services
      * @return mixed
-     */
-    public function getDeliveryAll(DeliveryServiceServices $services)
+     */    public function getDeliveryAll(DeliveryServiceServices $services)
     {
         $list = $services->getDeliveryList();
         return app('json')->success($list['list']);
@@ -335,8 +320,7 @@ class Order extends AuthController
     /**
      * Nhận thông tin cấu hình
      * @return mixed
-     */
-    public function getDeliveryInfo()
+     */    public function getDeliveryInfo()
     {
         return app('json')->success([
             'express_temp_id' => sys_config('config_export_temp_id'),
@@ -348,10 +332,9 @@ class Order extends AuthController
     }
 
     /**
-     * Xóa sổ cửa hàng
+     * Xác nhận cửa hàng
      * @param Request $request
-     */
-    public function order_verific(StoreOrderWriteOffServices $services, $id)
+     */    public function order_verific(StoreOrderWriteOffServices $services, $id)
     {
 
         $orderInfo = $this->services->get(['id' => $id], ['verify_code', 'uid']);

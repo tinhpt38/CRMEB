@@ -19,29 +19,25 @@ use think\model;
 /**
  * Class UserSign
  * @package app\model\user
- */
-class UserSign extends BaseModel
+ */class UserSign extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_sign';
+     */    protected $name = 'user_sign';
 
     /**
-     * người dùnguid
+     * Khách hànguid
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('uid', $value);
@@ -54,8 +50,7 @@ class UserSign extends BaseModel
      * id
      * @param Model $query
      * @param $value
-     */
-    public function searchIdAttr($query, $value)
+     */    public function searchIdAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('id', implode(',', $value));
@@ -68,8 +63,7 @@ class UserSign extends BaseModel
      * thời gian
      * @param Model $query
      * @param $value
-     */
-    public function searchAddTimeAttr($query, $value)
+     */    public function searchAddTimeAttr($query, $value)
     {
         if (is_string($value)) $query->whereTime('add_time', $value);
         if (is_array($value) && count($value) == 2) $query->whereTime('add_time', 'BETWEEN', $value);

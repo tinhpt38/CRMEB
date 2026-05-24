@@ -11,8 +11,7 @@ use app\model\system\NoticeEventChannel;
 
 /**
  * Notice event-channel mapping DAO.
- */
-class NoticeEventChannelDao extends BaseDao
+ */class NoticeEventChannelDao extends BaseDao
 {
     protected function setModel(): string
     {

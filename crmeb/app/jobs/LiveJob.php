@@ -25,21 +25,18 @@ class LiveJob extends BaseJobs
      * Sau khi đồng bộ dữ liệu
      * @param $order
      * @return bool
-     */
-    public function doJob()
+     */    public function doJob()
     {
         //Cập nhật trạng thái sản phẩm trực tiếp
         try {
-            /** @var LiveGoodsServices $liveGoods */
-            $liveGoods = app()->make(LiveGoodsServices::class);
+            /** @var LiveGoodsServices $liveGoods */            $liveGoods = app()->make(LiveGoodsServices::class);
             $liveGoods->syncGoodStatus(true);
         } catch (\Throwable $e) {
             Log::error('Không thể cập nhật trạng thái sản phẩm trực tiếp,Lý do thất bại:' . $e->getMessage());
         }
         //Cập nhật trạng thái phòng trực tiếp
         try {
-            /** @var LiveRoomServices $liveRoom */
-            $liveRoom = app()->make(LiveRoomServices::class);
+            /** @var LiveRoomServices $liveRoom */            $liveRoom = app()->make(LiveRoomServices::class);
             $liveRoom->syncRoomStatus(true);
         } catch (\Throwable $e) {
             Log::error('Không cập nhật được trạng thái phòng trực tiếp,Lý do thất bại:' . $e->getMessage());

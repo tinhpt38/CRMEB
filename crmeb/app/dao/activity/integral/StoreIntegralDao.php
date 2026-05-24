@@ -19,15 +19,13 @@ use app\model\activity\integral\StoreIntegral;
  *
  * Class StoreIntegralDao
  * @package app\dao\activity
- */
-class StoreIntegralDao extends BaseDao
+ */class StoreIntegralDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreIntegral::class;
     }
@@ -38,8 +36,7 @@ class StoreIntegralDao extends BaseDao
      * @param bool $search
      * @return int
      * @throws \ReflectionException
-     */
-    public function count(array $where = [], bool $search = true)
+     */    public function count(array $where = [], bool $search = true)
     {
         return $this->search($where, $search)->count();
     }
@@ -53,8 +50,7 @@ class StoreIntegralDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0, string $field = '*')
+     */    public function getList(array $where, int $page = 0, int $limit = 0, string $field = '*')
     {
         return $this->search($where, false)->where('is_del', 0)
             ->when(isset($where['integral_time']) && $where['integral_time'] !== '', function ($query) use ($where) {
@@ -86,8 +82,7 @@ class StoreIntegralDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function validProduct(int $id, string $field)
+     */    public function validProduct(int $id, string $field)
     {
         $where = ['is_show' => 1, 'is_del' => 0];
         return $this->search($where)->where('id', $id)->field($field)->order('add_time desc')->find();

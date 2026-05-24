@@ -21,12 +21,10 @@ class MemberShip extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'member_ship';
+     */    protected $name = 'member_ship';
 }

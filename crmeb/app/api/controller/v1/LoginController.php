@@ -24,16 +24,14 @@ use app\api\validate\user\RegisterValidates;
  * Lớp ủy quyền chương trình mini WeChat
  * Class AuthController
  * @package app\api\controller
- */
-class LoginController
+ */class LoginController
 {
     protected $services;
 
     /**
      * LoginController constructor.
      * @param LoginServices $services
-     */
-    public function __construct(LoginServices $services)
+     */    public function __construct(LoginServices $services)
     {
         $this->services = $services;
     }
@@ -45,8 +43,7 @@ class LoginController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function login(Request $request)
+     */    public function login(Request $request)
     {
         [$account, $password, $spread, $agent_id] = $request->postMore([
             'account', 'password', 'spread', ['agent_id', 0]
@@ -64,8 +61,7 @@ class LoginController
      * Đăng xuất
      * @param Request $request
      * @return mixed
-     */
-    public function logout(Request $request)
+     */    public function logout(Request $request)
     {
         $key = trim(ltrim($request->header(Config::get('cookie.token_name')), 'Bearer'));
         CacheService::delete(md5($key));
@@ -75,8 +71,7 @@ class LoginController
     /**
      * Nhận và gửi mã xác minhkey
      * @return mixed
-     */
-    public function verifyCode()
+     */    public function verifyCode()
     {
         $unique = password_hash(uniqid(true), PASSWORD_BCRYPT);
         CacheService::set('sms.key.' . $unique, 0, 300);
@@ -88,8 +83,7 @@ class LoginController
      * Nhận mã xác minh hình ảnh
      * @param Request $request
      * @return \think\Response
-     */
-    public function captcha(Request $request)
+     */    public function captcha(Request $request)
     {
         ob_clean();
         $rep = captcha();
@@ -107,8 +101,7 @@ class LoginController
      * @param string $code
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    protected function checkCaptcha($uni, string $code): bool
+     */    protected function checkCaptcha($uni, string $code): bool
     {
         $cacheName = 'sms.key.cap.' . $uni;
         if (!CacheService::has($cacheName)) {
@@ -128,8 +121,7 @@ class LoginController
      * @param Request $request
      * @param SmsService $services
      * @return mixed
-     */
-    public function verify(Request $request, SmsService $services)
+     */    public function verify(Request $request, SmsService $services)
     {
         [$phone, $type, $key, $captchaType, $captchaVerification] = $request->postMore([
             ['phone', 0],
@@ -200,14 +192,13 @@ class LoginController
     }
 
     /**
-     * H5Đăng ký người dùng mới
+     * H5Đăng ký Khách hàng mới
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function register(Request $request)
+     */    public function register(Request $request)
     {
         [$account, $captcha, $password, $spread] = $request->postMore([['account', ''], ['captcha', ''], ['password', ''], ['spread', 0]], true);
         try {
@@ -240,8 +231,7 @@ class LoginController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function reset(Request $request)
+     */    public function reset(Request $request)
     {
         [$account, $captcha, $password] = $request->postMore([['account', ''], ['captcha', ''], ['password', '']], true);
         try {
@@ -272,8 +262,7 @@ class LoginController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function mobile(Request $request)
+     */    public function mobile(Request $request)
     {
         [$phone, $captcha, $spread, $agent_id] = $request->postMore([['phone', ''], ['captcha', ''], ['spread', 0], ['agent_id', 0]], true);
 
@@ -309,8 +298,7 @@ class LoginController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function switch_h5(Request $request)
+     */    public function switch_h5(Request $request)
     {
         $from = $request->post('from', 'wechat');
         $user = $request->user();
@@ -323,14 +311,13 @@ class LoginController
     }
 
     /**
-     * Ràng buộc số điện thoại di động
+     * Liên kết số điện thoại
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function binding_phone(Request $request)
+     */    public function binding_phone(Request $request)
     {
         list($phone, $captcha, $key) = $request->postMore([
             ['phone', ''],
@@ -366,14 +353,13 @@ class LoginController
     }
 
     /**
-     * Ràng buộc số điện thoại di động
+     * Liên kết số điện thoại
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function user_binding_phone(Request $request)
+     */    public function user_binding_phone(Request $request)
     {
         list($phone, $captcha, $step) = $request->postMore([
             ['phone', ''],
@@ -438,8 +424,7 @@ class LoginController
      * Đặt trạng thái quét mã QR
      * @param string $code
      * @return mixed
-     */
-    public function setLoginKey(string $code)
+     */    public function setLoginKey(string $code)
     {
         if (!$code) {
             return app('json')->fail('Quét không thành công, vui lòng quét lại');
@@ -460,8 +445,7 @@ class LoginController
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function appleLogin(Request $request, WechatServices $services)
+     */    public function appleLogin(Request $request, WechatServices $services)
     {
         [$openId, $phone, $email, $captcha] = $request->postMore([
             ['openId', ''],
@@ -504,8 +488,7 @@ class LoginController
     /**
      * Xác thực thanh trượt
      * @return mixed
-     */
-    public function ajcaptcha(Request $request)
+     */    public function ajcaptcha(Request $request)
     {
         $captchaType = $request->get('captchaType');
         return app('json')->success(aj_captcha_create($captchaType));
@@ -514,8 +497,7 @@ class LoginController
     /**
      * Một lần xác minh
      * @return mixed
-     */
-    public function ajcheck(Request $request)
+     */    public function ajcheck(Request $request)
     {
         [$token, $pointJson, $captchaType] = $request->postMore([
             ['token', ''],
@@ -541,8 +523,7 @@ class LoginController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/21
-     */
-    public function remoteRegister(Request $request)
+     */    public function remoteRegister(Request $request)
     {
         [$remote_token] = $request->getMore([
             ['remote_token', ''],

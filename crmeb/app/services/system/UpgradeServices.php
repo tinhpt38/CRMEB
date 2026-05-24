@@ -29,8 +29,7 @@ use app\dao\system\upgrade\UpgradeLogDao;
  * Nâng cấp trực tuyến
  * Class UpgradeServices
  * @package app\services\system
- */
-class UpgradeServices extends BaseServices
+ */class UpgradeServices extends BaseServices
 {
     const LOGIN_URL = 'http://upgrade.crmeb.net/api/login';
     const UPGRADE_URL = 'http://upgrade.crmeb.net/api/upgrade/list';
@@ -42,19 +41,16 @@ class UpgradeServices extends BaseServices
 
     /**
      * @var array $requestData
-     */
-    private $requestData = [];
+     */    private $requestData = [];
 
     /**
      * @var int $timeStamp
-     */
-    private $timeStamp = 0;
+     */    private $timeStamp = 0;
 
     /**
      * UpgradeServices constructor.
      * @param UpgradeLogDao $dao
-     */
-    public function __construct(UpgradeLogDao $dao)
+     */    public function __construct(UpgradeLogDao $dao)
     {
         $this->dao = $dao;
         $versionData = $this->getVersion();
@@ -83,14 +79,12 @@ class UpgradeServices extends BaseServices
     /**
      * Nhận thông tin phiên bản
      * @return void
-     */
-    /**
+     */    /**
      * Nhận thông tin cấu hình tập tin
      * @param string $name
      * @param string $path
      * @return array|string
-     */
-    public function getVersion(string $name = '', string $path = '')
+     */    public function getVersion(string $name = '', string $path = '')
     {
         $file = '.version';
         $arr = [];
@@ -107,8 +101,7 @@ class UpgradeServices extends BaseServices
      * Nhận số phiên bản
      * @param $input
      * @return array
-     */
-    public function recombinationVersion($input): array
+     */    public function recombinationVersion($input): array
     {
         $version = substr($input, strpos($input, ' v') + 1);
         return array_map(function ($item) {
@@ -122,8 +115,7 @@ class UpgradeServices extends BaseServices
     /**
      * lấyToken
      * @return void
-     */
-    public function getAuth()
+     */    public function getAuth()
     {
         $this->getSign($this->timeStamp);
         $result = HttpService::postRequest(self::LOGIN_URL, $this->requestData);
@@ -143,8 +135,7 @@ class UpgradeServices extends BaseServices
      * Nhận chữ ký
      * @param int $timeStamp
      * @return void
-     */
-    public function getSign(int $timeStamp)
+     */    public function getSign(int $timeStamp)
     {
         $data = $this->requestData;
         if ((!isset($data['host']) || !$data['host']) ||
@@ -182,8 +173,7 @@ class UpgradeServices extends BaseServices
     /**
      * Danh sách nâng cấp
      * @return mixed
-     */
-    public function getUpgradeList()
+     */    public function getUpgradeList()
     {
         [$page, $limit] = $this->getPageValue();
         $this->requestData['page'] = (string)($page ?: 1);
@@ -204,8 +194,7 @@ class UpgradeServices extends BaseServices
     /**
      * Danh sách có thể nâng cấp
      * @return mixed
-     */
-    public function getUpgradeableList()
+     */    public function getUpgradeableList()
     {
         $this->getSign($this->timeStamp);
         $result = HttpService::getRequest(self::UPGRADE_CURRENT_URL, $this->requestData, ['Access-Token: Bearer ' . CacheService::get('upgrade_auth_token')]);
@@ -232,8 +221,7 @@ class UpgradeServices extends BaseServices
     /**
      * thỏa thuận nâng cấp
      * @return mixed
-     */
-    public function getAgreement()
+     */    public function getAgreement()
     {
         $this->getSign($this->timeStamp);
         $result = HttpService::getRequest(self::AGREEMENT_URL, $this->requestData, ['Access-Token: Bearer ' . CacheService::get('upgrade_auth_token')]);
@@ -252,8 +240,7 @@ class UpgradeServices extends BaseServices
      * tải về
      * @param string $packageKey
      * @return bool
-     */
-    public function packageDownload(string $packageKey): bool
+     */    public function packageDownload(string $packageKey): bool
     {
         $token = md5(time());
 
@@ -308,8 +295,7 @@ class UpgradeServices extends BaseServices
      * @param string $fileName
      * @param int $timeout
      * @return void
-     */
-    public function download(string $seq, string $url, string $downloadPath, string $fileName, int $timeout = 300)
+     */    public function download(string $seq, string $url, string $downloadPath, string $fileName, int $timeout = 300)
     {
         ini_set('memory_limit', '-1');
 
@@ -349,18 +335,17 @@ class UpgradeServices extends BaseServices
             throw new AdminException('Tải xuống không thành công, mã trạng thái HTTP: ' . $httpCode);
         }
 
-        // Kiểm tra xem file có tồn tại và có nội dung không
+        // Kiểm tra xem file có tồn tại và có Nội dung không
         if (!is_file($filePath) || filesize($filePath) < 100) {
             @unlink($filePath);
             throw new AdminException('Tệp đã tải xuống không hợp lệ');
         }
 
         if (pathinfo($fileName, PATHINFO_EXTENSION) !== 'zip') {
-            throw new AdminException('Lỗi định dạng gói cài đặt');
+            throw new AdminException('Lỗi định dạng gói Cài đặt');
         }
 
-        /** @var FileService $fileService */
-        $fileService = app()->make(FileService::class);
+        /** @var FileService $fileService */        $fileService = app()->make(FileService::class);
         $downloadFilePath = $downloadPath . DS . pathinfo($fileName, PATHINFO_FILENAME);
         if (!$fileService->extractFile($filePath, $downloadFilePath)) {
             throw new AdminException('Không giải nén được gói nâng cấp');
@@ -376,8 +361,7 @@ class UpgradeServices extends BaseServices
      * @param string $packageLink
      * @param string $seq
      * @return void
-     */
-    private function downloadFile(string $packageLink, string $seq)
+     */    private function downloadFile(string $packageLink, string $seq)
     {
         $fileName = substr($packageLink, strrpos($packageLink, '/') + 1);
         $filePath = app()->getRootPath() . 'upgrade' . DS . date('Y-m-d');
@@ -389,8 +373,7 @@ class UpgradeServices extends BaseServices
     /**
      * Tiến độ nâng cấp
      * @return array
-     */
-    public function getProgress(): array
+     */    public function getProgress(): array
     {
         $token = CacheService::get('upgrade_token');
         if (empty($token)) {
@@ -398,7 +381,7 @@ class UpgradeServices extends BaseServices
         }
 
         $serverProgress = CacheService::get($token . '_server_package'); // Tiến trình tải xuống gói máy chủ
-        $clientProgress = CacheService::get($token . '_client_package'); // Tiến trình tải xuống gói ứng dụng khách
+        $clientProgress = CacheService::get($token . '_client_package'); // Tiến trình tải xuống gói Ứng dụng khách
         $pcProgress = CacheService::get($token . '_pc_package'); // PCKết thúc tiến trình tải xuống gói
         $databaseBackupProgress = CacheService::get($token . '_database_backup'); // Tiến trình sao lưu cơ sở dữ liệu
         $projectBackupProgress = CacheService::get($token . '_project_backup'); // Tiến độ sao lưu dự án
@@ -409,12 +392,12 @@ class UpgradeServices extends BaseServices
         $stepNum = 1;
         $tip = 'Bắt đầu nâng cấp';
         if ($serverProgress == $clientProgress && $clientProgress == $pcProgress) {
-            $tip = $serverProgress == 1 ? 'Bắt đầu tải gói cài đặt' : 'Tải xuống gói cài đặt đã hoàn tất';
+            $tip = $serverProgress == 1 ? 'Bắt đầu tải gói Cài đặt' : 'Tải xuống gói Cài đặt đã hoàn tất';
             if ($serverProgress == 2) {
                 $stepNum += 1;
             }
         } else {
-            $tip = 'Đang tải gói cài đặt';
+            $tip = 'Đang tải gói Cài đặt';
         }
 
         if ($databaseBackupProgress == 2) {
@@ -461,13 +444,11 @@ class UpgradeServices extends BaseServices
      * @param $token
      * @return bool
      * @throws \think\db\exception\BindParamException
-     */
-    public function databaseBackup($token): bool
+     */    public function databaseBackup($token): bool
     {
         try {
             //Sao lưu dữ liệu bảng
-            /** @var SystemDatabackupServices $backServices */
-            $backServices = app()->make(SystemDatabackupServices::class);
+            /** @var SystemDatabackupServices $backServices */            $backServices = app()->make(SystemDatabackupServices::class);
             $tables = $backServices->getDataList();
             if (count($tables['list']) < 1) {
                 throw new AdminException('Không lấy được bảng dữ liệu');
@@ -502,14 +483,12 @@ class UpgradeServices extends BaseServices
      * Sao lưu dự án
      * @param string $token
      * @return bool
-     */
-    public function projectBackup(string $token): bool
+     */    public function projectBackup(string $token): bool
     {
         try {
             ini_set('memory_limit', '-1');
             $appPath = app()->getRootPath();
-            /** @var FileService $fileService */
-            $fileService = app()->make(FileService::class);
+            /** @var FileService $fileService */            $fileService = app()->make(FileService::class);
 
             $dir = 'backup' . DS . date('Ymd') . DS . $token;
             $backupDir = $appPath . $dir;
@@ -522,8 +501,7 @@ class UpgradeServices extends BaseServices
             $fileName = $versionData['version_code'] . '-1.project.zip';
             $filePath = $appPath . 'backup' . DS . $fileName;
 
-            /** @var FileService $fileService */
-            $fileService = app()->make(FileService::class);
+            /** @var FileService $fileService */            $fileService = app()->make(FileService::class);
             $result = $fileService->addZip($backupDir, $filePath, $backupDir);
             if (!$result) {
                 throw new AdminException('Sao lưu dự án không thành công');
@@ -542,8 +520,7 @@ class UpgradeServices extends BaseServices
                 new \RecursiveDirectoryIterator($appPath . 'backup' . DS . date('Ymd'), \FilesystemIterator::SKIP_DOTS),
                 \RecursiveIteratorIterator::CHILD_FIRST
             );
-            /** @var SplFileInfo $fileInfo */
-            foreach ($iterator as $fileInfo) {
+            /** @var SplFileInfo $fileInfo */            foreach ($iterator as $fileInfo) {
                 if ($fileInfo->isDir()) {
                     @rmdir($fileInfo->getRealPath());
                 } else {
@@ -564,8 +541,7 @@ class UpgradeServices extends BaseServices
      * nâng cấp
      * @return bool
      * @throws \Exception
-     */
-    public function overwriteProject(): bool
+     */    public function overwriteProject(): bool
     {
         try {
             if (!$token = CacheService::get('upgrade_token')) {
@@ -612,8 +588,7 @@ class UpgradeServices extends BaseServices
      * viết nhật ký
      * @param $token
      * @return void
-     */
-    public function saveLog($token)
+     */    public function saveLog($token)
     {
         if (CacheService::get($token . 'is_save') == 2) {
             return true;
@@ -640,8 +615,7 @@ class UpgradeServices extends BaseServices
      * Gửi nhật ký
      * @param string $token
      * @return bool
-     */
-    public function sendUpgradeLog(string $token): bool
+     */    public function sendUpgradeLog(string $token): bool
     {
         try {
             $versionBefore = CacheService::get('version_before', '');
@@ -674,8 +648,7 @@ class UpgradeServices extends BaseServices
      * @param string $token
      * @param string $serverPackageFilePath
      * @return bool
-     */
-    public function databaseUpgrade(string $token, string $serverPackageFilePath): bool
+     */    public function databaseUpgrade(string $token, string $serverPackageFilePath): bool
     {
         $databaseFilePath = $serverPackageFilePath . DS . "upgrade" . DS . "database.php";
         if (!is_file($databaseFilePath)) {
@@ -807,8 +780,7 @@ class UpgradeServices extends BaseServices
      * Các hạng mục bảo hiểm
      * @param string $token
      * @return bool
-     */
-    public function coverageProject(string $token): bool
+     */    public function coverageProject(string $token): bool
     {
         $versionData = $this->getVersion();
         if (empty($versionData)) {
@@ -816,8 +788,7 @@ class UpgradeServices extends BaseServices
         }
         CacheService::set('version_before', $this->recombinationVersion($versionData['version'] ?? ''), 86400);
 
-        /** @var FileService $fileService */
-        $fileService = app()->make(FileService::class);
+        /** @var FileService $fileService */        $fileService = app()->make(FileService::class);
 
         // Dự án phía máy chủ
         $serverPackageName = CacheService::get($token . '_server_package_name');
@@ -853,8 +824,7 @@ class UpgradeServices extends BaseServices
      * @param string $prefix
      * @param array $updateSql
      * @return void
-     */
-    public function rollbackStructure(string $prefix, array $updateSql): void
+     */    public function rollbackStructure(string $prefix, array $updateSql): void
     {
         try {
             foreach ($updateSql as $item) {
@@ -869,8 +839,7 @@ class UpgradeServices extends BaseServices
      * Khôi phục sao lưu cơ sở dữ liệu
      * @param string $backupFileName Tên tập tin sao lưu
      * @return bool
-     */
-    public function restoreDatabase(string $backupFileName): bool
+     */    public function restoreDatabase(string $backupFileName): bool
     {
         try {
             $backupPath = app()->getRootPath() . 'backup' . DS . $backupFileName;
@@ -953,8 +922,7 @@ class UpgradeServices extends BaseServices
      * Khôi phục sao lưu tập tin dự án
      * @param string $backupFileName Tên tập tin sao lưu
      * @return bool
-     */
-    public function restoreProject(string $backupFileName): bool
+     */    public function restoreProject(string $backupFileName): bool
     {
         try {
             $backupPath = app()->getRootPath() . 'backup' . DS . $backupFileName;
@@ -962,8 +930,7 @@ class UpgradeServices extends BaseServices
                 throw new AdminException('Tệp sao lưu dự án không tồn tại');
             }
 
-            /** @var FileService $fileService */
-            $fileService = app()->make(FileService::class);
+            /** @var FileService $fileService */            $fileService = app()->make(FileService::class);
 
             // Giải nén file zip vào thư mục gốc của dự án
             $result = $fileService->extractFile($backupPath, app()->getRootPath());
@@ -983,8 +950,7 @@ class UpgradeServices extends BaseServices
      * Hoàn tất khôi phục về phiên bản được chỉ định
      * @param int $logId Nhật ký nâng cấpID
      * @return array
-     */
-    public function rollbackToVersion(int $logId): array
+     */    public function rollbackToVersion(int $logId): array
     {
         try {
             // Nhận hồ sơ nâng cấp
@@ -1039,8 +1005,7 @@ class UpgradeServices extends BaseServices
     /**
      * Nhận danh sách các phiên bản có thể được khôi phục
      * @return array
-     */
-    public function getRollbackVersions(): array
+     */    public function getRollbackVersions(): array
     {
         $list = $this->dao->getList(['id', 'title', 'first_version', 'second_version', 'third_version', 'fourth_version', 'upgrade_time', 'package_link', 'data_link'], 1, 20);
 
@@ -1079,8 +1044,7 @@ class UpgradeServices extends BaseServices
      * Kiểm tra quyền truy cập
      * @param array $data
      * @return bool
-     */
-    public function checkAuth(array $data): bool
+     */    public function checkAuth(array $data): bool
     {
         if (!isset($data['status']) || $data['status'] != 200) {
             if ($data['status'] == 'Vui lòng nhập số tài khoản và mật khẩu của bạn') {
@@ -1095,8 +1059,7 @@ class UpgradeServices extends BaseServices
     /**
      * Trạng thái nâng cấp
      * @return array
-     */
-    public function getUpgradeStatus(): array
+     */    public function getUpgradeStatus(): array
     {
         $this->getSign($this->timeStamp);
         $result = HttpService::getRequest(self::UPGRADE_STATUS_URL, $this->requestData, ['Access-Token: Bearer ' . CacheService::get('upgrade_auth_token')]);
@@ -1124,8 +1087,7 @@ class UpgradeServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/2/27
-     */
-    public function reExecute($type)
+     */    public function reExecute($type)
     {
         $token = CacheService::get('upgrade_token');
         switch ($type) {
@@ -1154,8 +1116,7 @@ class UpgradeServices extends BaseServices
      * Nhận tiến trình tải xuống
      * Quay lại trạng thái tiến trình tải gói, sao lưu và giải nén
      * @param $type
-     */
-    public function getDownloadProgress($type)
+     */    public function getDownloadProgress($type)
     {
         // nếu loại không có mặt0,1,2,3,4, một lỗi được trả về
         if (!in_array($type, [0, 1, 2, 3, 4])) {
@@ -1329,8 +1290,7 @@ class UpgradeServices extends BaseServices
                     $configPath = $serverPackagePath . DS . 'config';
                     $versionsPath = $serverPackagePath . DS . 'upgrade' . DS . 'versions';
                     if (is_dir($configPath) && is_dir($versionsPath)) {
-                        /** @var FileService $fileService */
-                        $fileService = app()->make(FileService::class);
+                        /** @var FileService $fileService */                        $fileService = app()->make(FileService::class);
                         // Sao chép thư mục cấu hình
                         $res = $fileService->copyDir($configPath, app()->getRootPath() . 'config');
                         // Sao chép thư mục nâng cấp/phiên bản
@@ -1351,7 +1311,7 @@ class UpgradeServices extends BaseServices
                     }
                 }
             } else {
-                // Thực hiện tất cả các nâng cấp phiên bản chéo
+                // Thực hiện Tất cả các nâng cấp phiên bản chéo
                 $data = $this->executeAllCrossVersionUpgrade();
                 // Đã thực hiện thành công
                 return [
@@ -1389,8 +1349,7 @@ class UpgradeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUpgradeLogList(): array
+     */    public function getUpgradeLogList(): array
     {
         [$page, $limit] = $this->getPageValue();
         $count = $this->dao->count();
@@ -1413,15 +1372,14 @@ class UpgradeServices extends BaseServices
     }
 
     /**
-     * Xuất khẩu
+     * Xuất file
      * @param int $id
      * @param string $type
      * @return void
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function export(int $id, string $type)
+     */    public function export(int $id, string $type)
     {
         $data = $this->dao->getOne(['id' => $id], 'package_link, data_link');
         if (!$data || !$data['package_link']) {
@@ -1451,8 +1409,7 @@ class UpgradeServices extends BaseServices
     /**
      * Kiểm tra kích thước cơ sở dữ liệu
      * @return bool
-     */
-    public function checkDatabaseSize(): bool
+     */    public function checkDatabaseSize(): bool
     {
         if (!$database = Config::get('database.connections.' . Config::get('database.default') . '.database')) {
             throw new AdminException('Không thể lấy được thông tin cơ sở dữ liệu');
@@ -1470,8 +1427,7 @@ class UpgradeServices extends BaseServices
     /**
      * Nhận phiên bản trình quản lý phiên bản
      * @return \upgrade\VersionManager
-     */
-    protected function getVersionManager()
+     */    protected function getVersionManager()
     {
         // Tải thủ công lớp VersionManager (tránh sửa đổi composer.json）
         $file = app()->getRootPath() . 'upgrade' . DIRECTORY_SEPARATOR . 'VersionManager.php';
@@ -1484,8 +1440,7 @@ class UpgradeServices extends BaseServices
     /**
      * Nhận tổng quan về nâng cấp nhiều phiên bản
      * @return array
-     */
-    public function getCrossVersionUpgradeOverview(): array
+     */    public function getCrossVersionUpgradeOverview(): array
     {
         $versionManager = $this->getVersionManager();
         return $versionManager->getUpgradeOverview();
@@ -1494,18 +1449,16 @@ class UpgradeServices extends BaseServices
     /**
      * Lấy danh sách các phiên bản sẽ được nâng cấp
      * @return array
-     */
-    public function getPendingVersions(): array
+     */    public function getPendingVersions(): array
     {
         $versionManager = $this->getVersionManager();
         return $versionManager->getPendingVersions();
     }
 
     /**
-     * Nhận tất cả các nâng cấp đang chờ xử lýSQL
+     * Nhận Tất cả các nâng cấp đang chờ xử lýSQL
      * @return array
-     */
-    public function getAllPendingUpgradeSql(): array
+     */    public function getAllPendingUpgradeSql(): array
     {
         $versionManager = $this->getVersionManager();
         return $versionManager->getAllPendingUpgradeSql();
@@ -1515,14 +1468,13 @@ class UpgradeServices extends BaseServices
      * Thực hiện nâng cấp nhiều phiên bản
      * @param int $step Bước nào hiện đang được thực hiện?
      * @return array ['success' => bool, 'step' => int, 'total' => int, 'message' => string, 'completed' => bool]
-     */
-    public function executeCrossVersionUpgrade(int $step = 0): array
+     */    public function executeCrossVersionUpgrade(int $step = 0): array
     {
         $versionManager = $this->getVersionManager();
         $allSql = $versionManager->getAllPendingUpgradeSql();
         $total = count($allSql);
 
-        // Kiểm tra xem tất cả các nâng cấp đã được hoàn thành chưa
+        // Kiểm tra xem Tất cả các nâng cấp đã được hoàn thành chưa
         if ($step >= $total) {
             // Nhận thông tin phiên bản trước khi nâng cấp
             $beforeVersion = CacheService::get('cross_version_before_version', []);
@@ -1597,10 +1549,9 @@ class UpgradeServices extends BaseServices
     }
 
     /**
-     * Thực hiện tất cả các nâng cấp trên nhiều phiên bản chỉ bằng một cú nhấp chuột
+     * Thực hiện Tất cả các nâng cấp trên nhiều phiên bản chỉ bằng một cú nhấp chuột
      * @return array
-     */
-    public function executeAllCrossVersionUpgrade(): array
+     */    public function executeAllCrossVersionUpgrade(): array
     {
         $versionManager = $this->getVersionManager();
         $pendingVersions = $versionManager->getPendingVersions();
@@ -1687,8 +1638,7 @@ class UpgradeServices extends BaseServices
 
             // Thực thi bộ xử lý di chuyển dữ liệu
             if (!empty($upgradeData['data_handlers']) && $failed == 0) {
-                /** @var DataMigrationServices $migrationServices */
-                $migrationServices = app()->make(DataMigrationServices::class);
+                /** @var DataMigrationServices $migrationServices */                $migrationServices = app()->make(DataMigrationServices::class);
                 $migrationResult = $migrationServices->executeAllHandlers($upgradeData['data_handlers']);
                 $migrationResults[$version['version']] = $migrationResult;
 
@@ -1732,8 +1682,7 @@ class UpgradeServices extends BaseServices
      * Thực hiện sao lưu
      * @param string $token
      * @return bool
-     */
-    protected function performBackup(string $token): bool
+     */    protected function performBackup(string $token): bool
     {
         try {
             // Thực hiện sao lưu cơ sở dữ liệu
@@ -1783,8 +1732,7 @@ class UpgradeServices extends BaseServices
     /**
      * Nhận trạng thái sao lưu
      * @return array
-     */
-    public function getBackupStatus(): array
+     */    public function getBackupStatus(): array
     {
         $token = CacheService::get('upgrade_token');
         if (empty($token)) {
@@ -1810,8 +1758,7 @@ class UpgradeServices extends BaseServices
      * @param int $databaseBackup
      * @param int $projectBackup
      * @return string
-     */
-    private function getBackupMessage(int $databaseBackup, int $projectBackup): string
+     */    private function getBackupMessage(int $databaseBackup, int $projectBackup): string
     {
         if ($databaseBackup == 2 && $projectBackup == 2) {
             return 'Sao lưu hoàn tất';
@@ -1827,8 +1774,7 @@ class UpgradeServices extends BaseServices
     /**
      * Nhận chi tiết tiến trình nâng cấp
      * @return array
-     */
-    public function getUpgradeProgressDetail(): array
+     */    public function getUpgradeProgressDetail(): array
     {
         $token = CacheService::get('cross_version_upgrade_token') ?: CacheService::get('upgrade_token');
 
@@ -1931,8 +1877,7 @@ class UpgradeServices extends BaseServices
      * @param int $current
      * @param int $total
      * @return void
-     */
-    protected function updateSqlProgress(string $token, int $current, int $total): void
+     */    protected function updateSqlProgress(string $token, int $current, int $total): void
     {
         CacheService::set($token . '_sql_progress', ['current' => $current, 'total' => $total], 86400);
     }
@@ -1942,8 +1887,7 @@ class UpgradeServices extends BaseServices
      * @param string $token
      * @param array $log
      * @return void
-     */
-    protected function addSqlLog(string $token, array $log): void
+     */    protected function addSqlLog(string $token, array $log): void
     {
         $logs = CacheService::get($token . '_sql_logs', []);
         $logs[] = $log;
@@ -1954,8 +1898,7 @@ class UpgradeServices extends BaseServices
      * Đánh dấu nâng cấp đã hoàn tất
      * @param string $token
      * @return void
-     */
-    protected function markUpgradeComplete(string $token): void
+     */    protected function markUpgradeComplete(string $token): void
     {
         CacheService::set($token . '_upgrade_complete', 2, 86400);
     }
@@ -1963,8 +1906,7 @@ class UpgradeServices extends BaseServices
     /**
      * Xác định xem có cần nâng cấp nhiều phiên bản hay không
      * @return bool
-     */
-    public function needCrossVersionUpgrade(): bool
+     */    public function needCrossVersionUpgrade(): bool
     {
         $versionManager = $this->getVersionManager();
         return $versionManager->needUpgrade();
@@ -1973,8 +1915,7 @@ class UpgradeServices extends BaseServices
     /**
      * Nhận khoảng cách phiên bản
      * @return int
-     */
-    public function getVersionGap(): int
+     */    public function getVersionGap(): int
     {
         $versionManager = $this->getVersionManager();
         return $versionManager->getVersionGap();
@@ -1984,8 +1925,7 @@ class UpgradeServices extends BaseServices
      * Kiểm tra tính khả dụng của bản nâng cấp trên nhiều phiên bản
      * Kiểm tra xem phiên bản hiện tại có đáp ứng yêu cầu phiên bản tối thiểu không
      * @return array
-     */
-    public function checkCrossVersionUpgradeAvailability(): array
+     */    public function checkCrossVersionUpgradeAvailability(): array
     {
         $versionManager = $this->getVersionManager();
         return $versionManager->checkUpgradeAvailability();
@@ -1994,8 +1934,7 @@ class UpgradeServices extends BaseServices
     /**
      * Phiên bản hiện tại có đáp ứng các yêu cầu phiên bản tối thiểu không?
      * @return bool
-     */
-    public function meetsMinVersionRequirement(): bool
+     */    public function meetsMinVersionRequirement(): bool
     {
         $versionManager = $this->getVersionManager();
         return $versionManager->meetsMinVersionRequirement();
@@ -2008,8 +1947,7 @@ class UpgradeServices extends BaseServices
      * @param array $latestVersion Thông tin phiên bản nâng cấp
      * @param array $pendingVersions Danh sách phiên bản nâng cấp
      * @return bool
-     */
-    protected function saveCrossVersionUpgradeLog(string $token, array $beforeVersion, array $latestVersion, array $pendingVersions): bool
+     */    protected function saveCrossVersionUpgradeLog(string $token, array $beforeVersion, array $latestVersion, array $pendingVersions): bool
     {
         try {
             // Phân tích số phiên bản trước khi nâng cấp
@@ -2025,7 +1963,7 @@ class UpgradeServices extends BaseServices
             // Lưu vào cơ sở dữ liệu
             $this->dao->save([
                 'title' => 'nâng cấp ' . $afterVersionStr . ' Hoàn thành',
-                'content' => 'nâng cấp phiên bản: ' . $beforeVersionStr . ' -> ' . $afterVersionStr . '；Cập nhật nội dung：' . $updateContent . '；',
+                'content' => 'nâng cấp phiên bản: ' . $beforeVersionStr . ' -> ' . $afterVersionStr . '；Cập nhật Nội dung：' . $updateContent . '；',
                 'first_version' => $afterVersionParts['first'] ?? '6',
                 'second_version' => $afterVersionParts['second'] ?? '0',
                 'third_version' => $afterVersionParts['third'] ?? '0',
@@ -2048,8 +1986,7 @@ class UpgradeServices extends BaseServices
      * Phân tích chuỗi phiên bản
      * @param string $versionStr Ví dụ "CRMEB-BZ v5.6.4"
      * @return array
-     */
-    protected function parseVersionString(string $versionStr): array
+     */    protected function parseVersionString(string $versionStr): array
     {
         $result = ['first' => '5', 'second' => '5', 'third' => '0', 'fourth' => '0'];
 

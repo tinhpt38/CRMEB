@@ -22,11 +22,9 @@ class OrderServices extends BaseServices
      * Trạng thái thứ tự thăm dò ý kiến
      * @param string $order_id
      * @return bool
-     */
-    public function checkOrderStatus(string $order_id)
+     */    public function checkOrderStatus(string $order_id)
     {
-        /** @var StoreOrderServices $order */
-        $order = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $order */        $order = app()->make(StoreOrderServices::class);
         $res = $order->count(['order_id' => $order_id, 'paid' => 1]);
         if ($res) return true;
         return false;
@@ -41,11 +39,9 @@ class OrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderList(array $where, array $field = ['*'], array $with = [])
+     */    public function getOrderList(array $where, array $field = ['*'], array $with = [])
     {
-        /** @var StoreOrderServices $order */
-        $order = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $order */        $order = app()->make(StoreOrderServices::class);
         $data['list'] = $order->getOrderApiList($where, $field, $with);
         $data['count'] = $order->dao->count($where, false);
         return $data;

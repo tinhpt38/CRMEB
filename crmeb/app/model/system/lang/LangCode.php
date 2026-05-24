@@ -20,21 +20,18 @@ class LangCode extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'lang_code';
+     */    protected $name = 'lang_code';
 
     /**
      * type_idNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchTypeIdAttr($query, $value)
+     */    public function searchTypeIdAttr($query, $value)
     {
         if ($value !== '' && $value !== 0) $query->where('type_id', $value);
     }
@@ -43,8 +40,7 @@ class LangCode extends BaseModel
      * codeNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchCodeAttr($query, $value)
+     */    public function searchCodeAttr($query, $value)
     {
         if ($value !== '') $query->where('code', 'like', '%' . $value . '%');
     }
@@ -53,8 +49,7 @@ class LangCode extends BaseModel
      * remarksNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchRemarksAttr($query, $value)
+     */    public function searchRemarksAttr($query, $value)
     {
         if ($value !== '') $query->where('remarks|code|lang_explain', 'like', '%' . $value . '%');
     }
@@ -63,8 +58,7 @@ class LangCode extends BaseModel
      * is_adminNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchIsAdminAttr($query, $value)
+     */    public function searchIsAdminAttr($query, $value)
     {
         if ($value !== '') $query->where('is_admin', $value);
     }

@@ -13,8 +13,7 @@ use crmeb\services\HttpService;
 
 /**
  * Quản lý kênh thông báo tập trung.
- */
-class NoticeChannelServices extends BaseServices
+ */class NoticeChannelServices extends BaseServices
 {
     protected $dao;
 

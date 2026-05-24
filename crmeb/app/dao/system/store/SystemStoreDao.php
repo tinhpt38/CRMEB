@@ -19,14 +19,12 @@ use app\model\system\store\SystemStore;
  * cửa hàngdao
  * Class SystemStoreDao
  * @package app\dao\system\store
- */
-class SystemStoreDao extends BaseDao
+ */class SystemStoreDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemStore::class;
     }
@@ -36,8 +34,7 @@ class SystemStoreDao extends BaseDao
      * @param string $latitude
      * @param string $longitude
      * @return string
-     */
-    public function distance(string $latitude, string $longitude)
+     */    public function distance(string $latitude, string $longitude)
     {
         return "(round(6367000 * 2 * asin(sqrt(pow(sin(((latitude * pi()) / 180 - ({$latitude} * pi()) / 180) / 2), 2) + cos(({$latitude} * pi()) / 180) * cos((latitude * pi()) / 180) * pow(sin(((longitude * pi()) / 180 - ({$longitude} * pi()) / 180) / 2), 2))))) AS distance";
     }
@@ -53,8 +50,7 @@ class SystemStoreDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStoreList(array $where, array $field, int $page = 0, int $limit = 0, string $latitude = '', string $longitude = '')
+     */    public function getStoreList(array $where, array $field, int $page = 0, int $limit = 0, string $latitude = '', string $longitude = '')
     {
         return $this->search($where)->when($longitude && $latitude, function ($query) use ($longitude, $latitude) {
             $query->field(['*', $this->distance($latitude, $longitude)])->order('distance ASC');
@@ -70,8 +66,7 @@ class SystemStoreDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStore(array $where)
+     */    public function getStore(array $where)
     {
         return $this->search($where)->order('add_time DESC')->field(['id', 'name'])->select()->toArray();
     }

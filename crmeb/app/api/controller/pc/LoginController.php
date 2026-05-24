@@ -26,8 +26,7 @@ class LoginController
     /**
      * Nhận mã quét đăng nhậpKEY
      * @return mixed
-     */
-    public function getLoginKey()
+     */    public function getLoginKey()
     {
         $key = md5(time() . uniqid());
         $time = time() + 600;
@@ -40,8 +39,7 @@ class LoginController
      * @param string $key
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function scanLogin(string $key)
+     */    public function scanLogin(string $key)
     {
         return app('json')->success($this->services->scanLogin($key));
     }
@@ -52,8 +50,7 @@ class LoginController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function wechatAuth()
+     */    public function wechatAuth()
     {
         return app('json')->success($this->services->wechatAuth());
     }
@@ -61,8 +58,7 @@ class LoginController
     /**
      * Nhận nền tảng công cộngid
      * @return mixed
-     */
-    public function getAppid()
+     */    public function getAppid()
     {
         return app('json')->success([
             'appid' => sys_config('wechat_open_app_id'),

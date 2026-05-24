@@ -18,8 +18,7 @@ use app\model\diy\Theme;
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2025/12/18
- */
-class ThemeDao extends BaseDao
+ */class ThemeDao extends BaseDao
 {
     /**
      * Lấy tên lớp mô hình
@@ -27,8 +26,7 @@ class ThemeDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return Theme::class;
     }
@@ -40,8 +38,7 @@ class ThemeDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function getConditionModel($where)
+     */    public function getConditionModel($where)
     {
         return $this->getModel()->where('is_del', 0)
             ->when(isset($where['title']) && $where['title'] !== '', function ($query) use ($where) {
@@ -71,8 +68,7 @@ class ThemeDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function themeList($where, $field, $page = 0, $limit = 0, $order = 'id desc')
+     */    public function themeList($where, $field, $page = 0, $limit = 0, $order = 'id desc')
     {
         return $this->getConditionModel($where)
             ->field($field)
@@ -89,8 +85,7 @@ class ThemeDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/18
-     */
-    public function themeCount($where)
+     */    public function themeCount($where)
     {
         return $this->getConditionModel($where)->count();
     }

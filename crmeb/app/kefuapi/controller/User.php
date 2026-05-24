@@ -27,42 +27,38 @@ use think\facade\Config;
 /**
  * Class User
  * @package app\kefuapi\controller
- */
-class User extends AuthController
+ */class User extends AuthController
 {
     /**
      * User constructor.
      * @param App $app
      * @param StoreServiceRecordServices $services
-     */
-    public function __construct(App $app, StoreServiceRecordServices $services)
+     */    public function __construct(App $app, StoreServiceRecordServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Nhận lịch sử trò chuyện của dịch vụ khách hàng và người dùng hiện tại
+     * Nhận lịch sử trò chuyện của CSKH và Khách hàng hiện tại
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function recordList(string $nickname = '', $is_tourist = 0)
+     */    public function recordList(string $nickname = '', $is_tourist = 0)
     {
         return app('json')->success($this->services->getServiceList($this->kefuInfo['uid'], $nickname, (int)$is_tourist));
     }
 
     /**
-     * Lấy thông tin người dùng
+     * Lấy thông tin Khách hàng
      * @param UserServices $services
      * @param $uid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function userInfo(UserServices $services, $uid)
+     */    public function userInfo(UserServices $services, $uid)
     {
         return app('json')->success($services->getUserInfo((int)$uid));
     }
@@ -71,21 +67,19 @@ class User extends AuthController
      * Phân loại thẻ
      * @param UserLabelCateServices $services
      * @return mixed
-     */
-    public function getUserLabel(UserLabelCateServices $services, $uid)
+     */    public function getUserLabel(UserLabelCateServices $services, $uid)
     {
         return app('json')->success($services->getUserLabel((int)$uid));
     }
 
     /**
-     * Nhận nhóm người dùng
+     * Nhận nhóm Khách hàng
      * @param UserGroupServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserGroup(UserGroupServices $services)
+     */    public function getUserGroup(UserGroupServices $services)
     {
         return app('json')->success($services->getGroupList());
     }
@@ -97,8 +91,7 @@ class User extends AuthController
      * @param $uid
      * @param $id
      * @return mixed
-     */
-    public function setUserGroup(UserGroupServices $services, UserServices $userServices, $uid, $id)
+     */    public function setUserGroup(UserGroupServices $services, UserServices $userServices, $uid, $id)
     {
         if (!$services->count(['id' => $id])) {
             return app('json')->fail('Dữ liệu không tồn tại');
@@ -118,12 +111,11 @@ class User extends AuthController
     }
 
     /**
-     * Đặt nhãn người dùng
+     * Đặt nhãn Khách hàng
      * @param UserLabelRelationServices $services
      * @param $uid
      * @return mixed
-     */
-    public function setUserLabel(UserLabelRelationServices $services, $uid)
+     */    public function setUserLabel(UserLabelRelationServices $services, $uid)
     {
         [$labels, $unLabelIds] = $this->request->postMore([
             ['label_ids', []],
@@ -142,8 +134,7 @@ class User extends AuthController
     /**
      * Đăng xuất
      * @return mixed
-     */
-    public function logout()
+     */    public function logout()
     {
         $key = trim(ltrim($this->request->header(Config::get('cookie.token_name')), 'Bearer'));
         CacheService::delete(md5($key));
@@ -155,8 +146,7 @@ class User extends AuthController
      * @param Request $request
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function upload(Request $request, SystemAttachmentServices $services)
+     */    public function upload(Request $request, SystemAttachmentServices $services)
     {
         $data = $request->postMore([
             ['filename', 'file'],

@@ -13,9 +13,8 @@ use think\facade\Route;
 
 /**
  * crud Tự động tải tuyến đường
- * Tự động tải tất cả các file định tuyến trong thư mục crud
- */
-Route::group(function () {
+ * Tự động tải Tất cả các file định tuyến trong thư mục crud
+ */Route::group(function () {
     $path = $this->app->getRootPath() . 'app' . DS . 'adminapi' . DS . 'route' . DS . 'crud';
     if (is_dir($path)) {
         $files = scandir($path);

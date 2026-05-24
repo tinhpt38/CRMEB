@@ -26,15 +26,13 @@ use Guzzle\Http\EntityBody;
  * @package app\services\other
  * @method getQrcode($id, $type)
  * @method scanQrcode($id, $type)
- */
-class QrcodeServices extends BaseServices
+ */class QrcodeServices extends BaseServices
 {
 
     /**
      * QrcodeServices constructor.
      * @param QrcodeDao $dao
-     */
-    public function __construct(QrcodeDao $dao)
+     */    public function __construct(QrcodeDao $dao)
     {
         $this->dao = $dao;
     }
@@ -46,8 +44,7 @@ class QrcodeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTemporaryQrcode($type, $id)
+     */    public function getTemporaryQrcode($type, $id)
     {
         $where['third_id'] = $id;
         $where['third_type'] = $type;
@@ -68,8 +65,7 @@ class QrcodeServices extends BaseServices
      * @param $id
      * @param $type
      * @param string $qrcode_id
-     */
-    public function createTemporaryQrcode($id, $type, $qrcode_id = '')
+     */    public function createTemporaryQrcode($id, $type, $qrcode_id = '')
     {
         $qrcode = WechatService::qrcodeService();
         $data = $qrcode->temporary($id, 30 * 24 * 3600)->toArray();
@@ -95,8 +91,7 @@ class QrcodeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getForeverQrcode($type, $id)
+     */    public function getForeverQrcode($type, $id)
     {
         $where['third_id'] = $id;
         $where['third_type'] = $type;
@@ -113,8 +108,7 @@ class QrcodeServices extends BaseServices
      * Tạo mã QR vĩnh viễn
      * @param $id
      * @param $type
-     */
-    public function createForeverQrcode($id, $type)
+     */    public function createForeverQrcode($id, $type)
     {
         $qrcode = WechatService::qrcodeService();
         $data = $qrcode->forever($id)->toArray();
@@ -135,11 +129,9 @@ class QrcodeServices extends BaseServices
      * @param int $type https 1 = http , 0 = https
      * @param bool $force Có nên quay lại khôngfalse
      * @return bool|mixed|string
-     */
-    public function getWechatQrcodePathAgent(string $name, string $link, bool $force = false)
+     */    public function getWechatQrcodePathAgent(string $name, string $link, bool $force = false)
     {
-        /** @var SystemAttachmentServices $systemAttchment */
-        $systemAttchment = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttchment */        $systemAttchment = app()->make(SystemAttachmentServices::class);
         try {
             $imageInfo = $systemAttchment->getInfo(['name' => $name]);
             $siteUrl = sys_config('site_url');
@@ -172,11 +164,9 @@ class QrcodeServices extends BaseServices
      * @param string $link
      * @param bool $force
      * @return bool|mixed|string
-     */
-    public function getWechatQrcodePath(string $name, string $link, bool $force = false, bool $isSaveAttach = true)
+     */    public function getWechatQrcodePath(string $name, string $link, bool $force = false, bool $isSaveAttach = true)
     {
-        /** @var SystemAttachmentServices $systemAttachmentService */
-        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentService */        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
         try {
             if (!$isSaveAttach) {
                 $imageInfo = "";
@@ -228,11 +218,9 @@ class QrcodeServices extends BaseServices
      * @param array $param
      * @param bool $isSaveAttach
      * @return false|mixed|string
-     */
-    public function getRoutineQrcodePath(int $id, int $uid, int $type, array $param = [], bool $isSaveAttach = true)
+     */    public function getRoutineQrcodePath(int $id, int $uid, int $type, array $param = [], bool $isSaveAttach = true)
     {
-        /** @var SystemAttachmentServices $systemAttachmentService */
-        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentService */        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
         $page = '';
         $namePath = '';
         $data = 'id=' . $id . '&pid=' . $uid;
@@ -331,8 +319,7 @@ class QrcodeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function qrCodeForever($thirdId = 0, $thirdType = 'spread', $page = '', $qrCodeLink = '')
+     */    public function qrCodeForever($thirdId = 0, $thirdType = 'spread', $page = '', $qrCodeLink = '')
     {
         $qrcode = $this->dao->getOne(['third_id' => $thirdId, 'third_type' => $thirdType]);
         if ($qrcode) {
@@ -346,8 +333,7 @@ class QrcodeServices extends BaseServices
      * @param string $thirdType
      * @param int $thirdId
      * @return object
-     */
-    public function setQrcodeForever($thirdId = 0, $thirdType = 'spread', $page = '', $qrCodeLink = '')
+     */    public function setQrcodeForever($thirdId = 0, $thirdType = 'spread', $page = '', $qrCodeLink = '')
     {
         $data['third_type'] = $thirdType;
         $data['third_id'] = $thirdId;
@@ -367,8 +353,7 @@ class QrcodeServices extends BaseServices
      * @param int $id
      * @param array $data
      * @return bool
-     */
-    public function setQrcodeFind($id = 0, $data = array())
+     */    public function setQrcodeFind($id = 0, $data = array())
     {
         if (!$id) return false;
         if (!$this->dao->get((int)$id)) {
@@ -385,8 +370,7 @@ class QrcodeServices extends BaseServices
      * @param int $thirdId
      * @param string $thirdType
      * @return bool
-     */
-    public function qrCodeExist($thirdId = 0, $thirdType = 'spread')
+     */    public function qrCodeExist($thirdId = 0, $thirdType = 'spread')
     {
         return !!$this->dao->getCount(['third_id' => $thirdId, 'third_type' => $thirdType]);
     }

@@ -18,15 +18,13 @@ use app\services\BaseServices;
 /**
  * Class StoreOrderStoreOrderCartInfoServices
  * @package app\services\order
- * @method getUserCartProductIds(array $where) Nhận các mặt hàng được người dùng muaid
- */
-class StoreOrderStoreOrderCartInfoServices extends BaseServices
+ * @method getUserCartProductIds(array $where) Nhận các mặt hàng được Khách hàng muaid
+ */class StoreOrderStoreOrderCartInfoServices extends BaseServices
 {
     /**
      * StoreOrderStoreOrderCartInfoServices constructor.
      * @param StoreOrderStoreOrderCartInfoDao $dao
-     */
-    public function __construct(StoreOrderStoreOrderCartInfoDao $dao)
+     */    public function __construct(StoreOrderStoreOrderCartInfoDao $dao)
     {
         $this->dao = $dao;
     }

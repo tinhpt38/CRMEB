@@ -19,8 +19,7 @@ class StoreCouponValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'title' => 'require',
         'image' => 'require',
         'category_id' => 'require',
@@ -36,8 +35,7 @@ class StoreCouponValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'title.require' => 'Vui lòng điền tên phiếu giảm giá',
         'image.require' => 'Vui lòng chọn sản phẩm',
         'category_id.require' => 'Vui lòng chọn danh mục sản phẩm',

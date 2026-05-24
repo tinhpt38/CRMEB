@@ -19,8 +19,7 @@ use app\services\other\QrcodeServices;
  * Loại nhóm nhóm
  * Class StoreCombinationController
  * @package app\api\controller\activity
- */
-class StoreCombinationController
+ */class StoreCombinationController
 {
     protected $services;
 
@@ -30,10 +29,9 @@ class StoreCombinationController
     }
 
     /**
-     * Danh sách nhóm nhóm
+     * Đơn hàng mua chung
      * @return mixed
-     */
-    public function lst()
+     */    public function lst()
     {
         $list = $this->services->getCombinationList();
         return app('json')->success(get_thumb_water($list));
@@ -45,8 +43,7 @@ class StoreCombinationController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function detail(Request $request, $id)
+     */    public function detail(Request $request, $id)
     {
         $data = $this->services->combinationDetail($request, $id);
         return app('json')->success($data);
@@ -57,8 +54,7 @@ class StoreCombinationController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function pink(Request $request, $id)
+     */    public function pink(Request $request, $id)
     {
         $data = $this->services->getPinkInfo($request, (int)$id);
         return app('json')->success($data);
@@ -68,16 +64,14 @@ class StoreCombinationController
      * Tham gia nhóm Hủy nhóm
      * @param Request $request
      * @return mixed
-     */
-    public function remove(Request $request)
+     */    public function remove(Request $request)
     {
         list($id, $cid) = $request->postMore([
             ['id', 0],
             ['cid', 0],
         ], true);
         if (!$id || !$cid) return app('json')->fail('Lỗi tham số');
-        /** @var StorePinkServices $pinkService */
-        $pinkService = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $pinkService */        $pinkService = app()->make(StorePinkServices::class);
         $pinkService->removePink($request->uid(), $cid, $id);
         return app('json')->success('Hoạt động thành công');
     }
@@ -87,8 +81,7 @@ class StoreCombinationController
      * Áp phích chia sẻ nhóm
      * @param Request $request
      * @return mixed
-     */
-    public function poster(Request $request)
+     */    public function poster(Request $request)
     {
         list($pinkId, $from) = $request->postMore([
             ['id', 0],
@@ -96,8 +89,7 @@ class StoreCombinationController
         ], true);
         if (!$pinkId) return app('json')->fail('Lỗi tham số');
         $user = $request->user();
-        /** @var StorePinkServices $pinkService */
-        $pinkService = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $pinkService */        $pinkService = app()->make(StorePinkServices::class);
         $res = $pinkService->getPinkPoster($pinkId, $from, $user);
         return app('json')->success(['url' => $res]);
     }
@@ -108,8 +100,7 @@ class StoreCombinationController
      * @param StorePinkServices $services
      * @param $id
      * @return mixed
-     */
-    public function posterInfo(Request $request, StorePinkServices $services, $id)
+     */    public function posterInfo(Request $request, StorePinkServices $services, $id)
     {
         return app('json')->success($services->posterInfo((int)$id, $request->user()));
     }
@@ -119,11 +110,9 @@ class StoreCombinationController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function code(Request $request, $id)
+     */    public function code(Request $request, $id)
     {
-        /** @var QrcodeServices $qrcodeService */
-        $qrcodeService = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrcodeService */        $qrcodeService = app()->make(QrcodeServices::class);
         $url = $qrcodeService->getRoutineQrcodePath($id, $request->uid(), 1);
         if ($url) {
             return app('json')->success(['code' => $url]);
@@ -134,8 +123,7 @@ class StoreCombinationController
 
     /**
      * Lấy băng chuyền danh sách nhóm
-     */
-    public function banner_list()
+     */    public function banner_list()
     {
         $banner = sys_data('combination_banner') ?? [];
         return app('json')->success($banner);

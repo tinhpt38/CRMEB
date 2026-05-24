@@ -19,14 +19,12 @@ use app\model\activity\integral\StoreIntegralOrderStatus;
  * Trạng thái đơn hàng
  * Class StoreOrderStatusDao
  * @package app\dao\order
- */
-class StoreIntegralOrderStatusDao extends BaseDao
+ */class StoreIntegralOrderStatusDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreIntegralOrderStatus::class;
     }
@@ -40,8 +38,7 @@ class StoreIntegralOrderStatusDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStatusList(array $where, int $page, int $limit)
+     */    public function getStatusList(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->order('change_time desc')->select()->toArray();
     }

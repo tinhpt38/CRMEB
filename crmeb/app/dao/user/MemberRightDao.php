@@ -19,8 +19,7 @@ class MemberRightDao extends BaseDao
 {
     /** Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         // TODO: Implement setModel() method.
         return MemberRight::class;
@@ -35,8 +34,7 @@ class MemberRightDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSearchList(array $where, int $page = 0, int $limit = 0, array $field = ['*'])
+     */    public function getSearchList(array $where, int $page = 0, int $limit = 0, array $field = ['*'])
     {
         return $this->search($where)->order('sort desc,id desc')
             ->field($field)

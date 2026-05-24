@@ -31,21 +31,19 @@ class DivisionAgentApplyServices extends BaseServices
     /**
      * DivisionAgentApplyServices constructor.
      * @param DivisionAgentApplyDao $dao
-     */
-    public function __construct(DivisionAgentApplyDao $dao)
+     */    public function __construct(DivisionAgentApplyDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Chi tiết ứng dụng
+     * Chi tiết Ứng dụng
      * @param $uid
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function applyInfo($uid)
+     */    public function applyInfo($uid)
     {
         $data = $this->dao->get(['uid' => $uid, 'is_del' => 0]);
         if (!$data) return ['status' => -1];
@@ -60,13 +58,11 @@ class DivisionAgentApplyServices extends BaseServices
      * @param $data
      * @param int $id
      * @return bool
-     */
-    public function applyAgent($data, $id = 0)
+     */    public function applyAgent($data, $id = 0)
     {
         $data['images'] = json_encode($data['images']);
         $data['add_time'] = time();
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $divisionId = $userServices->value(['division_invite' => $data['division_invite']], 'division_id');
         if (!$divisionId) throw new ApiException('Mã mời không hợp lệ');
         $data['division_id'] = $divisionId;
@@ -83,14 +79,13 @@ class DivisionAgentApplyServices extends BaseServices
 
 
     /**
-     * Danh sách ứng dụng đại lý quản lý
+     * Danh sách Ứng dụng đại lý quản lý
      * @param $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function AdminApplyList($where)
+     */    public function AdminApplyList($where)
     {
         $where['is_del'] = 0;
         [$page, $limit] = $this->getPageValue();
@@ -110,8 +105,7 @@ class DivisionAgentApplyServices extends BaseServices
      * Xóa đánh giá đại lý
      * @param $id
      * @return bool
-     */
-    public function delApply($id)
+     */    public function delApply($id)
     {
         $res = $this->dao->update($id, ['is_del' => 1]);
         if (!$res) throw new AdminException('Xóa không thành công');
@@ -124,8 +118,7 @@ class DivisionAgentApplyServices extends BaseServices
      * @param $type
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function examineApply($id, $type)
+     */    public function examineApply($id, $type)
     {
         if (!$id) throw new AdminException('Lỗi tham số');
         $field = [];
@@ -135,7 +128,7 @@ class DivisionAgentApplyServices extends BaseServices
             $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', '')->placeholder('Tỷ lệ hoa hồng đại lý1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%,Nhưng không thể cao hơn tỷ lệ của Đơn vị kinh doanh cấp trên')->style(['width' => '173px'])->min(0)->max(100)->required();
             $field[] = Form::date('division_end_time', 'Thời gian hết hạn', '')->placeholder('Thời gian hết hạn đại lý');
             $field[] = Form::radio('division_status', 'trạng thái đại lý', 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
-            $title = 'Đồng ý với ứng dụng';
+            $title = 'Đồng ý với Ứng dụng';
         } else {
             $field[] = Form::textarea('refusal_reason', 'Lý do từ chối', '')->rows(5);
             $title = 'từ chối đơn đăng ký';
@@ -150,8 +143,7 @@ class DivisionAgentApplyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function applyAgentSave($data)
+     */    public function applyAgentSave($data)
     {
         $applyInfo = $this->dao->get($data['id']);
         return $this->transaction(function () use ($applyInfo, $data) {
@@ -170,8 +162,7 @@ class DivisionAgentApplyServices extends BaseServices
                     'spread_uid' => $applyInfo['division_id'],
                     'spread_time' => time()
                 ];
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
                 $division_info = $userServices->getUserInfo($applyInfo['division_id'], 'division_end_time,division_percent');
                 if ($applyInfo['division_id'] != 0) {
                     if ($agentData['division_percent'] > $division_info['division_percent']) throw new AdminException('Tỷ lệ hoa hồng đại lý không được lớn hơn tỷ lệ hoa hồng Đơn vị kinh doanh');
@@ -199,13 +190,10 @@ class DivisionAgentApplyServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStaffList($isRoutine, $where, $field = '*')
+     */    public function getStaffList($isRoutine, $where, $field = '*')
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
         [$page, $limit] = $this->getPageValue();
         $count = $userService->getCount(['agent_id' => $where['agent_id'], 'is_staff' => 1, 'is_del' => 0]);
         $list = $userService->getList(['agent_id' => $where['agent_id'], 'is_staff' => 1, 'is_del' => 0], $field, $page, $limit);
@@ -218,8 +206,7 @@ class DivisionAgentApplyServices extends BaseServices
         }
         $codeUrl = '';
         if ($isRoutine) {
-            /** @var SystemAttachmentServices $systemAttachment */
-            $systemAttachment = app()->make(SystemAttachmentServices::class);
+            /** @var SystemAttachmentServices $systemAttachment */            $systemAttachment = app()->make(SystemAttachmentServices::class);
             $name = 'routine_agent_' . $where['agent_id'] . '.jpg';
             $imageInfo = $systemAttachment->getInfo(['name' => $name]);
             //Kiểm tra xem tập tin từ xa có tồn tại không
@@ -229,8 +216,7 @@ class DivisionAgentApplyServices extends BaseServices
             }
             $siteUrl = sys_config('site_url');
             if (!$imageInfo) {
-                /** @var QrcodeServices $qrCode */
-                $qrCode = app()->make(QrcodeServices::class);
+                /** @var QrcodeServices $qrCode */                $qrCode = app()->make(QrcodeServices::class);
                 $resForever = $qrCode->qrCodeForever($where['agent_id'], 'agent', '', '');
                 $resCode = MiniProgramService::appCodeUnlimitService($resForever->id, '', 280);
                 if ($resCode) {
@@ -253,7 +239,7 @@ class DivisionAgentApplyServices extends BaseServices
         }
         return compact('list', 'count', 'codeUrl');
 
-        //Mã QR để đại lý mời nhân viên là mã kênh tài khoản chính thức. Cần phải định cấu hình tài khoản chính thức và kích hoạt tính năng sau để tự động tạo người dùng để sử dụng.
+        //Mã QR để đại lý mời nhân viên là mã kênh tài khoản chính thức. Cần phải định cấu hình tài khoản chính thức và kích hoạt tính năng sau để tự động tạo Khách hàng để sử dụng.
 //        try {
 //            /** @var SystemAttachmentServices $systemAttachment */
 //            $systemAttachment = app()->make(SystemAttachmentServices::class);
@@ -289,8 +275,7 @@ class DivisionAgentApplyServices extends BaseServices
      * @param int $w
      * @param int $h
      * @return string
-     */
-    public function downloadImage($url = '', $name = '', $type = 0, $timeout = 30, $w = 0, $h = 0)
+     */    public function downloadImage($url = '', $name = '', $type = 0, $timeout = 30, $w = 0, $h = 0)
     {
         if (!strlen(trim($url))) return '';
         if (!strlen(trim($name))) {
@@ -349,8 +334,7 @@ class DivisionAgentApplyServices extends BaseServices
      * @param string $url
      * @param string $ex
      * @return array|string[]
-     */
-    public function getImageExtname($url = '', $ex = 'jpg')
+     */    public function getImageExtname($url = '', $ex = 'jpg')
     {
         $_empty = ['file_name' => '', 'ext_name' => $ex];
         if (!$url) return $_empty;

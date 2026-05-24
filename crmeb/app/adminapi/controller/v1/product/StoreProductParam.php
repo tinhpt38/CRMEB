@@ -15,18 +15,16 @@ use app\services\product\product\StoreProductParamServices;
 use think\facade\App;
 
 /**
- * Thông số sản phẩm
+ * Thuộc tính sản phẩm
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2024/12/17
- */
-class StoreProductParam extends AuthController
+ */class StoreProductParam extends AuthController
 {
     /**
      * @param App $app
      * @param StoreProductParamServices $services
-     */
-    public function __construct(App $app, StoreProductParamServices $services)
+     */    public function __construct(App $app, StoreProductParamServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -41,8 +39,7 @@ class StoreProductParam extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function getParamList()
+     */    public function getParamList()
     {
         $where = $this->request->getMore([
             ['name', '']
@@ -60,8 +57,7 @@ class StoreProductParam extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function getParamInfo($id)
+     */    public function getParamInfo($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $info = $this->services->getParamInfo($id);
@@ -75,8 +71,7 @@ class StoreProductParam extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function getParamValue($id)
+     */    public function getParamValue($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $info = $this->services->getParamValue($id);
@@ -90,8 +85,7 @@ class StoreProductParam extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function saveParamData($id)
+     */    public function saveParamData($id)
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -113,8 +107,7 @@ class StoreProductParam extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function setParamStatus($id, $status)
+     */    public function setParamStatus($id, $status)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->setParamStatus($id, $status);
@@ -128,8 +121,7 @@ class StoreProductParam extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function delParamData($id)
+     */    public function delParamData($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->delParamData($id);

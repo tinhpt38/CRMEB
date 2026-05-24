@@ -19,28 +19,25 @@ use app\dao\user\UserBillStoreOrderDao;
  *
  * Class UserBillStoreOrderServices
  * @package app\services\user
- */
-class UserBillStoreOrderServices extends BaseServices
+ */class UserBillStoreOrderServices extends BaseServices
 {
     /**
      * UserBillStoreOrderServices constructor.
      * @param UserBillStoreOrderDao $dao
-     */
-    public function __construct(UserBillStoreOrderDao $dao)
+     */    public function __construct(UserBillStoreOrderDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * TODO Nhận hồ sơ người dùng và tìm kiếm theo tháng
-     * @param $uid $uid  ID người dùng
+     * TODO Nhận hồ sơ Khách hàng và tìm kiếm theo tháng
+     * @param $uid $uid  ID Khách hàng
      * @param int $page $page giá trị bắt đầu phân trang
-     * @param int $limit $limit Truy vấn số lượng mục
+     * @param int $limit $limit Tìm kiếm số lượng mục
      * @param string $category $category loại bản ghi
      * @param string $type $type Phân loại hồ sơ
      * @return mixed
-     */
-    public function getRecordList($uid, $uids, $category = 'now_money', $type = 'brokerage')
+     */    public function getRecordList($uid, $uids, $category = 'now_money', $type = 'brokerage')
     {
         $where = $whereOr1 = $whereOr2 = [];
         $where['b.category'] = $category;
@@ -67,8 +64,7 @@ class UserBillStoreOrderServices extends BaseServices
      * @param string $category
      * @param string $type
      * @return mixed
-     */
-    public function getRecordOrderCount($uid, $uids, $category = 'now_money', $type = 'brokerage')
+     */    public function getRecordOrderCount($uid, $uids, $category = 'now_money', $type = 'brokerage')
     {
         $where = $whereOr1 = $whereOr2 = [];
         $where['b.category'] = $category;
@@ -93,8 +89,7 @@ class UserBillStoreOrderServices extends BaseServices
      * @param string $category
      * @param string $type
      * @return mixed
-     */
-    public function getRecordOrderListDraw($uid, $uids, $addTime = [], $category = 'now_money', $type = 'brokerage')
+     */    public function getRecordOrderListDraw($uid, $uids, $addTime = [], $category = 'now_money', $type = 'brokerage')
     {
         if(!$addTime) return [];
         $where = $whereOr1 = $whereOr2 = [];

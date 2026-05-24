@@ -19,22 +19,19 @@ use think\model;
 /**
  * Class UserLevel
  * @package app\model\user
- */
-class UserLevel extends BaseModel
+ */class UserLevel extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_level';
+     */    protected $name = 'user_level';
 
     public function levelInfo()
     {
@@ -42,11 +39,10 @@ class UserLevel extends BaseModel
     }
 
     /**
-     * người dùnguid
+     * Khách hànguid
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -55,8 +51,7 @@ class UserLevel extends BaseModel
      * Nó có vĩnh viễn không?
      * @param Model $query
      * @param $value
-     */
-    public function searchIsForeverAttr($query, $value)
+     */    public function searchIsForeverAttr($query, $value)
     {
         $query->where('is_forever', $value);
     }
@@ -65,18 +60,16 @@ class UserLevel extends BaseModel
      * Thời gian hết hạn
      * @param Model $query
      * @param $value
-     */
-    public function searchValidTimeAttr($query, $value)
+     */    public function searchValidTimeAttr($query, $value)
     {
         $query->where('valid_time', '>', $value);
     }
 
     /**
-     * tình trạng
+     * Trạng thái
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->where('status', $value);
     }
@@ -85,8 +78,7 @@ class UserLevel extends BaseModel
      * Thông báo hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchRemindAttr($query, $value)
+     */    public function searchRemindAttr($query, $value)
     {
         $query->where('remind', $value);
     }
@@ -95,8 +87,7 @@ class UserLevel extends BaseModel
      * Có nên xóa không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         $query->where('is_del', $value);
     }

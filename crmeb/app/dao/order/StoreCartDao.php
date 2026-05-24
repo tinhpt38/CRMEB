@@ -19,15 +19,13 @@ use app\model\order\StoreCart;
  *
  * Class StoreCartDao
  * @package app\dao\order
- */
-class StoreCartDao extends BaseDao
+ */class StoreCartDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreCart::class;
     }
@@ -36,8 +34,7 @@ class StoreCartDao extends BaseDao
      * @param array $where
      * @param array $unique
      * @return array
-     */
-    public function getUserCartNums(array $where, array $unique)
+     */    public function getUserCartNums(array $where, array $unique)
     {
         return $this->search($where)->whereIn('product_attr_unique', $unique)->column('cart_num', 'product_attr_unique');
     }
@@ -48,13 +45,12 @@ class StoreCartDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->when(isset($where['id']) && $where['id'], function ($query) use ($where) {
             $query->whereIn('id', $where['id']);
         })->when(isset($where['status']), function ($query) use ($where) {
-            //Tương thích với các giá trị mặc định của cơ sở dữ liệu người dùng cũnull
+            //Tương thích với các giá trị mặc định của cơ sở dữ liệu Khách hàng cũnull
             if ($where['status'] == 1) {
                 $query->where(function ($or) {
                     $or->where('status', 1)->whereOr('status', 'exp', 'is null');
@@ -71,8 +67,7 @@ class StoreCartDao extends BaseDao
      * @param array $ids
      * @param int $uid
      * @return mixed
-     */
-    public function productIdByCartNum(array $ids, int $uid)
+     */    public function productIdByCartNum(array $ids, int $uid)
     {
         return $this->search(['product_id' => $ids, 'is_pay' => 0, 'is_del' => 0, 'is_new' => 0, 'uid' => $uid])->group('product_attr_unique')->column('cart_num,product_id', 'product_attr_unique');
     }
@@ -86,8 +81,7 @@ class StoreCartDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCartList(array $where, int $page = 0, int $limit = 0, array $with = [])
+     */    public function getCartList(array $where, int $page = 0, int $limit = 0, array $with = [])
     {
         return $this->search($where)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -101,8 +95,7 @@ class StoreCartDao extends BaseDao
      * @param array $id
      * @param array $data
      * @return \crmeb\basic\BaseModel
-     */
-    public function updateDel(array $id)
+     */    public function updateDel(array $id)
     {
         return $this->getModel()->whereIn('id', $id)->update(['is_del' => 1]);
     }
@@ -113,8 +106,7 @@ class StoreCartDao extends BaseDao
      * @param array $ids
      * @return bool
      * @throws \Exception
-     */
-    public function removeUserCart(int $uid, array $ids)
+     */    public function removeUserCart(int $uid, array $ids)
     {
         return $this->getModel()->where('uid', $uid)->whereIn('id', $ids)->delete();
     }
@@ -124,8 +116,7 @@ class StoreCartDao extends BaseDao
      * @param $uid
      * @param $type
      * @param $numType
-     */
-    public function getUserCartNum($uid, $type, $numType)
+     */    public function getUserCartNum($uid, $type, $numType)
     {
         $model = $this->getModel()->where(['uid' => $uid, 'type' => $type, 'is_pay' => 0, 'is_new' => 0, 'is_del' => 0]);
         if ($numType) {
@@ -136,7 +127,7 @@ class StoreCartDao extends BaseDao
     }
 
     /**
-     * Thống kê giỏ hàng của người dùng
+     * Thống kê giỏ hàng của Khách hàng
      * @param $uid
      * @param $type
      * @param string $field
@@ -145,8 +136,7 @@ class StoreCartDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserCartList($uid, string $field = '*', array $with = [])
+     */    public function getUserCartList($uid, string $field = '*', array $with = [])
     {
         return $this->getModel()->where(['uid' => $uid, 'is_pay' => 0, 'is_new' => 0, 'is_del' => 0])->when(count($with), function ($query) use ($with) {
             $query->with($with);
@@ -158,8 +148,7 @@ class StoreCartDao extends BaseDao
      * @param $cartId
      * @param $cartNum
      * @param $uid
-     */
-    public function changeUserCartNum(array $where, int $carNum)
+     */    public function changeUserCartNum(array $where, int $carNum)
     {
         return $this->getModel()->where($where)->update(['cart_num' => $carNum]);
     }
@@ -168,8 +157,7 @@ class StoreCartDao extends BaseDao
      * Sửa đổi trạng thái giỏ hàng
      * @param $cartIds
      * @return \crmeb\basic\BaseModel
-     */
-    public function deleteCartStatus($cartIds)
+     */    public function deleteCartStatus($cartIds)
     {
         return $this->getModel()->where('id', 'IN', $cartIds)->delete();
     }
@@ -177,8 +165,7 @@ class StoreCartDao extends BaseDao
     /**
      * Nhận giỏ hàng lớn nhấtid
      * @return mixed
-     */
-    public function getCartIdMax()
+     */    public function getCartIdMax()
     {
         return $this->getModel()->max('id');
     }
@@ -188,8 +175,7 @@ class StoreCartDao extends BaseDao
      * @param $where
      * @param $field
      * @return float
-     */
-    public function getSum($where, $field)
+     */    public function getSum($where, $field)
     {
         return $this->search($where)->sum($field);
     }
@@ -200,8 +186,7 @@ class StoreCartDao extends BaseDao
      * @param $timeType
      * @param $str
      * @return mixed
-     */
-    public function getProductTrend($time, $timeType, $str)
+     */    public function getProductTrend($time, $timeType, $str)
     {
         return $this->getModel()->where(function ($query) use ($time) {
             if ($time[0] == $time[1]) {

@@ -19,21 +19,18 @@ use crmeb\traits\ModelTrait;
  * Mô hình thành phần chủ đề
  * Bảng tương ứng: eb_theme_module
  * trường：id, type, data
- */
-class ThemeModule extends BaseModel
+ */class ThemeModule extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'theme_module';
+     */    protected $name = 'theme_module';
 }
 

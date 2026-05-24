@@ -36,8 +36,7 @@ class LuckLotteryController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function LotteryInfo(Request $request, $factor, $lottery_id = 0)
+     */    public function LotteryInfo(Request $request, $factor, $lottery_id = 0)
     {
         if (!$factor) return app('json')->fail('Lỗi tham số');
         if ($lottery_id) {
@@ -55,8 +54,7 @@ class LuckLotteryController
         $lotteryData['lottery_num'] = $this->services->getLotteryNum($uid, (int)$lottery['id'], [], $lottery);
         $all_record = $user_record = [];
         if ($lottery['is_all_record'] || $lottery['is_personal_record']) {
-            /** @var LuckLotteryRecordServices $lotteryRecordServices */
-            $lotteryRecordServices = app()->make(LuckLotteryRecordServices::class);
+            /** @var LuckLotteryRecordServices $lotteryRecordServices */            $lotteryRecordServices = app()->make(LuckLotteryRecordServices::class);
             if ($lottery['is_all_record']) {
                 $all_record = $lotteryRecordServices->getWinList(['lottery_id' => $lottery['id']]);
             }
@@ -76,8 +74,7 @@ class LuckLotteryController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function luckLottery(Request $request)
+     */    public function luckLottery(Request $request)
     {
         [$id, $type] = $request->postMore([
             ['id', 0],
@@ -93,13 +90,11 @@ class LuckLotteryController
         CacheService::set('lucklotter_limit_' . $uid, $uid, 1);
 
         if ($type == 5 && request()->isWechat()) {
-            /** @var WechatServices $wechat */
-            $wechat = app()->make(WechatServices::class);
+            /** @var WechatServices $wechat */            $wechat = app()->make(WechatServices::class);
             $subscribe = $wechat->get(['user_type' => 'wechat', 'uid' => $request->uid(), 'subscribe' => 1]);
             if (!$subscribe) {
                 $url = '';
-                /** @var QrcodeServices $qrcodeService */
-                $qrcodeService = app()->make(QrcodeServices::class);
+                /** @var QrcodeServices $qrcodeService */                $qrcodeService = app()->make(QrcodeServices::class);
                 $url = $qrcodeService->getTemporaryQrcode('luckLottery-5', $request->uid())->url;
                 return app('json')->success('Vui lòng theo dõi tài khoản công khai trước', ['code' => 'subscribe', 'url' => $url]);
             }
@@ -119,8 +114,7 @@ class LuckLotteryController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lotteryReceive(Request $request, LuckLotteryRecordServices $lotteryRecordServices)
+     */    public function lotteryReceive(Request $request, LuckLotteryRecordServices $lotteryRecordServices)
     {
         [$id, $name, $phone, $address, $detail, $mark] = $request->postMore([
             ['id', 0],
@@ -145,8 +139,7 @@ class LuckLotteryController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lotteryRecord(Request $request, LuckLotteryRecordServices $lotteryRecordServices)
+     */    public function lotteryRecord(Request $request, LuckLotteryRecordServices $lotteryRecordServices)
     {
         $uid = (int)$request->uid();
         return app('json')->success($lotteryRecordServices->getRecord($uid));

@@ -56,15 +56,13 @@ use crmeb\services\workerman\ChannelService;
  * lớp công cộng
  * Class PublicController
  * @package app\api\controller
- */
-class PublicController
+ */class PublicController
 {
     /**
      * Mua lại trang chủ
      * @param Request $request
      * @return mixed
-     */
-    public function index(Request $request)
+     */    public function index(Request $request)
     {
         $banner = sys_data('routine_home_banner') ?: []; //TODO Hình ảnh banner trang chủ
         $menus = sys_data('routine_home_menus') ?: []; //TODO Nút trang chủ
@@ -84,11 +82,9 @@ class PublicController
         $logoUrl = str_replace('\\', '/', $logoUrl);
         $fastNumber = (int)sys_config('fast_number', 0);//TODO Chọn nhanh số lượng danh mục
 
-        /** @var StoreCategoryServices $categoryService */
-        $categoryService = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $categoryService */        $categoryService = app()->make(StoreCategoryServices::class);
         $info['fastList'] = $fastNumber ? $categoryService->byIndexList($fastNumber, 'id,cate_name,pid,pic') : [];//TODO Chọn nhanh số lượng danh mục
-        /** @var StoreProductServices $storeProductServices */
-        $storeProductServices = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $storeProductServices */        $storeProductServices = app()->make(StoreProductServices::class);
         //Nhận sản phẩm được đề xuất
         [$baseList, $firstList, $benefit, $likeInfo, $vipList] = $storeProductServices->getRecommendProductArr((int)$request->uid(), ['is_best', 'is_new', 'is_benefit', 'is_hot']);
         $info['bastList'] = $baseList; //TODO Số lượng sản phẩm được đề xuất
@@ -96,8 +92,7 @@ class PublicController
         $info['bastBanner'] = sys_data('routine_home_bast_banner') ?? []; //TODO Trang chủ Hình ảnh được đề xuất
         $lovely = sys_data('routine_home_new_banner') ?: []; //TODO Hình ảnh đầu tiên của sản phẩm mới đầu tiên
         if ($request->uid()) {
-            /** @var WechatUserServices $wechatUserService */
-            $wechatUserService = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUserService */            $wechatUserService = app()->make(WechatUserServices::class);
             $subscribe = (bool)$wechatUserService->value(['uid' => $request->uid()], 'subscribe');
         } else {
             $subscribe = true;
@@ -111,8 +106,7 @@ class PublicController
      * Lấy danh sách banner trang chủ (dành cho Zalo Mini App và các client nhẹ)
      * Dữ liệu được cấu hình tại admin: /setting/system_visualization_data (routine_home_bast_banner)
      * @return mixed
-     */
-    public function homeBanner()
+     */    public function homeBanner()
     {
         $banner = sys_data('routine_home_bast_banner') ?: [];
 
@@ -130,8 +124,7 @@ class PublicController
     /**
      * Nhận cấu hình chia sẻ
      * @return mixed
-     */
-    public function share()
+     */    public function share()
     {
         $data['img'] = sys_config('wechat_share_img');
         if (strstr($data['img'], 'http') === false && $data['img'] != '') {
@@ -146,8 +139,7 @@ class PublicController
     /**
      * Nhận cấu hình trang web
      * @return mixed
-     */
-    public function getSiteConfig()
+     */    public function getSiteConfig()
     {
         $data['record_No'] = sys_config('record_No');
         $data['icp_url'] = sys_config('icp_url');
@@ -171,8 +163,7 @@ class PublicController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function menu_user(Request $request)
+     */    public function menu_user(Request $request)
     {
         $menusInfo = sys_data('routine_my_menus') ?? [];
         $uid = 0;
@@ -180,7 +171,7 @@ class PublicController
         if ($request->hasMacro('user')) $userInfo = $request->user();
         if ($request->hasMacro('uid')) $uid = $request->uid();
 
-        //Chuyển đổi cấp độ người dùng
+        //Chuyển đổi cấp độ Khách hàng
         $vipOpen = sys_config('member_func_status');
         //Công tắc chức năng phân phối
         $brokerageFuncStatus = sys_config('brokerage_func_status');
@@ -190,9 +181,8 @@ class PublicController
         $svipOpen = sys_config('member_card_status');
         $userService = $userOrder = $userVerifyStatus = $deliveryUser = $invoiceStatus = $isUserPromoter = false;
         if ($uid && $userInfo) {
-            /** @var StoreServiceServices $storeService */
-            $storeService = app()->make(StoreServiceServices::class);
-            //Đó có phải là dịch vụ khách hàng?
+            /** @var StoreServiceServices $storeService */            $storeService = app()->make(StoreServiceServices::class);
+            //Đó có phải là CSKH?
             $userService = $storeService->checkoutIsService(['uid' => $uid, 'status' => 1]);
             //Cho dù quản lý đơn hàng
             $userOrder = $storeService->checkoutIsService(['uid' => $uid, 'status' => 1, 'customer' => 1]);
@@ -235,13 +225,11 @@ class PublicController
                 }
             }
         }
-        /** @var SystemConfigServices $systemConfigServices */
-        $systemConfigServices = app()->make(SystemConfigServices::class);
+        /** @var SystemConfigServices $systemConfigServices */        $systemConfigServices = app()->make(SystemConfigServices::class);
         $bannerInfo = $systemConfigServices->getSpreadBanner() ?? [];
         $my_banner = sys_data('routine_my_banner');
         $routine_contact_type = sys_config('routine_contact_type', 0);
-        /** @var DiyServices $diyServices */
-        $diyServices = app()->make(DiyServices::class);
+        /** @var DiyServices $diyServices */        $diyServices = app()->make(DiyServices::class);
         $diy_data = $diyServices->get(['template_name' => 'member', 'type' => 1], ['value', 'order_status', 'my_banner_status', 'my_menus_status', 'business_status']);
         $diy_data = $diy_data ? $diy_data->toArray() : [];
         return app('json')->success(['routine_my_menus' => array_merge($menusInfo), 'routine_my_banner' => $my_banner, 'routine_spread_banner' => $bannerInfo, 'routine_contact_type' => $routine_contact_type, 'diy_data' => $diy_data]);
@@ -253,8 +241,7 @@ class PublicController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function search()
+     */    public function search()
     {
         $routineHotSearch = sys_data('routine_hot_search') ?? [];
         $searchKeyword = [];
@@ -272,8 +259,7 @@ class PublicController
      * @param Request $request
      * @param SystemAttachmentServices $services
      * @return mixed
-     */
-    public function upload_image(Request $request, SystemAttachmentServices $services)
+     */    public function upload_image(Request $request, SystemAttachmentServices $services)
     {
         $data = $request->postMore([
             ['filename', 'file'],
@@ -301,8 +287,7 @@ class PublicController
     /**
      * Công ty hậu cần
      * @return mixed
-     */
-    public function logistics(ExpressServices $services)
+     */    public function logistics(ExpressServices $services)
     {
         $expressList = $services->expressList();
         return app('json')->success($expressList ?? []);
@@ -313,8 +298,7 @@ class PublicController
      *
      * @param Request $request
      * @return mixed
-     */
-    public function sms_pay_notify(Request $request)
+     */    public function sms_pay_notify(Request $request)
     {
         [$order_id, $price, $status, $num, $pay_time, $attach] = $request->postMore([
             ['order_id', ''],
@@ -335,12 +319,11 @@ class PublicController
     }
 
     /**
-     * Ghi lại chia sẻ của người dùng
+     * Ghi lại chia sẻ của Khách hàng
      * @param Request $request
      * @param UserBillServices $services
      * @return mixed
-     */
-    public function user_share(Request $request, UserBillServices $services)
+     */    public function user_share(Request $request, UserBillServices $services)
     {
         $uid = (int)$request->uid();
         $services->setUserShare($uid);
@@ -351,15 +334,13 @@ class PublicController
      * Nhận hình ảnhbase64
      * @param Request $request
      * @return mixed
-     */
-    public function get_image_base64(Request $request)
+     */    public function get_image_base64(Request $request)
     {
         [$imageUrl, $codeUrl] = $request->postMore([
             ['image', ''],
             ['code', ''],
         ], true);
-        /** @var SystemStorageServices $systemStorageServices */
-        $systemStorageServices = app()->make(SystemStorageServices::class);
+        /** @var SystemStorageServices $systemStorageServices */        $systemStorageServices = app()->make(SystemStorageServices::class);
         $domainArr = $systemStorageServices->getColumn([], 'domain');
         $domainArr = array_merge($domainArr, [$request->host()]);
         $domainArr = array_unique(array_diff($domainArr, ['']));
@@ -414,8 +395,7 @@ class PublicController
     /**
      * Danh sách cửa hàng
      * @return mixed
-     */
-    public function store_list(Request $request, SystemStoreServices $services)
+     */    public function store_list(Request $request, SystemStoreServices $services)
     {
         list($latitude, $longitude) = $request->getMore([
             ['latitude', ''],
@@ -430,19 +410,16 @@ class PublicController
      * Tìm dữ liệu thành phố
      * @param Request $request
      * @return mixed
-     */
-    public function city_list(Request $request)
+     */    public function city_list(Request $request)
     {
-        /** @var SystemCityServices $systemCity */
-        $systemCity = app()->make(SystemCityServices::class);
+        /** @var SystemCityServices $systemCity */        $systemCity = app()->make(SystemCityServices::class);
         return app('json')->success($systemCity->cityList());
     }
 
     /**
      * Nhận dữ liệu nhóm nhóm
      * @return mixed
-     */
-    public function pink(StorePinkServices $pink, UserServices $user)
+     */    public function pink(StorePinkServices $pink, UserServices $user)
     {
         $data['pink_count'] = $pink->getCount(['is_refund' => 0]);
         $uids = array_flip($pink->getColumn(['is_refund' => 0], 'uid'));
@@ -461,8 +438,7 @@ class PublicController
     /**
      * Sao chép giao diện mật khẩu
      * @return mixed
-     */
-    public function copy_words()
+     */    public function copy_words()
     {
         $data['words'] = sys_config('copy_words');
         return app('json')->success($data);
@@ -474,14 +450,12 @@ class PublicController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function copy_share_words(Request $request)
+     */    public function copy_share_words(Request $request)
     {
         list($productId) = $request->getMore([
             ['product_id', ''],
         ], true);
-        /** @var StoreProductServices $productService */
-        $productService = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $productService */        $productService = app()->make(StoreProductServices::class);
         $keyWords['key_words'] = $productService->getProductWords($productId);
         return app('json')->success($keyWords);
     }
@@ -492,8 +466,7 @@ class PublicController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDiy(DiyServices $services, $id = 0)
+     */    public function getDiy(DiyServices $services, $id = 0)
     {
         return app('json')->success($services->getDiyInfo((int)$id));
     }
@@ -503,8 +476,7 @@ class PublicController
      * @param DiyServices $services
      * @param string $template_name
      * @return mixed
-     */
-    public function getNavigation(DiyServices $services, string $template_name = '')
+     */    public function getNavigation(DiyServices $services, string $template_name = '')
     {
         return app('json')->success($services->getNavigation($template_name));
     }
@@ -512,8 +484,7 @@ class PublicController
     /**
      * Dữ liệu sản phẩm gia đình
      * @param Request $request
-     */
-    public function home_products_list(Request $request, DiyServices $services)
+     */    public function home_products_list(Request $request, DiyServices $services)
     {
         $data = $request->getMore([
             ['priceOrder', ''],
@@ -545,8 +516,7 @@ class PublicController
             $where['salesOrder'] = $data['salesOrder'];
             $where['type'] = $data['type'];
             if ($data['selectId']) {
-                /** @var StoreCategoryServices $storeCategoryServices */
-                $storeCategoryServices = app()->make(StoreCategoryServices::class);
+                /** @var StoreCategoryServices $storeCategoryServices */                $storeCategoryServices = app()->make(StoreCategoryServices::class);
                 if ($storeCategoryServices->value(['id' => $data['selectId']], 'pid')) {
                     $where['sid'] = $data['selectId'];
                 } else {
@@ -559,8 +529,7 @@ class PublicController
 
     public function getNewAppVersion($platform)
     {
-        /** @var AppVersionServices $appService */
-        $appService = app()->make(AppVersionServices::class);
+        /** @var AppVersionServices $appService */        $appService = app()->make(AppVersionServices::class);
         return app('json')->success($appService->getNewInfo($platform));
     }
 
@@ -578,8 +547,7 @@ class PublicController
     /**
      * Mã thống kê
      * @return array|string
-     */
-    public function getScript()
+     */    public function getScript()
     {
         return sys_config('statistic_script', '');
     }
@@ -592,8 +560,7 @@ class PublicController
     /**
      * Nhận tên miền yêu cầu của công nhân
      * @return mixed
-     */
-    public function getWorkerManUrl()
+     */    public function getWorkerManUrl()
     {
         return app('json')->success(getWorkerManUrl());
     }
@@ -601,23 +568,19 @@ class PublicController
     /**
      * Quảng cáo màn hình mở trang chủ
      * @return mixed
-     */
-    public function getOpenAdv()
+     */    public function getOpenAdv()
     {
-        /** @var CacheServices $cache */
-        $cache = app()->make(CacheServices::class);
+        /** @var CacheServices $cache */        $cache = app()->make(CacheServices::class);
         $data = $cache->getDbCache('open_adv', '');
         return app('json')->success($data);
     }
 
     /**
-     * Nhận nội dung thỏa thuận người dùng
+     * Nhận Nội dung thỏa thuận Khách hàng
      * @return mixed
-     */
-    public function getUserAgreement()
+     */    public function getUserAgreement()
     {
-        /** @var CacheServices $cache */
-        $cache = app()->make(CacheServices::class);
+        /** @var CacheServices $cache */        $cache = app()->make(CacheServices::class);
         $content = $cache->getDbCache('user_agreement', '');
         return app('json')->success(compact('content'));
     }
@@ -630,18 +593,16 @@ class PublicController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAgreement(AgreementServices $agreementServices, $type)
+     */    public function getAgreement(AgreementServices $agreementServices, $type)
     {
         $data = $agreementServices->getAgreementBytype($type);
         return app('json')->success($data);
     }
 
     /**
-     * Truy vấn thông tin bản quyền
+     * Tìm kiếm thông tin bản quyền
      * @return mixed
-     */
-    public function copyright()
+     */    public function copyright()
     {
         $copyrightContext = sys_config('nncnL_crmeb_copyright', '');
         $copyrightImage = sys_config('nncnL_crmeb_copyright_image', '');
@@ -656,11 +617,9 @@ class PublicController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLangTypeList()
+     */    public function getLangTypeList()
     {
-        /** @var LangTypeServices $langTypeServices */
-        $langTypeServices = app()->make(LangTypeServices::class);
+        /** @var LangTypeServices $langTypeServices */        $langTypeServices = app()->make(LangTypeServices::class);
         $list = $langTypeServices->langTypeList(['status' => 1, 'is_del' => 0])['list'];
         $data = [];
         foreach ($list as $item) {
@@ -673,13 +632,10 @@ class PublicController
      * Nhận ngôn ngữ hiện tạijson
      * @return mixed
      * @throws \Throwable
-     */
-    public function getLangJson()
+     */    public function getLangJson()
     {
-        /** @var LangTypeServices $langTypeServices */
-        $langTypeServices = app()->make(LangTypeServices::class);
-        /** @var LangCountryServices $langCountryServices */
-        $langCountryServices = app()->make(LangCountryServices::class);
+        /** @var LangTypeServices $langTypeServices */        $langTypeServices = app()->make(LangTypeServices::class);
+        /** @var LangCountryServices $langCountryServices */        $langCountryServices = app()->make(LangCountryServices::class);
 
         $request = app()->request;
         //Lấy loại ngôn ngữ được truyền vào bởi giao diện
@@ -703,21 +659,18 @@ class PublicController
 
         //Đọc gói ngôn ngữ của ngôn ngữ hiện tại
         $lang = CacheService::remember($langStr, function () use ($typeId, $range) {
-            /** @var LangCodeServices $langCodeServices */
-            $langCodeServices = app()->make(LangCodeServices::class);
+            /** @var LangCodeServices $langCodeServices */            $langCodeServices = app()->make(LangCodeServices::class);
             return $langCodeServices->getColumn(['type_id' => $typeId, 'is_admin' => 0], 'lang_explain', 'code');
         }, 3600);
         return app('json')->success([$range => $lang]);
     }
 
     /**
-     * Nhận loại ngôn ngữ mặc định của cài đặt nền hiện tại
+     * Nhận loại ngôn ngữ mặc định của Cài đặt nền hiện tại
      * @return mixed
-     */
-    public function getDefaultLangType()
+     */    public function getDefaultLangType()
     {
-        /** @var LangTypeServices $langTypeServices */
-        $langTypeServices = app()->make(LangTypeServices::class);
+        /** @var LangTypeServices $langTypeServices */        $langTypeServices = app()->make(LangTypeServices::class);
         $lang_type = $langTypeServices->value(['is_default' => 1], 'file_name');
         return app('json')->success(compact('lang_type'));
     }
@@ -725,8 +678,7 @@ class PublicController
     /**
      * Nhận số phiên bản
      * @return mixed
-     */
-    public function getVersion()
+     */    public function getVersion()
     {
         $version = parse_ini_file(app()->getRootPath() . '.version');
         return app('json')->success(['version' => $version['version'], 'version_code' => $version['version_code']]);
@@ -738,8 +690,7 @@ class PublicController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/06
-     */
-    public function getLangVersion()
+     */    public function getLangVersion()
     {
         return app('json')->success(app()->make(LangCodeServices::class)->getLangVersion());
     }
@@ -750,8 +701,7 @@ class PublicController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/03
-     */
-    public function getMallBasicConfig()
+     */    public function getMallBasicConfig()
     {
         $data['site_name'] = sys_config('site_name'); //Tên trang web
         $data['site_url'] = sys_config('site_url'); //địa chỉ trang web
@@ -763,7 +713,7 @@ class PublicController
         $data['store_self_mention'] = sys_config('store_self_mention'); //Có bật tính năng nhận hàng tại cửa hàng hay không
         $data['invoice_func_status'] = sys_config('invoice_func_status'); //Đã bật chức năng hóa đơn
         $data['special_invoice_status'] = sys_config('special_invoice_status'); //Đã bật hóa đơn chuyên dụng
-        $data['member_func_status'] = sys_config('member_func_status'); //Đã bật cấp độ người dùng
+        $data['member_func_status'] = sys_config('member_func_status'); //Đã bật cấp độ Khách hàng
         $data['balance_func_status'] = sys_config('balance_func_status'); //Đã bật chức năng cân bằng
         $data['recharge_switch'] = sys_config('recharge_switch'); //Công tắc nạp tiền chương trình nhỏ
         $data['member_card_status'] = sys_config('member_card_status'); //Có bật tính năng thành viên trả phí hay không
@@ -792,8 +742,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/2/26
-     */
-    public function getSchemeUrl($id)
+     */    public function getSchemeUrl($id)
     {
         $url = app()->make(RoutineSchemeServices::class)->value($id, 'url');
         if ($url) {
@@ -813,8 +762,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/4/7
-     */
-    public function servicePayResult(Request $request)
+     */    public function servicePayResult(Request $request)
     {
         [$sub_mch_id, $out_trade_no, $check_code] = $request->getMore([
             ['sub_mch_id', ''],
@@ -873,7 +821,7 @@ class PublicController
 
     /**
      * Nhận thông tin chủ đề
-     * @param string $type Loại chủ đề, khi'user'Quyền của người dùng và thống kê đơn hàng sẽ được thêm vào khi
+     * @param string $type Loại chủ đề, khi'user'Quyền của Khách hàng và thống kê đơn hàng sẽ được thêm vào khi
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -881,8 +829,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/25
-     */
-    public function themeInfo(Request $request, $type = '')
+     */    public function themeInfo(Request $request, $type = '')
     {
         // Nhận tham số ID chủ đề
         [$theme_id] = $request->getMore([
@@ -898,16 +845,16 @@ class PublicController
             }
         }
 
-        // Khi loại là'user'Khi xử lý các quyền liên quan đến người dùng và cấu hình menu
+        // Khi loại là'user'Khi xử lý các quyền liên quan đến Khách hàng và cấu hình menu
         if ($type == 'user') {
-            // Khởi tạo thông tin người dùng
+            // Khởi tạo thông tin Khách hàng
             $uid = 0;
             $userInfo = [];
             if ($request->hasMacro('uid')) $uid = $request->uid();
             if ($request->hasMacro('user')) $userInfo = $request->user();
 
             // Nhận cấu hình chuyển đổi chức năng hệ thống
-            // Chuyển đổi cấp độ người dùng
+            // Chuyển đổi cấp độ Khách hàng
             $levelOpen = (bool)sys_config('member_func_status');
             //Công tắc chức năng phân phối
             $brokerageOpen = (bool)sys_config('brokerage_func_status');
@@ -918,19 +865,16 @@ class PublicController
             //chức năng hóa đơn
             $invoiceOpen = (bool)sys_config('invoice_func_status');
 
-            // Khởi tạo ID vai trò người dùng
+            // Khởi tạo ID vai trò Khách hàng
             $userIsService = $userIsOrder = $userIsVerify = $userIsDelivery = $userIsPromoter = false;
 
             if ($uid && $userInfo) {
-                /** @var StoreServiceServices $storeService */
-                $storeService = app()->make(StoreServiceServices::class);
-                /** @var StoreOrderServices $orderServices */
-                $orderServices = app()->make(StoreOrderServices::class);
-                /** @var StoreOrderRefundServices $storeOrderRefundServices */
-                $orderRefundServices = app()->make(StoreOrderRefundServices::class);
+                /** @var StoreServiceServices $storeService */                $storeService = app()->make(StoreServiceServices::class);
+                /** @var StoreOrderServices $orderServices */                $orderServices = app()->make(StoreOrderServices::class);
+                /** @var StoreOrderRefundServices $storeOrderRefundServices */                $orderRefundServices = app()->make(StoreOrderRefundServices::class);
 
-                // Kiểm tra quyền vai trò của người dùng
-                // Cho dù đó là dịch vụ khách hàng
+                // Kiểm tra quyền vai trò của Khách hàng
+                // Cho dù đó là CSKH
                 $userIsService = (bool)$storeService->checkoutIsService(['uid' => $uid, 'status' => 1]);
                 //Cho dù quản lý đơn hàng
                 $userIsOrder = (bool)$storeService->checkoutIsService(['uid' => $uid, 'status' => 1, 'customer' => 1]);
@@ -970,11 +914,11 @@ class PublicController
                 foreach ($themeInfo['value'] as &$userDataItem) {
                     if ($userDataItem['name'] == 'menus') {
                         foreach ($userDataItem['menuConfig']['list'] as &$menuDataItem) {
-                            // Menu cài đặt hiển thị quyền và số lượng huy hiệu
+                            // Menu Cài đặt hiển thị quyền và số lượng huy hiệu
                             $menuDataItem['show'] = ($auth[$menuDataItem['info'][1]['value']] ?? true) && $menuDataItem['show'];
                             $menuDataItem['num'] = $orderAuth[$menuDataItem['info'][1]['value']] ?? 0;
 
-                            // Xử lý các liên kết dịch vụ khách hàng và hoàn thành việc ghép nốiURL
+                            // Xử lý các liên kết CSKH và hoàn thành việc ghép nốiURL
                             if ($menuDataItem['info'][1]['value'] == '/kefu/mobile_list') {
                                 $menuDataItem['info'][1]['value'] = sys_config('site_url') . $menuDataItem['info'][1]['value'];
                                 // Bắt buộc sử dụng trong môi trường chương trình minihttps
@@ -983,7 +927,7 @@ class PublicController
                                 }
                             }
 
-                            // Xử lý trang trò chuyện dịch vụ khách hàng và thêm cấu hình loại liên hệ
+                            // Xử lý trang trò chuyện CSKH và thêm cấu hình loại liên hệ
                             if ($menuDataItem['info'][1]['value'] == '/pages/extension/customer_list/chat') {
                                 if ($request->isRoutine()) {
                                     $menuDataItem['routine_contact_type'] = (int)sys_config('routine_contact_type', 0);
@@ -1010,8 +954,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/25
-     */
-    public function themeVersion(Request $request)
+     */    public function themeVersion(Request $request)
     {
         [$theme_id] = $request->getMore([
             ['theme_id', 0],
@@ -1027,8 +970,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/12
-     */
-    public function themeUser(Request $request)
+     */    public function themeUser(Request $request)
     {
         $userInfo = $request->uid() ? $request->user() : [];
         if (!$userInfo) return app('json')->fail('Chưa có dữ liệu');
@@ -1058,8 +1000,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/12
-     */
-    public function themeArticle(Request $request)
+     */    public function themeArticle(Request $request)
     {
         $where = $request->getMore([
             ['ids', ''],
@@ -1073,7 +1014,7 @@ class PublicController
     }
 
     /**
-     * Phiếu giảm giá thành phần tùy chỉnh
+     * Mã giảm giá thành phần tùy chỉnh
      * @param Request $request
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -1082,8 +1023,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/14
-     */
-    public function themeCoupon(Request $request)
+     */    public function themeCoupon(Request $request)
     {
         $where = $request->getMore([
             ['ids', ''],
@@ -1103,7 +1043,7 @@ class PublicController
     }
 
     /**
-     * Thành phần-hàng hóa tùy chỉnh
+     * Thành phần-sản phẩm tùy chỉnh
      * @param Request $request
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -1112,8 +1052,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/14
-     */
-    public function themeProduct(Request $request)
+     */    public function themeProduct(Request $request)
     {
         $where = $request->getMore([
             ['ids', ''],
@@ -1130,8 +1069,7 @@ class PublicController
      * Nhận dữ liệu điều hướng chủ đề
      * Gọi phương thức themeNavigation trong ThemeServices để lấy cấu hình điều hướng và trả về phản hồi JSON
      * @return mixed
-     */
-    public function themeNavigation()
+     */    public function themeNavigation()
     {
         // Khởi tạo ThemeServices và gọi phương thức themeNavigation để lấy dữ liệu điều hướng
         $data = app()->make(ThemeServices::class)->themeNavigation();

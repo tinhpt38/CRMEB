@@ -21,8 +21,7 @@ class UserFriendsDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserFriends::class;
     }
@@ -36,8 +35,7 @@ class UserFriendsDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFriendList(array $where, int $page, int $limit, array $with = [])
+     */    public function getFriendList(array $where, int $page, int $limit, array $with = [])
     {
         return $this->search($where)->when($with, function ($query) use ($with) {
             $query->with($with);

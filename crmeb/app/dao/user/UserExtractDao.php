@@ -19,15 +19,13 @@ use app\model\user\UserExtract;
  *
  * Class UserExtractDao
  * @package app\dao\user
- */
-class UserExtractDao extends BaseDao
+ */class UserExtractDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserExtract::class;
     }
@@ -36,8 +34,7 @@ class UserExtractDao extends BaseDao
      * Nhận tổng số tiền rút theo một điều kiện nhất định
      * @param array $where
      * @return float
-     */
-    public function getWhereSum(array $where)
+     */    public function getWhereSum(array $where)
     {
         return $this->search($where)->sum('extract_price');
     }
@@ -48,8 +45,7 @@ class UserExtractDao extends BaseDao
      * @param string $field
      * @param string $key
      * @return mixed
-     */
-    public function getWhereSumList(array $where, string $field = 'extract_price', string $key = 'uid')
+     */    public function getWhereSumList(array $where, string $field = 'extract_price', string $key = 'uid')
     {
         return $this->search($where)->group($key)->column('sum(' . $field . ')', $key);
     }
@@ -64,8 +60,7 @@ class UserExtractDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getExtractList(array $where, string $field = '*', int $page, int $limit)
+     */    public function getExtractList(array $where, string $field = '*', int $page, int $limit)
     {
         return $this->search($where)->field($field)->with([
             'user' => function ($query) {
@@ -78,8 +73,7 @@ class UserExtractDao extends BaseDao
      * @param array $where
      * @param string $field
      * @return float
-     */
-    public function getWhereSumField(array $where, string $field)
+     */    public function getWhereSumField(array $where, string $field)
     {
         return $this->search($where, false)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -88,13 +82,12 @@ class UserExtractDao extends BaseDao
             ->sum($field);
     }
 
-    /**Truy vấn nhóm dựa trên một trường nhất định
+    /**Tìm kiếm nhóm dựa trên một trường nhất định
      * @param array $where
      * @param string $field
      * @param string $group
      * @return mixed
-     */
-    public function getGroupField(array $where, string $field, string $group)
+     */    public function getGroupField(array $where, string $field, string $group)
     {
         return $this->search($where, false)
             ->when(isset($where['timeKey']), function ($query) use ($where, $field, $group) {
@@ -121,8 +114,7 @@ class UserExtractDao extends BaseDao
      * @param array $where
      * @param string $field
      * @return float
-     */
-    public function getExtractMoneyByWhere(array $where, string $field)
+     */    public function getExtractMoneyByWhere(array $where, string $field)
     {
         return $this->search($where)->sum($field);
     }

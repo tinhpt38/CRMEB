@@ -17,19 +17,17 @@ use app\services\kefu\service\StoreServiceFeedbackServices;
 use think\facade\App;
 
 /**
- * Phản hồi tin nhắn của người dùng dịch vụ khách hàng
+ * Phản hồi tin nhắn của Khách hàng CSKH
  * Class StoreServiceFeedback
  * @package app\adminapi\controller\v1\application\wechat
- */
-class StoreServiceFeedback extends AuthController
+ */class StoreServiceFeedback extends AuthController
 {
 
     /**
      * StoreServiceFeedback constructor.
      * @param App $app
      * @param StoreServiceFeedbackServices $services
-     */
-    public function __construct(App $app, StoreServiceFeedbackServices $services)
+     */    public function __construct(App $app, StoreServiceFeedbackServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -41,8 +39,7 @@ class StoreServiceFeedback extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['title', ''],
@@ -60,8 +57,7 @@ class StoreServiceFeedback extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -70,11 +66,10 @@ class StoreServiceFeedback extends AuthController
     }
 
     /**
-     * Ôn lại
+     * Sửa
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['make', ''],
@@ -96,8 +91,7 @@ class StoreServiceFeedback extends AuthController
      * @param $id
      * @return mixed
      * @throws \Exception
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');

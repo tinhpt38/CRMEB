@@ -25,11 +25,10 @@ class CartController
     }
 
     /**
-     * Lấy danh sách giỏ hàng của người dùng
+     * Lấy danh sách giỏ hàng của Khách hàng
      * @param Request $request
      * @return mixed
-     */
-    public function getCartList(Request $request)
+     */    public function getCartList(Request $request)
     {
         $uid = $request->uid();
         $data = $this->services->getCartList((int)$uid);

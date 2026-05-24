@@ -18,16 +18,14 @@ use think\facade\App;
  * hậu cần
  * Class Express
  * @package app\adminapi\controller\v1\freight
- */
-class Express extends AuthController
+ */class Express extends AuthController
 {
     /**
      * Người xây dựng
      * Express constructor.
      * @param App $app
      * @param ExpressServices $services
-     */
-    public function __construct(App $app, ExpressServices $services)
+     */    public function __construct(App $app, ExpressServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class Express extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['keyword', ''],
@@ -53,8 +50,7 @@ class Express extends AuthController
      * Hiển thị trang biểu mẫu tạo tài nguyên
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->createForm());
     }
@@ -62,8 +58,7 @@ class Express extends AuthController
     /**
      * Lưu tài nguyên mới
      * @return \think\Response
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             'name',
@@ -75,11 +70,11 @@ class Express extends AuthController
         }
         $code = trim((string)$data['code']);
         if ($code === '') {
-            return app('json')->fail('Vui lòng nhập mã đơn vị vận chuyển');
+            return app('json')->fail('Vui lòng nhập mã Đơn vị vận chuyển');
         }
         $data['code'] = $code;
         if ($this->services->be(['code' => $data['code']])) {
-            return app('json')->fail('Mã đơn vị đã tồn tại, vui lòng dùng mã khác');
+            return app('json')->fail('Mã Đơn vị đã tồn tại, vui lòng dùng mã khác');
         }
         $data['partner_id'] = 0;
         $data['partner_key'] = 0;
@@ -97,8 +92,7 @@ class Express extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->updateForm((int)$id));
     }
@@ -107,8 +101,7 @@ class Express extends AuthController
      * Lưu tài nguyên cập nhật
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['account', ''],
@@ -149,8 +142,7 @@ class Express extends AuthController
      * Xóa tài nguyên được chỉ định
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $res = $this->services->delete($id);
@@ -165,8 +157,7 @@ class Express extends AuthController
      * @param int $id
      * @param string $status
      * @return mixed
-     */
-    public function set_status($id = 0, $status = '')
+     */    public function set_status($id = 0, $status = '')
     {
         if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['is_show' => $status]);
@@ -176,8 +167,7 @@ class Express extends AuthController
     /**
      * Công ty chuyển phát nhanh nền tảng đồng bộ
      * @return mixed
-     */
-    public function syncExpress()
+     */    public function syncExpress()
     {
         $this->services->syncExpress();
         return app('json')->success('Đồng bộ hóa thành công');

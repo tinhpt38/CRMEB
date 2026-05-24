@@ -20,28 +20,24 @@ use think\Model;
  * dữ liệu thành phố
  * Class SystemCity
  * @package app\model\shipping
- */
-class SystemCity extends BaseModel
+ */class SystemCity extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_city';
+     */    protected $name = 'system_city';
 
     /**
      * Nhận điều kiện truy vấn phân loại tập hợp con
      * @return \think\model\relation\HasMany
-     */
-    public function children()
+     */    public function children()
     {
         return $this->hasMany(self::class, 'parent_id', 'city_id')->order('id ASC');
     }
@@ -51,8 +47,7 @@ class SystemCity extends BaseModel
      * cityNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchCityIdAttr($query, $value)
+     */    public function searchCityIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('city_id', $value);
@@ -65,8 +60,7 @@ class SystemCity extends BaseModel
      * ParentIdNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchParentIdAttr($query, $value)
+     */    public function searchParentIdAttr($query, $value)
     {
         $query->where('parent_id', $value);
     }

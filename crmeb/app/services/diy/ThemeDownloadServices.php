@@ -19,14 +19,12 @@ use crmeb\exceptions\AdminException;
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2026/3/10
- */
-class ThemeDownloadServices extends BaseServices
+ */class ThemeDownloadServices extends BaseServices
 {
     /**
      * Người xây dựng
      * @param ThemeDownloadDao $dao
-     */
-    public function __construct(ThemeDownloadDao $dao)
+     */    public function __construct(ThemeDownloadDao $dao)
     {
         $this->dao = $dao;
     }
@@ -43,8 +41,7 @@ class ThemeDownloadServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function getDownloadList(array $where, int $page = 0, int $limit = 0): array
+     */    public function getDownloadList(array $where, int $page = 0, int $limit = 0): array
     {
         $list = $this->dao->themeDownloadList($where, '*', $page, $limit);
         $count = $this->dao->themeDownloadCount($where);
@@ -61,8 +58,7 @@ class ThemeDownloadServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function getDownloadInfo(int $id): array
+     */    public function getDownloadInfo(int $id): array
     {
         $info = $this->dao->get($id);
         if (!$info) {
@@ -80,8 +76,7 @@ class ThemeDownloadServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function addDownloadRecord(int $tid, string $title, string $downloadUrl): int
+     */    public function addDownloadRecord(int $tid, string $title, string $downloadUrl): int
     {
         return $this->dao->insertGetId([
             'tid'           => $tid,
@@ -101,8 +96,7 @@ class ThemeDownloadServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function deleteDownloadRecord(int $id): bool
+     */    public function deleteDownloadRecord(int $id): bool
     {
         if (!$this->dao->get($id)) {
             throw new AdminException('Bản ghi tải xuống không tồn tại');
@@ -118,8 +112,7 @@ class ThemeDownloadServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function updateDownloadUrl(int $id, string $downloadUrl): bool
+     */    public function updateDownloadUrl(int $id, string $downloadUrl): bool
     {
         return (bool)$this->dao->update($id, ['download_url' => $downloadUrl]);
     }

@@ -23,8 +23,7 @@ use think\facade\Route as Url;
 /**
  * Class PageCategoryServices
  * @package app\services\diy
- */
-class PageCategoryServices extends BaseServices
+ */class PageCategoryServices extends BaseServices
 {
 
     protected $tree_page_category_key = 'tree_page_categroy';
@@ -32,8 +31,7 @@ class PageCategoryServices extends BaseServices
     /**
      * PageCategoryServices constructor.
      * @param PageCategoryDao $dao
-     */
-    public function __construct(PageCategoryDao $dao)
+     */    public function __construct(PageCategoryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -41,8 +39,7 @@ class PageCategoryServices extends BaseServices
     /**
      * Nhận danh sách danh mục
      * @return bool|mixed|null
-     */
-    public function getCategroyList()
+     */    public function getCategroyList()
     {
 //        return CacheService::remember($this->tree_page_category_key, function () {
         return $this->getSonCategoryList();
@@ -57,8 +54,7 @@ class PageCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSonCategoryList($pid = 0)
+     */    public function getSonCategoryList($pid = 0)
     {
         $list = $this->dao->getList(['pid' => $pid], 'id,pid,type,name');
         $arr = [];

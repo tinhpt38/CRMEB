@@ -29,14 +29,12 @@ use think\facade\Config;
  * Lớp cơ sở giao diện công cộng chủ yếu lưu trữ các giao diện công cộng
  * Class Common
  * @package app\adminapi\controller
- */
-class Common extends AuthController
+ */class Common extends AuthController
 {
     /**
      * lấylogo
      * @return mixed
-     */
-    public function getLogo()
+     */    public function getLogo()
     {
         return app('json')->success([
             'logo' => sys_config('site_logo'),
@@ -48,8 +46,7 @@ class Common extends AuthController
     /**
      * Nhận thông tin ủy quyền
      * @return mixed
-     */
-    public function auth()
+     */    public function auth()
     {
         $version = get_crmeb_version();
         $host = $this->request->host();
@@ -67,8 +64,7 @@ class Common extends AuthController
                 $authCode = $res['data']['auth_code'] ?? '';
                 $autoContent = $res['data']['auto_content'] ?? '';
                 try {
-                    /** @var SystemConfigServices $services */
-                    $services = app()->make(SystemConfigServices::class);
+                    /** @var SystemConfigServices $services */                    $services = app()->make(SystemConfigServices::class);
                     if ($services->count(['menu_name' => 'cert_crmeb'])) {
                         $services->update(['menu_name' => 'cert_crmeb'], ['value' => json_encode($autoContent . ',' . $authCode)]);
                     } else {
@@ -94,8 +90,7 @@ class Common extends AuthController
     /**
      * Nộp đơn xin ủy quyền
      * @return mixed
-     */
-    public function auth_apply(SystemAuthServices $services)
+     */    public function auth_apply(SystemAuthServices $services)
     {
         $data = $this->request->postMore([
             ['company_name', ''],
@@ -129,11 +124,9 @@ class Common extends AuthController
     /**
      * Thống kê tiêu đề trang chủ
      * @return mixed
-     */
-    public function homeStatics()
+     */    public function homeStatics()
     {
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $info = $orderServices->homeStatics();
         return app('json')->success(compact('info'));
     }
@@ -148,8 +141,7 @@ class Common extends AuthController
     * @param float $nowValue giá trị hiện tại
     * @param float $lastValue giá trị kỳ trước
     * @return tốc độ tăng trưởng thả nổi
-    */
-    public function growth($nowValue, $lastValue)
+    */    public function growth($nowValue, $lastValue)
     {
        if ($lastValue == 0 && $nowValue == 0) return 0;
        if ($lastValue == 0) return round($nowValue, 2);
@@ -160,23 +152,19 @@ class Common extends AuthController
 
     /**
      * Biểu đồ đặt hàng
-     */
-    public function orderChart()
+     */    public function orderChart()
     {
         $cycle = $this->request->param('cycle') ?: 'thirtyday';//Mặc định 30 ngày
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $chartdata = $orderServices->orderCharts($cycle);
         return app('json')->success($chartdata);
     }
 
     /**
-     * biểu đồ người dùng
-     */
-    public function userChart()
+     * biểu đồ Khách hàng
+     */    public function userChart()
     {
-        /** @var UserServices $uServices */
-        $uServices = app()->make(UserServices::class);
+        /** @var UserServices $uServices */        $uServices = app()->make(UserServices::class);
         $chartdata = $uServices->userChart();
         return app('json')->success($chartdata);
     }
@@ -184,11 +172,9 @@ class Common extends AuthController
     /**
      * Xếp hạng khối lượng giao dịch
      * @return mixed
-     */
-    public function purchaseRanking()
+     */    public function purchaseRanking()
     {
-        /** @var StoreProductAttrValueServices $valueServices */
-        $valueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $valueServices */        $valueServices = app()->make(StoreProductAttrValueServices::class);
         $list = $valueServices->purchaseRanking();
         return app('json')->success(compact('list'));
     }
@@ -196,22 +182,17 @@ class Common extends AuthController
     /**
      * Thống kê việc cần làm
      * @return mixed
-     */
-    public function jnotice()
+     */    public function jnotice()
     {
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $data['ordernum'] = $orderServices->storeOrderCount();
         $store_stock = sys_config('store_stock');
         if ($store_stock < 0) $store_stock = 2;
-        /** @var StoreProductServices $storeServices */
-        $storeServices = app()->make(StoreProductServices::class);
-        $data['inventory'] = $storeServices->count(['type' => 5, 'store_stock' => $store_stock]);//cổ phiếu cảnh báo
-        /** @var StoreProductReplyServices $replyServices */
-        $replyServices = app()->make(StoreProductReplyServices::class);
+        /** @var StoreProductServices $storeServices */        $storeServices = app()->make(StoreProductServices::class);
+        $data['inventory'] = $storeServices->count(['type' => 5, 'store_stock' => $store_stock]);//tồn kho cảnh báo
+        /** @var StoreProductReplyServices $replyServices */        $replyServices = app()->make(StoreProductReplyServices::class);
         $data['commentnum'] = $replyServices->replyCount();
-        /** @var UserExtractServices $extractServices */
-        $extractServices = app()->make(UserExtractServices::class);
+        /** @var UserExtractServices $extractServices */        $extractServices = app()->make(UserExtractServices::class);
         $data['reflectnum'] = $extractServices->userExtractCount();//Rút tiền mặt
         $data['msgcount'] = intval($data['ordernum']) + intval($data['inventory']) + intval($data['commentnum']) + intval($data['reflectnum']);
         $data['newOrderId'] = $orderServices->newOrderId(1);
@@ -252,8 +233,7 @@ class Common extends AuthController
      * Định dạng trả về tin nhắn
      * @param array $data
      * @return array
-     */
-    public function noticeData(array $data): array
+     */    public function noticeData(array $data): array
     {
         // biểu tượng tin nhắn
         $iconColor = [
@@ -314,11 +294,9 @@ class Common extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function menusList()
+     */    public function menusList()
     {
-        /** @var SystemMenusServices $menusServices */
-        $menusServices = app()->make(SystemMenusServices::class);
+        /** @var SystemMenusServices $menusServices */        $menusServices = app()->make(SystemMenusServices::class);
         $list = $menusServices->getSearchList();
         $counts = $menusServices->getColumn([
             ['is_show', '=', 1],
@@ -344,8 +322,7 @@ class Common extends AuthController
     /**
      * Hỏi về việc mua bản quyền
      * @return mixed
-     */
-    public function copyright()
+     */    public function copyright()
     {
         $copyrightContext = sys_config('nncnL_crmeb_copyright', '');
         $copyrightImage = sys_config('nncnL_crmeb_copyright_image', '');
@@ -355,12 +332,10 @@ class Common extends AuthController
     /**
      * lưu bản quyền
      * @return mixed
-     */
-    public function saveCopyright()
+     */    public function saveCopyright()
     {
         [$copyright, $copyrightImg] = $this->request->postMore(['copyright', 'copyright_img',], true);
-        /** @var SystemConfigServices $services */
-        $services = app()->make(SystemConfigServices::class);
+        /** @var SystemConfigServices $services */        $services = app()->make(SystemConfigServices::class);
         if ($services->count(['menu_name' => 'nncnL_crmeb_copyright'])) {
             $services->update(['menu_name' => 'nncnL_crmeb_copyright'], ['value' => json_encode($copyright)]);
         } else {
@@ -397,8 +372,7 @@ class Common extends AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2024/2/1
-     */
-    public function menusSearch()
+     */    public function menusSearch()
     {
         // Nhận từ khóa từ yêu cầu
         [$keyword] = $this->request->postMore([
@@ -433,7 +407,7 @@ class Common extends AuthController
         }
         // Nhận menu tương ứng với nhãn mục cấu hìnhID
         $configTabIds = array_values($tabList);
-        // Truy vấn danh sách menu tương ứng với nhãn mục cấu hình
+        // Tìm kiếm danh sách menu tương ứng với nhãn mục cấu hình
         $configMenusList = $menusServices->getColumn([['id', 'in', $configTabIds]], 'menu_name as title,menu_path as path,id', 'id');
 
         // Khớp ID menu trong danh sách mục cấu hình với ID menu tương ứng với nhãn mục cấu hình

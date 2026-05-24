@@ -18,14 +18,12 @@ use app\model\system\config\SystemGroupData;
  * Dữ liệu kết hợp
  * Class SystemGroupDataDao
  * @package app\dao\system\config
- */
-class SystemGroupDataDao extends BaseDao
+ */class SystemGroupDataDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemGroupData::class;
     }
@@ -38,8 +36,7 @@ class SystemGroupDataDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGroupDataList(array $where, int $page, int $limit)
+     */    public function getGroupDataList(array $where, int $page, int $limit)
     {
         return $this->search($where)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -54,8 +51,7 @@ class SystemGroupDataDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGroupDate(int $gid, int $limit = 0)
+     */    public function getGroupDate(int $gid, int $limit = 0)
     {
         return $this->search(['gid' => $gid, 'status' => 1])->when($limit, function ($query) use ($limit) {
             $query->limit($limit);
@@ -70,8 +66,7 @@ class SystemGroupDataDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function idByGroupList(array $ids, string $field)
+     */    public function idByGroupList(array $ids, string $field)
     {
         return $this->getModel()->whereIn('id', $ids)->field($field)->select()->toArray();
     }
@@ -80,8 +75,7 @@ class SystemGroupDataDao extends BaseDao
      * Xóa dữ liệu kết hợp dựa trên gid
      * @param int $gid
      * @return bool
-     */
-    public function delGroupDate(int $gid)
+     */    public function delGroupDate(int $gid)
     {
         return $this->getModel()->where('gid', $gid)->delete();
     }
@@ -91,8 +85,7 @@ class SystemGroupDataDao extends BaseDao
      * @param array $data
      * @return mixed|\think\Collection
      * @throws \Exception
-     */
-    public function saveAll(array $data)
+     */    public function saveAll(array $data)
     {
         return $this->getModel()->saveAll($data);
     }

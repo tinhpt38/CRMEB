@@ -14,14 +14,12 @@ use think\Model;
 
 /**
  * Design tokens giao diện Zalo Mini App (f-chan).
- */
-class ZaloMiniAppThemeServices extends BaseServices
+ */class ZaloMiniAppThemeServices extends BaseServices
 {
     public const CONFIG_THEME = 'zalo_mini_app_theme';
     public const CONFIG_VERSION = 'zalo_mini_app_theme_version';
 
-    /** Font đã embed trong bundle f-chan. */
-    public const FONT_WHITELIST = [
+    /** Font đã embed trong bundle f-chan. */    public const FONT_WHITELIST = [
         'system' => '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
         'inter' => '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     ];
@@ -78,8 +76,7 @@ class ZaloMiniAppThemeServices extends BaseServices
         $theme = $this->normalizeThemeInput(array_merge($stored, $input));
         $version = $this->getVersion() + 1;
 
-        /** @var SystemConfigServices $configServices */
-        $configServices = app()->make(SystemConfigServices::class);
+        /** @var SystemConfigServices $configServices */        $configServices = app()->make(SystemConfigServices::class);
         $this->ensureThemeConfigRows($configServices);
 
         $configServices->update(self::CONFIG_THEME, ['value' => json_encode($theme, JSON_UNESCAPED_UNICODE)], 'menu_name');
@@ -101,11 +98,9 @@ class ZaloMiniAppThemeServices extends BaseServices
 
     /**
      * Sao chép palette từ theme mall uni-app (một lần, không đồng bộ hai chiều).
-     */
-    public function importPaletteFromMallTheme(): array
+     */    public function importPaletteFromMallTheme(): array
     {
-        /** @var \app\services\diy\ThemeServices $themeServices */
-        $themeServices = app()->make(\app\services\diy\ThemeServices::class);
+        /** @var \app\services\diy\ThemeServices $themeServices */        $themeServices = app()->make(\app\services\diy\ThemeServices::class);
         $mallTheme = $themeServices->getThemeInfo(0, 'theme');
         if (!is_array($mallTheme) || empty($mallTheme['theme_color'])) {
             throw new ApiException('Không tìm thấy theme mall đang active');

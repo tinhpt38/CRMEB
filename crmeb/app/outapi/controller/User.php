@@ -14,29 +14,26 @@ use think\facade\App;
 use app\services\user\OutUserServices;
 
 /**
- * bộ điều khiển người dùng
+ * bộ điều khiển Khách hàng
  * Class User
  * @package app\outapi\controller
- */
-class User extends AuthController
+ */class User extends AuthController
 {
     /**
      * User constructor.
      * @param App $app
      * @param OutUserServices $service
      * @method temp
-     */
-    public function __construct(App $app, OutUserServices $services)
+     */    public function __construct(App $app, OutUserServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Danh sách người dùng
+     * Danh sách Khách hàng
      * @return mixed
-     */
-    public function lst()
+     */    public function lst()
     {
         $where = $this->request->getMore([
             ['nickname', ''],
@@ -51,8 +48,7 @@ class User extends AuthController
      *
      * @param \think\Request $request
      * @return \think\Response
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['real_name', ''],
@@ -72,11 +68,10 @@ class User extends AuthController
     }
 
     /**
-     * Cập nhật người dùng
+     * Cập nhật Khách hàng
      * @param $uid
      * @return mixed
-     */
-    public function update($uid)
+     */    public function update($uid)
     {
         $data = $this->request->postMore([
             ['real_name', ''],
@@ -101,8 +96,7 @@ class User extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function give($uid)
+     */    public function give($uid)
     {
         $data = $this->request->postMore([
             ['money_status', 0],
@@ -120,14 +114,13 @@ class User extends AuthController
     }
 
     /**
-     * Nhận thông tin chi tiết người dùng
+     * Nhận thông tin chi tiết Khách hàng
      * @param $uid
      * @return \think\Response
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/20
-     */
-    public function info($uid)
+     */    public function info($uid)
     {
         if (!$uid) return app('json')->fail('Lỗi tham số');
         $data = $this->services->userInfo($uid);
@@ -142,8 +135,7 @@ class User extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function giveBalance($uid)
+     */    public function giveBalance($uid)
     {
         $data = $this->request->postMore([
             ['money_status', 0],
@@ -168,8 +160,7 @@ class User extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function givePoint($uid)
+     */    public function givePoint($uid)
     {
         $data = $this->request->postMore([
             ['money_status', 0],
@@ -193,8 +184,7 @@ class User extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function changeBalance($uid)
+     */    public function changeBalance($uid)
     {
         [$money] = $this->request->postMore([
             ['money', 0],
@@ -211,8 +201,7 @@ class User extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function changePoint($uid)
+     */    public function changePoint($uid)
     {
         [$integral] = $this->request->postMore([
             ['integral', 0],

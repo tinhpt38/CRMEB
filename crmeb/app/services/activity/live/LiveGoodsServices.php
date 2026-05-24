@@ -25,14 +25,12 @@ use think\facade\Log;
 /**
  * Class LiveGoodsServices
  * @package app\services\activity\live
- */
-class LiveGoodsServices extends BaseServices
+ */class LiveGoodsServices extends BaseServices
 {
     /**
      * LiveGoodsServices constructor.
      * @param LiveGoodsDao $dao
-     */
-    public function __construct(LiveGoodsDao $dao)
+     */    public function __construct(LiveGoodsDao $dao)
     {
         $this->dao = $dao;
     }
@@ -49,8 +47,7 @@ class LiveGoodsServices extends BaseServices
     public function create(array $product_ids)
     {
         if (!$product_ids) throw new AdminException('Lỗi tham số');
-        /** @var StoreProductServices $product */
-        $productServices = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $product */        $productServices = app()->make(StoreProductServices::class);
         $products = $productServices->getColumn([['id', 'IN', $product_ids], ['is_del', '=', 0], ['is_show', '=', 1]], 'id,image,store_name,price,price as cost_price,stock', 'id');
         if (count($product_ids) != count($products)) {
             throw new AdminException('Sản phẩm đã được lấy ra khỏi kệ hoặc chuyển vào thùng tái chế');
@@ -67,15 +64,13 @@ class LiveGoodsServices extends BaseServices
      * @param array $goods_info
      * @return bool
      * @throws \Exception
-     */
-    public function add(array $goods_info)
+     */    public function add(array $goods_info)
     {
         if (!$goods_info) throw new AdminException('Lỗi tham số');
         $product_ids = array_column($goods_info, 'id');
         $this->create($product_ids);
         $miniUpload = MiniProgramService::materialTemporaryService();
-        /** @var DownloadImage $download */
-        $download = app()->make(DownloadImage::class);
+        /** @var DownloadImage $download */        $download = app()->make(DownloadImage::class);
         $dataAll = $data = [];
         $time = time();
         foreach ($goods_info as $product) {
@@ -115,13 +110,11 @@ class LiveGoodsServices extends BaseServices
      * Đồng bộ hóa sản phẩm
      * @return bool
      * @throws \EasyWeChat\Core\Exceptions\InvalidArgumentException
-     */
-    public function syncGoods()
+     */    public function syncGoods()
     {
         $liveGoods = $this->dao->getColumn([['goods_id', '>', 0]], '*', 'id');
         if ($liveGoods) {
-            /** @var DownloadImage $downloadImage */
-            $downloadImage = app()->make(DownloadImage::class);
+            /** @var DownloadImage $downloadImage */            $downloadImage = app()->make(DownloadImage::class);
             foreach ($liveGoods as $good) {
                 $path = root_path() . 'public' . $downloadImage->thumb(true)->downloadImage($good['cover_img'])['path'];
                 $coverImgUrl = MiniProgramService::materialTemporaryService()->uploadImage($path)->media_id;
@@ -144,8 +137,7 @@ class LiveGoodsServices extends BaseServices
             throw new AdminException('Sản phẩm đã được tạo');
 
         $goods = $goods->toArray();
-        /** @var DownloadImage $downloadImage */
-        $downloadImage = app()->make(DownloadImage::class);
+        /** @var DownloadImage $downloadImage */        $downloadImage = app()->make(DownloadImage::class);
         $path = root_path() . 'public' . $downloadImage->thumb(true)->downloadImage($goods['cover_img'])['path'];
 
         $url = 'pages/goods_details/index?id=' . $goods['product_id'];
@@ -171,8 +163,7 @@ class LiveGoodsServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function audit(int $id)
+     */    public function audit(int $id)
     {
         $goods = $this->dao->get($id);
         if (!$goods) {
@@ -194,8 +185,7 @@ class LiveGoodsServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function resetAudit(int $id)
+     */    public function resetAudit(int $id)
     {
         $goods = $this->dao->get($id);
         if (!$goods) {
@@ -220,8 +210,7 @@ class LiveGoodsServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function delete(int $id)
+     */    public function delete(int $id)
     {
         $goods = $this->dao->get(['id' => $id, 'is_del' => 0]);
         if ($goods) {
@@ -232,8 +221,7 @@ class LiveGoodsServices extends BaseServices
                 throw new AdminException('Xóa không thành công');
             }
             if (MiniProgramService::deleteGoods((int)$goods->goods_id)) {
-                /** @var LiveRoomGoodsServices $liveRoomGoods */
-                $liveRoomGoods = app()->make(LiveRoomGoodsServices::class);
+                /** @var LiveRoomGoodsServices $liveRoomGoods */                $liveRoomGoods = app()->make(LiveRoomGoodsServices::class);
                 $liveRoomGoods->delete(['live_goods_id' => $id]);
             }
         }
@@ -241,10 +229,9 @@ class LiveGoodsServices extends BaseServices
     }
 
     /**
-     * Đồng bộ trạng thái đánh giá sản phẩm trực tiếp
+     * Đồng bộ trạng thái Đánh giá sản phẩm trực tiếp
      * @return bool
-     */
-    public function syncGoodStatus()
+     */    public function syncGoodStatus()
     {
         $goodsIds = $this->dao->goodsStatusAll();
         if (!count($goodsIds)) return true;

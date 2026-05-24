@@ -24,24 +24,21 @@ class OtherOrder extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'other_order';
+     */    protected $name = 'other_order';
 
     protected $insert = ['add_time'];
 
     // protected $hidden = ['add_time', 'is_del', 'uid'];
 
-    /**Loại lệnh
+    /**Loại đơn hàng
      * @param $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if (is_array($value)) {
             $query->where('type', 'in', $value);
@@ -59,18 +56,16 @@ class OtherOrder extends BaseModel
     /**Phương thức thanh toán không thuộc về
      * @param $query
      * @param $value
-     */
-    public function searchPayTypeNoAttr($query, $value)
+     */    public function searchPayTypeNoAttr($query, $value)
     {
         $query->where('pay_type', '<>', $value);
     }
 
     /**
-     * Nguồn người dùng
+     * Nguồn Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchChannelTypeAttr($query, $value)
+     */    public function searchChannelTypeAttr($query, $value)
     {
         if ($value != '') $query->where('channel_type', $value);
     }
@@ -78,8 +73,7 @@ class OtherOrder extends BaseModel
     /**tìm kiếm id đơn hàng
      * @param $query
      * @param $value
-     */
-    public function searchOrderIdAttr($query, $value)
+     */    public function searchOrderIdAttr($query, $value)
     {
         if ($value != "") {
             $query->where('order_id', $value);
@@ -88,10 +82,9 @@ class OtherOrder extends BaseModel
     }
 
     /**
-     * Liên kết một-một của các bảng người dùng
+     * Liên kết một-một của các bảng Khách hàng
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname', 'phone', 'spread_uid', 'overdue_time']);
     }
@@ -99,8 +92,7 @@ class OtherOrder extends BaseModel
     /**Loại thành viên
      * @param $query
      * @param $value
-     */
-    public function searchMemberTypeAttr($query, $value)
+     */    public function searchMemberTypeAttr($query, $value)
     {
         if ($value && $value != 'card' && $value != 'free') {
             if ($value == -1) {
@@ -119,8 +111,7 @@ class OtherOrder extends BaseModel
     /**Phương thức thanh toán
      * @param $query
      * @param $value
-     */
-    public function searchPayTypeAttr($query, $value)
+     */    public function searchPayTypeAttr($query, $value)
     {
         if ($value) {
             if ($value == "free") {
@@ -139,8 +130,7 @@ class OtherOrder extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchAddTimeAttr($query, $value)
+     */    public function searchAddTimeAttr($query, $value)
     {
         if ($value) {
             $query->whereTime('add_time', 'between', $value);
@@ -150,8 +140,7 @@ class OtherOrder extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value) {
             $query->where('uid', 'in', $value);

@@ -20,24 +20,20 @@ use app\model\user\User;
  *
  * Class UserStoreOrderDao
  * @package app\dao\user
- */
-class UserStoreOrderDao extends BaseDao
+ */class UserStoreOrderDao extends BaseDao
 {
     /**
      * @var string
-     */
-    protected $alias = '';
+     */    protected $alias = '';
 
     /**
      * @var string
-     */
-    protected $join_alis = '';
+     */    protected $join_alis = '';
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return User::class;
     }
@@ -52,14 +48,12 @@ class UserStoreOrderDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    public function getModel(string $table = '', string $alias = 'u', string $join_alias = 'p', $join = 'left')
+     */    public function getModel(string $table = '', string $alias = 'u', string $join_alias = 'p', $join = 'left')
     {
         $this->alias = $alias;
         $this->join_alis = $join_alias;
         if (!$table) {
-            /** @var StoreOrder $storeOrder */
-            $storeOrder = app()->make($this->joinModel());
+            /** @var StoreOrder $storeOrder */            $storeOrder = app()->make($this->joinModel());
             $table = $storeOrder->getName();
         }
         return parent::getModel()->join($table . ' ' . $join_alias, $alias . '.uid = ' . $join_alias . '.uid', $join)->alias($alias);
@@ -76,8 +70,7 @@ class UserStoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserSpreadCountList(array $where, string $field, string $order_by, int $page, int $limit)
+     */    public function getUserSpreadCountList(array $where, string $field, string $order_by, int $page, int $limit)
     {
         $table = app()->make($this->joinModel())->getModel()->where('o.paid', 1)->whereIn('o.pid', [-1, 0])->group('o.uid')->field(['SUM(o.pay_price) as numberCount', 'count(o.id) as orderCount', 'o.uid', 'o.order_id'])
             ->where('o.refund_status', 0)->alias('o')->fetchSql(true)->select();

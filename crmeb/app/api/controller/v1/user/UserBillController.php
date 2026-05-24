@@ -26,16 +26,14 @@ use app\services\other\UploadService;
  * Loại hóa đơn
  * Class UserBillController
  * @package app\api\controller\user
- */
-class UserBillController
+ */class UserBillController
 {
     protected $services;
 
     /**
      * UserBillController constructor.
      * @param UserBillServices $services
-     */
-    public function __construct(UserBillServices $services)
+     */    public function __construct(UserBillServices $services)
     {
         $this->services = $services;
     }
@@ -44,19 +42,17 @@ class UserBillController
      * Dữ liệu khuyến mãi Hoa hồng của ngày hôm qua Số tiền rút tích lũy Hoa hồng hiện tại
      * @param Request $request
      * @return mixed
-     */
-    public function commission(Request $request)
+     */    public function commission(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->commission($uid));
     }
 
     /**
-     * Đơn hàng khuyến mãi
+     * Đơn hàng Affiliate
      * @param Request $request
      * @return mixed
-     */
-    public function spread_order(Request $request)
+     */    public function spread_order(Request $request)
     {
         $orderInfo = $request->postMore([
             ['page', 1],
@@ -73,8 +69,7 @@ class UserBillController
      * @param Request $request
      * @param $type 0 Tất cả 1 Chi tiêu 2 Nạp tiền 3 Hoàn tiền 4 Rút tiền
      * @return mixed
-     */
-    public function spread_commission(Request $request, $type)
+     */    public function spread_commission(Request $request, $type)
     {
         $uid = (int)$request->uid();
         $data = [];
@@ -82,14 +77,12 @@ class UserBillController
             case 0:
             case 1:
             case 2:
-                /** @var UserMoneyServices $moneyService */
-                $moneyService = app()->make(UserMoneyServices::class);
+                /** @var UserMoneyServices $moneyService */                $moneyService = app()->make(UserMoneyServices::class);
                 $data = $moneyService->getMoneyList($uid, $type);
                 break;
             case 3:
             case 4:
-                /** @var UserBrokerageServices $brokerageService */
-                $brokerageService = app()->make(UserBrokerageServices::class);
+                /** @var UserBrokerageServices $brokerageService */                $brokerageService = app()->make(UserBrokerageServices::class);
                 $data = $brokerageService->getBrokerageList($uid, $type);
                 break;
         }
@@ -101,8 +94,7 @@ class UserBillController
      * @param Request $request
      * @param $type 3 Hoa hồng 4 Rút tiền
      * @return mixed
-     */
-    public function spread_count(Request $request, $type)
+     */    public function spread_count(Request $request, $type)
     {
         $uid = (int)$request->uid();
         return app('json')->success(['count' => $this->services->spread_count($uid, $type)]);
@@ -113,16 +105,14 @@ class UserBillController
      * Phân phối tạo áp phích mã QR
      * @param Request $request
      * @return mixed
-     */
-    public function spread_banner(Request $request)
+     */    public function spread_banner(Request $request)
     {
         list($type) = $request->getMore([
             ['type', 2],
         ], true);
         $user = $request->user();
         $rootPath = app()->getRootPath();
-        /** @var SystemConfigServices $systemConfigServices */
-        $systemConfigServices = app()->make(SystemConfigServices::class);
+        /** @var SystemConfigServices $systemConfigServices */        $systemConfigServices = app()->make(SystemConfigServices::class);
         $spreadBanner = $systemConfigServices->getSpreadBanner() ?? [];
         $bannerCount = count($spreadBanner);
         if (!$bannerCount) return app('json')->fail('Chưa có áp phích');
@@ -135,10 +125,8 @@ class UserBillController
         } else {
             $poster = $user['uid'] . '_' . $user['is_promoter'] . '_user_wap_poster_';
         }
-        /** @var SystemAttachmentServices $systemAttachment */
-        $systemAttachment = app()->make(SystemAttachmentServices::class);
-        /** @var QrcodeServices $qrCode */
-        $qrCode = app()->make(QrcodeServices::class);
+        /** @var SystemAttachmentServices $systemAttachment */        $systemAttachment = app()->make(SystemAttachmentServices::class);
+        /** @var QrcodeServices $qrCode */        $qrCode = app()->make(QrcodeServices::class);
         $count = $systemAttachment->getCount([['name', 'LIKE', "$poster%"]]);
         if ($count) {
             $SpreadBanner = $systemAttachment->getLikeNameList($poster);
@@ -344,12 +332,10 @@ class UserBillController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRoutineCode(Request $request)
+     */    public function getRoutineCode(Request $request)
     {
         $user = $request->user();
-        /** @var SystemAttachmentServices $systemAttachment */
-        $systemAttachment = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachment */        $systemAttachment = app()->make(SystemAttachmentServices::class);
         //Chương trình nhỏ
         $name = $user['uid'] . '_' . $user['is_promoter'] . '_user_routine.jpg';
         $imageInfo = $systemAttachment->getInfo(['name' => $name]);
@@ -359,8 +345,7 @@ class UserBillController
             $systemAttachment->delete(['name' => $name]);
         }
         $siteUrl = sys_config('site_url');
-        /** @var QrcodeServices $qrCode */
-        $qrCode = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrCode */        $qrCode = app()->make(QrcodeServices::class);
         if (!$imageInfo) {
             $resForever = $qrCode->qrCodeForever($user['uid'], 'spread', '', '');
             $resCode = MiniProgramService::appCodeUnlimitService($resForever->id, '', 280);
@@ -393,11 +378,9 @@ class UserBillController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSpreadInfo(Request $request)
+     */    public function getSpreadInfo(Request $request)
     {
-        /** @var SystemConfigServices $systemConfigServices */
-        $systemConfigServices = app()->make(SystemConfigServices::class);
+        /** @var SystemConfigServices $systemConfigServices */        $systemConfigServices = app()->make(SystemConfigServices::class);
         $spreadBanner = $systemConfigServices->getSpreadBanner() ?? [];
         $bannerCount = count($spreadBanner);
         $routineSpreadBanner = [];
@@ -408,8 +391,7 @@ class UserBillController
         }
 
         if (sys_config('share_qrcode', 0) && request()->isWechat()) {
-            /** @var QrcodeServices $qrcodeService */
-            $qrcodeService = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrcodeService */            $qrcodeService = app()->make(QrcodeServices::class);
             $qrcode = $qrcodeService->getTemporaryQrcode('spread', $request->uid())->url;
         } else {
             $qrcode = '';
@@ -430,8 +412,7 @@ class UserBillController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function integral_list(Request $request)
+     */    public function integral_list(Request $request)
     {
         $uid = (int)$request->uid();
         $data = $this->services->getIntegralList($uid);
@@ -445,8 +426,7 @@ class UserBillController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function brokerage_rank(Request $request)
+     */    public function brokerage_rank(Request $request)
     {
         $data = $request->getMore([
             ['page', ''],
@@ -461,8 +441,7 @@ class UserBillController
      * Lệnh khuyến mãi của Phòng Kinh doanh/Đại lý
      * @param Request $request
      * @return mixed
-     */
-    public function divisionOrder(Request $request)
+     */    public function divisionOrder(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->divisionOrder($uid));

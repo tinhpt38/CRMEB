@@ -18,8 +18,7 @@ use app\services\agent\AgentLevelTaskServices;
 /**
  * Class AgentLevel
  * @package app\controller\api\v2\agent
- */
-class AgentLevel
+ */class AgentLevel
 {
     protected $services;
 
@@ -29,11 +28,10 @@ class AgentLevel
     }
 
     /**
-     * Kiểm tra xem người dùng có thể trở thành thành viên hay không
+     * Kiểm tra xem Khách hàng có thể trở thành thành viên hay không
      * @param Request $request
      * @return mixed
-     */
-    public function detection(Request $request)
+     */    public function detection(Request $request)
     {
         return app('json')->success($this->services->detection((int)$request->uid()));
     }
@@ -42,8 +40,7 @@ class AgentLevel
      * Danh sách cấp độ nhà phân phối
      * @param Request $request
      * @return mixed
-     */
-    public function levelList(Request $request)
+     */    public function levelList(Request $request)
     {
         return app('json')->success($this->services->getUserlevelList((int)$request->uid()));
     }
@@ -57,8 +54,7 @@ class AgentLevel
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function levelTaskList(Request $request, AgentLevelTaskServices $services, $id)
+     */    public function levelTaskList(Request $request, AgentLevelTaskServices $services, $id)
     {
         return app('json')->success($services->getUserLevelTaskList((int)$request->uid(), (int)$id));
     }
@@ -67,8 +63,7 @@ class AgentLevel
      * Chi tiết thành viên
      * @param Request $request
      * @return mixed
-     */
-    public function userLevelInfo(Request $request)
+     */    public function userLevelInfo(Request $request)
     {
         return app('json')->success($this->services->getUserLevelInfo((int)$request->uid()));
     }

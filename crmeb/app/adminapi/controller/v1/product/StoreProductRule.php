@@ -18,8 +18,7 @@ use think\facade\App;
  * Quản lý quy tắc
  * Class StoreProductRule
  * @package app\adminapi\controller\v1\product
- */
-class StoreProductRule extends AuthController
+ */class StoreProductRule extends AuthController
 {
 
     public function __construct(App $app, StoreProductRuleServices $service)
@@ -34,8 +33,7 @@ class StoreProductRule extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['rule_name', '']
@@ -48,8 +46,7 @@ class StoreProductRule extends AuthController
      * lưu thông số kỹ thuật
      * @param $id
      * @return mixed
-     */
-    public function save($id)
+     */    public function save($id)
     {
         $data = $this->request->postMore([
             ['rule_name', ''],
@@ -63,8 +60,7 @@ class StoreProductRule extends AuthController
      * Nhận thông tin đặc điểm kỹ thuật
      * @param $id
      * @return mixed
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->getInfo($id);
         return app('json')->success($info);
@@ -75,8 +71,7 @@ class StoreProductRule extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function delete()
+     */    public function delete()
     {
         [$ids] = $this->request->postMore([
             ['ids', '']

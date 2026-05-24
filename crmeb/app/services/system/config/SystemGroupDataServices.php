@@ -24,14 +24,12 @@ use crmeb\services\FormBuilder as Form;
  * @method get(int $id, ?array $field = []) Lấy một phần dữ liệu
  * @method save(array $data) lưu dữ liệu
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
- */
-class SystemGroupDataServices extends BaseServices
+ */class SystemGroupDataServices extends BaseServices
 {
     /**
      * SystemGroupDataServices constructor.
      * @param SystemGroupDataDao $dao
-     */
-    public function __construct(SystemGroupDataDao $dao)
+     */    public function __construct(SystemGroupDataDao $dao)
     {
         $this->dao = $dao;
     }
@@ -44,11 +42,9 @@ class SystemGroupDataServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfigNameValue(string $configName, int $limit = 0)
+     */    public function getConfigNameValue(string $configName, int $limit = 0)
     {
-        /** @var SystemGroupServices $systemGroupServices */
-        $systemGroupServices = app()->make(SystemGroupServices::class);
+        /** @var SystemGroupServices $systemGroupServices */        $systemGroupServices = app()->make(SystemGroupServices::class);
         $value = $this->dao->getGroupDate((int)$systemGroupServices->getConfigNameId($configName), $limit);
         $data = [];
         foreach ($value as $key => $item) {
@@ -73,8 +69,7 @@ class SystemGroupDataServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGroupDataList(array $where, $type = 'limit')
+     */    public function getGroupDataList(array $where, $type = 'limit')
     {
         [$page, $limit] = $this->getPageValue();
         if ($type == 'all') $page = $limit = 0;
@@ -82,8 +77,7 @@ class SystemGroupDataServices extends BaseServices
         $count = $this->dao->count($where);
         $type = '';
         $gid = (int)$where['gid'];
-        /** @var SystemGroupServices $services */
-        $services = app()->make(SystemGroupServices::class);
+        /** @var SystemGroupServices $services */        $services = app()->make(SystemGroupServices::class);
         $group = $services->getOne(['id' => $gid], 'id,config_name,fields');
 
         $header = json_decode($group['fields'], true) ?? [];
@@ -136,11 +130,9 @@ class SystemGroupDataServices extends BaseServices
      * @param int $count
      * @param string $key
      * @return bool
-     */
-    public function isGroupGidSave(int $gid, int $count, string $key): bool
+     */    public function isGroupGidSave(int $gid, int $count, string $key): bool
     {
-        /** @var SystemGroupServices $services */
-        $services = app()->make(SystemGroupServices::class);
+        /** @var SystemGroupServices $services */        $services = app()->make(SystemGroupServices::class);
         $configName = $services->value(['id' => $gid], 'config_name');
         if ($configName == $key) {
             return $this->dao->count(['gid' => $gid]) >= $count;
@@ -155,12 +147,10 @@ class SystemGroupDataServices extends BaseServices
      * @param array $groupData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createGroupForm(int $gid, array $groupData = [])
+     */    public function createGroupForm(int $gid, array $groupData = [])
     {
         $groupDataValue = isset($groupData["value"]) ? json_decode($groupData["value"], true) : [];
-        /** @var SystemGroupServices $services */
-        $services = app()->make(SystemGroupServices::class);
+        /** @var SystemGroupServices $services */        $services = app()->make(SystemGroupServices::class);
         $fields = $services->getValueFields($gid);
         $f[] = Form::hidden('gid', $gid);
         foreach ($fields as $key => $value) {
@@ -232,8 +222,7 @@ class SystemGroupDataServices extends BaseServices
      * @param int $gid
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm(int $gid)
+     */    public function createForm(int $gid)
     {
         return create_form('Thêm dữ liệu', $this->createGroupForm($gid), $this->url('/setting/group_data'));
     }
@@ -244,8 +233,7 @@ class SystemGroupDataServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function updateForm(int $gid, int $id)
+     */    public function updateForm(int $gid, int $id)
     {
         $groupData = $this->dao->get($id);
         if (!$groupData) {
@@ -261,8 +249,7 @@ class SystemGroupDataServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function getDateValue($id)
+     */    public function getDateValue($id)
     {
         $value = $this->dao->get($id);
         $data["id"] = $value["id"];
@@ -278,8 +265,7 @@ class SystemGroupDataServices extends BaseServices
      * Nhận dữ liệu dựa trên id
      * @param array $ids
      * @param string $field
-     */
-    public function getGroupDataColumn(array $ids)
+     */    public function getGroupDataColumn(array $ids)
     {
         $systemGroup = [];
         if (!empty($ids)) {
@@ -294,8 +280,7 @@ class SystemGroupDataServices extends BaseServices
      * Xóa dữ liệu dựa trên gid
      * @param int $gid
      * @return mixed
-     */
-    public function delGroupDate(int $gid)
+     */    public function delGroupDate(int $gid)
     {
         return $this->dao->delGroupDate($gid);
     }
@@ -306,11 +291,9 @@ class SystemGroupDataServices extends BaseServices
      * @param string $config_name
      * @return bool
      * @throws \Exception
-     */
-    public function saveAllData(array $params, string $config_name)
+     */    public function saveAllData(array $params, string $config_name)
     {
-        /** @var SystemGroupServices $systemGroupServices */
-        $systemGroupServices = app()->make(SystemGroupServices::class);
+        /** @var SystemGroupServices $systemGroupServices */        $systemGroupServices = app()->make(SystemGroupServices::class);
         $gid = $systemGroupServices->value(['config_name' => $config_name], 'id');
         if (!$gid) throw new AdminException('Dữ liệu không tồn tại');
         $group = $systemGroupServices->getOne(['id' => $gid], 'id,config_name,fields');
@@ -355,8 +338,7 @@ class SystemGroupDataServices extends BaseServices
      * @param $params
      * @param int $id
      * @return mixed
-     */
-    public function checkSeckillTime(SystemGroupServices $services, $gid, $params, $id = 0)
+     */    public function checkSeckillTime(SystemGroupServices $services, $gid, $params, $id = 0)
     {
         $name = $services->value(['id' => $gid], 'config_name');
         if ($name == 'routine_seckill_time') {

@@ -15,19 +15,17 @@ use app\dao\BaseDao;
 use app\model\service\StoreService;
 
 /**
- * dịch vụ khách hàngdao
+ * CSKHdao
  * Class StoreServiceDao
  * @package app\dao\service
- */
-class StoreServiceDao extends BaseDao
+ */class StoreServiceDao extends BaseDao
 {
 
     /**
      * Người dùng không tồn tại sẽ bị cấm trực tiếp.
      * @param array $uids
      * @return bool|\crmeb\basic\BaseModel
-     */
-    public function deleteNonExistentService(array $uids = [])
+     */    public function deleteNonExistentService(array $uids = [])
     {
         if ($uids) {
             return $this->getModel()->whereIn('uid', $uids)->update(['status' => 0]);
@@ -39,14 +37,13 @@ class StoreServiceDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreService::class;
     }
 
     /**
-     * Nhận danh sách dịch vụ khách hàng
+     * Nhận danh sách CSKH
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -54,8 +51,7 @@ class StoreServiceDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceList(array $where, int $page, int $limit)
+     */    public function getServiceList(array $where, int $page, int $limit)
     {
         return $this->search($where, false)->with('user')->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -65,10 +61,9 @@ class StoreServiceDao extends BaseDao
     }
 
     /**
-     * Nhận dịch vụ khách hàng chấp nhận thông báo
+     * Nhận CSKH chấp nhận thông báo
      * @return array
-     */
-    public function getStoreServiceOrderNotice(int $customer = 0)
+     */    public function getStoreServiceOrderNotice(int $customer = 0)
     {
         return $this->getModel()->where(['status' => 1, 'notify' => 1])->when($customer, function ($query) use ($customer) {
             $query->where('customer', $customer);
@@ -80,8 +75,7 @@ class StoreServiceDao extends BaseDao
      * @param array $where
      * @param array $data
      * @return \crmeb\basic\BaseModel
-     */
-    public function updateOnline(array $where, array $data)
+     */    public function updateOnline(array $where, array $data)
     {
         return $this->getModel()->whereNotIn('uid', $where['notUid'])->update($data);
     }
@@ -95,8 +89,7 @@ class StoreServiceDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/05/10
-     */
-    public function count(array $where = [], bool $search = true)
+     */    public function count(array $where = [], bool $search = true)
     {
         return $this->search($where, false)->when(isset($where['noId']), function ($query) use ($where) {
             $query->whereNotIn('uid', $where['noId']);

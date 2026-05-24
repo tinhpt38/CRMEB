@@ -19,8 +19,7 @@ class BalanceStatistic extends AuthController
     /**
      * @param App $app
      * @param UserMoneyServices $services
-     */
-    public function __construct(App $app, UserMoneyServices $services)
+     */    public function __construct(App $app, UserMoneyServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -29,8 +28,7 @@ class BalanceStatistic extends AuthController
     /**
      * Thông tin cơ bản về thống kê số dư
      * @return mixed
-     */
-    public function getBasic()
+     */    public function getBasic()
     {
         $data = $this->services->getBasic();
         return app('json')->success($data);
@@ -39,8 +37,7 @@ class BalanceStatistic extends AuthController
     /**
      * Biểu đồ xu hướng thống kê số dư
      * @return mixed
-     */
-    public function getTrend()
+     */    public function getTrend()
     {
         $where = $this->request->getMore([
             ['time', '']
@@ -52,8 +49,7 @@ class BalanceStatistic extends AuthController
     /**
      * Nguồn cân bằng
      * @return mixed
-     */
-    public function getChannel()
+     */    public function getChannel()
     {
         $where = $this->request->getMore([
             ['time', '']
@@ -65,8 +61,7 @@ class BalanceStatistic extends AuthController
     /**
      * Loại số dư
      * @return mixed
-     */
-    public function getType()
+     */    public function getType()
     {
         $where = $this->request->getMore([
             ['time', '']

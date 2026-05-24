@@ -19,8 +19,7 @@ use crmeb\services\CacheService;
 /**
  * Class AuthController
  * @package app\api\controller\v2\wechat
- */
-class AuthController
+ */class AuthController
 {
 
     protected $services = NUll;
@@ -28,14 +27,13 @@ class AuthController
     /**
      * AuthController constructor.
      * @param RoutineServices $services
-     */
-    public function __construct(RoutineServices $services)
+     */    public function __construct(RoutineServices $services)
     {
         $this->services = $services;
     }
 
     /**
-     * Trả về khóa bộ đệm của thông tin người dùng và trả về việc có buộc buộc liên kết số điện thoại di động hay không.
+     * Trả về khóa bộ đệm của thông tin Khách hàng và trả về việc có buộc buộc liên kết số điện thoại di động hay không.
      * @param $code
      * @param string $spread_code
      * @param string $spread_spid
@@ -43,8 +41,7 @@ class AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function authType($code, $spread_code = '', $spread_spid = '')
+     */    public function authType($code, $spread_code = '', $spread_spid = '')
     {
         $data = $this->services->authType($code, $spread_code, $spread_spid);
         return app('json')->success($data);
@@ -61,15 +58,14 @@ class AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function authLogin($key)
+     */    public function authLogin($key)
     {
         $data = $this->services->authLogin($key);
         return app('json')->success($data);
     }
 
     /**
-     * Ủy quyền lấy số điện thoại di động của người dùng chương trình mini và liên kết trực tiếp
+     * Ủy quyền lấy số điện thoại di động của Khách hàng chương trình mini và liên kết trực tiếp
      * @param string $code
      * @param string $iv
      * @param string $encryptedData
@@ -80,8 +76,7 @@ class AuthController
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function authBindingPhone($code = '', $iv = '', $encryptedData = '', $spread_code = '', $spread_spid = '', $key = '')
+     */    public function authBindingPhone($code = '', $iv = '', $encryptedData = '', $spread_code = '', $spread_spid = '', $key = '')
     {
         if (!$code || !$iv || !$encryptedData)
             return app('json')->fail('Lỗi tham số');
@@ -108,8 +103,7 @@ class AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function phoneLogin($key = '', $phone = '', $captcha = '', $spread_code = '', $spread_spid = '', $code = '')
+     */    public function phoneLogin($key = '', $phone = '', $captcha = '', $spread_code = '', $spread_spid = '', $code = '')
     {
         //Xác minh mã xác minh
         $verifyCode = CacheService::get('code_' . $phone);
@@ -134,8 +128,7 @@ class AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
-     */
-    public function bindingPhone($code = '', $iv = '', $encryptedData = '')
+     */    public function bindingPhone($code = '', $iv = '', $encryptedData = '')
     {
         if (!$code || !$iv || !$encryptedData) return app('json')->fail('Lỗi tham số');
         $this->services->bindingPhone($code, $iv, $encryptedData);

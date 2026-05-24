@@ -18,15 +18,13 @@ use think\facade\App;
  * Cài đặt thành viên
  * Class UserLevel
  * @package app\admin\controller\user
- */
-class UserGroup extends AuthController
+ */class UserGroup extends AuthController
 {
     /**
      * user constructor.
      * @param App $app
      * @param UserGroupServices $services
-     */
-    public function __construct(App $app, UserGroupServices $services)
+     */    public function __construct(App $app, UserGroupServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -34,8 +32,7 @@ class UserGroup extends AuthController
 
     /**
      * danh sách được nhóm
-     */
-    public function index()
+     */    public function index()
     {
         return app('json')->success($this->services->getGroupList('*', true));
     }
@@ -44,8 +41,7 @@ class UserGroup extends AuthController
      * Thêm/sửa đổi trang nhóm
      * @param int $id
      * @return string
-     */
-    public function add()
+     */    public function add()
     {
         $data = $this->request->getMore([
             ['id', 0],
@@ -57,8 +53,7 @@ class UserGroup extends AuthController
      *
      * @param int $id
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -72,11 +67,10 @@ class UserGroup extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param $id
      * @throws \Exception
-     */
-    public function delete()
+     */    public function delete()
     {
         $data = $this->request->getMore([
             ['id', 0],

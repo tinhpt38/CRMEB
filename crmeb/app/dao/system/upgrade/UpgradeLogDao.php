@@ -18,8 +18,7 @@ use app\model\system\upgrade\UpgradeLog;
  * Bản ghi nâng cấpdao
  * Class UpgradeLogDao
  * @package app\dao\system\upgrade
- */
-class UpgradeLogDao extends BaseDao
+ */class UpgradeLogDao extends BaseDao
 {
 
     protected function setModel(): string
@@ -37,8 +36,7 @@ class UpgradeLogDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $field, int $page = 0, int $limit = 0): array
+     */    public function getList(array $field, int $page = 0, int $limit = 0): array
     {
         return $this->search()->field($field)->page($page, $limit)->select()->toArray();
     }

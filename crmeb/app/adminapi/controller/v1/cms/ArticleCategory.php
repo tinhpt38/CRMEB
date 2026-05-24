@@ -19,20 +19,17 @@ use think\facade\App;
  * Quản lý phân loại bài viết
  * Class ArticleCategory
  * @package app\adminapi\controller\v1\cms
- */
-class ArticleCategory extends AuthController
+ */class ArticleCategory extends AuthController
 {
     /**
      * @var ArticleCategoryServices
-     */
-    protected $service;
+     */    protected $service;
 
     /**
      * ArticleCategory constructor.
      * @param App $app
      * @param ArticleCategoryServices $service
-     */
-    public function __construct(App $app, ArticleCategoryServices $service)
+     */    public function __construct(App $app, ArticleCategoryServices $service)
     {
         parent::__construct($app);
         $this->service = $service;
@@ -41,8 +38,7 @@ class ArticleCategory extends AuthController
     /**
      * Nhận danh sách danh mục
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -60,8 +56,7 @@ class ArticleCategory extends AuthController
      * Tạo biểu mẫu mới
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->service->createForm(0));
     }
@@ -70,8 +65,7 @@ class ArticleCategory extends AuthController
      * Lưu danh mục mới
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['title', ''],
@@ -96,8 +90,7 @@ class ArticleCategory extends AuthController
      * @param int $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit($id = 0)
+     */    public function edit($id = 0)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->service->createForm($id));
@@ -108,8 +101,7 @@ class ArticleCategory extends AuthController
      * @param $id
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -131,8 +123,7 @@ class ArticleCategory extends AuthController
      * @param $id
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->service->del($id);
@@ -147,8 +138,7 @@ class ArticleCategory extends AuthController
      * @param int $status
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->service->setStatus($id, $status);
@@ -160,8 +150,7 @@ class ArticleCategory extends AuthController
     /**
      * Nhận phân loại bài viết
      * @return mixed
-     */
-    public function categoryList()
+     */    public function categoryList()
     {
         return app('json')->success($this->service->getArticleTwoCategory());
     }
@@ -170,8 +159,7 @@ class ArticleCategory extends AuthController
      * danh sách cây
      * @return mixed
      * @throws \ReflectionException
-     */
-    public function getTreeList()
+     */    public function getTreeList()
     {
         $list = $this->service->getTreeList();
         return app('json')->success($list);

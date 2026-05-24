@@ -27,8 +27,7 @@ class PinkJob extends BaseJobs
 
     public function doJob($pinkId)
     {
-        /** @var StorePinkServices $pinkService */
-        $pinkService = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $pinkService */        $pinkService = app()->make(StorePinkServices::class);
         $people = $pinkService->value(['id' => $pinkId], 'people');
         $count = $pinkService->count(['k_id' => $pinkId, 'is_refund' => 0]) + 1;
         $orderIds = $pinkService->getColumn([['id|k_id', '=', $pinkId]], 'order_id_key', 'uid');
@@ -41,12 +40,10 @@ class PinkJob extends BaseJobs
                 'refund_img' => json_encode([]),
             ];
             foreach ($orderIds as $key => $item) {
-                /** @var StoreOrderServices $orderService */
-                $orderService = app()->make(StoreOrderServices::class);
+                /** @var StoreOrderServices $orderService */                $orderService = app()->make(StoreOrderServices::class);
                 $order = $orderService->get($item);
 
-                /** @var StoreOrderRefundServices $orderRefundService */
-                $orderRefundService = app()->make(StoreOrderRefundServices::class);
+                /** @var StoreOrderRefundServices $orderRefundService */                $orderRefundService = app()->make(StoreOrderRefundServices::class);
                 $orderRefundService->applyRefund((int)$order['id'], (int)$order['uid'], $order, [], 1, (float)$order['pay_price'], $refundData, 1);
 
                 $pinkService->update([['id|k_id', '=', $pinkId]], ['status' => 3]);

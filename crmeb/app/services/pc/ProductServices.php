@@ -29,11 +29,9 @@ class ProductServices extends BaseServices
      * @param array $where
      * @param int $uid
      * @return mixed
-     */
-    public function getProductList(array $where, int $uid)
+     */    public function getProductList(array $where, int $uid)
     {
-        /** @var StoreProductServices $product */
-        $product = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $product */        $product = app()->make(StoreProductServices::class);
 
         $where['is_show'] = 1;
         $where['is_del'] = 0;
@@ -58,14 +56,12 @@ class ProductServices extends BaseServices
      * @param int $product_id
      * @param string $type
      * @return false|mixed|string
-     */
-    public function getProductRoutineCode(int $product_id, string $type = 'product')
+     */    public function getProductRoutineCode(int $product_id, string $type = 'product')
     {
         try {
             $namePath = $type == 'product' ? 'routine_product_' . $product_id . '.jpg' : 'routine_seckill_product_' . $product_id . '.jpg';
             $data = 'id=' . $product_id;
-            /** @var SystemAttachmentServices $systemAttachmentService */
-            $systemAttachmentService = app()->make(SystemAttachmentServices::class);
+            /** @var SystemAttachmentServices $systemAttachmentService */            $systemAttachmentService = app()->make(SystemAttachmentServices::class);
             $imageInfo = $systemAttachmentService->getOne(['name' => $namePath]);
             $siteUrl = sys_config('site_url');
             if (!$imageInfo) {

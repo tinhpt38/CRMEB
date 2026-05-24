@@ -19,30 +19,26 @@ use think\Model;
  * Chưa giaoModel
  * Class ShippingTemplatesNoDelivery
  * @package app\model\shipping
- */
-class ShippingTemplatesNoDelivery extends BaseModel
+ */class ShippingTemplatesNoDelivery extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'shipping_templates_no_delivery';
+     */    protected $name = 'shipping_templates_no_delivery';
 
     /**
      * Trình tìm kiếm ID tỉnh
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProvinceIdAttr($query, $value)
+     */    public function searchProvinceIdAttr($query, $value)
     {
         $query->where('province_id', $value);
     }
@@ -52,8 +48,7 @@ class ShippingTemplatesNoDelivery extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCityIdAttr($query, $value)
+     */    public function searchCityIdAttr($query, $value)
     {
         $query->where('city_id', $value);
     }
@@ -62,8 +57,7 @@ class ShippingTemplatesNoDelivery extends BaseModel
      * Tìm kiếm id mẫu
      * @param Model $query
      * @param $value
-     */
-    public function searchTempIdAttr($query, $value)
+     */    public function searchTempIdAttr($query, $value)
     {
         $query->where('temp_id', $value);
     }
@@ -72,8 +66,7 @@ class ShippingTemplatesNoDelivery extends BaseModel
      * uniqid Người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUniqidAttr($query, $value)
+     */    public function searchUniqidAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('uniqid', $value);

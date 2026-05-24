@@ -21,8 +21,7 @@ use app\model\system\SystemRouteCate;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\dao\system
- */
-class SystemRouteCateDao extends BaseDao
+ */class SystemRouteCateDao extends BaseDao
 {
 
     /**
@@ -30,8 +29,7 @@ class SystemRouteCateDao extends BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemRouteCate::class;
     }

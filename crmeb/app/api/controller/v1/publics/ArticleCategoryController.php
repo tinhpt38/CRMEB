@@ -17,8 +17,7 @@ use crmeb\services\CacheService;
  * Lớp phân loại bài viết
  * Class ArticleCategoryController
  * @package app\api\controller\publics
- */
-class ArticleCategoryController
+ */class ArticleCategoryController
 {
     protected $services;
 
@@ -30,8 +29,7 @@ class ArticleCategoryController
     /**
      * Danh sách danh mục bài viết
      * @return mixed
-     */
-    public function lst()
+     */    public function lst()
     {
         $cateInfo = CacheService::remember('ARTICLE_CATEGORY', function () {
             $cateInfo = $this->services->getArticleCategory();

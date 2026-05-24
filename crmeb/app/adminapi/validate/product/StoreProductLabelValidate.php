@@ -30,8 +30,8 @@ class StoreProductLabelValidate extends Validate
     protected $message = [
         'name.require' => 'Vui lòng nhập tên',
         'name.max' => 'Tên không được vượt quá 32 ký tự',
-        'sort.integer' => 'Thứ tự phải là số nguyên',
-        'sort.egt' => 'Thứ tự không được nhỏ hơn 0',
+        'sort.integer' => 'Đơn hàng phải là số nguyên',
+        'sort.egt' => 'Đơn hàng không được nhỏ hơn 0',
         'cate_id.integer' => 'Danh mục nhãn không hợp lệ',
         'cate_id.egt' => 'Danh mục nhãn không hợp lệ',
         'type.integer' => 'Loại nhãn không hợp lệ',

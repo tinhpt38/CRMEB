@@ -16,32 +16,28 @@ use crmeb\basic\BaseModel;
 use think\Model;
 
 /**
- *  Mẫu vận chuyển hàng hóaModel
+ *  Mẫu vận chuyển sản phẩmModel
  * Class ShippingTemplates
  * @package app\model\shipping
- */
-class ShippingTemplates extends BaseModel
+ */class ShippingTemplates extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'shipping_templates';
+     */    protected $name = 'shipping_templates';
 
     /**
      * gõ kiểu
      * @param $value
      * @return string
-     */
-    public function getTypeAttr($value)
+     */    public function getTypeAttr($value)
     {
         $status = [1 => 'Theo số lượng mảnh', 2 => 'theo trọng lượng', 3 => 'theo khối lượng'];
         return $status[$value];
@@ -51,8 +47,7 @@ class ShippingTemplates extends BaseModel
      * Có bật getter miễn phí vận chuyển hay không
      * @param $value
      * @return string
-     */
-    public function getAppointAttr($value)
+     */    public function getAppointAttr($value)
     {
         $status = [1 => 'Hoạt động', 0 => 'đóng cửa'];
         return $status[$value];
@@ -62,18 +57,16 @@ class ShippingTemplates extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         $value = date('Y-m-d H:i:s', $value);
         return $value;
     }
 
     /**
-     * Liên kết một-nhiều khu vực vận chuyển hàng hóa
+     * Liên kết một-nhiều khu vực vận chuyển sản phẩm
      * @return \think\model\relation\HasMany
-     */
-    public function region()
+     */    public function region()
     {
         return $this->hasMany(ShippingTemplatesRegion::class, 'temp_id', 'id');
     }
@@ -81,8 +74,7 @@ class ShippingTemplates extends BaseModel
     /**
      * Miễn phí vận chuyển khu vực liên kết một-nhiều
      * @return \think\model\relation\HasMany
-     */
-    public function free()
+     */    public function free()
     {
         return $this->hasMany(ShippingTemplatesFree::class, 'temp_id', 'id');
     }
@@ -92,8 +84,7 @@ class ShippingTemplates extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIdAttr($query, $value)
+     */    public function searchIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('id', $value);
@@ -107,8 +98,7 @@ class ShippingTemplates extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchNameAttr($query, $value)
+     */    public function searchNameAttr($query, $value)
     {
         if ($value) {
             $query->where('name', 'like', '%' . $value . '%');

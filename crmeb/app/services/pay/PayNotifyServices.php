@@ -19,23 +19,20 @@ use app\services\user\UserRechargeServices;
  * Gọi lại thanh toán thành công Tất cả các lệnh gọi lại thông báo không đồng bộ sẽ sử dụng ba phương thức sau:,Không còn nhận được cuộc gọi lại thanh toán WeChat/Alipay
  * Class PayNotifyServices
  * @package app\services\pay
- */
-class PayNotifyServices
+ */class PayNotifyServices
 {
 
     /**
      * Sau khi thanh toán đơn hàng thành công
-     * @param string|null $order_id Đặt hàngid
+     * @param string|null $order_id Đơn hàngid
      * @param string|null $trade_no
      * @param string $payType
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function wechatProduct(string $order_id = null, string $trade_no = null, string $payType = PayServices::WEIXIN_PAY)
+     */    public function wechatProduct(string $order_id = null, string $trade_no = null, string $payType = PayServices::WEIXIN_PAY)
     {
         try {
-            /** @var StoreOrderSuccessServices $services */
-            $services = app()->make(StoreOrderSuccessServices::class);
+            /** @var StoreOrderSuccessServices $services */            $services = app()->make(StoreOrderSuccessServices::class);
             $orderInfo = $services->getOne(['order_id' => $order_id]);
             if (!$orderInfo) return true;
             if ($orderInfo->paid) return true;
@@ -47,14 +44,12 @@ class PayNotifyServices
 
     /**
      * Sau khi nạp tiền thành công
-     * @param string|null $order_id Đặt hàngid
+     * @param string|null $order_id Đơn hàngid
      * @return bool
-     */
-    public function wechatUserRecharge(string $order_id = null, string $trade_no = null, string $payType = PayServices::WEIXIN_PAY)
+     */    public function wechatUserRecharge(string $order_id = null, string $trade_no = null, string $payType = PayServices::WEIXIN_PAY)
     {
         try {
-            /** @var UserRechargeServices $userRecharge */
-            $userRecharge = app()->make(UserRechargeServices::class);
+            /** @var UserRechargeServices $userRecharge */            $userRecharge = app()->make(UserRechargeServices::class);
             if ($userRecharge->be(['order_id' => $order_id, 'paid' => 1])) return true;
             return $userRecharge->rechargeSuccess($order_id, ['trade_no' => $trade_no, 'pay_type' => $payType]);
         } catch (\Exception $e) {
@@ -66,12 +61,10 @@ class PayNotifyServices
      * Mua thành viên
      * @param string|null $order_id
      * @return bool
-     */
-    public function wechatMember(string $order_id = null, string $trade_no = null, string $payType = PayServices::WEIXIN_PAY)
+     */    public function wechatMember(string $order_id = null, string $trade_no = null, string $payType = PayServices::WEIXIN_PAY)
     {
         try {
-            /** @var OtherOrderServices $services */
-            $services = app()->make(OtherOrderServices::class);
+            /** @var OtherOrderServices $services */            $services = app()->make(OtherOrderServices::class);
             $orderInfo = $services->getOne(['order_id' => $order_id]);
             if (!$orderInfo) return true;
             if ($orderInfo->paid) return true;

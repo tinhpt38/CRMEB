@@ -16,19 +16,17 @@ use app\dao\activity\coupon\StoreCouponUserCouponDao;
 use app\services\BaseServices;
 
 /**
- * Nhận phiếu giảm giá mà người dùng có thể sử dụng dựa trên số lượng đặt hàng
+ * Nhận phiếu giảm giá mà Khách hàng có thể sử dụng dựa trên số lượng đặt hàng
  * Class StoreCouponUserCouponServices
  * @package app\services\coupon
  * @method getUidCouponList(int $uid, string $truePrice, int $productId)
  * @method getUidCouponMinList($uid, $price, $value = '', int $type = 1) Nhận phiếu giảm giá trong số tiền mua tối thiểu
- */
-class StoreCouponUserCouponServices extends BaseServices
+ */class StoreCouponUserCouponServices extends BaseServices
 {
     /**
      * StoreCouponUserCouponServices constructor.
      * @param StoreCouponUserCouponDao $dao
-     */
-    public function __construct(StoreCouponUserCouponDao $dao)
+     */    public function __construct(StoreCouponUserCouponDao $dao)
     {
         $this->dao = $dao;
     }

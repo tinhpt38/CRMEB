@@ -18,38 +18,33 @@ use app\services\order\StoreOrderServices;
 use app\services\product\product\StoreProductServices;
 
 /**
- * Lịch sử trò chuyện dịch vụ khách hàng
+ * Lịch sử trò chuyện CSKH
  * Class StoreServiceLogServices
  * @package app\services\kefu\service
  * @method whereByCount(array $where) Lấy số lượng vật phẩm dựa trên điều kiện
  * @method getServiceList(array $where, int $page, int $limit, array $field = ['*']) Nhận lịch sử trò chuyện và phân trang
  * @method saveAll(array $data) Chèn dữ liệu
  * @method getMessageNum(array $where) Lấy số lượng bản ghi trò chuyện
- */
-class StoreServiceLogServices extends BaseServices
+ */class StoreServiceLogServices extends BaseServices
 {
     /**
      * Loại tin nhắn
-     * @var array  1=Từ 2=sự biểu lộ 3=hình ảnh 4=tiếng nói 5 = Liên kết sản phẩm 6 = Loại lệnh
-     */
-    const MSN_TYPE = [1, 2, 3, 4, 5, 6];
+     * @var array  1=Từ 2=sự biểu lộ 3=hình ảnh 4=tiếng nói 5 = Liên kết sản phẩm 6 = Loại đơn hàng
+     */    const MSN_TYPE = [1, 2, 3, 4, 5, 6];
 
     /**
      * Loại thông báo liên kết sản phẩm
-     */
-    const MSN_TYPE_GOODS = 5;
+     */    const MSN_TYPE_GOODS = 5;
 
     /**
      * Loại tin nhắn thông tin đặt hàng
-     */
-    const MSN_TYPE_ORDER = 6;
+     */    const MSN_TYPE_ORDER = 6;
 
     /**
      * Người xây dựng
      * StoreServiceLogServices constructor.
      * @param StoreServiceLogDao $dao
-     */
-    public function __construct(StoreServiceLogDao $dao)
+     */    public function __construct(StoreServiceLogDao $dao)
     {
         $this->dao = $dao;
     }
@@ -58,8 +53,7 @@ class StoreServiceLogServices extends BaseServices
      * Lấy uid và uid trong lịch sử trò chuyệnto_uid
      * @param int $uid
      * @return array
-     */
-    public function getChatUserIds(int $uid)
+     */    public function getChatUserIds(int $uid)
     {
         $list = $this->dao->getServiceUserUids($uid);
         $arr_user = $arr_to_user = [];
@@ -75,14 +69,13 @@ class StoreServiceLogServices extends BaseServices
     }
 
     /**
-     * Nhận lịch sử trò chuyện dịch vụ khách hàng của người dùng
+     * Nhận lịch sử trò chuyện CSKH của Khách hàng
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getChatLogList(array $where)
+     */    public function getChatLogList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getServiceList($where, $page, $limit);
@@ -98,8 +91,7 @@ class StoreServiceLogServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getChatList(array $where, int $uid)
+     */    public function getChatList(array $where, int $uid)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getServiceList($where, $page, $limit);
@@ -111,8 +103,7 @@ class StoreServiceLogServices extends BaseServices
      * @param array $list
      * @param int $uid
      * @return array
-     */
-    public function tidyChat(array $list)
+     */    public function tidyChat(array $list)
     {
         $productIds = $orderIds = $productList = $orderInfo = $toUser = $user = [];
         $toUid = $list[0]['to_uid'] ?? 0;
@@ -128,8 +119,7 @@ class StoreServiceLogServices extends BaseServices
             }
         }
         if ($productIds) {
-            /** @var StoreProductServices $productServices */
-            $productServices = app()->make(StoreProductServices::class);
+            /** @var StoreProductServices $productServices */            $productServices = app()->make(StoreProductServices::class);
             $where = [
                 ['id', 'in', $productIds],
                 ['is_del', '=', 0],
@@ -137,8 +127,7 @@ class StoreServiceLogServices extends BaseServices
             ];
             $productList = get_thumb_water($productServices->getProductArray($where, '*', 'id'),'mid');
         }
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         if ($orderIds) {
             $orderWhere = [
                 ['order_id|unique', 'in', $orderIds],
@@ -147,8 +136,7 @@ class StoreServiceLogServices extends BaseServices
             $orderInfo = $orderServices->getColumn($orderWhere, '*', 'order_id');
         }
         if ($toUid && $uid) {
-            /** @var StoreServiceRecordServices $recordServices */
-            $recordServices = app()->make(StoreServiceRecordServices::class);
+            /** @var StoreServiceRecordServices $recordServices */            $recordServices = app()->make(StoreServiceRecordServices::class);
             $toUser = $recordServices->get(['user_id' => $uid, 'to_uid' => $toUid], ['nickname', 'avatar']);
             $user = $recordServices->get(['user_id' => $toUid, 'to_uid' => $uid], ['nickname', 'avatar']);
         }
@@ -200,8 +188,7 @@ class StoreServiceLogServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceChatList(array $where, int $limit, int $upperId)
+     */    public function getServiceChatList(array $where, int $limit, int $upperId)
     {
         return $this->dao->getChatList($where, $limit, $upperId);
     }

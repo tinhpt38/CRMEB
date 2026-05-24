@@ -20,8 +20,7 @@ use think\facade\Config;
 /**
  * Class KefuAuthTokenMiddleware
  * @package app\kefu\middleware
- */
-class KefuAuthTokenMiddleware implements MiddlewareInterface
+ */class KefuAuthTokenMiddleware implements MiddlewareInterface
 {
 
     /**
@@ -32,12 +31,10 @@ class KefuAuthTokenMiddleware implements MiddlewareInterface
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function handle(Request $request, \Closure $next)
+     */    public function handle(Request $request, \Closure $next)
     {
         $token = trim(ltrim($request->header(Config::get('cookie.token_name', 'Authori-zation')), 'Bearer'));
-        /** @var LoginServices $services */
-        $services = app()->make(LoginServices::class);
+        /** @var LoginServices $services */        $services = app()->make(LoginServices::class);
         $kefuInfo = $services->parseToken($token);
         $request->macro('kefuId', function () use (&$kefuInfo) {
             return (int)$kefuInfo['id'];

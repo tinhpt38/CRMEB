@@ -14,19 +14,17 @@ use app\Request;
 use app\services\user\UserSignServices;
 
 /**
- * Đăng nhập người dùng
+ * Đăng nhập Khách hàng
  * Class UserController
  * @package app\api\controller\v1\user
- */
-class UserSignController
+ */class UserSignController
 {
     protected $services = NUll;
 
     /**
      * UserController constructor.
      * @param UserSignServices $services
-     */
-    public function __construct(UserSignServices $services)
+     */    public function __construct(UserSignServices $services)
     {
         $this->services = $services;
     }
@@ -37,8 +35,7 @@ class UserSignController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function sign_config(Request $request)
+     */    public function sign_config(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->signConfig($uid));
@@ -51,8 +48,7 @@ class UserSignController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function sign_list(Request $request)
+     */    public function sign_list(Request $request)
     {
         list($page, $limit) = $request->getMore([
             ['page', 0],
@@ -70,8 +66,7 @@ class UserSignController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function sign_integral(Request $request)
+     */    public function sign_integral(Request $request)
     {
         if (sys_config('sign_status') == 0) {
             return app('json')->fail('Chức năng đăng nhập chưa được kích hoạt');
@@ -82,11 +77,10 @@ class UserSignController
     }
 
     /**
-     * Đăng nhập thông tin người dùng
+     * Đăng nhập thông tin Khách hàng
      * @param Request $request
      * @return mixed
-     */
-    public function sign_user(Request $request)
+     */    public function sign_user(Request $request)
     {
         list($sign, $integral, $all) = $request->postMore([
             ['sign', 0],
@@ -101,8 +95,7 @@ class UserSignController
      * Danh sách đăng nhập (năm, tháng)）
      * @param Request $request
      * @return mixed
-     */
-    public function sign_month(Request $request)
+     */    public function sign_month(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->getSignMonthList($uid));
@@ -116,8 +109,7 @@ class UserSignController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/9
-     */
-    public function sign_remind(Request $request, $status)
+     */    public function sign_remind(Request $request, $status)
     {
         $uid = (int)$request->uid();
         $this->services->setSignRemind($uid, $status);

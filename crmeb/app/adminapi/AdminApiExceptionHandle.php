@@ -29,8 +29,7 @@ class AdminApiExceptionHandle extends Handle
     /**
      * Danh sách các lớp ngoại lệ không yêu cầu ghi thông tin (log)
      * @var array
-     */
-    protected $ignoreReport = [
+     */    protected $ignoreReport = [
         ValidateException::class,
         AuthException::class,
         AdminException::class,
@@ -42,8 +41,7 @@ class AdminApiExceptionHandle extends Handle
      * @access public
      * @param Throwable $exception
      * @return void
-     */
-    public function report(Throwable $exception): void
+     */    public function report(Throwable $exception): void
     {
         if (!$this->isIgnoreReport($exception)) {
             try {
@@ -60,7 +58,7 @@ class AdminApiExceptionHandle extends Handle
                     request()->ip(),                                                                      //khách hàngip
                     ceil(msectime() - (request()->time(true) * 1000)),                               //Thời gian thực hiện (mili giây）
                     request()->rule()->getMethod(),                                                       //Loại yêu cầu
-                    str_replace("/", "", request()->rootUrl()),                             //ứng dụng
+                    str_replace("/", "", request()->rootUrl()),                             //Ứng dụng
                     request()->baseUrl(),                                                                 //lộ trình
                     json_encode(request()->param(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),//Thông số yêu cầu
                     json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),             //dữ liệu lỗi
@@ -79,8 +77,7 @@ class AdminApiExceptionHandle extends Handle
      * @param \think\Request $request
      * @param Throwable $e
      * @return Response
-     */
-    public function render($request, Throwable $e): Response
+     */    public function render($request, Throwable $e): Response
     {
         if ($e instanceof HttpResponseException) {
             return parent::render($request, $e);

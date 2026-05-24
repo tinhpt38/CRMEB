@@ -29,8 +29,7 @@ class SystemEvent extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/7
-     */
-    public function getMarkList()
+     */    public function getMarkList()
     {
         return app('json')->success($this->services->getMarkList());
     }
@@ -45,8 +44,7 @@ class SystemEvent extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/7
-     */
-    public function getEventList()
+     */    public function getEventList()
     {
         return app('json')->success($this->services->getEventList());
     }
@@ -61,8 +59,7 @@ class SystemEvent extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/7
-     */
-    public function getEventInfo($id)
+     */    public function getEventInfo($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->getEventInfo($id));
@@ -74,8 +71,7 @@ class SystemEvent extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/7
-     */
-    public function saveEvent()
+     */    public function saveEvent()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -94,22 +90,21 @@ class SystemEvent extends AuthController
         $adminInfo = $this->request->adminInfo();
         if (!$adminInfo) return app('json')->fail('Hoạt động trái phép');
         if ($adminInfo['level'] != 0) return app('json')->fail('Chỉ quản trị viên cấp cao mới có thể Thao tác các tác vụ theo lịch trình');
-        if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('Có mã nguy hiểm trong nội dung tùy chỉnh, vui lòng kiểm tra mã');
+        if (!$this->isSafePhpCode($data['customCode'])) return app('json')->fail('Có mã nguy hiểm trong Nội dung tùy chỉnh, vui lòng kiểm tra mã');
         $this->services->saveEvent($data);
         return app('json')->success('Đã lưu thành công');
     }
 
     /**
-     * Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi nội dung và hậu tố tệp, thực thi lệnh, v.v.
+     * Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi Nội dung và hậu tố tệp, thực thi lệnh, v.v.
      * @param $code
      * @return bool
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/7
-     */
-    function isSafePhpCode($code)
+     */    function isSafePhpCode($code)
     {
-        // Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi nội dung và hậu tố tệp, thực thi lệnh, v.v.
+        // Kiểm tra xem nó có chứa từ khóa cho các thao tác như xóa bảng, xóa dữ liệu bảng, xóa tệp, sửa đổi Nội dung và hậu tố tệp, thực thi lệnh, v.v.
         $dangerous_keywords = [
             'delete',
             'destroy',
@@ -127,7 +122,7 @@ class SystemEvent extends AuthController
                 return false;
             }
         }
-        return true; // Nếu tất cả các bước kiểm tra bảo mật đều vượt qua, hãy quay lại true
+        return true; // Nếu Tất cả các bước kiểm tra bảo mật đều vượt qua, hãy quay lại true
     }
 
     /**
@@ -138,8 +133,7 @@ class SystemEvent extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/7
-     */
-    public function setEventStatus($id, $is_open)
+     */    public function setEventStatus($id, $is_open)
     {
         $this->services->setEventStatus($id, $is_open);
         return app('json')->success('Thiết lập thành công');
@@ -155,8 +149,7 @@ class SystemEvent extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/7
-     */
-    public function delEvent($id)
+     */    public function delEvent($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->eventDel($id);

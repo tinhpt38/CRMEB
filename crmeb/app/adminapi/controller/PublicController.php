@@ -26,8 +26,7 @@ class PublicController
      * Tải tập tin xuống
      * @param string $key
      * @return Response|\think\response\File
-     */
-    public function download(Request $request, string $key = '')
+     */    public function download(Request $request, string $key = '')
     {
         if ($key == '') {
             $key = $request->getMore([
@@ -48,8 +47,7 @@ class PublicController
     /**
      * Nhận tên miền yêu cầu của công nhân
      * @return mixed
-     */
-    public function getWorkerManUrl()
+     */    public function getWorkerManUrl()
     {
         return app('json')->success(getWorkerManUrl());
     }
@@ -63,8 +61,7 @@ class PublicController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
-     */
-    public function scanUpload(Request $request, $upload_type = 0, $type = 0)
+     */    public function scanUpload(Request $request, $upload_type = 0, $type = 0)
     {
         [$file, $uploadToken, $pid] = $request->postMore([
             ['file', 'file'],
@@ -95,8 +92,7 @@ class PublicController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/9/24
-     */
-    public function getSystemInfo()
+     */    public function getSystemInfo()
     {
         $info['server'] = [
             ['name' => 'Hệ thống máy chủ', 'require' => 'loạiUNIX', 'value' => PHP_OS],

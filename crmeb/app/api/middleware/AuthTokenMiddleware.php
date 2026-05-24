@@ -20,8 +20,7 @@ use crmeb\interfaces\MiddlewareInterface;
 /**
  * Class AuthTokenMiddleware
  * @package app\api\middleware
- */
-class AuthTokenMiddleware implements MiddlewareInterface
+ */class AuthTokenMiddleware implements MiddlewareInterface
 {
     /**
      * @param Request $request
@@ -34,15 +33,13 @@ class AuthTokenMiddleware implements MiddlewareInterface
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/07
-     */
-    public function handle(Request $request, \Closure $next, bool $force = true)
+     */    public function handle(Request $request, \Closure $next, bool $force = true)
     {
         $authInfo = null;
         $token = trim(ltrim($request->header('Authori-zation'), 'Bearer'));
         if (!$token) $token = trim(ltrim($request->header('Authorization'), 'Bearer'));//Đối với phiên bản chính thức, hãy xóa dòng này. Một số máy chủ không thể nhận được mã thông báo. Điều chỉnh nó thành Authori-zation
         try {
-            /** @var UserAuthServices $service */
-            $service = app()->make(UserAuthServices::class);
+            /** @var UserAuthServices $service */            $service = app()->make(UserAuthServices::class);
             $authInfo = $service->parseToken($token);
         } catch (AuthException $e) {
             if ($force)

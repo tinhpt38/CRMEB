@@ -28,7 +28,7 @@ class StoreServiceFeedbackValidate extends Validate
     protected $message = [
         'phone.require' => 'Số điện thoại di động là bắt buộc',
         'phone.regex' => 'Lỗi định dạng số điện thoại di động',
-        'content.require' => 'Vui lòng điền nội dung phản hồi',
+        'content.require' => 'Vui lòng điền Nội dung phản hồi',
         'rela_name.require' => 'Tên là bắt buộc',
     ];
 }

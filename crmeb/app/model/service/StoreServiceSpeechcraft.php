@@ -20,30 +20,26 @@ use think\Model;
 /**
  * Kỹ năng phục vụ khách hàng
  * @mixin Model
- */
-class StoreServiceSpeechcraft extends BaseModel
+ */class StoreServiceSpeechcraft extends BaseModel
 {
     use ModelTrait;
 
     /**
      * tên bảng
      * @var string
-     */
-    protected $name = 'store_service_speechcraft';
+     */    protected $name = 'store_service_speechcraft';
 
     /**
      * khóa chính
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * định dạng thời gian
      * @param $value
      * @param $data
      * @return false|string
-     */
-    public function getAddTimeAttr($value, $data)
+     */    public function getAddTimeAttr($value, $data)
     {
         return date('Y-m-d H:i:s', $value);
     }
@@ -51,8 +47,7 @@ class StoreServiceSpeechcraft extends BaseModel
     /**
      * Phân loại thẻ liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function cateName()
+     */    public function cateName()
     {
         return $this->hasOne(Category::class, 'id', 'cate_id')->where('type', 1)->field(['id', 'name'])->bind(['cate_name' => 'name']);
     }
@@ -61,18 +56,16 @@ class StoreServiceSpeechcraft extends BaseModel
      * Tìm kiếm từ
      * @param Model $query
      * @param $value
-     */
-    public function searchTitleAttr($query, $value)
+     */    public function searchTitleAttr($query, $value)
     {
         if ($value !== '') $query->whereLike('title', '%' . $value . '%');
     }
 
     /**
-     * Tìm kiếm dịch vụ khách hàng được phân bổ
+     * Tìm kiếm CSKH được phân bổ
      * @param Model $query
      * @param $value
-     */
-    public function searchKefuIdAttr($query, $value)
+     */    public function searchKefuIdAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('kefu_id', $value);
@@ -83,8 +76,7 @@ class StoreServiceSpeechcraft extends BaseModel
      * Tìm kiếm danh mục
      * @param Model $query
      * @param $value
-     */
-    public function searchCateIdAttr($query, $value)
+     */    public function searchCateIdAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('cate_id', $value);
@@ -94,8 +86,7 @@ class StoreServiceSpeechcraft extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchMessageAttr($query, $value)
+     */    public function searchMessageAttr($query, $value)
     {
         if ($value !== '') $query->where('message', $value);
 

@@ -19,28 +19,24 @@ use think\Model;
  * TODO bài báoModel
  * Class Article
  * @package app\model\article
- */
-class Article extends BaseModel
+ */class Article extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'article';
+     */    protected $name = 'article';
 
     /**
      * Liên kết một-một sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function storeInfo()
+     */    public function storeInfo()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')
             ->field('store_name,image,price,id,ot_price');
@@ -49,8 +45,7 @@ class Article extends BaseModel
     /**
      * Liên kết một-một của chi tiết bài viết
      * @return \think\model\relation\HasOne
-     */
-    public function content()
+     */    public function content()
     {
         return $this->hasOne(ArticleContent::class, 'nid', 'id')->bind(['content']);
     }
@@ -58,8 +53,7 @@ class Article extends BaseModel
     /**
      * Liên kết một-một của chi tiết bài viết
      * @return \think\model\relation\HasOne
-     */
-    public function cateName()
+     */    public function cateName()
     {
         return $this->hasOne(ArticleCategory::class, 'id', 'cid')->bind(['catename' => 'title']);
     }
@@ -68,8 +62,7 @@ class Article extends BaseModel
      * Trình lấy hình ảnh bài viết
      * @param $value
      * @return array|false|string[]
-     */
-    protected function getImageInputAttr($value)
+     */    protected function getImageInputAttr($value)
     {
         return explode(',', $value) ?: [];
     }
@@ -79,8 +72,7 @@ class Article extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCidAttr($query, $value, $data)
+     */    public function searchCidAttr($query, $value, $data)
     {
         if ($value) {
             if (is_array($value)) {
@@ -96,8 +88,7 @@ class Article extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTitleAttr($query, $value, $data)
+     */    public function searchTitleAttr($query, $value, $data)
     {
         if ($value !== '') {
             $query->where('title', 'like', '%' . $value . '%');
@@ -109,8 +100,7 @@ class Article extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsHotAttr($query, $value, $data)
+     */    public function searchIsHotAttr($query, $value, $data)
     {
         if ($value !== '') {
             $query->where('is_hot', $value);
@@ -122,8 +112,7 @@ class Article extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsBannerAttr($query, $value, $data)
+     */    public function searchIsBannerAttr($query, $value, $data)
     {
         if ($value !== '') {
             $query->where('is_banner', $value);

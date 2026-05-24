@@ -20,22 +20,19 @@ use crmeb\traits\ModelTrait;
  * Mã kênhmodel
  * Class WechatKey
  * @package app\model\wechat
- */
-class WechatQrcode extends BaseModel
+ */class WechatQrcode extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'wechat_qrcode';
+     */    protected $name = 'wechat_qrcode';
 
     public function user()
     {

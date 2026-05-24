@@ -24,15 +24,13 @@ use think\facade\App;
 /**
  * Class Serve
  * @package app\adminapi\controller\v1\serve
- */
-class Serve extends AuthController
+ */class Serve extends AuthController
 {
     /**
      * Serve constructor.
      * @param App $app
      * @param ServeServices $services
-     */
-    public function __construct(App $app, ServeServices $services)
+     */    public function __construct(App $app, ServeServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -41,8 +39,7 @@ class Serve extends AuthController
     /**
      * Phát hiện đăng nhập
      * @return mixed
-     */
-    public function is_login()
+     */    public function is_login()
     {
         $sms_info = CacheService::get('sms_account');
         if ($sms_info) {
@@ -56,8 +53,7 @@ class Serve extends AuthController
      * Nhận danh sách gói
      * @param string $type
      * @return mixed
-     */
-    public function mealList(string $type)
+     */    public function mealList(string $type)
     {
         $res = $this->services->user()->mealList($type);
         if ($res) {
@@ -70,8 +66,7 @@ class Serve extends AuthController
     /**
      * Nhận mã thanh toán
      * @return mixed
-     */
-    public function payMeal()
+     */    public function payMeal()
     {
         $data = $this->request->postMore([
             ['meal_id', ''],
@@ -109,8 +104,7 @@ class Serve extends AuthController
     /**
      * Cho phép in các biểu mẫu điện tử
      * @return mixed
-     */
-    public function openExpress()
+     */    public function openExpress()
     {
         $data = $this->request->postMore([
             ['com', ''],
@@ -123,8 +117,7 @@ class Serve extends AuthController
 
         $this->validate($data, ExpressValidata::class);
 
-        /** @var SystemConfigServices $systemConfigService */
-        $systemConfigService = app()->make(SystemConfigServices::class);
+        /** @var SystemConfigServices $systemConfigService */        $systemConfigService = app()->make(SystemConfigServices::class);
         $systemConfigService->saveExpressInfo($data);
         $this->services->express()->open();
         return app('json')->success('Kích hoạt thành công');
@@ -132,10 +125,9 @@ class Serve extends AuthController
     }
 
     /**
-     * Lấy thông tin người dùng. Thông tin người dùng chứa trường có nên kích hoạt dịch vụ hay không.
+     * Lấy thông tin Khách hàng. Thông tin Khách hàng chứa trường có nên kích hoạt dịch vụ hay không.
      * @return mixed
-     */
-    public function getUserInfo()
+     */    public function getUserInfo()
     {
         return app('json')->success($this->services->user()->getUser());
     }
@@ -143,8 +135,7 @@ class Serve extends AuthController
     /**
      * Bản ghi truy vấn
      * @return mixed
-     */
-    public function getRecord()
+     */    public function getRecord()
     {
         [$page, $limit, $type] = $this->request->getMore([
             [['page', 'd'], 0],
@@ -159,8 +150,7 @@ class Serve extends AuthController
      * Kích hoạt dịch vụ
      * @param int $type
      * @return mixed
-     */
-    public function openServe($type = 0)
+     */    public function openServe($type = 0)
     {
         if ($type) {
             $this->services->copy()->open();
@@ -174,8 +164,7 @@ class Serve extends AuthController
     /**
      * Thay đổi mật khẩu
      * @return mixed
-     */
-    public function modify()
+     */    public function modify()
     {
         $data = $this->request->postMore([
             ['account', ''],
@@ -195,8 +184,7 @@ class Serve extends AuthController
     /**
      * Sửa đổi số điện thoại di động
      * @return mixed
-     */
-    public function updatePhone()
+     */    public function updatePhone()
     {
         $data = $this->request->postMore([
             ['account', ''],

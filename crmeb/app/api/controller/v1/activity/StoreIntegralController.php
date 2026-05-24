@@ -28,8 +28,7 @@ class StoreIntegralController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $data['banner'] = sys_data('integral_shop_banner') ?? [];//TODO Trung tâm mua sắm điểmbanner
         $where = ['is_show' => 1];
@@ -42,8 +41,7 @@ class StoreIntegralController
      * Danh sách sản phẩm
      * @param Request $request
      * @return mixed
-     */
-    public function lst(Request $request)
+     */    public function lst(Request $request)
     {
         $where = $request->getMore([
             ['store_name', ''],
@@ -60,8 +58,7 @@ class StoreIntegralController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function detail(Request $request, $id)
+     */    public function detail(Request $request, $id)
     {
         $data = $this->services->integralDetail($request, $id);
         return app('json')->success($data);

@@ -25,7 +25,7 @@ Route::group(function () {
 
     Route::group(function () {
         Route::group(function () {
-            //Phân loại sản phẩm
+            //Danh mục sản phẩm
             Route::get('category/list', 'StoreCategory/index')->option(['real_name' => 'Danh sách danh mục']);
             Route::get('category/:id', 'StoreCategory/read')->option(['real_name' => 'Nhận danh mục']);
             Route::post('category', 'StoreCategory/save')->option(['real_name' => 'Thêm danh mục mới']);
@@ -35,7 +35,7 @@ Route::group(function () {
         })->option(['mark' => 'category', 'mark_name' => 'Danh mục sản phẩm']);
 
         Route::group(function () {
-            //hàng hóa
+            //sản phẩm
             Route::get('product/list', 'StoreProduct/index')->option(['real_name' => 'Danh sách sản phẩm']);
             Route::post('product', 'StoreProduct/save')->option(['real_name' => 'Thêm sản phẩm mới']);
             Route::put('product/:id', 'StoreProduct/update')->option(['real_name' => 'Sửa đổi sản phẩm']);
@@ -45,7 +45,7 @@ Route::group(function () {
         })->option(['mark' => 'product', 'mark_name' => 'sản phẩm']);
 
         Route::group(function () {
-            //Đặt hàng
+            //Đơn hàng
             Route::get('order/list', 'StoreOrder/lst')->name('StoreOrderList')->option(['real_name' => 'danh sách đặt hàng']);
             Route::get('order/:order_id', 'StoreOrder/read')->name('StoreOrderInfo')->option(['real_name' => 'Chi tiết đơn hàng']);
             Route::put('order/remark/:order_id', 'StoreOrder/remark')->name('StoreOrderRemark')->option(['real_name' => 'Sửa đổi thông tin nhận xét']);
@@ -57,10 +57,10 @@ Route::group(function () {
             Route::put('order/split_delivery/:order_id', 'StoreOrder/splitDelivery')->name('StoreOrderSplitDelivery')->option(['real_name' => 'Chia đơn hàng và gửi hàng']);
             Route::put('order/invoice/:order_id', 'StoreOrder/setInvoice')->option(['real_name' => 'Sửa hóa đơn đặt hàng']);
             Route::put('order/invoice_status/:order_id', 'StoreOrder/setInvoiceStatus')->option(['real_name' => 'Sửa đổi trạng thái hóa đơn đơn hàng']);
-        })->option(['mark' => 'order', 'mark_name' => 'Đặt hàng']);
+        })->option(['mark' => 'order', 'mark_name' => 'Đơn hàng']);
 
         Route::group(function () {
-            //Đơn hàng sau bán hàng
+            //Yêu cầu trả hàng / hoàn tiền
             Route::get('refund/list', 'RefundOrder/lst')->option(['real_name' => 'Danh sách đơn hàng sau bán hàng']);
             Route::put('refund/remark/:order_id', 'RefundOrder/remark')->option(['real_name' => 'Ghi chú đơn hàng sau bán hàng']);
             Route::put('refund/:order_id', 'RefundOrder/refundPrice')->option(['real_name' => 'Hoàn tiền đơn hàng sau bán hàng']);
@@ -70,7 +70,7 @@ Route::group(function () {
         })->option(['mark' => 'refund', 'mark_name' => 'Hậu mãi']);
 
         Route::group(function () {
-            //Phiếu giảm giá
+            //Mã giảm giá
             Route::get('coupon/list', 'StoreCoupon/lst')->option(['real_name' => 'Danh sách phiếu giảm giá']);
             Route::post('coupon', 'StoreCoupon/save')->option(['real_name' => 'Thêm phiếu giảm giá']);
             Route::put('coupon/status/:id/:status', 'StoreCoupon/status')->option(['real_name' => 'Sửa đổi trạng thái phiếu giảm giá']);
@@ -78,19 +78,19 @@ Route::group(function () {
         })->option(['mark' => 'coupon', 'mark_name' => 'Mã giảm giá']);
 
         Route::group(function () {
-            //Cấp độ người dùng
-            Route::get('user_level/list', 'UserLevel/lst')->option(['real_name' => 'Danh sách cấp độ người dùng']);
+            //Hạng khách hàng
+            Route::get('user_level/list', 'UserLevel/lst')->option(['real_name' => 'Danh sách cấp độ Khách hàng']);
 
-            //người dùng
-            Route::get('user/list', 'User/lst')->option(['real_name' => 'Danh sách người dùng']);
+            //Khách hàng
+            Route::get('user/list', 'User/lst')->option(['real_name' => 'Danh sách Khách hàng']);
             Route::get('user/info/:uid', 'User/info')->option(['real_name' => 'Chi tiết khách hàng']);
             Route::post('user', 'User/save')->option(['real_name' => 'Thêm khách hàng mới']);
-            Route::put('user/:uid', 'User/update')->option(['real_name' => 'Sửa đổi người dùng']);
+            Route::put('user/:uid', 'User/update')->option(['real_name' => 'Sửa đổi Khách hàng']);
             Route::put('user/give_balance/:uid', 'User/giveBalance')->option(['real_name' => 'Số dư quà tặng']);
             Route::put('user/give_point/:uid', 'User/givePoint')->option(['real_name' => 'Tặng điểm']);
             Route::put('user/change_balance/:uid', 'User/changeBalance')->option(['real_name' => 'Sửa đổi số dư']);
             Route::put('user/change_point/:uid', 'User/changePoint')->option(['real_name' => 'Sửa đổi điểm']);
-        })->option(['mark' => 'user', 'mark_name' => 'người dùng']);
+        })->option(['mark' => 'user', 'mark_name' => 'Khách hàng']);
 
     })->middleware(AuthTokenMiddleware::class);
 

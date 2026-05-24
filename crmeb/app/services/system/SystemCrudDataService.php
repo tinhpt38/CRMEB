@@ -24,21 +24,19 @@ use think\facade\Route as Url;
  * @email 136327134@qq.com
  * @date 2023/7/28
  * @package app\services\system
- */
-class SystemCrudDataService extends BaseServices
+ */class SystemCrudDataService extends BaseServices
 {
 
     /**
      * SystemCrudDataService constructor.
      * @param SystemCrudDataDao $dao
-     */
-    public function __construct(SystemCrudDataDao $dao)
+     */    public function __construct(SystemCrudDataDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Nhận tất cả dữ liệu
+     * Nhận Tất cả dữ liệu
      * @return array
      * @throws \ReflectionException
      * @throws \think\db\exception\DataNotFoundException
@@ -47,8 +45,7 @@ class SystemCrudDataService extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/1
-     */
-    public function getlistAll(string $name = '')
+     */    public function getlistAll(string $name = '')
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->selectList(['name' => $name], '*', $page, $limit, '', [], true)->toArray();
@@ -71,8 +68,7 @@ class SystemCrudDataService extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryInfoList($cid)
+     */    public function dataDictionaryInfoList($cid)
     {
         $level = app()->make(SystemCrudListServices::class)->value($cid, 'level');
         if ($level == 0) {
@@ -97,8 +93,7 @@ class SystemCrudDataService extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    function fullListTree($data, $pid = 0, $navList = [])
+     */    function fullListTree($data, $pid = 0, $navList = [])
     {
         foreach ($data as $k => $item) {
             if ($item['pid'] == $pid) {
@@ -114,7 +109,7 @@ class SystemCrudDataService extends BaseServices
     }
 
     /**
-     * Biểu mẫu bổ sung, sửa đổi nội dung từ điển dữ liệu
+     * Biểu mẫu bổ sung, sửa đổi Nội dung từ điển dữ liệu
      * @param $cid
      * @param int $id
      * @param int $pid
@@ -127,8 +122,7 @@ class SystemCrudDataService extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryInfoCreate($cid, int $id = 0, int $pid = 0)
+     */    public function dataDictionaryInfoCreate($cid, int $id = 0, int $pid = 0)
     {
         $info = $this->dao->get($id);
         $field = [];
@@ -157,7 +151,7 @@ class SystemCrudDataService extends BaseServices
     }
 
     /**
-     * Thêm và sửa đổi nội dung từ điển dữ liệu
+     * Thêm và sửa đổi Nội dung từ điển dữ liệu
      * @param $cid
      * @param $id
      * @param $data
@@ -165,8 +159,7 @@ class SystemCrudDataService extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryInfoSave($cid, $id, $data)
+     */    public function dataDictionaryInfoSave($cid, $id, $data)
     {
         if (is_array($data['pid'])) $data['pid'] = end($data['pid']);
         if ($id) {
@@ -180,15 +173,14 @@ class SystemCrudDataService extends BaseServices
     }
 
     /**
-     * Xóa nội dung từ điển dữ liệu
+     * Xóa Nội dung từ điển dữ liệu
      * @param $id
      * @return bool
      * @throws \ReflectionException
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryInfoDel($id)
+     */    public function dataDictionaryInfoDel($id)
     {
         $count = $this->dao->count(['pid' => $id]);
         if ($count) {

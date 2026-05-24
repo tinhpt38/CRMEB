@@ -20,17 +20,15 @@ use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 
 /**
- * Danh mục hàng hóa
+ * Danh mục sản phẩm
  * Class StoreProductController
  * @package app\api\controller\store
- */
-class StoreProductController
+ */class StoreProductController
 {
     /**
-     * hàng hóaservices
+     * sản phẩmservices
      * @var StoreProductServices
-     */
-    protected $services;
+     */    protected $services;
 
     public function __construct(StoreProductServices $services)
     {
@@ -45,8 +43,7 @@ class StoreProductController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function lst(Request $request, StoreCategoryServices $services)
+     */    public function lst(Request $request, StoreCategoryServices $services)
     {
         $where = $request->getMore([
             [['sid', 'd'], 0],
@@ -121,12 +118,11 @@ class StoreProductController
     }
 
     /**
-     * Quảng cáo mã QR chia sẻ sản phẩm
+     * Mã QR giới thiệu chia sẻ sản phẩm
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function code(Request $request, $id)
+     */    public function code(Request $request, $id)
     {
         if ($request->uid()) {
             $user = $request->user();
@@ -146,8 +142,7 @@ class StoreProductController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function detail(Request $request, $id, $type = 0)
+     */    public function detail(Request $request, $id, $type = 0)
     {
         $data = $this->services->productDetail($request, (int)$id, (int)$type);
         return app('json')->success($data);
@@ -160,8 +155,7 @@ class StoreProductController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function product_hot(Request $request)
+     */    public function product_hot(Request $request)
     {
         $vip_user = $request->uid() ? app()->make(UserServices::class)->value(['uid' => $request->uid()], 'is_money_level') : 0;
         $list = $this->services->getProducts(['is_hot' => 1, 'is_show' => 1, 'is_del' => 0, 'vip_user' => $vip_user]);
@@ -176,8 +170,7 @@ class StoreProductController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function groom_list(Request $request, $type)
+     */    public function groom_list(Request $request, $type)
     {
         $info['banner'] = [];
         $info['list'] = [];
@@ -200,34 +193,30 @@ class StoreProductController
     }
 
     /**
-     * Số lượng đánh giá sản phẩm và xếp hạng tích cực
+     * Số lượng Đánh giá sản phẩm và xếp hạng tích cực
      * @param $id
      * @return mixed
-     */
-    public function reply_config($id)
+     */    public function reply_config($id)
     {
-        /** @var StoreProductReplyServices $replyService */
-        $replyService = app()->make(StoreProductReplyServices::class);
+        /** @var StoreProductReplyServices $replyService */        $replyService = app()->make(StoreProductReplyServices::class);
         $count = $replyService->productReplyCount($id);
         return app('json')->success($count);
     }
 
     /**
-     * Nhận đánh giá sản phẩm
+     * Nhận Đánh giá sản phẩm
      * @param Request $request
      * @param $id
      * @return mixed
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function reply_list(Request $request, $id)
+     */    public function reply_list(Request $request, $id)
     {
         [$type] = $request->getMore([
             [['type', 'd'], 0]
         ], true);
-        /** @var StoreProductReplyServices $replyService */
-        $replyService = app()->make(StoreProductReplyServices::class);
+        /** @var StoreProductReplyServices $replyService */        $replyService = app()->make(StoreProductReplyServices::class);
         $list = $replyService->getProductReplyList($id, $type);
         return app('json')->success(get_thumb_water($list, 'big', ['pics']));
     }
@@ -236,8 +225,7 @@ class StoreProductController
      * Nhận danh sách bán trước
      * @param Request $request
      * @return mixed
-     */
-    public function advanceList(Request $request)
+     */    public function advanceList(Request $request)
     {
         $where = $request->getMore([
             [['time_type', 'd'], 0]
@@ -246,7 +234,7 @@ class StoreProductController
     }
 
     /**
-     * Nhận giá hàng hóa theo thời gian thực
+     * Nhận giá sản phẩm theo thời gian thực
      * @param Request $request
      * @param $id
      * @param $unique
@@ -254,8 +242,7 @@ class StoreProductController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/2/5
-     */
-    public function realPrice(Request $request, $id, $unique)
+     */    public function realPrice(Request $request, $id, $unique)
     {
         $uid = $request->uid() ?? 0;
         if (!$id || !$unique) return app('json')->fail('Thiếu tham số');

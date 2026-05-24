@@ -19,19 +19,16 @@ use think\facade\App;
  * Lớp quản lý tệp đính kèm
  * Class SystemAttachment
  * @package app\adminapi\controller\v1\file
- */
-class SystemAttachment extends AuthController
+ */class SystemAttachment extends AuthController
 {
     /**
      * @var SystemAttachmentServices
-     */
-    protected $service;
+     */    protected $service;
 
     /**
      * @param App $app
      * @param SystemAttachmentServices $service
-     */
-    public function __construct(App $app, SystemAttachmentServices $service)
+     */    public function __construct(App $app, SystemAttachmentServices $service)
     {
         parent::__construct($app);
         $this->service = $service;
@@ -40,8 +37,7 @@ class SystemAttachment extends AuthController
     /**
      * hiển thị danh sách
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['pid', 0],
@@ -54,8 +50,7 @@ class SystemAttachment extends AuthController
     /**
      * Xóa tài nguyên được chỉ định
      * @return mixed
-     */
-    public function delete()
+     */    public function delete()
     {
         [$ids] = $this->request->postMore([
             ['ids', '']
@@ -69,8 +64,7 @@ class SystemAttachment extends AuthController
      * @param int $upload_type
      * @param int $type
      * @return mixed
-     */
-    public function upload($upload_type = 0, $type = 0)
+     */    public function upload($upload_type = 0, $type = 0)
     {
         [$pid, $file, $menuName] = $this->request->postMore([
             ['pid', 0],
@@ -84,8 +78,7 @@ class SystemAttachment extends AuthController
     /**
      * hình ảnh chuyển động
      * @return mixed
-     */
-    public function moveImageCate()
+     */    public function moveImageCate()
     {
         $data = $this->request->postMore([
             ['pid', 0],
@@ -99,8 +92,7 @@ class SystemAttachment extends AuthController
      * Sửa đổi tên tập tin
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $realName = $this->request->post('real_name', '');
         if (!$realName) {
@@ -113,8 +105,7 @@ class SystemAttachment extends AuthController
     /**
      * Nhận loại tải lên
      * @return mixed
-     */
-    public function uploadType()
+     */    public function uploadType()
     {
         $data['upload_type'] = (string)sys_config('upload_type', 1);
         return app('json')->success($data);
@@ -123,8 +114,7 @@ class SystemAttachment extends AuthController
     /**
      * Tải lên nhiều phần video
      * @return mixed
-     */
-    public function videoUpload()
+     */    public function videoUpload()
     {
         $data = $this->request->postMore([
             ['chunkNumber', 0],//mảnh nào
@@ -145,8 +135,7 @@ class SystemAttachment extends AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
-     */
-    public function scanUploadQrcode()
+     */    public function scanUploadQrcode()
     {
         [$pid] = $this->request->getMore([
             ['pid', 0]
@@ -163,8 +152,7 @@ class SystemAttachment extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/6/26
-     */
-    public function removeUploadQrcode()
+     */    public function removeUploadQrcode()
     {
         CacheService::delete('scan_upload');
         return app('json')->success();
@@ -177,8 +165,7 @@ class SystemAttachment extends AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
-     */
-    public function scanUploadImage($scan_token)
+     */    public function scanUploadImage($scan_token)
     {
         return app('json')->success($this->service->scanUploadImage($scan_token));
     }
@@ -190,8 +177,7 @@ class SystemAttachment extends AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
-     */
-    public function onlineUpload()
+     */    public function onlineUpload()
     {
         $data = $this->request->postMore([
             ['pid', 0],

@@ -22,15 +22,13 @@ use app\Request;
 /**
  * Class UserLabelCate
  * @package app\adminapi\controller\v1\user
- */
-class UserLabelCate extends AuthController
+ */class UserLabelCate extends AuthController
 {
     /**
      * UserLabelCate constructor.
      * @param App $app
      * @param UserLabelCateServices $services
-     */
-    public function __construct(App $app, UserLabelCateServices $services)
+     */    public function __construct(App $app, UserLabelCateServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -40,8 +38,7 @@ class UserLabelCate extends AuthController
      * Hiển thị danh sách tài nguyên
      *
      * @return \think\Response
-     */
-    public function index(Request $request)
+     */    public function index(Request $request)
     {
         $where = $request->postMore([
             ['name', '']
@@ -54,8 +51,7 @@ class UserLabelCate extends AuthController
      * Hiển thị trang biểu mẫu tạo tài nguyên.
      *
      * @return \think\Response
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->createForm());
     }
@@ -65,8 +61,7 @@ class UserLabelCate extends AuthController
      *
      * @param Request $request
      * @return \think\Response
-     */
-    public function save(Request $request)
+     */    public function save(Request $request)
     {
         $data = $request->postMore([
             ['name', ''],
@@ -92,8 +87,7 @@ class UserLabelCate extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function read($id)
+     */    public function read($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -110,8 +104,7 @@ class UserLabelCate extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->updateForm((int)$id));
     }
@@ -122,8 +115,7 @@ class UserLabelCate extends AuthController
      * @param Request $request
      * @param int $id
      * @return \think\Response
-     */
-    public function update(Request $request, $id)
+     */    public function update(Request $request, $id)
     {
         $data = $request->postMore([
             ['name', ''],
@@ -145,14 +137,12 @@ class UserLabelCate extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id || !($info = $this->services->get($id))) {
             return app('json')->fail('Dữ liệu không tồn tại');
         }
-        /** @var $labelService $labelservice */
-        $labelService = app()->make(UserLabelServices::class);
+        /** @var $labelService $labelservice */        $labelService = app()->make(UserLabelServices::class);
         $count = $labelService->getCount(['label_cate' => $id]);
         if($count) return app('json')->fail('Có các thẻ thuộc danh mục này, vui lòng xóa thẻ trước');
         if ($info->delete()) {
@@ -164,10 +154,9 @@ class UserLabelCate extends AuthController
     }
 
     /**
-     * Nhận tất cả các danh mục thẻ người dùng
+     * Nhận Tất cả các danh mục thẻ Khách hàng
      * @return mixed
-     */
-    public function getAll()
+     */    public function getAll()
     {
         return app('json')->success($this->services->getLabelCateAll());
     }

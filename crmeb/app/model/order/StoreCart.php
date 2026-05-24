@@ -20,34 +20,29 @@ use think\Model;
  * giỏ hàngModel
  * Class StoreCart
  * @package app\model\order
- */
-class StoreCart extends BaseModel
+ */class StoreCart extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_cart';
+     */    protected $name = 'store_cart';
 
     /**
      * Tự động thêm trường
      * @var string[]
-     */
-    protected $insert = ['add_time'];
+     */    protected $insert = ['add_time'];
 
     /**
      * Thêm công cụ sửa đổi thời gian
      * @return int
-     */
-    protected function setAddTimeAttr()
+     */    protected function setAddTimeAttr()
     {
         return time();
     }
@@ -56,18 +51,16 @@ class StoreCart extends BaseModel
      * hiệp hội một-một
      *Chi tiết sản phẩm các sản phẩm liên kết với giỏ hàng
      * @return \think\model\relation\HasOne
-     */
-    public function productInfo()
+     */    public function productInfo()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id');
     }
 
     /**
      * hiệp hội một-một
-     * Thông số sản phẩm sản phẩm liên quan đến giỏ hàng
+     * Thuộc tính sản phẩm sản phẩm liên quan đến giỏ hàng
      * @return \think\model\relation\HasOne
-     */
-    public function attrInfo()
+     */    public function attrInfo()
     {
         return $this->hasOne(StoreProductAttrValue::class, 'unique', 'product_attr_unique');
     }
@@ -78,8 +71,7 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTypeAttr($query, $value, $data)
+     */    public function searchTypeAttr($query, $value, $data)
     {
         $query->where('type', $value);
     }
@@ -89,8 +81,7 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsPayAttr($query, $value, $data)
+     */    public function searchIsPayAttr($query, $value, $data)
     {
         $query->where('is_pay', $value);
     }
@@ -100,8 +91,7 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value);
     }
@@ -111,19 +101,17 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsNewAttr($query, $value, $data)
+     */    public function searchIsNewAttr($query, $value, $data)
     {
         $query->where('is_new', $value);
     }
 
     /**
-     * Truy vấn giỏ hàng của người dùng
+     * Tìm kiếm giỏ hàng của Khách hàng
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchUidAttr($query, $value, $data)
+     */    public function searchUidAttr($query, $value, $data)
     {
         $query->where('uid', $value);
     }
@@ -133,8 +121,7 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductIdAttr($query, $value, $data)
+     */    public function searchProductIdAttr($query, $value, $data)
     {
         if (is_array($value)) {
             $query->whereIn('product_id', $value);
@@ -148,8 +135,7 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductAttrUniqueAttr($query, $value, $data)
+     */    public function searchProductAttrUniqueAttr($query, $value, $data)
     {
         $query->where('product_attr_unique', $value);
     }
@@ -159,8 +145,7 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCombinationIdAttr($query, $value, $data)
+     */    public function searchCombinationIdAttr($query, $value, $data)
     {
         $query->where('combination_id', $value);
     }
@@ -170,8 +155,7 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchBargainIdAttr($query, $value, $data)
+     */    public function searchBargainIdAttr($query, $value, $data)
     {
         $query->where('bargain_id', $value);
     }
@@ -181,8 +165,7 @@ class StoreCart extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchSeckillIdAttr($query, $value, $data)
+     */    public function searchSeckillIdAttr($query, $value, $data)
     {
         $query->where('seckill_id', $value);
     }
@@ -191,8 +174,7 @@ class StoreCart extends BaseModel
      * liên kết một-nhiều
      * Mẫu phiếu giảm giá liên quan đến sản phẩmid
      * @return \think\model\relation\HasMany
-     */
-    public function product()
+     */    public function product()
     {
         return $this->hasMany(StoreProduct::class, 'id', 'product_id');
 

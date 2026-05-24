@@ -17,19 +17,17 @@ use app\services\user\UserLabelServices;
 use think\facade\App;
 
 /**
- * Thẻ người dùngBộ điều khiển
+ * Thẻ khách hàngBộ điều khiển
  * Class UserLabel
  * @package app\adminapi\controller\v1\user
- */
-class UserLabel extends AuthController
+ */class UserLabel extends AuthController
 {
 
     /**
      * UserLabel constructor.
      * @param App $app
      * @param UserLabelServices $service
-     */
-    public function __construct(App $app, UserLabelServices $services)
+     */    public function __construct(App $app, UserLabelServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -42,8 +40,7 @@ class UserLabel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index($label_cate = '')
+     */    public function index($label_cate = '')
     {
         return app('json')->success($this->services->getList(['label_cate' => $label_cate]));
     }
@@ -52,8 +49,7 @@ class UserLabel extends AuthController
      * Thêm biểu mẫu chỉnh sửa nhãn
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function add()
+     */    public function add()
     {
         [$id, $cateId] = $this->request->getMore([
             ['id', 0],
@@ -68,8 +64,7 @@ class UserLabel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -82,11 +77,10 @@ class UserLabel extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param $id
      * @throws \Exception
-     */
-    public function delete()
+     */    public function delete()
     {
         list($id) = $this->request->getMore([
             ['id', 0],
@@ -100,19 +94,17 @@ class UserLabel extends AuthController
      * Phân loại thẻ
      * @param UserLabelCateServices $services
      * @return mixed
-     */
-    public function getUserLabel(UserLabelCateServices $services, $uid)
+     */    public function getUserLabel(UserLabelCateServices $services, $uid)
     {
         return app('json')->success($services->getUserLabel((int)$uid));
     }
 
     /**
-     * Đặt nhãn người dùng
+     * Đặt nhãn Khách hàng
      * @param UserLabelRelationServices $services
      * @param $uid
      * @return mixed
-     */
-    public function setUserLabel(UserLabelRelationServices $services, $uid)
+     */    public function setUserLabel(UserLabelRelationServices $services, $uid)
     {
         [$labels, $unLabelIds] = $this->request->postMore([
             ['label_ids', []],
@@ -129,14 +121,13 @@ class UserLabel extends AuthController
     }
 
     /**
-     * Nhận danh sách thẻ người dùng được phân loại
+     * Nhận danh sách thẻ Khách hàng được phân loại
      * @param \app\services\user\label\UserLabelCateServices $userLabelCateServices
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function tree_list(UserLabelCateServices $userLabelCateServices)
+     */    public function tree_list(UserLabelCateServices $userLabelCateServices)
     {
         $cate = $userLabelCateServices->getLabelCateAll();
         $data = [];

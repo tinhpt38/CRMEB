@@ -23,21 +23,18 @@ class PageCategory extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'page_categroy';
+     */    protected $name = 'page_categroy';
 
     /**
      * Người tìm kiếm cha mẹ
      * @param Model $query
      * @param $value
-     */
-    public function searchPidAttr($query, $value)
+     */    public function searchPidAttr($query, $value)
     {
         if ($value !== '') {
             if (is_array($value)) {
@@ -53,8 +50,7 @@ class PageCategory extends BaseModel
      * Có nên sử dụng công cụ tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value != '') $query->where('status', $value);
     }
@@ -63,8 +59,7 @@ class PageCategory extends BaseModel
      * Phát hiện mô-đun
      * @param Model $query
      * @param $value
-     */
-    public function searchNoModelAttr($query, $value)
+     */    public function searchNoModelAttr($query, $value)
     {
         $query->when(!in_array('seckill', $value), function ($q1) {
             $q1->whereNotLike('name', '%bán chớp nhoáng%');

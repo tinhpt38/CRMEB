@@ -18,8 +18,7 @@ use think\facade\Route as Url;
 
 class StoreProductLabelCateServices extends BaseServices
 {
-    /** @var int Tên danh mục tối đa */
-    protected const MAX_LABEL_CATE_NAME_LENGTH = 32;
+    /** @var int Tên danh mục tối đa */    protected const MAX_LABEL_CATE_NAME_LENGTH = 32;
 
     public function __construct(StoreProductLabelCateDao $dao)
     {
@@ -42,7 +41,7 @@ class StoreProductLabelCateServices extends BaseServices
             ->maxlength(self::MAX_LABEL_CATE_NAME_LENGTH)
             ->placeholder('Vui lòng nhập tên danh mục')
             ->required('Vui lòng nhập tên danh mục');
-        $f[] = Form::number('sort', 'Thứ tự', (int)($info['sort'] ?? 0))->min(0)->precision(0);
+        $f[] = Form::number('sort', 'Đơn hàng', (int)($info['sort'] ?? 0))->min(0)->precision(0);
         return create_form($id ? 'Chỉnh sửa danh mục' : 'Thêm danh mục', $f, Url::buildUrl('/product/label_cate/save/' . $id), 'POST');
     }
 

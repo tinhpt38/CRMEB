@@ -15,18 +15,16 @@ use app\services\BaseServices;
 use crmeb\exceptions\AdminException;
 
 /**
- * Thông số sản phẩm
+ * Thuộc tính sản phẩm
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2024/12/17
- */
-class StoreProductParamServices extends BaseServices
+ */class StoreProductParamServices extends BaseServices
 {
     /**
      * Đặt lớp dao
      * @param StoreProductParamDao $dao
-     */
-    public function __construct(StoreProductParamDao $dao)
+     */    public function __construct(StoreProductParamDao $dao)
     {
         $this->dao = $dao;
     }
@@ -41,8 +39,7 @@ class StoreProductParamServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function getParamList(array $where = [])
+     */    public function getParamList(array $where = [])
     {
         [$page, $limit] = $this->getPageValue();
         $where['is_del'] = 0;
@@ -64,8 +61,7 @@ class StoreProductParamServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function getParamInfo($id)
+     */    public function getParamInfo($id)
     {
         $info = $this->dao->get(['id' => $id]);
         if (!$info) throw new AdminException('Dữ liệu không tồn tại');
@@ -81,8 +77,7 @@ class StoreProductParamServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function getParamValue($id)
+     */    public function getParamValue($id)
     {
         $value = $this->dao->value(['id' => $id], 'value');
         return json_decode($value, true);
@@ -96,8 +91,7 @@ class StoreProductParamServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function saveParamData($id, $data)
+     */    public function saveParamData($id, $data)
     {
         $data['value'] = json_encode($data['value']);
         if ($id) {
@@ -117,8 +111,7 @@ class StoreProductParamServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function setParamStatus($id, $status)
+     */    public function setParamStatus($id, $status)
     {
         $this->dao->update($id, ['status' => $status]);
         return true;
@@ -131,8 +124,7 @@ class StoreProductParamServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/12/17
-     */
-    public function delParamData($id)
+     */    public function delParamData($id)
     {
         $this->dao->update($id, ['is_del' => 1]);
         return true;

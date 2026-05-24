@@ -19,8 +19,7 @@ class SystemAdminValidata extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'account' => ['require', 'alphaDash'],
         'conf_pwd' => 'require',
         'pwd' => 'require',
@@ -33,8 +32,7 @@ class SystemAdminValidata extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'account.require' => 'Vui lòng điền vào tài khoản quản trị viên',
         'account.alphaDash' => 'Tài khoản quản trị viên phải bằng chữ cái tiếng Anh',
         'conf_pwd.require' => 'Vui lòng nhập mật khẩu xác nhận',

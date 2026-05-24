@@ -17,25 +17,22 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * Lịch sử trò chuyện dịch vụ khách hàng
+ * Lịch sử trò chuyện CSKH
  * Class StoreServiceLog
  * @package app\model\service
- */
-class StoreServiceLog extends BaseModel
+ */class StoreServiceLog extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_service_log';
+     */    protected $name = 'store_service_log';
 
     public function getAddTimeAttr($value)
     {
@@ -45,8 +42,7 @@ class StoreServiceLog extends BaseModel
     /**
      * hiệp hội một-một
      * @return mixed
-     */
-    public function service()
+     */    public function service()
     {
         return $this->hasOne(StoreService::class, 'uid', 'uid')->field(['uid', 'nickname', 'avatar'])->bind([
             'nickname' => 'nickname',
@@ -57,8 +53,7 @@ class StoreServiceLog extends BaseModel
     /**
      * hiệp hội một-một
      * @return mixed
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname', 'avatar'])->bind([
             'nickname' => 'nickname',
@@ -70,8 +65,7 @@ class StoreServiceLog extends BaseModel
      * uidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid|to_uid', $value);
     }
@@ -80,8 +74,7 @@ class StoreServiceLog extends BaseModel
      * Trình tìm kiếm lịch sử trò chuyện
      * @param Model $query
      * @param $value
-     */
-    public function searchChatAttr($query, $value)
+     */    public function searchChatAttr($query, $value)
     {
         $query->whereIn('uid', $value)->whereIn('to_uid', $value);
     }
@@ -89,8 +82,7 @@ class StoreServiceLog extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }
@@ -98,8 +90,7 @@ class StoreServiceLog extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsTouristAttr($query, $value)
+     */    public function searchIsTouristAttr($query, $value)
     {
         $query->where('is_tourist', $value);
     }

@@ -25,8 +25,7 @@ use think\facade\Log;
  * Sao chép sản phẩm
  * Class ProductCopyJob
  * @package app\jobs
- */
-class ProductCopyJob extends BaseJobs
+ */class ProductCopyJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -34,14 +33,11 @@ class ProductCopyJob extends BaseJobs
      * Tải hình ảnh chi tiết sản phẩm
      * @param $id
      * @return bool
-     */
-    public function copyDescriptionImage($id, $description, $image, $count)
+     */    public function copyDescriptionImage($id, $description, $image, $count)
     {
         try {
-            /** @var CopyTaobaoServices $copyTaobao */
-            $copyTaobao = app()->make(CopyTaobaoServices::class);
-            /** @var StoreDescriptionServices $storeDescriptionServices */
-            $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+            /** @var CopyTaobaoServices $copyTaobao */            $copyTaobao = app()->make(CopyTaobaoServices::class);
+            /** @var StoreDescriptionServices $storeDescriptionServices */            $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
             if (is_int(strpos($image, 'http'))) {
                 $d_image = $image;
             } else {
@@ -73,14 +69,11 @@ class ProductCopyJob extends BaseJobs
      * Tải xuống hình ảnh băng chuyền sản phẩm
      * @param $id
      * @return bool
-     */
-    public function copySliderImage($id, $image, $count)
+     */    public function copySliderImage($id, $image, $count)
     {
         try {
-            /** @var CopyTaobaoServices $copyTaobao */
-            $copyTaobao = app()->make(CopyTaobaoServices::class);
-            /** @var StoreProductServices $StoreProductServices */
-            $StoreProductServices = app()->make(StoreProductServices::class);
+            /** @var CopyTaobaoServices $copyTaobao */            $copyTaobao = app()->make(CopyTaobaoServices::class);
+            /** @var StoreProductServices $StoreProductServices */            $StoreProductServices = app()->make(StoreProductServices::class);
             //Tải hình ảnh
             $res = $copyTaobao->downloadCopyImage($image);
             //Lấy hình ảnh băng chuyền trong bộ đệm
@@ -109,14 +102,11 @@ class ProductCopyJob extends BaseJobs
      * @param $value_id
      * @param $value_image
      * @return bool
-     */
-    public function copyAttrImage($value_id, $value_image)
+     */    public function copyAttrImage($value_id, $value_image)
     {
         try {
-            /** @var CopyTaobaoServices $copyTaobao */
-            $copyTaobao = app()->make(CopyTaobaoServices::class);
-            /** @var StoreProductAttrValueServices $StoreProductAttrValueServices */
-            $StoreProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var CopyTaobaoServices $copyTaobao */            $copyTaobao = app()->make(CopyTaobaoServices::class);
+            /** @var StoreProductAttrValueServices $StoreProductAttrValueServices */            $StoreProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
             //Tải hình ảnh
             $res = $copyTaobao->downloadCopyImage($value_image);
             $StoreProductAttrValueServices->update($value_id, ['image' => $res]);

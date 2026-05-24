@@ -22,16 +22,14 @@ use crmeb\services\pay\extend\allinpay\AllinPay;
  *
  * Class RechargeServices
  * @package app\services\pay
- */
-class RechargeServices
+ */class RechargeServices
 {
     protected $pay;
 
     /**
      * RechargeServices constructor.
      * @param PayServices $pay
-     */
-    public function __construct(PayServices $pay)
+     */    public function __construct(PayServices $pay)
     {
         $this->pay = $pay;
     }
@@ -64,8 +62,7 @@ class RechargeServices
 
         if ($recharge['recharge_type'] == PayServices::WEIXIN_PAY && !request()->isH5() && !request()->isApp()) {
 
-            /** @var WechatUserServices $wechatUser */
-            $wechatUser = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUser */            $wechatUser = app()->make(WechatUserServices::class);
             if (request()->isApp()) {
                 $userType = 'app';
             } else if (request()->isRoutine()) {
@@ -73,13 +70,13 @@ class RechargeServices
             } else if (request()->isWechat()) {
                 $userType = 'wechat';
             } else {
-                throw new ApiException('Không thể lấy openid người dùng,Không thể thanh toán');
+                throw new ApiException('Không thể lấy openid Khách hàng,Không thể thanh toán');
             }
 
             $openid = $wechatUser->uidToOpenid((int)$recharge['uid'], $userType);
 
             if (!$openid) {
-                throw new ApiException('Không thể lấy openid người dùng,Không thể thanh toán');
+                throw new ApiException('Không thể lấy openid Khách hàng,Không thể thanh toán');
             }
         } else {
             $openid = '';

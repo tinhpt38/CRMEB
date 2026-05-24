@@ -20,15 +20,13 @@ use app\services\user\UserBillServices;
 class UserServices extends BaseServices
 {
     /**
-     * PCChi tiết hồ sơ người dùng cuối
+     * PCChi tiết hồ sơ Khách hàng cuối
      * @param int $uid
      * @param int $type
      * @return array
-     */
-    public function getBalanceRecord(int $uid, int $type)
+     */    public function getBalanceRecord(int $uid, int $type)
     {
-        /** @var UserBillServices $userBill */
-        $userBill = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBill */        $userBill = app()->make(UserBillServices::class);
         $where = [];
         $where['uid'] = $uid;
         $where['category'] = 'now_money';
@@ -62,11 +60,9 @@ class UserServices extends BaseServices
      * Nhận mục yêu thích
      * @param int $uid
      * @return array
-     */
-    public function getCollectList(int $uid)
+     */    public function getCollectList(int $uid)
     {
-        /** @var StoreProductRelationServices $relation */
-        $relation = app()->make(StoreProductRelationServices::class);
+        /** @var StoreProductRelationServices $relation */        $relation = app()->make(StoreProductRelationServices::class);
         $where['uid'] = $uid;
         $where['type'] = 'collect';
         [$page, $limit] = $this->getPageValue();

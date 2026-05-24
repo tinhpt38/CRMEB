@@ -21,8 +21,7 @@ class StorePointRecordServices extends BaseServices
     /**
      * UserBillServices constructor.
      * @param UserBillDao $dao
-     */
-    public function __construct(UserBillDao $dao)
+     */    public function __construct(UserBillDao $dao)
     {
         $this->dao = $dao;
     }
@@ -31,8 +30,7 @@ class StorePointRecordServices extends BaseServices
      * Kỷ lục điểm
      * @param $where
      * @return array
-     */
-    public function pointRecord($where)
+     */    public function pointRecord($where)
     {
         $where['category'] = 'integral';
         $status = [
@@ -52,17 +50,14 @@ class StorePointRecordServices extends BaseServices
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, '*', $page, $limit);
         //Người dùng được liên kết
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $uids = array_column($list, 'uid');
         $nicknameArr = $userServices->getColumn([['uid', 'in', $uids]], 'nickname', 'uid');
         //Đơn hàng liên kết
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
-        /** @var StoreIntegralOrderServices $integralOrderServices */
-        $integralOrderServices = app()->make(StoreIntegralOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreIntegralOrderServices $integralOrderServices */        $integralOrderServices = app()->make(StoreIntegralOrderServices::class);
         foreach ($list as &$item) {
-            $item['nickname'] = $nicknameArr[$item['uid']] ?? 'người dùng không xác định';
+            $item['nickname'] = $nicknameArr[$item['uid']] ?? 'Khách hàng không xác định';
             if ($item['type'] == 'gain' || $item['type'] == 'deduction' || $item['type'] == 'product_deduction' || $item['type'] == 'pay_product_integral_back') {
                 $item['relation'] = $orderServices->value(['id' => $item['link_id']], 'order_id');
             } elseif ($item['type'] == 'storeIntegral_use') {
@@ -80,8 +75,7 @@ class StorePointRecordServices extends BaseServices
      * Ghi chú ghi điểm
      * @param $data
      * @return bool
-     */
-    public function recordRemark($id, $mark)
+     */    public function recordRemark($id, $mark)
     {
         if (!$id) throw new AdminException('Lỗi tham số');
         if ($mark === '') throw new AdminException('Chú thích không được để trống');
@@ -96,11 +90,9 @@ class StorePointRecordServices extends BaseServices
      * Cơ bản về thống kê đơn hàng
      * @param $where
      * @return array
-     */
-    public function getBasic($where)
+     */    public function getBasic($where)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $data['now_point'] = $userServices->sum(['status' => 1], 'integral', true);
         $data['all_point'] = $this->dao->sum(['category' => 'integral', 'pm' => 1, 'time' => $where['time']], 'number', true);
         $data['pay_point'] = $this->dao->sum(['category' => 'integral', 'pm' => 0, 'time' => $where['time']], 'number', true);
@@ -111,8 +103,7 @@ class StorePointRecordServices extends BaseServices
      * Xu hướng đặt hàng
      * @param $where
      * @return array
-     */
-    public function getTrend($where)
+     */    public function getTrend($where)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Vui lòng chọn thời gian');
@@ -136,8 +127,7 @@ class StorePointRecordServices extends BaseServices
      * @param $num
      * @param false $excel
      * @return array
-     */
-    public function trend($time, $num, $excel = false)
+     */    public function trend($time, $num, $excel = false)
     {
         if ($num == 0) {
             $xAxis = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
@@ -178,8 +168,7 @@ class StorePointRecordServices extends BaseServices
      * Nguồn đặt hàng
      * @param $where
      * @return array
-     */
-    public function getChannel($where)
+     */    public function getChannel($where)
     {
         $bing_xdata = ['Miễn phí khi đặt hàng', 'Quà tặng sản phẩm', 'Quà tặng hậu trường', 'Đăng nhập để nhận', 'Xổ số Cửu Cung'];
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653', '#fc7d6a'];
@@ -206,11 +195,10 @@ class StorePointRecordServices extends BaseServices
     }
 
     /**
-     * Loại lệnh
+     * Loại đơn hàng
      * @param $where
      * @return array
-     */
-    public function getType($where)
+     */    public function getType($where)
     {
         $bing_xdata = ['Khấu trừ đơn hàng', 'Xổ số Cửu Cung', 'Giảm hậu trường', 'hoàn lại tiền', 'Đổi hàng'];
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653', '#fc7d6a'];

@@ -24,15 +24,13 @@ use think\facade\Route as Url;
  * @package app\services\attachment
  * @method get($id) Lấy một phần dữ liệu
  * @method count($where) Lấy tổng số dữ liệu theo điều kiện
- */
-class SystemAttachmentCategoryServices extends BaseServices
+ */class SystemAttachmentCategoryServices extends BaseServices
 {
 
     /**
      * SystemAttachmentCategoryServices constructor.
      * @param SystemAttachmentCategoryDao $dao
-     */
-    public function __construct(SystemAttachmentCategoryDao $dao)
+     */    public function __construct(SystemAttachmentCategoryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -45,8 +43,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAll(array $where)
+     */    public function getAll(array $where)
     {
         $list = $this->dao->getList($where);
         if ($where['all'] == 1) {
@@ -69,8 +66,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * @param int $pid
      * @param array $navList
      * @return array
-     */
-    public function tidyMenuTier($menusList, $pid = 0, $navList = [])
+     */    public function tidyMenuTier($menusList, $pid = 0, $navList = [])
     {
         foreach ($menusList as $k => $menu) {
             $menu['title'] = $menu['name'];
@@ -92,8 +88,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * Tạo biểu mẫu mới
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm($pid, $type)
+     */    public function createForm($pid, $type)
     {
         return create_form('Thêm danh mục', $this->form(['pid' => $pid, 'type' => $type]), Url::buildUrl('/file/category'), 'POST');
     }
@@ -103,8 +98,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * @param $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function editForm(int $id)
+     */    public function editForm(int $id)
     {
         $info = $this->dao->get($id);
         return create_form('Chỉnh sửa danh mục', $this->form($info), Url::buildUrl('/file/category/' . $id), 'PUT');
@@ -115,8 +109,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * @param array $info
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function form($info = [])
+     */    public function form($info = [])
     {
         [$pidList, $data] = $this->getPidList((int)($info['pid'] ?? 0));
         return [
@@ -137,8 +130,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/9/12
-     */
-    public function getPidList($value)
+     */    public function getPidList($value)
     {
         $pidList = $this->dao->selectList([], 'id as value, pid, name as label')->toArray();
         if ($value) {
@@ -155,8 +147,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * Lấy danh sách danh mục (thêm sửa đổi）
      * @param array $where
      * @return mixed
-     */
-    public function getCateList(array $where)
+     */    public function getCateList(array $where)
     {
         $list = $this->dao->getList($where);
         $options = [['value' => 0, 'label' => 'Tất cả danh mục']];
@@ -169,8 +160,7 @@ class SystemAttachmentCategoryServices extends BaseServices
     /**
      * Lưu tài nguyên mới
      * @param array $data
-     */
-    public function save(array $data)
+     */    public function save(array $data)
     {
         if ($this->dao->getOne(['name' => $data['name']])) {
             throw new AdminException('Danh mục này đã tồn tại');
@@ -184,8 +174,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * Lưu tài nguyên đã sửa đổi
      * @param int $id
      * @param array $data
-     */
-    public function update(int $id, array $data)
+     */    public function update(int $id, array $data)
     {
         $attachment = $this->dao->getOne(['name' => $data['name']]);
         if ($attachment && $attachment['id'] != $id) {
@@ -198,8 +187,7 @@ class SystemAttachmentCategoryServices extends BaseServices
     /**
      * Xóa danh mục
      * @param int $id
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
         $count = $this->dao->getCount(['pid' => $id]);
         if ($count) {
@@ -218,8 +206,7 @@ class SystemAttachmentCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOne($where)
+     */    public function getOne($where)
     {
         return $this->dao->getOne($where);
     }

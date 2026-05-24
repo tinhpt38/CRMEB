@@ -28,8 +28,7 @@ class StoreCartController
      * Lựa chọn lại giỏ hàng
      * @param Request $request
      * @return mixed
-     */
-    public function resetCart(Request $request)
+     */    public function resetCart(Request $request)
     {
         list($id, $unique, $num, $product_id) = $request->postMore([
             ['id', 0],
@@ -42,11 +41,10 @@ class StoreCartController
     }
 
     /**
-     * Nhận giỏ hàng của người dùng
+     * Nhận giỏ hàng của Khách hàng
      * @param Request $request
      * @return mixed
-     */
-    public function getCartList(Request $request)
+     */    public function getCartList(Request $request)
     {
         $uid = (int)$request->uid();
         $data = $this->services->getCartList(['uid' => $uid, 'is_del' => 0, 'is_new' => 0, 'is_pay' => 0, 'combination_id' => 0, 'seckill_id' => 0, 'bargain_id' => 0], 0, 0, ['productInfo', 'attrInfo']);
@@ -55,14 +53,13 @@ class StoreCartController
     }
 
     /**
-     * Trang chủThêm vào giỏ hàng
+     * Trang chủThêm mới giỏ hàng
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setCartNum(Request $request)
+     */    public function setCartNum(Request $request)
     {
         list($product_id, $num, $unique, $type) = $request->postMore([
             ['product_id', 0],
@@ -70,8 +67,7 @@ class StoreCartController
             ['unique', ''],
             ['type', -1]
         ], true);
-        /** @var StoreCartServices $cartService */
-        $cartService = app()->make(StoreCartServices::class);
+        /** @var StoreCartServices $cartService */        $cartService = app()->make(StoreCartServices::class);
         if (!$product_id || !is_numeric($product_id)) return app('json')->fail('Lỗi tham số');
         $res = $cartService->setCartNum($request->uid(), $product_id, $num, $unique, $type);
         if ($res) return app('json')->success('Đã thêm vào giỏ hàng thành công!');

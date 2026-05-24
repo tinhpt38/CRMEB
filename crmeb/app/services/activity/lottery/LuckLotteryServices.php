@@ -30,21 +30,18 @@ use crmeb\services\CacheService;
  * Class LuckLotteryServices
  * @package app\services\activity\lottery
  * @method getFactorLottery(int $factor = 1, string $field = '*', array $with = ['prize'], bool $is_doing = true)
- */
-class LuckLotteryServices extends BaseServices
+ */class LuckLotteryServices extends BaseServices
 {
     /**
      * Hình thức xổ số, số lượng giải thưởng
      * @var int[]
-     */
-    protected $lottery_type = [
+     */    protected $lottery_type = [
         '1' => 8 //Cửu Công Ca
     ];
     /**
      * Loại xổ số
      * @var string[]
-     */
-    protected $lottery_factor = [
+     */    protected $lottery_factor = [
         '1' => 'Trích xuất điểm',
 //        '2' => 'Rút số dư',
         '3' => 'Thanh toán đơn hàng',
@@ -55,8 +52,7 @@ class LuckLotteryServices extends BaseServices
     /**
      * LuckLotteryServices constructor.
      * @param LuckLotteryDao $dao
-     */
-    public function __construct(LuckLotteryDao $dao)
+     */    public function __construct(LuckLotteryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -108,8 +104,7 @@ class LuckLotteryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLotteryInfo(int $id)
+     */    public function getLotteryInfo(int $id)
     {
         $lottery = $this->dao->getLottery($id, '*', ['prize']);
         if (!$lottery) {
@@ -119,11 +114,9 @@ class LuckLotteryServices extends BaseServices
         if (isset($lottery['prize']) && $lottery['prize']) {
             $product_ids = array_unique(array_column($lottery['prize'], 'product_id'));
             $coupon_ids = array_unique(array_column($lottery['prize'], 'coupon_id'));
-            /** @var StoreProductServices $productServices */
-            $productServices = app()->make(StoreProductServices::class);
+            /** @var StoreProductServices $productServices */            $productServices = app()->make(StoreProductServices::class);
             $products = $productServices->getColumn([['id', 'in', $product_ids]], 'id,store_name,image', 'id');
-            /** @var StoreCouponIssueServices $couponServices */
-            $couponServices = app()->make(StoreCouponIssueServices::class);
+            /** @var StoreCouponIssueServices $couponServices */            $couponServices = app()->make(StoreCouponIssueServices::class);
             $coupons = $couponServices->getColumn([['id', 'in', $coupon_ids]], 'id,coupon_title', 'id');
             foreach ($lottery['prize'] as &$prize) {
                 $prize['coupon_title'] = $prize['goods_image'] = '';
@@ -145,8 +138,7 @@ class LuckLotteryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getlotteryFactorInfo(int $factor)
+     */    public function getlotteryFactorInfo(int $factor)
     {
         $lottery = $this->dao->getFactorLottery($factor, '*', ['prize']);
         if (!$lottery) {
@@ -156,11 +148,9 @@ class LuckLotteryServices extends BaseServices
         if (isset($lottery['prize']) && $lottery['prize']) {
             $product_ids = array_unique(array_column($lottery['prize'], 'product_id'));
             $coupon_ids = array_unique(array_column($lottery['prize'], 'coupon_id'));
-            /** @var StoreProductServices $productServices */
-            $productServices = app()->make(StoreProductServices::class);
+            /** @var StoreProductServices $productServices */            $productServices = app()->make(StoreProductServices::class);
             $products = $productServices->getColumn([['id', 'in', $product_ids]], 'id,store_name,image', 'id');
-            /** @var StoreCouponIssueServices $couponServices */
-            $couponServices = app()->make(StoreCouponIssueServices::class);
+            /** @var StoreCouponIssueServices $couponServices */            $couponServices = app()->make(StoreCouponIssueServices::class);
             $coupons = $couponServices->getColumn([['id', 'in', $coupon_ids]], 'id,coupon_title', 'id');
             foreach ($lottery['prize'] as &$prize) {
                 $prize['coupon_title'] = $prize['goods_image'] = '';
@@ -175,8 +165,7 @@ class LuckLotteryServices extends BaseServices
         foreach ($lottery['user_level'] as &$item) {
             $item = (int)$item;
         }
-        /** @var UserLabelServices $userLabelServices */
-        $userLabelServices = app()->make(UserLabelServices::class);
+        /** @var UserLabelServices $userLabelServices */        $userLabelServices = app()->make(UserLabelServices::class);
         $lottery['user_label'] = !empty($lottery['user_label']) ? $userLabelServices->getLabelList(['ids' => $lottery['user_label']], ['id', 'label_name']) : [];
         return $lottery;
     }
@@ -188,8 +177,7 @@ class LuckLotteryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function add(array $data)
+     */    public function add(array $data)
     {
         $prizes = $data['prize'];
         $total = array_sum(array_column($prizes, 'percent'));
@@ -210,8 +198,7 @@ class LuckLotteryServices extends BaseServices
             if ($data['status']) {
                 $this->setStatus((int)$lottery->id, $data['status']);
             }
-            /** @var LuckPrizeServices $luckPrizeServices */
-            $luckPrizeServices = app()->make(LuckPrizeServices::class);
+            /** @var LuckPrizeServices $luckPrizeServices */            $luckPrizeServices = app()->make(LuckPrizeServices::class);
             $data = [];
             $sort = 1;
             $prizeStatus = false;
@@ -243,8 +230,7 @@ class LuckLotteryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function edit(int $id, array $data)
+     */    public function edit(int $id, array $data)
     {
         $lottery = $this->dao->getLottery($id);
         if (!$lottery) {
@@ -268,8 +254,7 @@ class LuckLotteryServices extends BaseServices
             $data['user_label'] = $data['user_level'] = [];
             $data['is_svip'] = -1;
         }
-        /** @var LuckPrizeServices $luckPrizeServices */
-        $luckPrizeServices = app()->make(LuckPrizeServices::class);
+        /** @var LuckPrizeServices $luckPrizeServices */        $luckPrizeServices = app()->make(LuckPrizeServices::class);
         $prizes = $luckPrizeServices->getLotteryPrizeList($id);
         return $this->transaction(function () use ($id, $lottery, $data, $newPrizes, $prizes, $luckPrizeServices) {
             $updateIds = array_column($newPrizes, 'id');
@@ -324,7 +309,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * Lấy số lần rút còn lại cho lần rút của người dùng
+     * Lấy số lần rút còn lại cho lần rút của Khách hàng
      * @param int $uid
      * @param int $lottery_id
      * @param array $userInfo
@@ -334,11 +319,9 @@ class LuckLotteryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLotteryNum(int $uid, int $lottery_id, array $userInfo = [], array $lottery = [])
+     */    public function getLotteryNum(int $uid, int $lottery_id, array $userInfo = [], array $lottery = [])
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         if (!$userInfo) {
             $userInfo = $userServices->getUserInfo($uid);
         }
@@ -354,8 +337,7 @@ class LuckLotteryServices extends BaseServices
         //Loại xổ số：1:Điểm 2: Số dư 3: Thanh toán đơn hàng thành công 4: Đánh giá đơn hàng 5: Thu hút người mới
         switch ($lottery['factor']) {
             case 1:
-                /** @var UserBillServices $userBillServices */
-                $userBillServices = app()->make(UserBillServices::class);
+                /** @var UserBillServices $userBillServices */                $userBillServices = app()->make(UserBillServices::class);
                 $usable_integral = bcsub((string)$userInfo['integral'], (string)$userBillServices->getBillSum(['uid' => $userInfo['uid'], 'is_frozen' => 1]), 0);
                 return $usable_integral > 0 && $lottery['factor_num'] > 0 ? floor($usable_integral / $lottery['factor_num']) : 0;
             case 2:
@@ -372,7 +354,7 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * Xác minh trình độ xổ số của người dùng (cấp độ người dùng, tư cách thành viên trả phí, thẻ người dùng）
+     * Xác minh trình độ xổ số của Khách hàng (cấp độ Khách hàng, tư cách thành viên trả phí, thẻ Khách hàng）
      * @param int $uid
      * @param int $lottery_id
      * @param array $userInfo
@@ -381,12 +363,10 @@ class LuckLotteryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkoutUserAuth(int $uid, int $lottery_id, array $userInfo = [], array $lottery = [])
+     */    public function checkoutUserAuth(int $uid, int $lottery_id, array $userInfo = [], array $lottery = [])
     {
         if (!$userInfo) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->getUserInfo($uid);
         }
         if (!$userInfo) {
@@ -398,16 +378,15 @@ class LuckLotteryServices extends BaseServices
         if (!$lottery) {
             throw new ApiException('Sự kiện không tồn tại hoặc đã bị xóa');
         }
-        //Một số người dùng tham gia
+        //Một số Khách hàng tham gia
         if ($lottery['attends_user'] == 2) {
-            //Cấp độ người dùng
+            //Hạng khách hàng
             if ($lottery['user_level'] && !in_array($userInfo['level'], $lottery['user_level'])) {
                 throw new ApiException('Bạn tạm thời không thể tham gia sự kiện này');
             }
-            //Thẻ người dùng
+            //Thẻ khách hàng
             if ($lottery['user_label']) {
-                /** @var UserLabelRelationServices $userlableRelation */
-                $userlableRelation = app()->make(UserLabelRelationServices::class);
+                /** @var UserLabelRelationServices $userlableRelation */                $userlableRelation = app()->make(UserLabelRelationServices::class);
                 $user_labels = $userlableRelation->getUserLabels($uid);
                 if (!array_intersect($lottery['user_label'], $user_labels)) {
                     throw new ApiException('Bạn tạm thời không thể tham gia sự kiện này');
@@ -432,11 +411,9 @@ class LuckLotteryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function luckLottery(int $uid, int $lottery_id, $channel_type)
+     */    public function luckLottery(int $uid, int $lottery_id, $channel_type)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if (!$userInfo) {
             throw new ApiException('Người dùng không tồn tại');
@@ -447,11 +424,10 @@ class LuckLotteryServices extends BaseServices
         }
         $userInfo = $userInfo->toArray();
         $lottery = $lottery->toArray();
-        //Xác minh danh tính người dùng
+        //Xác minh danh tính Khách hàng
         $this->checkoutUserAuth($uid, $lottery_id, $userInfo, $lottery);
 
-        /** @var LuckPrizeServices $lotteryPrizeServices */
-        $lotteryPrizeServices = app()->make(LuckPrizeServices::class);
+        /** @var LuckPrizeServices $lotteryPrizeServices */        $lotteryPrizeServices = app()->make(LuckPrizeServices::class);
         $lotteryPrize = $lotteryPrizeServices->getPrizeList($lottery_id);
         if (!$lotteryPrize) {
             throw new ApiException('Trạng thái hoạt động không đúng, vui lòng liên hệ với quản trị viên');
@@ -474,8 +450,7 @@ class LuckLotteryServices extends BaseServices
             }
         }
         return $this->transaction(function () use ($uid, $lotteryPrize, $userInfo, $lottery, $channel_type) {
-            /** @var LuckPrizeServices $luckPrizeServices */
-            $luckPrizeServices = app()->make(LuckPrizeServices::class);
+            /** @var LuckPrizeServices $luckPrizeServices */            $luckPrizeServices = app()->make(LuckPrizeServices::class);
             //rút thăm ngẫu nhiên
             $prize = $luckPrizeServices->getLuckPrize($lotteryPrize);
             if (!$prize) {
@@ -485,8 +460,7 @@ class LuckLotteryServices extends BaseServices
             $this->lotteryFactor($uid, $userInfo, $lottery);
             //Chiến thắng làm giảm số lượng giải thưởng
             $luckPrizeServices->decPrizeNum($prize['id'], $prize);
-            /** @var LuckLotteryRecordServices $lotteryRecordServices */
-            $lotteryRecordServices = app()->make(LuckLotteryRecordServices::class);
+            /** @var LuckLotteryRecordServices $lotteryRecordServices */            $lotteryRecordServices = app()->make(LuckLotteryRecordServices::class);
             //Kỷ lục tiền thắng
             $record = $lotteryRecordServices->insertPrizeRecord($uid, $prize, $userInfo, $channel_type);
             //Bạn có thể nhận giải thưởng trực tiếp nếu bạn không sử dụng sản phẩm trên trang web.
@@ -495,7 +469,7 @@ class LuckLotteryServices extends BaseServices
             }
             $prize['lottery_record_id'] = $record->id;
 
-            //Xổ số người dùng sự kiện tùy chỉnh
+            //Xổ số Khách hàng sự kiện tùy chỉnh
             event('CustomEventListener', ['user_lottery', [
                 'uid' => $uid,
                 'lottery_id' => $prize['lottery_id'],
@@ -509,14 +483,13 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * Tiêu thụ xổ số sẽ bị trừ vào điểm người dùng, số dư, v.v.
+     * Tiêu thụ xổ số sẽ bị trừ vào điểm Khách hàng, số dư, v.v.
      * @param int $uid
      * @param array $userInfo
      * @param array $lottery
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function lotteryFactor(int $uid, array $userInfo, array $lottery)
+     */    public function lotteryFactor(int $uid, array $userInfo, array $lottery)
     {
         if (!$userInfo || !$lottery) {
             return true;
@@ -529,13 +502,11 @@ class LuckLotteryServices extends BaseServices
                 } else {
                     $integral = 0;
                 }
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
-                /** @var UserBillServices $userBillServices */
-                $userBillServices = app()->make(UserBillServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
+                /** @var UserBillServices $userBillServices */                $userBillServices = app()->make(UserBillServices::class);
                 $userBillServices->income('lottery_use_integral', $uid, $lottery['factor_num'], $integral, $lottery['id']);
                 if (!$userServices->update($uid, ['integral' => $integral], 'uid')) {
-                    throw new ApiException('Không thể trừ điểm của người dùng khi rút thăm xổ số');
+                    throw new ApiException('Không thể trừ điểm của Khách hàng khi rút thăm xổ số');
                 }
                 break;
             case 2:
@@ -544,13 +515,11 @@ class LuckLotteryServices extends BaseServices
                 } else {
                     throw new ApiException('Xổ số không thành công và số dư không đủ.');
                 }
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
-                /** @var UserMoneyServices $userMoneyServices */
-                $userMoneyServices = app()->make(UserMoneyServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
+                /** @var UserMoneyServices $userMoneyServices */                $userMoneyServices = app()->make(UserMoneyServices::class);
                 $userMoneyServices->income('lottery_use_money', $uid, $lottery['factor_num'], $now_money, $lottery['id']);
                 if (!$userServices->update($uid, ['now_money' => $now_money], 'uid')) {
-                    throw new ApiException('Xổ số không thể khấu trừ số dư của người dùng');
+                    throw new ApiException('Xổ số không thể khấu trừ số dư của Khách hàng');
                 }
                 break;
             case 3:
@@ -559,14 +528,13 @@ class LuckLotteryServices extends BaseServices
                 $this->delCacheLotteryNum($uid, $lottery['factor'] == 3 ? 'order' : 'comment');
                 break;
             case 5:
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
                 $spread_lottery = 0;
                 if ($userInfo['spread_lottery'] > 1) {
                     $spread_lottery = $userInfo['spread_lottery'] - 1;
                 }
                 if (!$userServices->update($uid, ['spread_lottery' => $spread_lottery], 'uid')) {
-                    throw new ApiException('Khuyến mãi người dùng khấu trừ xổ số để có được số lần rút xổ số không thành công');
+                    throw new ApiException('Khuyến mãi Khách hàng khấu trừ xổ số để có được số lần rút xổ số không thành công');
                 }
                 break;
             default:
@@ -576,14 +544,13 @@ class LuckLotteryServices extends BaseServices
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function delLottery(int $id)
+     */    public function delLottery(int $id)
     {
         $lottery = $this->dao->getLottery($id);
         if ($lottery) {
@@ -603,8 +570,7 @@ class LuckLotteryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setStatus(int $id, $status)
+     */    public function setStatus(int $id, $status)
     {
         if (!$id) return false;
         $lottery = $this->dao->getLottery($id, 'id,factor');
@@ -618,8 +584,7 @@ class LuckLotteryServices extends BaseServices
      * @param string $type
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function setCacheLotteryNum(int $uid, string $type = 'order')
+     */    public function setCacheLotteryNum(int $uid, string $type = 'order')
     {
         $factor = $type == 'order' ? 3 : 4;
         $lottery = $this->dao->getFactorLottery($factor, 'id,factor_num', ['prize'], true);
@@ -636,8 +601,7 @@ class LuckLotteryServices extends BaseServices
      * @param string $type
      * @return int|mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function getCacheLotteryNum(int $uid, string $type = 'order')
+     */    public function getCacheLotteryNum(int $uid, string $type = 'order')
     {
         $key = 'user_' . $type . '_luck_lottery_' . $uid;
         $num = CacheService::get($key);
@@ -650,8 +614,7 @@ class LuckLotteryServices extends BaseServices
      * @param string $type
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function delCacheLotteryNum(int $uid, string $type = 'order')
+     */    public function delCacheLotteryNum(int $uid, string $type = 'order')
     {
         $key = 'user_' . $type . '_luck_lottery_' . $uid;
         $num = $this->getCacheLotteryNum($uid, $type);

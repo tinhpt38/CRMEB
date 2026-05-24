@@ -19,16 +19,14 @@ use app\services\BaseServices;
  * Trạng thái đơn hàng
  * Class StoreOrderStatusServices
  * @package app\services\order
- */
-class StoreIntegralOrderStatusServices extends BaseServices
+ */class StoreIntegralOrderStatusServices extends BaseServices
 {
 
     /**
      * Người xây dựng
      * StoreIntegralOrderStatusServices constructor.
      * @param StoreIntegralOrderStatusDao $dao
-     */
-    public function __construct(StoreIntegralOrderStatusDao $dao)
+     */    public function __construct(StoreIntegralOrderStatusDao $dao)
     {
         $this->dao = $dao;
     }
@@ -40,8 +38,7 @@ class StoreIntegralOrderStatusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStatusList(array $where)
+     */    public function getStatusList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getStatusList($where, $page, $limit);

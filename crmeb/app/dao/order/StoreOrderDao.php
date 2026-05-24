@@ -16,23 +16,20 @@ use app\dao\BaseDao;
 use app\model\order\StoreOrder;
 
 /**
- * Đặt hàng
+ * Đơn hàng
  * Class StoreOrderDao
  * @package app\dao\order
- */
-class StoreOrderDao extends BaseDao
+ */class StoreOrderDao extends BaseDao
 {
 
     /**
      * Giới hạn các trường truy vấn chính xác
      * @var string[]
-     */
-    protected $withField = ['uid', 'order_id', 'real_name', 'user_phone', 'title'];
+     */    protected $withField = ['uid', 'order_id', 'real_name', 'user_phone', 'title'];
 
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreOrder::class;
     }
@@ -43,8 +40,7 @@ class StoreOrderDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         $isDel = isset($where['is_del']) && $where['is_del'] !== '' && $where['is_del'] != -1;
         $realName = $where['real_name'] ?? '';
@@ -78,10 +74,10 @@ class StoreOrderDao extends BaseDao
                 case 4:// giao dịch đã hoàn tất
                     $query->where('paid', 1)->where('status', 3)->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
-                case 5://Đã trả tiền nhưng vẫn chưa được xóa sổ
+                case 5://Đã trả tiền nhưng vẫn chưa được xác nhận
                     $query->where('paid', 1)->where('status', 0)->where('refund_status', 0)->where('shipping_type', 2)->where('is_del', 0);
                     break;
-                case 6://Đã thanh toán, xóa sổ, không hoàn lại tiền
+                case 6://Đã thanh toán, xác nhận, không hoàn lại tiền
                     $query->where('paid', 1)->whereIn('status', [2, 3])->where('refund_status', 0)->where('shipping_type', 2)->where('is_del', 0);
                     break;
                 case -1://Đang hoàn tiền
@@ -99,7 +95,7 @@ class StoreOrderDao extends BaseDao
                 case -4://Đã xóa
                     $query->where('is_del', 1);
                     break;
-                case 9://Đơn đặt hàng không bị xóa bởi tất cả người dùng
+                case 9://Đơn đặt hàng không bị xóa bởi Tất cả Khách hàng
                     $query->whereIn('refund_status', [0, 3])->where('is_del', 0);
                     break;
             }
@@ -170,8 +166,7 @@ class StoreOrderDao extends BaseDao
                 case 6:
                     $query->where('pay_type', 'vn_bank');
                     break;
-                /** CK/VietQR chưa đối soát (preset admin — flow VN) */
-                case 7:
+                /** CK/VietQR chưa đối soát (preset admin — flow VN) */                case 7:
                     $query->where('pay_type', 'vn_bank')->where('paid', 0)->where('is_cancel', 0);
                     break;
             }
@@ -242,8 +237,7 @@ class StoreOrderDao extends BaseDao
      * @param array $where
      * @param string $month
      * @return int
-     */
-    public function getMonthCount(array $where, string $month)
+     */    public function getMonthCount(array $where, string $month)
     {
         return $this->search($where)->whereMonth('add_time', $month)->count();
     }
@@ -259,8 +253,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, array $field, int $page = 0, int $limit = 0, array $with = [])
+     */    public function getList(array $where, array $field, int $page = 0, int $limit = 0, array $with = [])
     {
         return $this->search($where)->field($field)->with($with)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -279,8 +272,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderList(array $where, array $field, int $page = 0, int $limit = 0, array $with = [], $order = 'add_time DESC,id DESC')
+     */    public function getOrderList(array $where, array $field, int $page = 0, int $limit = 0, array $with = [], $order = 'add_time DESC,id DESC')
     {
         return $this->search($where)->field($field)->with(array_merge(['user', 'spread', 'refund'], $with))->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -293,20 +285,18 @@ class StoreOrderDao extends BaseDao
      * @param bool $search
      * @return int
      * @throws \ReflectionException
-     */
-    public function count(array $where = [], bool $search = true)
+     */    public function count(array $where = [], bool $search = true)
     {
         return $this->search($where, $search)->count();
     }
 
     /**
-     * Truy vấn tổng hợp
+     * Tìm kiếm tổng hợp
      * @param array $where
      * @param string $field
      * @param string $together
      * @return int
-     */
-    public function together(array $where, string $field, string $together = 'sum')
+     */    public function together(array $where, string $field, string $together = 'sum')
     {
         if (!in_array($together, ['sum', 'max', 'min', 'avg'])) {
             return 0;
@@ -321,8 +311,7 @@ class StoreOrderDao extends BaseDao
      * @param string $key
      * @param string $group
      * @return array
-     */
-    public function column(array $where, string $field, string $key = '', string $group = '')
+     */    public function column(array $where, string $field, string $key = '', string $group = '')
     {
         return $this->search($where)->when($group, function ($query) use ($group) {
             $query->group($group);
@@ -333,8 +322,7 @@ class StoreOrderDao extends BaseDao
      * Lấy số lượng đơn hàng chưa bị xóa theo id đơn hàng
      * @param array $ids
      * @return int
-     */
-    public function getOrderIdsCount(array $ids)
+     */    public function getOrderIdsCount(array $ids)
     {
         return $this->getModel()->whereIn('id', $ids)->where('is_del', 0)->count();
     }
@@ -344,8 +332,7 @@ class StoreOrderDao extends BaseDao
      * @param $datebefor
      * @param $dateafter
      * @return mixed
-     */
-    public function orderAddTimeList($datebefor, $dateafter, $timeType = "week")
+     */    public function orderAddTimeList($datebefor, $dateafter, $timeType = "week")
     {
         return $this->getModel()->where('add_time', 'between time', [$datebefor, $dateafter])->where('paid', 1)->where('refund_status', 0)->whereIn('pid', [-1, 0])
             ->when($timeType, function ($query) use ($timeType) {
@@ -379,8 +366,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function preTotalFind($pre_datebefor, $pre_dateafter)
+     */    public function preTotalFind($pre_datebefor, $pre_dateafter)
     {
         return $this->getModel()->where('add_time', 'between time', [$pre_datebefor, $pre_dateafter])
             ->field("count(*) as count,sum(pay_price) as price")
@@ -392,8 +378,7 @@ class StoreOrderDao extends BaseDao
      * @param $now_datebefor
      * @param $now_dateafter
      * @return mixed
-     */
-    public function nowOrderList($now_datebefor, $now_dateafter, $timeType = "week")
+     */    public function nowOrderList($now_datebefor, $now_dateafter, $timeType = "week")
     {
         return $this->getModel()->where('add_time', 'between time', [$now_datebefor, $now_dateafter])->where('paid', 1)->where('refund_status', 0)->whereIn('pid', [-1, 0])
             ->when($timeType, function ($query) use ($timeType) {
@@ -419,8 +404,7 @@ class StoreOrderDao extends BaseDao
     /**
      * Nhận số lượng đặt hàng
      * @return int
-     */
-    public function storeOrderCount()
+     */    public function storeOrderCount()
     {
         return $this->search(['paid' => 1, 'is_del' => 0, 'refund_status' => 0, 'status' => 1, 'shipping_type' => 1, 'pid' => 0])->count();
     }
@@ -429,8 +413,7 @@ class StoreOrderDao extends BaseDao
      * Nhận tổng giá đơn hàng trong thời gian cụ thể
      * @param $time
      * @return float
-     */
-    public function todaySales($time)
+     */    public function todaySales($time)
     {
         return $this->search(['paid' => 1, 'refund_status' => 0, 'time' => $time ?: 'today', 'timekey' => 'pay_time', 'pid' => 0])->sum('pay_price');
     }
@@ -439,8 +422,7 @@ class StoreOrderDao extends BaseDao
      * Nhận tổng giá đơn hàng trong thời gian cụ thể
      * @param $time
      * @return float
-     */
-    public function thisWeekSales($time)
+     */    public function thisWeekSales($time)
     {
         return $this->search(['paid' => 1, 'refund_status' => 0, 'time' => $time ?: 'week', 'timeKey' => 'pay_time', 'pid' => 0])->sum('pay_price');
     }
@@ -448,8 +430,7 @@ class StoreOrderDao extends BaseDao
     /**
      * tổng doanh thu
      * @return float
-     */
-    public function totalSales($time)
+     */    public function totalSales($time)
     {
         return $this->search(['paid' => 1, 'refund_status' => 0, 'time' => $time ?: 'today', 'timekey' => 'pay_time', 'pid' => 0])->sum('pay_price');
     }
@@ -463,8 +444,7 @@ class StoreOrderDao extends BaseDao
      * Nhận khối lượng đơn hàng trong thời gian cụ thể
      * @param $time
      * @return float
-     */
-    public function todayOrderVisit($time, $week)
+     */    public function todayOrderVisit($time, $week)
     {
         switch ($week) {
             case 1:
@@ -483,8 +463,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserOrderDetail(string $key, int $uid, $with = [])
+     */    public function getUserOrderDetail(string $key, int $uid, $with = [])
     {
         $where = ['order_id|unique' => $key, 'is_del' => 0];
         if ($uid > 0) $where = $where + ['uid|gift_uid' => $uid];
@@ -492,7 +471,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * Nhận đơn đặt hàng khuyến mãi của người dùng
+     * Nhận đơn đặt hàng khuyến mãi của Khách hàng
      * @param array $where
      * @param string $field
      * @param int $page
@@ -502,8 +481,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStairOrderList(array $where, string $field, int $page, int $limit, array $with = [])
+     */    public function getStairOrderList(array $where, string $field, int $page, int $limit, array $with = [])
     {
         return $this->search($where)->with($with)->field($field)->page($page, $limit)->order('id DESC')->select()->toArray();
     }
@@ -513,8 +491,7 @@ class StoreOrderDao extends BaseDao
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function getOrderDataPriceCount(array $where, array $field, int $page, int $limit)
+     */    public function getOrderDataPriceCount(array $where, array $field, int $page, int $limit)
     {
         return $this->search($where)
             ->field($field)->group("FROM_UNIXTIME(add_time, '%Y-%m-%d')")
@@ -526,8 +503,7 @@ class StoreOrderDao extends BaseDao
      * @param $start thời gian bắt đầu
      * @param $stop  thời gian kết thúc
      * @return mixed
-     */
-    public function chartTimePrice($start, $stop)
+     */    public function chartTimePrice($start, $stop)
     {
         return $this->search(['pid' => 0, 'is_del' => 0, 'paid' => 1, 'refund_status' => [0, 3]])
             ->where('add_time', '>=', $start)
@@ -542,8 +518,7 @@ class StoreOrderDao extends BaseDao
      * @param $start thời gian bắt đầu
      * @param $stop  thời gian kết thúc
      * @return mixed
-     */
-    public function chartTimeNumber($start, $stop)
+     */    public function chartTimeNumber($start, $stop)
     {
         return $this->search(['pid' => 0, 'is_del' => 0, 'paid' => 1, 'refund_status' => [0, 3]])
             ->where('add_time', '>=', $start)
@@ -554,13 +529,12 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * Lấy số lượng vật phẩm người dùng đã mua cho sự kiện này
+     * Lấy số lượng vật phẩm Khách hàng đã mua cho sự kiện này
      * @param $uid
      * @param $type
      * @param $typeId
      * @return int
-     */
-    public function getBuyCount($uid, $type, $typeId): int
+     */    public function getBuyCount($uid, $type, $typeId): int
     {
         return $this->getModel()
                 ->where('uid', $uid)
@@ -579,8 +553,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderUnPaidList(array $field = ['*'])
+     */    public function getOrderUnPaidList(array $field = ['*'])
     {
         return $this->getModel()->where(['paid' => 0, 'is_cancel' => 0, 'is_del' => 0, 'status' => 0, 'refund_status' => 0])
             ->where('pay_type', '<>', 'offline')->field($field)->select();
@@ -589,8 +562,7 @@ class StoreOrderDao extends BaseDao
     /** Nhận doanh thu theo thời gian
      * @param array $where
      * @return float|int
-     */
-    public function getOrderMoneyByTime(array $where)
+     */    public function getOrderMoneyByTime(array $where)
     {
         if (isset($where['day'])) {
             return $this->getModel()->where(['refund_status' => 0, 'paid' => 1])->whereDay('add_time', date("Y-m-d", strtotime($where['day'])))->sum('pay_price');
@@ -600,13 +572,12 @@ class StoreOrderDao extends BaseDao
 
 
     /**
-     * Dữ liệu xu hướng người dùng
+     * Dữ liệu xu hướng Khách hàng
      * @param $time
      * @param $type
      * @param $timeType
      * @return mixed
-     */
-    public function getTrendData($time, $type, $timeType, $str)
+     */    public function getTrendData($time, $type, $timeType, $str)
     {
         return $this->getModel()->when($type != '', function ($query) use ($type) {
             $query->where('channel_type', $type);
@@ -622,12 +593,11 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * Dữ liệu địa lý của người dùng
+     * Dữ liệu địa lý của Khách hàng
      * @param $time
      * @param $userType
      * @return mixed
-     */
-    public function getRegion($time, $userType)
+     */    public function getRegion($time, $userType)
     {
         return $this->getModel()->when($userType != '', function ($query) use ($userType) {
             $query->where('channel_type', $userType);
@@ -643,14 +613,13 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * Xu hướng hàng hóa
+     * Xu hướng sản phẩm
      * @param $time
      * @param $timeType
      * @param $field
      * @param $str
      * @return mixed
-     */
-    public function getProductTrend($time, $timeType, $field, $str, $orderStatus = '')
+     */    public function getProductTrend($time, $timeType, $field, $str, $orderStatus = '')
     {
         return $this->getModel()->where(function ($query) use ($field, $orderStatus) {
             if ($field == 'pay_time') {
@@ -674,12 +643,11 @@ class StoreOrderDao extends BaseDao
     }
 
 
-    /** Tính số tiền thanh toán theo thời gian thanh toán
+    /** Tính số tiền thanh toán theo Thời gian thanh toán
      * @param array $where
      * @param string $sumField
      * @return mixed
-     */
-    public function getDayTotalMoney(array $where, string $sumField)
+     */    public function getDayTotalMoney(array $where, string $sumField)
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -688,12 +656,11 @@ class StoreOrderDao extends BaseDao
             ->sum($sumField);
     }
 
-    /**Thống kê số lượng đơn hàng trong khoảng thời gian
+    /**Thống kê số lượng đơn hàng Trong khoảng thời gian
      * @param array $where
      * @param string $countField
      * @return int
-     */
-    public function getDayOrderCount(array $where, string $countField = "*")
+     */    public function getDayOrderCount(array $where, string $countField = "*")
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -706,8 +673,7 @@ class StoreOrderDao extends BaseDao
      * @param array $where
      * @param string $sumField
      * @return mixed
-     */
-    public function getDayGroupMoney(array $where, string $sumField, string $group)
+     */    public function getDayGroupMoney(array $where, string $sumField, string $group)
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where, $sumField, $group) {
@@ -734,8 +700,7 @@ class StoreOrderDao extends BaseDao
      * @param array $where
      * @param string $sumField
      * @return mixed
-     */
-    public function getOrderGroupCount(array $where, string $sumField = "*")
+     */    public function getOrderGroupCount(array $where, string $sumField = "*")
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where, $sumField) {
@@ -758,11 +723,10 @@ class StoreOrderDao extends BaseDao
             ->order('pay_time ASC,id DESC')->select()->toArray();
     }
 
-    /**Số người thanh toán đơn hàng trong khoảng thời gian
+    /**Số người thanh toán đơn hàng Trong khoảng thời gian
      * @param $where
      * @return mixed
-     */
-    public function getPayOrderPeople($where)
+     */    public function getPayOrderPeople($where)
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -776,8 +740,7 @@ class StoreOrderDao extends BaseDao
     /**Thống kê nhóm khoảng thời gian về số người thanh toán đơn hàng
      * @param $where
      * @return mixed
-     */
-    public function getPayOrderGroupPeople($where)
+     */    public function getPayOrderGroupPeople($where)
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -809,8 +772,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderDumpData(array $where, $filed = "*")
+     */    public function getOrderDumpData(array $where, $filed = "*")
     {
         $where['status'] = 1;
         $where['refund_status'] = 0;
@@ -828,8 +790,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderListByWhere(array $where, $field = "*")
+     */    public function getOrderListByWhere(array $where, $field = "*")
     {
         return $this->search($where)->field($field)->select()->toArray();
     }
@@ -839,8 +800,7 @@ class StoreOrderDao extends BaseDao
      * @param array $data
      * @param string|null $key
      * @return \crmeb\basic\BaseModel
-     */
-    public function batchUpdateOrder(array $ids, array $data, ?string $key = null)
+     */    public function batchUpdateOrder(array $ids, array $data, ?string $key = null)
     {
         return $this->getModel()::whereIn(is_null($key) ? $this->getPk() : $key, $ids)->update($data);
     }
@@ -851,8 +811,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCanDevlieryOrder($key, $value)
+     */    public function getCanDevlieryOrder($key, $value)
     {
         $model = $this->getModel();
         if (is_array($value)) {
@@ -865,7 +824,7 @@ class StoreOrderDao extends BaseDao
     }
 
     /**
-     * Truy vấn lệnh hoàn tiền
+     * Tìm kiếm lệnh hoàn tiền
      * @param $where
      * @param $page
      * @param $limit
@@ -873,8 +832,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRefundList($where, $page = 0, $limit = 0)
+     */    public function getRefundList($where, $page = 0, $limit = 0)
     {
         $model = $this->getModel()
             ->where('paid', 1)->where('is_system_del', 0)
@@ -910,8 +868,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOutOrderList(array $where, array $field, int $page = 0, int $limit = 0, array $with = [], string $order = 'add_time DESC,id DESC'): array
+     */    public function getOutOrderList(array $where, array $field, int $page = 0, int $limit = 0, array $with = [], string $order = 'add_time DESC,id DESC'): array
     {
         return $this->search($where)->field($field)->with($with)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -925,8 +882,7 @@ class StoreOrderDao extends BaseDao
      * @param int $page
      * @param int $limit
      * @return mixed
-     */
-    public function seckillPeople($id, $keyword, $page = 0, $limit = 0)
+     */    public function seckillPeople($id, $keyword, $page = 0, $limit = 0)
     {
         return $this->getModel()->where('paid', 1)->where('pid', '<>', -1)->whereIn('refund_type', [0, 3])->where('is_del', 0)
             ->when($id != 0, function ($query) use ($id) {
@@ -956,8 +912,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function seckillOrder($id, $where, $page = 0, $limit = 0)
+     */    public function seckillOrder($id, $where, $page = 0, $limit = 0)
     {
         return $this->search($where)->where('seckill_id', $id)
             ->when($page && $limit, function ($query) use ($page, $limit) {
@@ -974,8 +929,7 @@ class StoreOrderDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    public function seckillCount($id, $where)
+     */    public function seckillCount($id, $where)
     {
         return $this->search($where)->where('seckill_id', $id)->count();
     }
@@ -990,8 +944,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function bargainStatisticsOrder($id, $where, $page = 0, $limit = 0)
+     */    public function bargainStatisticsOrder($id, $where, $page = 0, $limit = 0)
     {
         return $this->search($where)->where('bargain_id', $id)
             ->when($page && $limit, function ($query) use ($page, $limit) {
@@ -1008,8 +961,7 @@ class StoreOrderDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    public function bargainStatisticsOrderCount($id, $where)
+     */    public function bargainStatisticsOrderCount($id, $where)
     {
         return $this->search($where)->where('bargain_id', $id)->count();
     }
@@ -1024,8 +976,7 @@ class StoreOrderDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function combinationStatisticsOrder($id, $where, $page = 0, $limit = 0)
+     */    public function combinationStatisticsOrder($id, $where, $page = 0, $limit = 0)
     {
         return $this->search($where)->where('combination_id', $id)->where('pid', '<>', -1)
             ->when($page && $limit, function ($query) use ($page, $limit) {
@@ -1044,8 +995,7 @@ class StoreOrderDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    public function combinationStatisticsCount($id, $where)
+     */    public function combinationStatisticsCount($id, $where)
     {
         return $this->search($where)->where('combination_id', $id)->count();
     }
@@ -1060,22 +1010,20 @@ class StoreOrderDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    public function getSubOrderNotSendList(int $pid)
+     */    public function getSubOrderNotSendList(int $pid)
     {
         return $this->getModel()->where('pid', $pid)->where('status', 1)->select()->toArray();
     }
 
     /**
-     * Xác định xem tất cả các đơn đặt hàng đã được chuyển đi chưa
+     * Xác định xem Tất cả các đơn đặt hàng đã được chuyển đi chưa
      * @param int $pid
      * @param int $order_id
      * @return int
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    public function getSubOrderNotSend(int $pid, int $order_id)
+     */    public function getSubOrderNotSend(int $pid, int $order_id)
     {
         return $this->getModel()->where('pid', $pid)->where('status', 0)->where('id', '<>', $order_id)->count();
     }
@@ -1088,8 +1036,7 @@ class StoreOrderDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    public function getSubOrderNotTake(int $pid, int $order_id)
+     */    public function getSubOrderNotTake(int $pid, int $order_id)
     {
         return $this->getModel()->where('pid', $pid)->where('status', 1)->where('id', '<>', $order_id)->count();
     }
@@ -1109,8 +1056,7 @@ class StoreOrderDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/4/8
-     */
-    public function divisionStatistics($field, $time, $page, $limit, $sort, $order)
+     */    public function divisionStatistics($field, $time, $page, $limit, $sort, $order)
     {
         $model = $this->getModel()
             ->where('paid', 1)

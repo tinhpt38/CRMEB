@@ -21,22 +21,19 @@ use think\Response;
  * Phần mềm trung gian tên miền chéo
  * Class AllowOriginMiddleware
  * @package app\http\middleware
- */
-class AllowOriginMiddleware implements MiddlewareInterface
+ */class AllowOriginMiddleware implements MiddlewareInterface
 {
 
     /**
      * Cho phép tên miền nhiều miền
      * @var string
-     */
-    protected $cookieDomain;
+     */    protected $cookieDomain;
 
     /**
      * @param Request $request
      * @param \Closure $next
      * @return Response
-     */
-    public function handle(Request $request, \Closure $next)
+     */    public function handle(Request $request, \Closure $next)
     {
         $this->cookieDomain = Config::get('cookie.domain', '');
         $header = Config::get('cookie.header');

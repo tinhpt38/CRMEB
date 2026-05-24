@@ -18,14 +18,12 @@ use app\model\other\Express;
  * Thông tin hậu cần
  * Class ExpressDao
  * @package app\dao\other
- */
-class ExpressDao extends BaseDao
+ */class ExpressDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return Express::class;
     }
@@ -39,8 +37,7 @@ class ExpressDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getExpressList(array $where, string $field, int $page, int $limit)
+     */    public function getExpressList(array $where, string $field, int $page, int $limit)
     {
         return $this->search($where)->field($field)->order('sort DESC,is_show DESC,id ASC')
             ->when($page > 0 && $limit > 0, function ($query) use ($page, $limit) {
@@ -54,8 +51,7 @@ class ExpressDao extends BaseDao
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getExpress(array $where, string $field, string $key)
+     */    public function getExpress(array $where, string $field, string $key)
     {
         return $this->search($where)->order('id DESC')->column($field, $key);
     }
@@ -68,8 +64,7 @@ class ExpressDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getExpressByCode(string $code, string $field = '*')
+     */    public function getExpressByCode(string $code, string $field = '*')
     {
         return $this->getModel()->field($field)->where('code', $code)->find();
     }

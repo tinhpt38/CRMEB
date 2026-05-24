@@ -21,8 +21,7 @@ use think\Model;
  * Bảng phân loại
  * Class Category
  * @package app\model\other
- */
-class Category extends BaseModel
+ */class Category extends BaseModel
 {
 
     use ModelTrait;
@@ -30,21 +29,18 @@ class Category extends BaseModel
     /**
      * tên bảng
      * @var string
-     */
-    protected $name = 'category';
+     */    protected $name = 'category';
 
     /**
      * khóa chính
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tìm kiếm tên danh mục
      * @param Model $query
      * @param $value
-     */
-    public function searchNameAttr($query, $value)
+     */    public function searchNameAttr($query, $value)
     {
         $query->whereLike('name', '%' . $value . '%');
     }
@@ -53,8 +49,7 @@ class Category extends BaseModel
      *  Thuộc về
      * @param Model $query
      * @param $value
-     */
-    public function searchOwnerIdAttr($query, $value)
+     */    public function searchOwnerIdAttr($query, $value)
     {
         $query->where('owner_id', $value);
     }
@@ -63,8 +58,7 @@ class Category extends BaseModel
      *  kiểu
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }
@@ -72,8 +66,7 @@ class Category extends BaseModel
     /**
      * liên kết một-nhiều
      * @return \think\model\relation\HasMany
-     */
-    public function label()
+     */    public function label()
     {
         return $this->hasMany(UserLabel::class, 'label_cate', 'id');
     }

@@ -15,38 +15,33 @@ use crmeb\basic\BaseController;
 use think\facade\Validate;
 
 /**
- * Lớp cơ sở Lớp mà tất cả các bộ điều khiển kế thừa từ đó
+ * Lớp cơ sở Lớp mà Tất cả các bộ điều khiển kế thừa từ đó
  * Class AuthController
  * @package app\controller\out
  * @method success($msg = 'ok', array $data = [])
  * @method fail($msg = 'error', array $data = [])
- */
-class AuthController extends BaseController
+ */class AuthController extends BaseController
 {
 
     /**
-     * Giao diện bên ngoài hiện tạiID
+     * Kết nối API ngoài hiện tạiID
      * @var
-     */
-    protected $outId;
+     */    protected $outId;
 
     /**
      * Thông tin giao diện bên ngoài hiện tại
      * @var
-     */
-    protected $outInfo;
+     */    protected $outInfo;
 
     /**
      * Quyền giao diện bên ngoài hiện tại
      * @var array
-     */
-    protected $auth = [];
+     */    protected $auth = [];
 
 
     /**
      * khởi tạo
-     */
-    protected function initialize()
+     */    protected function initialize()
     {
         $this->outId = $this->request->outId();
         $this->outInfo = $this->request->outInfo();
@@ -61,8 +56,7 @@ class AuthController extends BaseController
      * @param null $message
      * @param bool $batch
      * @return bool
-     */
-    final protected function validate(array $data, $validate, $message = null, bool $batch = false)
+     */    final protected function validate(array $data, $validate, $message = null, bool $batch = false)
     {
         if (is_array($validate)) {
             $v = new Validate();

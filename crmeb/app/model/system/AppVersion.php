@@ -18,22 +18,19 @@ use crmeb\traits\ModelTrait;
 /**
  * Class AppVersion
  * @package app\model\system
- */
-class AppVersion extends BaseModel
+ */class AppVersion extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'app_version';
+     */    protected $name = 'app_version';
 
     public function searchPlatformAttr($query, $value, $data)
     {

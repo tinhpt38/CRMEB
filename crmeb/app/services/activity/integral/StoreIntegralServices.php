@@ -32,16 +32,14 @@ use crmeb\services\CacheService;
  * @package app\services\activity
  * @method getOne(array $where, ?string $field = '*', array $with = []) Nhận một phần dữ liệu dựa trên các điều kiện
  * @method get(int $id, ?array $field) Lấy một phần dữ liệu
- */
-class StoreIntegralServices extends BaseServices
+ */class StoreIntegralServices extends BaseServices
 {
     const THODLCEG = 'ykGUKB';
 
     /**
      * StoreIntegralServices constructor.
      * @param StoreIntegralDao $dao
-     */
-    public function __construct(StoreIntegralDao $dao)
+     */    public function __construct(StoreIntegralDao $dao)
     {
         $this->dao = $dao;
     }
@@ -49,8 +47,7 @@ class StoreIntegralServices extends BaseServices
     /**
      * Lấy số lượng vật phẩm theo điều kiện quy định
      * @param array $where
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         $this->dao->count($where);
     }
@@ -59,8 +56,7 @@ class StoreIntegralServices extends BaseServices
      * Thêm điểm sản phẩm
      * @param int $id
      * @param array $data
-     */
-    public function saveData(int $id, array $data)
+     */    public function saveData(int $id, array $data)
     {
         if ($data['num'] < $data['once_num']) {
             throw new AdminException('Giới hạn số lượng mua một lần không thể lớn hơn tổng số lượng mua');
@@ -73,12 +69,9 @@ class StoreIntegralServices extends BaseServices
         $data['quota'] = $data['quota_show'] = array_sum(array_column($detail, 'quota'));
         $data['stock'] = array_sum(array_column($detail, 'stock'));
         unset($data['section_time'], $data['description'], $data['attrs'], $data['items']);
-        /** @var StoreDescriptionServices $storeDescriptionServices */
-        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
-        /** @var StoreProductServices $storeProductServices */
-        $storeProductServices = app()->make(StoreProductServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionServices */        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductServices $storeProductServices */        $storeProductServices = app()->make(StoreProductServices::class);
         if ($data['quota'] > $storeProductServices->value(['id' => $data['product_id']], 'stock')) {
             throw new AdminException('Giới hạn không thể vượt quá số lượng sản phẩm tồn kho');
         }
@@ -106,16 +99,12 @@ class StoreIntegralServices extends BaseServices
     /**
      * Thêm sản phẩm theo lô
      * @param array $data
-     */
-    public function saveBatchData(array $data)
+     */    public function saveBatchData(array $data)
     {
 
-        /** @var StoreProductServices $service */
-        $service = app()->make(StoreProductServices::class);
-        /** @var StoreDescriptionServices $storeDescriptionServices */
-        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
-        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */
-        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
+        /** @var StoreProductServices $service */        $service = app()->make(StoreProductServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionServices */        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
         if (!$data) {
             throw new AdminException('Vui lòng chọn sản phẩm');
         }
@@ -153,8 +142,7 @@ class StoreIntegralServices extends BaseServices
      * Danh sách sản phẩm điểm
      * @param array $where
      * @return array
-     */
-    public function systemPage(array $where)
+     */    public function systemPage(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
@@ -166,8 +154,7 @@ class StoreIntegralServices extends BaseServices
      * Nhận thông tin chi tiết
      * @param int $id
      * @return array|\think\Model|null
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         $info = $this->dao->get($id);
         if (!$info) {
@@ -177,8 +164,7 @@ class StoreIntegralServices extends BaseServices
             throw new AdminException('Sản phẩm tích điểm bạn xem đã bị xóa');
         }
         $info['price'] = floatval($info['price']);
-        /** @var StoreDescriptionServices $storeDescriptionServices */
-        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionServices */        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
         $info['description'] = $storeDescriptionServices->getDescription(['product_id' => $id, 'type' => 4]);
         $info['attrs'] = $this->attrList($id, $info['product_id']);
         return $info;
@@ -189,13 +175,10 @@ class StoreIntegralServices extends BaseServices
      * @param int $id
      * @param int $pid
      * @return mixed
-     */
-    public function attrList(int $id, int $pid)
+     */    public function attrList(int $id, int $pid)
     {
-        /** @var StoreProductAttrServices $storeProductAttrService */
-        $storeProductAttrService = app()->make(StoreProductAttrServices::class);
-        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */
-        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrService */        $storeProductAttrService = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
         $integralResult = $storeProductAttrResultServices->value(['product_id' => $id, 'type' => 4], 'result');
         $items = json_decode($integralResult, true)['attr'];
         $productAttr = $storeProductAttrService->getProductAttr(['product_id' => $pid, 'type' => 0]);
@@ -248,11 +231,9 @@ class StoreIntegralServices extends BaseServices
      * @param $id
      * @param $type
      * @return array
-     */
-    public function getAttr($attr, $id, $type)
+     */    public function getAttr($attr, $id, $type)
     {
-        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
         list($value, $head) = attr_format($attr);
         $valueNew = [];
         $count = 0;
@@ -291,8 +272,7 @@ class StoreIntegralServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function integralDetail(Request $request, int $id)
+     */    public function integralDetail(Request $request, int $id)
     {
         $storeInfo = $this->dao->getOne(['id' => $id], '*', ['getPrice']);
         if (!$storeInfo) {
@@ -307,15 +287,13 @@ class StoreIntegralServices extends BaseServices
         $storeInfo['sale_stock'] = 0;
         if ($storeInfo['stock'] > 0) $storeInfo['sale_stock'] = 1;
         $uid = $request->uid();
-        /** @var StoreDescriptionServices $storeDescriptionService */
-        $storeDescriptionService = app()->make(StoreDescriptionServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionService */        $storeDescriptionService = app()->make(StoreDescriptionServices::class);
         $storeInfo['description'] = $storeDescriptionService->getDescription(['product_id' => $id, 'type' => 4]);
         $data['storeInfo'] = get_thumb_water($storeInfo, 'big', ['image', 'images']);
         $storeInfoNew = get_thumb_water($storeInfo, 'small');
         $data['storeInfo']['small_image'] = $storeInfoNew['image'];
 
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
         list($productAttr, $productValue) = $storeProductAttrServices->getProductAttrDetail($id, $uid, 0, 4, $storeInfo['product_id']);
         foreach ($productValue as &$item) {
             $item['cost'] = (int)$item['cost'];
@@ -325,8 +303,7 @@ class StoreIntegralServices extends BaseServices
         }
         $data['productAttr'] = $productAttr;
         $data['productValue'] = $productValue;
-        /** @var StoreVisitServices $storeVisit */
-        $storeVisit = app()->make(StoreVisitServices::class);
+        /** @var StoreVisitServices $storeVisit */        $storeVisit = app()->make(StoreVisitServices::class);
         $storeVisit->setView($uid, $id, 'combination', $storeInfo['product_id'], 'view');
         $data['routine_contact_type'] = sys_config('routine_contact_type', 0);
         //Lịch sử duyệt web
@@ -339,13 +316,11 @@ class StoreIntegralServices extends BaseServices
      * @param $num
      * @param $integralId
      * @return bool
-     */
-    public function decIntegralStock(int $num, int $integralId, string $unique)
+     */    public function decIntegralStock(int $num, int $integralId, string $unique)
     {
         $product_id = $this->dao->value(['id' => $integralId], 'product_id');
         if ($unique) {
-            /** @var StoreProductAttrValueServices $skuValueServices */
-            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
+            /** @var StoreProductAttrValueServices $skuValueServices */            $skuValueServices = app()->make(StoreProductAttrValueServices::class);
             //Trừ đi tồn kho sản phẩm tích điểm để tăng doanh số
             $res = false !== $skuValueServices->decProductAttrStock($integralId, $unique, $num, 4);
             //Trừ điểm tồn kho sản phẩm
@@ -357,8 +332,7 @@ class StoreIntegralServices extends BaseServices
         } else {
             $res = false !== $this->dao->decStockIncSales(['id' => $integralId, 'type' => 4], $num);
         }
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         //trừ đi hàng tồn kho chung
         $res = $res && $services->decProductStock($num, $product_id);
         return $res;
@@ -368,8 +342,7 @@ class StoreIntegralServices extends BaseServices
      * Nhận sản phẩm tích điểm
      * @param $id
      * @return mixed
-     */
-    public function getIntegralOne($id)
+     */    public function getIntegralOne($id)
     {
         return $this->dao->validProduct($id, '*');
     }
@@ -384,11 +357,9 @@ class StoreIntegralServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkoutProductStock(int $uid, int $integralId, int $num = 1, string $unique = '')
+     */    public function checkoutProductStock(int $uid, int $integralId, int $num = 1, string $unique = '')
     {
-        /** @var StoreProductAttrValueServices $attrValueServices */
-        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $attrValueServices */        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
         if ($unique == '') {
             $unique = $attrValueServices->value(['product_id' => $integralId, 'type' => 4], 'unique');
         }
@@ -396,8 +367,7 @@ class StoreIntegralServices extends BaseServices
         if (!$StoreIntegralInfo) {
             throw new ApiException('Sản phẩm đã được đưa ra khỏi kệ hoặc bị xóa');
         }
-        /** @var StoreIntegralOrderServices $orderServices */
-        $orderServices = app()->make(StoreIntegralOrderServices::class);
+        /** @var StoreIntegralOrderServices $orderServices */        $orderServices = app()->make(StoreIntegralOrderServices::class);
         $userBuyCount = $orderServices->getBuyCount($uid, $integralId);
         if ($StoreIntegralInfo['once_num'] < $num && $StoreIntegralInfo['once_num'] != -1) {
             throw new ApiException('Giới hạn mua mỗi đơn hàng{:num}miếng', ['num' => $StoreIntegralInfo['once_num']]);
@@ -422,8 +392,7 @@ class StoreIntegralServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getIntegralList(array $where)
+     */    public function getIntegralList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit, 'id,image,title,price,sales');

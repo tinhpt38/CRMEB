@@ -66,6 +66,9 @@ const ORDER_PAY_METHOD_MARKS: Record<string, string> = {
 const ORDER_PAY_TYPE_LABELS: Record<string, string> = {
   vn_cod: "Thanh toán khi nhận hàng (COD)",
   vn_bank: "Chuyển khoản ngân hàng / VietQR",
+  vnpay: "VNPay",
+  momo: "MoMo",
+  zalopay: "ZaloPay",
   offline: "Thanh toán ngoại tuyến",
   yue: "Thanh toán số dư",
 };

@@ -21,8 +21,7 @@ use think\facade\App;
  * Bộ điều khiển flash sale trong thời gian có hạn
  * Class StoreSeckill
  * @package app\admin\controller\store
- */
-class StoreSeckill extends AuthController
+ */class StoreSeckill extends AuthController
 {
     public function __construct(App $app, StoreSeckillServices $services)
     {
@@ -36,8 +35,7 @@ class StoreSeckill extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['start_status', ''],
@@ -55,8 +53,7 @@ class StoreSeckill extends AuthController
      * Chi tiết
      * @param $id
      * @return mixed
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->getInfo($id);
         return app('json')->success(compact('info'));
@@ -65,8 +62,7 @@ class StoreSeckill extends AuthController
     /**
      * Lưu các mặt hàng flash sale
      * @param int $id
-     */
-    public function save($id)
+     */    public function save($id)
     {
         $data = $this->request->postMore([
             [['product_id', 'd'], 0],
@@ -103,13 +99,11 @@ class StoreSeckill extends AuthController
      * Xóa giảm giá chớp nhoáng
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['is_del' => 1]);
-        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
         $unique = $storeProductAttrValueServices->value(['product_id' => $id, 'type' => 1], 'unique');
         if ($unique) {
             CacheService::delete('seckill_' . $unique . '_1');
@@ -122,8 +116,7 @@ class StoreSeckill extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if ($status == 1) {
             $info = $this->services->get($id);
@@ -138,8 +131,7 @@ class StoreSeckill extends AuthController
     /**
      * Danh sách khoảng thời gian flash sale
      * @return mixed
-     */
-    public function time_list()
+     */    public function time_list()
     {
         $list['data'] = sys_data('routine_seckill_time');
         foreach ($list['data'] as &$item) {
@@ -157,8 +149,7 @@ class StoreSeckill extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function seckillStatistics($id)
+     */    public function seckillStatistics($id)
     {
         $data = $this->services->seckillStatistics($id);
         return app('json')->success($data);
@@ -168,8 +159,7 @@ class StoreSeckill extends AuthController
      * Thống kê người tham gia flash kill
      * @param $id
      * @return mixed
-     */
-    public function seckillPeople($id)
+     */    public function seckillPeople($id)
     {
         [$keyword] = $this->request->getMore([
             ['real_name', '', '', 'keyword']
@@ -181,8 +171,7 @@ class StoreSeckill extends AuthController
      * Thống kê đơn hàng flash sale
      * @param $id
      * @return mixed
-     */
-    public function seckillOrder($id)
+     */    public function seckillOrder($id)
     {
         $where = $this->request->getMore([
             ['real_name', ''],

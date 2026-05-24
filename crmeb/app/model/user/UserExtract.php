@@ -18,22 +18,19 @@ use think\model;
 /**
  * Class UserExtract
  * @package app\model\user
- */
-class UserExtract extends BaseModel
+ */class UserExtract extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_extract';
+     */    protected $name = 'user_extract';
 
     //Đang xem xét
     const AUDIT_STATUS = 0;
@@ -43,10 +40,9 @@ class UserExtract extends BaseModel
     const SUCCESS_STATUS = 1;
 
     /**
-     * tình trạng
+     * Trạng thái
      * @var string[]
-     */
-    protected static $status = [
+     */    protected static $status = [
         -1 => 'thất bại',
         0 => 'Đang xem xét',
         1 => 'Đã rút'
@@ -55,18 +51,16 @@ class UserExtract extends BaseModel
     /**
      * sự kết hợpuser
      * @return model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid');
     }
 
     /**
-     * người dùnguid
+     * Khách hànguid
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('uid', $value);
@@ -78,8 +72,7 @@ class UserExtract extends BaseModel
      * Phương thức rút tiền
      * @param Model $query
      * @param $value
-     */
-    public function searchExtractTypeAttr($query, $value)
+     */    public function searchExtractTypeAttr($query, $value)
     {
         if ($value != '') $query->where('extract_type', $value);
     }
@@ -88,8 +81,7 @@ class UserExtract extends BaseModel
      * Xem lại trạng thái
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('status', $value);
@@ -100,8 +92,7 @@ class UserExtract extends BaseModel
      * tìm kiếm mờ
      * @param Model $query
      * @param $value
-     */
-    public function searchLikeAttr($query, $value)
+     */    public function searchLikeAttr($query, $value)
     {
         if ($value) {
             $query->where(function ($query) use ($value) {

@@ -19,15 +19,13 @@ use app\model\product\product\StoreProductCoupon;
  *
  * Class StoreProductCouponDao
  * @package app\dao\coupon
- */
-class StoreProductCouponDao extends BaseDao
+ */class StoreProductCouponDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductCoupon::class;
     }
@@ -37,8 +35,7 @@ class StoreProductCouponDao extends BaseDao
      * @param array $product_ids
      * @param string $field
      * @return int|void
-     */
-    public function getProductCoupon(array $product_ids, string $field = '*')
+     */    public function getProductCoupon(array $product_ids, string $field = '*')
     {
         return $this->search(['product_id' => $product_ids])->field($field)->select()->toArray();
     }

@@ -30,8 +30,7 @@ class StoreIntegralOrderController
      * Xác nhận đơn hàng
      * @param Request $request
      * @return mixed
-     */
-    public function confirm(Request $request)
+     */    public function confirm(Request $request)
     {
         [$unique, $num] = $request->postMore([
             'unique',
@@ -53,8 +52,7 @@ class StoreIntegralOrderController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function create(Request $request, StoreProductAttrValueServices $storeProductAttrValueServices, StoreIntegralServices $storeIntegralServices)
+     */    public function create(Request $request, StoreProductAttrValueServices $storeProductAttrValueServices, StoreIntegralServices $storeIntegralServices)
     {
         $uid = (int)$request->uid();
         [$addressId, $mark, $unique, $num] = $request->postMore([
@@ -77,12 +75,11 @@ class StoreIntegralOrderController
     }
 
     /**
-     * Chi tiết đặt hàng
+     * Chi tiết đơn hàng
      * @param Request $request
      * @param $uni
      * @return mixed
-     */
-    public function detail(Request $request, $uni)
+     */    public function detail(Request $request, $uni)
     {
         if (!strlen(trim($uni))) return app('json')->fail('Lỗi tham số');
         $order = $this->services->getOne(['order_id' => $uni, 'is_del' => 0]);
@@ -96,8 +93,7 @@ class StoreIntegralOrderController
      * danh sách đặt hàng
      * @param Request $request
      * @return mixed
-     */
-    public function lst(Request $request)
+     */    public function lst(Request $request)
     {
         $where['uid'] = $request->uid();
         $where['is_del'] = 0;
@@ -110,8 +106,7 @@ class StoreIntegralOrderController
      * Biên nhận đơn hàng
      * @param Request $request
      * @return mixed
-     */
-    public function take(Request $request)
+     */    public function take(Request $request)
     {
         list($order_id) = $request->postMore([
             ['order_id', ''],
@@ -125,13 +120,12 @@ class StoreIntegralOrderController
     }
 
     /**
-     * Đặt hàng Xem hậu cần
+     * Đơn hàng Xem hậu cần
      * @param Request $request
      * @param ExpressServices $expressServices
      * @param $uni
      * @return mixed
-     */
-    public function express(Request $request, ExpressServices $expressServices, $uni)
+     */    public function express(Request $request, ExpressServices $expressServices, $uni)
     {
         if (!$uni || !($order = $this->services->getUserOrderDetail($uni, $request->uid()))) return app('json')->fail('Đơn hàng không tồn tại');
         if ($order['delivery_type'] != 'express' || !$order['delivery_id']) return app('json')->fail('Số theo dõi chuyển phát nhanh không tồn tại');
@@ -151,8 +145,7 @@ class StoreIntegralOrderController
      * Xóa đơn hàng
      * @param Request $request
      * @return mixed
-     */
-    public function del(Request $request)
+     */    public function del(Request $request)
     {
         [$order_id] = $request->postMore([
             ['order_id', ''],

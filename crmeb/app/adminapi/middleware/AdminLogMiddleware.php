@@ -20,19 +20,16 @@ use crmeb\interfaces\MiddlewareInterface;
  * Đăng nhập phần mềm trung gian
  * Class AdminLogMiddleware
  * @package app\adminapi\middleware
- */
-class AdminLogMiddleware implements MiddlewareInterface
+ */class AdminLogMiddleware implements MiddlewareInterface
 {
     /**
      * @param Request $request
      * @param \Closure $next
      * @return mixed
-     */
-    public function handle(Request $request, \Closure $next)
+     */    public function handle(Request $request, \Closure $next)
     {
         try {
-            /** @var SystemLogServices $services */
-            $services = app()->make(SystemLogServices::class);
+            /** @var SystemLogServices $services */            $services = app()->make(SystemLogServices::class);
             $services->recordAdminLog($request->adminId(), $request->adminInfo()['account'], 'system');
         } catch (\Throwable $e) {
         }

@@ -21,8 +21,7 @@ class MealValidata extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'meal_id' => 'require|number',
         'price' => 'require',
         'num' => 'require|number',
@@ -34,8 +33,7 @@ class MealValidata extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'meal_id.require' => 'Vui lòng chuyển gói hàngid',
         'meal_id.number' => 'ID gói phải là một số',
         'price.require' => 'Vui lòng điền số tiền gói',

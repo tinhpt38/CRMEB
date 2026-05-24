@@ -20,8 +20,7 @@ use app\model\order\StoreOrderCartInfo;
  *
  * Class StoreOrderStoreOrderCartInfoDao
  * @package app\dao\order
- */
-class StoreOrderStoreOrderCartInfoDao extends BaseDao
+ */class StoreOrderStoreOrderCartInfoDao extends BaseDao
 {
 
     protected $alias = 'a';
@@ -31,8 +30,7 @@ class StoreOrderStoreOrderCartInfoDao extends BaseDao
     /**
      * Đặt mô hình bảng chính
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreOrder::class;
     }
@@ -40,8 +38,7 @@ class StoreOrderStoreOrderCartInfoDao extends BaseDao
     /**
      * Thiết lập mô hình danh sách liên kết
      * @return string
-     */
-    protected function setJoinModel(): string
+     */    protected function setJoinModel(): string
     {
         return StoreOrderCartInfo::class;
     }
@@ -49,19 +46,17 @@ class StoreOrderStoreOrderCartInfoDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return \crmeb\basic\BaseModel
-     */
-    public function getModel()
+     */    public function getModel()
     {
         $name = app()->make($this->setJoinModel())->getName();
         return parent::getModel()->alias($this->alias)->join($name . ' ' . $this->joinAlis, $this->alias . '.id =' . $this->joinAlis . '.oid');
     }
 
     /**
-     * Nhận các mặt hàng được người dùng muaid
+     * Nhận các mặt hàng được Khách hàng muaid
      * @param array $where
      * @return array
-     */
-    public function getUserCartProductIds(array $where)
+     */    public function getUserCartProductIds(array $where)
     {
         return $this->getModel()->when(isset($where['uid']), function ($query) use ($where) {
             $query->where($this->alias . '.uid', $where['uid']);

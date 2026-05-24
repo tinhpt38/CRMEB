@@ -1,0 +1,118 @@
+{
+  "dryRun": true,
+  "roots": [
+    "crmeb/app"
+  ],
+  "summary": {
+    "scanned": 928,
+    "changedFiles": 22,
+    "totalReplacements": 51
+  },
+  "stats": {
+    "perEntry": {
+      "Quản lý điểm": 2,
+      "đơn vị": 4,
+      "tất cả": 1,
+      "đánh giá sản phẩm": 6,
+      "Thứ tự": 10,
+      "trong kho": 2,
+      "thanh toán số dư": 14,
+      "thanh toán Tonglian": 4,
+      "bật lên": 1,
+      "In biên lai": 1,
+      "hàng hóa": 2,
+      "thanh toán thực tế": 2,
+      "thời gian thanh toán": 2
+    },
+    "perFile": [
+      {
+        "file": "crmeb/app/adminapi/controller/UpgradeController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/freight/Express.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/route/product.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreCategoryValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreProductLabelValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreProductProtectionValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreProductReplyValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/PayController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/order/OtherOrderServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderComputedServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderRefundServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/other/export/ExportServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/pay/PayServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreCategoryServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductLabelCateServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductProtectionServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/shipping/ExpressServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/statistic/TradeStatisticServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/system/SystemTicketServices.php",
+        "count": 10
+      },
+      {
+        "file": "crmeb/app/services/user/UserBillServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/user/UserMoneyServices.php",
+        "count": 2
+      }
+    ]
+  }
+}

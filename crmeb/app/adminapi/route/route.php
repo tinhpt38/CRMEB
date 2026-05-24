@@ -15,12 +15,11 @@ use app\http\middleware\AllowOriginMiddleware;
 
 /**
  * Giao diện không có giấy phép
- */
-Route::group(function () {
+ */Route::group(function () {
     //Thủ tục nâng cấp
     Route::get('upgrade', 'UpgradeController/index');
     Route::get('upgrade/run', 'UpgradeController/upgrade');
-    //Đăng nhập bằng tên người dùng và mật khẩu
+    //Đăng nhập bằng tên Khách hàng và mật khẩu
     Route::post('login', 'Login/login')->name('AdminLogin')->option(['real_name' => 'Tải xuống bản ghi sao lưu bảng']);
     //Dữ liệu trang đăng nhập phụ trợ
     Route::get('login/info', 'Login/info')->option(['real_name' => 'Thông tin đăng nhập']);
@@ -30,8 +29,8 @@ Route::group(function () {
     Route::get('ajcaptcha', 'Login/ajcaptcha')->name('ajcaptcha')->option(['real_name' => 'Nhận mã xác minh']);
     //Một lần xác minh
     Route::post('ajcheck', 'Login/ajcheck')->name('ajcheck')->option(['real_name' => 'Một lần xác minh']);
-    //Nhận dữ liệu dịch vụ khách hàng
-    Route::get('get_workerman_url', 'PublicController/getWorkerManUrl')->option(['real_name' => 'Nhận dữ liệu dịch vụ khách hàng']);
+    //Nhận dữ liệu CSKH
+    Route::get('get_workerman_url', 'PublicController/getWorkerManUrl')->option(['real_name' => 'Nhận dữ liệu CSKH']);
     //Bài kiểm tra
     Route::get('index', 'Test/index')->option(['real_name' => 'Địa chỉ kiểm tra']);
     //Quét mã QR để tải ảnh lên
@@ -43,8 +42,7 @@ Route::group(function () {
 
 /**
  * Giao diện yêu cầu ủy quyền
- */
-Route::group(function () {
+ */Route::group(function () {
     //Thông tin máy chủ
     Route::get('system/info', 'PublicController/getSystemInfo')->option(['real_name' => 'Thông tin máy chủ']);
     //Nhập tuyến đường
@@ -58,8 +56,7 @@ Route::group(function () {
 
 /**
  * miss lộ trình
- */
-Route::miss(function () {
+ */Route::miss(function () {
     if (app()->request->isOptions()) {
         $header = Config::get('cookie.header');
         $header['Access-Control-Allow-Origin'] = app()->request->header('origin');

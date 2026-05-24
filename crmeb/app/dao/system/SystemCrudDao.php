@@ -21,15 +21,13 @@ use app\model\system\SystemCrud;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\dao\system
- */
-class SystemCrudDao extends BaseDao
+ */class SystemCrudDao extends BaseDao
 {
 
     /**
      * Lấy mô hình hiện tại
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemCrud::class;
     }

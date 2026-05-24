@@ -21,22 +21,20 @@ class SystemAgreement extends AuthController
      * SystemCity constructor.
      * @param App $app
      * @param AgreementServices $services
-     */
-    public function __construct(App $app, AgreementServices $services)
+     */    public function __construct(App $app, AgreementServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Nhận nội dung thỏa thuận
+     * Nhận Nội dung thỏa thuận
      * @param $type
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAgreement($type)
+     */    public function getAgreement($type)
     {
         if (!$type) return app('json')->fail('Loại giao thức không tồn tại');
         $info = $this->services->getAgreementBytype($type);
@@ -44,10 +42,9 @@ class SystemAgreement extends AuthController
     }
 
     /**
-     * Lưu nội dung thỏa thuận
+     * Lưu Nội dung thỏa thuận
      * @return mixed
-     */
-    public function saveAgreement()
+     */    public function saveAgreement()
     {
         $data = $this->request->postMore([
             ['id', 0],

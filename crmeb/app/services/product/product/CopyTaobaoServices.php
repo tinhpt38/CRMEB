@@ -24,23 +24,19 @@ use think\facade\Config;
  *
  * Class CopyTaobaoServices
  * @package app\services\product\product
- */
-class CopyTaobaoServices extends BaseServices
+ */class CopyTaobaoServices extends BaseServices
 {
     /**
      * @var bool
-     */
-    protected $errorInfo = true;
+     */    protected $errorInfo = true;
 
     /**
      * @var string
-     */
-    public $AttachmentCategoryName = 'Tải xuống từ xa';
+     */    public $AttachmentCategoryName = 'Tải xuống từ xa';
 
     /**
      * @var string[]
-     */
-    protected $host = ['taobao', 'tmall', 'jd', 'pinduoduo', 'suning', 'yangkeduo', '1688'];
+     */    protected $host = ['taobao', 'tmall', 'jd', 'pinduoduo', 'suning', 'yangkeduo', '1688'];
 
     /**
      * @param $type
@@ -48,14 +44,12 @@ class CopyTaobaoServices extends BaseServices
      * @param $shopid
      * @param $url
      * @return array
-     */
-    public function copyProduct($type, $id, $shopid, $url)
+     */    public function copyProduct($type, $id, $shopid, $url)
     {
         $result = [];
         switch ((int)sys_config('system_product_copy_type')) {
             case 1://nền tảng
-                /** @var ServeServices $services */
-                $services = app()->make(ServeServices::class);
+                /** @var ServeServices $services */                $services = app()->make(ServeServices::class);
                 $resultData = $services->copy('copy')->goods($url);
                 if (isset($resultData['description_image']) && is_string($resultData['description_image'])) {
                     $resultData['description_image'] = json_decode($resultData['description_image'], true);
@@ -69,8 +63,7 @@ class CopyTaobaoServices extends BaseServices
             case 2://99API
                 $apikey = sys_config('copy_product_apikey');
                 if (!$apikey) throw new AdminException('Vui lòng cấu hình khóa giao diện trước');
-                /** @var ServeServices $services */
-                $services = app()->make(ServeServices::class);
+                /** @var ServeServices $services */                $services = app()->make(ServeServices::class);
                 $result = $services->copy('copy99api')->goods($url, [
                     'apikey' => $apikey,
                 ]);
@@ -78,10 +71,8 @@ class CopyTaobaoServices extends BaseServices
         }
         if (isset($result['status']) && $result['status']) {
 
-            /** @var StoreProductServices $ProductServices */
-            $ProductServices = app()->make(StoreProductServices::class);
-            /** @var StoreCategoryServices $storeCatecoryService */
-            $storeCatecoryService = app()->make(StoreCategoryServices::class);
+            /** @var StoreProductServices $ProductServices */            $ProductServices = app()->make(StoreProductServices::class);
+            /** @var StoreCategoryServices $storeCatecoryService */            $storeCatecoryService = app()->make(StoreCategoryServices::class);
             $data = [];
             $productInfo = $result['data'];
             if (count($productInfo['slider_image'])) {
@@ -162,14 +153,11 @@ class CopyTaobaoServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function uploadDescriptionImage(int $id)
+     */    public function uploadDescriptionImage(int $id)
     {
         //Phân loại tệp đính kèm truy vấn
-        /** @var SystemAttachmentCategoryServices $systemAttachmentCategoryService */
-        $systemAttachmentCategoryService = app()->make(SystemAttachmentCategoryServices::class);
-        /** @var StoreDescriptionServices $storeDescriptionServices */
-        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
+        /** @var SystemAttachmentCategoryServices $systemAttachmentCategoryService */        $systemAttachmentCategoryService = app()->make(SystemAttachmentCategoryServices::class);
+        /** @var StoreDescriptionServices $storeDescriptionServices */        $storeDescriptionServices = app()->make(StoreDescriptionServices::class);
         $AttachmentCategory = $systemAttachmentCategoryService->getOne(['name' => $this->AttachmentCategoryName]);
         //Tạo nếu nó không tồn tại
         if (!$AttachmentCategory) $AttachmentCategory = $systemAttachmentCategoryService->save(['pid' => '0', 'name' => $this->AttachmentCategoryName, 'enname' => '']);
@@ -182,7 +170,7 @@ class CopyTaobaoServices extends BaseServices
         }
         $description = $storeDescriptionServices->getDescription(['product_id ' => $id, 'type' => 0]);
         if (!$description) throw new AdminException('Lỗi thông số sản phẩm');
-        //Thay thế và tải xuống các hình ảnh chi tiết và tải xuống tất cả các hình ảnh theo mặc định
+        //Thay thế và tải xuống các hình ảnh chi tiết và tải xuống Tất cả các hình ảnh theo mặc định
         $description = preg_replace('#<style>.*?</style>#is', '', $description);
         $description = $this->uploadImage([], $description, 1, $AttachmentCategory['id']);
         $storeDescriptionServices->saveDescription((int)$id, $description);
@@ -196,11 +184,9 @@ class CopyTaobaoServices extends BaseServices
      * @param int $uploadType
      * @param int $AttachmentCategoryId
      * @return array|bool|string|string[]|null
-     */
-    public function uploadImage(array $images = [], $html = '', $uploadType = 0, $AttachmentCategoryId = 0)
+     */    public function uploadImage(array $images = [], $html = '', $uploadType = 0, $AttachmentCategoryId = 0)
     {
-        /** @var SystemAttachmentServices $systemAttachmentService */
-        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentService */        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
         $uploadImage = [];
         $siteUrl = sys_config('site_url');
         switch ($uploadType) {
@@ -293,8 +279,7 @@ class CopyTaobaoServices extends BaseServices
      * @param int $w
      * @param int $h
      * @return array|string
-     */
-    public function downloadImage($url = '', $name = '', $type = 0, $timeout = 30, $w = 0, $h = 0)
+     */    public function downloadImage($url = '', $name = '', $type = 0, $timeout = 30, $w = 0, $h = 0)
     {
         if (!strlen(trim($url))) return '';
 
@@ -371,8 +356,7 @@ class CopyTaobaoServices extends BaseServices
      * @param string $url
      * @param string $ex
      * @return array|string[]
-     */
-    public function getImageExtname($url = '', $ex = 'jpg')
+     */    public function getImageExtname($url = '', $ex = 'jpg')
     {
         $_empty = ['file_name' => '', 'ext_name' => $ex];
         if (!$url) return $_empty;
@@ -390,8 +374,7 @@ class CopyTaobaoServices extends BaseServices
     /**
      * SPU
      * @return string
-     */
-    public function createSpu()
+     */    public function createSpu()
     {
         return substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8) . str_pad((string)mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
     }
@@ -401,12 +384,10 @@ class CopyTaobaoServices extends BaseServices
      * @param $image
      * @return false|mixed|string
      * @throws \Exception
-     */
-    public function downloadCopyImage($image)
+     */    public function downloadCopyImage($image)
     {
         //Phân loại tệp đính kèm truy vấn
-        /** @var SystemAttachmentCategoryServices $systemAttachmentCategoryService */
-        $systemAttachmentCategoryService = app()->make(SystemAttachmentCategoryServices::class);
+        /** @var SystemAttachmentCategoryServices $systemAttachmentCategoryService */        $systemAttachmentCategoryService = app()->make(SystemAttachmentCategoryServices::class);
         $AttachmentCategory = $systemAttachmentCategoryService->getOne(['name' => 'Tải xuống từ xa']);
         //Tạo nếu nó không tồn tại
         if (!$AttachmentCategory) {
@@ -419,8 +400,7 @@ class CopyTaobaoServices extends BaseServices
         }
 
         //Tải ảnh lên
-        /** @var SystemAttachmentServices $systemAttachmentService */
-        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentService */        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
         $siteUrl = sys_config('site_url');
         $uploadValue = $this->downloadImage($image);
         if (is_array($uploadValue)) {
@@ -454,8 +434,7 @@ class CopyTaobaoServices extends BaseServices
      * Xác định nền tảng dựa trên URL và nhận được anti-hotlink tương ứngheaders
      * @param string $url URL hình ảnh
      * Mảng @return trả về giá trị tương ứngHTTP headers
-     */
-    public function getAntiHotlinkingHeaders(string $url): array
+     */    public function getAntiHotlinkingHeaders(string $url): array
     {
         // Căn cứheaders
         $baseHeaders = [

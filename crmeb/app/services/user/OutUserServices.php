@@ -24,28 +24,24 @@ use crmeb\exceptions\ApiException;
  *
  * Class OutUserServices
  * @package app\services\user
- */
-class OutUserServices extends BaseServices
+ */class OutUserServices extends BaseServices
 {
 
     /**
      * UserServices constructor.
      * @param UserDao $dao
-     */
-    public function __construct(UserDao $dao)
+     */    public function __construct(UserDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Danh sách người dùng
+     * Danh sách Khách hàng
      * @param array $where
      * @return array
-     */
-    public function getUserList(array $where): array
+     */    public function getUserList(array $where): array
     {
-        /** @var UserWechatuserServices $userWechatUser */
-        $userWechatUser = app()->make(UserWechatuserServices::class);
+        /** @var UserWechatuserServices $userWechatUser */        $userWechatUser = app()->make(UserWechatuserServices::class);
         $fields = 'u.uid, u.real_name, u.mark, u.nickname, u.avatar, u.phone, u.now_money, u.brokerage_price, u.integral, u.exp, u.sign_num, u.user_type, 
         u.status, u.level, u.agent_level, u.spread_open, u.spread_uid, u.spread_time, u.user_type, u.is_promoter, u.pay_count, u.is_ever_level, u.is_money_level, 
         u.overdue_time, u.add_time';
@@ -57,7 +53,7 @@ class OutUserServices extends BaseServices
             $spreadNames = $this->dao->getColumn([['uid', 'in', array_unique(array_column($list, 'spread_uid'))]], 'nickname', 'uid');
             foreach ($list as &$item) {
                 $item['spread_uid_nickname'] = $item['spread_uid'] ? ($spreadNames[$item['spread_uid']] ?? '') . '/' . $item['spread_uid'] : '';
-                //Loại người dùng
+                //Loại Khách hàng
                 if ($item['user_type'] == 'routine') {
                     $item['user_type'] = 'Chương trình nhỏ';
                 } else if ($item['user_type'] == 'wechat') {
@@ -70,7 +66,7 @@ class OutUserServices extends BaseServices
                     $item['user_type'] = 'APP';
                 } else $item['user_type'] = 'khác';
 
-                //Cấp độ người dùng
+                //Hạng khách hàng
                 $item['level_name'] = "";
                 $levelInfo = $userLevel[$item['uid']] ?? null;
                 if ($levelInfo) {
@@ -84,14 +80,13 @@ class OutUserServices extends BaseServices
     }
 
     /**
-     * Nhận thông tin chi tiết người dùng
+     * Nhận thông tin chi tiết Khách hàng
      * @param $uid
      * @return mixed
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/20
-     */
-    public function userInfo($uid)
+     */    public function userInfo($uid)
     {
         $userType = ['h5' => 'H5', 'wechat' => 'Tài khoản chính thức', 'routine' => 'Chương trình nhỏ', 'app' => 'APP', 'pc' => 'PC'];
         $fields = ['uid', 'real_name', 'mark', 'nickname', 'avatar', 'phone', 'now_money', 'brokerage_price', 'integral', 'exp', 'sign_num', 'user_type', 'status', 'level',
@@ -109,15 +104,14 @@ class OutUserServices extends BaseServices
     }
 
     /**
-     * Thêm/sửa đổi người dùng
+     * Thêm/sửa đổi Khách hàng
      * @param int $uid
      * @param array $data
      * @return int
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveUser(int $uid, array $data): int
+     */    public function saveUser(int $uid, array $data): int
     {
         if (empty($data['real_name'])) {
             throw new ApiException('Vui lòng nhập tên thật của bạn');
@@ -162,8 +156,7 @@ class OutUserServices extends BaseServices
                 throw new ApiException('Lưu không thành công');
             }
 
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
 
             $level = (int)$data['level'];
             if ($level) {
@@ -176,7 +169,7 @@ class OutUserServices extends BaseServices
     }
 
     /**
-     * cho đi(Điểm/Số dư/Thành viên trả phí)
+     * cho đi(Điểm/Số dư/Gói thẻ VIP)
      * @param int $id
      * @param array $data
      * @return bool
@@ -184,12 +177,10 @@ class OutUserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function otherGive(int $id, array $data): bool
+     */    public function otherGive(int $id, array $data): bool
     {
         return $this->transaction(function () use ($id, $data) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
 
             $days = (int)$data['days'];
             $coupon = (int)$data['coupon'];
@@ -199,8 +190,7 @@ class OutUserServices extends BaseServices
             }
 
             if ($coupon) {
-                /** @var StoreCouponIssueServices $issueService */
-                $issueService = app()->make(StoreCouponIssueServices::class);
+                /** @var StoreCouponIssueServices $issueService */                $issueService = app()->make(StoreCouponIssueServices::class);
                 $coupon = $issueService->get($data['id']);
                 if (!$coupon) {
                     throw new ApiException('Dữ liệu không tồn tại');
@@ -219,7 +209,7 @@ class OutUserServices extends BaseServices
     }
 
     /**
-     * Sửa đổi dữ liệu người dùng
+     * Sửa đổi dữ liệu Khách hàng
      * @param $uid
      * @param $value
      * @param $type
@@ -227,11 +217,9 @@ class OutUserServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function changeUserData($uid, $value, $type)
+     */    public function changeUserData($uid, $value, $type)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $res = $userServices->update($uid, [$type => $value]);
         if ($res) throw new ApiException('Sửa đổi không thành công');
         return true;

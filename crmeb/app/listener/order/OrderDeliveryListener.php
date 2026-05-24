@@ -18,8 +18,7 @@ use crmeb\interfaces\ListenerInterface;
  * Tự động giao hàng khi hết đơn hàng
  * Class OrderDeliveryListener
  * @package app\listener\order
- */
-class OrderDeliveryListener implements ListenerInterface
+ */class OrderDeliveryListener implements ListenerInterface
 {
     public function handle($event): void
     {

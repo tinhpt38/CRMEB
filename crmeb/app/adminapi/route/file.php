@@ -12,8 +12,7 @@ use think\facade\Route;
 
 /**
  * Định tuyến liên quan đến tệp đính kèm
- */
-Route::group('file', function () {
+ */Route::group('file', function () {
     //Danh sách đính kèm
     Route::get('file', 'v1.file.SystemAttachment/index')->option(['real_name' => 'Danh sách đính kèm hình ảnh']);
     //Xóa hình ảnh và bản ghi dữ liệu

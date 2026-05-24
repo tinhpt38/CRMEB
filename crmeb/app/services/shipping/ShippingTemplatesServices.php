@@ -17,35 +17,32 @@ use app\dao\shipping\ShippingTemplatesDao;
 use crmeb\exceptions\AdminException;
 
 /**
- * Mẫu vận chuyển hàng hóa
+ * Mẫu vận chuyển sản phẩm
  * Class ShippingTemplatesServices
  * @package app\services\shipping
  * @method getSelectList() Nhận danh sách lựa chọn thả xuống
  * @method get($id) Lấy một phần dữ liệu
- * @method getShippingColumn(array $where, string $field, string $key) Nhận dữ liệu theo các điều kiện quy định của mẫu vận chuyển hàng hóa
- */
-class ShippingTemplatesServices extends BaseServices
+ * @method getShippingColumn(array $where, string $field, string $key) Nhận dữ liệu theo các điều kiện quy định của mẫu vận chuyển sản phẩm
+ */class ShippingTemplatesServices extends BaseServices
 {
 
     /**
      * Người xây dựng
      * ShippingTemplatesServices constructor.
      * @param ShippingTemplatesDao $dao
-     */
-    public function __construct(ShippingTemplatesDao $dao)
+     */    public function __construct(ShippingTemplatesDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Nhận danh sách các mẫu vận chuyển hàng hóa
+     * Nhận danh sách các mẫu vận chuyển sản phẩm
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getShippingList(array $where)
+     */    public function getShippingList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getShippingList($where, $page, $limit);
@@ -54,25 +51,21 @@ class ShippingTemplatesServices extends BaseServices
     }
 
     /**
-     * Lấy mẫu vận chuyển hàng hóa cần sửa đổi
+     * Lấy mẫu vận chuyển sản phẩm cần sửa đổi
      * @param int $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getShipping(int $id)
+     */    public function getShipping(int $id)
     {
         $templates = $this->dao->get($id);
         if (!$templates) {
             throw new AdminException('Mẫu đã sửa đổi không tồn tại');
         }
-        /** @var ShippingTemplatesFreeServices $freeServices */
-        $freeServices = app()->make(ShippingTemplatesFreeServices::class);
-        /** @var ShippingTemplatesRegionServices $regionServices */
-        $regionServices = app()->make(ShippingTemplatesRegionServices::class);
-        /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */
-        $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
+        /** @var ShippingTemplatesFreeServices $freeServices */        $freeServices = app()->make(ShippingTemplatesFreeServices::class);
+        /** @var ShippingTemplatesRegionServices $regionServices */        $regionServices = app()->make(ShippingTemplatesRegionServices::class);
+        /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */        $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
         $data['appointList'] = $freeServices->getFreeList($id);
         $data['templateList'] = $regionServices->getRegionList($id);
         $data['noDeliveryList'] = $noDeliveryServices->getNoDeliveryList($id);
@@ -90,13 +83,12 @@ class ShippingTemplatesServices extends BaseServices
     }
 
     /**
-     * Lưu hoặc sửa đổi mẫu vận chuyển hàng hóa
+     * Lưu hoặc sửa đổi mẫu vận chuyển sản phẩm
      * @param int $id
      * @param array $temp
      * @param array $data
      * @return mixed
-     */
-    public function save(int $id, array $temp, array $data)
+     */    public function save(int $id, array $temp, array $data)
     {
         if ($id) {
             $res = $this->dao->update($id, $temp);
@@ -105,8 +97,7 @@ class ShippingTemplatesServices extends BaseServices
             $res = true;
         }
 
-        /** @var ShippingTemplatesRegionServices $regionServices */
-        $regionServices = app()->make(ShippingTemplatesRegionServices::class);
+        /** @var ShippingTemplatesRegionServices $regionServices */        $regionServices = app()->make(ShippingTemplatesRegionServices::class);
 
 
         return $this->transaction(function () use ($regionServices, $data, $id, $res) {
@@ -117,15 +108,13 @@ class ShippingTemplatesServices extends BaseServices
             }
             //Đặt giao hàng miễn phí được chỉ định
             if ($data['appoint']) {
-                /** @var ShippingTemplatesFreeServices $freeServices */
-                $freeServices = app()->make(ShippingTemplatesFreeServices::class);
+                /** @var ShippingTemplatesFreeServices $freeServices */                $freeServices = app()->make(ShippingTemplatesFreeServices::class);
                 $res = $res && $freeServices->saveFree($data['appoint_info'], (int)$data['type'], (int)$id);
             }
 
             //Thiết lập không giao hàng
             if ($data['no_delivery']) {
-                /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */
-                $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
+                /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */                $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
                 $res = $res && $noDeliveryServices->saveNoDelivery($data['no_delivery_info'], (int)$id);
             }
 
@@ -140,16 +129,12 @@ class ShippingTemplatesServices extends BaseServices
     /**
      * Xóa mẫu vận chuyển
      * @param int $id
-     */
-    public function detete(int $id)
+     */    public function detete(int $id)
     {
         $this->dao->delete($id);
-        /** @var ShippingTemplatesFreeServices $freeServices */
-        $freeServices = app()->make(ShippingTemplatesFreeServices::class);
-        /** @var ShippingTemplatesRegionServices $regionServices */
-        $regionServices = app()->make(ShippingTemplatesRegionServices::class);
-        /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */
-        $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
+        /** @var ShippingTemplatesFreeServices $freeServices */        $freeServices = app()->make(ShippingTemplatesFreeServices::class);
+        /** @var ShippingTemplatesRegionServices $regionServices */        $regionServices = app()->make(ShippingTemplatesRegionServices::class);
+        /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */        $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
         $freeServices->delete($id, 'temp_id');
         $regionServices->delete($id, 'temp_id');
         $noDeliveryServices->delete($id, 'temp_id');

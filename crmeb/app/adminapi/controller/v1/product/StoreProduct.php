@@ -25,8 +25,7 @@ use think\Request;
 /**
  * Class StoreProduct
  * @package app\adminapi\controller\v1\product
- */
-class StoreProduct extends AuthController
+ */class StoreProduct extends AuthController
 {
     protected $service;
 
@@ -39,8 +38,7 @@ class StoreProduct extends AuthController
     /**
      * Hiển thị tiêu đề danh sách tài nguyên
      * @return mixed
-     */
-    public function type_header()
+     */    public function type_header()
     {
         $where = $this->request->getMore([
             ['store_name', ''],
@@ -60,8 +58,7 @@ class StoreProduct extends AuthController
      * Thoát dữ liệu chưa được lưu
      * @param CacheServices $services
      * @return mixed
-     */
-    public function getCacheData(CacheServices $services)
+     */    public function getCacheData(CacheServices $services)
     {
         return app('json')->success(['info' => $services->getDbCache($this->adminId . '_product_data', [])]);
     }
@@ -70,8 +67,7 @@ class StoreProduct extends AuthController
      * 1Lưu dữ liệu sản phẩm mỗi phút
      * @param CacheServices $services
      * @return mixed
-     */
-    public function saveCacheData(CacheServices $services)
+     */    public function saveCacheData(CacheServices $services)
     {
         $data = $this->request->postMore([
             ['cate_id', []],
@@ -117,8 +113,7 @@ class StoreProduct extends AuthController
      * Xóa bộ đệm dữ liệu
      * @param CacheServices $services
      * @return mixed
-     */
-    public function deleteCacheData(CacheServices $services)
+     */    public function deleteCacheData(CacheServices $services)
     {
         $services->delectDbCache($this->adminId . '_product_data');
         return app('json')->success('Xóa thành công');
@@ -127,8 +122,7 @@ class StoreProduct extends AuthController
     /**
      * Hiển thị danh sách tài nguyên
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['store_name', ''],
@@ -156,8 +150,7 @@ class StoreProduct extends AuthController
      * @param string $is_show
      * @param string $id
      * @return mixed
-     */
-    public function set_show($is_show = '', $id = '')
+     */    public function set_show($is_show = '', $id = '')
     {
         $del = $this->service->value(['id' => $id], 'is_del');
         if ($del == 1) return app('json')->fail('Sản phẩm đã bị xóa, vui lòng khôi phục sản phẩm trước');
@@ -168,8 +161,7 @@ class StoreProduct extends AuthController
     /**
      * Thiết lập kệ sản phẩm hàng loạt
      * @return mixed
-     */
-    public function product_show()
+     */    public function product_show()
     {
         [$ids] = $this->request->postMore([
             ['ids', []]
@@ -181,8 +173,7 @@ class StoreProduct extends AuthController
     /**
      * Thiết lập loại bỏ sản phẩm hàng loạt
      * @return mixed
-     */
-    public function product_unshow()
+     */    public function product_unshow()
     {
         [$ids] = $this->request->postMore([
             ['ids', []]
@@ -194,8 +185,7 @@ class StoreProduct extends AuthController
     /**
      * Nhận mẫu thông số kỹ thuật
      * @return mixed
-     */
-    public function get_rule()
+     */    public function get_rule()
     {
         $list = $this->service->getRule();
         return app('json')->success($list);
@@ -207,8 +197,7 @@ class StoreProduct extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function get_product_info($id = 0)
+     */    public function get_product_info($id = 0)
     {
         return app('json')->success($this->service->getInfo((int)$id));
     }
@@ -218,15 +207,14 @@ class StoreProduct extends AuthController
      * @param $id
      * @return mixed
      * @throws \Exception
-     */
-    public function save($id)
+     */    public function save($id)
     {
         $data = $this->request->postMore([
             ['virtual_type', 0],// Loại sản phẩm
             ['cate_id', []],//Phân loạiid
             ['store_name', ''],//Tên sản phẩm
             ['keyword', ''],//Từ khóa
-            ['unit_name', 'miếng'],//đơn vị
+            ['unit_name', 'miếng'],//Đơn vị
             ['store_info', ''],//Giới thiệu sản phẩm
             ['slider_image', []],//băng chuyền
             ['video_open', 0],//Có bật video hay không
@@ -239,7 +227,7 @@ class StoreProduct extends AuthController
             ['logistics', []],//Phương pháp hậu cần
             ['freight', 1],//Cài đặt phí vận chuyển
             ['postage', 0],//Bưu phí
-            ['temp_id', 0],//Mẫu vận chuyển hàng hóaid
+            ['temp_id', 0],//Mẫu vận chuyển sản phẩmid
             ['give_integral', 0],//Tặng điểm
             ['presale', 0],//Chuyển đổi sản phẩm trước khi bán
             ['presale_time', 0],//Thời gian bán trước
@@ -250,8 +238,8 @@ class StoreProduct extends AuthController
             ['recommend', []],//Khuyến nghị sản phẩm
             ['activity', []],//Ưu tiên hoạt động
             ['recommend_list', []],//Sản phẩm được khuyên dùng chất lượng cao
-            ['coupon_ids', []],//Phiếu giảm giá
-            ['label_id', []],//Thẻ người dùng
+            ['coupon_ids', []],//Mã giảm giá
+            ['label_id', []],//Thẻ khách hàng
             ['command_word', ''],//Mật khẩu sản phẩm
             ['is_show', 0],//Nó có ở trên kệ không?
             ['ficti', 0],//bán hàng ảo
@@ -265,9 +253,9 @@ class StoreProduct extends AuthController
             ['limit_type', 0],//Loại hạn chế mua hàng
             ['limit_num', 0],//Giới hạn mua hàng
             ['min_qty', 1],//Số lượng mua tối thiểu
-            ['params_list', []],//Thông số sản phẩm
-            ['label_list', []],//Thẻ sản phẩm
-            ['protection_list', []],//Bảo vệ sản phẩm
+            ['params_list', []],//Thuộc tính sản phẩm
+            ['label_list', []],//Nhãn sản phẩm
+            ['protection_list', []],//Bảo hành sản phẩm
             ['is_gift', 0],//Nó có phải là một món quà?
             ['gift_price', 0],//phụ phí quà tặng
             ['store_id', 0],//Cửa hàng
@@ -281,14 +269,12 @@ class StoreProduct extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         //Xóa một sản phẩm để kiểm tra xem nó đã tham gia hoạt động chưa
         $this->service->checkActivity($id);
         $res = $this->service->del($id);
-        /** @var StoreCartServices $cartService */
-        $cartService = app()->make(StoreCartServices::class);
+        /** @var StoreCartServices $cartService */        $cartService = app()->make(StoreCartServices::class);
         $cartService->changeStatus($id, 0);
         return app('json')->success($res);
     }
@@ -296,8 +282,7 @@ class StoreProduct extends AuthController
     /**
      * Di chuyển các lô vào thùng rác
      * @return \think\Response
-     */
-    public function batchDelete()
+     */    public function batchDelete()
     {
         [$ids] = $this->request->postMore([
             ['ids', []],
@@ -308,8 +293,7 @@ class StoreProduct extends AuthController
     /**
      * Khôi phục hàng loạt từ Thùng rác
      * @return \think\Response
-     */
-    public function batchRecover()
+     */    public function batchRecover()
     {
         [$ids] = $this->request->postMore([
             ['ids', []],
@@ -323,8 +307,7 @@ class StoreProduct extends AuthController
      * @param int $id
      * @param int $type
      * @return mixed
-     */
-    public function is_format_attr($id = 0, $type = 0)
+     */    public function is_format_attr($id = 0, $type = 0)
     {
         $data = $this->request->postMore([
             ['attrs', []],
@@ -340,8 +323,7 @@ class StoreProduct extends AuthController
     /**
      * Lấy danh sách sản phẩm đã chọn
      * @return mixed
-     */
-    public function search_list()
+     */    public function search_list()
     {
         $where = $this->request->getMore([
             ['cate_id', ''],
@@ -355,8 +337,7 @@ class StoreProduct extends AuthController
         ]);
         $where['is_del'] = 0;
         $where['cate_id'] = toIntArray($where['cate_id']);
-        /** @var StoreCategoryServices $storeCategoryServices */
-        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $storeCategoryServices */        $storeCategoryServices = app()->make(StoreCategoryServices::class);
         if ($where['cate_id'] !== '') {
             if ($storeCategoryServices->value(['id' => $where['cate_id']], 'pid')) {
                 $where['sid'] = $where['cate_id'];
@@ -372,8 +353,7 @@ class StoreProduct extends AuthController
     /**
      * Lấy thông số kỹ thuật của sản phẩm
      * @return mixed
-     */
-    public function get_attrs()
+     */    public function get_attrs()
     {
         [$id, $type] = $this->request->getMore([
             [['id', 'd'], 0],
@@ -384,10 +364,9 @@ class StoreProduct extends AuthController
     }
 
     /**
-     * Nhận danh sách các mẫu vận chuyển hàng hóa
+     * Nhận danh sách các mẫu vận chuyển sản phẩm
      * @return mixed
-     */
-    public function get_template()
+     */    public function get_template()
     {
         return app('json')->success($this->service->getTemp());
     }
@@ -396,8 +375,7 @@ class StoreProduct extends AuthController
      * Nhận video tải lêntoken
      * @return mixed
      * @throws \Exception
-     */
-    public function getTempKeys(Request $request)
+     */    public function getTempKeys(Request $request)
     {
         $upload = UploadService::init();
         $type = (int)sys_config('upload_type', 1);
@@ -421,8 +399,7 @@ class StoreProduct extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function check_activity($id)
+     */    public function check_activity($id)
     {
         $this->service->checkActivity($id);
         return app('json')->success('Xóa thành công');
@@ -432,8 +409,7 @@ class StoreProduct extends AuthController
      * Nhập khẩu bí mật thẻ
      * @return mixed
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
-     */
-    public function import_card()
+     */    public function import_card()
     {
         $data = $this->request->getMore([
             ['file', ""]
@@ -445,8 +421,7 @@ class StoreProduct extends AuthController
         if (!in_array($suffix, ['xls', 'xlsx'])) {
             return app('json')->fail('Định dạng tệp không chính xác, vui lòng tải lên tệp ở định dạng xls hoặc xlsx！');
         }
-        /** @var FileService $readExcelService */
-        $readExcelService = app()->make(FileService::class);
+        /** @var FileService $readExcelService */        $readExcelService = app()->make(FileService::class);
         $cardData = $readExcelService->readExcel($file, 'card', 1, ucfirst($suffix));
         return app('json')->success($cardData);
     }
@@ -454,8 +429,7 @@ class StoreProduct extends AuthController
     /**
      * Cài đặt lô sản phẩm
      * @return mixed
-     */
-    public function batchSetting()
+     */    public function batchSetting()
     {
         $data = $this->request->postMore([
             ['ids', []],
@@ -483,8 +457,7 @@ class StoreProduct extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/9/29
-     */
-    public function productTypeConfig()
+     */    public function productTypeConfig()
     {
         $productTypeConfig = sys_config('product_type_config');
         foreach ($productTypeConfig as $key => $value) {
@@ -494,13 +467,12 @@ class StoreProduct extends AuthController
     }
 
     /**
-     * Xuất khẩu di chuyển sản phẩm
+     * Xuất file sản phẩm
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/10/9
-     */
-    public function productExport()
+     */    public function productExport()
     {
         $where = $this->request->getMore([
             ['store_name', ''],
@@ -519,8 +491,7 @@ class StoreProduct extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/10/9
-     */
-    public function productImport()
+     */    public function productImport()
     {
         [$file] = $this->request->getMore([
             ['file', ""]
@@ -537,8 +508,7 @@ class StoreProduct extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/10/9
-     */
-    public function fullDel($id)
+     */    public function fullDel($id)
     {
         app()->make(SystemClearData::class)->recycleProduct($id);
         return app('json')->success('Xóa thành công');

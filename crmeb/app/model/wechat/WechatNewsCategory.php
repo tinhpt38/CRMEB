@@ -18,21 +18,18 @@ use crmeb\traits\ModelTrait;
 /**
  * Class WechatNewsCategory
  * @package app\model\wechat
- */
-class WechatNewsCategory extends BaseModel
+ */class WechatNewsCategory extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'wechat_news_category';
+     */    protected $name = 'wechat_news_category';
 
 }

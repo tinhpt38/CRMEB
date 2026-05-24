@@ -12,11 +12,9 @@ use think\facade\Route;
 
 /**
  * Các tuyến đường liên quan đến quản lý bài viết
- */
-Route::group('cms', function () {
+ */Route::group('cms', function () {
 
-    /** bài báo */
-    Route::group(function () {
+    /** bài báo */    Route::group(function () {
         //Định tuyến tài nguyên bài viết
         Route::resource('cms', 'v1.cms.Article')->option([
             'real_name' => [
@@ -35,8 +33,7 @@ Route::group('cms', function () {
         Route::put('cms/unrelation/:id', 'v1.cms.Article/unrelation')->name('UnRelation')->option(['real_name' => 'Hủy bài viết liên quan đến sản phẩm']);
     })->option(['parent' => 'cms', 'cate_name' => 'Quản lý bài viết']);
 
-    /** Phân loại bài viết */
-    Route::group(function () {
+    /** Phân loại bài viết */    Route::group(function () {
         //Định tuyến tài nguyên phân loại bài viết
         Route::resource('category', 'v1.cms.ArticleCategory')->except(['read'])->option([
             'real_name' => [

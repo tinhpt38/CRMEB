@@ -10,8 +10,7 @@ use crmeb\traits\ModelTrait;
 
 /**
  * Mapping giữa event thông báo và kênh.
- */
-class NoticeEventChannel extends BaseModel
+ */class NoticeEventChannel extends BaseModel
 {
     use ModelTrait;
 

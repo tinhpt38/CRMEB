@@ -17,23 +17,21 @@ use Spatie\Macroable\Macroable;
  * Class Request
  * @package app
  * @method tokenData() Nhận thông tin mã thông báo
- * @method user(string $key = null) Lấy thông tin người dùng
- * @method uid() Nhận người dùnguid
+ * @method user(string $key = null) Lấy thông tin Khách hàng
+ * @method uid() Nhận Khách hànguid
  * @method isAdminLogin() Trạng thái đăng nhập phụ trợ
  * @method adminId() Quản trị viên hậu trườngid
  * @method adminInfo() Thông tin quản lý nền
- * @method kefuId() dịch vụ khách hàngid
- * @method kefuInfo() Thông tin dịch vụ khách hàng
- */
-class Request extends \think\Request
+ * @method kefuId() CSKHid
+ * @method kefuInfo() Thông tin CSKH
+ */class Request extends \think\Request
 {
     use Macroable;
 
     /**
      * Không lọc tên biến
      * @var array
-     */
-    protected $except = [
+     */    protected $except = [
         'menu_path',
         'api_url',
         'unique_auth',
@@ -55,8 +53,7 @@ class Request extends \think\Request
      * @param bool $suffix
      * @param bool $filter
      * @return array
-     */
-    public function more(array $params, bool $suffix = false, bool $filter = true): array
+     */    public function more(array $params, bool $suffix = false, bool $filter = true): array
     {
         $p = [];
         $i = 0;
@@ -91,8 +88,7 @@ class Request extends \think\Request
      * @param $str
      * @param bool $filter
      * @return array|mixed|string|string[]
-     */
-    public function filterArrayValues($array)
+     */    public function filterArrayValues($array)
     {
         $result = [];
         foreach ($array as $key => $value) {
@@ -117,8 +113,7 @@ class Request extends \think\Request
      * @param bool $suffix
      * @param bool $filter
      * @return array
-     */
-    public function getMore(array $params, bool $suffix = false, bool $filter = true): array
+     */    public function getMore(array $params, bool $suffix = false, bool $filter = true): array
     {
         return $this->more($params, $suffix, $filter);
     }
@@ -129,17 +124,15 @@ class Request extends \think\Request
      * @param bool $suffix
      * @param bool $filter
      * @return array
-     */
-    public function postMore(array $params, bool $suffix = false, bool $filter = true): array
+     */    public function postMore(array $params, bool $suffix = false, bool $filter = true): array
     {
         return $this->more($params, $suffix, $filter);
     }
 
     /**
-     * Nhận thiết bị đầu cuối truy cập của người dùng
+     * Nhận thiết bị đầu cuối truy cập của Khách hàng
      * @return array|string|null
-     */
-    public function getFromType()
+     */    public function getFromType()
     {
         return $this->header('Form-type', '');
     }
@@ -148,8 +141,7 @@ class Request extends \think\Request
      * Khách hàng hiện tại
      * @param string $terminal
      * @return bool
-     */
-    public function isTerminal(string $terminal)
+     */    public function isTerminal(string $terminal)
     {
         return strtolower($this->getFromType()) === $terminal;
     }
@@ -157,17 +149,15 @@ class Request extends \think\Request
     /**
      * Đây có phải là kết thúc H5?
      * @return bool
-     */
-    public function isH5()
+     */    public function isH5()
     {
         return $this->isTerminal('h5');
     }
 
     /**
-     * Đây có phải là ứng dụng khách WeChat không?
+     * Đây có phải là Ứng dụng khách WeChat không?
      * @return bool
-     */
-    public function isWechat()
+     */    public function isWechat()
     {
         return $this->isTerminal('wechat');
     }
@@ -175,17 +165,15 @@ class Request extends \think\Request
     /**
      * Đây có phải là một chương trình nhỏ không?
      * @return bool
-     */
-    public function isRoutine()
+     */    public function isRoutine()
     {
         return $this->isTerminal('routine');
     }
 
     /**
-     * Đây có phải là phía ứng dụng?
+     * Đây có phải là phía Ứng dụng?
      * @return bool
-     */
-    public function isApp()
+     */    public function isApp()
     {
         return $this->isTerminal('app');
     }
@@ -193,8 +181,7 @@ class Request extends \think\Request
     /**
      * Đây có phải là phiên bản PC không?
      * @return bool
-     */
-    public function isPc()
+     */    public function isPc()
     {
         return $this->isTerminal('pc');
     }

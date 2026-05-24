@@ -18,14 +18,12 @@ use app\model\system\config\SystemConfig;
  * Cấu hình hệ thống
  * Class SystemConfigDao
  * @package app\dao\system\config
- */
-class SystemConfigDao extends BaseDao
+ */class SystemConfigDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemConfig::class;
     }
@@ -35,19 +33,17 @@ class SystemConfigDao extends BaseDao
      * @param string $configNmae
      * @return mixed
      * @throws \ReflectionException
-     */
-    public function getConfigValue(string $configNmae)
+     */    public function getConfigValue(string $configNmae)
     {
         return $this->search(['menu_name' => $configNmae])->value('value');
     }
 
     /**
-     * Nhận tất cả các cấu hình
+     * Nhận Tất cả các cấu hình
      * @param array $configName
      * @return array
      * @throws \ReflectionException
-     */
-    public function getConfigAll(array $configName = [])
+     */    public function getConfigAll(array $configName = [])
     {
         if ($configName) {
             return $this->search(['menu_name' => $configName])->column('value', 'menu_name');
@@ -65,8 +61,7 @@ class SystemConfigDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfigList(array $where, int $page, int $limit)
+     */    public function getConfigList(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->order('sort desc,id asc')->select()->toArray();
     }
@@ -79,8 +74,7 @@ class SystemConfigDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfigTabAllList(int $tabId, int $status = 1)
+     */    public function getConfigTabAllList(int $tabId, int $status = 1)
     {
         $where['tab_id'] = $tabId;
         if ($status == 1) $where['status'] = $status;
@@ -92,8 +86,7 @@ class SystemConfigDao extends BaseDao
      * @param string $configName
      * @return array
      * @throws \ReflectionException
-     */
-    public function getUploadTypeList(string $configName)
+     */    public function getUploadTypeList(string $configName)
     {
         return $this->search(['menu_name' => $configName])->column('upload_type', 'type');
     }

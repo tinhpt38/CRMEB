@@ -20,14 +20,12 @@ class SpreadApply extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'spread_apply';
+     */    protected $name = 'spread_apply';
 
     public function searchUidAttr($query, $value, $data)
     {

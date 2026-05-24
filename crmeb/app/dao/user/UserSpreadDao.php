@@ -18,15 +18,13 @@ use app\model\user\UserSpread;
 /**
  * Class UserSpreadDao
  * @package app\dao\user
- */
-class UserSpreadDao extends BaseDao
+ */class UserSpreadDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserSpread::class;
     }
@@ -41,8 +39,7 @@ class UserSpreadDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, $limit = 0)
+     */    public function getList(array $where, string $field = '*', int $page = 0, $limit = 0)
     {
         return $this->search($where)->field($field)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -59,8 +56,7 @@ class UserSpreadDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSpreadUids(array $where)
+     */    public function getSpreadUids(array $where)
     {
         return $this->search($where)->order('spread_time desc,id desc')->column('uid');
     }

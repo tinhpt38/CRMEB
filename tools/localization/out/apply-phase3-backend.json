@@ -1,0 +1,3690 @@
+{
+  "dryRun": false,
+  "roots": [
+    "crmeb/app"
+  ],
+  "summary": {
+    "scanned": 928,
+    "changedFiles": 890,
+    "totalReplacements": 2852
+  },
+  "stats": {
+    "perEntry": {
+      "ứng dụng": 88,
+      "người dùng": 1357,
+      "dịch vụ khách hàng": 248,
+      "tất cả": 101,
+      "cài đặt": 136,
+      "Quyền quản trị": 1,
+      "cổ phiếu": 1,
+      "Truy vấn": 51,
+      "Đặt hàng": 95,
+      "duy trì": 2,
+      "Phân bổ": 3,
+      "tiếp thị": 12,
+      "Quản lý điểm": 2,
+      "tài chính": 9,
+      "nội dung": 141,
+      "trang bị": 2,
+      "biên tập": 6,
+      "Danh sách nhà quảng bá": 3,
+      "Sửa đổi trình quảng bá ưu việt": 2,
+      "đơn vị": 22,
+      "người dùngID": 6,
+      "cứu": 13,
+      "tình trạng": 14,
+      "hàng hóaID": 2,
+      "Nhóm sản phẩm": 6,
+      "Xuất khẩu sản phẩm": 3,
+      "Nạp tiền người dùng": 5,
+      "Xuất người dùng": 3,
+      "hồ sơ ủy ban": 2,
+      "Hồ sơ số dư": 5,
+      "Ôn lại": 9,
+      "xóa bỏ": 34,
+      "Quản lý mặc cả": 1,
+      "Danh sách mặc cả": 13,
+      "lệnh mặc cả": 3,
+      "Quản lý nhóm": 1,
+      "Danh sách nhóm nhóm": 8,
+      "Thứ tự nhóm": 4,
+      "thêm phiếu giảm giá": 2,
+      "Bản ghi bộ sưu tập của người dùng": 1,
+      "Đơn hàng đã được vận chuyển": 11,
+      "xác nhận đã nhận hàng": 5,
+      "Chi tiết đặt hàng": 18,
+      "Viết đơn đặt hàng": 4,
+      "Cứu": 1,
+      "Mẫu vận chuyển hàng hóa": 8,
+      "Phiếu giảm giá": 32,
+      "Thẻ người dùng": 10,
+      "Thông số sản phẩm": 7,
+      "Thẻ sản phẩm": 4,
+      "Bảo vệ sản phẩm": 2,
+      "hàng hóa": 64,
+      "Xuất khẩu di chuyển": 3,
+      "đánh giá sản phẩm": 20,
+      "Dòng vốn": 3,
+      "hồ sơ thanh toán": 5,
+      "Loại lệnh": 9,
+      "Xuất khẩu": 3,
+      "Quản lý nhà phân phối": 1,
+      "Bị loại khỏi chương trình khuyến": 2,
+      "Cài đặt phân phối": 1,
+      "Cấp độ phân phối": 3,
+      "Ứng dụng phân phối": 2,
+      "danh sách bán chớp nhoáng": 2,
+      "Gửi phiếu giảm giá": 4,
+      "Đơn hàng flash sale": 1,
+      "Thứ tự điểm": 2,
+      "Nhận phòng hàng ngày": 1,
+      "Lô hàng số lượng lớn": 1,
+      "Phân loại sản phẩm": 4,
+      "Thêm vào": 18,
+      "Bộ sưu tập sản phẩm": 3,
+      "Được trả tiền": 1,
+      "Cài đặt giao thức": 1,
+      "Giao diện bên ngoài": 2,
+      "In biên lai": 8,
+      "Thêm người dùng": 2,
+      "Cấp độ người dùng": 15,
+      "Nhóm người dùng": 5,
+      "Thành viên trả phí": 3,
+      "Thứ tự": 13,
+      "trong kho": 11,
+      "Ràng buộc số điện thoại di động": 4,
+      "thanh toán số dư": 19,
+      "Ghi chú đặt hàng": 4,
+      "Xóa sổ": 2,
+      "Quảng cáo mã QR": 3,
+      "Đơn hàng khuyến mãi": 5,
+      "Đơn xin rút tiền": 3,
+      "Quản lý người dùng": 4,
+      "mặt hàng giá hời": 9,
+      "Thu ngân đặt hàng": 1,
+      "xóa sổ": 9,
+      "thời gian thanh toán": 4,
+      "thanh toán thực tế": 7,
+      "nam giới": 1,
+      "Đơn hàng sau bán hàng": 5,
+      "Sửa đổi phân loại": 2,
+      "Chi tiết người dùng": 3,
+      "Hồ sơ đặt hàng": 3,
+      "Sự cân bằng": 2,
+      "tích phân": 2,
+      "Ràng buộc": 5,
+      "Chỉnh sửa hàng loạt": 1,
+      "hàng hóaid": 6,
+      "Tất cả các đơn đặt hàng": 3,
+      "Tải và dỡ sản phẩm": 1,
+      "Truy vấn bản ghi": 1,
+      "thanh toán Tonglian": 7,
+      "Đang chờ xóa sổ": 1,
+      "Thông tin đặt hàng": 1,
+      "Loại hàng hóa ảo": 1,
+      "Danh sách quản trị viên": 1
+    },
+    "perFile": [
+      {
+        "file": "crmeb/app/ExceptionHandle.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/Request.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/adminapi/AdminApiExceptionHandle.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/common.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/config/route.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/AuthController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/Common.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/Login.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/PublicController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/Test.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/UpgradeController.php",
+        "count": 205
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/agent/AgentLevel.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/agent/AgentLevelTask.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/agent/AgentManage.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/agent/Division.php",
+        "count": 14
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/agent/SpreadApply.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/application/routine/RoutineCI.php",
+        "count": 24
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/application/routine/RoutineTemplate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/application/wechat/Menus.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/application/wechat/Reply.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/application/wechat/WechatNewsCategory.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/application/wechat/WechatQrcode.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/application/wechat/WechatTemplate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/application/zalo/ZaloConfig.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/cms/Article.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/cms/ArticleCategory.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/diy/Diy.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/diy/DiyPro.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/diy/PageLink.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/diy/Theme.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/diy/ThemeModule.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/export/ExportExcel.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/file/SystemAttachment.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/file/SystemAttachmentCategory.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/finance/Finance.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/finance/UserBalance.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/finance/UserExtract.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/finance/UserRecharge.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/freight/Express.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/kefu/StoreService.php",
+        "count": 13
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/kefu/StoreServiceAutoReply.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/kefu/StoreServiceFeedback.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/kefu/StoreServiceSpeechcraft.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/kefu/StoreServiceSpeechcraftCate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/SignRewards.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/StoreAdvance.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/StoreBargain.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/StoreCombination.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/StoreCouponIssue.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/StoreCouponUser.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/StoreSeckill.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/UserPoint.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/integral/StoreIntegral.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/integral/StoreIntegralOrder.php",
+        "count": 10
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/integral/StorePointRecord.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/live/LiveAnchor.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/live/LiveGoods.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/live/LiveRoom.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/lottery/LuckLottery.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/marketing/lottery/LuckLotteryRecord.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/merchant/SystemStore.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/merchant/SystemStoreStaff.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/merchant/SystemVerifyOrder.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/notification/sms/SmsAdmin.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/notification/sms/SmsConfig.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/notification/sms/SmsPay.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/notification/sms/SmsPublicTemp.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/notification/sms/SmsTemplateApply.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/order/DeliveryService.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/order/OtherOrder.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/order/RefundOrder.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/order/StoreOrder.php",
+        "count": 16
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/order/StoreOrderInvoice.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/product/CopyTaobao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/product/StoreCategory.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/product/StoreProduct.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/product/StoreProductParam.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/product/StoreProductReply.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/product/StoreProductRule.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/serve/Export.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/serve/Login.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/serve/Serve.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/serve/Sms.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/LangCode.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/LangCountry.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/LangType.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/NoticeChannel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/ShippingTemplates.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemAdmin.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemAgreement.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemCity.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemConfig.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemConfigTab.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemCrud.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemGroup.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemGroupData.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemMenus.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemNotification.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemOutAccount.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemRole.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemRoute.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemRouteCate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/setting/SystemStorage.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/statistic/BalanceStatistic.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/statistic/FlowStatistic.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/statistic/OrderStatistic.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/statistic/ProductStatistic.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/statistic/TradeStatistic.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/statistic/UserStatistic.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/AppVersion.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/Clear.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemClearData.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemCrontab.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemDatabackup.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemEvent.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemFile.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemLog.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/system/SystemUpgradeClient.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/user/User.php",
+        "count": 10
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/user/UserCancel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/user/UserGroup.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/user/UserLabel.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/user/UserLabelCate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/user/UserLevel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/user/member/MemberCard.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/controller/v1/user/member/MemberCardBatch.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/middleware/AdminAuthTokenMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/middleware/AdminCheckRoleMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/middleware/AdminEditorTokenMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/middleware/AdminLogMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/route/agent.php",
+        "count": 13
+      },
+      {
+        "file": "crmeb/app/adminapi/route/app.php",
+        "count": 40
+      },
+      {
+        "file": "crmeb/app/adminapi/route/cms.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/route/common.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/route/crud.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/route/diy.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/route/export.php",
+        "count": 15
+      },
+      {
+        "file": "crmeb/app/adminapi/route/file.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/route/finance.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/adminapi/route/freight.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/route/live.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/route/marketing.php",
+        "count": 18
+      },
+      {
+        "file": "crmeb/app/adminapi/route/merchant.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/route/notify.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/route/order.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/adminapi/route/product.php",
+        "count": 18
+      },
+      {
+        "file": "crmeb/app/adminapi/route/route.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/route/serve.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/adminapi/route/setting.php",
+        "count": 15
+      },
+      {
+        "file": "crmeb/app/adminapi/route/statistic.php",
+        "count": 19
+      },
+      {
+        "file": "crmeb/app/adminapi/route/system.php",
+        "count": 15
+      },
+      {
+        "file": "crmeb/app/adminapi/route/user.php",
+        "count": 63
+      },
+      {
+        "file": "crmeb/app/adminapi/route/widget.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/LiveAnchorValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/LiveGoodsValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/LiveRoomValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreBargainValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreCombinationValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreCouponValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreIntegralValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/marketing/StoreSeckillValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/merchant/SystemStoreValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/notification/SmsConfigValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/order/StoreOrderValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreCategoryValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreProductLabelValidate.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreProductProtectionValidate.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/product/StoreProductReplyValidate.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/serve/ExpressValidata.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/serve/MealValidata.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/serve/ServeValidata.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/service/StoreServiceSpeechcraftValidata.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/setting/ShippingTemplatesValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/setting/SystemAdminValidata.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/setting/SystemCityValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/setting/SystemConfigValidata.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/setting/SystemMenusValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/user/UserLabeCateValidata.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/adminapi/validate/user/UserValidata.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/ApiExceptionHandle.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/api/config/route.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/pc/CartController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/pc/HomeController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/pc/LoginController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/pc/OrderController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/pc/ProductController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/pc/PublicController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/pc/UserController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/CrontabController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/LoginController.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/PayController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/PublicController.php",
+        "count": 20
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/activity/StoreAdvanceController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/activity/StoreBargainController.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/activity/StoreCombinationController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/activity/StoreIntegralController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/activity/StoreSeckillController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/admin/StoreManageController.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/admin/StoreOrderController.php",
+        "count": 10
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/order/OtherOrderController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/order/StoreIntegralOrderController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/order/StoreOrderController.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/order/StoreOrderRefundController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/publics/ArticleCategoryController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/publics/ArticleController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/store/CategoryController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/store/StoreCartController.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/store/StoreCouponsController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/store/StoreProductController.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/DivisionController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/MemberCardController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/MessageSystemController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/StoreService.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserAddressController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserBillController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserBrokerageController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserCollectController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserController.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserExtractController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserLevelController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserRechargeController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/user/UserSignController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/wechat/AuthController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/wechat/WechatController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/zalo/ZaloAuthController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/api/controller/v1/zalo/ZaloThemeController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/PublicController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/activity/LuckLotteryController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/agent/AgentLevel.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/order/StoreOrderInvoiceController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/store/StoreCartController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/store/StoreCouponsController.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/store/StoreProductController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/user/StoreService.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/user/UserInvoiceController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/user/UserSearchController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/wechat/AuthController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/api/controller/v2/wechat/WechatController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/middleware/AuthTokenMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/middleware/BlockerMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/middleware/CustomerMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/middleware/StationOpenMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/route/pc.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/api/route/v1.php",
+        "count": 106
+      },
+      {
+        "file": "crmeb/app/api/route/v2.php",
+        "count": 13
+      },
+      {
+        "file": "crmeb/app/api/validate/user/AddressValidate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/api/validate/user/RegisterValidates.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/api/validate/user/StoreServiceFeedbackValidate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/build.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/common.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/dao/BaseDao.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/dao/activity/advance/StoreAdvanceDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/bargain/StoreBargainDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/activity/bargain/StoreBargainUserDao.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/dao/activity/bargain/StoreBargainUserHelpDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/combination/StoreCombinationDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/activity/combination/StorePinkDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/coupon/StoreCouponDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/activity/coupon/StoreCouponIssueDao.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/dao/activity/coupon/StoreCouponIssueUserDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/activity/coupon/StoreCouponProductDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/coupon/StoreCouponUserCouponDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/activity/coupon/StoreCouponUserDao.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/dao/activity/coupon/StoreCouponUserUserDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/integral/StoreIntegralDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/integral/StoreIntegralOrderDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/activity/integral/StoreIntegralOrderStatusDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/live/LiveAnchorDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/live/LiveGoodsDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/live/LiveRoomDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/lottery/LuckLotteryDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/lottery/LuckLotteryRecordDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/activity/lottery/LuckPrizeDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/activity/seckill/StoreSeckillDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/agent/AgentLevelDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/agent/AgentLevelTaskDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/agent/AgentLevelTaskRecordDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/agent/DivisionAgentApplyDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/article/ArticleCategoryDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/article/ArticleContentDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/article/ArticleDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/diy/DiyDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/diy/PageCategoryDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/diy/PageLinkDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/diy/ThemeDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/diy/ThemeDownloadDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/diy/ThemeModuleDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/order/DeliveryServiceDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/order/OtherOrderDao.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/dao/order/OtherOrderStatusDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreCartDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreOrderCartInfoDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreOrderDao.php",
+        "count": 16
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreOrderEconomizeDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreOrderInvoiceDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreOrderRefundDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreOrderStatusDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreOrderStoreOrderCartInfoDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/order/StoreOrderStoreOrderStatusDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/other/AgreementDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/other/AuxiliaryDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/other/CacheDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/other/CategoryDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/other/QrcodeDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/other/TemplateMessageDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreCategoryDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreDescriptionDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductCateDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductCouponDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductLogDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductParamDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductRelationDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductReplyDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductReplyStoreProductDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreProductVisitDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/product/product/StoreVisitDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/product/sku/StoreProductAttrDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/product/sku/StoreProductAttrResultDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/sku/StoreProductAttrValueDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/sku/StoreProductRuleDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/product/sku/StoreProductVirtualDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/service/StoreServiceAuxiliaryDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/service/StoreServiceDao.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/dao/service/StoreServiceFeedbackDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/service/StoreServiceLogDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/service/StoreServiceRecordDao.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/dao/service/StoreServiceSpeechcraftDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/shipping/ExpressDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/shipping/ShippingTemplatesDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/shipping/ShippingTemplatesFreeCityDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/shipping/ShippingTemplatesFreeDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/shipping/ShippingTemplatesNoDeliveryCityDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/shipping/ShippingTemplatesNoDeliveryDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/shipping/ShippingTemplatesRegionCityDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/shipping/ShippingTemplatesRegionDao.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/dao/shipping/SystemCityDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/sms/SmsAdminDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/sms/SmsRecordDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/AppVersionDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/MessageSystemDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/NoticeChannelDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/NoticeEventChannelDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemCrudDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemCrudDataDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemCrudListDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemEventDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemEventDataDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemMenusDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemNotificationDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemRouteCateDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemRouteDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemSignRewardDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/SystemUserLevelDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/system/admin/AdminAuthDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/admin/SystemAdminDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/admin/SystemRoleDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/attachment/SystemAttachmentCategoryDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/attachment/SystemAttachmentDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/config/SystemConfigDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/system/config/SystemConfigTabDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/config/SystemGroupDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/config/SystemGroupDataDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/config/SystemStorageDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/crontab/SystemCrontabDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/lang/LangCodeDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/lang/LangCountryDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/lang/LangTypeDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/log/SystemFileDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/system/log/SystemFileInfoDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/log/SystemLogDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/statistics/CapitalFlowDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/system/store/SystemStoreDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/store/SystemStoreStaffDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/system/upgrade/UpgradeLogDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/MemberCardBatchDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/MemberCardDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/MemberRightDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/MemberShipDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserAddressDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/user/UserAuthDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserBillDao.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/dao/user/UserBillStoreOrderDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserBrokerageDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserBrokerageFrozenDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/user/UserCancelDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserDao.php",
+        "count": 12
+      },
+      {
+        "file": "crmeb/app/dao/user/UserExtractDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/user/UserFriendsDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserGroupDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserInvoiceDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserLabelCateDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/user/UserLabelDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserLabelRelationDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/user/UserLevelDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/user/UserMoneyDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/user/UserRechargeDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/user/UserSearchDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/user/UserSignDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserSpreadDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserStoreOrderDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserUserBillDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/user/UserUserBrokerageDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/user/UserVisitDao.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/dao/user/UserWechatUserDao.php",
+        "count": 16
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatKeyDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatMediaDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatMenuDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatMessageDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatNewsCategoryDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatQrcodeCateDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatQrcodeDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatQrcodeRecordDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatReplyDao.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatReplyKeyDao.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/dao/wechat/WechatUserDao.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/event.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/http/middleware/AllowOriginMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/http/middleware/BaseMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/AgentJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/AutoCommentJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/CheckQueueJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/LiveJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/MiniOrderJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/OrderCreateAfterJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/OrderExpressJob.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/jobs/OrderInvoiceJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/OrderJob.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/jobs/OtherOrderJob.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/jobs/OutPushJob.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/jobs/PinkJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/PosterJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/ProductCopyJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/ProductLogJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/ProductStockJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/RefundOrderJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/TakeOrderJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/TaskJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/TemplateJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/ThemeExportJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/UnpaidOrderCancelJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/UnpaidOrderSend.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/jobs/UpgradeJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/UserJob.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/jobs/notice/EnterpriseWechatJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/notice/PrintJob.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/jobs/notice/SmsJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/jobs/notice/SyncMessageJob.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/kefuapi/KefuApiExceptionHandle.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/kefuapi/config/route.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/kefuapi/controller/AuthController.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/kefuapi/controller/Common.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/kefuapi/controller/Login.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/kefuapi/controller/Order.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/kefuapi/controller/Product.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/kefuapi/controller/Service.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/kefuapi/controller/User.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/kefuapi/middleware/KefuAuthTokenMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/kefuapi/route/route.php",
+        "count": 29
+      },
+      {
+        "file": "crmeb/app/kefuapi/validate/LoginValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/kefuapi/validate/SpeechcraftValidate.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/lang/en_us.php",
+        "count": 77
+      },
+      {
+        "file": "crmeb/app/lang/vi_vn.php",
+        "count": 155
+      },
+      {
+        "file": "crmeb/app/listener/admin/AdminLoginListener.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/listener/http/HttpEndListener.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/listener/notice/CustomNoticeListener.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/listener/notice/NoticeListener.php",
+        "count": 20
+      },
+      {
+        "file": "crmeb/app/listener/order/OrderCreateAfterListener.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/listener/order/OrderDeliveryListener.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/listener/order/OrderPaySuccessListener.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/listener/order/OrderRefundCancelAfterListener.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/listener/order/OrderRefundCreateAfterListener.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/listener/order/OrderShippingListener.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/listener/order/OrderTakeListener.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/listener/pay/NotifyListener.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/listener/user/LoginListener.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/listener/user/RegisterListener.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/listener/user/UserLevelListener.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/listener/user/UserVisitListener.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/listener/wechat/AuthListener.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/activity/StoreActivity.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/advance/StoreAdvance.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/bargain/StoreBargain.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/activity/bargain/StoreBargainUser.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/model/activity/bargain/StoreBargainUserHelp.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/activity/combination/StoreCombination.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/activity/combination/StorePink.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/activity/coupon/StoreCoupon.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/coupon/StoreCouponIssue.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/model/activity/coupon/StoreCouponIssueUser.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/model/activity/coupon/StoreCouponProduct.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/coupon/StoreCouponUser.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/activity/integral/StoreIntegral.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/integral/StoreIntegralOrder.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/model/activity/integral/StoreIntegralOrderStatus.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/live/LiveAnchor.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/live/LiveGoods.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/live/LiveRoom.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/live/LiveRoomGoods.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/lottery/LuckLottery.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/model/activity/lottery/LuckLotteryRecord.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/activity/lottery/LuckPrize.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/activity/seckill/StoreSeckill.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/agent/AgentLevel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/agent/AgentLevelTask.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/agent/AgentLevelTaskRecord.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/agent/DivisionAgentApply.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/agent/SpreadApply.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/article/Article.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/article/ArticleCategory.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/article/ArticleContent.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/diy/Diy.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/diy/PageCategory.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/diy/PageLink.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/diy/Theme.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/diy/ThemeDownload.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/diy/ThemeModule.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/order/DeliveryService.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/model/order/OtherOrder.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/model/order/OtherOrderStatus.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/order/StoreCart.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/model/order/StoreOrder.php",
+        "count": 10
+      },
+      {
+        "file": "crmeb/app/model/order/StoreOrderCartInfo.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/order/StoreOrderEconomize.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/order/StoreOrderInvoice.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/order/StoreOrderRefund.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/order/StoreOrderStatus.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/order/StorePink.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/other/Agreement.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/other/Auxiliary.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/other/Cache.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/other/Category.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/other/Express.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/other/Qrcode.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/other/TemplateMessage.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreCategory.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreDescription.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProduct.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductCate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductCoupon.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductLabel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductLabelCate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductLog.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductParam.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductProtection.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductRelation.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreProductReply.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/model/product/product/StoreVisit.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/sku/StoreProductAttr.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/sku/StoreProductAttrResult.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/sku/StoreProductAttrValue.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/sku/StoreProductRule.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/product/sku/StoreProductVirtual.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/service/StoreService.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/model/service/StoreServiceFeedback.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/service/StoreServiceLog.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/service/StoreServiceRecord.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/model/service/StoreServiceSpeechcraft.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/shipping/ShippingTemplates.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/model/shipping/ShippingTemplatesFree.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/shipping/ShippingTemplatesNoDelivery.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/shipping/ShippingTemplatesRegion.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/shipping/SystemCity.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/sms/SmsRecord.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/AppVersion.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/MessageSystem.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/system/NoticeChannel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/NoticeEventChannel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemCrud.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemCrudData.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemCrudList.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemEvent.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemEventData.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemMenus.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/system/SystemNotification.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/system/SystemPem.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemRoute.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemRouteCate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemSignReward.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemTicket.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/SystemUserLevel.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/system/SystemUserTask.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/admin/SystemAdmin.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/admin/SystemRole.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/attachment/SystemAttachment.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/attachment/SystemAttachmentCategory.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/config/SystemConfig.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/config/SystemConfigTab.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/config/SystemGroup.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/config/SystemGroupData.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/config/SystemStorage.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/crontab/SystemCrontab.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/lang/LangCode.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/lang/LangCountry.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/lang/LangType.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/log/SystemFile.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/log/SystemFileInfo.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/log/SystemLog.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/statistics/CapitalFlow.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/store/SystemStore.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/system/store/SystemStoreStaff.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/model/system/upgrade/UpgradeLog.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/MemberCard.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/MemberCardBatch.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/MemberRight.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/MemberShip.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/User.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/model/user/UserAddress.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/UserBill.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/model/user/UserBrokerage.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/UserBrokerageFrozen.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/UserCancel.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/UserExtract.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/model/user/UserFriends.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/UserGroup.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/UserInvoice.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/UserLabel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/UserLabelCate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/UserLabelRelation.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/UserLevel.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/model/user/UserMoney.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/UserRecharge.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/UserSearch.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/user/UserSign.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/UserSpread.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/user/UserVisit.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/wechat/RoutineScheme.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatKey.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatMedia.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatMessage.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatNewsCategory.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatQrcode.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatQrcodeCate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatQrcodeRecord.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatReply.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/model/wechat/WechatUser.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/outapi/OutApiExceptionHandle.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/outapi/config/route.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/outapi/controller/AuthController.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/outapi/controller/Login.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/outapi/controller/Mcp.php",
+        "count": 19
+      },
+      {
+        "file": "crmeb/app/outapi/controller/RefundOrder.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/outapi/controller/StoreCategory.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/outapi/controller/StoreCoupon.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/outapi/controller/StoreOrder.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/outapi/controller/StoreProduct.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/outapi/controller/User.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/outapi/controller/UserLevel.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/outapi/middleware/AuthTokenMiddleware.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/outapi/route/route.php",
+        "count": 12
+      },
+      {
+        "file": "crmeb/app/outapi/validate/LoginValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/outapi/validate/StoreCategoryValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/outapi/validate/StoreOutAccountValidate.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/BaseServices.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/services/activity/StoreActivityServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/activity/advance/StoreAdvanceServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/bargain/StoreBargainServices.php",
+        "count": 19
+      },
+      {
+        "file": "crmeb/app/services/activity/bargain/StoreBargainUserHelpServices.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/services/activity/bargain/StoreBargainUserServices.php",
+        "count": 12
+      },
+      {
+        "file": "crmeb/app/services/activity/combination/StoreCombinationServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/activity/combination/StorePinkServices.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponIssueServices.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponIssueUserServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponProductServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponService.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponUserCouponServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponUserServices.php",
+        "count": 11
+      },
+      {
+        "file": "crmeb/app/services/activity/coupon/StoreCouponUserUserServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/activity/integral/StoreIntegralOrderServices.php",
+        "count": 10
+      },
+      {
+        "file": "crmeb/app/services/activity/integral/StoreIntegralOrderStatusServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/activity/integral/StoreIntegralServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/activity/integral/StorePointRecordServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/activity/live/LiveAnchorServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/live/LiveGoodsServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/live/LiveRoomGoodsServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/activity/live/LiveRoomServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/activity/lottery/LuckLotteryRecordServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/activity/lottery/LuckLotteryServices.php",
+        "count": 14
+      },
+      {
+        "file": "crmeb/app/services/activity/lottery/LuckPrizeServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/activity/seckill/StoreSeckillServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/admin/StoreManageServices.php",
+        "count": 19
+      },
+      {
+        "file": "crmeb/app/services/agent/AgentLevelServices.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/services/agent/AgentLevelTaskRecordServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/agent/AgentLevelTaskServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/agent/AgentManageServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/agent/DivisionAgentApplyServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/agent/DivisionServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/article/ArticleCategoryServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/article/ArticleContentServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/article/ArticleServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/diy/DiyProServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/diy/DiyServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/diy/PageCategoryServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/diy/PageLinkServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/diy/ThemeDownloadServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/diy/ThemeModuleServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/diy/ThemeServices.php",
+        "count": 16
+      },
+      {
+        "file": "crmeb/app/services/kefu/KefuServices.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/services/kefu/LoginServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/kefu/ProductServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/kefu/UserServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceAuxiliaryServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceFeedbackServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceLogServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceRecordServices.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceServices.php",
+        "count": 19
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceSpeechcraftCateServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/kefu/service/StoreServiceSpeechcraftServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/message/MessageSystemServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/message/NoticeChannelServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/message/NoticeRouterServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/message/NoticeService.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/message/SystemNotificationServices.php",
+        "count": 63
+      },
+      {
+        "file": "crmeb/app/services/message/TemplateMessageServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/message/notice/EnterpriseWechatService.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/message/notice/RoutineTemplateListService.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/message/notice/SmsService.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/message/notice/SystemMsgService.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/message/notice/TelegramService.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/message/notice/WechatTemplateListService.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/message/wechat/MessageServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/order/DeliveryServiceServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/order/OtherOrderServices.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/services/order/OtherOrderStatusServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/order/OutStoreOrderRefundServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/order/OutStoreOrderServices.php",
+        "count": 10
+      },
+      {
+        "file": "crmeb/app/services/order/StoreCartServices.php",
+        "count": 16
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderCartInfoServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderComputedServices.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderCreateServices.php",
+        "count": 13
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderDeliveryServices.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderEconomizeServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderInvoiceServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderRefundServices.php",
+        "count": 13
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderServices.php",
+        "count": 35
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderSplitServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderStatusServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderStoreOrderCartInfoServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderStoreOrderStatusServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderSuccessServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderTakeServices.php",
+        "count": 18
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderWapServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/order/StoreOrderWriteOffServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/other/AgreementServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/other/CacheServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/other/CategoryServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/other/PosterServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/other/QrcodeServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/other/UploadService.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/other/export/ExportServices.php",
+        "count": 35
+      },
+      {
+        "file": "crmeb/app/services/pay/OrderOfflineServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/pay/OrderPayServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/pay/PayNotifyServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/pay/PayServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/pay/PayTransferNotifyServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/pay/RechargeServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/pay/YuePayServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/pc/CartServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/pc/HomeServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/pc/LoginServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/pc/OrderServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/pc/ProductServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/pc/PublicServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/pc/UserServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/CopyTaobaoServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/OutStoreProductServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreCategoryServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreDescriptionServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductCateServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductCouponServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductLabelCateServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductLogServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductParamServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductProtectionServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductRelationServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductReplyServices.php",
+        "count": 13
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductReplyStoreProductServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductServices.php",
+        "count": 15
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreProductVisitServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/product/StoreVisitServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/product/sku/StoreProductAttrResultServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/product/sku/StoreProductAttrServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/product/sku/StoreProductAttrValueServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/product/sku/StoreProductRuleServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/serve/ServeServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/shipping/ExpressServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/shipping/ShippingTemplatesFreeCityServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/shipping/ShippingTemplatesFreeServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/shipping/ShippingTemplatesNoDeliveryCityServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/shipping/ShippingTemplatesNoDeliveryServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/shipping/ShippingTemplatesRegionCityServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/shipping/ShippingTemplatesRegionServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/shipping/ShippingTemplatesServices.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/services/shipping/SystemCityServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/statistic/CapitalFlowServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/statistic/OrderStatisticServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/statistic/ProductStatisticServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/statistic/TradeStatisticServices.php",
+        "count": 15
+      },
+      {
+        "file": "crmeb/app/services/statistic/UserStatisticServices.php",
+        "count": 21
+      },
+      {
+        "file": "crmeb/app/services/system/AppVersionServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/system/DataMigrationServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/NodeEnvironmentServices.php",
+        "count": 70
+      },
+      {
+        "file": "crmeb/app/services/system/SystemAuthServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/SystemClearServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/SystemCrudDataService.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/system/SystemCrudListServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/SystemCrudServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/system/SystemDatabackupServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/SystemEventServices.php",
+        "count": 116
+      },
+      {
+        "file": "crmeb/app/services/system/SystemMenusServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/SystemRouteCateServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/SystemRouteServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/system/SystemSignRewardServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/SystemTicketServices.php",
+        "count": 15
+      },
+      {
+        "file": "crmeb/app/services/system/SystemUserLevelServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/system/UpgradeServices.php",
+        "count": 12
+      },
+      {
+        "file": "crmeb/app/services/system/admin/AdminAuthServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/admin/SystemAdminServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/admin/SystemRoleServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/attachment/SystemAttachmentCategoryServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/attachment/SystemAttachmentServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemConfigServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemConfigTabServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemGroupDataServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemGroupServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/config/SystemStorageServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/crontab/CrontabRunServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/crontab/SystemCrontabServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/lang/LangCodeServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/lang/LangCountryServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/lang/LangTypeServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/log/ClearServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/log/SystemFileInfoServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/log/SystemFileServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/system/log/SystemLogServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/store/SystemStoreServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/system/store/SystemStoreStaffServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/user/LoginServices.php",
+        "count": 19
+      },
+      {
+        "file": "crmeb/app/services/user/OutUserLevelServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/user/OutUserServices.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/services/user/UserAddressServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/user/UserAuthServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/UserBillServices.php",
+        "count": 32
+      },
+      {
+        "file": "crmeb/app/services/user/UserBillStoreOrderServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/user/UserBrokerageFrozenServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/user/UserBrokerageServices.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/services/user/UserCancelServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/user/UserExtractServices.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/services/user/UserFriendsServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/UserGroupServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/user/UserInvoiceServices.php",
+        "count": 6
+      },
+      {
+        "file": "crmeb/app/services/user/UserLabelCateServices.php",
+        "count": 4
+      },
+      {
+        "file": "crmeb/app/services/user/UserLabelRelationServices.php",
+        "count": 5
+      },
+      {
+        "file": "crmeb/app/services/user/UserLabelServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/user/UserLevelServices.php",
+        "count": 23
+      },
+      {
+        "file": "crmeb/app/services/user/UserMoneyServices.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/services/user/UserRechargeServices.php",
+        "count": 9
+      },
+      {
+        "file": "crmeb/app/services/user/UserSearchServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/user/UserServices.php",
+        "count": 98
+      },
+      {
+        "file": "crmeb/app/services/user/UserSignServices.php",
+        "count": 12
+      },
+      {
+        "file": "crmeb/app/services/user/UserSpreadServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/user/UserStoreOrderServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/UserUserBillServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/UserUserBrokerageServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/user/UserVisitServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/UserWechatuserServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/member/MemberCardBatchServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/member/MemberCardServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/member/MemberRightServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/user/member/MemberShipServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/wechat/RoutineCIServices.php",
+        "count": 18
+      },
+      {
+        "file": "crmeb/app/services/wechat/RoutineServices.php",
+        "count": 11
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatKeyServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatMediaServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatMenuServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatMessageServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatNewsCategoryServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatQrcodeCateServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatQrcodeRecordServices.php",
+        "count": 1
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatQrcodeServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatReplyKeyServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatReplyServices.php",
+        "count": 8
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/wechat/WechatUserServices.php",
+        "count": 25
+      },
+      {
+        "file": "crmeb/app/services/yihaotong/SmsAdminServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/yihaotong/SmsRecordServices.php",
+        "count": 0
+      },
+      {
+        "file": "crmeb/app/services/yihaotong/SmsTemplateApplyServices.php",
+        "count": 2
+      },
+      {
+        "file": "crmeb/app/services/zalo/ZaloAuthServices.php",
+        "count": 7
+      },
+      {
+        "file": "crmeb/app/services/zalo/ZaloConfigServices.php",
+        "count": 3
+      },
+      {
+        "file": "crmeb/app/services/zalo/ZaloMiniAppThemeServices.php",
+        "count": 0
+      }
+    ]
+  }
+}

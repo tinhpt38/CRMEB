@@ -15,11 +15,10 @@ namespace app\dao\service;
 use app\dao\other\AuxiliaryDao;
 
 /**
- * Mẫu hỗ trợ dịch vụ khách hàng
+ * Mẫu hỗ trợ CSKH
  * Class StoreServiceAuxiliaryDao
  * @package app\dao\service
- */
-class StoreServiceAuxiliaryDao extends AuxiliaryDao
+ */class StoreServiceAuxiliaryDao extends AuxiliaryDao
 {
 
     /**
@@ -28,8 +27,7 @@ class StoreServiceAuxiliaryDao extends AuxiliaryDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->where('type', 0);
     }

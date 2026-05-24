@@ -22,15 +22,13 @@ use crmeb\utils\JwtAuth;
  *
  * Class UserAuthServices
  * @package app\services\user
- */
-class UserAuthServices extends BaseServices
+ */class UserAuthServices extends BaseServices
 {
 
     /**
      * UserAuthServices constructor.
      * @param UserAuthDao $dao
-     */
-    public function __construct(UserAuthDao $dao)
+     */    public function __construct(UserAuthDao $dao)
     {
         $this->dao = $dao;
     }
@@ -42,8 +40,7 @@ class UserAuthServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function parseToken($token): array
+     */    public function parseToken($token): array
     {
         $md5Token = is_null($token) ? '' : md5($token);
 
@@ -57,8 +54,7 @@ class UserAuthServices extends BaseServices
             throw new AuthException('Vui lòng đăng nhập', [], 401);
         }
 
-        /** @var JwtAuth $jwtAuth */
-        $jwtAuth = app()->make(JwtAuth::class);
+        /** @var JwtAuth $jwtAuth */        $jwtAuth = app()->make(JwtAuth::class);
         //Thiết lập phân tích cú pháptoken
         [$id, $type] = $jwtAuth->parseToken($token);
 

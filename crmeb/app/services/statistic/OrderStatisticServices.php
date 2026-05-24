@@ -25,13 +25,11 @@ class OrderStatisticServices extends BaseServices
      * Cơ bản về thống kê đơn hàng
      * @param $where
      * @return array
-     */
-    public function getBasic($where)
+     */    public function getBasic($where)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Vui lòng chọn thời gian');
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
         $data['pay_price'] = $orderService->sum(['paid' => 1, 'pid' => 0, 'time' => $where['time']], 'pay_price', true);
         $data['pay_count'] = $orderService->count(['paid' => 1, 'pid' => 0, 'time' => $where['time']]);
         $data['refund_price'] = $orderService->sum(['paid' => 1, 'pid' => 0, 'is_refund' => 1, 'time' => $where['time']], 'pay_price', true);
@@ -43,8 +41,7 @@ class OrderStatisticServices extends BaseServices
      * Xu hướng đặt hàng
      * @param $where
      * @return array
-     */
-    public function getTrend($where)
+     */    public function getTrend($where)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Vui lòng chọn thời gian');
@@ -68,11 +65,9 @@ class OrderStatisticServices extends BaseServices
      * @param $num
      * @param false $excel
      * @return array
-     */
-    public function trend($time, $num)
+     */    public function trend($time, $num)
     {
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
 
         if ($num == 0) {
             $xAxis = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
@@ -117,11 +112,9 @@ class OrderStatisticServices extends BaseServices
      * Nguồn đặt hàng
      * @param $where
      * @return array
-     */
-    public function getChannel($where)
+     */    public function getChannel($where)
     {
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
 
         $bing_xdata = ['Tài khoản chính thức', 'Chương trình nhỏ', 'H5', 'PC', 'APP'];
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653', '#fc7d6a'];
@@ -148,14 +141,12 @@ class OrderStatisticServices extends BaseServices
     }
 
     /**
-     * Loại lệnh
+     * Loại đơn hàng
      * @param $where
      * @return array
-     */
-    public function getType($where)
+     */    public function getType($where)
     {
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
 
         $bing_xdata = ['Đơn hàng thông thường', 'Đơn hàng Flash Sale', 'Đơn hàng mặc cả', 'Đơn hàng mua chung', 'Đơn đặt trước'];
         $model_checkbox = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);

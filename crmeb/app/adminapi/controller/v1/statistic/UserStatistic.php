@@ -19,25 +19,22 @@ use think\facade\App;
 /**
  * Class UserStatistic
  * @package app\adminapi\controller\v1\statistic
- */
-class UserStatistic extends AuthController
+ */class UserStatistic extends AuthController
 {
     /**
      * UserStatistic constructor.
      * @param App $app
      * @param UserStatisticServices $services
-     */
-    public function __construct(App $app, UserStatisticServices $services)
+     */    public function __construct(App $app, UserStatisticServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Thông tin cơ bản của người dùng
+     * Thông tin cơ bản của Khách hàng
      * @return mixed
-     */
-    public function getBasic()
+     */    public function getBasic()
     {
         $where = $this->request->getMore([
             ['channel_type', ''],
@@ -47,10 +44,9 @@ class UserStatistic extends AuthController
     }
 
     /**
-     * Xu hướng người dùng
+     * Xu hướng Khách hàng
      * @return mixed
-     */
-    public function getTrend()
+     */    public function getTrend()
     {
         $where = $this->request->getMore([
             ['channel_type', ''],
@@ -61,10 +57,9 @@ class UserStatistic extends AuthController
     }
 
     /**
-     * Thông tin người dùng WeChat
+     * Thông tin Khách hàng WeChat
      * @return mixed
-     */
-    public function getWechat()
+     */    public function getWechat()
     {
         $where = $this->request->getMore([
             ['channel_type', ''],
@@ -75,10 +70,9 @@ class UserStatistic extends AuthController
     }
 
     /**
-     * Xu hướng người dùng WeChat
+     * Xu hướng Khách hàng WeChat
      * @return mixed
-     */
-    public function getWechatTrend()
+     */    public function getWechatTrend()
     {
         $where = $this->request->getMore([
             ['channel_type', ''],
@@ -89,10 +83,9 @@ class UserStatistic extends AuthController
     }
 
     /**
-     * Khu vực người dùng
+     * Khu vực Khách hàng
      * @return mixed
-     */
-    public function getRegion()
+     */    public function getRegion()
     {
         $where = $this->request->getMore([
             ['channel_type', ''],
@@ -104,10 +97,9 @@ class UserStatistic extends AuthController
     }
 
     /**
-     * Giới tính người dùng
+     * Giới tính Khách hàng
      * @return mixed
-     */
-    public function getSex()
+     */    public function getSex()
     {
         $where = $this->request->getMore([
             ['channel_type', ''],
@@ -118,10 +110,9 @@ class UserStatistic extends AuthController
     }
 
     /**
-     * Xuất thống kê người dùng
+     * Xuất thống kê Khách hàng
      * @return mixed
-     */
-    public function getExcel()
+     */    public function getExcel()
     {
         $where = $this->request->getMore([
             ['channel_type', ''],
@@ -135,8 +126,7 @@ class UserStatistic extends AuthController
      * Định dạng thời gian
      * @param $time
      * @return string
-     */
-    public function getDay($time)
+     */    public function getDay($time)
     {
         if (strstr($time, '-') !== false) {
             [$startTime, $endTime] = explode('-', $time);

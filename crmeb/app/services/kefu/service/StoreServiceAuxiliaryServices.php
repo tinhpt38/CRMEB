@@ -18,14 +18,12 @@ use app\services\BaseServices;
 /**
  * Class StoreServiceAuxiliaryServices
  * @package app\services\kefu\service
- */
-class StoreServiceAuxiliaryServices extends BaseServices
+ */class StoreServiceAuxiliaryServices extends BaseServices
 {
     /**
      * StoreServiceAuxiliaryServices constructor.
      * @param StoreServiceAuxiliaryDao $dao
-     */
-    public function __construct(StoreServiceAuxiliaryDao $dao)
+     */    public function __construct(StoreServiceAuxiliaryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -37,8 +35,7 @@ class StoreServiceAuxiliaryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveAuxliary(array $data)
+     */    public function saveAuxliary(array $data)
     {
         $auxliaryInfo = $this->dao->get(['type' => 0, 'binding_id' => $data['binding_id'], 'relation_id' => $data['relation_id']]);
         if ($auxliaryInfo) {

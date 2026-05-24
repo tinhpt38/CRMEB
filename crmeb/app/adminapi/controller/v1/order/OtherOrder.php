@@ -20,15 +20,13 @@ use think\facade\App;
  * Thu ngân ngoại tuyến
  * Class OtherOrder
  * @package app\adminapi\controller\v1\order
- */
-class OtherOrder extends AuthController
+ */class OtherOrder extends AuthController
 {
     /**
      * OtherOrder constructor.
      * @param App $app
      * @param OtherOrderServices $service
-     */
-    public function __construct(App $app, OtherOrderServices $service)
+     */    public function __construct(App $app, OtherOrderServices $service)
     {
         parent::__construct($app);
         $this->services = $service;
@@ -40,8 +38,7 @@ class OtherOrder extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function scan_list()
+     */    public function scan_list()
     {
         $where = $this->request->getMore([
             ['order_id', ''],
@@ -58,8 +55,7 @@ class OtherOrder extends AuthController
      * Mã QR thu ngân ngoại tuyến
      * @return mixed
      * @throws \Exception
-     */
-    public function offline_scan()
+     */    public function offline_scan()
     {
         [$type] = $this->request->getMore([
             ['type', 1]
@@ -67,8 +63,7 @@ class OtherOrder extends AuthController
         //Tạo địa chỉ h5
         $weixinPage = "/pages/annex/offline_pay/index";
         $weixinFileName = "wechat_offline_scan.png";
-        /** @var QrcodeServices $QrcodeService */
-        $QrcodeService = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $QrcodeService */        $QrcodeService = app()->make(QrcodeServices::class);
         $wechatQrcode = $QrcodeService->getWechatQrcodePath($weixinFileName, $weixinPage, false, false);
         //Tạo địa chỉ chương trình nhỏ
         $routineQrcode = $QrcodeService->getRoutineQrcodePath(4, 6, 3, [], false);

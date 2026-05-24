@@ -25,8 +25,7 @@ class SyncMessageJob extends BaseJobs
      * Đồng bộ hóa tin nhắn đăng ký applet
      * @param $template
      * @return bool
-     */
-    public function syncSubscribe($key, $data)
+     */    public function syncSubscribe($key, $data)
     {
         $works = MiniProgramService::getSubscribeTemplateKeyWords($key);
         $kid = [];
@@ -61,8 +60,7 @@ class SyncMessageJob extends BaseJobs
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/16
-     */
-    public function syncWechat($key, $content)
+     */    public function syncWechat($key, $content)
     {
         $content = is_array($content) ? $content : explode("\n", $content);
         $name = [];

@@ -1,0 +1,62 @@
+{
+  "dryRun": true,
+  "roots": [
+    "template/admin/src"
+  ],
+  "summary": {
+    "scanned": 758,
+    "changedFiles": 10,
+    "totalReplacements": 14
+  },
+  "stats": {
+    "perEntry": {
+      "thanh toán số dư": 4,
+      "Cấu hình giao diện": 1,
+      "đơn vị": 5,
+      "trong kho": 2,
+      "Thứ tự": 2
+    },
+    "perFile": [
+      {
+        "file": "template/admin/src/pages/marketing/storeIntegralOrder/components/tableFrom.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/notify/smsConfig/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/order/orderList/handle/orderDetails.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/components/addReply.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/components/BasicInfo.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/components/MarketingSetting.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/defaultData.js",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/product/productAdd/index.vue",
+        "count": 1
+      },
+      {
+        "file": "template/admin/src/pages/setting/freight/index.vue",
+        "count": 2
+      },
+      {
+        "file": "template/admin/src/pages/statistic/transaction/components/transaction.vue",
+        "count": 3
+      }
+    ]
+  }
+}

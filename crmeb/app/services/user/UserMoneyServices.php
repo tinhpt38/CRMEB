@@ -20,21 +20,20 @@ use crmeb\exceptions\AdminException;
 class UserMoneyServices extends BaseServices
 {
     /**
-     * Mẫu hồ sơ người dùng
+     * Mẫu hồ sơ Khách hàng
      * @var array[]
-     */
-    protected $incomeData = [
+     */    protected $incomeData = [
         'pay_product' => [
             'title' => 'Thanh toán số dư để mua hàng',
             'type' => 'pay_product',
-            'mark' => 'thanh toán số dư{%num%}nhân dân tệ để mua hàng',
+            'mark' => 'Thanh toán bằng số dư{%num%}nhân dân tệ để mua hàng',
             'status' => 1,
             'pm' => 0
         ],
         'pay_member' => [
             'title' => 'Thanh toán số dư để mua thành viên',
             'type' => 'pay_member',
-            'mark' => 'thanh toán số dư{%num%}Nhân dân tệ mua thành viên',
+            'mark' => 'Thanh toán bằng số dư{%num%}Nhân dân tệ mua thành viên',
             'status' => 1,
             'pm' => 0
         ],
@@ -60,7 +59,7 @@ class UserMoneyServices extends BaseServices
             'pm' => 0
         ],
         'user_recharge' => [
-            'title' => 'Số dư nạp lại của người dùng',
+            'title' => 'Số dư nạp lại của Khách hàng',
             'type' => 'recharge',
             'mark' => 'Nạp số dư thành công{%price%}Nhân dân tệ,cho đi{%give_price%}Nhân dân tệ',
             'status' => 1,
@@ -95,9 +94,9 @@ class UserMoneyServices extends BaseServices
             'pm' => 1
         ],
         'register_system_add' => [
-            'title' => 'Số dư thưởng đăng ký người dùng mới',
+            'title' => 'Số dư thưởng đăng ký Khách hàng mới',
             'type' => 'register_system_add',
-            'mark' => 'Phần thưởng đăng ký người dùng mới{%num%}Số dư',
+            'mark' => 'Phần thưởng đăng ký Khách hàng mới{%num%}Số dư',
             'status' => 1,
             'pm' => 1
         ],
@@ -106,14 +105,13 @@ class UserMoneyServices extends BaseServices
     /**
      * UserMoneyServices constructor.
      * @param UserMoneyDao $dao
-     */
-    public function __construct(UserMoneyDao $dao)
+     */    public function __construct(UserMoneyDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Viết hồ sơ người dùng
+     * Viết hồ sơ Khách hàng
      * @param string $type viết kiểu
      * @param int $uid
      * @param int|string|array $number
@@ -121,8 +119,7 @@ class UserMoneyServices extends BaseServices
      * @param $linkId
      * @param string $mark
      * @return bool|mixed
-     */
-    public function income(string $type, int $uid, $number, $balance, $linkId, string $mark = '')
+     */    public function income(string $type, int $uid, $number, $balance, $linkId, string $mark = '')
     {
         $data = $this->incomeData[$type] ?? null;
         if (!$data) {
@@ -149,11 +146,10 @@ class UserMoneyServices extends BaseServices
     }
 
     /**
-     * Hồ sơ số dư
+     * Biến động số dư
      * @param $where
      * @return array
-     */
-    public function balanceList($where)
+     */    public function balanceList($where)
     {
         $status = [];
         foreach ($this->incomeData as $value) {
@@ -162,17 +158,13 @@ class UserMoneyServices extends BaseServices
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
         //Người dùng được liên kết
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $uids = array_column($list, 'uid');
         $nicknameArr = $userServices->getColumn([['uid', 'in', $uids]], 'nickname', 'uid');
         //Đơn hàng liên kết
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
-        /** @var UserRechargeServices $rechargeServices */
-        $rechargeServices = app()->make(UserRechargeServices::class);
-        /** @var OtherOrderServices $otherOrderServices */
-        $otherOrderServices = app()->make(OtherOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var UserRechargeServices $rechargeServices */        $rechargeServices = app()->make(UserRechargeServices::class);
+        /** @var OtherOrderServices $otherOrderServices */        $otherOrderServices = app()->make(OtherOrderServices::class);
         foreach ($list as &$item) {
             $item['nickname'] = $nicknameArr[$item['uid']];
             if ($item['type'] == 'pay_product' || $item['type'] == 'pay_product_refund') {
@@ -195,8 +187,7 @@ class UserMoneyServices extends BaseServices
      * Ghi chú về số dư
      * @param $data
      * @return bool
-     */
-    public function recordRemark($id, $mark)
+     */    public function recordRemark($id, $mark)
     {
         if ($this->dao->update($id, ['mark' => $mark])) {
             return true;
@@ -209,11 +200,9 @@ class UserMoneyServices extends BaseServices
      * Thông tin cơ bản về thống kê số dư
      * @return array
      * @throws \ReflectionException
-     */
-    public function getBasic()
+     */    public function getBasic()
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $data['now_balance'] = $userServices->sum(['status' => 1], 'now_money', true);
         $data['add_balance'] = $this->dao->sum([
             ['pm', '=', 1],
@@ -227,8 +216,7 @@ class UserMoneyServices extends BaseServices
      * Xu hướng cân bằng
      * @param $where
      * @return array
-     */
-    public function getTrend($where)
+     */    public function getTrend($where)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Vui lòng chọn thời gian');
@@ -252,8 +240,7 @@ class UserMoneyServices extends BaseServices
      * @param $num
      * @param false $excel
      * @return array
-     */
-    public function trend($time, $num, $excel = false)
+     */    public function trend($time, $num, $excel = false)
     {
         if ($num == 0) {
             $xAxis = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
@@ -295,8 +282,7 @@ class UserMoneyServices extends BaseServices
      * Nguồn cân bằng
      * @param $where
      * @return array
-     */
-    public function getChannel($where)
+     */    public function getChannel($where)
     {
         $bing_xdata = ['Hệ thống tăng', 'Nạp tiền vào ví', 'Rút tiền hoa hồng', 'Rút thăm may mắn', 'Hoàn tiền sản phẩm'];
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653', '#fc7d6a'];
@@ -327,8 +313,7 @@ class UserMoneyServices extends BaseServices
      * Loại số dư
      * @param $where
      * @return array
-     */
-    public function getType($where)
+     */    public function getType($where)
     {
         $bing_xdata = ['Giảm hệ thống', 'Nạp tiền và hoàn tiền', 'mua hàng', 'Mua thành viên'];
         $color = ['#64a1f4', '#3edeb5', '#70869f', '#ffc653'];
@@ -380,14 +365,13 @@ class UserMoneyServices extends BaseServices
     }
 
     /**
-     * Theo số tiền nạp lại của người dùng truy vấn
+     * Theo số tiền nạp lại của Khách hàng truy vấn
      * @param array $where
      * @param string $rechargeSumField
      * @param string $selectType
      * @param string $group
      * @return float|mixed
-     */
-    public function getRechargeMoneyByWhere(array $where, string $rechargeSumField, string $selectType, string $group = "")
+     */    public function getRechargeMoneyByWhere(array $where, string $rechargeSumField, string $selectType, string $group = "")
     {
         switch ($selectType) {
             case "sum" :

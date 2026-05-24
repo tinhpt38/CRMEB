@@ -22,8 +22,7 @@ use think\facade\App;
  * Lệnh hoàn tiền
  * Class RefundOrder
  * @package app\adminapi\controller\v1\order
- */
-class RefundOrder extends AuthController
+ */class RefundOrder extends AuthController
 {
 
     /**
@@ -31,8 +30,7 @@ class RefundOrder extends AuthController
      * @param App $app
      * @param StoreOrderRefundServices $service
      * @method temp
-     */
-    public function __construct(App $app, StoreOrderRefundServices $service)
+     */    public function __construct(App $app, StoreOrderRefundServices $service)
     {
         parent::__construct($app);
         $this->services = $service;
@@ -41,8 +39,7 @@ class RefundOrder extends AuthController
     /**
      * Danh sách đơn hàng hoàn tiền
      * @return mixed
-     */
-    public function getRefundList()
+     */    public function getRefundList()
     {
         $where = $this->request->getMore([
             ['order_id', ''],
@@ -55,7 +52,7 @@ class RefundOrder extends AuthController
     }
 
     /**
-     * Chi tiết đặt hàng
+     * Chi tiết đơn hàng
      * @param $uni
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -64,12 +61,10 @@ class RefundOrder extends AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/02
-     */
-    public function getRefundInfo($uni)
+     */    public function getRefundInfo($uni)
     {
         $data['orderInfo'] = $this->services->refundDetail($uni);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $data['userInfo'] = $userServices->get($data['orderInfo']['uid']);
         return app('json')->success($data);
     }
@@ -77,8 +72,7 @@ class RefundOrder extends AuthController
     /**
      * Người bán đồng ý hoàn tiền
      * @return mixed
-     */
-    public function agreeExpress($id)
+     */    public function agreeExpress($id)
     {
         $this->services->agreeExpress($id);
         return app('json')->success('Hoạt động thành công');
@@ -91,8 +85,7 @@ class RefundOrder extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function remark($id)
+     */    public function remark($id)
     {
         [$remark] = $this->request->postMore([['remark', '']], true);
 
@@ -105,8 +98,7 @@ class RefundOrder extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function refund($id)
+     */    public function refund($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->refundOrderForm((int)$id));
@@ -121,8 +113,7 @@ class RefundOrder extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refundPrice(Request $request, StoreOrderServices $services, $id)
+     */    public function refundPrice(Request $request, StoreOrderServices $services, $id)
     {
         $data = $request->postMore([
             ['refund_price', 0],
@@ -185,8 +176,7 @@ class RefundOrder extends AuthController
                 $refund_data['refund_id'] = $order['order_id'] . rand(100, 999);
             }
             ($order['pid'] > 0) ? $refund_data['order_id'] = $services->value(['id' => (int)$order['pid']], 'order_id') : $refund_data['order_id'] = $order['order_id'];
-            /** @var WechatUserServices $wechatUserServices */
-            $wechatUserServices = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUserServices */            $wechatUserServices = app()->make(WechatUserServices::class);
             $refund_data['open_id'] = $wechatUserServices->uidToOpenid((int)$order['uid'], 'routine') ?? '';
             $refund_data['refund_no'] = $orderRefund['order_id'];
             $refund_data['order_id'] = $orderRefund['order_id'];
@@ -208,8 +198,7 @@ class RefundOrder extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function noRefund($id)
+     */    public function noRefund($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->noRefundForm((int)$id));
@@ -222,8 +211,7 @@ class RefundOrder extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refuseRefund($id)
+     */    public function refuseRefund($id)
     {
         [$refund_reason] = $this->request->postMore([['refund_reason', '']], true);
         $this->services->refuse($id, $refund_reason);

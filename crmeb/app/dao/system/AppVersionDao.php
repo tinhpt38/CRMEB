@@ -19,14 +19,12 @@ use app\model\system\AppVersion;
 /**
  * Class AppVersionDao
  * @package app\dao\system
- */
-class AppVersionDao extends BaseDao
+ */class AppVersionDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return AppVersion::class;
     }
@@ -40,8 +38,7 @@ class AppVersionDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function versionList($platform, $page, $limit)
+     */    public function versionList($platform, $page, $limit)
     {
         return $this->getModel()->when($platform != '', function ($query) use ($platform) {
             $query->where('platform', $platform);

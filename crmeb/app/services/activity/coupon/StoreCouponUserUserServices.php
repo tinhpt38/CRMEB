@@ -19,15 +19,13 @@ use app\dao\activity\coupon\StoreCouponUserUserDao;
  *
  * Class StoreCouponUserUserServices
  * @package app\services\coupon
- */
-class StoreCouponUserUserServices extends BaseServices
+ */class StoreCouponUserUserServices extends BaseServices
 {
 
     /**
      * StoreCouponUserUserServices constructor.
      * @param StoreCouponUserUserDao $dao
-     */
-    public function __construct(StoreCouponUserUserDao $dao)
+     */    public function __construct(StoreCouponUserUserDao $dao)
     {
         $this->dao = $dao;
     }
@@ -39,8 +37,7 @@ class StoreCouponUserUserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->sysPage($where, $page, $limit);

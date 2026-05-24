@@ -25,14 +25,12 @@ class MemberCardServices extends BaseServices
 {
     /**
      * @var MemberCardDao
-     */
-    protected $dao;
+     */    protected $dao;
 
     /** Khởi tạo và lấy phần xử lý lớp dao
      * MemberCardServices constructor.
      * @param MemberCardDao $memberCardDao
-     */
-    public static $_memberTypePrefix = ['month', 'quarter', 'year', 'ever', 'free', 'owner'];
+     */    public static $_memberTypePrefix = ['month', 'quarter', 'year', 'ever', 'free', 'owner'];
 
     public function __construct(MemberCardDao $memberCardDao)
     {
@@ -41,8 +39,7 @@ class MemberCardServices extends BaseServices
 
     public function getSearchList(array $where = [])
     {
-        /** @var  UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var  UserServices $userService */        $userService = app()->make(UserServices::class);
         [$page, $limit] = $this->getPageValue();
         $where['batch_card_id'] = $where['card_batch_id'];
         if ($where['is_use'] != "") {
@@ -71,8 +68,7 @@ class MemberCardServices extends BaseServices
 
     /** Tạo thẻ thành viên miễn phí
      * @param array $data
-     */
-    public function addCard(array $data)
+     */    public function addCard(array $data)
     {
         if (!isset($data['card_batch_id']) || !$data['card_batch_id'] || $data['card_batch_id'] == 0 || !isset($data['total_num']) || !$data['total_num'] || $data['total_num'] == 0) {
             throw new AdminException('Lỗi tham số');
@@ -104,8 +100,7 @@ class MemberCardServices extends BaseServices
      * @param bool $prefix
      * @param bool $random
      * @return string
-     */
-    public function makeRandomNumber($prefix = false, $random = false)
+     */    public function makeRandomNumber($prefix = false, $random = false)
     {
         if (!$prefix) {
             $prefix = "";
@@ -128,8 +123,7 @@ class MemberCardServices extends BaseServices
     /** Nhận thẻ thành viên
      * @param array $data
      * @param int $uid
-     */
-    public function drawMemberCard(array $data, int $uid)
+     */    public function drawMemberCard(array $data, int $uid)
     {
         if (!$uid || !$data) throw new ApiException('Lỗi tham số');
         $isOpenMember = $this->isOpenMemberCard();
@@ -138,16 +132,14 @@ class MemberCardServices extends BaseServices
         if (!isset($data['member_card_code']) || !$data['member_card_pwd']) throw new ApiException('Vui lòng nhập mật khẩu để nhận thẻ');
         $card_info = $this->dao->getOneByWhere(['card_number' => trim($data['member_card_code'])]);
         if (!$card_info) throw new ApiException('Thẻ thành viên không tồn tại');
-        /** @var MemberCardBatchServices $memberBatchServices */
-        $memberBatchServices = app()->make(MemberCardBatchServices::class);
+        /** @var MemberCardBatchServices $memberBatchServices */        $memberBatchServices = app()->make(MemberCardBatchServices::class);
         $batch_info = $memberBatchServices->getOne($card_info['card_batch_id']);
         if (!$batch_info) throw new ApiException('Thẻ thành viên chưa được kích hoạt và tạm thời không thể sử dụng được.');
         if ($batch_info->status != 1) throw new ApiException('Thẻ thành viên chưa được kích hoạt và tạm thời không thể sử dụng được.');
         if ($card_info['status'] == 0) throw new ApiException('Thẻ thành viên chưa được kích hoạt và tạm thời không thể sử dụng được.');
         if ($card_info['card_password'] != trim($data['member_card_pwd'])) throw new ApiException('Mật khẩu thẻ thành viên không chính xác');
         if ($card_info['use_uid'] && $card_info['use_time']) throw new ApiException('Thẻ thành viên đã được sử dụng');
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user_info = $userServices->getUserInfo($uid);
         if (!$user_info) throw new ApiException('Người dùng không tồn tại');
         if ($user_info->is_money_level > 0 && $user_info->is_ever_level == 1) throw new ApiException('Bạn đã là thành viên thường trực và không cần phải thu thập lại. Bạn có thể chuyển thẻ này cho người thân, bạn bè để cùng nhau hưởng ưu đãi.');
@@ -155,8 +147,7 @@ class MemberCardServices extends BaseServices
 
         /**
          * Thời hạn sử dụng cụ thể của thẻ batch có thể được mở nếu doanh nghiệp có nhu cầu. Đừng xóa nó.。
-         */
-        if ($card_info->status != 1) throw new ApiException('Thẻ thành viên chưa được kích hoạt và tạm thời không thể sử dụng được.');
+         */        if ($card_info->status != 1) throw new ApiException('Thẻ thành viên chưa được kích hoạt và tạm thời không thể sử dụng được.');
         $this->transaction(function () use ($card_info, $user_info, $batch_info, $memberBatchServices, $userServices, $data) {
             $res1 = $this->dao->update($card_info->id, ['use_uid' => $user_info->uid, 'use_time' => time(), 'update_time' => time()], 'id');
             if ($res1) {
@@ -174,8 +165,7 @@ class MemberCardServices extends BaseServices
                         break;
                 }
                 $channel_type = $data['from'];
-                /** @var OtherOrderServices $OtherOrderServices */
-                $OtherOrderServices = app()->make(OtherOrderServices::class);
+                /** @var OtherOrderServices $OtherOrderServices */                $OtherOrderServices = app()->make(OtherOrderServices::class);
                 $storeOrderCreateService = app()->make(StoreOrderCreateServices::class);
                 $record_data['uid'] = $user_info->uid;
                 $record_data['member_code'] = $card_info->card_number;
@@ -190,8 +180,7 @@ class MemberCardServices extends BaseServices
                 $record_data['pay_time'] = time();
                 $res3 = $OtherOrderServices->addOtherOrderData($record_data);
                 //if ($res3) $res4 = $userServices->update($user_info->uid, ['level' => 1, 'overdue_time' => $overdue_time, 'is_permanent' => 0], 'uid');
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
                 $res4 = $userServices->setMemberOverdueTime($batch_info->use_day, $user_info->uid, 2, $record_data['member_type']);
                 $res5 = $res1 && $res2 && $res3 && $res4;
                 return $res5;
@@ -204,8 +193,7 @@ class MemberCardServices extends BaseServices
     /**  Xác minh xem loại thẻ thành viên này có tồn tại không
      * @param string $member_type
      * @return bool
-     */
-    public function checkmemberType(string $member_type)
+     */    public function checkmemberType(string $member_type)
     {
         $member_type_arr = $this->getMemberTypeInfo();
         if (!array_key_exists($member_type, $member_type_arr)) throw new ApiException('Hiện chưa có thẻ thành viên loại này');
@@ -214,11 +202,9 @@ class MemberCardServices extends BaseServices
 
     /** Nhận lợi ích thành viên và hướng dẫn cấu hình
      * @return array
-     */
-    public function getMemberRightsInfo()
+     */    public function getMemberRightsInfo()
     {
-        /** @var MemberRightServices $memberRightService */
-        $memberRightService = app()->make(MemberRightServices::class);
+        /** @var MemberRightServices $memberRightService */        $memberRightService = app()->make(MemberRightServices::class);
         $memberRight = $memberRightService->getSearchList(['status' => 1]);
         if ($memberRight['list']) {
             foreach ($memberRight['list'] as $k => &$v) {
@@ -237,11 +223,9 @@ class MemberCardServices extends BaseServices
 
     /**Nhận cấu hình thẻ thành viên
      * @return array
-     */
-    public function getMemberTypeInfo()
+     */    public function getMemberTypeInfo()
     {
-        /** @var SystemConfigService $systemConfigService */
-        $systemConfigService = app()->make(SystemConfigService::class);
+        /** @var SystemConfigService $systemConfigService */        $systemConfigService = app()->make(SystemConfigService::class);
         $data = [];
         foreach (self::$_memberTypePrefix as $v) {
             $data[$v] = $systemConfigService::more([$v . '_title', $v . '_vip_day', $v . '_pre_price', $v . '_price']);
@@ -251,12 +235,10 @@ class MemberCardServices extends BaseServices
 
     /**Xử lý dữ liệu thẻ thành viên
      * @return array
-     */
-    public function DoMemberType()
+     */    public function DoMemberType()
     {
         $data = array();
-        /** @var MemberShipServices $memberShipService */
-        $memberShipService = app()->make(MemberShipServices::class);
+        /** @var MemberShipServices $memberShipService */        $memberShipService = app()->make(MemberShipServices::class);
         $list = $memberShipService->getApiList(['is_del' => 0]);
         foreach ($list as $v) {
             $data[] = [
@@ -273,8 +255,7 @@ class MemberCardServices extends BaseServices
 
     /**Dữ liệu loại thành viên
      * @return bool
-     */
-    public function getMemberTypeValue()
+     */    public function getMemberTypeValue()
     {
         $member_type = $this->DoMemberType();
         if (!$member_type) return false;
@@ -291,14 +272,11 @@ class MemberCardServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getExportData($where)
+     */    public function getExportData($where)
     {
         $data = $this->dao->getSearchList($where);
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
-        /** @var MemberCardBatchServices $batchService */
-        $batchService = app()->make(MemberCardBatchServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
+        /** @var MemberCardBatchServices $batchService */        $batchService = app()->make(MemberCardBatchServices::class);
         foreach ($data as $k => $v) {
             $data[$k]['use_time'] = $v['use_time'] != 0 ? date('Y-m-d H:i:s', $v['use_time']) : "";
             $data[$k]['user_name'] = '';
@@ -318,11 +296,9 @@ class MemberCardServices extends BaseServices
     /**Nhận hồ sơ thành viên
      * @param array $where
      * @return array
-     */
-    public function getSearchRecordList(array $where)
+     */    public function getSearchRecordList(array $where)
     {
-        /** @var OtherOrderServices $otherOrderSevice */
-        $otherOrderSevice = app()->make(OtherOrderServices::class);
+        /** @var OtherOrderServices $otherOrderSevice */        $otherOrderSevice = app()->make(OtherOrderServices::class);
         return $otherOrderSevice->getMemberRecord($where);
     }
 
@@ -334,8 +310,7 @@ class MemberCardServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function isOpenMemberCard(string $rightType = '', bool $get_number = true)
+     */    public function isOpenMemberCard(string $rightType = '', bool $get_number = true)
     {
         $isOpen = sys_config('member_card_status', 1);
         //Nếu danh mục vốn chủ sở hữu được thông qua, hãy kiểm tra xem bạn có vốn chủ sở hữu nhất định không
@@ -343,8 +318,7 @@ class MemberCardServices extends BaseServices
             if ($isOpen) return true;
             return false;
         } else {
-            /** @var MemberRightServices $memberRightService */
-            $memberRightService = app()->make(MemberRightServices::class);
+            /** @var MemberRightServices $memberRightService */            $memberRightService = app()->make(MemberRightServices::class);
             $memberRight = $memberRightService->getOne(['right_type' => $rightType], 'status,number');
             if ($isOpen && $memberRight && $memberRight['status']) {
                 if ($get_number) {
@@ -364,8 +338,7 @@ class MemberCardServices extends BaseServices
      * @param $id
      * @param $status
      * @return bool
-     */
-    public function setStatus($id, $status)
+     */    public function setStatus($id, $status)
     {
         $card_batch_id = $this->dao->value(['id' => $id], 'card_batch_id');
         $card_batch_status = app()->make(MemberCardBatchServices::class)->value(['id' => $card_batch_id], 'status');

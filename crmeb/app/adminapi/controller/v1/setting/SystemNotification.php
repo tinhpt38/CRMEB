@@ -18,15 +18,13 @@ use think\facade\App;
 /**
  * Class SystemRole
  * @package app\adminapi\controller\v1\setting
- */
-class SystemNotification extends AuthController
+ */class SystemNotification extends AuthController
 {
     /**
      * SystemRole constructor.
      * @param App $app
      * @param SystemNotificationServices $services
-     */
-    public function __construct(App $app, SystemNotificationServices $services)
+     */    public function __construct(App $app, SystemNotificationServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -38,8 +36,7 @@ class SystemNotification extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['type', ''],
@@ -54,8 +51,7 @@ class SystemNotification extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/2/19
-     */
-    public function notForm($id)
+     */    public function notForm($id)
     {
         return app('json')->success($this->services->getNotForm($id));
     }
@@ -67,8 +63,7 @@ class SystemNotification extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/2/20
-     */
-    public function notFormSave($id)
+     */    public function notFormSave($id)
     {
         $data = $this->request->postMore([
             ['custom_trigger', ''],
@@ -86,8 +81,7 @@ class SystemNotification extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/2/20
-     */
-    public function delNot($id)
+     */    public function delNot($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->delete($id);
@@ -101,8 +95,7 @@ class SystemNotification extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function info()
+     */    public function info()
     {
         $where = $this->request->getMore([
             ['type', ''],
@@ -116,8 +109,7 @@ class SystemNotification extends AuthController
      * Lưu tài nguyên mới
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -172,8 +164,7 @@ class SystemNotification extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function set_status($type, $status, $id)
+     */    public function set_status($type, $status, $id)
     {
         if ($type == '' || $status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, [$type => $status]);
@@ -185,8 +176,7 @@ class SystemNotification extends AuthController
     /**
      * Gửi thử thông báo Telegram.
      * @return mixed
-     */
-    public function testTelegram()
+     */    public function testTelegram()
     {
         $data = $this->request->postMore([
             ['id', 0],

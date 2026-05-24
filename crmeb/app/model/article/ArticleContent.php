@@ -17,15 +17,13 @@ use crmeb\traits\ModelTrait;
  * TODO Chi tiết bài viếtModel
  * Class ArticleContent
  * @package app\model\article
- */
-class ArticleContent extends BaseModel
+ */class ArticleContent extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'article_content';
+     */    protected $name = 'article_content';
 
 }

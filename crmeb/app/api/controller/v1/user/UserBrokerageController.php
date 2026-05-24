@@ -18,8 +18,7 @@ class UserBrokerageController
     /**
      * UserBrokerageController constructor.
      * @param UserBrokerageServices $services
-     */
-    public function __construct(UserBrokerageServices $services)
+     */    public function __construct(UserBrokerageServices $services)
     {
         $this->services = $services;
     }
@@ -28,8 +27,7 @@ class UserBrokerageController
      * Dữ liệu khuyến mãi Hoa hồng của ngày hôm qua Số tiền rút tích lũy Hoa hồng hiện tại
      * @param Request $request
      * @return mixed
-     */
-    public function commission(Request $request)
+     */    public function commission(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->commission($uid));
@@ -39,8 +37,7 @@ class UserBrokerageController
      * Xếp hạng hoa hồng
      * @param Request $request
      * @return mixed
-     */
-    public function brokerageRank(Request $request)
+     */    public function brokerageRank(Request $request)
     {
         $data = $request->getMore([
             ['page', ''],

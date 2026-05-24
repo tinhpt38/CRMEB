@@ -15,19 +15,17 @@ use app\services\product\product\StoreVisitServices;
 use crmeb\interfaces\ListenerInterface;
 
 /**
- * ghi quyền truy cập của người dùng
+ * ghi quyền truy cập của Khách hàng
  * Class UserVisitListener
  * @package app\listener\user
- */
-class UserVisitListener implements ListenerInterface
+ */class UserVisitListener implements ListenerInterface
 {
     public function handle($event): void
     {
         [$uid, $product_id, $product_type, $cate, $type] = $event;
 
-        //Viết bản ghi truy cập của người dùng
-        /** @var StoreVisitServices $storeVisit */
-        $storeVisit = app()->make(StoreVisitServices::class);
+        //Viết bản ghi truy cập của Khách hàng
+        /** @var StoreVisitServices $storeVisit */        $storeVisit = app()->make(StoreVisitServices::class);
         $storeVisit->setView($uid, $product_id, $product_type, $cate, $type);
     }
 }

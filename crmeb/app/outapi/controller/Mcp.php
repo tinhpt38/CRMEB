@@ -19,14 +19,12 @@ use think\Request;
  *
  * Phương thức xác thực: tài khoản + mật khẩu
  * Chuyển số tài khoản và mật khẩu thông qua tiêu đề yêu cầu để xác thực
- */
-class Mcp extends AuthController
+ */class Mcp extends AuthController
 {
     /**
      * khởi tạo
      * Giao diện MCP không sử dụng phần mềm trung gian Token và sử dụng trực tiếp xác thực appid + appsecret.
-     */
-    protected function initialize()
+     */    protected function initialize()
     {
         // Việc khởi tạo lớp cha không được gọi vì MCP không sử dụng phần mềm trung gian Token.
         $this->authByAppSecret();
@@ -35,8 +33,7 @@ class Mcp extends AuthController
     /**
      * Xác thực qua appid + appsecret
      * Tham khảo quy trình xác minh của AuthTokenMiddleware
-     */
-    private function authByAppSecret()
+     */    private function authByAppSecret()
     {
         $account = $this->request->header('account', '');
         $password = $this->request->header('password', '');
@@ -47,7 +44,7 @@ class Mcp extends AuthController
         }
 
         try {
-            // Truy vấn thông tin tài khoản
+            // Tìm kiếm thông tin tài khoản
             $accountInfo = Db::name('out_account')
                 ->where('appid', $account)
                 ->where('is_del', 0)
@@ -91,8 +88,7 @@ class Mcp extends AuthController
      * Xác minh quyền giao diện
      * Tham khảo logic verifyAuth của AuthTokenMiddleware
      * Giao diện MCP yêu cầu kiểm tra quyền định tuyến
-     */
-    private function verifyAuth()
+     */    private function verifyAuth()
     {
         try {
             // Inject outId và outInfo vào request (mô phỏng hành vi của middleware）
@@ -120,8 +116,7 @@ class Mcp extends AuthController
     /**
      * Xử lý lỗi xác thực
      * Đặt mã định danh lỗi và trả về phản hồi lỗi trong phương thức chỉ mục
-     */
-    private function authFail(string $message)
+     */    private function authFail(string $message)
     {
         $this->outId = 0;
         $this->outInfo = ['error' => $message];
@@ -129,11 +124,10 @@ class Mcp extends AuthController
 
     /**
      * Nhận danh sách định nghĩa công cụ MCP
-     * Xác định tất cả các công cụ mà trợ lý AI có thể gọi và cấu trúc tham số của chúng
+     * Xác định Tất cả các công cụ mà trợ lý AI có thể gọi và cấu trúc tham số của chúng
      *
      * @return mảng định nghĩa công cụ mảng
-     */
-    private function getTools(): array
+     */    private function getTools(): array
     {
         return [
             // Quản lý phân loại
@@ -261,10 +255,10 @@ class Mcp extends AuthController
                 ],
             ],
 
-            // Quản lý người dùng
+            // Quản lý khách hàng
             [
                 'name' => 'crmeb_user_list',
-                'description' => 'Lấy danh sách người dùng',
+                'description' => 'Lấy danh sách Khách hàng',
                 'inputSchema' => [
                     'type' => 'object',
                     'properties' => [
@@ -276,7 +270,7 @@ class Mcp extends AuthController
             ],
             [
                 'name' => 'crmeb_user_detail',
-                'description' => 'Nhận thông tin chi tiết người dùng',
+                'description' => 'Nhận thông tin chi tiết Khách hàng',
                 'inputSchema' => [
                     'type' => 'object',
                     'properties' => [
@@ -296,8 +290,7 @@ class Mcp extends AuthController
      * @param array $args Thông số công cụ
      * @return kết quả xử lý mảng
      * @throws \Exception Ngoại lệ được đưa ra khi lỗi công cụ hoặc tham số không xác định
-     */
-    private function handleToolCall(string $name, array $args = [])
+     */    private function handleToolCall(string $name, array $args = [])
     {
         switch ($name) {
             // Quản lý phân loại
@@ -342,7 +335,7 @@ class Mcp extends AuthController
             case 'crmeb_coupon_list':
                 return $this->couponList($args);
 
-            // Quản lý người dùng
+            // Quản lý khách hàng
             case 'crmeb_user_list':
                 return $this->userList($args);
             case 'crmeb_user_detail':
@@ -367,8 +360,7 @@ class Mcp extends AuthController
      *   - tree: Có trả về cấu trúc cây hay không, mặc địnhfalse
      *   - pid: ID cha mẹ. Nếu được chỉ định, chỉ các danh mục dưới cấp độ gốc mới được trả về.
      * @return danh sách danh mục mảng và tổng số
-     */
-    private function categoryList(array $args): array
+     */    private function categoryList(array $args): array
     {
         $page = max(1, (int)($args['page'] ?? 1));
         $limit = min(100, max(1, (int)($args['limit'] ?? 10))); // Hạn chế nhất100
@@ -383,7 +375,7 @@ class Mcp extends AuthController
             $query = $query->where('pid', $pid);
         }
 
-        // Chế độ cây: lấy tất cả các danh mục và xây dựng cây
+        // Chế độ cây: lấy Tất cả các danh mục và xây dựng cây
         if ($isTree) {
             $allList = Db::name('store_category')
                 ->where('is_show', 1)
@@ -420,8 +412,7 @@ class Mcp extends AuthController
      * @param array $list Tất cả dữ liệu được phân loại
      * @param int $pid ID gốc
      * @return cấu trúc cây mảng
-     */
-    private function buildCategoryTree(array $list, int $pid): array
+     */    private function buildCategoryTree(array $list, int $pid): array
     {
         $tree = [];
         foreach ($list as $item) {
@@ -442,8 +433,7 @@ class Mcp extends AuthController
      * @param int $id ID danh mục
      * @return chi tiết phân loại mảng
      * @throws \Exception Ném ngoại lệ khi danh mục không tồn tại
-     */
-    private function categoryDetail(int $id): array
+     */    private function categoryDetail(int $id): array
     {
         $info = Db::name('store_category')->where('id', $id)->find();
         if (!$info) {
@@ -466,15 +456,14 @@ class Mcp extends AuthController
      *   - stock_min: Khoảng không quảng cáo tối thiểu (tùy chọn)）
      *   - stock_max: Khoảng không quảng cáo tối đa (tùy chọn)
      * @return danh sách sản phẩm mảng và tổng số
-     */
-    private function productList(array $args): array
+     */    private function productList(array $args): array
     {
         $page = max(1, (int)($args['page'] ?? 1));
         $limit = min(100, max(1, (int)($args['limit'] ?? 10))); // Hạn chế nhất100
 
         $where = [['is_show', '=', 1]];
 
-        // Lọc phân loại: Truy vấn thông qua các bảng liên quan
+        // Lọc phân loại: Tìm kiếm thông qua các bảng liên quan
         if (!empty($args['cate_id'])) {
             $cateId = (int)$args['cate_id'];
             // Xác minh rằng danh mục tồn tại
@@ -482,7 +471,7 @@ class Mcp extends AuthController
             if (!$categoryExists) {
                 throw new \Exception('Danh mục không tồn tại');
             }
-            // Truy vấn sản phẩm thông qua các bảng liên quanID
+            // Tìm kiếm sản phẩm thông qua các bảng liên quanID
             $productIds = Db::name('store_product_cate')
                 ->where('cate_id', $cateId)
                 ->column('product_id');
@@ -524,8 +513,7 @@ class Mcp extends AuthController
      * @param int $id ID sản phẩm
      * @return chi tiết sản phẩm mảng (các trường nhạy cảm được lọc）
      * @throws \Exception Ném ra một ngoại lệ khi sản phẩm không tồn tại
-     */
-    private function productDetail(int $id): array
+     */    private function productDetail(int $id): array
     {
         $info = Db::name('store_product')->where('id', $id)->find();
         if (!$info) {
@@ -560,8 +548,7 @@ class Mcp extends AuthController
      *   - status: Trạng thái đơn hàng (tùy chọn）
      *   - keyword: Tìm kiếm từ khóa khớp với số đơn hàng/tên/số điện thoại di động (tùy chọn)
      * @return danh sách thứ tự mảng và tổng số
-     */
-    private function orderList(array $args): array
+     */    private function orderList(array $args): array
     {
         $page = max(1, (int)($args['page'] ?? 1));
         $limit = min(100, max(1, (int)($args['limit'] ?? 10))); // Hạn chế nhất100
@@ -595,8 +582,7 @@ class Mcp extends AuthController
      * @param string $orderId Số đơn hàng
      * @return chi tiết thứ tự mảng (các trường nhạy cảm được lọc）
      * @throws \Exception Ném ra một ngoại lệ khi đơn hàng không tồn tại
-     */
-    private function orderDetail(string $orderId): array
+     */    private function orderDetail(string $orderId): array
     {
         $info = Db::name('store_order')->where('order_id', $orderId)->find();
         if (!$info) {
@@ -626,11 +612,10 @@ class Mcp extends AuthController
 
     /**
      * Nhận danh sách các công ty logistics
-     * Trả lại tất cả thông tin công ty chuyển phát nhanh được kích hoạt
+     * Trả lại Tất cả thông tin công ty chuyển phát nhanh được kích hoạt
      *
      * @return mảng Danh sách công ty Logistics
-     */
-    private function orderExpressList(): array
+     */    private function orderExpressList(): array
     {
         $list = Db::name('express')->where('is_show', 1)->field('id,name,code')->select()->toArray();
         return ['list' => $list];
@@ -640,14 +625,13 @@ class Mcp extends AuthController
 
     /**
      * Nhận danh sách đơn hàng sau bán hàng
-     * Trả lại tất cả các đơn hàng có trạng thái hoàn tiền
+     * Trả lại Tất cả các đơn hàng có trạng thái hoàn tiền
      *
      * @param array $args tham số truy vấn
      *   - page: Số trang, mặc định1
      *   - limit: Số trên mỗi trang, mặc định 10, tối đa 100
      * @return mảng Danh sách đơn hàng sau bán hàng và tổng số
-     */
-    private function refundList(array $args): array
+     */    private function refundList(array $args): array
     {
         $page = max(1, (int)($args['page'] ?? 1));
         $limit = min(100, max(1, (int)($args['limit'] ?? 10))); // Hạn chế nhất100
@@ -671,8 +655,7 @@ class Mcp extends AuthController
      * @param string $orderId Số đơn hàng sau bán hàng
      * mảng @return Chi tiết đơn hàng sau bán hàng (các trường nhạy cảm được lọc）
      * @throws \Exception Một ngoại lệ được đưa ra khi đơn hàng sau bán hàng không tồn tại
-     */
-    private function refundDetail(string $orderId): array
+     */    private function refundDetail(string $orderId): array
     {
         $info = Db::name('store_order')
             ->where('order_id', $orderId)
@@ -707,8 +690,7 @@ class Mcp extends AuthController
      *   - page: Số trang, mặc định1
      *   - limit: Số trên mỗi trang, mặc định 10, tối đa 100
      * @return danh sách phiếu giảm giá mảng và tổng số
-     */
-    private function couponList(array $args): array
+     */    private function couponList(array $args): array
     {
         $page = max(1, (int)($args['page'] ?? 1));
         $limit = min(100, max(1, (int)($args['limit'] ?? 10))); // Hạn chế nhất100
@@ -726,19 +708,18 @@ class Mcp extends AuthController
         return ['list' => $list, 'count' => $count];
     }
 
-    // ==================== Quản lý người dùng ====================
+    // ==================== Quản lý khách hàng ====================
 
     /**
-     * Lấy danh sách người dùng
+     * Lấy danh sách Khách hàng
      *Hỗ trợ tìm kiếm theo biệt hiệu hoặc số điện thoại di động
      *
      * @param array $args tham số truy vấn
      *   - page: Số trang, mặc định1
      *   - limit: Số trang trên mỗi trang, mặc định 10, tối đa100
      *   - keyword: Tìm kiếm từ khóa và khớp biệt danh/số điện thoại di động (tùy chọn)
-     * @return danh sách người dùng mảng và tổng số
-     */
-    private function userList(array $args): array
+     * @return danh sách Khách hàng mảng và tổng số
+     */    private function userList(array $args): array
     {
         $page = max(1, (int)($args['page'] ?? 1));
         $limit = min(100, max(1, (int)($args['limit'] ?? 10))); // Hạn chế nhất100
@@ -764,13 +745,12 @@ class Mcp extends AuthController
     }
 
     /**
-     * Nhận thông tin chi tiết người dùng
+     * Nhận thông tin chi tiết Khách hàng
      *
-     * @param int $uid ID người dùng
-     * @return chi tiết người dùng mảng (các trường nhạy cảm được lọc）
-     * @throws \Exception Ném ngoại lệ khi người dùng không tồn tại
-     */
-    private function userDetail(int $uid): array
+     * @param int $uid ID Khách hàng
+     * @return chi tiết Khách hàng mảng (các trường nhạy cảm được lọc）
+     * @throws \Exception Ném ngoại lệ khi Khách hàng không tồn tại
+     */    private function userDetail(int $uid): array
     {
         $info = Db::name('user')->where('uid', $uid)->find();
         if (!$info) {
@@ -795,15 +775,14 @@ class Mcp extends AuthController
 
     /**
      * MCP Phương thức nhập dịch vụ
-     * Xử lý tất cả các yêu cầu giao thức MCP, bao gồm：
+     * Xử lý Tất cả các yêu cầu giao thức MCP, bao gồm：
      * - initialize: Khởi tạo kết nối và trả lại thông tin và khả năng dịch vụ
      * - tools/list: Nhận danh sách các công cụ có sẵn
      * - tools/call: Gọi công cụ được chỉ định để thực hiện thao tác
      *
      * @param Request $request HTTPđối tượng yêu cầu
      * @return \think\response\Json JSON-RPC 2.0 phản hồi định dạng
-     */
-    public function index(Request $request)
+     */    public function index(Request $request)
     {
         $input = file_get_contents('php://input');
         $data = json_decode($input, true);

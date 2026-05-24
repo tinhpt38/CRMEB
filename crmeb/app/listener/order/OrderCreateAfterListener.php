@@ -28,24 +28,21 @@ use crmeb\utils\Arr;
  * Tạo đơn hàng sau sự kiện
  * Class OrderCreateAfterListener
  * @package app\listener\order
- */
-class OrderCreateAfterListener implements ListenerInterface
+ */class OrderCreateAfterListener implements ListenerInterface
 {
     public function handle($event): void
     {
         [$order, $group, $uid, $key, $combinationId, $seckillId, $bargainId] = $event;
 
         //Sau khi dữ liệu đơn hàng được tạo, hãy tính số lượng thực tế của sản phẩm, tính hoa hồng, tính chiết khấu, đặt địa chỉ mặc định và dọn sạch giỏ hàng.
-        /** @var StoreOrderCreateServices $orderCreate */
-        $orderCreate = app()->make(StoreOrderCreateServices::class);
+        /** @var StoreOrderCreateServices $orderCreate */        $orderCreate = app()->make(StoreOrderCreateServices::class);
         $orderCreate->orderCreateAfter($order, $group, $combinationId || $seckillId || $bargainId);
 
         //Xóa bộ nhớ đệm đơn hàng
         CacheService::delete('user_order_' . $uid . $key);
 
         //Viết bảng ghi đơn hàng
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $order['id'],
             'change_type' => 'cache_key_create_order',
@@ -59,10 +56,10 @@ class OrderCreateAfterListener implements ListenerInterface
         //Tính số lượng thực tế của đơn hàng
         //OrderCreateAfterJob::dispatch([$order, $group, $combinationId || $seckillId || $bargainId]);
 
-        //Hồ sơ đặt hàng
+        //Lịch sử đơn hàng
         ProductLogJob::dispatch(['order', ['uid' => $uid, 'order_id' => $order['id']]]);
 
-        //In biên lai
+        //In phiếu giao hàng
         PrintJob::dispatch([$order['id'], 2]);
     }
 
@@ -73,10 +70,9 @@ class OrderCreateAfterListener implements ListenerInterface
      * @param int $seckillId
      * @param int $bargainId
      * @return mixed
-     */
-    public function pushJob(int $orderId, int $combinationId, int $seckillId, int $bargainId)
+     */    public function pushJob(int $orderId, int $combinationId, int $seckillId, int $bargainId)
     {
-        //Hệ thống cài đặt trước khoảng thời gian hủy đơn hàng
+        //Hệ thống Cài đặt trước khoảng thời gian hủy đơn hàng
         $keyValue = ['order_cancel_time', 'order_activity_time', 'order_bargain_time', 'order_seckill_time', 'order_pink_time'];
         //Nhận cấu hình
         $systemValue = SystemConfigService::more($keyValue);
@@ -93,7 +89,7 @@ class OrderCreateAfterListener implements ListenerInterface
         }
         //Gửi SMS sau 10 phút không thanh toán
         UnpaidOrderSend::dispatchSecs(600, [$orderId]);
-        //Đơn hàng chưa thanh toán bị hủy dựa trên sự kiện cài đặt hệ thống
+        //Đơn hàng chưa thanh toán bị hủy dựa trên sự kiện Cài đặt hệ thống
         UnpaidOrderCancelJob::dispatchSecs((int)($secs * 3600), [$orderId]);
     }
 }

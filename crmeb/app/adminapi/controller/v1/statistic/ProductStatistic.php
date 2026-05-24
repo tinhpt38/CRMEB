@@ -19,25 +19,22 @@ use think\facade\App;
 /**
  * Class ProductStatistic
  * @package app\adminapi\controller\v1\statistic
- */
-class ProductStatistic extends AuthController
+ */class ProductStatistic extends AuthController
 {
     /**
      * ProductStatistic constructor.
      * @param App $app
      * @param ProductStatisticServices $services
-     */
-    public function __construct(App $app, ProductStatisticServices $services)
+     */    public function __construct(App $app, ProductStatisticServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * cơ sở hàng hóa
+     * cơ sở sản phẩm
      * @return mixed
-     */
-    public function getBasic()
+     */    public function getBasic()
     {
         $where = $this->request->getMore([
             ['data', '', '', 'time']
@@ -46,10 +43,9 @@ class ProductStatistic extends AuthController
     }
 
     /**
-     * Xu hướng hàng hóa
+     * Xu hướng sản phẩm
      * @return mixed
-     */
-    public function getTrend()
+     */    public function getTrend()
     {
         $where = $this->request->getMore([
             ['data', '', '', 'time']
@@ -61,8 +57,7 @@ class ProductStatistic extends AuthController
     /**
      * Xếp hạng sản phẩm
      * @return mixed
-     */
-    public function getProductRanking()
+     */    public function getProductRanking()
     {
         $where = $this->request->getMore([
             ['data', '', '', 'time'],
@@ -73,10 +68,9 @@ class ProductStatistic extends AuthController
     }
 
     /**
-     * Xuất khẩu
+     * Xuất file
      * @return mixed
-     */
-    public function getExcel()
+     */    public function getExcel()
     {
         $where = $this->request->getMore([
             ['data', '', '', 'time']
@@ -89,8 +83,7 @@ class ProductStatistic extends AuthController
      * Định dạng thời gian
      * @param $time
      * @return string
-     */
-    public function getDay($time)
+     */    public function getDay($time)
     {
         if (strstr($time, '-') !== false) {
             [$startTime, $endTime] = explode('-', $time);

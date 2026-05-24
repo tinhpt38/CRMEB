@@ -19,15 +19,13 @@ use app\model\system\SystemNotification;
  *
  * Class SystemUserLevelDao
  * @package app\dao\system
- */
-class SystemNotificationDao extends BaseDao
+ */class SystemNotificationDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemNotification::class;
     }
@@ -45,8 +43,7 @@ class SystemNotificationDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/16
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, $limit = 0)
+     */    public function getList(array $where, string $field = '*', int $page = 0, $limit = 0)
     {
         return $this->getModel()->where($where)->field($field)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -60,8 +57,7 @@ class SystemNotificationDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/16
-     */
-    public function getTempId($type)
+     */    public function getTempId($type)
     {
         $whereField = 'is_' . $type;
         $field = $type . '_tempid';
@@ -78,8 +74,7 @@ class SystemNotificationDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/16
-     */
-    public function getTempKey($type)
+     */    public function getTempKey($type)
     {
         $whereField = 'is_' . $type;
         $field = $type . '_tempkey';

@@ -17,32 +17,28 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- *  hàng hóaModel
+ *  sản phẩmModel
  * Class StoreProduct
  * @package app\model\product\product
- */
-class StoreProduct extends BaseModel
+ */class StoreProduct extends BaseModel
 {
     use  ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product';
+     */    protected $name = 'store_product';
 
     /**
      * hiệp hội một-một
      *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function description()
+     */    public function description()
     {
         return $this->hasOne(StoreDescription::class, 'product_id', 'id')->where('type', 0)->bind(['description']);
     }
@@ -51,8 +47,7 @@ class StoreProduct extends BaseModel
      * liên kết một-nhiều
      * Mẫu phiếu giảm giá liên quan đến sản phẩmid
      * @return \think\model\relation\HasMany
-     */
-    public function couponId()
+     */    public function couponId()
     {
         return $this->hasMany(StoreProductCoupon::class, 'product_id', 'id');
     }
@@ -60,8 +55,7 @@ class StoreProduct extends BaseModel
     /**
      * Tên phiếu giảm giá từ một đến nhiều
      * @return \think\model\relation\HasMany
-     */
-    public function coupons()
+     */    public function coupons()
     {
         return $this->hasMany(StoreProductCoupon::class, 'product_id', 'id');
     }
@@ -69,8 +63,7 @@ class StoreProduct extends BaseModel
     /**
      * Bình luận một đến nhiều
      * @return \think\model\relation\HasMany
-     */
-    public function star()
+     */    public function star()
     {
         return $this->hasMany(StoreProductReply::class, 'product_id', 'id')->where('is_del', 0)->field('product_score,product_id');
     }
@@ -78,8 +71,7 @@ class StoreProduct extends BaseModel
     /**
      * Phân loại một đến nhiều
      * @return \think\model\relation\HasMany
-     */
-    public function cateName()
+     */    public function cateName()
     {
         return $this->hasMany(StoreProductCate::class, 'product_id', 'id')->with('cateName');
     }
@@ -94,8 +86,7 @@ class StoreProduct extends BaseModel
      * Trình lấy hình ảnh băng chuyền
      * @param $value
      * @return array|mixed
-     */
-    public function getSliderImageAttr($value)
+     */    public function getSliderImageAttr($value)
     {
         return is_string($value) ? json_decode($value, true) : [];
     }
@@ -104,8 +95,7 @@ class StoreProduct extends BaseModel
      * Có hiển thị cho người tìm kiếm hay không
      * @param $query
      * @param $value
-     */
-    public function searchIsShowAttr($query, $value)
+     */    public function searchIsShowAttr($query, $value)
     {
         if ($value != -1) $query->where('is_show', $value ?? 1);
     }
@@ -113,8 +103,7 @@ class StoreProduct extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIdAttr($query, $value)
+     */    public function searchIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('id', $value);
@@ -127,8 +116,7 @@ class StoreProduct extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         $query->where('is_del', $value ?: 0);
     }
@@ -137,8 +125,7 @@ class StoreProduct extends BaseModel
      * Trình tìm ID người bán
      * @param Model $query
      * @param $value
-     */
-    public function searchMerIdAttr($query, $value)
+     */    public function searchMerIdAttr($query, $value)
     {
         $query->where('mer_id', $value ?? 0);
     }
@@ -147,8 +134,7 @@ class StoreProduct extends BaseModel
      * Trình tìm ID cửa hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchStoreIdAttr($query, $value)
+     */    public function searchStoreIdAttr($query, $value)
     {
         if ($value !== '' && $value !== null) {
             $query->where('store_id', $value);
@@ -158,8 +144,7 @@ class StoreProduct extends BaseModel
     /**
      * Quan hệ một-một với cửa hàng
      * @return \think\model\relation\HasOne
-     */
-    public function storeBranch()
+     */    public function storeBranch()
     {
         return $this->hasOne(\app\model\system\store\SystemStore::class, 'id', 'store_id')
             ->field(['id', 'name'])
@@ -171,8 +156,7 @@ class StoreProduct extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStoreNameAttr($query, $value, $data)
+     */    public function searchStoreNameAttr($query, $value, $data)
     {
         if ($value != '') {
             $field = 'keyword|store_name|store_info|id|bar_code';
@@ -194,8 +178,7 @@ class StoreProduct extends BaseModel
      * Công cụ tìm sản phẩm mới
      * @param Model $query
      * @param int $value
-     */
-    public function searchIsNewAttr($query, $value)
+     */    public function searchIsNewAttr($query, $value)
     {
         if ($value) $query->where('is_new', $value);
     }
@@ -204,8 +187,7 @@ class StoreProduct extends BaseModel
      * Công cụ tìm kiếm sản phẩm giảm giá
      * @param Model $query
      * @param int $value
-     */
-    public function searchIsBenefitAttr($query, $value)
+     */    public function searchIsBenefitAttr($query, $value)
     {
         $query->where('is_benefit', $value ?? 1);
     }
@@ -214,8 +196,7 @@ class StoreProduct extends BaseModel
      * Công cụ tìm vật phẩm nóng
      * @param Model $query
      * @param int $value
-     */
-    public function searchIsHotAttr($query, $value)
+     */    public function searchIsHotAttr($query, $value)
     {
         $query->where('is_hot', $value ?? 1);
     }
@@ -224,8 +205,7 @@ class StoreProduct extends BaseModel
      * Công cụ tìm sản phẩm cao cấp
      * @param Model $query
      * @param int $value
-     */
-    public function searchIsBestAttr($query, $value)
+     */    public function searchIsBestAttr($query, $value)
     {
         $query->where('is_best', $value ?? 1);
     }
@@ -234,8 +214,7 @@ class StoreProduct extends BaseModel
      * Công cụ tìm sản phẩm cao cấp
      * @param Model $query
      * @param int $value
-     */
-    public function searchIsGoodAttr($query, $value)
+     */    public function searchIsGoodAttr($query, $value)
     {
         $query->where('is_good', $value ?? 1);
     }
@@ -244,8 +223,7 @@ class StoreProduct extends BaseModel
      * Gắn thẻ công cụ tìm sản phẩm
      * @param Model $query
      * @param int $value
-     */
-    public function searchLabelIdAttr($query, $value)
+     */    public function searchLabelIdAttr($query, $value)
     {
         $query->whereFindInSet('label_id', $value);
     }
@@ -254,8 +232,7 @@ class StoreProduct extends BaseModel
      * SPUNgười tìm kiếm
      * @param Model $query
      * @param int $value
-     */
-    public function searchSpuAttr($query, $value)
+     */    public function searchSpuAttr($query, $value)
     {
         $query->where('spu', $value);
     }
@@ -264,8 +241,7 @@ class StoreProduct extends BaseModel
      * Công cụ tìm hàng tồn kho
      * @param Model $query
      * @param int $value
-     */
-    public function searchStockAttr($query, $value)
+     */    public function searchStockAttr($query, $value)
     {
         $query->where('stock', $value);
     }
@@ -274,8 +250,7 @@ class StoreProduct extends BaseModel
      * Công cụ tìm sản phẩm chỉ dành cho thành viên
      * @param Model $query
      * @param int $value
-     */
-    public function searchVipUserAttr($query, $value)
+     */    public function searchVipUserAttr($query, $value)
     {
         if ($value === 0) {
             $query->where('vip_product', 0)->whereOr(function ($query) {
@@ -288,8 +263,7 @@ class StoreProduct extends BaseModel
      * Nó có phải là một công cụ tìm hàng ảo?
      * @param $query
      * @param $value
-     */
-    public function searchIsVirtualAttr($query, $value)
+     */    public function searchIsVirtualAttr($query, $value)
     {
         if ($value == 0) {
             $query->where('virtual_type', 0)->where('vip_product', 0)->where('presale', 0);
@@ -300,8 +274,7 @@ class StoreProduct extends BaseModel
      * Có nên bán trước sản phẩm hay không
      * @param $query
      * @param $value
-     */
-    public function searchIsPresaleAttr($query, $value)
+     */    public function searchIsPresaleAttr($query, $value)
     {
         if ($value >= 0) {
             $query->where('presale', $value);
@@ -312,8 +285,7 @@ class StoreProduct extends BaseModel
      * Trình tìm kiếm danh mục
      * @param Model $query
      * @param int $value
-     */
-    public function searchCateIdAttr($query, $value)
+     */    public function searchCateIdAttr($query, $value)
     {
         if ($value) {
             if (is_array($value)) {
@@ -331,8 +303,7 @@ class StoreProduct extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTypeAttr($query, $value, $data)
+     */    public function searchTypeAttr($query, $value, $data)
     {
         switch ((int)$value) {
             case 1:
@@ -371,11 +342,10 @@ class StoreProduct extends BaseModel
     }
 
     /**
-     * Truy vấn trong id hiện tại
+     * Tìm kiếm trong id hiện tại
      * @param $query
      * @param $value
-     */
-    public function searchIdsAttr($query, $value)
+     */    public function searchIdsAttr($query, $value)
     {
         if (is_string($value)) {
             if ($value !== '') {
@@ -391,8 +361,7 @@ class StoreProduct extends BaseModel
      * Không truy vấn trong id hiện tại
      * @param $query
      * @param $value
-     */
-    public function searchNotIdsAttr($query, $value)
+     */    public function searchNotIdsAttr($query, $value)
     {
         if ($value != '') $query->whereNotIn('id', $value);
     }
@@ -404,8 +373,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/1/14
-     */
-    public function searchCustomFormAttr($query, $value)
+     */    public function searchCustomFormAttr($query, $value)
     {
         if ($value !== '') $query->whereLike('custom_form', '%' . $value . '%');
     }
@@ -417,8 +385,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/1/14
-     */
-    public function searchVirtualTypeAttr($query, $value)
+     */    public function searchVirtualTypeAttr($query, $value)
     {
         if ($value !== '') $query->where('virtual_type', $value);
     }
@@ -430,8 +397,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/1/14
-     */
-    public function searchSpecTypeAttr($query, $value)
+     */    public function searchSpecTypeAttr($query, $value)
     {
         if ($value !== '') $query->where('spec_type', $value);
     }
@@ -443,8 +409,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/1/14
-     */
-    public function searchIsGiftAttr($query, $value)
+     */    public function searchIsGiftAttr($query, $value)
     {
         if ($value !== '') $query->where('is_gift', $value);
     }
@@ -456,8 +421,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/1/14
-     */
-    public function searchVipProductAttr($query, $value)
+     */    public function searchVipProductAttr($query, $value)
     {
         if ($value !== '') $query->where('vip_product', $value);
     }
@@ -469,8 +433,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/1/14
-     */
-    public function searchPriceSAttr($query, $value)
+     */    public function searchPriceSAttr($query, $value)
     {
         if (count($value) == 2 && ($value[0] !== '' || $value[1] !== '')) {
             if ($value[0] !== '' && $value[1] !== '') {
@@ -490,8 +453,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/1/14
-     */
-    public function searchStockSAttr($query, $value)
+     */    public function searchStockSAttr($query, $value)
     {
         if (count($value) == 2 && ($value[0] !== '' || $value[1] !== '')) {
             if ($value[0] !== '' && $value[1] !== '') {
@@ -511,8 +473,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/1/14
-     */
-    public function searchSalesSAttr($query, $value)
+     */    public function searchSalesSAttr($query, $value)
     {
         if (count($value) == 2 && ($value[0] !== '' || $value[1] !== '')) {
             if ($value[0] !== '' && $value[1] !== '') {
@@ -532,8 +493,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/2/19
-     */
-    public function searchStoreLabelIdAttr($query, $value)
+     */    public function searchStoreLabelIdAttr($query, $value)
     {
         if (count($value)) {
             $query->where(function ($query) use ($value) {
@@ -551,8 +511,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/2/19
-     */
-    public function searchLogisticsAttr($query, $value)
+     */    public function searchLogisticsAttr($query, $value)
     {
         if ($value !== '') $query->whereFindInSet('logistics', $value);
     }
@@ -564,8 +523,7 @@ class StoreProduct extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/2/19
-     */
-    public function searchVirtualeTypeAttr($query, $value)
+     */    public function searchVirtualeTypeAttr($query, $value)
     {
         if ($value !== '') $query->where('virtual_type', $value);
     }

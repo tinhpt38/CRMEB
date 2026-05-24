@@ -26,15 +26,13 @@ use think\facade\Log;
  * @method getTrendData($time, $type, $timeType, $str)
  * @method getRegion($time, $channelType)
  * @method int groupCount(array $where, string $group = 'uid') Lấy số lượng bản ghi theo nhóm
- */
-class UserVisitServices extends BaseServices
+ */class UserVisitServices extends BaseServices
 {
 
     /**
      * UserVisitServices constructor.
      * @param UserVisitDao $dao
-     */
-    public function __construct(UserVisitDao $dao)
+     */    public function __construct(UserVisitDao $dao)
     {
         $this->dao = $dao;
     }
@@ -43,8 +41,7 @@ class UserVisitServices extends BaseServices
      * Ghi lại hồ sơ truy cập sau khi đăng nhập
      * @param array|object $user
      * @return mixed
-     */
-    public function loginSaveVisit($user)
+     */    public function loginSaveVisit($user)
     {
         try {
             $data = [

@@ -21,8 +21,7 @@ class PosterServices
      * @param $path
      * @return array|bool|string
      * @throws \Exception
-     */
-    public static function setShareMarketingPoster($data = array(), $path)
+     */    public static function setShareMarketingPoster($data = array(), $path)
     {
         $config = array(
             'text' => array(
@@ -123,8 +122,7 @@ class PosterServices
      * @param $path
      * @return array|bool|string
      * @throws \Exception
-     */
-    public static function setSharePoster($config = array(), $path, $name = '')
+     */    public static function setSharePoster($config = array(), $path, $name = '')
     {
         $imageDefault = array(
             'left' => 0,
@@ -214,8 +212,7 @@ class PosterServices
      * TODO Xem liệu mã QR chương trình nhỏ có được tạo hay không
      * @param $url
      * @return array
-     */
-    public static function remoteImage($url)
+     */    public static function remoteImage($url)
     {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -231,8 +228,7 @@ class PosterServices
      * @param $url $url tên miền
      * @param int $type 0 Quay lại https 1 Quay lại http
      * @return string
-     */
-    public static function setHttpType($url, $type = 0)
+     */    public static function setHttpType($url, $type = 0)
     {
         $domainTop = substr($url, 0, 5);
         if ($type) {
@@ -249,8 +245,7 @@ class PosterServices
      * @param $url
      * @param $name
      * @return array|bool|string
-     */
-    public static function getQRCodePath($url, $name)
+     */    public static function getQRCodePath($url, $name)
     {
         if (!strlen(trim($url)) || !strlen(trim($name))) return false;
         try {
@@ -259,7 +254,7 @@ class PosterServices
             if (!$uploadType) $uploadType = 1;
             $uploadType = (int)$uploadType;
             $siteUrl = sys_config('site_url');
-            if (!$siteUrl) return 'Vui lòng vào cài đặt nền->Cài đặt hệ thống->Tên miền trang web. Điền tên miền của bạn theo định dạng:：http://tên miền';
+            if (!$siteUrl) return 'Vui lòng vào Cài đặt nền->Cài đặt hệ thống->Tên miền trang web. Điền tên miền của bạn theo định dạng:：http://tên miền';
             $info = [];
             $outfiles = Config::get('qrcode.cache_dir');
             $code = new QRcode();
@@ -291,14 +286,13 @@ class PosterServices
         }
     }
 
-    /**Phân loại trả về tất cả các danh mục cấp thấp hơnID
+    /**Phân loại trả về Tất cả các danh mục cấp thấp hơnID
      * @param $data
      * @param string $children
      * @param string $field
      * @param string $pk
      * @return string
-     */
-    public static function getChildrenPid($data, $pid, $field = 'pid', $pk = 'id')
+     */    public static function getChildrenPid($data, $pid, $field = 'pid', $pk = 'id')
     {
         static $pids = '';
         foreach ($data as $k => $res) {

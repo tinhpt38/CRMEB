@@ -27,14 +27,12 @@ use think\facade\Route as Url;
 /**
  * Class LiveGoodsServices
  * @package app\services\activity\live
- */
-class LiveAnchorServices extends BaseServices
+ */class LiveAnchorServices extends BaseServices
 {
     /**
      * LiveAnchorServices constructor.
      * @param LiveAnchorDao $dao
-     */
-    public function __construct(LiveAnchorDao $dao)
+     */    public function __construct(LiveAnchorDao $dao)
     {
         $this->dao = $dao;
     }
@@ -46,8 +44,7 @@ class LiveAnchorServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLiveAnchor(int $id)
+     */    public function getLiveAnchor(int $id)
     {
         return $this->dao->get($id);
     }
@@ -65,8 +62,7 @@ class LiveAnchorServices extends BaseServices
      * Thêm biểu mẫu chỉnh sửa nhãn
      * @param int $id
      * @return mixed
-     */
-    public function add(int $id)
+     */    public function add(int $id)
     {
         $anchor = $this->getLiveAnchor($id);
         $field = array();
@@ -95,8 +91,7 @@ class LiveAnchorServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function save(int $id, array $data)
+     */    public function save(int $id, array $data)
     {
         $liveAnchor = $this->dao->get(['wechat' => $data['wechat'], 'is_del' => 0]);
         if (!MiniProgramService::getRoleList(2, 0, 30, $data['wechat'])) {
@@ -125,18 +120,16 @@ class LiveAnchorServices extends BaseServices
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param $id
      * @throws \Exception
-     */
-    public function delAnchor(int $id)
+     */    public function delAnchor(int $id)
     {
         if ($anchor = $this->getLiveAnchor($id)) {
             if (!$this->dao->update($id, ['is_del' => 1])) {
                 throw new AdminException('Xóa không thành công');
             }
-            /** @var LiveRoomServices $liveRoom */
-            $liveRoom = app()->make(LiveRoomServices::class);
+            /** @var LiveRoomServices $liveRoom */            $liveRoom = app()->make(LiveRoomServices::class);
             $room = $liveRoom->get(['anchor_wechat' => $anchor['wechat'], 'is_del' => 0], ['id']);
             if ($room) {
                 $liveRoom->delete((int)$room->id);
@@ -150,8 +143,7 @@ class LiveAnchorServices extends BaseServices
      * @param int $id
      * @param $is_show
      * @return mixed
-     */
-    public function setShow(int $id, $is_show)
+     */    public function setShow(int $id, $is_show)
     {
         if (!$this->getLiveAnchor($id))
             throw new AdminException('Dữ liệu không tồn tại');

@@ -16,32 +16,28 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO Hồ sơ đặt hàngModel
+ * TODO Lịch sử đơn hàngModel
  * Class StoreOrderCartInfo
  * @package app\model\order
- */
-class StoreOrderCartInfo extends BaseModel
+ */class StoreOrderCartInfo extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_order_cart_info';
+     */    protected $name = 'store_order_cart_info';
 
     /**
      * Công cụ lấy thông tin giỏ hàng
      * @param $value
      * @return array|mixed
-     */
-    public function getCartInfoAttr($value)
+     */    public function getCartInfoAttr($value)
     {
         return json_decode($value, true) ?? [];
     }
@@ -51,8 +47,7 @@ class StoreOrderCartInfo extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchOidAttr($query, $value, $data)
+     */    public function searchOidAttr($query, $value, $data)
     {
         if ($value !== '') $query->where('oid', $value);
     }
@@ -62,8 +57,7 @@ class StoreOrderCartInfo extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCartIdAttr($query, $value, $data)
+     */    public function searchCartIdAttr($query, $value, $data)
     {
         if (is_array($value)) {
             $query->whereIn('cart_id', $value);
@@ -77,8 +71,7 @@ class StoreOrderCartInfo extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchOldCartIdAttr($query, $value, $data)
+     */    public function searchOldCartIdAttr($query, $value, $data)
     {
         if (is_array($value)) {
             $query->whereIn('old_cart_id', $value);
@@ -92,8 +85,7 @@ class StoreOrderCartInfo extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchSplitStatusAttr($query, $value)
+     */    public function searchSplitStatusAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('split_status', $value);

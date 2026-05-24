@@ -18,16 +18,14 @@ use think\facade\App;
  * Bộ điều khiển đơn hậu mãi
  * Class RefundOrder
  * @package app\outapi\controller
- */
-class RefundOrder extends AuthController
+ */class RefundOrder extends AuthController
 {
     /**
      * RefundOrder constructor.
      * @param App $app
      * @param OutStoreOrderRefundServices $service
      * @method temp
-     */
-    public function __construct(App $app, OutStoreOrderRefundServices $service)
+     */    public function __construct(App $app, OutStoreOrderRefundServices $service)
     {
         parent::__construct($app);
         $this->services = $service;
@@ -39,8 +37,7 @@ class RefundOrder extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst()
+     */    public function lst()
     {
         $where = $this->request->getMore([
             ['order_id', ''],
@@ -56,8 +53,7 @@ class RefundOrder extends AuthController
      * Sửa đổi nhận xét
      * @param string $order_id Số đơn hàng sau bán hàng
      * @return mixed
-     */
-    public function remark(string $order_id)
+     */    public function remark(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         [$remark] = $this->request->postMore([['remark', '']], true);
@@ -70,8 +66,7 @@ class RefundOrder extends AuthController
      * Đồng ý hoàn tiền
      * @param string $order_id Số đơn hàng sau bán hàng
      * @return mixed
-     */
-    public function agree(string $order_id)
+     */    public function agree(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
        $this->services->agree($order_id);
@@ -85,8 +80,7 @@ class RefundOrder extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refuse(string $order_id)
+     */    public function refuse(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         [$refund_reason] = $this->request->postMore([['refund_reason', '']], true);
@@ -96,11 +90,10 @@ class RefundOrder extends AuthController
     }
 
     /**
-     * Chi tiết đặt hàng
+     * Chi tiết đơn hàng
      * @param string $order_id Số đơn hàng sau bán hàng
      * @return mixed
-     */
-    public function read(string $order_id)
+     */    public function read(string $order_id)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         $data = $this->services->getInfo($order_id);
@@ -115,8 +108,7 @@ class RefundOrder extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refundPrice(string $order_id, Request $request)
+     */    public function refundPrice(string $order_id, Request $request)
     {
         if (!$order_id) return app('json')->fail('Lỗi tham số');
         [$refund_price] = $request->postMore([['refund_price', '']], true);

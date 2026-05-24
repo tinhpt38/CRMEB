@@ -20,21 +20,19 @@ class WechatQrcodeRecordServices extends BaseServices
     /**
      * WechatQrcodeRecordServices constructor.
      * @param WechatQrcodeRecordDao $dao
-     */
-    public function __construct(WechatQrcodeRecordDao $dao)
+     */    public function __construct(WechatQrcodeRecordDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Lấy danh sách người dùng
+     * Lấy danh sách Khách hàng
      * @param $qid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function userList($qid)
+     */    public function userList($qid)
     {
         [$page, $limit] = $this->getPageValue();
         $where['qid'] = $qid;
@@ -48,8 +46,7 @@ class WechatQrcodeRecordServices extends BaseServices
      * @param $where
      * @param $time
      * @return mixed
-     */
-    public function qrcodeStatistic($where, $time)
+     */    public function qrcodeStatistic($where, $time)
     {
         $data['all_follow'] = $this->dao->count($where + ['is_follow' => 1]);
         $data['all_scan'] = $this->dao->count($where);
@@ -64,8 +61,7 @@ class WechatQrcodeRecordServices extends BaseServices
      * @param $qid
      * @param $time
      * @return array
-     */
-    public function getTrend($qid, $time)
+     */    public function getTrend($qid, $time)
     {
         if (count($time) != 2) throw new AdminException('Lỗi tham số');
         $dayCount = (strtotime($time[1]) - strtotime($time[0])) / 86400 + 1;
@@ -89,8 +85,7 @@ class WechatQrcodeRecordServices extends BaseServices
      * @param $num
      * @param false $excel
      * @return array
-     */
-    public function trend($qid, $time, $num)
+     */    public function trend($qid, $time, $num)
     {
         if ($num == 0) {
             $xAxis = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];

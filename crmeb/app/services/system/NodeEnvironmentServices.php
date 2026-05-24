@@ -19,78 +19,74 @@ use think\facade\Log;
  *
  * Tổng quan về chức năng:
  * Lớp dịch vụ này chịu trách nhiệm phát hiện và quản lý môi trường hoạt động cần thiết để tải lên CI chương trình nhỏ.
- * Bao gồm hướng dẫn phát hiện và cài đặt cho các công cụ Node.js, npm và miniprogram-ci.
+ * Bao gồm hướng dẫn phát hiện và Cài đặt cho các công cụ Node.js, npm và miniprogram-ci.
  *
  * Chức năng chính:
- * 1. Phát hiện môi trường - phát hiện trạng thái cài đặt và phiên bản của Node.js, npm, miniprogram-ci
+ * 1. Phát hiện môi trường - phát hiện trạng thái Cài đặt và phiên bản của Node.js, npm, miniprogram-ci
  * 2. Nhận dạng hệ thống - xác định loại hệ điều hành (CentOS/Ubuntu/macOS/Windows)
- * 3. Hướng dẫn cài đặt - Cung cấp các lệnh cài đặt tương ứng theo hệ điều hành
+ * 3. Hướng dẫn Cài đặt - Cung cấp các lệnh Cài đặt tương ứng theo hệ điều hành
  * 4. Phát hiện hàm exec - kiểm tra PHP exec() Chức năng này có sẵn không?
  *
  * Yêu cầu về môi trường:
  * - Node.js >= 14.0.0 (gợi ý 18.x LTS)
- * - npm (Đã cài đặt với Node.js)
+ * - npm (Đã Cài đặt với Node.js)
  * - miniprogram-ci (Cài đặt trên toàn cầu thông qua npm install -g miniprogram-ci)
  * - PHP exec() Chức năng không bị vô hiệu hóa
  *
  * @package app\services\system
- */
-class NodeEnvironmentServices extends BaseServices
+ */class NodeEnvironmentServices extends BaseServices
 {
     /**
      * Node.js Yêu cầu phiên bản tối thiểu
      *
      * Công cụ miniprogram-ci yêu cầu Node.js 14.0.0 trở lên。
-     */
-    const MIN_NODE_VERSION = '14.0.0';
+     */    const MIN_NODE_VERSION = '14.0.0';
 
     /**
      * Phiên bản Node.js được đề xuất
      *
      * Nên sử dụng phiên bản Node.js 18 LTS để mang lại hiệu suất và bảo mật tốt hơn。
-     */
-    const RECOMMENDED_NODE_VERSION = '18';
+     */    const RECOMMENDED_NODE_VERSION = '18';
 
     /**
      * Nhận thông tin trạng thái môi trường đầy đủ
      *
-     * Phát hiện và trả về tất cả thông tin môi trường cần thiết để tải lên CI chương trình nhỏ,
-     * Giao diện người dùng hiển thị trạng thái sẵn sàng của môi trường hoặc hướng dẫn người dùng hoàn tất cấu hình môi trường dựa trên thông tin này.
+     * Phát hiện và trả về Tất cả thông tin môi trường cần thiết để tải lên CI chương trình nhỏ,
+     * Giao diện Khách hàng hiển thị trạng thái sẵn sàng của môi trường hoặc hướng dẫn Khách hàng hoàn tất cấu hình môi trường dựa trên thông tin này.
      *
      * @return mảng thông tin trạng thái môi trường đầy đủ, bao gồm:
      *               - os: Thông tin hệ điều hành {family, type, version}
-     *               - node: Node.js tình trạng {installed, version, path, meets_requirement}
-     *               - npm: npm tình trạng {installed, version}
+     *               - node: Node.js Trạng thái {installed, version, path, meets_requirement}
+     *               - npm: npm Trạng thái {installed, version}
      *               - miniprogram_ci: CItrạng thái công cụ {installed, version}
      *               - ready: Môi trường đã hoàn toàn sẵn sàng chưa?
-     *               - can_install: Có hỗ trợ cài đặt tự động hay không
+     *               - can_install: Có hỗ trợ Cài đặt tự động hay không
      *               - exec_enabled: exec Chức năng này có sẵn không?
      *               - message: Tin nhắn nhắc nhở
-     */
-    public function getEnvironmentStatus(): array
+     */    public function getEnvironmentStatus(): array
     {
         // Kiểm tra các môi trường khác nhau
-        $nodeInfo = $this->checkNodeInstalled();       // Node.js tình trạng
-        $npmInfo = $this->checkNpmInstalled();         // npm tình trạng
-        $ciInfo = $this->checkMiniprogramCIInstalled(); // miniprogram-ci tình trạng
+        $nodeInfo = $this->checkNodeInstalled();       // Node.js Trạng thái
+        $npmInfo = $this->checkNpmInstalled();         // npm Trạng thái
+        $ciInfo = $this->checkMiniprogramCIInstalled(); // miniprogram-ci Trạng thái
         $osInfo = $this->getOsInfo();                  // Thông tin hệ điều hành
         $execEnabled = $this->isExecEnabled();         // exec Tính khả dụng của chức năng
 
         return [
             'os' => $osInfo,                           // Thông tin hệ điều hành
-            'node' => $nodeInfo,                       // Node.js tình trạng
-            'npm' => $npmInfo,                         // npm tình trạng
+            'node' => $nodeInfo,                       // Node.js Trạng thái
+            'npm' => $npmInfo,                         // npm Trạng thái
             'miniprogram_ci' => $ciInfo,               // miniprogram-ci Trạng thái
-            //Điều kiện sẵn sàng của môi trường: Node.js + npm + miniprogram-ci Cả hai đều được cài đặt và thực thi có sẵn
+            //Điều kiện sẵn sàng của môi trường: Node.js + npm + miniprogram-ci Cả hai đều được Cài đặt và thực thi có sẵn
             'ready' => $nodeInfo['installed'] && $npmInfo['installed'] && $ciInfo['installed'] && $execEnabled,
-            'can_install' => $this->canAutoInstall(),  // Có hỗ trợ cài đặt tự động hay không
+            'can_install' => $this->canAutoInstall(),  // Có hỗ trợ Cài đặt tự động hay không
             'exec_enabled' => $execEnabled,            // exec Chức năng này có sẵn không?
             'message' => $execEnabled ? '' : 'Máy chủ đã tắt chức năng thực thi và không thể sử dụng chức năng tải lên chương trình mini. Vui lòng liên hệ với quản trị viên máy chủ của bạn để kích hoạt chức năng exec。',
         ];
     }
 
     /**
-     * nghiên cứu PHP exec() Chức năng này có sẵn không?
+     * nghiên Lưu PHP exec() Chức năng này có sẵn không?
      *
      * Chức năng tải lên CI của chương trình mini dựa trên PHP exec() Chức năng thực thi các công cụ dòng lệnh.
      * Nhiều máy chủ sẽ tắt chức năng này vì lý do bảo mật và cần phải kiểm tra tính khả dụng của nó.
@@ -101,8 +97,7 @@ class NodeEnvironmentServices extends BaseServices
      * 3. Thử thực hiện một lệnh đơn giản để xác minh tính khả dụng thực tế
      *
      * @return hàm exec bool có thể trả về true, nếu không thì trả về false
-     */
-    public function isExecEnabled(): bool
+     */    public function isExecEnabled(): bool
     {
         // Kiểm tra xem chức năng exec có tồn tại không
         if (!function_exists('exec')) {
@@ -125,17 +120,16 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * Kiểm tra xem Node.js đã được cài đặt chưa
+     * Kiểm tra xem Node.js đã được Cài đặt chưa
      *
-     * Lấy trạng thái cài đặt và thông tin phiên bản của Node.js bằng cách thực hiện lệnh node -v.
+     * Lấy trạng thái Cài đặt và thông tin phiên bản của Node.js bằng cách thực hiện lệnh node -v.
      *
      * @return mảng Thông tin trạng thái Node.js, bao gồm:
-     *               - installed: Nó đã được cài đặt chưa
+     *               - installed: Nó đã được Cài đặt chưa
      *               - version: số phiên bản (giống 18.17.0)
      *               - path: Đường dẫn tập tin thực thi
      *               - meets_requirement: Nó có đáp ứng các yêu cầu phiên bản tối thiểu không?
-     */
-    public function checkNodeInstalled(): array
+     */    public function checkNodeInstalled(): array
     {
         $result = [
             'installed' => false,
@@ -161,16 +155,15 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * Kiểm tra xem npm đã được cài đặt chưa
+     * Kiểm tra xem npm đã được Cài đặt chưa
      *
-     * npm là trình quản lý gói cho Node.js và thường được cài đặt cùng với Node.js.
-     * Được sử dụng để cài đặt các gói npm như miniprogram-ci.
+     * npm là trình quản lý gói cho Node.js và thường được Cài đặt cùng với Node.js.
+     * Được sử dụng để Cài đặt các gói npm như miniprogram-ci.
      *
      * @return mảng thông tin trạng thái npm, bao gồm:
-     *               - installed: Nó đã được cài đặt chưa
+     *               - installed: Nó đã được Cài đặt chưa
      *               - version: số phiên bản
-     */
-    public function checkNpmInstalled(): array
+     */    public function checkNpmInstalled(): array
     {
         $result = [
             'installed' => false,
@@ -188,23 +181,22 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * Kiểm tra xem miniprogram-ci có được cài đặt trên toàn cầu không
+     * Kiểm tra xem miniprogram-ci có được Cài đặt trên toàn cầu không
      *
      * miniprogram-ci là công cụ tải lên mã chương trình mini được WeChat cung cấp chính thức.
-     * Yêu cầu cài đặt toàn cầu thông qua npm install -g miniprogram-ci.
+     * Yêu cầu Cài đặt toàn cầu thông qua npm install -g miniprogram-ci.
      *
      * @return mảng thông tin trạng thái chương trình nhỏ-ci, bao gồm:
-     *               - installed: Nó đã được cài đặt chưa
+     *               - installed: Nó đã được Cài đặt chưa
      *               - version: số phiên bản
-     */
-    public function checkMiniprogramCIInstalled(): array
+     */    public function checkMiniprogramCIInstalled(): array
     {
         $result = [
             'installed' => false,
             'version' => '',
         ];
 
-        // Kiểm tra các gói được cài đặt trên toàn cầu thông qua npm list -g
+        // Kiểm tra các gói được Cài đặt trên toàn cầu thông qua npm list -g
         $output = $this->execCommand('npm list -g miniprogram-ci --depth=0 2>&1');
         if ($output && preg_match('/miniprogram-ci@(\d+\.\d+\.\d+)/', $output, $matches)) {
             $result['installed'] = true;
@@ -217,7 +209,7 @@ class NodeEnvironmentServices extends BaseServices
     /**
      * Nhận thông tin hệ điều hành
      *
-     * Xác định loại hệ điều hành của máy chủ để cung cấp hướng dẫn cài đặt tương ứng.
+     * Xác định loại hệ điều hành của máy chủ để cung cấp hướng dẫn Cài đặt tương ứng.
      * Sử dụng tính năng phát hiện dòng lệnh để tránh bị ảnh hưởng bởi các hạn chế open_basedir.
      *
      * Hỗ trợ hệ thống nhận dạng:
@@ -229,8 +221,7 @@ class NodeEnvironmentServices extends BaseServices
      *               - family: gia đình hệ thống (Linux/Darwin/Windows)
      *               - type: loại bê tông (centos/ubuntu/debian/macos/windows)
      *               - version: Số phiên bản hệ thống
-     */
-    public function getOsInfo(): array
+     */    public function getOsInfo(): array
     {
         $os = PHP_OS_FAMILY;  // Nhận họ hệ điều hành được PHP công nhận
         $type = 'unknown';
@@ -241,7 +232,7 @@ class NodeEnvironmentServices extends BaseServices
             $osRelease = $this->execCommand('cat /etc/os-release 2>/dev/null');
 
             if ($osRelease) {
-                // Phân tích nội dung của tệp phát hành os
+                // Phân tích Nội dung của tệp phát hành os
                 $lines = explode("\n", $osRelease);
                 $osInfo = [];
                 foreach ($lines as $line) {
@@ -289,20 +280,19 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * Kiểm tra xem cài đặt tự động có được hỗ trợ không
+     * Kiểm tra xem Cài đặt tự động có được hỗ trợ không
      *
-     * Kiểm tra xem môi trường máy chủ có hỗ trợ cài đặt tự động Node.js và các công cụ liên quan hay không.
-     *Chức năng cài đặt tự động tùy thuộc vào loại hệ điều hành và tính khả dụng của chức năng PHP.
+     * Kiểm tra xem môi trường máy chủ có hỗ trợ Cài đặt tự động Node.js và các công cụ liên quan hay không.
+     *Chức năng Cài đặt tự động tùy thuộc vào loại hệ điều hành và tính khả dụng của chức năng PHP.
      *
      * Hệ điều hành được hỗ trợ: CentOS/RHEL、Ubuntu、Debian、Alpine、macOS
      *
-     * @return bool Hỗ trợ quay lại cài đặt tự động true
-     */
-    public function canAutoInstall(): bool
+     * @return bool Hỗ trợ quay lại Cài đặt tự động true
+     */    public function canAutoInstall(): bool
     {
         $os = $this->getOsInfo();
 
-        // Danh sách hệ điều hành hỗ trợ cài đặt tự động
+        // Danh sách hệ điều hành hỗ trợ Cài đặt tự động
         $supportedOs = ['centos', 'rhel', 'ubuntu', 'debian', 'alpine', 'macos'];
 
         if (!in_array($os['type'], $supportedOs)) {
@@ -324,8 +314,7 @@ class NodeEnvironmentServices extends BaseServices
      *
      * @param string $command lệnh để thực thi
      * @return string|null Đầu ra lệnh, trả về nếu thực thi không thành công null
-     */
-    protected function execCommand(string $command): ?string
+     */    protected function execCommand(string $command): ?string
     {
         // Thích sử dụng chức năng exec
         if (function_exists('exec')) {
@@ -342,51 +331,49 @@ class NodeEnvironmentServices extends BaseServices
     }
 
     /**
-     * Nhận URL tập lệnh cài đặt bằng một cú nhấp chuột
+     * Nhận URL tập lệnh Cài đặt bằng một cú nhấp chuột
      *
-     * Trả về địa chỉ của tập lệnh shell được sử dụng để tự động cài đặt môi trường Node.js.
+     * Trả về địa chỉ của tập lệnh shell được sử dụng để tự động Cài đặt môi trường Node.js.
      *
-     * @return địa chỉ URL chuỗi của tập lệnh cài đặt
-     */
-    public function getInstallScriptUrl(): string
+     * @return địa chỉ URL chuỗi của tập lệnh Cài đặt
+     */    public function getInstallScriptUrl(): string
     {
 //        return sys_config('site_url', '') . '/statics/scripts/install_node_env.sh';
         return 'https://www.crmeb.com/static/upgrade/install_node_env.sh';
     }
 
     /**
-     * Nhận hướng dẫn cài đặt (Hướng dẫn cài đặt thủ công)
+     * Nhận hướng dẫn Cài đặt (Hướng dẫn Cài đặt thủ công)
      *
-     * Trả về các bước cài đặt Node.js và miniprogram-ci tương ứng theo loại hệ điều hành máy chủ.
-     * Mỗi hệ điều hành đều có các lệnh cài đặt được tối ưu hóa đặc biệt.
+     * Trả về các bước Cài đặt Node.js và miniprogram-ci tương ứng theo loại hệ điều hành máy chủ.
+     * Mỗi hệ điều hành đều có các lệnh Cài đặt được tối ưu hóa đặc biệt.
      *
      * Hệ điều hành được hỗ trợ:
      * - CentOS/RHEL: Sử dụng kho lưu trữ vòng/phút của NodeSource
      * - Ubuntu/Debian: kho lưu trữ deb bằng NodeSource
      * - macOS: Sử dụng trình quản lý gói Homebrew
-     * - Windows: Tải xuống gói cài đặt từ trang web chính thức của Node.js
+     * - Windows: Tải xuống gói Cài đặt từ trang web chính thức của Node.js
      *
-     * @return thông tin hướng dẫn cài đặt mảng, bao gồm:
-     *               - title: Tiêu đề hướng dẫn (Chẳng hạn như "Hướng dẫn cài đặt CentOS/RHEL")
-     *               - steps: Mảng các bước cài đặt, chứa hướng dẫn dòng lệnh cụ thể
-     *               - script_url: Địa chỉ URL của tập lệnh cài đặt bằng một cú nhấp chuột
-     */
-    public function getInstallGuide(): array
+     * @return thông tin hướng dẫn Cài đặt mảng, bao gồm:
+     *               - title: Tiêu đề hướng dẫn (Chẳng hạn như "Hướng dẫn Cài đặt CentOS/RHEL")
+     *               - steps: Mảng các bước Cài đặt, chứa hướng dẫn dòng lệnh cụ thể
+     *               - script_url: Địa chỉ URL của tập lệnh Cài đặt bằng một cú nhấp chuột
+     */    public function getInstallGuide(): array
     {
         // Nhận thông tin hệ điều hành hiện tại
         $os = $this->getOsInfo();
 
-        // Hướng dẫn cài đặt cho từng hệ điều hành
+        // Hướng dẫn Cài đặt cho từng hệ điều hành
         $guides = [
             // CentOS/RHEL Series - sử dụng trình quản lý gói yum
             'centos' => [
-                'title' => 'CentOS/RHEL Hướng dẫn cài đặt',
+                'title' => 'CentOS/RHEL Hướng dẫn Cài đặt',
                 'steps' => [
                     '1. Thêm kho lưu trữ NodeSource:',
                     '   curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -',
                     '2. Cài đặt Node.js:',
                     '   sudo yum install -y nodejs',
-                    '3. Xác minh cài đặt:',
+                    '3. Xác minh Cài đặt:',
                     '   node -v && npm -v',
                     '4. Cài đặt miniprogram-ci:',
                     '   sudo npm install miniprogram-ci -g',
@@ -394,13 +381,13 @@ class NodeEnvironmentServices extends BaseServices
             ],
             // Ubuntu - Sử dụng trình quản lý gói apt
             'ubuntu' => [
-                'title' => 'Ubuntu/Debian Hướng dẫn cài đặt',
+                'title' => 'Ubuntu/Debian Hướng dẫn Cài đặt',
                 'steps' => [
                     '1. Thêm kho lưu trữ NodeSource:',
                     '   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -',
                     '2. Cài đặt Node.js:',
                     '   sudo apt-get install -y nodejs',
-                    '3. Xác minh cài đặt:',
+                    '3. Xác minh Cài đặt:',
                     '   node -v && npm -v',
                     '4. Cài đặt miniprogram-ci:',
                     '   sudo npm install miniprogram-ci -g',
@@ -408,13 +395,13 @@ class NodeEnvironmentServices extends BaseServices
             ],
             // Debian - Tương tự như Ubuntu
             'debian' => [
-                'title' => 'Ubuntu/Debian Hướng dẫn cài đặt',
+                'title' => 'Ubuntu/Debian Hướng dẫn Cài đặt',
                 'steps' => [
                     '1. Thêm kho lưu trữ NodeSource:',
                     '   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -',
                     '2. Cài đặt Node.js:',
                     '   sudo apt-get install -y nodejs',
-                    '3. Xác minh cài đặt:',
+                    '3. Xác minh Cài đặt:',
                     '   node -v && npm -v',
                     '4. Cài đặt miniprogram-ci:',
                     '   sudo npm install miniprogram-ci -g',
@@ -422,26 +409,26 @@ class NodeEnvironmentServices extends BaseServices
             ],
             // macOS - sử dụng Homebrew
             'macos' => [
-                'title' => 'macOS Hướng dẫn cài đặt',
+                'title' => 'macOS Hướng dẫn Cài đặt',
                 'steps' => [
-                    '1. Cài đặt Homebrew (Nếu không được cài đặt):',
+                    '1. Cài đặt Homebrew (Nếu không được Cài đặt):',
                     '   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
                     '2. Cài đặt Node.js:',
                     '   brew install node@18',
-                    '3. Xác minh cài đặt:',
+                    '3. Xác minh Cài đặt:',
                     '   node -v && npm -v',
                     '4. Cài đặt miniprogram-ci:',
                     '   npm install miniprogram-ci -g',
                 ],
             ],
-            // Windows - Tải xuống và cài đặt từ trang web chính thức
+            // Windows - Tải xuống và Cài đặt từ trang web chính thức
             'windows' => [
-                'title' => 'Windows Hướng dẫn cài đặt',
+                'title' => 'Windows Hướng dẫn Cài đặt',
                 'steps' => [
-                    '1. Tải xuống gói cài đặt Node.js:',
+                    '1. Tải xuống gói Cài đặt Node.js:',
                     '   truy cập https://nodejs.org/zh-cn/download/',
-                    '2. Chạy trình cài đặt và làm theo lời nhắc để hoàn tất cài đặt',
-                    '3. Mở dấu nhắc lệnh và xác minh cài đặt:',
+                    '2. Chạy trình Cài đặt và làm theo lời nhắc để hoàn tất Cài đặt',
+                    '3. Mở dấu nhắc lệnh và xác minh Cài đặt:',
                     '   node -v && npm -v',
                     '4. Cài đặt miniprogram-ci:',
                     '   npm install miniprogram-ci -g',
@@ -452,19 +439,19 @@ class NodeEnvironmentServices extends BaseServices
         // Nhận hướng dẫn tương ứng dựa trên loại hệ điều hành, hướng dẫn chung cho các hệ thống chưa biết
         $type = $os['type'] ?: 'unknown';
         $guide = isset($guides[$type]) ? $guides[$type] : [
-            'title' => 'Hướng dẫn cài đặt chung',
+            'title' => 'Hướng dẫn Cài đặt chung',
             'steps' => [
-                '1. Truy cập trang web chính thức của Node.js để tải xuống gói cài đặt:',
+                '1. Truy cập trang web chính thức của Node.js để tải xuống gói Cài đặt:',
                 '   https://nodejs.org/zh-cn/download/',
-                '2. Hoàn tất cài đặt theo tài liệu chính thức',
-                '3. Xác minh cài đặt:',
+                '2. Hoàn tất Cài đặt theo tài liệu chính thức',
+                '3. Xác minh Cài đặt:',
                 '   node -v && npm -v',
                 '4. Cài đặt miniprogram-ci:',
                 '   npm install miniprogram-ci -g',
             ],
         ];
 
-        // Thêm tập lệnh cài đặt bằng một cú nhấp chuột URL
+        // Thêm tập lệnh Cài đặt bằng một cú nhấp chuột URL
         $guide['script_url'] = $this->getInstallScriptUrl();
 
         return $guide;

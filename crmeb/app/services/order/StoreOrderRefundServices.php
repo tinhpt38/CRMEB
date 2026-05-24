@@ -43,21 +43,18 @@ use think\facade\Db;
  * Class StoreOrderRefundServices
  * @method getOrderRefundMoneyByWhere
  * @package app\services\order
- */
-class StoreOrderRefundServices extends BaseServices
+ */class StoreOrderRefundServices extends BaseServices
 {
     /**
-     * Đặt hàngservices
+     * Đơn hàngservices
      * @var StoreOrderServices
-     */
-    protected $storeOrderServices;
+     */    protected $storeOrderServices;
 
     /**
      * Người xây dựng
      * StoreOrderRefundServices constructor.
      * @param StoreOrderRefundDao $dao
-     */
-    public function __construct(StoreOrderRefundDao $dao, StoreOrderServices $storeOrderServices)
+     */    public function __construct(StoreOrderRefundDao $dao, StoreOrderServices $storeOrderServices)
     {
         $this->dao = $dao;
         $this->storeOrderServices = $storeOrderServices;
@@ -68,10 +65,9 @@ class StoreOrderRefundServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function refundOrderForm(int $id, $type = 'refund')
+     */    public function refundOrderForm(int $id, $type = 'refund')
     {
-        if ($type == 'refund') {//Đơn hàng sau bán hàng
+        if ($type == 'refund') {//Yêu cầu trả hàng / hoàn tiền
             $orderRefund = $this->dao->get($id);
             if (!$orderRefund) {
                 throw new AdminException('Dữ liệu không tồn tại');
@@ -91,7 +87,7 @@ class StoreOrderRefundServices extends BaseServices
             $f[] = Form::input('order_id', 'Số đơn hàng hoàn tiền', $orderRefund->getData('order_id'))->disabled(true);
             $f[] = Form::number('refund_price', 'Số tiền hoàn lại', (float)bcsub((string)$orderRefund->getData('refund_price'), (string)$orderRefund->getData('refunded_price'), 2))->min(0)->required('Vui lòng nhập số tiền hoàn lại');
             return create_form('Xử lý hoàn tiền', $f, $this->url('/refund/refund/' . $id), 'PUT');
-        } else {//Đặt hàng chủ động hoàn tiền
+        } else {//Đơn hàng chủ động hoàn tiền
             $order = $this->storeOrderServices->get((int)$id);
             if (!$order) {
                 throw new AdminException('Dữ liệu không tồn tại');
@@ -118,8 +114,7 @@ class StoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function agreeRefund(int $id, array $refundData)
+     */    public function agreeRefund(int $id, array $refundData)
     {
         $order = $this->transaction(function () use ($id, $refundData) {
             //Chia tiền hoàn lại
@@ -136,8 +131,7 @@ class StoreOrderRefundServices extends BaseServices
             }
             if (!$cart_ids) return false;
             $orderInfo = $this->storeOrderServices->get($orderRefundInfo['store_order_id']);
-            /** @var StoreOrderSplitServices $storeOrderSplitServices */
-            $storeOrderSplitServices = app()->make(StoreOrderSplitServices::class);
+            /** @var StoreOrderSplitServices $storeOrderSplitServices */            $storeOrderSplitServices = app()->make(StoreOrderSplitServices::class);
             [$splitOrderInfo, $otherOrder] = $storeOrderSplitServices->equalSplit($orderRefundInfo['store_order_id'], $cart_ids, $orderInfo);
 
 
@@ -147,27 +141,23 @@ class StoreOrderRefundServices extends BaseServices
             }
             //Rời khỏi nhóm
             if ($splitOrderInfo['pid'] == 0 && $splitOrderInfo['pink_id'] > 0) {
-                /** @var StorePinkServices $pinkServices */
-                $pinkServices = app()->make(StorePinkServices::class);
+                /** @var StorePinkServices $pinkServices */                $pinkServices = app()->make(StorePinkServices::class);
                 if (!$pinkServices->setRefundPink($splitOrderInfo)) {
                     throw new AdminException('Sửa đổi nhóm nhóm không thành công');
                 }
             }
 
             //Hoàn tiền hoa hồng
-            /** @var UserBrokerageServices $userBrokerageServices */
-            $userBrokerageServices = app()->make(UserBrokerageServices::class);
+            /** @var UserBrokerageServices $userBrokerageServices */            $userBrokerageServices = app()->make(UserBrokerageServices::class);
             if (!$userBrokerageServices->orderRefundBrokerageBack($splitOrderInfo)) {
                 throw new AdminException('Không thể hoàn trả hoa hồng');
             }
 
             //Trả lại hàng tồn kho
             if ($splitOrderInfo['status'] == 0) {
-                /** @var StoreOrderStatusServices $services */
-                $services = app()->make(StoreOrderStatusServices::class);
+                /** @var StoreOrderStatusServices $services */                $services = app()->make(StoreOrderStatusServices::class);
                 if (!$services->count(['oid' => $splitOrderInfo['id'], 'change_type' => 'refund_price'])) {
-                    /** @var StoreOrderServices $orderServices */
-                    $orderServices = app()->make(StoreOrderServices::class);
+                    /** @var StoreOrderServices $orderServices */                    $orderServices = app()->make(StoreOrderServices::class);
                     $this->regressionStock($orderServices->get($splitOrderInfo['id']));
                 }
             }
@@ -196,8 +186,7 @@ class StoreOrderRefundServices extends BaseServices
                         } else {
                             $drivers = 'wechat_pay';
                         }
-                        /** @var Pay $pay */
-                        $pay = app()->make(Pay::class, [$drivers]);
+                        /** @var Pay $pay */                        $pay = app()->make(Pay::class, [$drivers]);
                         if ($refundOrder['is_channel'] == 1) {
                             $refundData['trade_no'] = $refundOrder['trade_no'];
                             $refundData['pay_new_weixin_open'] = sys_config('pay_new_weixin_open');
@@ -222,10 +211,8 @@ class StoreOrderRefundServices extends BaseServices
                         AliPayService::instance()->refund(strpos($refundOrder['trade_no'], '_') !== false ? $refundOrder['trade_no'] : $refundOrder['order_id'], floatval($refundData['refund_price']), $refund_id);
                         break;
                     case PayServices::ALLIN_PAY:
-                        /** @var Pay $pay */
-                        $pay = app()->make(Pay::class, ['allin_pay']);
-                        /** @var StoreOrderServices $orderServices */
-                        $orderServices = app()->make(StoreOrderServices::class);
+                        /** @var Pay $pay */                        $pay = app()->make(Pay::class, ['allin_pay']);
+                        /** @var StoreOrderServices $orderServices */                        $orderServices = app()->make(StoreOrderServices::class);
                         $trade_no = $orderServices->value(['id' => $orderRefundInfo['store_order_id']], 'trade_no');
                         $pay->refund($trade_no, [
                             'order_id' => $refundOrder['order_id'],
@@ -234,13 +221,12 @@ class StoreOrderRefundServices extends BaseServices
                         break;
                 }
             }
-            //Hồ sơ đặt hàng
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            //Lịch sử đơn hàng
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $statusService->save([
                 'oid' => $splitOrderInfo['id'],
                 'change_type' => 'refund_price',
-                'change_message' => 'Hoàn tiền cho người dùng: ' . $refundData['refund_price'] . 'đ',
+                'change_message' => 'Hoàn tiền cho Khách hàng: ' . $refundData['refund_price'] . 'đ',
                 'change_time' => time()
             ]);
             $this->storeOrderServices->update($splitOrderInfo['id'], [
@@ -262,14 +248,12 @@ class StoreOrderRefundServices extends BaseServices
                 $this->dao->update(['store_order_id' => $orderInfo['id']], ['store_order_id' => $otherOrder['id']]);
             }
 
-            /** @var CapitalFlowServices $capitalFlowServices */
-            $capitalFlowServices = app()->make(CapitalFlowServices::class);
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var CapitalFlowServices $capitalFlowServices */            $capitalFlowServices = app()->make(CapitalFlowServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->get($splitOrderInfo['uid']);
             $splitOrderInfo['nickname'] = $userInfo['nickname'];
             $splitOrderInfo['phone'] = $userInfo['phone'];
-            if (in_array($orderInfo['pay_type'], ['weixin', 'alipay', 'allinpay', 'offline', PayServices::VN_COD, PayServices::VN_BANK], true)) {
+            if (in_array($orderInfo['pay_type'], ['weixin', 'alipay', 'allinpay', 'offline', PayServices::VN_COD, PayServices::VN_BANK, PayServices::VN_VNPAY, PayServices::VN_MOMO, PayServices::VN_ZALOPAY], true)) {
                 $capitalFlowServices->setFlow($splitOrderInfo, 'refund');
             }
 
@@ -304,7 +288,7 @@ class StoreOrderRefundServices extends BaseServices
     }
 
     /**
-     * Người bán đồng ý trả lại hàng cho người dùng
+     * Người bán đồng ý trả lại hàng cho Khách hàng
      * @param $id
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -313,8 +297,7 @@ class StoreOrderRefundServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/16
-     */
-    public function agreeExpress($id)
+     */    public function agreeExpress($id)
     {
         $order = $this->dao->get($id, ['refund_type']);
         if (!$order) throw new AdminException('Dữ liệu không tồn tại');
@@ -331,8 +314,7 @@ class StoreOrderRefundServices extends BaseServices
      * @param $order
      * @param array $refundData
      * @return mixed
-     */
-    public function payOrderRefund(int $type, $order, array $refundData)
+     */    public function payOrderRefund(int $type, $order, array $refundData)
     {
         return $this->transaction(function () use ($type, $order, $refundData) {
 
@@ -342,27 +324,23 @@ class StoreOrderRefundServices extends BaseServices
             }
             //Xử lý hoàn tiền phiếu giảm giá sản phẩm ảo
             if ($order['virtual_type'] == 2) {
-                /** @var StoreCouponUserServices $couponUser */
-                $couponUser = app()->make(StoreCouponUserServices::class);
+                /** @var StoreCouponUserServices $couponUser */                $couponUser = app()->make(StoreCouponUserServices::class);
                 $res = $couponUser->delUserCoupon(['cid' => $order['virtual_info'], 'uid' => $order['uid'], 'status' => 0]);
                 if (!$res) throw new AdminException('Phiếu mua hàng đã được sử dụng hoặc hết hạn');
-                /** @var StoreCouponIssueUserServices $couponIssueUser */
-                $couponIssueUser = app()->make(StoreCouponIssueUserServices::class);
+                /** @var StoreCouponIssueUserServices $couponIssueUser */                $couponIssueUser = app()->make(StoreCouponIssueUserServices::class);
                 $couponIssueUser->delIssueUserCoupon(['issue_coupon_id' => $order['virtual_info'], 'uid' => $order['uid']]);
             }
 
             //Rời khỏi nhóm
             if ($type == 1) {
-                /** @var StorePinkServices $pinkServices */
-                $pinkServices = app()->make(StorePinkServices::class);
+                /** @var StorePinkServices $pinkServices */                $pinkServices = app()->make(StorePinkServices::class);
                 if (!$pinkServices->setRefundPink($order)) {
                     throw new AdminException('Sửa đổi nhóm nhóm không thành công');
                 }
             }
 
             //Hoàn tiền hoa hồng
-            /** @var UserBrokerageServices $userBrokerageServices */
-            $userBrokerageServices = app()->make(UserBrokerageServices::class);
+            /** @var UserBrokerageServices $userBrokerageServices */            $userBrokerageServices = app()->make(UserBrokerageServices::class);
             if (!$userBrokerageServices->orderRefundBrokerageBack($order)) {
                 throw new AdminException('Không thể hoàn trả hoa hồng');
             }
@@ -370,8 +348,7 @@ class StoreOrderRefundServices extends BaseServices
 
             //Trả lại hàng tồn kho
             if ($order['status'] == 0) {
-                /** @var StoreOrderStatusServices $services */
-                $services = app()->make(StoreOrderStatusServices::class);
+                /** @var StoreOrderStatusServices $services */                $services = app()->make(StoreOrderStatusServices::class);
                 if (!$services->count(['oid' => $order['id'], 'change_type' => 'refund_price'])) {
                     $this->regressionStock($order);
                 }
@@ -396,8 +373,7 @@ class StoreOrderRefundServices extends BaseServices
                             $no = $refundOrder['trade_no'];
                             $refundData['type'] = 'trade_no';
                         }
-                        /** @var Pay $pay */
-                        $pay = app()->make(Pay::class);
+                        /** @var Pay $pay */                        $pay = app()->make(Pay::class);
                         if ($refundOrder['is_channel'] == 1) {
                             //Hoàn tiền chương trình nhỏ
                             $pay->refund($no, $refundData);//Chương trình nhỏ
@@ -432,15 +408,12 @@ class StoreOrderRefundServices extends BaseServices
      * @param $order
      * @param array $refundData
      * @return bool
-     */
-    public function yueRefund($order, array $refundData)
+     */    public function yueRefund($order, array $refundData)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userMoney = $userServices->value(['uid' => $order['uid']], 'now_money');
         $res = $userServices->bcInc($order['uid'], 'now_money', $refundData['refund_price'], 'uid');
-        /** @var UserMoneyServices $userMoneyServices */
-        $userMoneyServices = app()->make(UserMoneyServices::class);
+        /** @var UserMoneyServices $userMoneyServices */        $userMoneyServices = app()->make(UserMoneyServices::class);
         return $res && $userMoneyServices->income('pay_product_refund', $order['uid'], $refundData['refund_price'], bcadd((string)$userMoney, (string)$refundData['refund_price'], 2), $order['id']);
     }
 
@@ -449,16 +422,13 @@ class StoreOrderRefundServices extends BaseServices
      * @param $order
      * @param string $type
      * @return bool
-     */
-    public function integralAndCouponBack($order, $type = 'refund')
+     */    public function integralAndCouponBack($order, $type = 'refund')
     {
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $res = true;
-        //Phiếu giảm giá được trả lại cho các đơn đặt hàng bị hủy hoặc hoàn tiền
+        //Mã giảm giá được trả lại cho các đơn đặt hàng bị hủy hoặc hoàn tiền
         if ($order['coupon_id'] && $order['coupon_price']) {
-            /** @var StoreCouponUserServices $couponUserServices */
-            $couponUserServices = app()->make(StoreCouponUserServices::class);
+            /** @var StoreCouponUserServices $couponUserServices */            $couponUserServices = app()->make(StoreCouponUserServices::class);
             //Hủy đơn hàng mà không thanh toán hoặc hoàn lại phiếu giảm giá cho đơn hàng chính và đơn hàng phụ cuối cùng sau khi bật công tắc hoàn tiền phiếu giảm giá.
             if ($type == 'cancel' || (sys_config('coupon_return_open', 1) && ($order['pid'] == 0 || $this->storeOrderServices->count(['pid' => $order['pid'], 'refund_status' => 0]) == 1))) {
                 $res = $couponUserServices->recoverCoupon((int)$order['coupon_id']);
@@ -486,11 +456,9 @@ class StoreOrderRefundServices extends BaseServices
      * Điểm trả lại và điểm quà tặng
      * @param $order
      * @return bool
-     */
-    public function regressionIntegral($order)
+     */    public function regressionIntegral($order)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($order['uid'], ['integral']);
         if (!$userInfo) {
             $order->back_integral = $order->use_integral;
@@ -503,8 +471,7 @@ class StoreOrderRefundServices extends BaseServices
 
         $res1 = $res2 = $res3 = $res4 = true;
         //Điểm thưởng cho đơn hàng
-        /** @var UserBillServices $userBillServices */
-        $userBillServices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillServices */        $userBillServices = app()->make(UserBillServices::class);
         $order_gain = $userBillServices->sum([
             'category' => 'integral',
             'type' => 'gain',
@@ -562,26 +529,19 @@ class StoreOrderRefundServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function regressionStock($order)
+     */    public function regressionStock($order)
     {
         if ($order['status'] == -2 || $order['is_del']) return true;
         $combination_id = $order['combination_id'];
         $seckill_id = $order['seckill_id'];
         $bargain_id = $order['bargain_id'];
         $res5 = true;
-        /** @var StoreOrderCartInfoServices $cartServices */
-        $cartServices = app()->make(StoreOrderCartInfoServices::class);
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
-        /** @var StoreSeckillServices $seckillServices */
-        $seckillServices = app()->make(StoreSeckillServices::class);
-        /** @var StoreCombinationServices $pinkServices */
-        $pinkServices = app()->make(StoreCombinationServices::class);
-        /** @var StoreBargainServices $bargainServices */
-        $bargainServices = app()->make(StoreBargainServices::class);
-        /** @var StoreAdvanceServices $advanceServices */
-        $advanceServices = app()->make(StoreAdvanceServices::class);
+        /** @var StoreOrderCartInfoServices $cartServices */        $cartServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
+        /** @var StoreSeckillServices $seckillServices */        $seckillServices = app()->make(StoreSeckillServices::class);
+        /** @var StoreCombinationServices $pinkServices */        $pinkServices = app()->make(StoreCombinationServices::class);
+        /** @var StoreBargainServices $bargainServices */        $bargainServices = app()->make(StoreBargainServices::class);
+        /** @var StoreAdvanceServices $advanceServices */        $advanceServices = app()->make(StoreAdvanceServices::class);
         $cartInfo = $cartServices->getCartInfoList(['cart_id' => $order['cart_id']], ['cart_info']);
         foreach ($cartInfo as $cart) {
             $cart['cart_info'] = is_array($cart['cart_info']) ? $cart['cart_info'] : json_decode($cart['cart_info'], true);
@@ -608,26 +568,22 @@ class StoreOrderRefundServices extends BaseServices
      * @param $order
      * @param $refund_price
      * @param $id
-     */
-    public function storeProductOrderRefundY($data, $order, $refund_price)
+     */    public function storeProductOrderRefundY($data, $order, $refund_price)
     {
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $order['id'],
             'change_type' => 'refund_price',
-            'change_message' => 'Hoàn tiền cho người dùng: ' . $refund_price . 'đ',
+            'change_message' => 'Hoàn tiền cho Khách hàng: ' . $refund_price . 'đ',
             'change_time' => time()
         ]);
 
-        /** @var CapitalFlowServices $capitalFlowServices */
-        $capitalFlowServices = app()->make(CapitalFlowServices::class);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var CapitalFlowServices $capitalFlowServices */        $capitalFlowServices = app()->make(CapitalFlowServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($order['uid']);
         $order['nickname'] = $userInfo['nickname'];
         $order['phone'] = $userInfo['phone'];
-        if (in_array($order['pay_type'], ['weixin', 'alipay', 'allinpay', 'offline', PayServices::VN_COD, PayServices::VN_BANK], true)) {
+        if (in_array($order['pay_type'], ['weixin', 'alipay', 'allinpay', 'offline', PayServices::VN_COD, PayServices::VN_BANK, PayServices::VN_VNPAY, PayServices::VN_MOMO, PayServices::VN_ZALOPAY], true)) {
             $order['refund_price'] = $refund_price;
             $capitalFlowServices->setFlow($order, 'refund');
         }
@@ -639,15 +595,13 @@ class StoreOrderRefundServices extends BaseServices
      * Đồng ý hoàn tiền và hoàn tiền không ghi vào hồ sơ đặt hàng
      * @param int $id
      * @param $refund_price
-     */
-    public function storeProductOrderRefundYFasle(int $id, $refund_price)
+     */    public function storeProductOrderRefundYFasle(int $id, $refund_price)
     {
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $id,
             'change_type' => 'refund_price',
-            'change_message' => 'Hoàn tiền cho người dùng：' . $refund_price . 'siêu thất bại',
+            'change_message' => 'Hoàn tiền cho Khách hàng：' . $refund_price . 'siêu thất bại',
             'change_time' => time()
         ]);
     }
@@ -656,11 +610,9 @@ class StoreOrderRefundServices extends BaseServices
      * Ghi lại trạng thái thay đổi đơn hàng mà không hoàn lại tiền
      * @param int $id
      * @param string $refundReason
-     */
-    public function storeProductOrderRefundNo(int $id, string $refundReason)
+     */    public function storeProductOrderRefundNo(int $id, string $refundReason)
     {
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $id,
             'change_type' => 'refund_n',
@@ -675,8 +627,7 @@ class StoreOrderRefundServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function noRefundForm(int $id)
+     */    public function noRefundForm(int $id)
     {
         $order = $this->dao->get($id);
         if (!$order) {
@@ -696,8 +647,7 @@ class StoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refuseRefund(int $id, array $data, $orderRefundInfo = [])
+     */    public function refuseRefund(int $id, array $data, $orderRefundInfo = [])
     {
         if (!$orderRefundInfo) {
             $orderRefundInfo = $this->dao->get(['id' => $id, 'is_cancel' => 0]);
@@ -705,8 +655,7 @@ class StoreOrderRefundServices extends BaseServices
         if (!$orderRefundInfo) {
             throw new ApiException('Đơn đặt hàng sau bán hàng không tồn tại');
         }
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $this->transaction(function () use ($id, $data, $orderRefundInfo, $storeOrderServices) {
             //Xử lý đơn hàng sau bán hàng
             $this->dao->update($id, $data);
@@ -717,8 +666,7 @@ class StoreOrderRefundServices extends BaseServices
             //Xử lý các mục đơn hàngcart_info
             $this->cancelOrderRefundCartInfo($id, $oid, $orderRefundInfo, 'Lý do không hoàn tiền:' . ($data['refuse_reason'] ?? ''));
             //Ghi
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $statusService->save([
                 'oid' => $id,
                 'change_type' => 'refund_n',
@@ -753,8 +701,7 @@ class StoreOrderRefundServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function refundIntegralForm(int $id)
+     */    public function refundIntegralForm(int $id)
     {
         if (!$orderInfo = $this->dao->get($id))
             throw new AdminException('Đơn hàng không tồn tại');
@@ -773,19 +720,15 @@ class StoreOrderRefundServices extends BaseServices
      * Xử lý hoàn trả điểm cá nhân
      * @param $orderInfo
      * @param $back_integral
-     */
-    public function refundIntegral($orderInfo, $back_integral)
+     */    public function refundIntegral($orderInfo, $back_integral)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $integral = $userServices->value(['uid' => $orderInfo['uid']], 'integral');
         return $this->transaction(function () use ($userServices, $orderInfo, $back_integral, $integral) {
             $res1 = $userServices->bcInc($orderInfo['uid'], 'integral', $back_integral, 'uid');
-            /** @var UserBillServices $userBillServices */
-            $userBillServices = app()->make(UserBillServices::class);
+            /** @var UserBillServices $userBillServices */            $userBillServices = app()->make(UserBillServices::class);
             $res2 = $userBillServices->income('pay_product_integral_back', $orderInfo['uid'], (int)$back_integral, $integral + $back_integral, $orderInfo['id']);
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $res3 = $statusService->save([
                 'oid' => $orderInfo['id'],
                 'change_type' => 'integral_back',
@@ -809,8 +752,7 @@ class StoreOrderRefundServices extends BaseServices
      * @param string $refundReasonWapExplain
      * @param array $refundReasonWapImg
      * @return bool|void
-     */
-    public function orderApplyRefund($order, string $refundReasonWap = '', string $refundReasonWapExplain = '', array $refundReasonWapImg = [], int $refundType = 0, $cart_id = 0, $refund_num = 0)
+     */    public function orderApplyRefund($order, string $refundReasonWap = '', string $refundReasonWapExplain = '', array $refundReasonWapImg = [], int $refundType = 0, $cart_id = 0, $refund_num = 0)
     {
         if (!$order) {
             throw new ApiException('Đơn hàng không tồn tại');
@@ -828,18 +770,15 @@ class StoreOrderRefundServices extends BaseServices
             $status = 0;
             $order_id = (int)$order['id'];
             if ($cart_id) {
-                /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-                $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */                $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
                 $cart_ids = [];
                 $cart_ids[0] = ['cart_id' => $cart_id, 'cart_num' => $refund_num];
-                /** @var StoreOrderSplitServices $storeOrderSplitServices */
-                $storeOrderSplitServices = app()->make(StoreOrderSplitServices::class);
+                /** @var StoreOrderSplitServices $storeOrderSplitServices */                $storeOrderSplitServices = app()->make(StoreOrderSplitServices::class);
                 //Chia đơn hàng
                 $status = $order['status'];
                 $order = $storeOrderSplitServices->split($order_id, $cart_ids, $order);
             } elseif (in_array($order['pid'], [0, -1]) && $this->storeOrderServices->count(['pid' => $order_id])) {
-                /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-                $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */                $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
                 $cart_info = $storeOrderCartInfoServices->getSplitCartList($order_id, 'cart_info');
                 if (!$cart_info) {
                     throw new ApiException('Đơn hàng đã được chia tách hoàn toàn');
@@ -848,8 +787,7 @@ class StoreOrderRefundServices extends BaseServices
                 foreach ($cart_info as $key => $cart) {
                     $cart_ids[$key] = ['cart_id' => $cart['id'], 'cart_num' => $refund_num];
                 }
-                /** @var StoreOrderSplitServices $storeOrderSplitServices */
-                $storeOrderSplitServices = app()->make(StoreOrderSplitServices::class);
+                /** @var StoreOrderSplitServices $storeOrderSplitServices */                $storeOrderSplitServices = app()->make(StoreOrderSplitServices::class);
                 //Chia đơn hàng
                 $status = $order['status'];
                 $order = $storeOrderSplitServices->split($order_id, $cart_ids, $order);
@@ -865,8 +803,7 @@ class StoreOrderRefundServices extends BaseServices
             ];
             if ($status) $data['status'] = $status;
 
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $res1 = false !== $statusService->save([
                     'oid' => $order['id'],
                     'change_type' => 'apply_refund',
@@ -887,8 +824,7 @@ class StoreOrderRefundServices extends BaseServices
                     $this->storeOrderServices->update(['id' => $order['pid']], ['refund_status' => 4, 'refund_reason_time' => time()]);
                 }
             } else {
-                /** @var StoreOrderCartInfoServices $orderCartInfoService */
-                $orderCartInfoService = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $orderCartInfoService */                $orderCartInfoService = app()->make(StoreOrderCartInfoServices::class);
 //                if (!$orderCartInfoService->getSplitCartList()) {
 //
 //                }
@@ -912,14 +848,12 @@ class StoreOrderRefundServices extends BaseServices
      * @param $order
      * @param $express
      * @return bool
-     */
-    public function editRefundExpress($data)
+     */    public function editRefundExpress($data)
     {
         $this->transaction(function () use ($data) {
             $id = $data['id'];
             $data['refund_type'] = 5;
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $res1 = false !== $statusService->save([
                     'oid' => $id,
                     'change_type' => 'refund_express',
@@ -951,12 +885,9 @@ class StoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function applyRefund(int $id, int $uid, $order = [], array $cart_ids = [], int $refundType = 0, float $refundPrice = 0.00, array $refundData = [], $isPink = 0)
+     */    public function applyRefund(int $id, int $uid, $order = [], array $cart_ids = [], int $refundType = 0, float $refundPrice = 0.00, array $refundData = [], $isPink = 0)
     {
-        /** Kiểm tra xem đơn hàng có tồn tại không */
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** Kiểm tra xem đơn hàng có tồn tại không */        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         if (!$order) {
             $order = $orderServices->get($id);
         }
@@ -975,8 +906,7 @@ class StoreOrderRefundServices extends BaseServices
 
         $refund_num = $order['total_num'];
         $refund_price = $order['pay_price'];
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
         //Phần rút lui
         $cartInfo = [];
         $cartInfos = $storeOrderCartInfoServices->getCartColunm(['oid' => $id], 'id,cart_id,cart_num,refund_num,cart_info');
@@ -989,11 +919,10 @@ class StoreOrderRefundServices extends BaseServices
                 }
                 $refund_num = bcadd((string)$refund_num, (string)$cart['cart_num'], 0);
             }
-            //Có tổng cộng bao nhiêu ứng dụng?
+            //Có tổng cộng bao nhiêu Ứng dụng?
             $total_num = array_sum(array_column($cart_ids, 'cart_num'));
             if ($total_num < $order['total_num']) {
-                /** @var StoreOrderSplitServices $storeOrderSpliteServices */
-                $storeOrderSpliteServices = app()->make(StoreOrderSplitServices::class);
+                /** @var StoreOrderSplitServices $storeOrderSpliteServices */                $storeOrderSpliteServices = app()->make(StoreOrderSplitServices::class);
                 $cartInfos = $storeOrderSpliteServices->getSplitOrderCartInfo($id, $cart_ids, $order);
                 $total_price = $pay_postage = 0;
                 foreach ($cartInfos as $cart) {
@@ -1002,7 +931,7 @@ class StoreOrderRefundServices extends BaseServices
                     $pay_postage = bcadd((string)$pay_postage, (string)($_info['postage_price'] ?? 0), 2);
                 }
                 $refund_pay_price = bcadd((string)$total_price, (string)$pay_postage, 2);
-                //Số tiền thanh toán thực tế của đơn hàng
+                //Số tiền Thanh toán thực tế của đơn hàng
                 $order_pay_price = bcsub((string)bcadd((string)$order['total_price'], (string)$order['pay_postage'], 2), (string)bcadd((string)$order['deduction_price'], (string)$order['coupon_price'], 2), 2);
                 if ($order_pay_price != $order['pay_price'] && $refund_pay_price != $order_pay_price) {//Có sự thay đổi giá
                     $refund_price = bcmul((string)bcdiv((string)$refund_pay_price, (string)$order_pay_price, 4), (string)$order['pay_price'], 2);
@@ -1031,8 +960,7 @@ class StoreOrderRefundServices extends BaseServices
         $refundData['cart_info'] = json_encode(array_column($cartInfos, 'cart_info'));
         $refundData['is_pink_cancel'] = $isPink;
         $res = $this->transaction(function () use ($id, $order, $cart_ids, $refundData, $storeOrderCartInfoServices, $cartInfo, $orderServices, $cartInfos) {
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $res1 = false !== $statusService->save([
                     'oid' => $order['id'],
                     'change_type' => 'apply_refund',
@@ -1041,8 +969,7 @@ class StoreOrderRefundServices extends BaseServices
                 ]);
             $res2 = true;
             //Thêm dữ liệu hoàn tiền
-            /** @var StoreOrderRefundServices $storeOrderRefundServices */
-            $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
+            /** @var StoreOrderRefundServices $storeOrderRefundServices */            $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
             $res3 = $storeOrderRefundServices->save($refundData);
             if (!$res3) {
                 throw new ApiException('Ứng dụng không thành công');
@@ -1094,8 +1021,7 @@ class StoreOrderRefundServices extends BaseServices
      * @param string $key
      * @param bool $is_unit
      * @return int|string
-     */
-    public function getOrderSumPrice($cartInfo, $key = 'truePrice', $is_unit = true)
+     */    public function getOrderSumPrice($cartInfo, $key = 'truePrice', $is_unit = true)
     {
         $SumPrice = 0;
         foreach ($cartInfo as $cart) {
@@ -1119,8 +1045,7 @@ class StoreOrderRefundServices extends BaseServices
      * Danh sách đơn hàng hoàn tiền
      * @param $where
      * @return array
-     */
-    public function refundList($where)
+     */    public function refundList($where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
@@ -1189,20 +1114,17 @@ class StoreOrderRefundServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/17
-     */
-    public function refundDetail($uni)
+     */    public function refundDetail($uni)
     {
         if (!strlen(trim($uni))) throw new ApiException('Lỗi tham số');
         $order = $this->dao->get(['order_id' => $uni], ['*']);
         if (!$order) throw new ApiException('Đơn hàng không tồn tại');
         $order = $order->toArray();
 
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $orderInfo = $orderServices->get($order['store_order_id']);
 
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($order['uid']);
 
         $order['mapKey'] = sys_config('tengxun_map_key');
@@ -1254,7 +1176,7 @@ class StoreOrderRefundServices extends BaseServices
                 $pay_type_name = 'Thanh toán WeChat';
                 break;
             case PayServices::YUE_PAY:
-                $pay_type_name = 'thanh toán số dư';
+                $pay_type_name = 'Thanh toán bằng số dư';
                 break;
             case PayServices::OFFLINE_PAY:
                 $pay_type_name = 'Thanh toán ngoại tuyến';
@@ -1263,13 +1185,18 @@ class StoreOrderRefundServices extends BaseServices
                 $pay_type_name = 'thanh toán Alipay';
                 break;
             case PayServices::ALLIN_PAY:
-                $pay_type_name = 'thanh toán Tonglian';
+                $pay_type_name = 'Thanh toán Tonglian';
                 break;
             case PayServices::VN_COD:
                 $pay_type_name = PayServices::PAY_TYPE[PayServices::VN_COD];
                 break;
             case PayServices::VN_BANK:
                 $pay_type_name = PayServices::PAY_TYPE[PayServices::VN_BANK];
+                break;
+            case PayServices::VN_VNPAY:
+            case PayServices::VN_MOMO:
+            case PayServices::VN_ZALOPAY:
+                $pay_type_name = PayServices::PAY_TYPE[$order['pay_type']] ?? '';
                 break;
             default:
                 $pay_type_name = 'Các khoản thanh toán khác';
@@ -1322,8 +1249,7 @@ class StoreOrderRefundServices extends BaseServices
             'help_status' => 0
         ];
         if ($orderInfo['uid'] != $orderInfo['pay_uid']) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $payUser = $userServices->get($orderInfo['pay_uid']);
             $orderData['help_info'] = [
                 'pay_uid' => $orderInfo['pay_uid'],
@@ -1345,8 +1271,7 @@ class StoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function cancelOrderRefundCartInfo(int $id, int $oid, $orderRefundInfo = [], string $title = '')
+     */    public function cancelOrderRefundCartInfo(int $id, int $oid, $orderRefundInfo = [], string $title = '')
     {
         if (!$orderRefundInfo) {
             $orderRefundInfo = $this->dao->get(['id' => $id, 'is_cancel' => 0]);
@@ -1355,8 +1280,7 @@ class StoreOrderRefundServices extends BaseServices
             throw new ApiException('Đơn hàng không tồn tại');
         }
         $cart_ids = array_column($orderRefundInfo['cart_info'], 'id');
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
         $cartInfos = $storeOrderCartInfoServices->getColumn([['oid', '=', $oid], ['cart_id', 'in', $cart_ids]], 'cart_id,refund_num', 'cart_id');
         foreach ($orderRefundInfo['cart_info'] as $cart) {
             $cart_refund_num = $cartInfos[$cart['id']]['refund_num'] ?? 0;
@@ -1370,8 +1294,7 @@ class StoreOrderRefundServices extends BaseServices
         $storeOrderCartInfoServices->clearOrderCartInfo($oid);
 
         //Viết bảng ghi đơn hàng
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $oid,
             'change_type' => 'cancel_refund_order',
@@ -1394,8 +1317,7 @@ class StoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateRemark(int $id, string $remark)
+     */    public function updateRemark(int $id, string $remark)
     {
         if (!$id) {
             throw new AdminException('Lỗi tham số');
@@ -1422,8 +1344,7 @@ class StoreOrderRefundServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refuse(int $id, string $refund_reason)
+     */    public function refuse(int $id, string $refund_reason)
     {
         if (!$refund_reason) {
             throw new AdminException('Vui lòng nhập lý do từ chối hoàn tiền');

@@ -16,28 +16,25 @@ use app\services\activity\combination\StorePinkServices;
 use think\facade\App;
 
 /**
- * Quản lý nhóm
+ * Quản lý mua chung
  * Class StoreCombination
  * @package app\admin\controller\store
- */
-class StoreCombination extends AuthController
+ */class StoreCombination extends AuthController
 {
     /**
      * StoreCombination constructor.
      * @param App $app
      * @param StoreCombinationServices $services
-     */
-    public function __construct(App $app, StoreCombinationServices $services)
+     */    public function __construct(App $app, StoreCombinationServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Danh sách nhóm nhóm
+     * Đơn hàng mua chung
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['start_status', ''],
@@ -56,11 +53,9 @@ class StoreCombination extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function statistics()
+     */    public function statistics()
     {
-        /** @var StorePinkServices $storePinkServices */
-        $storePinkServices = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $storePinkServices */        $storePinkServices = app()->make(StorePinkServices::class);
         $info = $storePinkServices->getStatistics();
         return app('json')->success($info);
     }
@@ -69,8 +64,7 @@ class StoreCombination extends AuthController
      * Chi tiết
      * @param $id
      * @return mixed
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $info = $this->services->getInfo((int)$id);
         return app('json')->success(compact('info'));
@@ -79,8 +73,7 @@ class StoreCombination extends AuthController
     /**
      * Lưu tài nguyên mới
      * @param int $id
-     */
-    public function save($id = 0)
+     */    public function save($id = 0)
     {
         $data = $this->request->postMore([
             [['product_id', 'd'], 0],
@@ -147,8 +140,7 @@ class StoreCombination extends AuthController
      * Xóa chuyến tham quan theo nhóm
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         $this->services->update($id, ['is_del' => 1]);
         return app('json')->success('Xóa thành công');
@@ -159,8 +151,7 @@ class StoreCombination extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if ($status == 1) {
             $info = $this->services->get($id);
@@ -173,17 +164,15 @@ class StoreCombination extends AuthController
     }
 
     /**
-     * Danh sách nhóm nhóm
+     * Đơn hàng mua chung
      * @return mixed
-     */
-    public function combine_list()
+     */    public function combine_list()
     {
         $where = $this->request->getMore([
             ['status', ''],
             ['data', '', '', 'time'],
         ]);
-        /** @var StorePinkServices $storePinkServices */
-        $storePinkServices = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $storePinkServices */        $storePinkServices = app()->make(StorePinkServices::class);
         $list = $storePinkServices->systemPage($where);
         return app('json')->success($list);
     }
@@ -195,11 +184,9 @@ class StoreCombination extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function order_pink($id)
+     */    public function order_pink($id)
     {
-        /** @var StorePinkServices $storePinkServices */
-        $storePinkServices = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $storePinkServices */        $storePinkServices = app()->make(StorePinkServices::class);
         $list = $storePinkServices->getPinkMember($id);
         return app('json')->success(compact('list'));
     }
@@ -208,8 +195,7 @@ class StoreCombination extends AuthController
      * Thống kê nhóm nhóm
      * @param $id
      * @return mixed
-     */
-    public function combinationStatistics($id)
+     */    public function combinationStatistics($id)
     {
         $data = $this->services->combinationStatistics($id);
         return app('json')->success($data);
@@ -222,26 +208,23 @@ class StoreCombination extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function combinationStatisticsList($id)
+     */    public function combinationStatisticsList($id)
     {
         $where = $this->request->getMore([
             ['real_name', '', '', 'keyword'],
             ['status', '']
         ]);
         $where['cid'] = $id;
-        /** @var StorePinkServices $storePinkServices */
-        $storePinkServices = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $storePinkServices */        $storePinkServices = app()->make(StorePinkServices::class);
         $list = $storePinkServices->systemPage($where);
         return app('json')->success($list);
     }
 
     /**
-     * Thứ tự nhóm
+     * Đơn hàng mua chung
      * @param $id
      * @return mixed
-     */
-    public function combinationStatisticsOrder($id)
+     */    public function combinationStatisticsOrder($id)
     {
         $where = $this->request->getMore([
             ['real_name', ''],
@@ -260,11 +243,9 @@ class StoreCombination extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/6/18
-     */
-    public function immediatelyCombination($id)
+     */    public function immediatelyCombination($id)
     {
-        /** @var StorePinkServices $storePinkServices */
-        $storePinkServices = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $storePinkServices */        $storePinkServices = app()->make(StorePinkServices::class);
         $storePinkServices->virtualCombination($id, 'admin');
         return app('json')->success('Thành lập nhóm thành công');
     }

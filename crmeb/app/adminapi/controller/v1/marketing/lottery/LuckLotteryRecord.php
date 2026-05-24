@@ -20,16 +20,14 @@ use think\facade\App;
  * Kỷ lục trúng xổ số
  * Class LuckLotteryRecord
  * @package app\controller\admin\v1\marketing\lottery
- */
-class LuckLotteryRecord extends AuthController
+ */class LuckLotteryRecord extends AuthController
 {
 
     /**
      * LuckLotteryRecord constructor.
      * @param App $app
      * @param LuckLotteryRecordServices $services
-     */
-    public function __construct(App $app, LuckLotteryRecordServices $services)
+     */    public function __construct(App $app, LuckLotteryRecordServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -38,8 +36,7 @@ class LuckLotteryRecord extends AuthController
     /**
      * Danh sách kỷ lục xổ số
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->postMore([
             ['type', ''],
@@ -57,8 +54,7 @@ class LuckLotteryRecord extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function deliver($id)
+     */    public function deliver($id)
     {
         $data = $this->request->postMore([
             ['deliver_name', ''],

@@ -28,7 +28,7 @@ Route::group(function () {
 
 Route::group(function () {
     //appleĐăng nhập nhanh
-    Route::post('apple_login', 'v1.LoginController/appleLogin')->name('appleLogin')->option(['real_name' => 'Ủy quyền ứng dụng WeChat']);//Ủy quyền ứng dụng WeChat
+    Route::post('apple_login', 'v1.LoginController/appleLogin')->name('appleLogin')->option(['real_name' => 'Ủy quyền Ứng dụng WeChat']);//Ủy quyền Ứng dụng WeChat
     // Đăng nhập tài khoản và mật khẩu
     Route::post('login', 'v1.LoginController/login')->name('login')->option(['real_name' => 'Đăng nhập bằng tài khoản và mật khẩu']);
     // Nhận tin nhắn văn bảnkey
@@ -47,7 +47,7 @@ Route::group(function () {
     Route::post('register', 'v1.LoginController/register')->name('register')->option(['real_name' => 'Đăng ký số điện thoại di động']);
     //Đổi mật khẩu số điện thoại di động
     Route::post('register/reset', 'v1.LoginController/reset')->name('registerReset')->option(['real_name' => 'Đổi mật khẩu số điện thoại di động']);
-    // Ràng buộc số điện thoại di động(Ủy quyền im lặng Chưa có thông tin người dùng)
+    // Liên kết số điện thoại(Ủy quyền im lặng Chưa có thông tin Khách hàng)
     Route::post('binding', 'v1.LoginController/binding_phone')->name('bindingPhone')->option(['real_name' => 'Liên kết số điện thoại di động']);
     // Thanh toán liên kết sao chép Alipay Không được dùng nữa
 //    Route::get('ali_pay', 'v1.order.StoreOrderController/aliPay')->name('aliPay');
@@ -57,8 +57,8 @@ Route::group(function () {
     Route::get('basic_config', 'v1.PublicController/getMallBasicConfig')->option(['real_name' => 'Giao diện tóm tắt cấu hình cơ bản của Mall']);
     //Giao diện url nhảy chương trình nhỏ
     Route::get('get_scheme_url/:id', 'v1.PublicController/getSchemeUrl')->option(['real_name' => 'Giao diện url nhảy chương trình nhỏ']);
-    //Đăng ký người dùng từ xa
-    Route::get('remote_register', 'v1.LoginController/remoteRegister')->option(['real_name' => 'Đăng ký người dùng từ xa']);
+    //Đăng ký Khách hàng từ xa
+    Route::get('remote_register', 'v1.LoginController/remoteRegister')->option(['real_name' => 'Đăng ký Khách hàng từ xa']);
 
 })->middleware(\app\http\middleware\AllowOriginMiddleware::class)
     ->middleware(\app\api\middleware\StationOpenMiddleware::class)
@@ -71,12 +71,12 @@ Route::group(function () {
     Route::get('admin/order/data', 'v1.admin.StoreOrderController/data')->name('adminOrderData')->option(['real_name' => 'Thống kê đặt hàng hàng tháng']);//Thống kê đặt hàng hàng tháng
     Route::get('admin/order/list', 'v1.admin.StoreOrderController/lst')->name('adminOrderList')->option(['real_name' => 'danh sách đặt hàng']);//danh sách đặt hàng
     Route::get('admin/refund_order/list', 'v1.admin.StoreOrderController/refundOrderList')->name('adminOrderRefundList')->option(['real_name' => 'Danh sách đơn hàng hoàn tiền']);//Danh sách đơn hàng hoàn tiền
-    Route::get('admin/order/detail/:orderId', 'v1.admin.StoreOrderController/detail')->name('adminOrderDetail')->option(['real_name' => 'Chi tiết đơn hàng']);//Chi tiết đặt hàng
+    Route::get('admin/order/detail/:orderId', 'v1.admin.StoreOrderController/detail')->name('adminOrderDetail')->option(['real_name' => 'Chi tiết đơn hàng']);//Chi tiết đơn hàng
     Route::get('admin/refund_order/detail/:uni', 'v1.admin.StoreOrderController/refundOrderDetail')->name('RefundOrderDetail')->option(['real_name' => 'Chi tiết đơn hàng hoàn tiền']);//Chi tiết đơn hàng hoàn tiền
     Route::get('admin/order/delivery/gain/:orderId', 'v1.admin.StoreOrderController/delivery_gain')->name('adminOrderDeliveryGain')->option(['real_name' => 'Giao hàngNhận thông tin đơn hàng']);//Giao hàngNhận thông tin đơn hàng
-    Route::post('admin/order/delivery/keep/:id', 'v1.admin.StoreOrderController/delivery_keep')->name('adminOrderDeliveryKeep')->option(['real_name' => 'Đã giao cho ĐVVC']);//Đơn hàng đã được vận chuyển
+    Route::post('admin/order/delivery/keep/:id', 'v1.admin.StoreOrderController/delivery_keep')->name('adminOrderDeliveryKeep')->option(['real_name' => 'Đã giao cho ĐVVC']);//Đã giao cho ĐVVC
     Route::post('admin/order/price', 'v1.admin.StoreOrderController/price')->name('adminOrderPrice')->option(['real_name' => 'Thay đổi giá đặt hàng']);//Thay đổi giá đặt hàng
-    Route::post('admin/order/remark', 'v1.admin.StoreOrderController/remark')->name('adminOrderRemark')->option(['real_name' => 'Ghi chú đơn hàng']);//Ghi chú đặt hàng
+    Route::post('admin/order/remark', 'v1.admin.StoreOrderController/remark')->name('adminOrderRemark')->option(['real_name' => 'Ghi chú đơn hàng']);//Ghi chú đơn hàng
     Route::post('admin/order/agreeExpress', 'v1.admin.StoreOrderController/agreeExpress')->name('adminOrderAgreeExpress')->option(['real_name' => 'Đơn hàng đồng ý trả lại']);//Đơn hàng đồng ý trả lại
     Route::post('admin/refund_order/remark', 'v1.admin.StoreOrderController/refundRemark')->name('refundRemark')->option(['real_name' => 'Ghi chú đơn hàng hoàn tiền']);//Ghi chú đơn hàng hoàn tiền
     Route::get('admin/order/time', 'v1.admin.StoreOrderController/time')->name('adminOrderTime')->option(['real_name' => 'Thống kê thời gian khối lượng giao dịch đặt hàng']);//Thống kê thời gian khối lượng giao dịch đặt hàng
@@ -87,7 +87,7 @@ Route::group(function () {
     Route::get('admin/order/delivery_info', 'v1.admin.StoreOrderController/getDeliveryInfo')->name('getDeliveryInfo')->option(['real_name' => 'Lấy thông tin mặc định của biểu mẫu điện tử']);//Lấy thông tin mặc định của biểu mẫu điện tử
     Route::get('admin/order/export_temp', 'v1.admin.StoreOrderController/getExportTemp')->name('getExportTemp')->option(['real_name' => 'Lấy mẫu biểu mẫu điện tử']);//Lấy mẫu biểu mẫu điện tử
     Route::get('admin/order/export_all', 'v1.admin.StoreOrderController/getExportAll')->name('getExportAll')->option(['real_name' => 'Nhận công ty hậu cần']);//Nhận công ty hậu cần
-    Route::get('admin/order/express/:uni/[:type]', 'v1.admin.StoreOrderController/express')->name('orderExpress')->option(['real_name' => 'Đặt hàng Xem hậu cần']); //Đặt hàng Xem hậu cần
+    Route::get('admin/order/express/:uni/[:type]', 'v1.admin.StoreOrderController/express')->name('orderExpress')->option(['real_name' => 'Đơn hàng Xem hậu cần']); //Đơn hàng Xem hậu cần
 
     // Trang chủ quản lý người bán
     Route::get('admin/manage/statistics', 'v1.admin.StoreManageController/statistics');
@@ -102,7 +102,7 @@ Route::group(function () {
     Route::post('admin/manage/product/save_attr/:id', 'v1.admin.StoreManageController/saveProductAttr');
     Route::get('admin/manage/product/shipping_temp', 'v1.admin.StoreManageController/shippingTemp');
     Route::post('admin/manage/product/create', 'v1.admin.StoreManageController/createProduct');
-    // Quản lý người bán Quản lý người dùng
+    // Quản lý người bán Quản lý khách hàng
     Route::get('admin/manage/user', 'v1.admin.StoreManageController/user');
     Route::get('admin/manage/user/group', 'v1.admin.StoreManageController/userGroup');
     Route::get('admin/manage/user/level', 'v1.admin.StoreManageController/userLevel');
@@ -135,60 +135,60 @@ Route::group(function () {
         Route::post('switch_h5', 'v1.LoginController/switch_h5')->name('switch_h5')->option(['real_name' => 'Chuyển đổi tài khoản']);// Chuyển đổi tài khoản
         //Lớp công khai
         Route::post('upload/image', 'v1.PublicController/upload_image')->name('uploadImage')->option(['real_name' => 'Tải lên hình ảnh']);//Tải lên hình ảnh
-        // Giao diện chi tiết chuyển khoản WeChat của người dùng
-        Route::get('transfer/info', 'v1.PublicController/getTransferInfo')->name('getTransferInfo')->option(['real_name' => 'Giao diện chi tiết chuyển khoản WeChat của người dùng']);// Giao diện chi tiết chuyển khoản WeChat của người dùng
+        // Giao diện chi tiết chuyển khoản WeChat của Khách hàng
+        Route::get('transfer/info', 'v1.PublicController/getTransferInfo')->name('getTransferInfo')->option(['real_name' => 'Giao diện chi tiết chuyển khoản WeChat của Khách hàng']);// Giao diện chi tiết chuyển khoản WeChat của Khách hàng
 
     })->option(['mark' => 'common', 'mark_name' => 'giao diện công cộng']);
 
     Route::group(function () {
-        //Danh mục người dùng Bản ghi trò chuyện dịch vụ khách hàng
-        Route::get('user/service/list', 'v1.user.StoreService/lst')->name('userServiceList')->option(['real_name' => 'Danh sách dịch vụ khách hàng']);//Danh sách dịch vụ khách hàng
-        Route::get('user/service/record', 'v1.user.StoreService/record')->name('userServiceRecord')->option(['real_name' => 'Lịch sử trò chuyện dịch vụ khách hàng']);//Lịch sử trò chuyện dịch vụ khách hàng
-        Route::post('user/service/feedback', 'v1.user.StoreService/saveFeedback')->name('saveFeedback')->option(['real_name' => 'Lưu thông tin phản hồi dịch vụ khách hàng']);//Lưu thông tin phản hồi dịch vụ khách hàng
-        Route::get('user/service/feedback', 'v1.user.StoreService/getFeedbackInfo')->name('getFeedbackInfo')->option(['real_name' => 'Nhận thông tin tiêu đề phản hồi dịch vụ khách hàng']);//Nhận thông tin tiêu đề phản hồi dịch vụ khách hàng
-        Route::get('user/service/get_adv', 'v1.user.StoreService/getKfAdv')->name('userServiceGetKfAdv')->option(['real_name' => 'Nhận quảng cáo trang dịch vụ khách hàng']);//Nhận quảng cáo trang dịch vụ khách hàng
-    })->option(['parent' => 'user', 'cate_name' => 'dịch vụ khách hàng']);
+        //Danh mục Khách hàng Bản ghi trò chuyện CSKH
+        Route::get('user/service/list', 'v1.user.StoreService/lst')->name('userServiceList')->option(['real_name' => 'Danh sách CSKH']);//Danh sách CSKH
+        Route::get('user/service/record', 'v1.user.StoreService/record')->name('userServiceRecord')->option(['real_name' => 'Lịch sử trò chuyện CSKH']);//Lịch sử trò chuyện CSKH
+        Route::post('user/service/feedback', 'v1.user.StoreService/saveFeedback')->name('saveFeedback')->option(['real_name' => 'Lưu thông tin phản hồi CSKH']);//Lưu thông tin phản hồi CSKH
+        Route::get('user/service/feedback', 'v1.user.StoreService/getFeedbackInfo')->name('getFeedbackInfo')->option(['real_name' => 'Nhận thông tin tiêu đề phản hồi CSKH']);//Nhận thông tin tiêu đề phản hồi CSKH
+        Route::get('user/service/get_adv', 'v1.user.StoreService/getKfAdv')->name('userServiceGetKfAdv')->option(['real_name' => 'Nhận quảng cáo trang CSKH']);//Nhận quảng cáo trang CSKH
+    })->option(['parent' => 'user', 'cate_name' => 'CSKH']);
 
     Route::group(function () {
-        //Lớp người dùng Người dùngcoupons/order
+        //Lớp Khách hàng Người dùngcoupons/order
         Route::get('user', 'v1.user.UserController/user')->name('user')->option(['real_name' => 'Trung tâm cá nhân']);//Trung tâm cá nhân
         Route::post('user/spread', 'v1.user.UserController/spread')->name('userSpread')->option(['real_name' => 'Ủy quyền ràng buộc âm thầm']);//Ủy quyền ràng buộc âm thầm
-        Route::post('user/edit', 'v1.user.UserController/edit')->name('userEdit')->option(['real_name' => 'Thông tin người dùng sửa đổi']);//Thông tin người dùng sửa đổi
-        Route::get('user/balance', 'v1.user.UserController/balance')->name('userBalance')->option(['real_name' => 'Thống kê quỹ người dùng']);//Thống kê quỹ người dùng
-        Route::get('userinfo', 'v1.user.UserController/userinfo')->name('userinfo')->option(['real_name' => 'Thông tin người dùng']);// Thông tin người dùng
-    })->option(['parent' => 'user', 'cate_name' => 'Trung tâm người dùng']);
+        Route::post('user/edit', 'v1.user.UserController/edit')->name('userEdit')->option(['real_name' => 'Thông tin Khách hàng sửa đổi']);//Thông tin Khách hàng sửa đổi
+        Route::get('user/balance', 'v1.user.UserController/balance')->name('userBalance')->option(['real_name' => 'Thống kê quỹ Khách hàng']);//Thống kê quỹ Khách hàng
+        Route::get('userinfo', 'v1.user.UserController/userinfo')->name('userinfo')->option(['real_name' => 'Thông tin Khách hàng']);// Thông tin Khách hàng
+    })->option(['parent' => 'user', 'cate_name' => 'Trung tâm Khách hàng']);
 
     Route::group(function () {
-        //Địa chỉ lớp người dùng
+        //Địa chỉ lớp Khách hàng
         Route::get('address/detail/:id', 'v1.user.UserAddressController/address')->name('address')->option(['real_name' => 'Nhận một địa chỉ duy nhất']);//Nhận một địa chỉ duy nhất
         Route::get('address/list', 'v1.user.UserAddressController/address_list')->name('addressList')->option(['real_name' => 'danh sách địa chỉ']);//danh sách địa chỉ
         Route::post('address/default/set', 'v1.user.UserAddressController/address_default_set')->name('addressDefaultSet')->option(['real_name' => 'Đặt địa chỉ mặc định']);//Đặt địa chỉ mặc định
         Route::get('address/default', 'v1.user.UserAddressController/address_default')->name('addressDefault')->option(['real_name' => 'Nhận địa chỉ mặc định']);//Nhận địa chỉ mặc định
         Route::post('address/edit', 'v1.user.UserAddressController/address_edit')->name('addressEdit')->option(['real_name' => 'Sửa đổi/thêm địa chỉ']);//Sửa đổi thêm địa chỉ
         Route::post('address/del', 'v1.user.UserAddressController/address_del')->name('addressDel')->option(['real_name' => 'Xóa địa chỉ']);//Xóa địa chỉ
-    })->option(['parent' => 'user', 'cate_name' => 'Địa chỉ người dùng']);
+    })->option(['parent' => 'user', 'cate_name' => 'Địa chỉ Khách hàng']);
 
-    Route::group(function () { //Bộ sưu tập lớp người dùng
+    Route::group(function () { //Bộ sưu tập lớp Khách hàng
         Route::get('collect/user', 'v1.user.UserCollectController/collect_user')->name('collectUser')->option(['real_name' => 'Danh sách sản phẩm yêu thích']);//Danh sách sản phẩm yêu thích
-        Route::post('collect/add', 'v1.user.UserCollectController/collect_add')->name('collectAdd')->option(['real_name' => 'Thêm mới mục yêu thích']);//Thêm vào mục yêu thích
+        Route::post('collect/add', 'v1.user.UserCollectController/collect_add')->name('collectAdd')->option(['real_name' => 'Thêm mới mục yêu thích']);//Thêm mới mục yêu thích
         Route::post('collect/del', 'v1.user.UserCollectController/collect_del')->name('collectDel')->option(['real_name' => 'Hủy yêu thích']);//Hủy yêu thích
         Route::post('collect/all', 'v1.user.UserCollectController/collect_all')->name('collectAll')->option(['real_name' => 'Thêm mục yêu thích theo đợt']);//Thêm mục yêu thích theo đợt
     })->option(['parent' => 'user', 'cate_name' => 'Người dùng yêu thích']);
 
     Route::group(function () {
         Route::get('rank', 'v1.user.UserController/rank')->name('rank')->option(['real_name' => 'Tài khoản chính thức đăng nhập được ủy quyền']);//Xếp hạng nhà quảng cáo
-        //Chia sẻ lớp người dùng
-        Route::post('user/share', 'v1.PublicController/user_share')->name('user_share')->option(['real_name' => 'Ghi lại chia sẻ của người dùng']);//Ghi lại chia sẻ của người dùng
+        //Chia sẻ lớp Khách hàng
+        Route::post('user/share', 'v1.PublicController/user_share')->name('user_share')->option(['real_name' => 'Ghi lại chia sẻ của Khách hàng']);//Ghi lại chia sẻ của Khách hàng
         Route::get('user/share/words', 'v1.PublicController/copy_share_words')->name('user_share_words')->option(['real_name' => 'Chia sẻ từ khóa']);//Chia sẻ từ khóa
-    })->option(['parent' => 'user', 'cate_name' => 'Chia sẻ của người dùng']);
+    })->option(['parent' => 'user', 'cate_name' => 'Chia sẻ của Khách hàng']);
 
     Route::group(function () {
-        //Đăng nhập lớp người dùng
+        //Đăng nhập lớp Khách hàng
         Route::get('sign/config', 'v1.user.UserSignController/sign_config')->name('signConfig')->option(['real_name' => 'Cấu hình đăng nhập']);//Cấu hình đăng nhập
         Route::get('sign/list', 'v1.user.UserSignController/sign_list')->name('signList')->option(['real_name' => 'Danh sách đăng ký']);//Danh sách đăng ký
         Route::get('sign/month', 'v1.user.UserSignController/sign_month')->name('signIntegral')->option(['real_name' => 'Danh sách đăng nhập (năm, tháng)）']);//Danh sách đăng nhập (năm, tháng)）
         Route::get('sign/remind/:status', 'v1.user.UserSignController/sign_remind')->name('signRemind')->option(['real_name' => 'Công tắc nhắc nhở đăng nhập']);//Danh sách đăng nhập (năm, tháng)）
-        Route::post('sign/user', 'v1.user.UserSignController/sign_user')->name('signUser')->option(['real_name' => 'Đăng nhập thông tin người dùng']);//Đăng nhập thông tin người dùng
+        Route::post('sign/user', 'v1.user.UserSignController/sign_user')->name('signUser')->option(['real_name' => 'Đăng nhập thông tin Khách hàng']);//Đăng nhập thông tin Khách hàng
         Route::post('sign/integral', 'v1.user.UserSignController/sign_integral')->name('signIntegral')->option(['real_name' => 'Tài khoản chính thức đăng nhập được ủy quyền'])->middleware(BlockerMiddleware::class);//Đăng nhập
     })->option(['mark' => 'sign', 'mark_name' => 'Đăng nhập']);
 
@@ -203,7 +203,7 @@ Route::group(function () {
     Route::group(function () {
         //Danh mục giỏ hàng
         Route::get('cart/list', 'v1.store.StoreCartController/lst')->name('cartList')->option(['real_name' => 'Danh sách giỏ hàng']); //Danh sách giỏ hàng
-        Route::post('cart/add', 'v1.store.StoreCartController/add')->name('cartAdd')->option(['real_name' => 'Thêm mới giỏ hàng']); //Thêm vào giỏ hàng
+        Route::post('cart/add', 'v1.store.StoreCartController/add')->name('cartAdd')->option(['real_name' => 'Thêm mới giỏ hàng']); //Thêm mới giỏ hàng
         Route::post('cart/del', 'v1.store.StoreCartController/del')->name('cartDel')->option(['real_name' => 'Xóa giỏ hàng']); //Xóa giỏ hàng
         Route::post('order/cancel', 'v1.order.StoreOrderController/cancel')->name('orderCancel')->option(['real_name' => 'Hủy đơn hàng']); //Hủy đơn hàng
         Route::post('cart/num', 'v1.store.StoreCartController/num')->name('cartNum')->option(['real_name' => 'Chỉnh sửa số lượng sản phẩm trong giỏ hàng']); //Giỏ hàng Sửa đổi số lượng sản phẩm
@@ -211,43 +211,43 @@ Route::group(function () {
     })->option(['mark' => 'cart', 'mark_name' => 'giỏ hàng']);
 
     Route::group(function () {
-        //Loại lệnh
+        //Loại đơn hàng
         Route::post('order/check_shipping', 'v1.order.StoreOrderController/checkShipping')->name('checkShipping')->option(['real_name' => 'Kiểm tra xem nhãn chuyển phát nhanh và tự nhận có hiển thị hay không']); //Kiểm tra xem nhãn chuyển phát nhanh và tự nhận có hiển thị hay không
         Route::post('order/confirm', 'v1.order.StoreOrderController/confirm')->name('orderConfirm')->option(['real_name' => 'Xác nhận đơn hàng']); //Xác nhận đơn hàng
         Route::post('order/computed/:key', 'v1.order.StoreOrderController/computedOrder')->name('computedOrder')->option(['real_name' => 'Tính số tiền đặt hàng']); //Tính số tiền đặt hàng
         Route::post('order/create/:key', 'v1.order.StoreOrderController/create')->name('orderCreate')->middleware(BlockerMiddleware::class)->option(['real_name' => 'Tạo đơn hàng']); //Tạo đơn hàng
         Route::get('order/data', 'v1.order.StoreOrderController/data')->name('orderData')->option(['real_name' => 'Thống kê đơn hàng']); //Thống kê đơn hàng
         Route::get('order/list', 'v1.order.StoreOrderController/lst')->name('orderList')->option(['real_name' => 'danh sách đặt hàng']); //danh sách đặt hàng
-        Route::get('order/detail/:uni/[:cartId]', 'v1.order.StoreOrderController/detail')->name('orderDetail')->option(['real_name' => 'Chi tiết đơn hàng']); //Chi tiết đặt hàng
+        Route::get('order/detail/:uni/[:cartId]', 'v1.order.StoreOrderController/detail')->name('orderDetail')->option(['real_name' => 'Chi tiết đơn hàng']); //Chi tiết đơn hàng
         Route::get('order/refund_detail/:uni/[:cartId]', 'v1.order.StoreOrderController/refund_detail')->name('refundDetail')->option(['real_name' => 'Chi tiết đơn hàng hoàn tiền']); //Chi tiết đơn hàng hoàn tiền
         Route::get('order/refund/reason', 'v1.order.StoreOrderController/refund_reason')->name('orderRefundReason')->middleware(BlockerMiddleware::class)->option(['real_name' => 'Lý do hoàn tiền đơn hàng']); //Lý do hoàn tiền đơn hàng
         Route::post('order/refund/verify', 'v1.order.StoreOrderController/refund_verify')->name('orderRefundVerify')->middleware(BlockerMiddleware::class)->option(['real_name' => 'Đánh giá hoàn tiền đơn hàng']); //Đánh giá hoàn tiền đơn hàng
         Route::post('order/take', 'v1.order.StoreOrderController/take')->name('orderTake')->middleware(BlockerMiddleware::class)->option(['real_name' => 'Biên nhận đơn hàng']); //Biên nhận đơn hàng
-        Route::get('order/express/:uni/[:type]', 'v1.order.StoreOrderController/express')->name('orderExpress')->option(['real_name' => 'Đặt hàng Xem hậu cần']); //Đặt hàng Xem hậu cần
+        Route::get('order/express/:uni/[:type]', 'v1.order.StoreOrderController/express')->name('orderExpress')->option(['real_name' => 'Đơn hàng Xem hậu cần']); //Đơn hàng Xem hậu cần
         Route::post('order/del', 'v1.order.StoreOrderController/del')->name('orderDel')->option(['real_name' => 'Xóa đơn hàng']); //Xóa đơn hàng
-        Route::post('order/again', 'v1.order.StoreOrderController/again')->name('orderAgain')->option(['real_name' => 'Đặt hàng lại']); //Đặt hàng Đặt hàng lại
+        Route::post('order/again', 'v1.order.StoreOrderController/again')->name('orderAgain')->option(['real_name' => 'Đơn hàng lại']); //Đơn hàng Đơn hàng lại
         Route::post('order/pay', 'v1.order.StoreOrderController/pay')->name('orderPay')->option(['real_name' => 'Thanh toán đơn hàng']); //Thanh toán đơn hàng
-        Route::post('order/product', 'v1.order.StoreOrderController/product')->name('orderProduct')->option(['real_name' => 'Đặt hàng thông tin sản phẩm']); //Đặt hàng thông tin sản phẩm
+        Route::post('order/product', 'v1.order.StoreOrderController/product')->name('orderProduct')->option(['real_name' => 'Đơn hàng thông tin sản phẩm']); //Đơn hàng thông tin sản phẩm
         Route::post('order/comment', 'v1.order.StoreOrderController/comment')->name('orderComment')->option(['real_name' => 'Đánh giá đơn hàng']); //Đánh giá đơn hàng
         Route::get('order/cashier/:orderId/[:type]', 'v1.order.StoreOrderController/cashier')->name('orderCashier')->option(['real_name' => 'Thanh toán đơn hàng']); //Thanh toán đơn hàng
         Route::get('order/friend_detail', 'v1.order.StoreOrderController/friendDetail')->name('friendDetail')->option(['real_name' => 'Chi tiết thanh toán']);//Chi tiết thanh toán
         Route::post('order/receive_gift/:oid', 'v1.order.StoreOrderController/receiveGift')->name('receiveGift')->option(['real_name' => 'nhận quà']);//nhận quà
         Route::get('order/gift_detail/:oid', 'v1.order.StoreOrderController/giftDetail')->name('giftDetail')->option(['real_name' => 'Chi tiết quà tặng']); //Chi tiết quà tặng
 
-    })->option(['mark' => 'order', 'mark_name' => 'Đặt hàng']);
+    })->option(['mark' => 'order', 'mark_name' => 'Đơn hàng']);
 
     Route::group(function () {
         //Hoạt động---Thương lượng
         Route::get('bargain/detail/:id', 'v1.activity.StoreBargainController/detail')->name('bargainDetail')->option(['real_name' => 'Chi tiết sản phẩm khuyến mại']);//Chi tiết sản phẩm khuyến mại
         Route::post('bargain/start', 'v1.activity.StoreBargainController/start')->name('bargainStart')->option(['real_name' => 'Đang đàm phán']);//Đang đàm phán
-        Route::post('bargain/start/user', 'v1.activity.StoreBargainController/start_user')->name('bargainStartUser')->option(['real_name' => 'Trao đổi thông tin người dùng']);//Mặc cả Cho phép mặc cả thông tin người dùng
+        Route::post('bargain/start/user', 'v1.activity.StoreBargainController/start_user')->name('bargainStartUser')->option(['real_name' => 'Trao đổi thông tin Khách hàng']);//Mặc cả Cho phép mặc cả thông tin Khách hàng
         Route::post('bargain/share', 'v1.activity.StoreBargainController/share')->name('bargainShare')->option(['real_name' => 'Thương lượng và chia sẻ']);//Mặc cả số lượt xem/chia sẻ/tham gia
         Route::post('bargain/help', 'v1.activity.StoreBargainController/help')->name('bargainHelp')->option(['real_name' => 'Mặc cả cho bạn bè']);//Mặc cả Giúp bạn bè mặc cả
         Route::post('bargain/help/price', 'v1.activity.StoreBargainController/help_price')->name('bargainHelpPrice')->option(['real_name' => 'Mặc cả giá, cắt giảm số lượng']);//Mặc cả giá, giảm số lượng
         Route::post('bargain/help/count', 'v1.activity.StoreBargainController/help_count')->name('bargainHelpCount')->option(['real_name' => 'Thống kê trợ giúp thương lượng']);//Mặc cả: Mặc cả tổng số người, số lượng còn lại, thanh tiến trình và mức giá đã giảm.
         Route::post('bargain/help/list', 'v1.activity.StoreBargainController/help_list')->name('bargainHelpList')->option(['real_name' => 'Thương lượng Trợ giúp thương lượng']);//Thương lượng Trợ giúp thương lượng
         Route::post('bargain/poster', 'v1.activity.StoreBargainController/poster')->name('bargainPoster')->option(['real_name' => 'áp phích mặc cả']);//áp phích mặc cả
-        Route::get('bargain/user/list', 'v1.activity.StoreBargainController/user_list')->name('bargainUserList')->option(['real_name' => 'Lịch sử trả giá']);//Danh sách mặc cả(Đã tham gia)
+        Route::get('bargain/user/list', 'v1.activity.StoreBargainController/user_list')->name('bargainUserList')->option(['real_name' => 'Lịch sử trả giá']);//Lịch sử trả giá(Đã tham gia)
         Route::post('bargain/user/cancel', 'v1.activity.StoreBargainController/user_cancel')->name('bargainUserCancel')->option(['real_name' => 'Giảm giá Hủy bỏ']);//Giảm giá Hủy bỏ
         Route::get('bargain/poster_info/:bargainId', 'v1.activity.StoreBargainController/posterInfo')->name('posterInfo')->option(['real_name' => 'Chi tiết áp phích giảm giá']);//Chi tiết áp phích giảm giá
     })->option(['parent' => 'activity_nologin', 'cate_name' => 'Mặc cả']);
@@ -265,7 +265,7 @@ Route::group(function () {
     Route::group(function () {
         //Loại hóa đơn
         Route::post('spread/people', 'v1.user.UserController/spread_people')->name('spreadPeople')->option(['real_name' => 'Người dùng được đề xuất']);//Người dùng được đề xuất
-        Route::post('spread/order', 'v1.user.UserBillController/spread_order')->name('spreadOrder')->option(['real_name' => 'Đơn hàng Affiliate']);//Đơn hàng khuyến mãi
+        Route::post('spread/order', 'v1.user.UserBillController/spread_order')->name('spreadOrder')->option(['real_name' => 'Đơn hàng Affiliate']);//Đơn hàng Affiliate
         Route::get('spread/commission/:type', 'v1.user.UserBillController/spread_commission')->name('spreadCommission')->option(['real_name' => 'Chi tiết hoa hồng khuyến mãi']);//Chi tiết hoa hồng khuyến mãi
         Route::get('spread/count/:type', 'v1.user.UserBillController/spread_count')->name('spreadCount')->option(['real_name' => 'Hoa hồng khuyến mại']);//Hoa hồng khuyến mãi 3/Rút tiền 4 Tổng cộng
         Route::get('spread/banner', 'v1.user.UserBillController/spread_banner')->name('spreadBanner')->option(['real_name' => 'Khuyến mãi và phân phối tạo áp phích mã QR']);//Khuyến mãi và phân phối tạo áp phích mã QR
@@ -278,7 +278,7 @@ Route::group(function () {
     Route::group(function () {
         //Rút tiền
         Route::get('extract/bank', 'v1.user.UserExtractController/bank')->name('extractBank')->option(['real_name' => 'Ngân hàng rút tiền']);//Ngân hàng rút tiền/số tiền rút tối thiểu
-        Route::post('extract/cash', 'v1.user.UserExtractController/cash')->name('extractCash')->option(['real_name' => 'Yêu cầu rút tiền']);//Đơn xin rút tiền
+        Route::post('extract/cash', 'v1.user.UserExtractController/cash')->name('extractCash')->option(['real_name' => 'Yêu cầu rút tiền']);//Yêu cầu rút tiền
     })->option(['mark' => 'extract', 'mark_name' => 'Rút tiền mặt']);
 
     Route::group(function () {
@@ -291,12 +291,12 @@ Route::group(function () {
 
     Route::group(function () {
         //Hạng mục cấp thành viên
-        Route::get('user/level/detection', 'v1.user.UserLevelController/detection')->name('userLevelDetection')->option(['real_name' => 'Kiểm tra xem người dùng có thể trở thành thành viên hay không']);//Kiểm tra xem người dùng có thể trở thành thành viên hay không
+        Route::get('user/level/detection', 'v1.user.UserLevelController/detection')->name('userLevelDetection')->option(['real_name' => 'Kiểm tra xem Khách hàng có thể trở thành thành viên hay không']);//Kiểm tra xem Khách hàng có thể trở thành thành viên hay không
         Route::get('user/level/grade', 'v1.user.UserLevelController/grade')->name('userLevelGrade')->option(['real_name' => 'Danh sách cấp thành viên']);//Danh sách cấp thành viên
         Route::get('user/level/task/:id', 'v1.user.UserLevelController/task')->name('userLevelTask')->option(['real_name' => 'Nhận nhiệm vụ cấp độ']);//Nhận nhiệm vụ cấp độ
         Route::get('user/level/info', 'v1.user.UserLevelController/userLevelInfo')->name('levelInfo')->option(['real_name' => 'Nhận nhiệm vụ cấp độ']);//Nhận nhiệm vụ cấp độ
         Route::get('user/level/expList', 'v1.user.UserLevelController/expList')->name('expList')->option(['real_name' => 'Nhận nhiệm vụ cấp độ']);//Nhận nhiệm vụ cấp độ
-        Route::get('user/record', 'v1.user.StoreService/recordList')->name('recordList')->option(['real_name' => 'Lấy danh sách tin nhắn của người dùng và bộ phận chăm sóc khách hàng']);//Lấy danh sách tin nhắn của người dùng và bộ phận chăm sóc khách hàng
+        Route::get('user/record', 'v1.user.StoreService/recordList')->name('recordList')->option(['real_name' => 'Lấy danh sách tin nhắn của Khách hàng và bộ phận chăm sóc khách hàng']);//Lấy danh sách tin nhắn của Khách hàng và bộ phận chăm sóc khách hàng
     })->option(['mark' => 'user_level', 'mark_name' => 'Cấp độ thành viên']);
 
     Route::group(function () {
@@ -323,19 +323,18 @@ Route::group(function () {
     })->option(['mark' => 'message_system', 'mark_name' => 'Thông báo trang web']);
 
     Route::group(function () {
-        //Đặt hàng tại trung tâm mua sắm Points
+        //Đơn hàng tại trung tâm mua sắm Points
         Route::post('store_integral/order/confirm', 'v1.order.StoreIntegralOrderController/confirm')->name('storeIntegralOrderConfirm')->option(['real_name' => 'Xác nhận đơn hàng']); //Xác nhận đơn hàng
         Route::post('store_integral/order/create', 'v1.order.StoreIntegralOrderController/create')->name('storeIntegralOrderCreate')->option(['real_name' => 'Tạo đơn hàng']); //Tạo đơn hàng
-        Route::get('store_integral/order/detail/:uni', 'v1.order.StoreIntegralOrderController/detail')->name('storeIntegralOrderDetail')->option(['real_name' => 'Chi tiết đơn hàng']); //Chi tiết đặt hàng
+        Route::get('store_integral/order/detail/:uni', 'v1.order.StoreIntegralOrderController/detail')->name('storeIntegralOrderDetail')->option(['real_name' => 'Chi tiết đơn hàng']); //Chi tiết đơn hàng
         Route::get('store_integral/order/list', 'v1.order.StoreIntegralOrderController/lst')->name('storeIntegralOrderList')->option(['real_name' => 'danh sách đặt hàng']); //danh sách đặt hàng
         Route::post('store_integral/order/take', 'v1.order.StoreIntegralOrderController/take')->name('storeIntegralOrderTake')->option(['real_name' => 'Biên nhận đơn hàng']); //Biên nhận đơn hàng
-        Route::get('store_integral/order/express/:uni', 'v1.order.StoreIntegralOrderController/express')->name('storeIntegralOrderExpress')->option(['real_name' => 'Đặt hàng Xem hậu cần']); //Đặt hàng Xem hậu cần
+        Route::get('store_integral/order/express/:uni', 'v1.order.StoreIntegralOrderController/express')->name('storeIntegralOrderExpress')->option(['real_name' => 'Đơn hàng Xem hậu cần']); //Đơn hàng Xem hậu cần
         Route::post('store_integral/order/del', 'v1.order.StoreIntegralOrderController/del')->name('storeIntegralOrderDel')->option(['real_name' => 'Xóa đơn hàng']); //Xóa đơn hàng
     })->option(['mark' => 'order_integral', 'mark_name' => 'Đơn hàng điểm']);;
 
     Route::group(function () {
-        /** Liên quan đến hoàn tiền */
-        Route::get('order/refund/cart_info/:id', 'v1.order.StoreOrderController/refundCartInfo')->name('refundCartInfo')->option(['real_name' => 'Đặt hàng danh sách sản phẩm trên trang trung gian hoàn tiền']);//Đặt hàng danh sách sản phẩm trên trang trung gian hoàn tiền
+        /** Liên quan đến hoàn tiền */        Route::get('order/refund/cart_info/:id', 'v1.order.StoreOrderController/refundCartInfo')->name('refundCartInfo')->option(['real_name' => 'Đơn hàng danh sách sản phẩm trên trang trung gian hoàn tiền']);//Đơn hàng danh sách sản phẩm trên trang trung gian hoàn tiền
         Route::post('order/refund/cart_info', 'v1.order.StoreOrderController/refundCartInfoList')->name('StoreOrderRefundCartInfoList')->option(['real_name' => 'Nhận danh sách sản phẩm được hoàn tiền']);//Nhận danh sách sản phẩm được hoàn tiền
         Route::post('order/refund/apply/:id', 'v1.order.StoreOrderController/applyRefund')->name('StoreOrderApplyRefund')->option(['real_name' => 'Yêu cầu hoàn lại tiền cho một đơn đặt hàng']);//Yêu cầu hoàn lại tiền cho một đơn đặt hàng
         Route::get('order/refund/list', 'v1.order.StoreOrderRefundController/refundList')->name('refundList')->option(['real_name' => 'Danh sách đơn hàng hoàn tiền']);//Danh sách đơn hàng hoàn tiền
@@ -346,8 +345,7 @@ Route::group(function () {
     })->option(['mark' => 'refund', 'mark_name' => 'Hậu mãi']);
 
     Route::group(function () {
-        /** Đại lý liên quan */
-        Route::get('agent/apply/info', 'v1.user.DivisionController/applyInfo')->name('Chi tiết ứng dụng')->option(['real_name' => 'Chi tiết ứng dụng']);//Chi tiết ứng dụng
+        /** Đại lý liên quan */        Route::get('agent/apply/info', 'v1.user.DivisionController/applyInfo')->name('Chi tiết Ứng dụng')->option(['real_name' => 'Chi tiết Ứng dụng']);//Chi tiết Ứng dụng
         Route::post('agent/apply/:id', 'v1.user.DivisionController/applyAgent')->name('applyAgent')->option(['real_name' => 'Đăng ký làm đại lý']);//Đăng ký làm đại lý
         Route::get('agent/get_agent_agreement', 'v1.user.DivisionController/getAgentAgreement')->name('getAgentAgreement')->option(['real_name' => 'Nội quy đại lý']);//Nội quy đại lý
         Route::get('agent/get_staff_list', 'v1.user.DivisionController/getStaffList')->name('getStaffList')->option(['real_name' => 'danh sách nhân viên']);//danh sách nhân viên
@@ -357,19 +355,15 @@ Route::group(function () {
     })->option(['mark' => 'agent', 'mark_name' => 'đại lý']);
 
     Route::group(function () {
-        /** Ủy ban liên quan */
-        Route::get('commission', 'v1.user.UserBrokerageController/commission')->name('commission')->option(['real_name' => 'dữ liệu khuyến mãi']);//Dữ liệu khuyến mãi Hoa hồng của ngày hôm qua Số tiền rút tích lũy Hoa hồng hiện tại
+        /** Ủy ban liên quan */        Route::get('commission', 'v1.user.UserBrokerageController/commission')->name('commission')->option(['real_name' => 'dữ liệu khuyến mãi']);//Dữ liệu khuyến mãi Hoa hồng của ngày hôm qua Số tiền rút tích lũy Hoa hồng hiện tại
         Route::get('brokerage_rank', 'v1.user.UserBrokerageController/brokerageRank')->name('brokerageRank')->option(['real_name' => 'Xếp hạng hoa hồng']);//Xếp hạng hoa hồng
-        /** Người dùng đăng xuất */
-        Route::get('user_cancel', 'v1.user.UserController/SetUserCancel')->name('SetUserCancel')->option(['real_name' => 'Đăng xuất người dùng']);//Đăng xuất người dùng
-        /** Lịch sử duyệt web của người dùng */
-        Route::get('user/visit_list', 'v1.user.UserController/visitList')->name('visitList')->option(['real_name' => 'Danh sách duyệt sản phẩm']);//Danh sách duyệt sản phẩm
+        /** Người dùng đăng xuất */        Route::get('user_cancel', 'v1.user.UserController/SetUserCancel')->name('SetUserCancel')->option(['real_name' => 'Đăng xuất Khách hàng']);//Đăng xuất Khách hàng
+        /** Lịch sử duyệt web của Khách hàng */        Route::get('user/visit_list', 'v1.user.UserController/visitList')->name('visitList')->option(['real_name' => 'Danh sách duyệt sản phẩm']);//Danh sách duyệt sản phẩm
         Route::delete('user/visit', 'v1.user.UserController/visitDelete')->name('visitDelete')->option(['real_name' => 'Xóa lịch sử duyệt sản phẩm']);//Xóa lịch sử duyệt sản phẩm
-    })->option(['mark' => 'user', 'mark_name' => 'người dùng']);
+    })->option(['mark' => 'user', 'mark_name' => 'Khách hàng']);
 
     Route::group(function () {
-        /** Ứng dụng phân phối */
-        Route::get('user/spread/apply/info', 'v1.user.SpreadApplyController/applyInfo')->name('Thông tin ứng dụng');//Thông tin ứng dụng
+        /** Đăng ký làm Affiliate */        Route::get('user/spread/apply/info', 'v1.user.SpreadApplyController/applyInfo')->name('Thông tin Ứng dụng');//Thông tin Ứng dụng
         Route::post('user/spread/apply/:id', 'v1.user.SpreadApplyController/applyPromoter')->name('Đăng ký làm nhà phân phối');//Đăng ký làm nhà phân phối
     })->option(['mark' => 'spread', 'mark_name' => 'Đăng ký làm Affiliate']);
 
@@ -402,16 +396,16 @@ Route::group(function () {
         Route::get('category', 'v1.store.CategoryController/category')->name('category')->option(['real_name' => 'Danh mục sản phẩm']);
         Route::get('category_version', 'v1.store.CategoryController/getCategoryVersion')->name('getCategoryVersion')->option(['real_name' => 'Phiên bản danh mục sản phẩm']);//Phiên bản danh mục sản phẩm
 
-        //Danh mục hàng hóa
+        //Danh mục sản phẩm
         Route::post('image_base64', 'v1.PublicController/get_image_base64')->name('getImageBase64')->option(['real_name' => 'Nhận hình ảnhbase64']);// Nhận hình ảnhbase64
         Route::get('product/detail/:id/[:type]', 'v1.store.StoreProductController/detail')->name('detail')->option(['real_name' => 'Chi tiết sản phẩm']);//Chi tiết sản phẩm
         Route::get('groom/list/:type', 'v1.store.StoreProductController/groom_list')->name('groomList')->option(['real_name' => 'Nhận hình ảnh băng chuyền và sản phẩm gợi ý các loại sản phẩm khác nhau trên trang chủ']);//Nhận hình ảnh băng chuyền và sản phẩm gợi ý các loại sản phẩm khác nhau trên trang chủ
         Route::get('products', 'v1.store.StoreProductController/lst')->name('products')->option(['real_name' => 'Danh sách sản phẩm']);//Danh sách sản phẩm
         Route::get('product/hot', 'v1.store.StoreProductController/product_hot')->name('productHot')->option(['real_name' => 'Được đề xuất cho bạn']);//Được đề xuất cho bạn
-        Route::get('reply/list/:id', 'v1.store.StoreProductController/reply_list')->name('replyList')->option(['real_name' => 'Danh sách Đánh giá sản phẩm']);//Danh sách đánh giá sản phẩm
-        Route::get('reply/config/:id', 'v1.store.StoreProductController/reply_config')->name('replyConfig')->option(['real_name' => 'Số lượng Đánh giá sản phẩm và xếp hạng tích cực']);//Số lượng đánh giá sản phẩm và xếp hạng tích cực
+        Route::get('reply/list/:id', 'v1.store.StoreProductController/reply_list')->name('replyList')->option(['real_name' => 'Danh sách Đánh giá sản phẩm']);//Danh sách Đánh giá sản phẩm
+        Route::get('reply/config/:id', 'v1.store.StoreProductController/reply_config')->name('replyConfig')->option(['real_name' => 'Số lượng Đánh giá sản phẩm và xếp hạng tích cực']);//Số lượng Đánh giá sản phẩm và xếp hạng tích cực
         Route::get('advance/list', 'v1.store.StoreProductController/advanceList')->name('advanceList')->option(['real_name' => 'Danh sách sản phẩm trước khi bán']);//Danh sách sản phẩm trước khi bán
-        Route::get('product/code/:id', 'v1.store.StoreProductController/code')->name('productCode')->option(['real_name' => 'Mã QR chia sẻ sản phẩm']);//Quảng cáo mã QR chia sẻ sản phẩm
+        Route::get('product/code/:id', 'v1.store.StoreProductController/code')->name('productCode')->option(['real_name' => 'Mã QR chia sẻ sản phẩm']);//Mã QR giới thiệu chia sẻ sản phẩm
         Route::get('product/real_price/:id/:unique', 'v1.store.StoreProductController/realPrice')->name('realPrice')->option(['real_name' => 'Giá sản phẩm']);//Giá sản phẩm
     })->option(['mark' => 'product', 'mark_name' => 'sản phẩm']);
 
@@ -451,7 +445,7 @@ Route::group(function () {
         //Bán trước sự kiện
         Route::get('advance/detail/:id', 'v1.activity.StoreAdvanceController/detail')->name('advanceDetail')->option(['real_name' => 'Chi tiết sản phẩm trước khi bán']);//Chi tiết sản phẩm trước khi bán
 
-        //Lớp người dùng
+        //Lớp Khách hàng
         Route::get('user/activity', 'v1.user.UserController/activity')->name('userActivity')->option(['real_name' => 'trạng thái hoạt động']);//trạng thái hoạt động
 
     })->option(['mark' => 'activity_nologin', 'mark_name' => 'Hoạt động']);
@@ -460,7 +454,7 @@ Route::group(function () {
         //WeChat
         Route::get('wechat/config', 'v1.wechat.WechatController/config')->name('wechatConfig')->option(['real_name' => 'Cấu hình sdk WeChat']);//Cấu hình sdk WeChat
         Route::get('wechat/auth', 'v1.wechat.WechatController/auth')->name('wechatAuth')->option(['real_name' => 'Ủy quyền WeChat']);//Ủy quyền WeChat
-        Route::post('wechat/app_auth', 'v1.wechat.WechatController/appAuth')->name('appAuth')->option(['real_name' => 'Ủy quyền ứng dụng WeChat']);//Ủy quyền ứng dụng WeChat
+        Route::post('wechat/app_auth', 'v1.wechat.WechatController/appAuth')->name('appAuth')->option(['real_name' => 'Ủy quyền Ứng dụng WeChat']);//Ủy quyền Ứng dụng WeChat
 
     })->option(['mark' => 'wechat', 'mark_name' => 'WeChat']);
 
@@ -480,7 +474,7 @@ Route::group(function () {
         //Chia sẻ cấu hình
         Route::get('share', 'v1.PublicController/share')->name('share')->option(['real_name' => 'Chia sẻ cấu hình']);//Chia sẻ cấu hình
 
-        //Phiếu giảm giá
+        //Mã giảm giá
         Route::get('coupons', 'v1.store.StoreCouponsController/lst')->name('couponsList')->option(['real_name' => 'Danh sách phiếu giảm giá có sẵn']); //Danh sách phiếu giảm giá có sẵn
 
         // Thông báo mua hàng qua SMS không đồng bộ
@@ -498,8 +492,8 @@ Route::group(function () {
         Route::get('pink', 'v1.PublicController/pink')->name('pinkData')->option(['real_name' => 'Dữ liệu nhóm nhóm']);
         //Nhận điều hướng phía dưới
         Route::get('navigation/[:template_name]', 'v1.PublicController/getNavigation')->name('getNavigation')->option(['real_name' => 'Nhận điều hướng phía dưới']);
-        //quyền truy cập của người dùng
-        Route::post('user/set_visit', 'v1.user.UserController/set_visit')->name('setVisit')->option(['real_name' => 'Thêm bản ghi truy cập của người dùng']);// Thêm bản ghi truy cập của người dùng
+        //quyền truy cập của Khách hàng
+        Route::post('user/set_visit', 'v1.user.UserController/set_visit')->name('setVisit')->option(['real_name' => 'Thêm bản ghi truy cập của Khách hàng']);// Thêm bản ghi truy cập của Khách hàng
         // Sao chép giao diện mật khẩu
         Route::get('copy_words', 'v1.PublicController/copy_words')->name('copyWords')->option(['real_name' => 'Sao chép giao diện mật khẩu']);// Sao chép giao diện mật khẩu
         //Lấy cấu hình trang web
@@ -515,16 +509,16 @@ Route::group(function () {
     })->option(['mark' => 'integral_nologin', 'mark_name' => 'Trung tâm mua sắm điểm(trái phép)']);
 
     Route::group(function () {
-        //Tải phiên bản mới nhất của ứng dụng
-        Route::get('get_new_app/:platform', 'v1.PublicController/getNewAppVersion')->name('getNewAppVersion')->option(['real_name' => 'Tải phiên bản mới nhất của ứng dụng']);//Tải phiên bản mới nhất của ứng dụng
-        // Lấy loại dịch vụ khách hàng
-        Route::get('get_customer_type', 'v1.PublicController/getCustomerType')->name('getCustomerType')->option(['real_name' => 'Nhận loại dịch vụ khách hàng']);//Nhận loại dịch vụ khách hàng
+        //Tải phiên bản mới nhất của Ứng dụng
+        Route::get('get_new_app/:platform', 'v1.PublicController/getNewAppVersion')->name('getNewAppVersion')->option(['real_name' => 'Tải phiên bản mới nhất của Ứng dụng']);//Tải phiên bản mới nhất của Ứng dụng
+        // Lấy loại CSKH
+        Route::get('get_customer_type', 'v1.PublicController/getCustomerType')->name('getCustomerType')->option(['real_name' => 'Nhận loại CSKH']);//Nhận loại CSKH
         // Cài đặt liên kết dài
         Route::get('get_workerman_url', 'v1.PublicController/getWorkerManUrl')->name('getWorkerManUrl')->option(['real_name' => 'Cài đặt liên kết dài']);
         //Quảng cáo màn hình mở trang chủ
         Route::get('get_open_adv', 'v1.PublicController/getOpenAdv')->name('getOpenAdv')->option(['real_name' => 'Quảng cáo màn hình mở trang chủ']);
-        //Nhận thỏa thuận người dùng
-        Route::get('user_agreement', 'v1.PublicController/getUserAgreement')->name('getUserAgreement')->option(['real_name' => 'Nhận thỏa thuận người dùng']);
+        //Nhận thỏa thuận Khách hàng
+        Route::get('user_agreement', 'v1.PublicController/getUserAgreement')->name('getUserAgreement')->option(['real_name' => 'Nhận thỏa thuận Khách hàng']);
         //Nhận thỏa thuận
         Route::get('get_agreement/:type', 'v1.PublicController/getAgreement')->name('getAgreement')->option(['real_name' => 'Nhận thỏa thuận']);
 
@@ -535,15 +529,14 @@ Route::group(function () {
         Route::get('get_lang_type_list', 'v1.PublicController/getLangTypeList')->name('getLangTypeList')->option(['real_name' => 'Nhận danh sách các loại đa ngôn ngữ']);
         //Nhận ngôn ngữ hiện tạijson
         Route::get('get_lang_json', 'v1.PublicController/getLangJson')->name('getLangJson')->option(['real_name' => 'Nhận ngôn ngữ hiện tạijson']);
-        //Nhận loại ngôn ngữ mặc định của cài đặt nền hiện tại
-        Route::get('get_default_lang_type', 'v1.PublicController/getDefaultLangType')->name('getLangJson')->option(['real_name' => 'Nhận loại ngôn ngữ mặc định của cài đặt nền hiện tại']);
-        //Nhận loại ngôn ngữ mặc định của cài đặt nền hiện tại
-        Route::get('lang_version', 'v1.PublicController/getLangVersion')->name('getLangVersion')->option(['real_name' => 'Nhận loại ngôn ngữ mặc định của cài đặt nền hiện tại']);
+        //Nhận loại ngôn ngữ mặc định của Cài đặt nền hiện tại
+        Route::get('get_default_lang_type', 'v1.PublicController/getDefaultLangType')->name('getLangJson')->option(['real_name' => 'Nhận loại ngôn ngữ mặc định của Cài đặt nền hiện tại']);
+        //Nhận loại ngôn ngữ mặc định của Cài đặt nền hiện tại
+        Route::get('lang_version', 'v1.PublicController/getLangVersion')->name('getLangVersion')->option(['real_name' => 'Nhận loại ngôn ngữ mặc định của Cài đặt nền hiện tại']);
     })->option(['mark' => 'lang', 'mark_name' => 'đa ngôn ngữ']);
 
     Route::group(function () {
-        /** Giao diện nhiệm vụ theo lịch trình */
-        //Giao diện gọi tác vụ theo lịch trình
+        /** Giao diện nhiệm vụ theo lịch trình */        //Giao diện gọi tác vụ theo lịch trình
         Route::get('crontab/run', 'v1.CrontabController/crontabRun')->name('crontabRun')->option(['real_name' => 'Giao diện gọi nhiệm vụ theo lịch trình']);
         //Phát hiện giao diện tác vụ theo lịch trình
         Route::get('crontab/check', 'v1.CrontabController/crontabCheck')->name('crontabCheck')->option(['real_name' => 'Phát hiện giao diện tác vụ theo lịch trình']);

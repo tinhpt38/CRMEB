@@ -19,8 +19,7 @@ class MemberCardDao extends BaseDao
 {
     /** Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         // TODO: Implement setModel() method.
         return MemberCard::class;
@@ -42,8 +41,7 @@ class MemberCardDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOneByWhere(array $where)
+     */    public function getOneByWhere(array $where)
     {
         return $this->getModel()->where($where)->find();
     }

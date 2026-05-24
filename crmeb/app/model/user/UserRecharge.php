@@ -18,22 +18,19 @@ use think\model;
 /**
  * Class UserRecharge
  * @package app\model\user
- */
-class UserRecharge extends BaseModel
+ */class UserRecharge extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_recharge';
+     */    protected $name = 'user_recharge';
 
     protected $insert = ['add_time'];
 
@@ -45,8 +42,7 @@ class UserRecharge extends BaseModel
     /**
      * sự kết hợpuser
      * @return model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->bind([
             'nickname' => 'nickname',
@@ -55,11 +51,10 @@ class UserRecharge extends BaseModel
     }
 
     /**
-     * người dùnguid
+     * Khách hànguid
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('uid', $value);
@@ -71,8 +66,7 @@ class UserRecharge extends BaseModel
      * Số đơn hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchOrderIdAttr($query, $value)
+     */    public function searchOrderIdAttr($query, $value)
     {
         $query->where('order_id', $value);
     }
@@ -81,8 +75,7 @@ class UserRecharge extends BaseModel
      * Loại nạp tiền
      * @param Model $query
      * @param $value
-     */
-    public function searchRechargeTypeAttr($query, $value)
+     */    public function searchRechargeTypeAttr($query, $value)
     {
         $query->where('recharge_type', $value);
     }
@@ -91,8 +84,7 @@ class UserRecharge extends BaseModel
      * Không bằng loại nạp tiền
      * @param Model $query
      * @param $value
-     */
-    public function searchNoRechargeTypeAttr($query, $value)
+     */    public function searchNoRechargeTypeAttr($query, $value)
     {
         $query->where('recharge_type', '<>', $value);
     }
@@ -100,8 +92,7 @@ class UserRecharge extends BaseModel
     /**Số tiền hoàn lại
      * @param $query
      * @param $value
-     */
-    public function searchRefundPriceAttr($query, $value)
+     */    public function searchRefundPriceAttr($query, $value)
     {
         $query->where('refund_price', $value);
     }
@@ -110,8 +101,7 @@ class UserRecharge extends BaseModel
      * Có nên trả tiền không
      * @param Model $query
      * @param $value
-     */
-    public function searchPaidAttr($query, $value)
+     */    public function searchPaidAttr($query, $value)
     {
         $query->where('paid', $value);
     }
@@ -120,8 +110,7 @@ class UserRecharge extends BaseModel
      * tìm kiếm mờ
      * @param Model $query
      * @param $value
-     */
-    public function searchLikeAttr($query, $value)
+     */    public function searchLikeAttr($query, $value)
     {
         $query->where(function ($query) use ($value) {
             $query->whereLike('uid|order_id', "%" . $value . "%")->whereOr('uid', 'in', function ($query) use ($value) {

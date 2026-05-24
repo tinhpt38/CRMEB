@@ -19,15 +19,13 @@ use app\model\activity\lottery\LuckLottery;
  *
  * Class LuckLotteryDao
  * @package app\dao\activity\lottery
- */
-class LuckLotteryDao extends BaseDao
+ */class LuckLotteryDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return LuckLottery::class;
     }
@@ -41,8 +39,7 @@ class LuckLotteryDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/20
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->when(isset($where['id']) && $where['id'], function ($query) use ($where) {
             $query->where('id', $where['id']);
@@ -81,8 +78,7 @@ class LuckLotteryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', string $order = 'id desc', int $page = 0, int $limit = 0)
+     */    public function getList(array $where, string $field = '*', string $order = 'id desc', int $page = 0, int $limit = 0)
     {
         $model = $this->getModel()->when($where['is_del'] !== '', function ($query) use ($where) {
             $query->where('is_del', $where['is_del']);
@@ -128,8 +124,7 @@ class LuckLotteryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLottery(int $id, string $field = '*', array $with = ['prize'], bool $is_doing = false)
+     */    public function getLottery(int $id, string $field = '*', array $with = ['prize'], bool $is_doing = false)
     {
         $where = ['id' => $id];
         $where['is_del'] = 0;
@@ -149,8 +144,7 @@ class LuckLotteryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFactorLottery(int $factor = 1, string $field = '*', array $with = ['prize'], bool $is_doing = false)
+     */    public function getFactorLottery(int $factor = 1, string $field = '*', array $with = ['prize'], bool $is_doing = false)
     {
         $where = ['factor' => $factor, 'is_del' => 0, 'is_use' => 1];
         if ($is_doing) $where['start'] = 1;

@@ -22,21 +22,18 @@ class StoreOrderRefund extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_order_refund';
+     */    protected $name = 'store_order_refund';
 
     /**
      * Công cụ lấy thông tin giỏ hàng
      * @param $value
      * @return array|mixed
-     */
-    public function getCartInfoAttr($value)
+     */    public function getCartInfoAttr($value)
     {
         return is_string($value) ? json_decode($value, true) ?? [] : [];
     }
@@ -45,8 +42,7 @@ class StoreOrderRefund extends BaseModel
      * Trình lấy hình ảnh
      * @param $value
      * @return array|mixed
-     */
-    public function getRefundImgAttr($value)
+     */    public function getRefundImgAttr($value)
     {
         return is_string($value) ? json_decode($value, true) ?? [] : [];
     }
@@ -54,17 +50,15 @@ class StoreOrderRefund extends BaseModel
     /**
      * Bảng thứ tự liên quan một-một
      * @return StoreOrderRefund|\think\model\relation\HasOne
-     */
-    public function order()
+     */    public function order()
     {
         return $this->hasOne(StoreOrder::class, 'id', 'store_order_id');
     }
 
     /**
-     * Liên kết một-một của các bảng người dùng
+     * Liên kết một-một của các bảng Khách hàng
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'avatar', 'nickname', 'phone'])->bind([
             'avatar' => 'avatar',
@@ -77,8 +71,7 @@ class StoreOrderRefund extends BaseModel
      * Trình tìm kiếm ID đơn hàng
      * @param $query
      * @param $value
-     */
-    public function searchStoreOrderIdAttr($query, $value)
+     */    public function searchStoreOrderIdAttr($query, $value)
     {
         if ($value !== '') {
             if (is_array($value)) {
@@ -92,8 +85,7 @@ class StoreOrderRefund extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) {
             if (is_array($value)) {
@@ -108,8 +100,7 @@ class StoreOrderRefund extends BaseModel
      * is_cancel
      * @param Model $query
      * @param $value
-     */
-    public function searchIsCancelAttr($query, $value)
+     */    public function searchIsCancelAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) $query->where('is_cancel', $value);
     }
@@ -118,8 +109,7 @@ class StoreOrderRefund extends BaseModel
      * is_delNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) $query->where('is_del', $value);
     }
@@ -128,8 +118,7 @@ class StoreOrderRefund extends BaseModel
      * is_system_delNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchIsSystemDelAttr($query, $value)
+     */    public function searchIsSystemDelAttr($query, $value)
     {
         if ($value !== '' && !is_null($value)) $query->where('is_system_del', $value);
     }
@@ -138,8 +127,7 @@ class StoreOrderRefund extends BaseModel
      * refund_type
      * @param $query
      * @param $value
-     */
-    public function searchRefundTypeAttr($query, $value)
+     */    public function searchRefundTypeAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('refund_type', $value);
@@ -151,8 +139,7 @@ class StoreOrderRefund extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchRefundStatusAttr($query, $value)
+     */    public function searchRefundStatusAttr($query, $value)
     {
         if ($value == 1) {
             $query->whereIn('refund_type', [1, 2, 4, 5]);
@@ -164,8 +151,7 @@ class StoreOrderRefund extends BaseModel
     /**
      * Bảng thứ tự liên quan một-một
      * @return StoreOrderRefund|\think\model\relation\HasOne
-     */
-    public function orderData()
+     */    public function orderData()
     {
         return $this->hasOne(StoreOrder::class, 'id', 'store_order_id')->field('id, order_id, pay_type, paid, real_name,user_phone, user_address,pay_uid, pay_time')
             ->bind([
@@ -183,8 +169,7 @@ class StoreOrderRefund extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchKeywordsAttr($query, $value)
+     */    public function searchKeywordsAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('order_id|refund_phone', 'like', '%' . $value . '%');

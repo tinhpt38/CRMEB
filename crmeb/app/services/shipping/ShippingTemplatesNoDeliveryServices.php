@@ -21,15 +21,13 @@ use crmeb\exceptions\AdminException;
  * Class ShippingTemplatesNoDeliveryServices
  * @package app\services\shipping
  * @method isNoDelivery($tempId, $cityid) Cho dù không được giao
- */
-class ShippingTemplatesNoDeliveryServices extends BaseServices
+ */class ShippingTemplatesNoDeliveryServices extends BaseServices
 {
     /**
      * Người xây dựng
      * ShippingTemplatesNoDeliveryServices constructor.
      * @param ShippingTemplatesNoDeliveryDao $dao
-     */
-    public function __construct(ShippingTemplatesNoDeliveryDao $dao)
+     */    public function __construct(ShippingTemplatesNoDeliveryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -39,8 +37,7 @@ class ShippingTemplatesNoDeliveryServices extends BaseServices
      * @param array $noDeliveryInfo
      * @param int $tempId
      * @return bool|mixed
-     */
-    public function saveNoDelivery(array $noDeliveryInfo, int $tempId = 0)
+     */    public function saveNoDelivery(array $noDeliveryInfo, int $tempId = 0)
     {
         $res = true;
         if ($tempId) {
@@ -81,8 +78,7 @@ class ShippingTemplatesNoDeliveryServices extends BaseServices
      * Nhận địa chỉ thành phố vận chuyển miễn phí được chỉ định
      * @param int $tempId
      * @return array
-     */
-    public function getNoDeliveryList(int $tempId)
+     */    public function getNoDeliveryList(int $tempId)
     {
         $freeIdList = $this->dao->getShippingGroupArray(['temp_id' => $tempId], 'uniqid', 'uniqid', '');
         $freeData = [];
@@ -101,11 +97,9 @@ class ShippingTemplatesNoDeliveryServices extends BaseServices
      * Nhận các tỉnh không giao hàng
      * @param string $uniqid
      * @return array
-     */
-    public function getNoDeliveryTemp(string $uniqid)
+     */    public function getNoDeliveryTemp(string $uniqid)
     {
-        /** @var ShippingTemplatesNoDeliveryCityServices $service */
-        $service = app()->make(ShippingTemplatesNoDeliveryCityServices::class);
+        /** @var ShippingTemplatesNoDeliveryCityServices $service */        $service = app()->make(ShippingTemplatesNoDeliveryCityServices::class);
         $infoList = $service->getUniqidList(['uniqid' => $uniqid]);
         $childrenData = [];
         foreach ($infoList as $item) {
@@ -123,11 +117,9 @@ class ShippingTemplatesNoDeliveryServices extends BaseServices
      * @param string $uniqid
      * @param int $provinceId
      * @return array
-     */
-    public function getCityTemp(string $uniqid, int $provinceId)
+     */    public function getCityTemp(string $uniqid, int $provinceId)
     {
-        /** @var ShippingTemplatesNoDeliveryCityServices $service */
-        $service = app()->make(ShippingTemplatesNoDeliveryCityServices::class);
+        /** @var ShippingTemplatesNoDeliveryCityServices $service */        $service = app()->make(ShippingTemplatesNoDeliveryCityServices::class);
         $infoList = $service->getUniqidList(['uniqid' => $uniqid, 'province_id' => $provinceId], false);
         $childrenData = [];
         foreach ($infoList as $item) {

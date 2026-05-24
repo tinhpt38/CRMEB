@@ -17,8 +17,7 @@ use think\Model;
 /**
  * Class StoreProductAttrResult
  * @package app\common\model\product
- */
-class StoreProductAttrResult extends BaseModel
+ */class StoreProductAttrResult extends BaseModel
 {
 
     use ModelTrait;
@@ -26,8 +25,7 @@ class StoreProductAttrResult extends BaseModel
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_attr_result';
+     */    protected $name = 'store_product_attr_result';
 
     protected $insert = ['change_time'];
 
@@ -35,8 +33,7 @@ class StoreProductAttrResult extends BaseModel
      * Tự động tăng thời gian thay đổi
      * @param $value
      * @return int
-     */
-    protected static function setChangeTimeAttr($value)
+     */    protected static function setChangeTimeAttr($value)
     {
         return time();
     }
@@ -45,8 +42,7 @@ class StoreProductAttrResult extends BaseModel
      * JSON hóa dữ liệu
      * @param $value
      * @return false|string
-     */
-    protected static function setResultAttr($value)
+     */    protected static function setResultAttr($value)
     {
         return is_array($value) ? json_encode($value) : $value;
     }
@@ -56,8 +52,7 @@ class StoreProductAttrResult extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         $query->where('product_id', $value);
     }
@@ -67,8 +62,7 @@ class StoreProductAttrResult extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }

@@ -19,8 +19,7 @@ use think\Model;
  * Công ty hậu cầnModel
  * Class Express
  * @package app\model\other
- */
-class Express extends BaseModel
+ */class Express extends BaseModel
 {
 
     use ModelTrait;
@@ -28,21 +27,18 @@ class Express extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'express';
+     */    protected $name = 'express';
 
     /**
      * Công ty hậu cần có hiển thị
      * @param Model $query
      * @param $value
-     */
-    public function searchIsShowAttr($query, $value)
+     */    public function searchIsShowAttr($query, $value)
     {
         if ($value !== '') $query->where('is_show', $value);
     }
@@ -51,8 +47,7 @@ class Express extends BaseModel
      * Thông tin công ty logistics có đầy đủ không?
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->where('status', $value);
     }
@@ -61,8 +56,7 @@ class Express extends BaseModel
      * keyword Người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value) {
             $query->whereLike('name|code', '%' . $value . '%');

@@ -23,14 +23,12 @@ class User extends AuthController
 {
     /**
      * @var UserServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * Validate phone number by Vietnam format.
      * Accepts 0xxxxxxxxx or +84xxxxxxxxx.
-     */
-    protected function isValidVnPhone(string $phone): bool
+     */    protected function isValidVnPhone(string $phone): bool
     {
         return PhoneValidate::isVnMobile($phone);
     }
@@ -39,18 +37,16 @@ class User extends AuthController
      * user constructor.
      * @param App $app
      * @param UserServices $services
-     */
-    public function __construct(App $app, UserServices $services)
+     */    public function __construct(App $app, UserServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Danh sách người dùng
+     * Danh sách Khách hàng
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['page', 1],
@@ -87,35 +83,32 @@ class User extends AuthController
     }
 
     /**
-     * Thêm biểu mẫu người dùng
+     * Thêm biểu mẫu Khách hàng
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->saveForm());
     }
 
     /**
-     * Thêm thông tin khi chỉnh sửa thông tin người dùng
+     * Thêm thông tin khi chỉnh sửa thông tin Khách hàng
      * @param $uid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function userSaveInfo($uid = 0)
+     */    public function userSaveInfo($uid = 0)
     {
         $data = $this->services->getUserSaveInfo($uid);
         return app('json')->success($data);
     }
 
     /**
-     * Lưu người dùng mới
+     * Lưu Khách hàng mới
      * @return mixed
      * @throws \think\Exception
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['real_name', ''],
@@ -208,14 +201,13 @@ class User extends AuthController
     }
 
     /**
-     * Nhận chi tiết tài khoản người dùng
+     * Nhận chi tiết tài khoản Khách hàng
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function read($id)
+     */    public function read($id)
     {
         if (is_string($id)) {
             $id = (int)$id;
@@ -227,8 +219,7 @@ class User extends AuthController
      * Mẫu cấp độ thành viên miễn phí
      * @param $id
      * @return mixed
-     */
-    public function give_level($id)
+     */    public function give_level($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->giveLevel((int)$id));
@@ -241,8 +232,7 @@ class User extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function save_give_level($id)
+     */    public function save_give_level($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         list($level_id) = $this->request->postMore([
@@ -256,8 +246,7 @@ class User extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function give_level_time($id)
+     */    public function give_level_time($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->giveLevelTime((int)$id));
@@ -270,8 +259,7 @@ class User extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function save_give_level_time($id)
+     */    public function save_give_level_time($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         list($days) = $this->request->postMore([
@@ -284,8 +272,7 @@ class User extends AuthController
      * Xóa cấp độ thành viên
      * @param $id
      * @return mixed
-     */
-    public function del_level($id)
+     */    public function del_level($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->cleanUpLevel((int)$id) ? 'Xóa thành công' : 'Xóa không thành công');
@@ -294,8 +281,7 @@ class User extends AuthController
     /**
      * Thiết lập các nhóm thành viên
      * @return mixed
-     */
-    public function set_group()
+     */    public function set_group()
     {
         list($uids) = $this->request->postMore([
             ['uids', []],
@@ -307,8 +293,7 @@ class User extends AuthController
     /**
      * Lưu nhóm thành viên
      * @return mixed
-     */
-    public function save_set_group()
+     */    public function save_set_group()
     {
         list($group_id, $uids) = $this->request->postMore([
             ['group_id', 0],
@@ -321,10 +306,9 @@ class User extends AuthController
     }
 
     /**
-     * Đặt nhãn người dùng
+     * Đặt nhãn Khách hàng
      * @return mixed
-     */
-    public function set_label()
+     */    public function set_label()
     {
         list($uids) = $this->request->postMore([
             ['uids', []],
@@ -335,10 +319,9 @@ class User extends AuthController
     }
 
     /**
-     * Lưu nhãn người dùng
+     * Lưu nhãn Khách hàng
      * @return mixed
-     */
-    public function save_set_label()
+     */    public function save_set_label()
     {
         list($labels, $uids, $label_type) = $this->request->postMore([
             ['label_id', []],
@@ -356,8 +339,7 @@ class User extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit_other($id, $type)
+     */    public function edit_other($id, $type)
     {
         if (!$id) return app('json')->fail('Dữ liệu không tồn tại');
         return app('json')->success($this->services->editOther((int)$id, $type));
@@ -370,8 +352,7 @@ class User extends AuthController
      * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function update_other($id)
+     */    public function update_other($id)
     {
         $data = $this->request->postMore([
             ['money_status', 0],
@@ -393,22 +374,20 @@ class User extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->edit($id));
     }
 
     /**
-     * Sửa đổi người dùng
+     * Sửa đổi Khách hàng
      * @param $id
      * @return mixed
      * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['money_status', 0],
@@ -480,11 +459,10 @@ class User extends AuthController
     }
 
     /**
-     * Nhận thông tin người dùng cá nhân
+     * Nhận thông tin Khách hàng cá nhân
      * @param $id
      * @return mixed
-     */
-    public function oneUserInfo($id)
+     */    public function oneUserInfo($id)
     {
         $data = $this->request->getMore([
             ['type', ''],
@@ -495,10 +473,9 @@ class User extends AuthController
     }
 
     /**
-     * Đồng bộ hóa người dùng người hâm mộ WeChat
+     * Đồng bộ hóa Khách hàng người hâm mộ WeChat
      * @return mixed
-     */
-    public function syncWechatUsers()
+     */    public function syncWechatUsers()
     {
         $this->services->syncWechatUsers();
         return app('json')->success('Đã tham gia hàng đợi tin nhắn thành công');
@@ -510,8 +487,7 @@ class User extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/9/21
-     */
-    public function getNewGift()
+     */    public function getNewGift()
     {
         $data = [
             'reward_money' => intval(sys_config('reward_money')),
@@ -527,8 +503,7 @@ class User extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/9/21
-     */
-    public function saveNewGift()
+     */    public function saveNewGift()
     {
         $data = $this->request->postMore([
             ['reward_money', 0],

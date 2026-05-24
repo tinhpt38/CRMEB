@@ -23,13 +23,11 @@ use crmeb\services\CacheService;
  *
  * Class LuckPrizeServices
  * @package app\services\activity\lottery
- */
-class LuckPrizeServices extends BaseServices
+ */class LuckPrizeServices extends BaseServices
 {
     /**
-     * @var array 1：Không thắng 2: Điểm3:Số dư 4: phong bì màu đỏ5:Phiếu giảm giá 6: Sản phẩm trang web 7: Kinh nghiệm cấp độ 8: Cấp độ người dùng 9: Số ngày svip
-     */
-    public $prize_type = [
+     * @var array 1：Không thắng 2: Điểm3:Số dư 4: phong bì màu đỏ5:Mã giảm giá 6: Sản phẩm trang web 7: Kinh nghiệm cấp độ 8: Hạng khách hàng 9: Số ngày svip
+     */    public $prize_type = [
         '1' => 'Không thắng',
         '2' => 'điểm thưởng',
         '3' => 'Số dư',
@@ -44,8 +42,7 @@ class LuckPrizeServices extends BaseServices
     /**
      * Trường dữ liệu giải thưởng
      * @var array
-     */
-    public $prize = [
+     */    public $prize = [
         'id' => 0,
         'type' => 1,
         'lottery_id' => 0,
@@ -68,8 +65,7 @@ class LuckPrizeServices extends BaseServices
     /**
      * LuckPrizeServices constructor.
      * @param LuckPrizeDao $dao
-     */
-    public function __construct(LuckPrizeDao $dao)
+     */    public function __construct(LuckPrizeDao $dao)
     {
         $this->dao = $dao;
     }
@@ -78,8 +74,7 @@ class LuckPrizeServices extends BaseServices
      * Xác minh dữ liệu giải thưởng
      * @param array $data
      * @return array
-     */
-    public function checkPrizeData(array $data)
+     */    public function checkPrizeData(array $data)
     {
         $data = array_merge($this->prize, array_intersect_key($data, $this->prize));
         if (!isset($data['name']) || !$data['name']) {
@@ -119,15 +114,14 @@ class LuckPrizeServices extends BaseServices
     }
 
     /**
-     * Nhận tất cả các giải thưởng cho một cuộc rút thăm trúng thưởng
+     * Nhận Tất cả các giải thưởng cho một cuộc rút thăm trúng thưởng
      * @param int $lottery_id
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLotteryPrizeList(int $lottery_id, string $field = '*')
+     */    public function getLotteryPrizeList(int $lottery_id, string $field = '*')
     {
         return $this->dao->getPrizeList($lottery_id, $field);
     }
@@ -137,8 +131,7 @@ class LuckPrizeServices extends BaseServices
      * Giải thưởng ngẫu nhiên
      * @param array $data
      * @return array|mixed
-     */
-    function getLuckPrize(array $data)
+     */    function getLuckPrize(array $data)
     {
         $totalPercent = array_sum(array_column($data, 'percent')) * 100;
         $prize = [];
@@ -170,8 +163,7 @@ class LuckPrizeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function decPrizeNum(int $id, array $prize = [])
+     */    public function decPrizeNum(int $id, array $prize = [])
     {
         if (!$id) return false;
         if (!$prize) {

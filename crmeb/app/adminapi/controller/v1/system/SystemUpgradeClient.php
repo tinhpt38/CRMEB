@@ -21,8 +21,7 @@ use think\facade\Db;
  * Class SystemUpgradeclient
  * @package app\admin\controller\system
  *
- */
-class SystemUpgradeClient extends AuthController
+ */class SystemUpgradeClient extends AuthController
 {
 
     protected $serverweb = array('version' => '1.0', 'version_code' => 0);//Thông tin về trang web này
@@ -36,8 +35,7 @@ class SystemUpgradeClient extends AuthController
     //Cập nhật đồng bộ thông tin trang web
     public function snyweninfo()
     {
-        /** @var SystemConfigServices $systemConfig */
-        $systemConfig = app()->make(SystemConfigServices::class);
+        /** @var SystemConfigServices $systemConfig */        $systemConfig = app()->make(SystemConfigServices::class);
         $this->serverweb['ip'] = $this->request->ip();
         $this->serverweb['host'] = $this->request->host();
         $this->serverweb['https'] = !empty($this->request->domain()) ? $this->request->domain() : $systemConfig->getConfigValue('site_url');
@@ -58,8 +56,7 @@ class SystemUpgradeClient extends AuthController
 
     /**
      * Danh sách nâng cấp
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['page', 1],
@@ -133,7 +130,7 @@ class SystemUpgradeClient extends AuthController
                     if (is_array($sqlfile) && !empty($sqlfile)) {
                         foreach ($sqlfile as $file) {
                             if (file_exists($file)) {
-                                //Để cài đặt bằng một cú nhấp chuột, hãy nhớ thay đổi tiền tố bảng thành[#DB_PREFIX#]Ồ
+                                //Để Cài đặt bằng một cú nhấp chuột, hãy nhớ thay đổi tiền tố bảng thành[#DB_PREFIX#]Ồ
                                 $execute_sql = explode(";\r", str_replace(['[#DB_PREFIX#]', "\n"], [$prefix, "\r"], file_get_contents($file)));
                                 foreach ($execute_sql as $_sql) {
                                     if ($query_string = trim(str_replace(array(

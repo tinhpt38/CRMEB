@@ -19,14 +19,12 @@ use crmeb\exceptions\AdminException;
 /**
  * Class ArticleServices
  * @package app\services\article
- */
-class ArticleServices extends BaseServices
+ */class ArticleServices extends BaseServices
 {
     /**
      * ArticleServices constructor.
      * @param ArticleDao $dao
-     */
-    public function __construct(ArticleDao $dao)
+     */    public function __construct(ArticleDao $dao)
     {
         $this->dao = $dao;
     }
@@ -41,8 +39,7 @@ class ArticleServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0)
+     */    public function getList(array $where, int $page = 0, int $limit = 0)
     {
         if (!$page && !$limit) {
             [$page, $limit] = $this->getPageValue();
@@ -60,14 +57,12 @@ class ArticleServices extends BaseServices
     }
 
     /**
-     * Thêm bài viết biên tập mới
+     * Thêm bài viết Sửa mới
      * @param array $data
      * @return mixed
-     */
-    public function save(array $data)
+     */    public function save(array $data)
     {
-        /** @var ArticleContentServices $articleContentService */
-        $articleContentService = app()->make(ArticleContentServices::class);
+        /** @var ArticleContentServices $articleContentService */        $articleContentService = app()->make(ArticleContentServices::class);
         $content['content'] = htmlspecialchars($data['content']);
         $id = $data['id'];
         unset($data['content'], $data['id']);
@@ -100,8 +95,7 @@ class ArticleServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function read(int $id)
+     */    public function read(int $id)
     {
         $info = $this->dao->read($id);
         $info['cid'] = (int)$info['cid'];
@@ -112,11 +106,9 @@ class ArticleServices extends BaseServices
     /**
      * Xóa bài viết
      * @param int $id
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
-        /** @var ArticleContentServices $articleContentService */
-        $articleContentService = app()->make(ArticleContentServices::class);
+        /** @var ArticleContentServices $articleContentService */        $articleContentService = app()->make(ArticleContentServices::class);
         $this->transaction(function () use ($id, $articleContentService) {
             $res = $this->dao->delete($id);
             $res = $res && $articleContentService->del($id);
@@ -131,8 +123,7 @@ class ArticleServices extends BaseServices
      * @param int $id
      * @param int $product_id
      * @return mixed
-     */
-    public function bindProduct(int $id, int $product_id = 0)
+     */    public function bindProduct(int $id, int $product_id = 0)
     {
         return $this->dao->update($id, ['product_id' => $product_id]);
     }
@@ -142,8 +133,7 @@ class ArticleServices extends BaseServices
      * @param array $where
      * @param bool $search
      * @return int
-     */
-    public function count(array $where = [], bool $search = true): int
+     */    public function count(array $where = [], bool $search = true): int
     {
         return $this->search($where, $search)->count();
     }
@@ -156,8 +146,7 @@ class ArticleServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         $info = $this->dao->read($id);
         $info->visit = intval($info['visit']) + 1;
@@ -179,8 +168,7 @@ class ArticleServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function articleList($new_id)
+     */    public function articleList($new_id)
     {
         return $this->dao->articleLists($new_id);
     }
@@ -192,8 +180,7 @@ class ArticleServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function articlesList($new_id)
+     */    public function articlesList($new_id)
     {
         return $this->dao->articleContentList($new_id);
     }
@@ -209,8 +196,7 @@ class ArticleServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/12
-     */
-    public function getThemeArticle($where)
+     */    public function getThemeArticle($where)
     {
         $sort = $where['sort'] ? 'desc' : 'asc';
         switch ($where['order']) {

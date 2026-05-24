@@ -23,16 +23,14 @@ use think\facade\App;
 /**
  * Class PageLink
  * @package app\controller\admin\v1\diy
- */
-class PageLink extends AuthController
+ */class PageLink extends AuthController
 {
 
     /**
      * PageLink constructor.
      * @param App $app
      * @param PageLinkServices $services
-     */
-    public function __construct(App $app, PageLinkServices $services)
+     */    public function __construct(App $app, PageLinkServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -41,8 +39,7 @@ class PageLink extends AuthController
     /**
      * Nhận danh mục liên kết trang
      * @return mixed
-     */
-    public function getCategory(PageCategoryServices $services)
+     */    public function getCategory(PageCategoryServices $services)
     {
         return app('json')->success($services->getCategroyList());
     }
@@ -51,8 +48,7 @@ class PageLink extends AuthController
      * Nhận liên kết trang
      * @param $cate_id
      * @return mixed
-     */
-    public function getLinks($cate_id, PageCategoryServices $pageCategoryServices)
+     */    public function getLinks($cate_id, PageCategoryServices $pageCategoryServices)
     {
         if (!$cate_id) return app('json')->fail('Lỗi tham số');
         $category = $pageCategoryServices->get((int)$cate_id);
@@ -61,13 +57,11 @@ class PageLink extends AuthController
         }
         switch ($category['type']) {
             case 'special':
-                /** @var DiyServices $diyServices */
-                $diyServices = app()->make(DiyServices::class);
+                /** @var DiyServices $diyServices */                $diyServices = app()->make(DiyServices::class);
                 $data = $diyServices->getDiyList(['type' => 2]);
                 break;
             case 'product_category':
-                /** @var StoreCategoryServices $storeCategoryServices */
-                $storeCategoryServices = app()->make(StoreCategoryServices::class);
+                /** @var StoreCategoryServices $storeCategoryServices */                $storeCategoryServices = app()->make(StoreCategoryServices::class);
                 $data = $storeCategoryServices->getList(['cate_name' => '', 'pid' => '', 'is_show' => '']);
                 break;
             default:
@@ -82,8 +76,7 @@ class PageLink extends AuthController
      * @param $cate_id
      * @param PageCategoryServices $pageCategoryServices
      * @return mixed
-     */
-    public function saveLink($cate_id, PageCategoryServices $pageCategoryServices)
+     */    public function saveLink($cate_id, PageCategoryServices $pageCategoryServices)
     {
         $data = $this->request->getMore([
             ['name', ''],
@@ -106,8 +99,7 @@ class PageLink extends AuthController
      * Xóa liên kết
      * @param $id
      * @return mixed
-     */
-    public function del($id)
+     */    public function del($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->del($id);
@@ -152,13 +144,11 @@ class PageLink extends AuthController
         }
         switch ($category['type']) {
             case 'special':
-                /** @var ThemeServices $themeServices */
-                $themeServices = app()->make(ThemeServices::class);
+                /** @var ThemeServices $themeServices */                $themeServices = app()->make(ThemeServices::class);
                 $data = $themeServices->getMicroPageList();
                 break;
             case 'product_category':
-                /** @var StoreCategoryServices $storeCategoryServices */
-                $storeCategoryServices = app()->make(StoreCategoryServices::class);
+                /** @var StoreCategoryServices $storeCategoryServices */                $storeCategoryServices = app()->make(StoreCategoryServices::class);
                 $data = $storeCategoryServices->getList(['cate_name' => '', 'pid' => '', 'is_show' => '']);
                 break;
             default:

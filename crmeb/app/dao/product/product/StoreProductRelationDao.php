@@ -17,14 +17,12 @@ use app\model\product\product\StoreProductRelation;
 /**
  * Class StoreProductRelationDao
  * @package app\dao\product\product
- */
-class StoreProductRelationDao extends BaseDao
+ */class StoreProductRelationDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductRelation::class;
     }
@@ -39,8 +37,7 @@ class StoreProductRelationDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field, int $page, int $limit)
+     */    public function getList(array $where, string $field, int $page, int $limit)
     {
         return $this->search($where)->field($field)->with(['product'])->page($page, $limit)->select()->toArray();
     }

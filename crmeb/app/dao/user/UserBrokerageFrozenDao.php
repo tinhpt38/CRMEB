@@ -19,14 +19,12 @@ use app\model\user\UserBrokerageFrozen;
  * Hoa hồng đóng băng
  * Class UserBrokerageFrozenDao
  * @package app\dao\user
- */
-class UserBrokerageFrozenDao extends BaseDao
+ */class UserBrokerageFrozenDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserBrokerageFrozen::class;
     }
@@ -37,8 +35,7 @@ class UserBrokerageFrozenDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->when(isset($where['isFrozen']), function ($query) use ($where) {
             if ($where['isFrozen']) {
@@ -57,8 +54,7 @@ class UserBrokerageFrozenDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserFrozenPrice(int $uid, bool $isFrozen = true)
+     */    public function getUserFrozenPrice(int $uid, bool $isFrozen = true)
     {
         return $this->search(['uid' => $uid, 'status' => 1, 'isFrozen' => $isFrozen])->column('price', 'id');
     }
@@ -67,17 +63,15 @@ class UserBrokerageFrozenDao extends BaseDao
      * Sửa đổi trạng thái đóng băng hoa hồng
      * @param string $orderId
      * @return \crmeb\basic\BaseModel
-     */
-    public function updateFrozen(string $orderId)
+     */    public function updateFrozen(string $orderId)
     {
         return $this->search(['order_id' => $orderId, 'isFrozen' => true])->update(['status' => 0]);
     }
 
     /**
-     * Lấy mảng hoa hồng cố định của người dùng
+     * Lấy mảng hoa hồng cố định của Khách hàng
      * @return mixed
-     */
-    public function getFrozenBrokerage()
+     */    public function getFrozenBrokerage()
     {
         return $this->getModel()->where('frozen_time', '>', time())
             ->where('status', 1)
@@ -88,8 +82,7 @@ class UserBrokerageFrozenDao extends BaseDao
     /**
      * @param $uids
      * @return float
-     */
-    public function getSumFrozenBrokerage($uids)
+     */    public function getSumFrozenBrokerage($uids)
     {
         return $this->getModel()->whereIn('uid', $uids)->where('frozen_time', '>', time())->sum('price');
     }

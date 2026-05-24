@@ -32,8 +32,7 @@ export function normalizeCrmebAddressListPayload(raw: unknown): unknown[] {
 
 /**
  * Gộp GET /userinfo và địa chỉ giao hàng CRMEB vào UserInfo hiển thị trong mini app.
- */
-export function enrichUserInfoFromCrmebRecords(
+ */export function enrichUserInfoFromCrmebRecords(
   base: UserInfo,
   profile: Record<string, unknown> | undefined | null,
   addressRowsRaw: unknown

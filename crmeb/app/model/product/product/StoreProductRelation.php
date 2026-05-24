@@ -18,30 +18,26 @@ use think\Model;
  *  Thích và sưu tầmmodel
  * Class StoreProductRelation
  * @package app\model\product\product
- */
-class StoreProductRelation extends BaseModel
+ */class StoreProductRelation extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_relation';
+     */    protected $name = 'store_product_relation';
 
     /**
      * Sản phẩm liên quan
-     */
-    public function product()
+     */    public function product()
     {
         return $this->hasOne(StoreProduct::class,'id','product_id');
     }
     /**
-     * Người tìm kiếm người dùng
+     * Người tìm kiếm Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -50,8 +46,7 @@ class StoreProductRelation extends BaseModel
      * Công cụ tìm sản phẩm
      * @param Model $query
      * @param $value
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         $query->where('product_id', $value);
     }
@@ -60,8 +55,7 @@ class StoreProductRelation extends BaseModel
      * Nhập trình tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }
@@ -70,8 +64,7 @@ class StoreProductRelation extends BaseModel
      * Trình tìm kiếm loại sản phẩm
      * @param Model $query
      * @param $value
-     */
-    public function searchCategoryAttr($query, $value)
+     */    public function searchCategoryAttr($query, $value)
     {
         $query->where('category', $value);
     }

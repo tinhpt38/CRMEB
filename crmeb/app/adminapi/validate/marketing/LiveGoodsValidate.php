@@ -20,8 +20,7 @@ class LiveGoodsValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'id' => 'require',
         'store_name' => 'require',
         'image' => 'require',
@@ -33,8 +32,7 @@ class LiveGoodsValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'id.require' => 'Vui lòng chọn sản phẩm',
         'store_name.require' => 'Vui lòng nhập tên sản phẩm',
         'image.require' => 'Vui lòng chọn hình nền',

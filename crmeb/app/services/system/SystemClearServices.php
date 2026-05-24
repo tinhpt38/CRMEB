@@ -21,15 +21,13 @@ use think\facade\Db;
  * xóa dữ liệu
  * Class SystemClearServices
  * @package app\services\system
- */
-class SystemClearServices extends BaseServices
+ */class SystemClearServices extends BaseServices
 {
     /**
      * Xóa dữ liệu bảng
      * @param string|array $table_name
      * @param $status
-     */
-    public function clearData($table_name, bool $status)
+     */    public function clearData($table_name, bool $status)
     {
         $prefix = config('database.connections.' . config('database.default'))['prefix'];
         if (is_string($table_name)) {
@@ -50,8 +48,7 @@ class SystemClearServices extends BaseServices
      * Xóa tập tin đệ quy,Chỉ có thể xóa các tệp ở chế độ công khai/tải lên
      * @param $dirName
      * @param bool $subdir
-     */
-    public function delDirAndFile(string $dirName, $subdir = true)
+     */    public function delDirAndFile(string $dirName, $subdir = true)
     {
         if (strstr($dirName, 'public/uploads') === false) {
             return true;
@@ -74,8 +71,7 @@ class SystemClearServices extends BaseServices
      * Thay thế tên miền
      * @param string $url
      * @return mixed
-     */
-    public function replaceSiteUrl(string $url)
+     */    public function replaceSiteUrl(string $url)
     {
         // Nhận trang web URL
         $siteUrl = sys_config('site_url');

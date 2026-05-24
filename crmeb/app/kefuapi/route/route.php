@@ -33,26 +33,26 @@ Route::group(function () {
 
     Route::group('user', function () {
 
-        Route::get('record', 'User/recordList')->name('recordList')->option(['real_name' => 'Người dùng đã trò chuyện với dịch vụ khách hàng']);//Người dùng đã trò chuyện với dịch vụ khách hàng
-        Route::get('info/:uid', 'User/userInfo')->name('getUserInfo')->option(['real_name' => 'Chi tiết khách hàng']);//Chi tiết người dùng
-        Route::get('label/:uid', 'User/getUserLabel')->name('getUserLabel')->option(['real_name' => 'Thẻ khách hàng']);//Thẻ người dùng
-        Route::put('label/:uid', 'User/setUserLabel')->name('setUserLabel')->option(['real_name' => 'Đặt nhãn người dùng']);//Đặt nhãn người dùng
-        Route::get('group', 'User/getUserGroup')->name('getUserGroup')->option(['real_name' => 'Nhận nhóm người dùng']);//Đăng xuất
-        Route::put('group/:uid/:id', 'User/setUserGroup')->name('setUserGroup')->option(['real_name' => 'Thiết lập nhóm người dùng']);//Đăng xuất
+        Route::get('record', 'User/recordList')->name('recordList')->option(['real_name' => 'Người dùng đã trò chuyện với CSKH']);//Người dùng đã trò chuyện với CSKH
+        Route::get('info/:uid', 'User/userInfo')->name('getUserInfo')->option(['real_name' => 'Chi tiết khách hàng']);//Chi tiết khách hàng
+        Route::get('label/:uid', 'User/getUserLabel')->name('getUserLabel')->option(['real_name' => 'Thẻ khách hàng']);//Thẻ khách hàng
+        Route::put('label/:uid', 'User/setUserLabel')->name('setUserLabel')->option(['real_name' => 'Đặt nhãn Khách hàng']);//Đặt nhãn Khách hàng
+        Route::get('group', 'User/getUserGroup')->name('getUserGroup')->option(['real_name' => 'Nhận nhóm Khách hàng']);//Đăng xuất
+        Route::put('group/:uid/:id', 'User/setUserGroup')->name('setUserGroup')->option(['real_name' => 'Thiết lập nhóm Khách hàng']);//Đăng xuất
         Route::post('logout', 'User/logout')->name('logout')->option(['real_name' => 'Đăng xuất']);//Đăng xuất
 
     })->middleware(KefuAuthTokenMiddleware::class)
-        ->option(['mark' => 'user', 'mark_name' => 'người dùng']);
+        ->option(['mark' => 'user', 'mark_name' => 'Khách hàng']);
 
     Route::group('order', function () {
 
         Route::get('list/:uid', 'Order/getUserOrderList')->name('getUserOrderList')->option(['real_name' => 'danh sách đặt hàng']);//danh sách đặt hàng
-        Route::post('delivery/:id', 'Order/delivery_keep')->name('orderDeliveryKeep')->option(['real_name' => 'Đã giao cho ĐVVC']);//Đơn hàng đã được vận chuyển
+        Route::post('delivery/:id', 'Order/delivery_keep')->name('orderDeliveryKeep')->option(['real_name' => 'Đã giao cho ĐVVC']);//Đã giao cho ĐVVC
         Route::put('update/:id', 'Order/update')->name('orderUpdate')->option(['real_name' => 'Sửa đổi đơn hàng']);//Sửa đổi đơn hàng
         Route::post('refund', 'Order/refund')->name('orderRefund')->option(['real_name' => 'Hoàn tiền đơn hàng']);//Hoàn tiền đơn hàng
         Route::get('refund_form/:id', 'Order/refundForm')->name('orderRefund')->option(['real_name' => 'Hoàn tiền đơn hàng']);//Hoàn tiền đơn hàng
         Route::get('edit/:id', 'Order/edit')->name('orderEdit')->option(['real_name' => 'Hoàn tiền đơn hàng']);//Hoàn tiền đơn hàng
-        Route::post('remark', 'Order/remark')->name('remark')->option(['real_name' => 'Ghi chú đơn hàng']);//Ghi chú đặt hàng
+        Route::post('remark', 'Order/remark')->name('remark')->option(['real_name' => 'Ghi chú đơn hàng']);//Ghi chú đơn hàng
         Route::get('info/:id', 'Order/orderInfo')->name('orderInfo')->option(['real_name' => 'Nhận chi tiết đơn hàng']);//Nhận chi tiết đơn hàng
         Route::get('export', 'Order/export')->name('export')->option(['real_name' => 'Nhận chi tiết đơn hàng']);//Nhận chi tiết đơn hàng
         Route::get('temp', 'Order/getExportTemp')->name('getExportTemp')->option(['real_name' => 'Nhận mẫu công ty hậu cần']);//Nhận mẫu công ty hậu cần
@@ -61,7 +61,7 @@ Route::group(function () {
         Route::get('verific/:id', 'Order/order_verific')->name('orderVerific')->option(['real_name' => 'Viết ra một số đơn hàng']);//Viết ra một số đơn hàng
 
     })->middleware(KefuAuthTokenMiddleware::class)
-        ->option(['mark' => 'order', 'mark_name' => 'Đặt hàng']);
+        ->option(['mark' => 'order', 'mark_name' => 'Đơn hàng']);
 
     Route::group('product', function () {
 
@@ -76,10 +76,10 @@ Route::group(function () {
     Route::group('service', function () {
 
         Route::get('list', 'Service/getChatList')->name('getChatList')->option(['real_name' => 'Lịch sử trò chuyện']);//Lịch sử trò chuyện
-        Route::get('info', 'Service/getServiceInfo')->name('getServiceInfo')->option(['real_name' => 'Chi tiết dịch vụ khách hàng']);//Chi tiết dịch vụ khách hàng
+        Route::get('info', 'Service/getServiceInfo')->name('getServiceInfo')->option(['real_name' => 'Chi tiết CSKH']);//Chi tiết CSKH
         Route::get('speechcraft', 'Service/getSpeechcraftList')->name('getSpeechcraftList')->option(['real_name' => 'Kỹ năng phục vụ khách hàng']);//Kỹ năng phục vụ khách hàng
-        Route::post('transfer', 'Service/transfer')->name('transfer')->option(['real_name' => 'Chuyển dịch vụ khách hàng']);//Chuyển dịch vụ khách hàng
-        Route::get('transfer_list', 'Service/getServiceList')->name('getServiceList')->option(['real_name' => 'Chuyển dịch vụ khách hàng']);//Chuyển dịch vụ khách hàng
+        Route::post('transfer', 'Service/transfer')->name('transfer')->option(['real_name' => 'Chuyển CSKH']);//Chuyển CSKH
+        Route::get('transfer_list', 'Service/getServiceList')->name('getServiceList')->option(['real_name' => 'Chuyển CSKH']);//Chuyển CSKH
         Route::get('cate', 'Service/getCateList')->name('getCateList')->option(['real_name' => 'Danh sách danh mục']);//Danh sách danh mục
         Route::post('cate', 'Service/saveCate')->name('saveCate')->option(['real_name' => 'Lưu danh mục']);//Lưu danh mục
         Route::put('cate/:id', 'Service/editCate')->name('editCate')->option(['real_name' => 'Chỉnh sửa danh mục']);//Chỉnh sửa danh mục
@@ -89,13 +89,13 @@ Route::group(function () {
         Route::delete('speechcraft/:id', 'Service/deleteSpeechcraft')->name('deleteSpeechcraft')->option(['real_name' => 'Xóa từ']);//Xóa từ
 
     })->middleware(KefuAuthTokenMiddleware::class)
-        ->option(['mark' => 'service', 'mark_name' => 'dịch vụ khách hàng']);
+        ->option(['mark' => 'service', 'mark_name' => 'CSKH']);
 
     Route::group('tourist', function () {
-        Route::get('user', 'Common/getServiceUser')->name('getServiceUser')->option(['real_name' => 'Thông tin dịch vụ khách hàng ngẫu nhiên']);//Thông tin dịch vụ khách hàng ngẫu nhiên
-        Route::get('adv', 'Common/getKfAdv')->name('getKfAdv')->option(['real_name' => 'Nhận quảng cáo dịch vụ khách hàng']);//Nhận quảng cáo dịch vụ khách hàng
-        Route::post('feedback', 'Common/saveFeedback')->name('saveFeedback')->option(['real_name' => 'Lưu nội dung phản hồi dịch vụ khách hàng']);//Lưu nội dung phản hồi dịch vụ khách hàng
-        Route::get('feedback', 'Common/getFeedbackInfo')->name('getFeedbackInfo')->option(['real_name' => 'Nhận nội dung không gian quảng cáo trên trang phản hồi']);//Nhận nội dung không gian quảng cáo trên trang phản hồi
+        Route::get('user', 'Common/getServiceUser')->name('getServiceUser')->option(['real_name' => 'Thông tin CSKH ngẫu nhiên']);//Thông tin CSKH ngẫu nhiên
+        Route::get('adv', 'Common/getKfAdv')->name('getKfAdv')->option(['real_name' => 'Nhận quảng cáo CSKH']);//Nhận quảng cáo CSKH
+        Route::post('feedback', 'Common/saveFeedback')->name('saveFeedback')->option(['real_name' => 'Lưu Nội dung phản hồi CSKH']);//Lưu Nội dung phản hồi CSKH
+        Route::get('feedback', 'Common/getFeedbackInfo')->name('getFeedbackInfo')->option(['real_name' => 'Nhận Nội dung không gian quảng cáo trên trang phản hồi']);//Nhận Nội dung không gian quảng cáo trên trang phản hồi
         Route::get('order/:order_id', 'Common/getOrderInfo')->name('getOrderInfo')->option(['real_name' => 'Nhận thông tin đặt hàng']);//Nhận thông tin đặt hàng
         Route::get('product/:id', 'Common/getProductInfo')->name('getProductInfo')->option(['real_name' => 'Nhận thông tin sản phẩm']);//Nhận thông tin sản phẩm
         Route::get('chat', 'Common/getChatList')->name('getChatList')->option(['real_name' => 'Nhận lịch sử trò chuyện']);//Nhận lịch sử trò chuyện

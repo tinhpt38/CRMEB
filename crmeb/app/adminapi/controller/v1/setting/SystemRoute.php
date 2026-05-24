@@ -23,16 +23,14 @@ use think\facade\App;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\adminapi\controller\v1\setting
- */
-class SystemRoute extends AuthController
+ */class SystemRoute extends AuthController
 {
 
     /**
      * SystemRoute constructor.
      * @param App $app
      * @param SystemRouteServices $services
-     */
-    public function __construct(App $app, SystemRouteServices $services)
+     */    public function __construct(App $app, SystemRouteServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -45,8 +43,7 @@ class SystemRoute extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function syncRoute(string $appName = 'adminapi')
+     */    public function syncRoute(string $appName = 'adminapi')
     {
         $this->services->syncRoute($appName);
 
@@ -59,8 +56,7 @@ class SystemRoute extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['name_like', ''],
@@ -76,8 +72,7 @@ class SystemRoute extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function tree()
+     */    public function tree()
     {
         [$name, $appName] = $this->request->getMore([
             ['name_like', ''],
@@ -93,8 +88,7 @@ class SystemRoute extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function save($id = 0)
+     */    public function save($id = 0)
     {
         $data = $this->request->postMore([
             ['cate_id', 0],
@@ -142,8 +136,7 @@ class SystemRoute extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function read($id)
+     */    public function read($id)
     {
         return app('json')->success($this->services->getInfo((int)$id));
     }
@@ -154,8 +147,7 @@ class SystemRoute extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) {
             return app('json')->fail('giao diện không tồn tại');

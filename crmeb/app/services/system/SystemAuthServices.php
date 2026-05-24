@@ -20,16 +20,14 @@ use crmeb\services\HttpService;
  * ủy quyền thương mại
  * Class SystemAuthServices
  * @package app\services\system
- */
-class SystemAuthServices extends BaseServices
+ */class SystemAuthServices extends BaseServices
 {
 
     /**
      * Nộp đơn xin ủy quyền
      * @param array $data
      * @return bool
-     */
-    public function authApply(array $data)
+     */    public function authApply(array $data)
     {
         $res = HttpService::postRequest('http://authorize.crmeb.net/api/auth_apply', $data);
         if ($res === false) {

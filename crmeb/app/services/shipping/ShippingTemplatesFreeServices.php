@@ -22,15 +22,13 @@ use crmeb\exceptions\AdminException;
  * @package app\services\shipping
  * @method  delete($id, ?string $key = null) Xóa dữ liệu
  * @method isFree($tempId, $cityid, $number, $price) Có thể đáp ứng yêu cầu miễn phí vận chuyển?
- */
-class ShippingTemplatesFreeServices extends BaseServices
+ */class ShippingTemplatesFreeServices extends BaseServices
 {
     /**
      * Người xây dựng
      * ShippingTemplatesFreeServices constructor.
      * @param ShippingTemplatesDao $dao
-     */
-    public function __construct(ShippingTemplatesFreeDao $dao)
+     */    public function __construct(ShippingTemplatesFreeDao $dao)
     {
         $this->dao = $dao;
     }
@@ -42,8 +40,7 @@ class ShippingTemplatesFreeServices extends BaseServices
      * @param int $tempId
      * @return bool
      * @throws \Exception
-     */
-    public function saveFree(array $appointInfo, int $type = 0, int $tempId = 0)
+     */    public function saveFree(array $appointInfo, int $type = 0, int $tempId = 0)
     {
         $res = true;
         if ($tempId) {
@@ -86,8 +83,7 @@ class ShippingTemplatesFreeServices extends BaseServices
      * Nhận địa chỉ thành phố vận chuyển miễn phí được chỉ định
      * @param int $tempId
      * @return array
-     */
-    public function getFreeList(int $tempId)
+     */    public function getFreeList(int $tempId)
     {
         $freeIdList = $this->dao->getShippingGroupArray(['temp_id' => $tempId], 'uniqid', 'uniqid', '');
         $freeData = [];
@@ -111,11 +107,9 @@ class ShippingTemplatesFreeServices extends BaseServices
      * @param string $uniqid
      * @param int $provinceId
      * @return array
-     */
-    public function getFreeTemp(string $uniqid, int $provinceId)
+     */    public function getFreeTemp(string $uniqid, int $provinceId)
     {
-        /** @var ShippingTemplatesFreeCityServices $service */
-        $service = app()->make(ShippingTemplatesFreeCityServices::class);
+        /** @var ShippingTemplatesFreeCityServices $service */        $service = app()->make(ShippingTemplatesFreeCityServices::class);
         $infoList = $service->getUniqidList(['uniqid' => $uniqid]);
         $childrenData = [];
         foreach ($infoList as $item) {
@@ -133,11 +127,9 @@ class ShippingTemplatesFreeServices extends BaseServices
      * @param string $uniqid
      * @param int $provinceId
      * @return array
-     */
-    public function getCityTemp(string $uniqid, int $provinceId)
+     */    public function getCityTemp(string $uniqid, int $provinceId)
     {
-        /** @var ShippingTemplatesFreeCityServices $service */
-        $service = app()->make(ShippingTemplatesFreeCityServices::class);
+        /** @var ShippingTemplatesFreeCityServices $service */        $service = app()->make(ShippingTemplatesFreeCityServices::class);
         $infoList = $service->getUniqidList(['uniqid' => $uniqid, 'province_id' => $provinceId], false);
         $childrenData = [];
         foreach ($infoList as $item) {

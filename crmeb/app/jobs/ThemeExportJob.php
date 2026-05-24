@@ -21,8 +21,7 @@ use think\facade\Log;
  * Nhiệm vụ hàng đợi xuất chủ đề
  * Class ThemeExportJob
  * @package app\jobs
- */
-class ThemeExportJob extends BaseJobs
+ */class ThemeExportJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -37,14 +36,11 @@ class ThemeExportJob extends BaseJobs
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function export($info, int $recordId): bool
+     */    public function export($info, int $recordId): bool
     {
         try {
-            /** @var ThemeServices $themeServices */
-            $themeServices = app()->make(ThemeServices::class);
-            /** @var ThemeDownloadServices $themeDownloadServices */
-            $themeDownloadServices = app()->make(ThemeDownloadServices::class);
+            /** @var ThemeServices $themeServices */            $themeServices = app()->make(ThemeServices::class);
+            /** @var ThemeDownloadServices $themeDownloadServices */            $themeDownloadServices = app()->make(ThemeDownloadServices::class);
 
             $downloadUrl = $themeServices->exportThemePackage($info);
 

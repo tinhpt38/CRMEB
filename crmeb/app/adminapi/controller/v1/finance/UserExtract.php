@@ -19,15 +19,13 @@ use think\Request;
 /**
  * Class UserExtract
  * @package app\adminapi\controller\v1\finance
- */
-class UserExtract extends AuthController
+ */class UserExtract extends AuthController
 {
     /**
      * UserExtract constructor.
      * @param App $app
      * @param UserExtractServices $services
-     */
-    public function __construct(App $app, UserExtractServices $services)
+     */    public function __construct(App $app, UserExtractServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class UserExtract extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -58,8 +55,7 @@ class UserExtract extends AuthController
      * Hiển thị trang biểu mẫu tài nguyên chỉnh sửa
      * @param $id
      * @return mixed
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         if (!$id) return app('json')->fail('Dữ liệu không tồn tại');
         return app('json')->success($this->services->edit((int)$id));
@@ -70,8 +66,7 @@ class UserExtract extends AuthController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function update(Request $request, $id)
+     */    public function update(Request $request, $id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $id = (int)$id;
@@ -116,8 +111,7 @@ class UserExtract extends AuthController
      * từ chối
      * @param $id
      * @return mixed
-     */
-    public function refuse($id)
+     */    public function refuse($id)
     {
         if (!$id) app('json')->fail('Lỗi tham số');
         $data = $this->request->postMore([
@@ -131,14 +125,13 @@ class UserExtract extends AuthController
      * vượt qua
      * @param $id
      * @return mixed
-     */
-    public function adopt($id)
+     */    public function adopt($id)
     {
         if (!$id) app('json')->fail('Lỗi tham số');
         $res = $this->services->adopt((int)$id);
         if ($res) {
             if ($res === 'v3_extract') {
-                return app('json')->success('Rút tiền thành công, chờ người dùng xác nhận thanh toán');
+                return app('json')->success('Rút tiền thành công, chờ Khách hàng xác nhận thanh toán');
             } else {
                 return app('json')->success('Rút tiền thành công');
             }

@@ -21,16 +21,14 @@ use app\services\system\config\SystemGroupServices;
  * Quản lý dữ liệu
  * Class SystemGroupData
  * @package app\adminapi\controller\v1\setting
- */
-class SystemGroupData extends AuthController
+ */class SystemGroupData extends AuthController
 {
     /**
      * Người xây dựng
      * SystemGroupData constructor.
      * @param App $app
      * @param SystemGroupDataServices $services
-     */
-    public function __construct(App $app, SystemGroupDataServices $services)
+     */    public function __construct(App $app, SystemGroupDataServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class SystemGroupData extends AuthController
     /**
      * Lấy tiêu đề của danh sách dữ liệu
      * @return mixed
-     */
-    public function header(SystemGroupServices $services)
+     */    public function header(SystemGroupServices $services)
     {
         [$gid, $config_name] = $this->request->getMore([
             ['gid', 0],
@@ -57,8 +54,7 @@ class SystemGroupData extends AuthController
      * Hiển thị danh sách tài nguyên
      *
      * @return \think\Response
-     */
-    public function index(SystemGroupServices $group)
+     */    public function index(SystemGroupServices $group)
     {
         $where = $this->request->getMore([
             ['gid', 0],
@@ -77,8 +73,7 @@ class SystemGroupData extends AuthController
      * Hiển thị trang biểu mẫu tạo tài nguyên.
      *
      * @return \think\Response
-     */
-    public function create()
+     */    public function create()
     {
         $gid = $this->request->param('gid/d');
         if ($this->services->isGroupGidSave($gid, 4, 'index_categy_images')) {
@@ -94,8 +89,7 @@ class SystemGroupData extends AuthController
      * Lưu tài nguyên mới
      *
      * @return \think\Response
-     */
-    public function save(SystemGroupServices $services)
+     */    public function save(SystemGroupServices $services)
     {
         $params = request()->post();
         $gid = (int)$params['gid'];
@@ -146,8 +140,7 @@ class SystemGroupData extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function read($id)
+     */    public function read($id)
     {
         //
     }
@@ -157,8 +150,7 @@ class SystemGroupData extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         $gid = $this->request->param('gid/d');
         if (!$gid) {
@@ -173,8 +165,7 @@ class SystemGroupData extends AuthController
      * @param \think\Request $request
      * @param int $id
      * @return \think\Response
-     */
-    public function update(SystemGroupServices $services, $id)
+     */    public function update(SystemGroupServices $services, $id)
     {
         $groupData = $this->services->get($id);
         $fields = $services->getValueFields((int)$groupData["gid"]);
@@ -214,8 +205,7 @@ class SystemGroupData extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$this->services->delete($id))
             return app('json')->fail('Xóa không thành công');
@@ -230,8 +220,7 @@ class SystemGroupData extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['status' => $status]);
@@ -247,8 +236,7 @@ class SystemGroupData extends AuthController
      * @param $params
      * @param int $id
      * @return mixed
-     */
-    public function checkSign(SystemGroupServices $services, $gid, $params, $id = 0)
+     */    public function checkSign(SystemGroupServices $services, $gid, $params, $id = 0)
     {
         $name = $services->value(['id' => $gid], 'config_name');
         if ($name == 'sign_day_num') {
@@ -262,26 +250,22 @@ class SystemGroupData extends AuthController
     }
 
     /**
-     * Lấy nội dung quảng cáo trên trang chăm sóc khách hàng
+     * Lấy Nội dung quảng cáo trên trang chăm sóc khách hàng
      * @return mixed
-     */
-    public function getKfAdv()
+     */    public function getKfAdv()
     {
-        /** @var CacheServices $cache */
-        $cache = app()->make(CacheServices::class);
+        /** @var CacheServices $cache */        $cache = app()->make(CacheServices::class);
         $content = $cache->getDbCache('kf_adv', '');
         return app('json')->success(compact('content'));
     }
 
     /**
-     * Thiết lập nội dung quảng cáo trang dịch vụ khách hàng
+     * Thiết lập Nội dung quảng cáo trang CSKH
      * @return mixed
-     */
-    public function setKfAdv()
+     */    public function setKfAdv()
     {
         $content = $this->request->post('content');
-        /** @var CacheServices $cache */
-        $cache = app()->make(CacheServices::class);
+        /** @var CacheServices $cache */        $cache = app()->make(CacheServices::class);
         $cache->setDbCache('kf_adv', $content);
         return app('json')->success('Thiết lập thành công');
     }
@@ -298,26 +282,22 @@ class SystemGroupData extends AuthController
 
 
     /**
-     * Nhận nội dung thỏa thuận người dùng
+     * Nhận Nội dung thỏa thuận Khách hàng
      * @return mixed
-     */
-    public function getUserAgreement()
+     */    public function getUserAgreement()
     {
-        /** @var CacheServices $cache */
-        $cache = app()->make(CacheServices::class);
+        /** @var CacheServices $cache */        $cache = app()->make(CacheServices::class);
         $content = $cache->getDbCache('user_agreement', '');
         return app('json')->success(compact('content'));
     }
 
     /**
-     * Đặt nội dung thỏa thuận người dùng
+     * Đặt Nội dung thỏa thuận Khách hàng
      * @return mixed
-     */
-    public function setUserAgreement()
+     */    public function setUserAgreement()
     {
         $content = $this->request->post('content');
-        /** @var CacheServices $cache */
-        $cache = app()->make(CacheServices::class);
+        /** @var CacheServices $cache */        $cache = app()->make(CacheServices::class);
         $cache->setDbCache('user_agreement', $content);
         return app('json')->success('Thiết lập thành công');
     }

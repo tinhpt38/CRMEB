@@ -22,15 +22,13 @@ use crmeb\services\FormBuilder;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\services\system
- */
-class SystemRouteCateServices extends BaseServices
+ */class SystemRouteCateServices extends BaseServices
 {
 
     /**
      * SystemRouteCateServices constructor.
      * @param SystemRouteCateDao $dao
-     */
-    public function __construct(SystemRouteCateDao $dao)
+     */    public function __construct(SystemRouteCateDao $dao)
     {
         $this->dao = $dao;
     }
@@ -54,8 +52,7 @@ class SystemRouteCateServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function setPathValue(array $path, int $id)
+     */    public function setPathValue(array $path, int $id)
     {
         return ($path ? '/' . implode('/', $path) : '') . '/' . $id . '/';
     }
@@ -66,8 +63,7 @@ class SystemRouteCateServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function getAllList(string $appName = 'outapi', string $field = '*', string $order = '')
+     */    public function getAllList(string $appName = 'outapi', string $field = '*', string $order = '')
     {
         $list = $this->dao->selectList(['app_name' => $appName], $field, 0, 0, $order)->toArray();
         return get_tree_children($list);
@@ -80,8 +76,7 @@ class SystemRouteCateServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function getFrom(int $id = 0, string $appName = 'outapi')
+     */    public function getFrom(int $id = 0, string $appName = 'outapi')
     {
         $url = '/system/route_cate';
         $cateInfo = [];

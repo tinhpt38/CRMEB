@@ -19,8 +19,7 @@ class LangCode extends AuthController
     /**
      * @param App $app
      * @param LangCodeServices $services
-     */
-    public function __construct(App $app, LangCodeServices $services)
+     */    public function __construct(App $app, LangCodeServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -33,8 +32,7 @@ class LangCode extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function langCodeList()
+     */    public function langCodeList()
     {
         $where = $this->request->getMore([
             ['is_admin', 0],
@@ -51,8 +49,7 @@ class LangCode extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function langCodeInfo()
+     */    public function langCodeInfo()
     {
         [$code] = $this->request->getMore([
             ['code', ''],
@@ -64,8 +61,7 @@ class LangCode extends AuthController
      * Thêm ngôn ngữ chỉnh sửa mới
      * @return mixed
      * @throws \Exception
-     */
-    public function langCodeSave()
+     */    public function langCodeSave()
     {
         $data = $this->request->postMore([
             ['is_admin', 0],
@@ -82,8 +78,7 @@ class LangCode extends AuthController
      * Xóa ngôn ngữ
      * @param $id
      * @return mixed
-     */
-    public function langCodeDel($id)
+     */    public function langCodeDel($id)
     {
         $this->services->langCodeDel($id);
         return app('json')->success('Xóa thành công');
@@ -93,8 +88,7 @@ class LangCode extends AuthController
      * dịch máy
      * @return mixed
      * @throws \Throwable
-     */
-    public function langCodeTranslate()
+     */    public function langCodeTranslate()
     {
         [$text] = $this->request->postMore([
             ['text', '']

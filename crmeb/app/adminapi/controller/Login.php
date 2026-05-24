@@ -19,21 +19,18 @@ use app\services\system\admin\SystemAdminServices;
  * Đăng nhập phụ trợ
  * Class Login
  * @package app\adminapi\controller
- */
-class Login extends AuthController
+ */class Login extends AuthController
 {
 
     /**
      * @var SystemAdminServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * Login constructor.
      * @param App $app
      * @param SystemAdminServices $services
-     */
-    public function __construct(App $app, SystemAdminServices $services)
+     */    public function __construct(App $app, SystemAdminServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -47,16 +44,14 @@ class Login extends AuthController
     /**
      * Mã xác minh
      * @return $this|\think\Response
-     */
-    public function captcha()
+     */    public function captcha()
     {
         return app()->make(Captcha::class)->create();
     }
 
     /**
      * @return mixed
-     */
-    public function ajcaptcha()
+     */    public function ajcaptcha()
     {
         $captchaType = $this->request->get('captchaType');
         return app('json')->success(aj_captcha_create($captchaType));
@@ -65,8 +60,7 @@ class Login extends AuthController
     /**
      * Một lần xác minh
      * @return mixed
-     */
-    public function ajcheck()
+     */    public function ajcheck()
     {
         [$token, $pointJson, $captchaType] = $this->request->postMore([
             ['token', ''],
@@ -87,8 +81,7 @@ class Login extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function login()
+     */    public function login()
     {
         [$account, $password, $key, $captchaVerification, $captchaType] = $this->request->postMore([
             'account',
@@ -127,8 +120,7 @@ class Login extends AuthController
     /**
      * Lấy hình ảnh băng chuyền trang đăng nhập nền vàLOGO
      * @return mixed
-     */
-    public function info()
+     */    public function info()
     {
         return app('json')->success($this->services->getLoginInfo());
     }

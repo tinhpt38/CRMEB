@@ -22,15 +22,13 @@ use think\facade\Log;
  * Hàng đợi tin nhắn mẫu chương trình nhỏ
  * Class RoutineTemplateJob
  * @package crmeb\jobs
- */
-class RoutineTemplateListService extends NoticeService
+ */class RoutineTemplateListService extends NoticeService
 {
     /**
      * Nhận dựa trên UIDopenid
      * @param int $uid
      * @return mixed
-     */
-    public function getOpenidByUid(int $uid)
+     */    public function getOpenidByUid(int $uid)
     {
         $isDel = app()->make(UserServices::class)->value(['uid' => $uid], 'is_del');
         if ($isDel) {
@@ -48,8 +46,7 @@ class RoutineTemplateListService extends NoticeService
      * @param string|null $link
      * @param string|null $color
      * @return bool|void
-     */
-    public function sendTemplate(int $uid, array $data, string $link = null, string $color = null)
+     */    public function sendTemplate(int $uid, array $data, string $link = null, string $color = null)
     {
         try {
             if ($this->noticeInfo['is_routine'] == 1) {
@@ -64,13 +61,12 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * xác nhận đã nhận hàng
+     * Xác nhận nhận hàng
      * @param $uid
      * @param $order
      * @param $title
      * @return bool|void
-     */
-    public function sendOrderTakeOver($uid, $order, $title)
+     */    public function sendOrderTakeOver($uid, $order, $title)
     {
         return $this->sendTemplate((int)$uid, [
             'thing1' => $order['order_id'],
@@ -86,8 +82,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $storeTitle
      * @param int $isGive
      * @return bool|void
-     */
-    public function sendOrderPostage($uid, $order, $storeTitle, int $isGive = 0)
+     */    public function sendOrderPostage($uid, $order, $storeTitle, int $isGive = 0)
     {
         if ($isGive) {//chuyển phát nhanh
             return $this->sendTemplate((int)$uid, [
@@ -112,8 +107,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $UserRecharge
      * @param $now_money
      * @return bool|void
-     */
-    public function sendRechargeSuccess($uid, $UserRecharge, $now_money)
+     */    public function sendRechargeSuccess($uid, $UserRecharge, $now_money)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string1' => $UserRecharge['order_id'],
@@ -130,8 +124,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $storeTitle
      * @param $data
      * @return bool|void
-     */
-    public function sendOrderRefundSuccess($uid, $order, $storeTitle, $data)
+     */    public function sendOrderRefundSuccess($uid, $order, $storeTitle, $data)
     {
         return $this->sendTemplate((int)$uid, [
             'thing1' => 'Đã hoàn tiền thành công',
@@ -147,8 +140,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $order
      * @param $storeTitle
      * @return bool|void
-     */
-    public function sendOrderRefundFail($uid, $order, $storeTitle)
+     */    public function sendOrderRefundFail($uid, $order, $storeTitle)
     {
         return $this->sendTemplate((int)$uid, [
             'thing1' => 'Hoàn tiền không thành công',
@@ -163,8 +155,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $uid
      * @param $order
      * @return bool|void
-     */
-    public function sendOrderRefundStatus($uid, $order)
+     */    public function sendOrderRefundStatus($uid, $order)
     {
         $data['character_string4'] = $order['order_id'];
         $data['date5'] = date('Y-m-d H:i:s', time());
@@ -181,8 +172,7 @@ class RoutineTemplateListService extends NoticeService
      * @param array $bargainUser
      * @param int $bargainUserId
      * @return bool|void
-     */
-    public function sendBargainSuccess($uid, $bargain = [], $bargainUser = [], $bargainUserId = 0)
+     */    public function sendBargainSuccess($uid, $bargain = [], $bargainUser = [], $bargainUserId = 0)
     {
         $data['thing1'] = $bargain['title'];
         $data['amount2'] = $bargain['min_price'];
@@ -196,8 +186,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $pay_price
      * @param $orderId
      * @return bool|void
-     */
-    public function sendOrderSuccess($uid, $pay_price, $orderId)
+     */    public function sendOrderSuccess($uid, $pay_price, $orderId)
     {
         if ($orderId == '') return true;
         $data['character_string1'] = $orderId;
@@ -212,8 +201,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $pay_price
      * @param $orderId
      * @return bool|void
-     */
-    public function sendMemberOrderSuccess($uid, $pay_price, $orderId)
+     */    public function sendMemberOrderSuccess($uid, $pay_price, $orderId)
     {
         if ($orderId == '') return true;
         $data['character_string1'] = $orderId;
@@ -229,8 +217,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $extract_number
      * @param $nickname
      * @return bool|void
-     */
-    public function sendExtractFail($uid, $msg, $extract_number, $nickname)
+     */    public function sendExtractFail($uid, $msg, $extract_number, $nickname)
     {
         return $this->sendTemplate((int)$uid, [
             'thing1' => 'Rút tiền không thành công：' . $msg,
@@ -246,8 +233,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $extract_number
      * @param $nickname
      * @return bool|void
-     */
-    public function sendExtractSuccess($uid, $extract_number, $nickname)
+     */    public function sendExtractSuccess($uid, $extract_number, $nickname)
     {
         return $this->sendTemplate((int)$uid, [
             'thing1' => 'Rút tiền thành công',
@@ -258,14 +244,13 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * Người dùng bắt đầu rút tiền và phần phụ trợ sẽ gửi nó cho người dùng sau khi đồng ý.
+     * Người dùng bắt đầu rút tiền và phần phụ trợ sẽ gửi nó cho Khách hàng sau khi đồng ý.
      * @param $uid
      * @param $extract_number
      * @param $order_id
      * @param $type
      * @return bool|void
-     */
-    public function sendRevenueReceived($uid, $extract_number, $order_id, $type)
+     */    public function sendRevenueReceived($uid, $extract_number, $order_id, $type)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string1' => $order_id,
@@ -284,8 +269,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $count
      * @param string $link
      * @return bool|void
-     */
-    public function sendPinkSuccess($uid, $pinkTitle, $nickname, $pinkTime, $count, string $link = '')
+     */    public function sendPinkSuccess($uid, $pinkTitle, $nickname, $pinkTime, $count, string $link = '')
     {
         return $this->sendTemplate((int)$uid, [
             'thing1' => $pinkTitle,
@@ -303,8 +287,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $remarks
      * @param $link
      * @return bool|void
-     */
-    public function sendPinkFail($uid, $pinkTitle, $count, $remarks, $link)
+     */    public function sendPinkFail($uid, $pinkTitle, $count, $remarks, $link)
     {
         return $this->sendTemplate((int)$uid, [
             'thing2' => $pinkTitle,
@@ -321,8 +304,7 @@ class RoutineTemplateListService extends NoticeService
      * @param $gainIntegral
      * @param $integral
      * @return bool|void
-     */
-    public function sendUserIntegral($uid, $order, $storeTitle, $gainIntegral, $integral)
+     */    public function sendUserIntegral($uid, $order, $storeTitle, $gainIntegral, $integral)
     {
         if (!$order || !$uid) return true;
         if (is_string($order['cart_id']))
@@ -342,8 +324,7 @@ class RoutineTemplateListService extends NoticeService
      * @param string $brokeragePrice
      * @param string $goods_name
      * @return bool|void
-     */
-    public function sendOrderBrokerageSuccess($uid, string $brokeragePrice, string $goods_name)
+     */    public function sendOrderBrokerageSuccess($uid, string $brokeragePrice, string $goods_name)
     {
         return $this->sendTemplate((int)$uid, [
             'thing2' => $goods_name,
@@ -353,12 +334,11 @@ class RoutineTemplateListService extends NoticeService
     }
 
     /**
-     * Ràng buộc mối quan hệ khuyến mãi để gửi tin nhắn nhắc nhở
+     * Liên kết mối quan hệ khuyến mãi để gửi tin nhắn nhắc nhở
      * @param $uid
      * @param string $userName
      * @return bool|void
-     */
-    public function sendBindSpreadUidSuccess($uid, string $userName)
+     */    public function sendBindSpreadUidSuccess($uid, string $userName)
     {
         return $this->sendTemplate((int)$uid, [
             'name3' => $userName . "Tham gia nhóm của bạn",

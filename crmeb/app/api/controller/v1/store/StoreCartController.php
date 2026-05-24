@@ -18,8 +18,7 @@ use app\services\order\StoreCartServices;
  * Danh mục giỏ hàng
  * Class StoreCartController
  * @package app\api\controller\store
- */
-class StoreCartController
+ */class StoreCartController
 {
     protected $services;
 
@@ -35,8 +34,7 @@ class StoreCartController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst(Request $request)
+     */    public function lst(Request $request)
     {
         [$status] = $request->postMore([
             ['status', 1],//Trạng thái mặt hàng trong giỏ hàng
@@ -52,15 +50,14 @@ class StoreCartController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function add(Request $request)
+     */    public function add(Request $request)
     {
         $where = $request->postMore([
             [['productId', 'd'], 0],//Số sản phẩm chung
             [['cartNum', 'd'], 1], //Số lượng giỏ hàng
             ['uniqueId', ''],//giá trị duy nhất của thuộc tính
-            [['new', 'd'], 0],// 1 Thêm vào giỏ hàngMua trực tiếp 0 Thêm vào giỏ hàng
-            [['is_new', 'd'], 0],// 1 Thêm vào giỏ hàngMua trực tiếp 0 Thêm vào giỏ hàng
+            [['new', 'd'], 0],// 1 Thêm mới giỏ hàngMua trực tiếp 0 Thêm mới giỏ hàng
+            [['is_new', 'd'], 0],// 1 Thêm mới giỏ hàngMua trực tiếp 0 Thêm mới giỏ hàng
             [['combinationId', 'd'], 0],//Số sản phẩm nhóm
             [['secKillId', 'd'], 0],//Số mặt hàng khuyến mại chớp nhoáng
             [['bargainId', 'd'], 0],//Số mặt hàng mặc cả
@@ -69,8 +66,7 @@ class StoreCartController
         ]);
         if ($where['is_new'] || $where['new']) $new = true;
         else $new = false;
-        /** @var StoreCartServices $cartService */
-        $cartService = app()->make(StoreCartServices::class);
+        /** @var StoreCartServices $cartService */        $cartService = app()->make(StoreCartServices::class);
         if (!$where['productId'] || !is_numeric($where['productId'])) return app('json')->fail('Lỗi tham số');
         $type = 0;
         if ($where['secKillId']) {
@@ -80,8 +76,7 @@ class StoreCartController
         } elseif ($where['combinationId']) {
             $type = 3;
             if ($where['pinkId']) {
-                /** @var StorePinkServices $pinkServices */
-                $pinkServices = app()->make(StorePinkServices::class);
+                /** @var StorePinkServices $pinkServices */                $pinkServices = app()->make(StorePinkServices::class);
                 if ($pinkServices->isPinkStatus($where['pinkId'])) return app('json')->fail('Mua theo nhóm đã hết hạn');
             }
         } elseif ($where['advanceId']) {
@@ -97,8 +92,7 @@ class StoreCartController
      * Giỏ hàng xóa mặt hàng
      * @param Request $request
      * @return mixed
-     */
-    public function del(Request $request)
+     */    public function del(Request $request)
     {
         $where = $request->postMore([
             ['ids', ''],//Số giỏ hàng
@@ -118,8 +112,7 @@ class StoreCartController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function num(Request $request)
+     */    public function num(Request $request)
     {
         $where = $request->postMore([
             ['id', 0],//Số giỏ hàng
@@ -139,8 +132,7 @@ class StoreCartController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function count(Request $request)
+     */    public function count(Request $request)
     {
         [$numType] = $request->postMore([
             ['numType', true],//Số giỏ hàng
@@ -153,8 +145,7 @@ class StoreCartController
      * Lựa chọn lại giỏ hàng
      * @param Request $request
      * @return mixed
-     */
-    public function reChange(Request $request)
+     */    public function reChange(Request $request)
     {
         [$cart_id, $product_id, $unique] = $request->postMore([
             ['cart_id', 0],

@@ -26,29 +26,26 @@ class UserJob extends BaseJobs
      * Sau khi đồng bộ dữ liệu
      * @param $openids
      * @return bool
-     */
-    public function doJob($openids)
+     */    public function doJob($openids)
     {
         if (!$openids || !is_array($openids)) {
             return true;
         }
         $noBeOpenids = [];
         try {
-            /** @var WechatUserServices $wechatUser */
-            $wechatUser  = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUser */            $wechatUser  = app()->make(WechatUserServices::class);
             $noBeOpenids = $wechatUser->syncWechatUser($openids);
         } catch (\Throwable $e) {
-            Log::error('Không thể cập nhật thông tin người dùng wechatUser,Lý do thất bại:' . $e->getMessage());
+            Log::error('Không thể cập nhật thông tin Khách hàng wechatUser,Lý do thất bại:' . $e->getMessage());
         }
         if (!$noBeOpenids) {
             return true;
         }
         try {
-            /** @var UserServices $user */
-            $user = app()->make(UserServices::class);
+            /** @var UserServices $user */            $user = app()->make(UserServices::class);
             $user->importUser($noBeOpenids);
         } catch (\Throwable $e) {
-            Log::error('Không thêm được người dùng,Lý do thất bại:' . $e->getMessage());
+            Log::error('Không thêm được Khách hàng,Lý do thất bại:' . $e->getMessage());
         }
         return true;
     }

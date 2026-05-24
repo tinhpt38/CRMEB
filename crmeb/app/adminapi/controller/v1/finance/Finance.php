@@ -17,15 +17,13 @@ use app\adminapi\controller\AuthController;
 /**
  * Class Finance
  * @package app\adminapi\controller\v1\finance
- */
-class Finance extends AuthController
+ */class Finance extends AuthController
 {
     /**
      * Finance constructor.
      * @param App $app
      * @param UserBillServices $services
-     */
-    public function __construct(App $app, UserBillServices $services)
+     */    public function __construct(App $app, UserBillServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -33,16 +31,14 @@ class Finance extends AuthController
 
     /**
      * Loại bộ lọc
-     */
-    public function bill_type()
+     */    public function bill_type()
     {
         return app('json')->success($this->services->bill_type());
     }
 
     /**
      * Hồ sơ tài trợ
-     */
-    public function list()
+     */    public function list()
     {
         $where = $this->request->getMore([
             ['start_time', ''],
@@ -56,10 +52,9 @@ class Finance extends AuthController
     }
 
     /**
-     * hồ sơ ủy ban
+     * Lịch sử hoa hồng
      * @return mixed
-     */
-    public function get_commission_list()
+     */    public function get_commission_list()
     {
         $where = $this->request->getMore([
             ['nickname', ''],
@@ -73,19 +68,17 @@ class Finance extends AuthController
     }
 
     /**
-     * Hoa hồng chi tiết thông tin người dùng
+     * Hoa hồng chi tiết thông tin Khách hàng
      * @param $id
      * @return mixed
-     */
-    public function user_info($id)
+     */    public function user_info($id)
     {
         return app('json')->success($this->services->user_info((int)$id));
     }
 
     /**
      * Danh sách cá nhân hồ sơ rút tiền hoa hồng
-     */
-    public function get_extract_list($id = '')
+     */    public function get_extract_list($id = '')
     {
         if ($id == '') return app('json')->fail('Lỗi tham số');
         $where = $this->request->getMore([

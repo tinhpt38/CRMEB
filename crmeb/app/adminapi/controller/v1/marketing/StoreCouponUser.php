@@ -19,8 +19,7 @@ use think\facade\App;
  * Người kiểm soát hồ sơ phát hành phiếu giảm giá
  * Class StoreCategory
  * @package app\admin\controller\system
- */
-class StoreCouponUser extends AuthController
+ */class StoreCouponUser extends AuthController
 {
     public function __construct(App $app, StoreCouponUserServices $services)
     {
@@ -29,13 +28,12 @@ class StoreCouponUser extends AuthController
     }
 
     /**
-     * Bản ghi bộ sưu tập của người dùng
+     * Sản phẩm được lưu
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -49,16 +47,14 @@ class StoreCouponUser extends AuthController
     /**
      * Phát hành phiếu giảm giá cho các cá nhân được chỉ định
      * @return mixed
-     */
-    public function grant()
+     */    public function grant()
     {
         $data = $this->request->postMore([
             ['id', 0],
             ['uid', '']
         ]);
         if (!$data['id']) return app('json')->fail('Lỗi tham số');
-        /** @var StoreCouponIssueServices $issueService */
-        $issueService = app()->make(StoreCouponIssueServices::class);
+        /** @var StoreCouponIssueServices $issueService */        $issueService = app()->make(StoreCouponIssueServices::class);
         $coupon = $issueService->get($data['id']);
         if (!$coupon) {
             return app('json')->fail('Dữ liệu không tồn tại');

@@ -25,15 +25,13 @@ class OrderInvoiceJob extends BaseJobs
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/16
-     */
-    public function autoInvoice($id)
+     */    public function autoInvoice($id)
     {
         try {
             if (sys_config('elec_invoice', 1) != 1) {
                 return true;
             }
-            /** @var StoreOrderInvoiceServices $services */
-            $services = app()->make(StoreOrderInvoiceServices::class);
+            /** @var StoreOrderInvoiceServices $services */            $services = app()->make(StoreOrderInvoiceServices::class);
             $services->invoiceIssuance($id);
         } catch (\Exception $e) {
         }
@@ -47,15 +45,13 @@ class OrderInvoiceJob extends BaseJobs
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/16
-     */
-    public function autoInvoiceRed($id)
+     */    public function autoInvoiceRed($id)
     {
         try {
             if (sys_config('elec_invoice', 1) != 1) {
                 return true;
             }
-            /** @var StoreOrderInvoiceServices $services */
-            $services = app()->make(StoreOrderInvoiceServices::class);
+            /** @var StoreOrderInvoiceServices $services */            $services = app()->make(StoreOrderInvoiceServices::class);
             $services->redInvoiceIssuance($id);
         } catch (\Exception $e) {
         }

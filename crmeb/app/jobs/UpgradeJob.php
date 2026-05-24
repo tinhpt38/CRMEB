@@ -20,8 +20,7 @@ use think\facade\Log;
  * Gói nâng cấp
  * Class UpgradeJob
  * @package app\jobs
- */
-class UpgradeJob extends BaseJobs
+ */class UpgradeJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -33,12 +32,10 @@ class UpgradeJob extends BaseJobs
      * @param $filename
      * @param $timeout
      * @return bool
-     */
-    public function download($seq, $url, $filePath, $filename, $timeout): bool
+     */    public function download($seq, $url, $filePath, $filename, $timeout): bool
     {
         try {
-            /** @var UpgradeServices $services */
-            $services = app()->make(UpgradeServices::class);
+            /** @var UpgradeServices $services */            $services = app()->make(UpgradeServices::class);
             $services->download($seq, $url, $filePath, $filename, $timeout);
         } catch (\Exception $e) {
             Log::error('Tải xuống gói nâng cấp không thành công,Lý do thất bại:' . $e->getMessage());
@@ -50,12 +47,10 @@ class UpgradeJob extends BaseJobs
      * Sao lưu cơ sở dữ liệu
      * @param $token
      * @return bool
-     */
-    public function databaseBackup($token): bool
+     */    public function databaseBackup($token): bool
     {
         try {
-            /** @var UpgradeServices $services */
-            $services = app()->make(UpgradeServices::class);
+            /** @var UpgradeServices $services */            $services = app()->make(UpgradeServices::class);
             $services->databaseBackup($token);
         } catch (\Exception $e) {
             Log::error('Sao lưu cơ sở dữ liệu không thành công,Lý do thất bại:' . $e->getMessage());
@@ -67,12 +62,10 @@ class UpgradeJob extends BaseJobs
      * Sao lưu dự án
      * @param $token
      * @return bool
-     */
-    public function projectBackup($token): bool
+     */    public function projectBackup($token): bool
     {
         try {
-            /** @var UpgradeServices $services */
-            $services = app()->make(UpgradeServices::class);
+            /** @var UpgradeServices $services */            $services = app()->make(UpgradeServices::class);
             $services->projectBackup($token);
         } catch (\Exception $e) {
             Log::error('Sao lưu dự án không thành công,Lý do thất bại:' . $e->getMessage());
@@ -84,12 +77,10 @@ class UpgradeJob extends BaseJobs
      * Ghi đè tập tin dự án
      * @param $token
      * @return bool
-     */
-    public function coverageProject($token): bool
+     */    public function coverageProject($token): bool
     {
         try {
-            /** @var UpgradeServices $services */
-            $services = app()->make(UpgradeServices::class);
+            /** @var UpgradeServices $services */            $services = app()->make(UpgradeServices::class);
             $services->coverageProject($token);
         } catch (\Exception $e) {
             Log::error('Không thể ghi đè dự án,Lý do thất bại:' . $e->getMessage());
@@ -108,12 +99,10 @@ class UpgradeJob extends BaseJobs
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/2/26
-     */
-    public function checkFileMd5($token)
+     */    public function checkFileMd5($token)
     {
         try {
-            /** @var SystemFileMd5Services $services */
-            $services = app()->make(SystemFileMd5Services::class);
+            /** @var SystemFileMd5Services $services */            $services = app()->make(SystemFileMd5Services::class);
             $data = $services->checkFile();
             \crmeb\services\CacheService::set($token . '_check_md5_file', $data, 86400);
             \crmeb\services\CacheService::set($token . '_check_md5_status', empty($data) ? 2 : 1, 86400);

@@ -19,29 +19,25 @@ use think\Model;
  * Mô hình danh sách dữ liệu dữ liệu kết hợp
  * Class SystemGroupData
  * @package app\model\system\config
- */
-class SystemGroupData extends BaseModel
+ */class SystemGroupData extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_group_data';
+     */    protected $name = 'system_group_data';
 
     /**
      * công cụ tìm trạng thái
      * @param $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value != '') {
             $query->where('status', $value);
@@ -52,8 +48,7 @@ class SystemGroupData extends BaseModel
      * GidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchGidAttr($query, $value)
+     */    public function searchGidAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('gid', $value);

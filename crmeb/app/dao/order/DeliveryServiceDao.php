@@ -17,14 +17,12 @@ use app\model\order\DeliveryService;
 /**Vận chuyểndao
  * Class DeliveryServiceDao
  * @package app\dao\service
- */
-class DeliveryServiceDao extends BaseDao
+ */class DeliveryServiceDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return DeliveryService::class;
     }
@@ -38,8 +36,7 @@ class DeliveryServiceDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceList(array $where, int $page, int $limit)
+     */    public function getServiceList(array $where, int $page, int $limit)
     {
         return $this->search($where, false)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -48,13 +45,12 @@ class DeliveryServiceDao extends BaseDao
         })->order('id DESC')->select()->toArray();
     }
 
-    /**Nhận danh sách tất cả các nhà chuyển phát nhanh
+    /**Nhận danh sách Tất cả các nhà chuyển phát nhanh
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(int $page, int $limit)
+     */    public function getList(int $page, int $limit)
     {
         $list = $this->getModel()->where(['status' => 1])->order('id DESC')->limit($page, $limit)->select()->toArray();
         foreach ($list as &$item) {

@@ -24,8 +24,7 @@ use think\facade\Route as Url;
  * Class StoreCouponService
  * @package app\services\coupon
  * @method save(array $data)
- */
-class StoreCouponService extends BaseServices
+ */class StoreCouponService extends BaseServices
 {
     public function __construct(StoreCouponDao $dao)
     {
@@ -36,8 +35,7 @@ class StoreCouponService extends BaseServices
      * Nhận danh sách
      * @param array $where
      * @return array
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $where['is_del'] = 0;
@@ -51,15 +49,13 @@ class StoreCouponService extends BaseServices
      * @param int $type
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm(int $type)
+     */    public function createForm(int $type)
     {
         $f[] = Form::input('title', 'Tên phiếu giảm giá');
         switch ($type) {
-            case 1://Phiếu giảm giá danh mục
+            case 1://Mã giảm giá danh mục
                 $options = function () {
-                    /** @var StoreCategoryServices $storeCategoryService */
-                    $storeCategoryService = app()->make(StoreCategoryServices::class);
+                    /** @var StoreCategoryServices $storeCategoryService */                    $storeCategoryService = app()->make(StoreCategoryServices::class);
                     $list = $storeCategoryService->getTierList(1, 1);
                     $menus = [];
                     foreach (sort_list_tier($list) as $menu) {
@@ -70,7 +66,7 @@ class StoreCouponService extends BaseServices
                 };
                 $f[] = Form::select('category_id', 'Chọn danh mục')->setOptions(Form::setOptions($options))->filterable(1)->col(12);
                 break;
-            case 2://phiếu giảm giá hàng hóa
+            case 2://phiếu giảm giá sản phẩm
                 $f[] = Form::frameImages('image', 'sản phẩm', Url::buildUrl(config('app.admin_prefix', 'admin') . '/store.StoreProduct/index', array('fodder' => 'image', 'type' => 'many')))->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['srcKey' => 'image', 'footer' => false]);
                 $f[] = Form::hidden('product_id', '');
                 break;
@@ -92,8 +88,7 @@ class StoreCouponService extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createIssue(int $id)
+     */    public function createIssue(int $id)
     {
         $res = $this->dao->getOne(['id' => $id, 'status' => 1, 'is_del' => 0]);
         if (!$res) throw new AdminException('Mã giảm giá được công bố đã hết hạn hoặc không tồn tại!');
@@ -125,8 +120,7 @@ class StoreCouponService extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function upIssue(int $id, int $_id, string $coupon_title, array $rangeTime, int $count, int $status, int $is_permanent, float $full_reduction, int $is_give_subscribe, int $is_full_give, int $is_type)
+     */    public function upIssue(int $id, int $_id, string $coupon_title, array $rangeTime, int $count, int $status, int $is_permanent, float $full_reduction, int $is_give_subscribe, int $is_full_give, int $is_type)
     {
         if ($is_type == 1) {
             $is_full_give = 1;
@@ -164,8 +158,7 @@ class StoreCouponService extends BaseServices
         $data['product_id'] = $couponInfo['product_id'];
         $data['category_id'] = $couponInfo['category_id'];
         $data['type'] = $couponInfo->getData('type');
-        /** @var StoreCouponIssueServices $storeCouponIssueService */
-        $storeCouponIssueService = app()->make(StoreCouponIssueServices::class);
+        /** @var StoreCouponIssueServices $storeCouponIssueService */        $storeCouponIssueService = app()->make(StoreCouponIssueServices::class);
         $res = $storeCouponIssueService->save($data);
         $productIds = explode(',', $data['product_id']);
         if (count($productIds)) {
@@ -173,23 +166,20 @@ class StoreCouponService extends BaseServices
             foreach ($productIds as $product_id) {
                 $couponData[] = ['product_id' => $product_id, 'coupon_id' => $res->id];
             }
-            /** @var StoreCouponProductServices $storeCouponProductService */
-            $storeCouponProductService = app()->make(StoreCouponProductServices::class);
+            /** @var StoreCouponProductServices $storeCouponProductService */            $storeCouponProductService = app()->make(StoreCouponProductServices::class);
             $storeCouponProductService->saveAll($couponData);
         }
         if (!$res) throw new AdminException('Không thể đăng phiếu giảm giá!');
     }
 
     /**
-     * Phiếu giảm giá đã hết hạn
+     * Mã giảm giá đã hết hạn
      * @param int $id
-     */
-    public function invalid(int $id)
+     */    public function invalid(int $id)
     {
         $res = $this->dao->update($id, ['status' => 0]);
         if (!$res) throw new AdminException('Thao tác không thành công');
-        /** @var StoreCouponIssueServices $storeCouponIssueService */
-        $storeCouponIssueService = app()->make(StoreCouponIssueServices::class);
+        /** @var StoreCouponIssueServices $storeCouponIssueService */        $storeCouponIssueService = app()->make(StoreCouponIssueServices::class);
         $storeCouponIssueService->update($id, ['status' => -1], 'cid');
     }
 
@@ -204,14 +194,11 @@ class StoreCouponService extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function beUsableCouponList(int $uid, $cartId, bool $new)
+     */    public function beUsableCouponList(int $uid, $cartId, bool $new)
     {
-        /** @var StoreCartServices $services */
-        $services = app()->make(StoreCartServices::class);
+        /** @var StoreCartServices $services */        $services = app()->make(StoreCartServices::class);
         $cartGroup = $services->getUserProductCartListV1($uid, $cartId, $new);
-        /** @var StoreCouponUserServices $coupServices */
-        $coupServices = app()->make(StoreCouponUserServices::class);
+        /** @var StoreCouponUserServices $coupServices */        $coupServices = app()->make(StoreCouponUserServices::class);
         return $coupServices->getUsableCouponList($uid, $cartGroup);
     }
 

@@ -21,14 +21,12 @@ class StoreActivity extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_activity';
+     */    protected $name = 'store_activity';
 
     public function seckill()
     {

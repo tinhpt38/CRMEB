@@ -19,15 +19,13 @@ use app\model\diy\PageLink;
  * Liên kết trang
  * Class PageLinkDao
  * @package app\dao\diy
- */
-class PageLinkDao extends BaseDao
+ */class PageLinkDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return PageLink::class;
     }
@@ -42,8 +40,7 @@ class PageLinkDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0)
+     */    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0)
     {
         $where['no_model'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
         return $this->search($where)->field($field)

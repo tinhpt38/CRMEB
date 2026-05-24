@@ -18,29 +18,26 @@ use app\services\user\UserRechargeServices;
  * Loại nạp tiền
  * Class UserRechargeController
  * @package app\api\controller\user
- */
-class UserRechargeController
+ */class UserRechargeController
 {
     protected $services = NUll;
 
     /**
      * UserRechargeController constructor.
      * @param UserRechargeServices $services
-     */
-    public function __construct(UserRechargeServices $services)
+     */    public function __construct(UserRechargeServices $services)
     {
         $this->services = $services;
     }
 
     /**
-     * Nạp tiền người dùng
+     * Nạp tiền vào ví
      * @param Request $request
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function recharge(Request $request)
+     */    public function recharge(Request $request)
     {
         [$price, $recharId, $type, $from] = $request->postMore([
             ['price', 0],
@@ -67,8 +64,7 @@ class UserRechargeController
      * TODO Nạp tiền chương trình nhỏ không được dùng nữa
      * @param Request $request
      * @return mixed
-     */
-    public function routine(Request $request)
+     */    public function routine(Request $request)
     {
         list($price, $recharId, $type) = $request->postMore([['price', 0], ['rechar_id', 0], ['type', 0]], true);
         if (!$price || $price <= 0) return app('json')->fail('Số tiền nạp không thể là 0 nhân dân tệ');
@@ -88,8 +84,7 @@ class UserRechargeController
      * TODO Việc nạp tiền vào tài khoản chính thức không được chấp nhận
      * @param Request $request
      * @return mixed
-     */
-    public function wechat(Request $request)
+     */    public function wechat(Request $request)
     {
         list($price, $recharId, $from, $type) = $request->postMore([['price', 0], ['rechar_id', 0], ['from', 'weixin'], ['type', 0]], true);
         if (!$price || $price <= 0) return app('json')->fail('Số tiền nạp không thể là 0 nhân dân tệ');
@@ -107,8 +102,7 @@ class UserRechargeController
     /**
      * Lựa chọn số tiền nạp
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $rechargeQuota = sys_data('user_recharge_quota') ?? [];
         $data['recharge_quota'] = $rechargeQuota;

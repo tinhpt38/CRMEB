@@ -21,14 +21,12 @@ use think\facade\Route as Url;
  * Class WechatQrcodeCateServices
  * @package app\services\wechat
  * @method getCateList() Danh sách danh mục
- */
-class WechatQrcodeCateServices extends BaseServices
+ */class WechatQrcodeCateServices extends BaseServices
 {
     /**
      * WechatQrcodeCateServices constructor.
      * @param WechatQrcodeCateDao $dao
-     */
-    public function __construct(WechatQrcodeCateDao $dao)
+     */    public function __construct(WechatQrcodeCateDao $dao)
     {
         $this->dao = $dao;
     }
@@ -41,8 +39,7 @@ class WechatQrcodeCateServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createForm($id = 0)
+     */    public function createForm($id = 0)
     {
         $info = $this->dao->get($id);
         $f[] = Form::hidden('id', $id);
@@ -54,8 +51,7 @@ class WechatQrcodeCateServices extends BaseServices
      * lưu dữ liệu
      * @param $data
      * @return bool
-     */
-    public function saveData($data)
+     */    public function saveData($data)
     {
         $id = $data['id'];
         $data['add_time'] = time();
@@ -73,8 +69,7 @@ class WechatQrcodeCateServices extends BaseServices
      * Xóa danh mục
      * @param int $id
      * @return bool
-     */
-    public function delCate($id = 0)
+     */    public function delCate($id = 0)
     {
         $count = app()->make(WechatQrcodeServices::class)->count(['cate_id' => $id]);
         if ($count) throw new AdminException('Danh mục này có các danh mục phụ và không thể xóa được.');

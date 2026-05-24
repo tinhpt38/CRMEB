@@ -21,16 +21,14 @@ use think\facade\App;
 /**
  * Class SystemStorage
  * @package app\adminapi\controller\v1\setting
- */
-class SystemStorage extends AuthController
+ */class SystemStorage extends AuthController
 {
 
     /**
      * SystemStorage constructor.
      * @param App $app
      * @param SystemStorageServices $services
-     */
-    public function __construct(App $app, SystemStorageServices $services)
+     */    public function __construct(App $app, SystemStorageServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -38,8 +36,7 @@ class SystemStorage extends AuthController
 
     /**
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         return app('json')->success($this->services->getList(['type' => $this->request->get('type')]));
     }
@@ -49,8 +46,7 @@ class SystemStorage extends AuthController
      * @param $type
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create($type)
+     */    public function create($type)
     {
         if (!$type) {
             return app('json')->fail('Lỗi tham số');
@@ -63,8 +59,7 @@ class SystemStorage extends AuthController
      * @param $type
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function getConfigForm($type)
+     */    public function getConfigForm($type)
     {
         return app('json')->success($this->services->getFormStorageConfig((int)$type));
     }
@@ -72,16 +67,14 @@ class SystemStorage extends AuthController
     /**
      * Nhận loại cấu hình
      * @return mixed
-     */
-    public function getConfig()
+     */    public function getConfig()
     {
         return app('json')->success(['type' => (int)sys_config('upload_type', 1)]);
     }
 
     /**
      * @return mixed
-     */
-    public function saveConfig( )
+     */    public function saveConfig( )
     {
         $type = (int)$this->request->post('type', 0);
 
@@ -100,8 +93,7 @@ class SystemStorage extends AuthController
     /**
      * @param $type
      * @return mixed
-     */
-    public function synch($type)
+     */    public function synch($type)
     {
         $this->services->synchronization((int)$type);
         return app('json')->success('Đồng bộ hóa thành công');
@@ -111,8 +103,7 @@ class SystemStorage extends AuthController
      * lưu loại
      * @param $type
      * @return mixed
-     */
-    public function save($type)
+     */    public function save($type)
     {
         $data = $this->request->postMore([
             ['accessKey', ''],
@@ -141,8 +132,7 @@ class SystemStorage extends AuthController
      * @param SystemConfigServices $services
      * @param $id
      * @return mixed
-     */
-    public function status(SystemConfigServices $services, $id)
+     */    public function status(SystemConfigServices $services, $id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -179,8 +169,7 @@ class SystemStorage extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function getUpdateDomainForm($id)
+     */    public function getUpdateDomainForm($id)
     {
         return app('json')->success($this->services->getUpdateDomainForm((int)$id));
     }
@@ -191,8 +180,7 @@ class SystemStorage extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateDomain($id)
+     */    public function updateDomain($id)
     {
         $domain = $this->request->post('domain', '');
         $cdn = $this->request->post('cdn', '');
@@ -217,14 +205,13 @@ class SystemStorage extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param $id
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -242,8 +229,7 @@ class SystemStorage extends AuthController
      * @param SystemConfigServices $services
      * @param $type
      * @return mixed
-     */
-    public function uploadType(SystemConfigServices $services, $type)
+     */    public function uploadType(SystemConfigServices $services, $type)
     {
         $status = $this->services->count(['type' => $type, 'status' => 1]);
         if (!$status && $type != 1) {

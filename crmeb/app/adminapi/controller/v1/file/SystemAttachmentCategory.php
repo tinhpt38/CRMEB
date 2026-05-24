@@ -18,19 +18,16 @@ use think\facade\App;
  * Lớp quản lý phân loại ảnh
  * Class SystemAttachmentCategory
  * @package app\adminapi\controller\v1\file
- */
-class SystemAttachmentCategory extends AuthController
+ */class SystemAttachmentCategory extends AuthController
 {
     /**
      * @var SystemAttachmentCategoryServices
-     */
-    protected $service;
+     */    protected $service;
 
     /**
      * @param App $app
      * @param SystemAttachmentCategoryServices $service
-     */
-    public function __construct(App $app, SystemAttachmentCategoryServices $service)
+     */    public function __construct(App $app, SystemAttachmentCategoryServices $service)
     {
         parent::__construct($app);
         $this->service = $service;
@@ -43,8 +40,7 @@ class SystemAttachmentCategory extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['name', ''],
@@ -60,8 +56,7 @@ class SystemAttachmentCategory extends AuthController
      * Thêm biểu mẫu
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         [$id, $type] = $this->request->getMore([
             ['id', 0],
@@ -73,8 +68,7 @@ class SystemAttachmentCategory extends AuthController
     /**
      * Lưu mới
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['pid', 0],
@@ -94,8 +88,7 @@ class SystemAttachmentCategory extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->service->editForm($id));
     }
@@ -104,8 +97,7 @@ class SystemAttachmentCategory extends AuthController
      * Lưu tài nguyên cập nhật
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['pid', 0],
@@ -129,8 +121,7 @@ class SystemAttachmentCategory extends AuthController
      * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         $this->service->del($id);
         return app('json')->success('Xóa thành công');

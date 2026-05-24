@@ -19,15 +19,13 @@ use app\model\activity\combination\StoreCombination;
  *
  * Class StoreCombinationDao
  * @package app\dao\activity
- */
-class StoreCombinationDao extends BaseDao
+ */class StoreCombinationDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreCombination::class;
     }
@@ -38,8 +36,7 @@ class StoreCombinationDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->when(isset($where['pinkIngTime']), function ($query) use ($where) {
             $time = time();
@@ -70,8 +67,7 @@ class StoreCombinationDao extends BaseDao
      * @param bool $search
      * @return int
      * @throws \ReflectionException
-     */
-    public function count(array $where = [], bool $search = true)
+     */    public function count(array $where = [], bool $search = true)
     {
         return $this->search($where, $search)->count();
     }
@@ -85,8 +81,7 @@ class StoreCombinationDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0)
+     */    public function getList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where)->where('is_del', 0)->with('getPrice')
             ->when(isset($where['start_status']) && $where['start_status'] !== '', function ($query) use ($where) {
@@ -117,8 +112,7 @@ class StoreCombinationDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getHomeList(array $where, int $page = 0, int $limit = 0)
+     */    public function getHomeList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where)
             ->when($page != 0 && $limit != 0, function ($query) use ($page, $limit) {
@@ -150,12 +144,11 @@ class StoreCombinationDao extends BaseDao
 
     /**
      * Lấy các sản phẩm đang được nhóm và trả về dưới dạng mảng
-     * @param array $ids ids Trả lại tất cả nếu trống
+     * @param array $ids ids Trả lại Tất cả nếu trống
      * @param array $field
      * @return array
      * @throws \ReflectionException
-     */
-    public function getPinkIdsArray(array $ids = [], array $field = [])
+     */    public function getPinkIdsArray(array $ids = [], array $field = [])
     {
         return $this->search(['is_del' => 0, 'is_show' => 1, 'pinkIngTime' => 1])
             ->when($ids, function ($query) use ($ids) {
@@ -169,8 +162,7 @@ class StoreCombinationDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function combinationList(array $where, int $page, int $limit)
+     */    public function combinationList(array $where, int $page, int $limit)
     {
         return $this->search($where)->with('getPrice')->page($page, $limit)->order('sort desc,id desc')->select()->toArray();
     }
@@ -180,8 +172,7 @@ class StoreCombinationDao extends BaseDao
      * @param array $where
      * @return int
      * @throws \ReflectionException
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         return $this->search($where)->count();
     }
@@ -195,8 +186,7 @@ class StoreCombinationDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function diyCombinationList(array $where, int $page, int $limit)
+     */    public function diyCombinationList(array $where, int $page, int $limit)
     {
         return $this->search($where)->with('getCategory')->page($page, $limit)->order('sort desc,id desc')->select()->toArray();
     }
@@ -209,8 +199,7 @@ class StoreCombinationDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function idCombinationList(array $ids, string $field)
+     */    public function idCombinationList(array $ids, string $field)
     {
         return $this->getModel()->whereIn('id', $ids)->field($field)->select()->toArray();
     }
@@ -223,8 +212,7 @@ class StoreCombinationDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function validProduct(int $id, string $field)
+     */    public function validProduct(int $id, string $field)
     {
         $where = ['is_show' => 1, 'is_del' => 0, 'pinkIngTime' => true];
         return $this->search($where)->where('id', $id)->with(['total'])->field($field)->order('add_time desc')->find();
@@ -236,8 +224,7 @@ class StoreCombinationDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCombinationHost()
+     */    public function getCombinationHost()
     {
         $where = ['is_del' => 0, 'is_host' => 1, 'is_show' => 1, 'pinkIngTime' => true];
         return $this->search($where)->order('id desc')->select()->toArray();

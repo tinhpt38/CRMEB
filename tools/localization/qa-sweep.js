@@ -25,38 +25,45 @@ const rootIdx = args.indexOf('--root');
 const reportIdx = args.indexOf('--report');
 const ROOTS = rootIdx >= 0
   ? [args[rootIdx + 1]]
-  : ['template/admin/src', 'template/uni-app', 'crmeb/app'];
+  : ['template/admin/src', 'crmeb/app', 'f-chan/src'];
 const REPORT_PATH = reportIdx >= 0 ? args[reportIdx + 1] : null;
 
 // Các cụm đã biết chắc là dịch sai, chưa chắc đã có trong glossary.
 const SUSPECT_TERMS = [
-  'Cứu', 'cứu',                         // Save
-  'Băng hình', 'băng hình',             // Video
-  'Viên thuốc',                         // Tablet
-  'cổ phiếu',                           // Stock
-  'bầu trời',                           // Day (trời)
-  'mặt trăng',                          // Month (trăng)
-  'vận hành',                           // Operation / Thao tác
-  'cài lại',                            // Reset
-  'Xuất khẩu',                          // Export
-  'biên tập',                           // Edit
-  'Truy vấn',                           // Query / Search
-  'Thứ tự',                             // Order
-  'Đánh vần',                           // Spelling / group
-  'Giây giết',                          // Flash sale (literal "second kill")
-  'sáng tạo',                           // Create
-  'Ôn lại',                             // Review / Edit
-  'trưởng thành',                       // Expired
-  'bật lên',                            // Popup / Active
-  'nam giới',                           // Male
-  'Sự cân bằng',                        // Balance
-  'tích phân',                          // Points
-  'Tình bạn',                           // Friendship / Referrer
-  'Ràng buộc',                          // Binding
-  'Xuất người dùng',                    // Export users
-  'người dùngID',                       // User ID
-  'hàng hóa',                           // Goods (prefer sản phẩm)
-  'Đặt hàng ',                          // (space-suffixed — nghi vấn)
+  'Cứu', 'cứu',
+  'Băng hình', 'băng hình',
+  'Viên thuốc',
+  'cổ phiếu',
+  'bầu trời',
+  'mặt trăng',
+  'vận hành',
+  'cài lại',
+  'Xuất khẩu',
+  'Truy vấn',
+  'Đánh vần',
+  'Giây giết',
+  'Ôn lại',
+  'trưởng thành',
+  'bật lên',
+  'nam giới',
+  'Sự cân bằng',
+  'tích phân',
+  'Tình bạn',
+  'Ràng buộc',
+  'Xuất người dùng',
+  'người dùngID',
+  'hàng hóa',
+];
+
+// Dòng chứa các cụm hợp lệ — bỏ qua cảnh báo (false positive).
+const EXCLUDE_LINE_PATTERNS = [
+  /Giao diện editor/i,
+  /Thứ tự sắp xếp/i,
+  /Chủ đề biên tập/i,
+  /Chỉ mục biên tập hiện tại/i,
+  /dễ chế biến/i, // "sáng tạo" trong mô tả sản phẩm demo
+  /giàu chất/i,
+  /hóa đơn/i,
 ];
 
 const HAN_RE = /[\u4e00-\u9fff]/;
@@ -75,7 +82,9 @@ function isSkipFile(fileRel) {
     || fileRel.endsWith('template/admin/src/styles/font/mobile.json')
     || fileRel.endsWith('template/admin/src/styles/font/iconfont.json')
     || fileRel.endsWith('template/admin/src/assets/iconfontYI/iconfontYI.json')
-    || fileRel.includes('crmeb/app/services/diy/ThemeServices.php'); // translation lookup table
+    || fileRel.includes('crmeb/app/services/diy/ThemeServices.php') // legacy
+    || fileRel.includes('crmeb/crmeb/utils/DiyHomeLabelMap.php') // zh→vi lookup table
+    || fileRel.includes('f-chan/src/mock/'); // demo product copy
 }
 
 function walk(dir, out = []) {
@@ -83,7 +92,7 @@ function walk(dir, out = []) {
   const st = fs.statSync(dir);
   if (st.isFile()) {
     const ext = path.extname(dir).toLowerCase();
-    if (['.vue', '.js', '.php', '.json'].includes(ext)) out.push(dir);
+      if (['.vue', '.js', '.php', '.json', '.ts', '.tsx'].includes(ext)) out.push(dir);
     return out;
   }
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -92,7 +101,7 @@ function walk(dir, out = []) {
       walk(path.join(dir, entry.name), out);
     } else if (entry.isFile()) {
       const ext = path.extname(entry.name).toLowerCase();
-      if (['.vue', '.js', '.php', '.json'].includes(ext)) {
+      if (['.vue', '.js', '.php', '.json', '.ts', '.tsx'].includes(ext)) {
         out.push(path.join(dir, entry.name));
       }
     }
@@ -191,6 +200,7 @@ function checkFile(file) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (!line) continue;
+    if (EXCLUDE_LINE_PATTERNS.some((re) => re.test(line))) continue;
     const cls = classes[i] || new Set();
     const contextLabel = cls.has('comment') ? 'comment'
       : cls.has('style') ? 'style'

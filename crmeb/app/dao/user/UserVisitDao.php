@@ -19,28 +19,25 @@ use app\model\user\UserVisit;
  *
  * Class UserVisitDao
  * @package app\dao\user
- */
-class UserVisitDao extends BaseDao
+ */class UserVisitDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserVisit::class;
     }
 
     /**
-     * Dữ liệu xu hướng người dùng
+     * Dữ liệu xu hướng Khách hàng
      * @param $time
      * @param $type
      * @param $timeType
      * @param $str
      * @return mixed
-     */
-    public function getTrendData($time, $type, $timeType, $str)
+     */    public function getTrendData($time, $type, $timeType, $str)
     {
         return $this->getModel()->when($type != '', function ($query) use ($type) {
             $query->where('channel_type', $type);
@@ -55,12 +52,11 @@ class UserVisitDao extends BaseDao
     }
 
     /**
-     * Dữ liệu địa lý của người dùng
+     * Dữ liệu địa lý của Khách hàng
      * @param $time
      * @param $userType
      * @return mixed
-     */
-    public function getRegion($time, $userType)
+     */    public function getRegion($time, $userType)
     {
         return $this->getModel()->when($userType != '', function ($query) use ($userType) {
             $query->where('channel_type', $userType);
@@ -80,8 +76,7 @@ class UserVisitDao extends BaseDao
      * @param array $where
      * @param string $group
      * @return mixed
-     */
-    public function groupCount(array $where, string $group = 'uid')
+     */    public function groupCount(array $where, string $group = 'uid')
     {
         return $this->search($where)->group($group)->count();
     }

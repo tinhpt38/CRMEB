@@ -19,11 +19,10 @@ use app\services\user\UserServices;
 use crmeb\exceptions\ApiException;
 
 /**
- * thanh toán số dư
+ * Thanh toán bằng số dư
  * Class YuePayServices
  * @package app\services\pay
- */
-class YuePayServices extends BaseServices
+ */class YuePayServices extends BaseServices
 {
 
     /**
@@ -31,8 +30,7 @@ class YuePayServices extends BaseServices
      * @param $order_id
      * @param $uid
      * @return bool
-     */
-    public function yueOrderPay(array $orderInfo, $uid)
+     */    public function yueOrderPay(array $orderInfo, $uid)
     {
         if (!$orderInfo) {
             throw new ApiException('Đơn hàng không tồn tại');
@@ -44,30 +42,26 @@ class YuePayServices extends BaseServices
         if (isset($orderInfo['member_type'])) {
             $type = 'pay_member';
         }
-        /** @var UserServices $services */
-        $services = app()->make(UserServices::class);
+        /** @var UserServices $services */        $services = app()->make(UserServices::class);
         $userInfo = $services->getUserInfo($uid);
         if ($userInfo['now_money'] < $orderInfo['pay_price']) {
             return ['status' => 'pay_deficiency', 'msg' => 'Số dư không đủ' . floatval($orderInfo['pay_price'])];
         }
         $this->transaction(function () use ($services, $orderInfo, $userInfo, $type) {
             $res = false !== $services->bcDec($userInfo['uid'], 'now_money', $orderInfo['pay_price'], 'uid');
-            /** @var UserMoneyServices $userMoneyServices */
-            $userMoneyServices = app()->make(UserMoneyServices::class);
+            /** @var UserMoneyServices $userMoneyServices */            $userMoneyServices = app()->make(UserMoneyServices::class);
             //Ghi sổ số dư
             $now_money = bcsub((string)$userInfo['now_money'], (string)$orderInfo['pay_price'], 2);
             $number = $orderInfo['pay_price'];
             switch ($type) {
                 case 'pay_product'://Cân bằng sản phẩm
                     $res = $res && $userMoneyServices->income('pay_product', $userInfo['uid'], $number, $now_money, $orderInfo['id']);
-                    /** @var StoreOrderSuccessServices $orderServices */
-                    $orderServices = app()->make(StoreOrderSuccessServices::class);
+                    /** @var StoreOrderSuccessServices $orderServices */                    $orderServices = app()->make(StoreOrderSuccessServices::class);
                     $res = $res && $orderServices->paySuccess($orderInfo, PayServices::YUE_PAY);//Thanh toán số dư thành công
                     break;
                 case 'pay_member'://Thanh toán thẻ thành viên
                     $res = $res && $userMoneyServices->income('pay_member', $userInfo['uid'], $number, $now_money, $orderInfo['id']);
-                    /** @var OtherOrderServices $OtherOrderServices */
-                    $OtherOrderServices = app()->make(OtherOrderServices::class);
+                    /** @var OtherOrderServices $OtherOrderServices */                    $OtherOrderServices = app()->make(OtherOrderServices::class);
                     $res = $res && $OtherOrderServices->paySuccess($orderInfo, PayServices::YUE_PAY);//Thanh toán số dư thành công
                     break;
             }

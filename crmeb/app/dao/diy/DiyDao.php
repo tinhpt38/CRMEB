@@ -19,15 +19,13 @@ use app\model\diy\Diy;
  *
  * Class DiyDao
  * @package app\dao\diy
- */
-class DiyDao extends BaseDao
+ */class DiyDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return Diy::class;
     }
@@ -41,8 +39,7 @@ class DiyDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDiyList(array $where, int $page, int $limit, array $field = ['*'])
+     */    public function getDiyList(array $where, int $page, int $limit, array $field = ['*'])
     {
         return $this->search($where)->field($field)->where('is_del', 0)->page($page, $limit)->order('id desc')->select()->toArray();
     }

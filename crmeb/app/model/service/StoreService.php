@@ -18,30 +18,26 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * dịch vụ khách hàng
+ * CSKH
  * Class StoreService
  * @package app\model\service
- */
-class StoreService extends BaseModel
+ */class StoreService extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_service';
+     */    protected $name = 'store_service';
 
     /**
      * @var bool
-     */
-    protected $updateTime = false;
+     */    protected $updateTime = false;
 
 
     protected function getAddTimeAttr($value)
@@ -51,10 +47,9 @@ class StoreService extends BaseModel
     }
 
     /**
-     * Tên người dùng liên kết một-nhiều
+     * Tên Khách hàng liên kết một-nhiều
      * @return mixed
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname'])->bind([
             'nickname' => 'nickname'
@@ -65,8 +60,7 @@ class StoreService extends BaseModel
      * uidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -75,8 +69,7 @@ class StoreService extends BaseModel
      * statusNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->where('status', $value);
     }
@@ -85,8 +78,7 @@ class StoreService extends BaseModel
      * accountNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchAccountAttr($query, $value)
+     */    public function searchAccountAttr($query, $value)
     {
         $query->where('account', $value);
     }
@@ -95,8 +87,7 @@ class StoreService extends BaseModel
      * phoneNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchPhoneAttr($query, $value)
+     */    public function searchPhoneAttr($query, $value)
     {
         $query->where('phone', $value);
     }
@@ -105,38 +96,34 @@ class StoreService extends BaseModel
      * customer
      * @param Model $query
      * @param $value
-     */
-    public function searchCustomerAttr($query, $value)
+     */    public function searchCustomerAttr($query, $value)
     {
         $query->where('customer', $value);
     }
 
     /**
-     * Người tìm kiếm biệt danh người dùng
+     * Người tìm kiếm biệt danh Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchNicknameAttr($query, $value)
+     */    public function searchNicknameAttr($query, $value)
     {
         $query->whereLike('nickname', '%' . $value . '%');
     }
 
     /**
-     * Trình tìm kiếm uid người dùng
+     * Trình tìm kiếm uid Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchNoUidAttr($query, $value)
+     */    public function searchNoUidAttr($query, $value)
     {
         if ($value) $query->whereNotIn('uid', $value);
     }
 
     /**
-     * Công cụ tìm kiếm trực tuyến dịch vụ khách hàng
+     * Công cụ tìm kiếm trực tuyến CSKH
      * @param $query
      * @param $value
-     */
-    public function searchOnlineAttr($query, $value)
+     */    public function searchOnlineAttr($query, $value)
     {
         if ($value) $query->where('online', $value);
     }

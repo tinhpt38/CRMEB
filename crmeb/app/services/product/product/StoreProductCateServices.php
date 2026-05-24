@@ -20,8 +20,7 @@ use app\services\BaseServices;
  * @package app\services\product\product
  * @method productIdByCateId(array $productId) Nhận phân loại dựa trên id sản phẩmid
  * @method cateIdByProduct(array $cate_id) Nhận sản phẩm theo danh mụcid
- */
-class StoreProductCateServices extends BaseServices
+ */class StoreProductCateServices extends BaseServices
 {
     public function __construct(StoreProductCateDao $dao)
     {
@@ -32,8 +31,7 @@ class StoreProductCateServices extends BaseServices
      * Thêm sản phẩm, sửa đổi liên kết danh mục sản phẩm
      * @param $id
      * @param $cateData
-     */
-    public function change($id, $cateData)
+     */    public function change($id, $cateData)
     {
         $this->dao->delete(['product_id' => $id]);
         $this->dao->saveAll($cateData);

@@ -53,8 +53,7 @@ import { isSessionLoggedOut, setSessionLoggedOut } from "./utils/session";
  * Resolve a CRMEB image path to an absolute URL.
  * CRMEB thường trả về đường dẫn tương đối như `/uploads/attach/xxx.jpg`.
  * Hàm này ghép domain từ apiUrl nếu URL chưa phải tuyệt đối.
- */
-function resolveImageUrl(url: string | undefined | null, apiUrl: string): string {
+ */function resolveImageUrl(url: string | undefined | null, apiUrl: string): string {
   if (!url) return "";
   if (url.startsWith("http://") || url.startsWith("https://")) return url;
   try {
@@ -456,8 +455,7 @@ export const productState = atomFamily((id: number) =>
  * Returns the list-level Product enriched with `detail` (HTML) and `images`.
  * Falls back to the list-level entry when CRMEB integration is disabled or the
  * call fails.
- */
-export const productDetailState = atomFamily((id: number) =>
+ */export const productDetailState = atomFamily((id: number) =>
   atom(async (get) => {
   const apiUrl = getConfig((config) => config.template.apiUrl);
 
@@ -866,6 +864,7 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
     raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {}
   );
   const bankPayGuide = String(raw?.vn_bank_pay_guide ?? "").trim();
+  const bankTransferContent = String(raw?.vn_bank_transfer_content ?? "").trim();
   const bankQrRaw = String(raw?.vn_bank_pay_qr_image ?? "").trim();
   const bankPayQrUrl = bankQrRaw ? resolveImageUrl(bankQrRaw, apiUrl) : "";
   const st = raw?._status && typeof raw._status === "object" ? raw._status : {};
@@ -908,6 +907,7 @@ function mapCrmebOrderToFchanOrder(raw: any, apiUrl: string): Order {
     ...(payType ? { payType } : {}),
     ...(payTypeName ? { payTypeName } : {}),
     ...(bankPayGuide ? { bankPayGuide } : {}),
+    ...(bankTransferContent ? { bankTransferContent } : {}),
     ...(bankPayQrUrl ? { bankPayQrUrl } : {}),
     ...(statusTitle ? { statusTitle } : {}),
     ...(statusMessage ? { statusMessage } : {}),
@@ -978,9 +978,8 @@ export const pickupContactState = atomWithStorage<PickupContact>(
 );
 
 /**
- * Phương thức thanh toán người dùng chọn tại checkout.
- */
-export const checkoutPaymentMethodState = atomWithStorage<CheckoutPaymentMethod>(
+ * Phương thức thanh toán Khách hàng chọn tại checkout.
+ */export const checkoutPaymentMethodState = atomWithStorage<CheckoutPaymentMethod>(
   "checkout_payment_method",
   "vn_cod"
 );
@@ -1006,8 +1005,7 @@ function mapCrmebAddress(a: any): CrmebAddress {
  * Danh sách địa chỉ của user trên CRMEB.
  * atomWithRefresh → gọi refreshAddresses() để reload sau khi thêm/sửa.
  * Đọc `userInfoKeyState` để danh sách địa chỉ được tính lại khi login/bind phone/logout (cùng key với user).
- */
-export const crmebAddressesState = atomWithRefresh(async (get) => {
+ */export const crmebAddressesState = atomWithRefresh(async (get) => {
   get(userInfoKeyState);
   const apiUrl = getConfig((config) => config.template.apiUrl);
   const token = getCrmebToken();
@@ -1024,8 +1022,7 @@ export const crmebAddressesState = atomWithRefresh(async (get) => {
   }
 });
 
-/** ID địa chỉ đang được chọn (persist qua localStorage) */
-export const selectedCrmebAddressIdState = atomWithStorage<number | null>(
+/** ID địa chỉ đang được chọn (persist qua localStorage) */export const selectedCrmebAddressIdState = atomWithStorage<number | null>(
   CONFIG.STORAGE_KEYS.CRMEB_ADDRESS_ID,
   null
 );
@@ -1033,8 +1030,7 @@ export const selectedCrmebAddressIdState = atomWithStorage<number | null>(
 /**
  * Địa chỉ đang được chọn.
  * Ưu tiên: selectedId → is_default → phần tử đầu tiên → null
- */
-export const selectedCrmebAddressState = atom(async (get) => {
+ */export const selectedCrmebAddressState = atom(async (get) => {
   const addresses = await get(crmebAddressesState);
   if (!addresses.length) return null;
   const selectedId = get(selectedCrmebAddressIdState);
@@ -1057,8 +1053,7 @@ export const loadableSelectedCrmebAddressState = loadable(
  * Tải cây tỉnh/huyện từ GET /city_list.
  * Không cần auth — endpoint public.
  * Cache tự nhiên nhờ atom (không refresh trong session).
- */
-export const cityListState = atom<Promise<CityNode[]>>(async () => {
+ */export const cityListState = atom<Promise<CityNode[]>>(async () => {
   const apiUrl = getConfig((config) => config.template.apiUrl);
   if (!apiUrl) return [];
   try {

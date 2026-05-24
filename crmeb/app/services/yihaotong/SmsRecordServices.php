@@ -22,15 +22,13 @@ use app\services\BaseServices;
  * @method getColumn(array $where, ?string $field, ?string $key = '')
  * @method update(int $id, array $data, ?string $field = '')
  * @method getCodeNull
- */
-class SmsRecordServices extends BaseServices
+ */class SmsRecordServices extends BaseServices
 {
     /**
      * Người xây dựng
      * SmsRecordServices constructor.
      * @param SmsRecordDao $dao
-     */
-    public function __construct(SmsRecordDao $dao)
+     */    public function __construct(SmsRecordDao $dao)
     {
         $this->dao = $dao;
     }

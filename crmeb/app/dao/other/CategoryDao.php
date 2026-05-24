@@ -19,14 +19,12 @@ use app\model\other\Category;
  * Phân loại
  * Class CategoryDao
  * @package app\dao\other
- */
-class CategoryDao extends BaseDao
+ */class CategoryDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return Category::class;
     }
@@ -40,8 +38,7 @@ class CategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCateList(array $where, int $page = 0, int $limit = 0, array $field = ['*'])
+     */    public function getCateList(array $where, int $page = 0, int $limit = 0, array $field = ['*'])
     {
         return $this->search($where)->when($page, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -49,13 +46,12 @@ class CategoryDao extends BaseDao
     }
 
     /**
-     * Nhận tất cả các loại thẻ
+     * Nhận Tất cả các loại thẻ
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAll(array $where = [], array $with = [])
+     */    public function getAll(array $where = [], array $with = [])
     {
         return $this->search($where)->when(count($with), function ($query) use ($with) {
             $query->with($with);

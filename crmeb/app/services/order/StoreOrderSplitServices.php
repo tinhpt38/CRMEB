@@ -18,21 +18,18 @@ use crmeb\exceptions\AdminException;
  * Chia đơn hàng
  * Class StoreOrderSplitServices
  * @package app\services\order
- */
-class StoreOrderSplitServices extends BaseServices
+ */class StoreOrderSplitServices extends BaseServices
 {
     /**
      * Cần xóa và khôi phục các trường dữ liệu mặc định
      * @var string[]
-     */
-    protected $order_data = ['id', 'status', 'refund_status', 'refund_type', 'refund_express', 'refund_reason_wap_img', 'refund_reason_wap_explain', 'refund_reason_time', 'refund_reason_wap', 'refund_reason', 'refund_price', 'delivery_name', 'delivery_code', 'delivery_type', 'delivery_id', 'fictitious_content', 'delivery_uid'];
+     */    protected $order_data = ['id', 'status', 'refund_status', 'refund_type', 'refund_express', 'refund_reason_wap_img', 'refund_reason_wap_explain', 'refund_reason_time', 'refund_reason_wap', 'refund_reason', 'refund_price', 'delivery_name', 'delivery_code', 'delivery_type', 'delivery_id', 'fictitious_content', 'delivery_uid'];
 
     /**
      * Người xây dựng
      * StoreOrderRefundServices constructor.
      * @param StoreOrderDao $dao
-     */
-    public function __construct(StoreOrderDao $dao)
+     */    public function __construct(StoreOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -46,15 +43,11 @@ class StoreOrderSplitServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function equalSplit($id, $cart_ids, $orderInfo)
+     */    public function equalSplit($id, $cart_ids, $orderInfo)
     {
-        /** @var StoreOrderCreateServices $storeOrderCreateServices */
-        $storeOrderCreateServices = app()->make(StoreOrderCreateServices::class);
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderCreateServices $storeOrderCreateServices */        $storeOrderCreateServices = app()->make(StoreOrderCreateServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
 
 
         $ids = array_unique(array_column($cart_ids, 'cart_id'));
@@ -86,7 +79,7 @@ class StoreOrderSplitServices extends BaseServices
         return $this->transaction(function () use ($id, $cart_ids_arr, $orderInfo, $orderInfoOld, $cartInfo, $storeOrderCreateServices, $storeOrderCartInfoServices, $statusService) {
             $order = $otherOrder = [];
             $statusData = $statusService->selectList(['oid' => $id])->toArray();
-            //Số tiền thanh toán thực tế của đơn hàng
+            //Số tiền Thanh toán thực tế của đơn hàng
             $order_pay_price = bcsub((string)bcadd((string)$orderInfo['total_price'], (string)$orderInfo['pay_postage'], 2), (string)bcadd((string)$orderInfo['deduction_price'], (string)$orderInfo['coupon_price'], 2), 2);
             //Có sự thay đổi giá
             $change_price = $order_pay_price != $orderInfo['pay_price'];
@@ -179,9 +172,8 @@ class StoreOrderSplitServices extends BaseServices
             }
             if (!$orderInfo['pid']) $this->dao->update($id, ['pid' => -1]);
 
-            //Xử lý hồ sơ lập hóa đơn ứng dụng
-            /** @var StoreOrderInvoiceServices $storeOrderInvoiceServics */
-            $storeOrderInvoiceServics = app()->make(StoreOrderInvoiceServices::class);
+            //Xử lý hồ sơ lập hóa đơn Ứng dụng
+            /** @var StoreOrderInvoiceServices $storeOrderInvoiceServics */            $storeOrderInvoiceServics = app()->make(StoreOrderInvoiceServices::class);
             $storeOrderInvoiceServics->splitOrderInvoice((int)$id);
             return [$order, $otherOrder];
         });
@@ -195,8 +187,7 @@ class StoreOrderSplitServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function split(int $id, array $cart_ids, $orderInfo = [])
+     */    public function split(int $id, array $cart_ids, $orderInfo = [])
     {
         $ids = array_unique(array_column($cart_ids, 'cart_id'));
         if (!$cart_ids || !$ids) {
@@ -208,8 +199,7 @@ class StoreOrderSplitServices extends BaseServices
         if (!$orderInfo) {
             throw new AdminException('Đơn hàng không tồn tại');
         }
-        /** @var StoreOrderCreateServices $storeOrderCreateServices */
-        $storeOrderCreateServices = app()->make(StoreOrderCreateServices::class);
+        /** @var StoreOrderCreateServices $storeOrderCreateServices */        $storeOrderCreateServices = app()->make(StoreOrderCreateServices::class);
         $orderInfo = is_object($orderInfo) ? $orderInfo->toArray() : $orderInfo;
         foreach ($this->order_data as $field) {
             unset($orderInfo[$field]);
@@ -226,16 +216,14 @@ class StoreOrderSplitServices extends BaseServices
             throw new AdminException('Không thể tạo đơn hàng mới');
         }
         $new_id = (int)$new_order->id;
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $new_id,
             'change_type' => 'split_create_order',
             'change_message' => 'Tạo đơn hàng phân chia vận chuyển',
             'change_time' => time()
         ]);
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
         //Thông tin sản phẩm chính hãng khi đặt hàng
         $cartInfo = $storeOrderCartInfoServices->getColumn(['oid' => $id, 'cart_id' => $ids], 'cart_num,surplus_num,cart_info', 'cart_id');
         $cart_data = $cart_data_all = $update_data = [];
@@ -280,8 +268,7 @@ class StoreOrderSplitServices extends BaseServices
      * @param int $id
      * @param $orderInfo
      * @param array $cart_info_data
-     */
-    public function splitComputeOrder(int $id, array $cart_info_data, float $order_pay_price = 0.00, float $pay_price = 0.00, float $pre_pay_price = 0.00)
+     */    public function splitComputeOrder(int $id, array $cart_info_data, float $order_pay_price = 0.00, float $pay_price = 0.00, float $pre_pay_price = 0.00)
     {
         $order_update['cart_id'] = array_column($cart_info_data, 'cart_id');
         $order_update['total_num'] = array_sum(array_column($cart_info_data, 'cart_num'));
@@ -308,7 +295,7 @@ class StoreOrderSplitServices extends BaseServices
         if ($order_pay_price) {
             if ($pre_pay_price) {//Cái trước đã được tính toán. Trừ ở đây.
                 $order_update['pay_price'] = bcsub((string)$pay_price, (string)$pre_pay_price, 2);
-            } else {//Tính số tiền thanh toán thực tế theo tỷ lệ
+            } else {//Tính số tiền Thanh toán thực tế theo tỷ lệ
                 $order_update['pay_price'] = bcmul((string)bcdiv((string)$order_update['pay_price'], (string)$order_pay_price, 4), (string)$pay_price, 2);
             }
         }
@@ -336,8 +323,7 @@ class StoreOrderSplitServices extends BaseServices
      * @param array $cart_info
      * @param string $orderType
      * @return array
-     */
-    public function slpitComputeOrderCart(int $cart_num, array $cart_info, $orderType = 'new')
+     */    public function slpitComputeOrderCart(int $cart_num, array $cart_info, $orderType = 'new')
     {
         if (!$cart_num || !$cart_info) return [];
         if ($cart_num >= $cart_info['cart_num']) return $cart_info;
@@ -379,8 +365,7 @@ class StoreOrderSplitServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSplitOrderCartInfo(int $id, array $cart_ids, $orderInfo = [])
+     */    public function getSplitOrderCartInfo(int $id, array $cart_ids, $orderInfo = [])
     {
         $ids = array_unique(array_column($cart_ids, 'cart_id'));
         if (!$cart_ids || !$ids) {
@@ -392,8 +377,7 @@ class StoreOrderSplitServices extends BaseServices
         if (!$orderInfo) {
             throw new AdminException('Đơn hàng không tồn tại');
         }
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
         $cartInfo = $storeOrderCartInfoServices->getCartColunm(['oid' => $id, 'cart_id' => $ids], '*', 'cart_id');
         $cart_data_all = [];
         foreach ($cart_ids as $cart) {

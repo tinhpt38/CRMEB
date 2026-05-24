@@ -19,15 +19,13 @@ use app\model\user\UserSign;
  *
  * Class UserSignDao
  * @package app\dao\user
- */
-class UserSignDao extends BaseDao
+ */class UserSignDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserSign::class;
     }
@@ -41,8 +39,7 @@ class UserSignDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field, int $page, int $limit)
+     */    public function getList(array $where, string $field, int $page, int $limit)
     {
         return $this->search($where)->field($field)->order('id desc')->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -58,8 +55,7 @@ class UserSignDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getListGroup(array $where, string $field, int $page, int $limit, string $group)
+     */    public function getListGroup(array $where, string $field, int $page, int $limit, string $group)
     {
         return $this->search($where)->field($field)->order('id desc')->group($group)->page($page, $limit)->select()->toArray();
     }
@@ -72,8 +68,7 @@ class UserSignDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/1
-     */
-    public function getCumulativeDays($type, $uid)
+     */    public function getCumulativeDays($type, $uid)
     {
         return $this->getModel()->where('uid', $uid)->where(function ($query) use ($type) {
             if ($type == 1) {
@@ -95,8 +90,7 @@ class UserSignDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/8
-     */
-    public function getUserSignList($type, $uid): array
+     */    public function getUserSignList($type, $uid): array
     {
         return $this->getModel()->where('uid', $uid)->where(function ($query) use ($type) {
             if ($type == 1) {

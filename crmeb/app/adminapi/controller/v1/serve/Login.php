@@ -24,8 +24,7 @@ use think\facade\App;
  * Đăng nhập dịch vụ
  * Class Login
  * @package app\adminapi\controller\v1\serve
- */
-class Login extends AuthController
+ */class Login extends AuthController
 {
 
     public function __construct(App $app, ServeServices $services)
@@ -38,8 +37,7 @@ class Login extends AuthController
      * Gửi mã xác minh
      * @param string $phone
      * @return mixed
-     */
-    public function captcha(string $phone)
+     */    public function captcha(string $phone)
     {
         $this->validate(['phone' => $phone], ServeValidata::class, 'phone');
         return app('json')->success('Đã gửi thành công', $this->services->user()->code($phone));
@@ -50,8 +48,7 @@ class Login extends AuthController
      * @param string $phone
      * @param $code
      * @return mixed
-     */
-    public function checkCode()
+     */    public function checkCode()
     {
         [$phone, $verify_code] = $this->request->postMore([
             ['phone', ''],
@@ -66,8 +63,7 @@ class Login extends AuthController
      * @param Request $request
      * @param SmsAdminServices $services
      * @return mixed
-     */
-    public function register(Request $request, SmsAdminServices $services)
+     */    public function register(Request $request, SmsAdminServices $services)
     {
         $data = $request->postMore([
             ['phone', ''],
@@ -92,8 +88,7 @@ class Login extends AuthController
      * Đăng nhập nền tảng
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function login(SmsAdminServices $services)
+     */    public function login(SmsAdminServices $services)
     {
         [$account, $password] = $this->request->postMore([
             ['account', ''],

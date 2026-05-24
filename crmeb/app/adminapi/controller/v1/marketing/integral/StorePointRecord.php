@@ -16,14 +16,12 @@ use think\facade\App;
 
 /**
  * Kỷ lục điểm
- */
-class StorePointRecord extends AuthController
+ */class StorePointRecord extends AuthController
 {
     /**
      * @param App $app
      * @param StorePointRecordServices $services
-     */
-    public function __construct(App $app, StorePointRecordServices $services)
+     */    public function __construct(App $app, StorePointRecordServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -32,8 +30,7 @@ class StorePointRecord extends AuthController
     /**
      * Kỷ lục điểm
      * @return mixed
-     */
-    public function pointRecord()
+     */    public function pointRecord()
     {
         $where = $this->request->getMore([
             ['time', ''],
@@ -46,8 +43,7 @@ class StorePointRecord extends AuthController
     /**
      * Ghi chú ghi điểm
      * @return mixed
-     */
-    public function pointRecordRemark($id = 0)
+     */    public function pointRecordRemark($id = 0)
     {
         [$mark] = $this->request->postMore([
             ['mark', '']
@@ -59,8 +55,7 @@ class StorePointRecord extends AuthController
     /**
      * Thông tin cơ bản về thống kê điểm
      * @return mixed
-     */
-    public function getBasic()
+     */    public function getBasic()
     {
         $where = $this->request->getMore([
             ['time', '']
@@ -72,8 +67,7 @@ class StorePointRecord extends AuthController
     /**
      * Biểu đồ xu hướng thống kê điểm
      * @return mixed
-     */
-    public function getTrend()
+     */    public function getTrend()
     {
         $where = $this->request->getMore([
             ['time', '']
@@ -85,8 +79,7 @@ class StorePointRecord extends AuthController
     /**
      * Nguồn điểm
      * @return mixed
-     */
-    public function getChannel()
+     */    public function getChannel()
     {
         $where = $this->request->getMore([
             ['time', '']
@@ -98,8 +91,7 @@ class StorePointRecord extends AuthController
     /**
      * Tiêu thụ điểm
      * @return mixed
-     */
-    public function getType()
+     */    public function getType()
     {
         $where = $this->request->getMore([
             ['time', '']

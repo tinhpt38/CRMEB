@@ -31,26 +31,22 @@ use think\facade\Log;
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  * @method delete(int $id, ?string $key = null) Xóa dữ liệu
  * @method getUploadTypeList(string $configName) Nhận loại tải lên trong cấu hình tải lên
- */
-class SystemConfigServices extends BaseServices
+ */class SystemConfigServices extends BaseServices
 {
     /**
      * formxử lý hình thức
      * @var FormBuilder
-     */
-    protected $builder;
+     */    protected $builder;
 
     /**
      * Biểu tượng cắt dữ liệu biểu mẫu
      * @var string
-     */
-    protected $cuttingStr = '=>';
+     */    protected $cuttingStr = '=>';
 
     /**
      * gửi biểu mẫuurl
      * @var string[]
-     */
-    protected $postUrl = [
+     */    protected $postUrl = [
         'setting' => [
             'url' => '/setting/config/save_basics',
             'auth' => [],
@@ -76,8 +72,7 @@ class SystemConfigServices extends BaseServices
     /**
      * quy tắc kiểm soát tập hợp con
      * @var array[]
-     */
-    protected $relatedRule = [
+     */    protected $relatedRule = [
         'sign_status' => [
             'son_type' => [
                 'sign_mode' => '',
@@ -225,8 +220,7 @@ class SystemConfigServices extends BaseServices
      * SystemConfigServices constructor.
      * @param SystemConfigDao $dao
      * @param FormBuilder $builder
-     */
-    public function __construct(SystemConfigDao $dao, FormBuilder $builder)
+     */    public function __construct(SystemConfigDao $dao, FormBuilder $builder)
     {
         $this->dao = $dao;
         $this->builder = $builder;
@@ -237,8 +231,7 @@ class SystemConfigServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/12
-     */
-    public function getSonConfig()
+     */    public function getSonConfig()
     {
         $sonConfig = [];
         $rolateRule = $this->relatedRule;
@@ -261,20 +254,18 @@ class SystemConfigServices extends BaseServices
      * @param null $default
      * @return mixed|null
      * @throws \ReflectionException
-     */
-    public function getConfigValue(string $configName, $default = null)
+     */    public function getConfigValue(string $configName, $default = null)
     {
         $value = $this->dao->getConfigValue($configName);
         return is_null($value) ? $default : json_decode($value, true);
     }
 
     /**
-     * Nhận tất cả các cấu hình
+     * Nhận Tất cả các cấu hình
      * @param array $configName
      * @return array
      * @throws \ReflectionException
-     */
-    public function getConfigAll(array $configName = [])
+     */    public function getConfigAll(array $configName = [])
     {
         return array_map(function ($item) {
             return json_decode($item, true);
@@ -288,8 +279,7 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfigList(array $where)
+     */    public function getConfigList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getConfigList($where, $page, $limit);
@@ -332,8 +322,7 @@ class SystemConfigServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/31
-     */
-    public function getLinkData($id, $value)
+     */    public function getLinkData($id, $value)
     {
         $info = $this->dao->get($id);
         if (!$info) return '';
@@ -354,8 +343,7 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function getRadioOrCheckboxValueInfo(string $menu_name, $value): string
+     */    public function getRadioOrCheckboxValueInfo(string $menu_name, $value): string
     {
         $option = [];
         $config_one = $this->dao->getOne(['menu_name' => $menu_name]);
@@ -387,8 +375,7 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getReadList(int $tabId)
+     */    public function getReadList(int $tabId)
     {
         $info = $this->dao->getConfigTabAllList($tabId);
         foreach ($info as $k => $v) {
@@ -406,8 +393,7 @@ class SystemConfigServices extends BaseServices
      * @param string $type
      * @param array $data
      * @return array
-     */
-    public function createTextForm(string $type, array $data)
+     */    public function createTextForm(string $type, array $data)
     {
         $formbuider = [];
         switch ($type) {
@@ -474,8 +460,7 @@ class SystemConfigServices extends BaseServices
      * Tạo hộp văn bản nhiều dòng
      * @param array $data
      * @return mixed
-     */
-    public function createTextareaForm(array $data)
+     */    public function createTextareaForm(array $data)
     {
         $data['value'] = json_decode($data['value'], true) ?: '';
         if ($data['menu_name'] == 'param_filter_data') $data['value'] = base64_decode($data['value']);
@@ -493,8 +478,7 @@ class SystemConfigServices extends BaseServices
      * @param array $control
      * @param array $control_two
      * @return array
-     */
-    public function createRadioForm(array $data, $control = [], $control_two = [], $control_three = [])
+     */    public function createRadioForm(array $data, $control = [], $control_two = [], $control_three = [])
     {
         $formbuider = [];
         $data['value'] = json_decode($data['value'], true) ?: '0';
@@ -532,8 +516,7 @@ class SystemConfigServices extends BaseServices
      * @param int $type
      * @param array $data
      * @return array
-     */
-    public function createUploadForm(int $type, array $data)
+     */    public function createUploadForm(int $type, array $data)
     {
         $formbuider = [];
         switch ($type) {
@@ -580,8 +563,7 @@ class SystemConfigServices extends BaseServices
      * @param array $data
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createCheckboxForm(array $data)
+     */    public function createCheckboxForm(array $data)
     {
         $formbuider = [];
         $data['value'] = json_decode($data['value'], true) ?: [];
@@ -608,8 +590,7 @@ class SystemConfigServices extends BaseServices
      * @param array $data
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createSelectForm(array $data)
+     */    public function createSelectForm(array $data)
     {
         $formbuider = [];
         $data['value'] = json_decode($data['value'], true) ?: [];
@@ -638,8 +619,7 @@ class SystemConfigServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/9/6
-     */
-    public function createSwitchForm($data)
+     */    public function createSwitchForm($data)
     {
         $data['value'] = json_decode($data['value'], true) ?: '';
         $formbuider[] = $this->builder->switches($data['menu_name'], $data['info'], $data['value'])->appendRule('suffix', [
@@ -654,8 +634,7 @@ class SystemConfigServices extends BaseServices
      * Tạo bộ chọn màu
      * @param array $data
      * @return mixed
-     */
-    public function createColorForm(array $data)
+     */    public function createColorForm(array $data)
     {
         $data['value'] = json_decode($data['value'], true) ?: '';
         $formbuider[] = $this->builder->color($data['menu_name'], $data['info'], $data['value'])->appendRule('suffix', [
@@ -697,8 +676,7 @@ class SystemConfigServices extends BaseServices
      * @param array $controle_two
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function formTypeShine($data, $control = false, $controle_two = [], $controle_three = [])
+     */    public function formTypeShine($data, $control = false, $controle_two = [], $controle_three = [])
     {
 
         switch ($data['type']) {
@@ -729,8 +707,7 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createConfigForm(int $tabId, array $relatedRule)
+     */    public function createConfigForm(int $tabId, array $relatedRule)
     {
         $list = $this->dao->getConfigTabAllList($tabId);
         if (!$relatedRule) {
@@ -749,8 +726,7 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createForm(array $list)
+     */    public function createForm(array $list)
     {
         if (!$list) return [];
         $list = array_combine(array_column($list, 'menu_name'), $list);
@@ -902,8 +878,7 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createNoCrontrolForm(array $list)
+     */    public function createNoCrontrolForm(array $list)
     {
         if (!$list) return false;
         $formbuider = [];
@@ -945,8 +920,7 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createBindCrontrolForm(array $list, array $relatedRule)
+     */    public function createBindCrontrolForm(array $list, array $relatedRule)
     {
         if (!$list || !$relatedRule) return false;
         $formbuider = [];
@@ -1009,11 +983,9 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfigForm($url, int $tabId)
+     */    public function getConfigForm($url, int $tabId)
     {
-        /** @var SystemConfigTabServices $service */
-        $service = app()->make(SystemConfigTabServices::class);
+        /** @var SystemConfigTabServices $service */        $service = app()->make(SystemConfigTabServices::class);
         $title = $service->value(['id' => $tabId], 'title');
         $list = $this->dao->getConfigTabAllList($tabId);
         $formbuider = $this->createForm($list);
@@ -1026,12 +998,11 @@ class SystemConfigServices extends BaseServices
     }
 
     /**
-     * Thêm tuyến đường mới và thêm xác minh mục cài đặt
+     * Thêm tuyến đường mới và thêm xác minh mục Cài đặt
      * @param $url
      * @param $post
      * @return bool
-     */
-    public function checkParam($url, $post)
+     */    public function checkParam($url, $post)
     {
         $name = '';
         if ($url) {
@@ -1042,8 +1013,7 @@ class SystemConfigServices extends BaseServices
             throw new AdminException('Yêu cầu không được phép');
         }
         if ($auth) {
-            /** @var SystemConfigTabServices $systemConfigTabServices */
-            $systemConfigTabServices = app()->make(SystemConfigTabServices::class);
+            /** @var SystemConfigTabServices $systemConfigTabServices */            $systemConfigTabServices = app()->make(SystemConfigTabServices::class);
             foreach ($post as $key => $value) {
                 $tab_ids = $systemConfigTabServices->getColumn([['eng_title', 'IN', $auth]], 'id');
                 if (!$tab_ids || !in_array($key, $this->dao->getColumn([['config_tab_id', 'IN', $tab_ids]], 'menu_name'))) {
@@ -1062,15 +1032,13 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function editConfigForm(int $id)
+     */    public function editConfigForm(int $id)
     {
         $menu = $this->dao->get($id)->getData();
         if (!$menu) {
             throw new AdminException('Dữ liệu không tồn tại');
         }
-        /** @var SystemConfigTabServices $service */
-        $service = app()->make(SystemConfigTabServices::class);
+        /** @var SystemConfigTabServices $service */        $service = app()->make(SystemConfigTabServices::class);
         $formbuider = [];
         $linkData = $this->linkData($menu['config_tab_id']);
         $formbuider[] = $this->builder->radio('level', 'Màn hình được liên kết', $menu['level'])->options([['value' => 0, 'label' => 'KHÔNG'], ['value' => 1, 'label' => 'Đúng']])->appendRule('suffix', [
@@ -1148,8 +1116,7 @@ class SystemConfigServices extends BaseServices
     /**
      * Trạng thái trường
      * @return array
-     */
-    public function formStatus(): array
+     */    public function formStatus(): array
     {
         return [['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']];
     }
@@ -1157,8 +1124,7 @@ class SystemConfigServices extends BaseServices
     /**
      * Chọn loại tệp
      * @return array
-     */
-    public function uploadType(): array
+     */    public function uploadType(): array
     {
         return [
             ['value' => 1, 'label' => 'Hình ảnh đơn']
@@ -1170,8 +1136,7 @@ class SystemConfigServices extends BaseServices
     /**
      * Chọn loại hộp văn bản
      * @return array
-     */
-    public function textType(): array
+     */    public function textType(): array
     {
         return [
             ['value' => 'input', 'label' => 'hộp văn bản']
@@ -1192,11 +1157,9 @@ class SystemConfigServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createFormRule(int $type, int $tab_id): array
+     */    public function createFormRule(int $type, int $tab_id): array
     {
-        /** @var SystemConfigTabServices $service */
-        $service = app()->make(SystemConfigTabServices::class);
+        /** @var SystemConfigTabServices $service */        $service = app()->make(SystemConfigTabServices::class);
         $formbuider = [];
         $form_type = '';
         $info_type = [];
@@ -1270,8 +1233,7 @@ class SystemConfigServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/30
-     */
-    public function linkData($tab_id)
+     */    public function linkData($tab_id)
     {
         $linkData = $this->selectList(['config_tab_id' => $tab_id, 'type' => 'radio', 'level' => 0], 'info as label,id as value,parameter')->toArray();
         foreach ($linkData as &$item) {
@@ -1292,8 +1254,7 @@ class SystemConfigServices extends BaseServices
      * radio và phán đoán các quy tắc hộp kiểm
      * @param $data
      * @return bool
-     */
-    public function valiDateRadioAndCheckbox($data)
+     */    public function valiDateRadioAndCheckbox($data)
     {
         $option = [];
         $option_new = [];
@@ -1336,8 +1297,7 @@ class SystemConfigServices extends BaseServices
      * Thông số xác thực
      * @param $data
      * @return bool
-     */
-    public function valiDateValue($data)
+     */    public function valiDateValue($data)
     {
         if (!$data || !isset($data['required']) || !$data['required']) {
             return true;
@@ -1368,8 +1328,7 @@ class SystemConfigServices extends BaseServices
      * Lưu thông tin in biểu mẫu điện tử nền tảng
      * @param array $data
      * @return bool
-     */
-    public function saveExpressInfo(array $data)
+     */    public function saveExpressInfo(array $data)
     {
         if (!is_array($data) || !$data) return false;
         // config_export_id Mã công ty chuyển phát nhanh
@@ -1388,8 +1347,7 @@ class SystemConfigServices extends BaseServices
 
     /**
      * Nhận phương pháp tương thích với áp phích chia sẻ
-     */
-    public function getSpreadBanner()
+     */    public function getSpreadBanner()
     {
         //Cấu hình
         $banner = sys_config('spread_banner', []);
@@ -1410,8 +1368,7 @@ class SystemConfigServices extends BaseServices
      * @param int $wssOpen
      * @param string $wssLocalpk
      * @param string $wssLocalCert
-     */
-    public function saveSslFilePath(int $wssOpen, string $wssLocalpk, string $wssLocalCert)
+     */    public function saveSslFilePath(int $wssOpen, string $wssLocalpk, string $wssLocalCert)
     {
         $wssFile = root_path() . '.wss';
         $content = <<<WSS
@@ -1430,8 +1387,7 @@ WSS;
      * Nhận cấu hình wss
      * @param string $key
      * @return array|false|mixed
-     */
-    public function getSslFilePath(string $key = '')
+     */    public function getSslFilePath(string $key = '')
     {
         $wssFile = root_path() . '.wss';
         try {
@@ -1446,12 +1402,10 @@ WSS;
      * Phát hiện xem cấu hình hình mờ hình thu nhỏ có thay đổi hay không
      * @param array $post
      * @return bool
-     */
-    public function checkThumbParam(array $post)
+     */    public function checkThumbParam(array $post)
     {
         unset($post['upload_type'], $post['image_watermark_status']);
-        /** @var SystemConfigTabServices $systemConfigTabServices */
-        $systemConfigTabServices = app()->make(SystemConfigTabServices::class);
+        /** @var SystemConfigTabServices $systemConfigTabServices */        $systemConfigTabServices = app()->make(SystemConfigTabServices::class);
         //Tải lên cấu hình->Cấu hình cơ bản
         $tab_id = $systemConfigTabServices->getColumn(['eng_title' => 'base_config'], 'id');
         if ($tab_id) {
@@ -1477,8 +1431,7 @@ WSS;
      * Thay đổi mô hình mối quan hệ ràng buộc phân phối
      * @param array $post
      * @return bool
-     */
-    public function checkBrokerageBinding(array $post)
+     */    public function checkBrokerageBinding(array $post)
     {
         try {
             $config_data = $post['store_brokerage_binding_status'];
@@ -1487,8 +1440,7 @@ WSS;
             if ($config_old != 2 && $config_data == 2) {
                 //Tự động hủy liên kết ràng buộc cấp trên
 
-                /** @var AgentManageServices $agentManage */
-                $agentManage = app()->make(AgentManageServices::class);
+                /** @var AgentManageServices $agentManage */                $agentManage = app()->make(AgentManageServices::class);
                 $agentManage->resetSpreadTime();
             }
         } catch (\Throwable $e) {

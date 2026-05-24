@@ -24,16 +24,14 @@ use think\facade\Log;
  * Hủy đơn hàng chưa thanh toán đến hạn
  * Class UnpaidOrderCancelJob
  * @package crmeb\jobs
- */
-class UnpaidOrderCancelJob extends BaseJobs
+ */class UnpaidOrderCancelJob extends BaseJobs
 {
 
     use QueueTrait;
 
     public function doJob($orderId)
     {
-        /** @var StoreOrderServices $services */
-        $services = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $services */        $services = app()->make(StoreOrderServices::class);
         $orderInfo = $services->get($orderId);
         if (!$orderInfo) {
             return true;
@@ -50,11 +48,9 @@ class UnpaidOrderCancelJob extends BaseJobs
         if ($orderInfo->is_cancel == 1) {
             return true;
         }
-        /** @var StoreOrderCartInfoServices $cartServices */
-        $cartServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $cartServices */        $cartServices = app()->make(StoreOrderCartInfoServices::class);
         $cartInfo = $cartServices->getOrderCartInfo($orderId);
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
 
         try {
             $res = $refundServices->transaction(function () use ($orderInfo, $refundServices) {

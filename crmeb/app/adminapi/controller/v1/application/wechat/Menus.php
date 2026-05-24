@@ -18,16 +18,14 @@ use think\facade\App;
  * Bộ điều khiển menu WeChat
  * Class Menus
  * @package app\admin\controller\wechat
- */
-class Menus extends AuthController
+ */class Menus extends AuthController
 {
     /**
      * Người xây dựng
      * Menus constructor.
      * @param App $app
      * @param WechatMenuServices $services
-     */
-    public function __construct(App $app, WechatMenuServices $services)
+     */    public function __construct(App $app, WechatMenuServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -36,8 +34,7 @@ class Menus extends AuthController
     /**
      * Nhận thực đơn
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $menus = $this->services->getWechatMenu();
         return app('json')->success(compact('menus'));
@@ -46,8 +43,7 @@ class Menus extends AuthController
     /**
      * lưu thực đơn
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $buttons = request()->post('button/a', []);
         if(strlen($buttons[0]['name']) > 15) return app('json')->fail('Tên menu không được dài hơn 5 ký tự');

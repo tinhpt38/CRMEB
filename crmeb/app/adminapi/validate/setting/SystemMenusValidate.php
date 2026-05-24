@@ -19,8 +19,7 @@ class SystemMenusValidate extends Validate
      *Định dạng：'Tên trường'	=>	['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-	protected $rule = [
+     */	protected $rule = [
 
     ];
 
@@ -29,6 +28,5 @@ class SystemMenusValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'	=>	'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [];
+     */    protected $message = [];
 }

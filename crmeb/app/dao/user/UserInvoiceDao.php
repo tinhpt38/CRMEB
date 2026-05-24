@@ -19,8 +19,7 @@ use app\model\user\UserInvoice;
 /**
  * Class UserInvoiceDao
  * @package app\dao\user
- */
-class UserInvoiceDao extends BaseDao
+ */class UserInvoiceDao extends BaseDao
 {
 
     protected function setModel(): string
@@ -37,8 +36,7 @@ class UserInvoiceDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page, int $limit)
+     */    public function getList(array $where, string $field = '*', int $page, int $limit)
     {
         return $this->search($where)->field($field)->page($page, $limit)->order('is_default desc,id desc')->select()->toArray();
     }
@@ -50,8 +48,7 @@ class UserInvoiceDao extends BaseDao
      * @param $header_type
      * @param $type
      * @return bool
-     */
-    public function setDefault(int $uid, int $id, $header_type, $type)
+     */    public function setDefault(int $uid, int $id, $header_type, $type)
     {
         if (false === $this->getModel()->where('uid', $uid)->where('header_type', $header_type)->where('type', $type)->update(['is_default' => 0])) {
             return false;

@@ -29,15 +29,13 @@ use think\facade\Route as Url;
  * Xác minh tập tin
  * Class SystemFileServices
  * @package app\services\system\log
- */
-class SystemFileServices extends BaseServices
+ */class SystemFileServices extends BaseServices
 {
     /**
      * Người xây dựng
      * SystemFileServices constructor.
      * @param SystemFileDao $dao
-     */
-    public function __construct(SystemFileDao $dao)
+     */    public function __construct(SystemFileDao $dao)
     {
         $this->dao = $dao;
     }
@@ -53,15 +51,13 @@ class SystemFileServices extends BaseServices
      *
      * @date 2022/09/07
      * @author yyw
-     */
-    public function Login(string $password, string $type)
+     */    public function Login(string $password, string $type)
     {
         if (config('filesystem.password') !== $password) {
             throw new AdminException('Tài khoản hoặc mật khẩu không chính xác');
         }
         $md5Password = md5($password);
-        /** @var JwtAuth $jwtAuth */
-        $jwtAuth = app()->make(JwtAuth::class);
+        /** @var JwtAuth $jwtAuth */        $jwtAuth = app()->make(JwtAuth::class);
         $tokenInfo = $jwtAuth->createToken($md5Password, $type, ['pwd' => $md5Password]);
         CacheService::set(md5($tokenInfo['token']), $tokenInfo['token'], 3600);
         return [
@@ -76,18 +72,15 @@ class SystemFileServices extends BaseServices
      * @param string $token
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function parseToken(string $token): bool
+     */    public function parseToken(string $token): bool
     {
-        /** @var CacheService $cacheService */
-        $cacheService = app()->make(CacheService::class);
+        /** @var CacheService $cacheService */        $cacheService = app()->make(CacheService::class);
 
         if (!$token || $token === 'undefined') {
             throw new AuthException('Đăng nhập đã hết hạn,Vui lòng đăng nhập lại', [], 403);
         }
 
-        /** @var JwtAuth $jwtAuth */
-        $jwtAuth = app()->make(JwtAuth::class);
+        /** @var JwtAuth $jwtAuth */        $jwtAuth = app()->make(JwtAuth::class);
         //Thiết lập phân tích cú pháptoken
         [$id, $type, $pwd] = $jwtAuth->parseToken($token);
 
@@ -125,8 +118,7 @@ class SystemFileServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFileList()
+     */    public function getFileList()
     {
         $rootPath = app()->getRootPath();
         $key = 'system_file_app_crmeb_public';
@@ -204,8 +196,7 @@ class SystemFileServices extends BaseServices
      * Nhận các tập tin trong một thư mục bao gồm các tập tin con
      * @param $dir
      * @return array
-     */
-    public function getDir($dir)
+     */    public function getDir($dir)
     {
         $data = [];
         $this->searchDir($dir, $data);
@@ -216,8 +207,7 @@ class SystemFileServices extends BaseServices
      * Lấy các tập tin trong thư mục, bao gồm cả các tập tin con. Nó không thể được sử dụng trực tiếp. Sử dụng nó trực tiếp.  $this->getDir()phương pháp P156
      * @param $path
      * @param $data
-     */
-    public function searchDir($path, &$data)
+     */    public function searchDir($path, &$data)
     {
         if (is_dir($path) && !strpos($path, 'uploads')) {
             $files = scandir($path);
@@ -321,7 +311,7 @@ class SystemFileServices extends BaseServices
         $content = FileClass::readFile($filepath);//Ngăn không cho thẻ vùng văn bản được nhúng vào trang
         $ext = FileClass::getExt($filepath);
         $encoding = mb_detect_encoding($content, mb_detect_order());
-        //Các loại ngôn ngữ được hỗ trợ bởi các thành phần giao diện người dùng
+        //Các loại ngôn ngữ được hỗ trợ bởi các thành phần giao diện Khách hàng
         //['plaintext', 'json', 'abap', 'apex', 'azcli', 'bat', 'cameligo', 'clojure', 'coffeescript', 'c', 'cpp', 'csharp', 'csp', 'css', 'dart', 'dockerfile', 'fsharp', 'go', 'graphql', 'handlebars', 'hcl', 'html', 'ini', 'java', 'javascript', 'julia', 'kotlin', 'less', 'lexon', 'lua', 'markdown', 'mips', 'msdax', 'mysql', 'objective-c', 'pascal', 'pascaligo', 'perl', 'pgsql', 'php', 'postiats', 'powerquery', 'powershell', 'pug', 'python', 'r', 'razor', 'redis', 'redshift', 'restructuredtext', 'ruby', 'rust', 'sb', 'scala', 'scheme', 'scss', 'shell', 'sol', 'aes', 'sql', 'st', 'swift', 'systemverilog', 'verilog', 'tcl', 'twig', 'typescript', 'vb', 'xml', 'yaml']
 
         $extarray = [
@@ -374,8 +364,7 @@ class SystemFileServices extends BaseServices
      *
      * @date 2022/09/20
      * @author yyw
-     */
-    public function delFolder(string $path)
+     */    public function delFolder(string $path)
     {
         $path = $this->formatPath($path);
         if (is_file($path)) {
@@ -405,12 +394,10 @@ class SystemFileServices extends BaseServices
      *
      * @date 2022/09/20
      * @author yyw
-     */
-    public function createFolder(string $path, string $name, int $permissions = 0755)
+     */    public function createFolder(string $path, string $name, int $permissions = 0755)
     {
         $path = $this->formatPath($path, $name);
-        /** @var FileClass $fileClass */
-        $fileClass = app()->make(FileClass::class);
+        /** @var FileClass $fileClass */        $fileClass = app()->make(FileClass::class);
         return $fileClass->createDir($path, $permissions);
     }
 
@@ -422,12 +409,10 @@ class SystemFileServices extends BaseServices
      *
      * @date 2022/09/20
      * @author yyw
-     */
-    public function createFile(string $path, string $name)
+     */    public function createFile(string $path, string $name)
     {
         $path = $this->formatPath($path, $name);
-        /** @var FileClass $fileClass */
-        $fileClass = app()->make(FileClass::class);
+        /** @var FileClass $fileClass */        $fileClass = app()->make(FileClass::class);
         return $fileClass->createFile($path);
     }
 
@@ -444,8 +429,7 @@ class SystemFileServices extends BaseServices
      *
      * @date 2022/09/20
      * @author yyw
-     */
-    public function formatPath(string $path = '', string $name = ''): string
+     */    public function formatPath(string $path = '', string $name = ''): string
     {
         if ($path) {
             $path = rtrim($path, DS);
@@ -467,8 +451,7 @@ class SystemFileServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/10
-     */
-    public function markForm($path, $fileToken)
+     */    public function markForm($path, $fileToken)
     {
         $full_path = str_replace(root_path(), '/', $path);
         $mark = app()->make(SystemFileInfoServices::class)->value(['full_path' => str_replace(root_path(), '/', $path)], 'mark');
@@ -485,8 +468,7 @@ class SystemFileServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/10
-     */
-    public function fileMarkSave($full_path, $mark)
+     */    public function fileMarkSave($full_path, $mark)
     {
         $res = app()->make(SystemFileInfoServices::class)->update(['full_path' => $full_path], ['mark' => $mark]);
         if (!$res) {
@@ -500,8 +482,7 @@ class SystemFileServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/2/25
-     */
-    public function writeMd5(){
+     */    public function writeMd5(){
         $rootPath = app()->getRootPath();
         $files = array_merge(
             $this->getDir($rootPath . 'app'),

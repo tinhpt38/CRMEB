@@ -20,20 +20,17 @@ use think\facade\App;
  * Kiểm soát viên quản lý nhà phân phối
  * Class AgentManage
  * @package app\adminapi\controller\v1\agent
- */
-class AgentManage extends AuthController
+ */class AgentManage extends AuthController
 {
     /**
      * @var AgentManageServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * AgentManage constructor.
      * @param App $app
      * @param AgentManageServices $services
-     */
-    public function __construct(App $app, AgentManageServices $services)
+     */    public function __construct(App $app, AgentManageServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -45,8 +42,7 @@ class AgentManage extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         // Nhận thông số yêu cầu: biệt hiệu, phạm vi ngày
         $where = $this->request->getMore([
@@ -63,8 +59,7 @@ class AgentManage extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function get_badge()
+     */    public function get_badge()
     {
         // Nhận thông số yêu cầu
         $where = $this->request->getMore([
@@ -76,12 +71,11 @@ class AgentManage extends AuthController
     }
 
     /**
-     * Danh sách nhà quảng bá
+     * Danh sách người giới thiệu
      * @return mixed
-     */
-    public function get_stair_list()
+     */    public function get_stair_list()
     {
-        // Nhận thông số yêu cầu: ID người dùng, phạm vi ngày, biệt hiệu, loại (cấp một/cấp phụ）
+        // Nhận thông số yêu cầu: ID Khách hàng, phạm vi ngày, biệt hiệu, loại (cấp một/cấp phụ）
         $where = $this->request->getMore([
             ['uid', 0],
             ['data', ''],
@@ -95,8 +89,7 @@ class AgentManage extends AuthController
     /**
      * Thống kê người đứng đầu danh sách nhà quảng cáo
      * @return mixed
-     */
-    public function get_stair_badge()
+     */    public function get_stair_badge()
     {
         // Nhận thông số yêu cầu
         $where = $this->request->getMore([
@@ -115,8 +108,7 @@ class AgentManage extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function get_stair_order_list()
+     */    public function get_stair_order_list()
     {
         // Nhận thông số yêu cầu
         $where = $this->request->getMore([
@@ -134,8 +126,7 @@ class AgentManage extends AuthController
      * @param string $uid
      * @param string $action
      * @return mixed
-     */
-    public function look_code($uid = '', $action = '')
+     */    public function look_code($uid = '', $action = '')
     {
         if (!$uid || !$action) return app('json')->fail('Lỗi tham số');
         try {
@@ -157,8 +148,7 @@ class AgentManage extends AuthController
      * Lấy mã QR của tài khoản chính thức
      * @param $uid
      * @return array
-     */
-    public function wechant_code($uid)
+     */    public function wechant_code($uid)
     {
         // Gọi lớp dịch vụ để tạo mã QR tài khoản công khai
         $qr_code = $this->services->wechatCode((int)$uid);
@@ -171,8 +161,7 @@ class AgentManage extends AuthController
     /**
      * Xem mã QR khuyến mãi chương trình mini
      * @param string $uid
-     */
-    public function look_xcx_code($uid = '')
+     */    public function look_xcx_code($uid = '')
     {
         if (!strlen(trim($uid))) {
             return app('json')->fail('Lỗi tham số');
@@ -185,8 +174,7 @@ class AgentManage extends AuthController
      * Xem mã QR khuyến mãi H5
      * @param string $uid
      * @return mixed|string
-     */
-    public function look_h5_code($uid = '')
+     */    public function look_h5_code($uid = '')
     {
         if (!strlen(trim($uid))) return app('json')->fail('Lỗi tham số');
         // Gọi lớp dịch vụ để tạo mã QR H5
@@ -194,11 +182,10 @@ class AgentManage extends AuthController
     }
 
     /**
-     * Xóa quyền khuyến mãi khỏi một người dùng
+     * Xóa quyền khuyến mãi khỏi một Khách hàng
      * @param $uid
      * @return mixed
-     */
-    public function delete_spread($uid)
+     */    public function delete_spread($uid)
     {
         if (!$uid) app('json')->fail('Lỗi tham số');
         // Gọi lớp dịch vụ để xóa quyền khuyến mãi
@@ -206,13 +193,12 @@ class AgentManage extends AuthController
     }
 
     /**
-     * Sửa đổi trình quảng bá ưu việt
+     * Đổi người giới thiệu
      * @param UserServices $services
      * @return mixed
-     */
-    public function editSpread(UserServices $services)
+     */    public function editSpread(UserServices $services)
     {
-        // Nhận thông số yêu cầu: ID người dùng, nhà quảng cáo cấp trênID
+        // Nhận thông số yêu cầu: ID Khách hàng, nhà quảng cáo cấp trênID
         [$uid, $spreadUid] = $this->request->postMore([
             [['uid', 'd'], 0],
             [['spread_uid', 'd'], 0],
@@ -223,12 +209,12 @@ class AgentManage extends AuthController
         if ($uid == $spreadUid) {
             return app('json')->fail('Những người quảng bá cấp cao không thể tự mình làm điều đó');
         }
-        // Lấy thông tin người dùng
+        // Lấy thông tin Khách hàng
         $userInfo = $services->get($uid);
         if (!$userInfo) {
             return app('json')->fail('Người dùng không tồn tại');
         }
-        // Xác minh xem người dùng cao cấp có tồn tại không
+        // Xác minh xem Khách hàng cao cấp có tồn tại không
         if (!$services->count(['uid' => $spreadUid])) {
             return app('json')->fail('Người dùng cao cấp không tồn tại');
         }
@@ -248,7 +234,7 @@ class AgentManage extends AuthController
         // Cấp trên mới tăng số lượng người quảng bá
         $spreadInfo->spread_count = $spreadInfo->spread_count + 1;
         $spreadInfo->save();
-        // Cập nhật mối quan hệ khuyến mãi của người dùng
+        // Cập nhật mối quan hệ khuyến mãi của Khách hàng
         $userInfo->spread_uid = $spreadUid;
         $userInfo->spread_time = time();
         $userInfo->division_id = $spreadInfo->division_id;
@@ -262,8 +248,7 @@ class AgentManage extends AuthController
      * Hủy bỏ tư cách thăng hạng của người quảng bá
      * @param $uid
      * @return mixed
-     */
-    public function delete_system_spread($uid)
+     */    public function delete_system_spread($uid)
     {
         if (!$uid) app('json')->fail('Lỗi tham số');
         // Gọi lớp dịch vụ để hủy tư cách khuyến mãi
@@ -279,8 +264,7 @@ class AgentManage extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLevelForm(AgentLevelServices $services, $uid)
+     */    public function getLevelForm(AgentLevelServices $services, $uid)
     {
         if (!$uid) app('json')->fail('Lỗi tham số');
         // Gọi AgentLevelServices để lấy biểu mẫu
@@ -294,8 +278,7 @@ class AgentManage extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function giveAgentLevel(AgentLevelServices $services)
+     */    public function giveAgentLevel(AgentLevelServices $services)
     {
         // Lấy thông số: user ID, cấp độID
         [$uid, $id] = $this->request->postMore([

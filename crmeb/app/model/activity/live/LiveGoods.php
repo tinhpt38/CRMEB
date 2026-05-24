@@ -19,8 +19,7 @@ use think\Model;
 /**
  * Class LiveGoods
  * @package app\model\live
- */
-class LiveGoods extends BaseModel
+ */class LiveGoods extends BaseModel
 {
     use ModelTrait;
 
@@ -41,8 +40,7 @@ class LiveGoods extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         if (!empty($value)) {
             return date('Y-m-d H:i:s', (int)$value);
@@ -60,8 +58,7 @@ class LiveGoods extends BaseModel
      * sản phẩm WeChatid
      * @param Model $query
      * @param $value
-     */
-    public function searchGoodIdAttr($query, $value)
+     */    public function searchGoodIdAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('goods_id', $value);
@@ -72,8 +69,7 @@ class LiveGoods extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchKerwordAttr($query, $value)
+     */    public function searchKerwordAttr($query, $value)
     {
         if ($value !== '') $query->whereLike('id|goods_id|product_id|name', "%{$value}%");
     }
@@ -81,8 +77,7 @@ class LiveGoods extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }
@@ -90,8 +85,7 @@ class LiveGoods extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsShowAttr($query, $value)
+     */    public function searchIsShowAttr($query, $value)
     {
         if ($value !== '') $query->where('is_show', $value);
     }
@@ -99,8 +93,7 @@ class LiveGoods extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') {
             switch ($value) {

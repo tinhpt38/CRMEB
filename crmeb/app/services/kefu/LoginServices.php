@@ -21,36 +21,33 @@ use app\dao\service\StoreServiceDao;
 use app\services\wechat\WechatUserServices;
 
 /**
- * Đăng nhập dịch vụ khách hàng
+ * Đăng nhập CSKH
  * Class LoginServices
  * @package app\services\kefu
  * @method get($id, ?array $field = [], ?array $with = []) Lấy một phần dữ liệu
- */
-class LoginServices extends BaseServices
+ */class LoginServices extends BaseServices
 {
     /**
      * LoginServices constructor.
      * @param StoreServiceDao $dao
-     */
-    public function __construct(StoreServiceDao $dao)
+     */    public function __construct(StoreServiceDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Đăng nhập mật khẩu tài khoản dịch vụ khách hàng
+     * Đăng nhập mật khẩu tài khoản CSKH
      * @param string $account
      * @param string $password
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function authLogin(string $account, string $password = null)
+     */    public function authLogin(string $account, string $password = null)
     {
         $kefuInfo = $this->dao->get(['account' => $account]);
         if (!$kefuInfo) {
-            throw new AuthException('Không có người dùng như vậy');
+            throw new AuthException('Không có Khách hàng như vậy');
         }
         if ($password && !password_verify($password, $kefuInfo->password)) {
             throw new AuthException('Tài khoản hoặc mật khẩu không chính xác');
@@ -78,8 +75,7 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function parseToken(string $token)
+     */    public function parseToken(string $token)
     {
         $noCli = !request()->isCli();
         //Kiểm tra xem mã thông báo đã hết hạn chưa
@@ -91,8 +87,7 @@ class LoginServices extends BaseServices
             throw new AuthException('Vui lòng đăng nhập', [], 402);
         }
 
-        /** @var JwtAuth $jwtAuth */
-        $jwtAuth = app()->make(JwtAuth::class);
+        /** @var JwtAuth $jwtAuth */        $jwtAuth = app()->make(JwtAuth::class);
         //Thiết lập phân tích cú pháptoken
         [$id, $type] = $jwtAuth->parseToken($token);
 
@@ -120,20 +115,17 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function wechatAuth()
+     */    public function wechatAuth()
     {
-        /** @var OAuth $oauth */
-        $oauth = app()->make(OAuth::class);
+        /** @var OAuth $oauth */        $oauth = app()->make(OAuth::class);
         $original = $oauth->oauth(null, ['open' => true]);
         if (!isset($original['unionid'])) {
             throw new AuthException('unionidkhông tồn tại');
         }
-        /** @var WechatUserServices $userService */
-        $userService = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $userService */        $userService = app()->make(WechatUserServices::class);
         $uid = $userService->value(['unionid' => $original['unionid']], 'uid');
         if (!$uid) {
-            throw new AuthException('Không lấy được UID người dùng');
+            throw new AuthException('Không lấy được UID Khách hàng');
         }
         $kefuInfo = $this->dao->get(['uid' => $uid]);
         if (!$kefuInfo) {
@@ -161,8 +153,7 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function scanLogin(string $key)
+     */    public function scanLogin(string $key)
     {
         $hasKey = CacheService::has($key);
         if ($hasKey === false) {

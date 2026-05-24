@@ -46,7 +46,7 @@ use think\facade\Route as Url;
 /**
  * Class UserServices
  * @package app\services\user
- * @method array getUserInfoArray(array $where, string $field, string $key) Thông tin người dùng tương ứng với truy vấn theo điều kiện được trả về dưới dạng mảng.
+ * @method array getUserInfoArray(array $where, string $field, string $key) Thông tin Khách hàng tương ứng với truy vấn theo điều kiện được trả về dưới dạng mảng.
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  * @method get($id, ?array $field = [], ?array $with = []) Lấy một phần dữ liệu
  * @method count(array $where) Lấy số lượng theo điều kiện quy định
@@ -54,23 +54,21 @@ use think\facade\Route as Url;
  * @method bcInc($key, string $incField, string $inc, string $keyField = null, int $acc = 2) Phép cộng có độ chính xác cao
  * @method bcDec($key, string $incField, string $inc, string $keyField = null, int $acc = 2) Phép trừ có độ chính xác cao
  * @method getTrendData($time, $type, $timeType)
- * @method incPayCount(int $uid) Số lượng người dùng thanh toán thành công tăng lên
+ * @method incPayCount(int $uid) Số lượng Khách hàng thanh toán thành công tăng lên
  * @mixin UserDao
- */
-class UserServices extends BaseServices
+ */class UserServices extends BaseServices
 {
 
     /**
      * UserServices constructor.
      * @param UserDao $dao
-     */
-    public function __construct(UserDao $dao)
+     */    public function __construct(UserDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Lấy thông tin người dùng
+     * Lấy thông tin Khách hàng
      * @param int $uid
      * @param string $field
      * @return array|\think\Model|null
@@ -80,23 +78,21 @@ class UserServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function getUserInfo(int $uid, $field = '*')
+     */    public function getUserInfo(int $uid, $field = '*')
     {
         if (is_string($field)) $field = explode(',', $field);
         return $this->dao->get($uid, $field);
     }
 
     /**
-     * Lấy danh sách người dùng
+     * Lấy danh sách Khách hàng
      * @param array $where
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserList(array $where, string $field): array
+     */    public function getUserList(array $where, string $field): array
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $field, $page, $limit);
@@ -108,21 +104,19 @@ class UserServices extends BaseServices
      * Số mục danh sách
      * @param array $where
      * @return int
-     */
-    public function getCount(array $where, bool $is_list = false)
+     */    public function getCount(array $where, bool $is_list = false)
     {
         return $this->dao->getCount($where, $is_list);
     }
 
     /**
-     * Lưu thông tin người dùng
+     * Lưu thông tin Khách hàng
      * @param $user
      * @param int $spreadUid
      * @param string $userType
      * @return User|\think\Model
      * @throws Exception
-     */
-    public function setUserInfo($user, int $spreadUid = 0, string $userType = 'wechat')
+     */    public function setUserInfo($user, int $spreadUid = 0, string $userType = 'wechat')
     {
         $data = [
             'account' => $user['account'] ?? 'wx' . rand(1, 9999) . time(),
@@ -145,15 +139,15 @@ class UserServices extends BaseServices
         }
         $res = $this->dao->save($data);
         if (!$res)
-            throw new AdminException('Không lưu được thông tin người dùng');
+            throw new AdminException('Không lưu được thông tin Khách hàng');
 
-        //Phần thưởng đăng ký người dùng mới
+        //Phần thưởng đăng ký Khách hàng mới
         $this->rewardNewUser((int)$res->uid);
 
-        //Sự kiện bài đăng do người dùng tạo
+        //Sự kiện bài đăng do Khách hàng tạo
         event('UserRegisterListener', [$spreadUid, $userType, $user['nickname'], $res->uid, 1]);
 
-        //Đăng ký người dùng sự kiện tùy chỉnh
+        //Đăng ký Khách hàng sự kiện tùy chỉnh
         event('CustomEventListener', ['user_register', [
             'uid' => $res->uid,
             'nickname' => $user['nickname'],
@@ -179,31 +173,28 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Tổng hoa hồng của người dùng cho một số điều kiện nhất định
+     * Tổng hoa hồng của Khách hàng cho một số điều kiện nhất định
      * @param array $where
      * @return mixed
-     */
-    public function getSumBrokerage(array $where)
+     */    public function getSumBrokerage(array $where)
     {
         return $this->dao->getWhereSumField($where, 'brokerage_price');
     }
 
     /**
-     * Nhận danh sách các trường do người dùng chỉ định dựa trên các điều kiện
+     * Nhận danh sách các trường do Khách hàng chỉ định dựa trên các điều kiện
      * @param array $where
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getColumn(array $where, string $field = '*', string $key = '')
+     */    public function getColumn(array $where, string $field = '*', string $key = '')
     {
         return $this->dao->getColumn($where, $field, $key);
     }
 
     /**
-     * Nhận khuyến mãi ngoại tuyến của một người dùng nhất định
-     */
-    public function getSpreadList($uid)
+     * Nhận khuyến mãi ngoại tuyến của một Khách hàng nhất định
+     */    public function getSpreadList($uid)
     {
         $one_uids = $this->dao->getColumn(['spread_uid' => $uid], 'uid');
         $two_uids = $this->dao->getColumn([['spread_uid', 'in', $one_uids], ['spread_uid', '<>', 0]], 'uid');
@@ -222,23 +213,21 @@ class UserServices extends BaseServices
      * @param $uids
      * @param bool $field
      * @return UserDao|bool|\crmeb\basic\BaseModel|mixed|\think\Collection
-     */
-    public function getUserListByUids($uids, $field = false)
+     */    public function getUserListByUids($uids, $field = false)
     {
         if (!$uids || !is_array($uids)) return false;
         return $this->dao->getUserListByUids($uids, $field);
     }
 
     /**
-     * Nhận người dùng phân phối
+     * Nhận Khách hàng phân phối
      * @param array $where
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAgentUserList(array $where = [], string $field = '*', $is_page = true)
+     */    public function getAgentUserList(array $where = [], string $field = '*', $is_page = true)
     {
         $where_data['status'] = 1;
         $where_data['is_promoter'] = 1;
@@ -263,8 +252,7 @@ class UserServices extends BaseServices
      * @param array $where
      * @return array
      * @throws \ReflectionException
-     */
-    public function getAgentUserIds(array $where)
+     */    public function getAgentUserIds(array $where)
     {
         $where['status'] = 1;
         if (sys_config('store_brokerage_statu') != 2) $where['is_promoter'] = 1;
@@ -288,8 +276,7 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSairList(array $where, string $field = '*')
+     */    public function getSairList(array $where, string $field = '*')
     {
         $where_data = [];
         if (isset($where['uid'])) {
@@ -322,8 +309,7 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSairCount(array $where)
+     */    public function getSairCount(array $where)
     {
         $where_data = [];
         if (isset($where['uid'])) {
@@ -364,11 +350,10 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Viết thông tin người dùng
+     * Viết thông tin Khách hàng
      * @param array $data
      * @return bool
-     */
-    public function create(array $data)
+     */    public function create(array $data)
     {
         if (!$this->dao->save($data))
             throw new AdminException('Đã lưu thành công');
@@ -380,8 +365,7 @@ class UserServices extends BaseServices
      * @param $id
      * @param string $password
      * @return mixed
-     */
-    public function resetPwd(int $uid, string $password)
+     */    public function resetPwd(int $uid, string $password)
     {
         if (!$this->dao->update($uid, ['pwd' => $password]))
             throw new AdminException('Đặt lại mật khẩu không thành công');
@@ -394,8 +378,7 @@ class UserServices extends BaseServices
      * @param int $num
      * @return bool
      * @throws Exception
-     */
-    public function incSpreadCount(int $uid, int $num = 1)
+     */    public function incSpreadCount(int $uid, int $num = 1)
     {
         if (!$this->dao->incField($uid, 'spread_count', $num))
             throw new AdminException('Không thể tăng số lượng người được thăng chức');
@@ -404,13 +387,12 @@ class UserServices extends BaseServices
 
 
     /**
-     * Đặt loại đăng nhập của người dùng
+     * Đặt loại đăng nhập của Khách hàng
      * @param int $uid
      * @param string $type
      * @return bool
      * @throws Exception
-     */
-    public function setLoginType(int $uid, string $type = 'h5')
+     */    public function setLoginType(int $uid, string $type = 'h5')
     {
         if (!$this->dao->update($uid, ['login_type' => $type]))
             throw new AdminException('Không thể đặt loại đăng nhập');
@@ -423,8 +405,7 @@ class UserServices extends BaseServices
      * @param int $is_promoter
      * @return bool
      * @throws Exception
-     */
-    public function setIsPromoter(int $uid, $is_promoter = 1)
+     */    public function setIsPromoter(int $uid, $is_promoter = 1)
     {
         if (!$this->dao->update($uid, ['is_promoter' => $is_promoter]))
             throw new AdminException('Không thiết lập được công cụ quảng bá');
@@ -432,39 +413,36 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Thiết lập nhóm người dùng
+     * Thiết lập nhóm Khách hàng
      * @param $uids
      * @param int $group_id
-     */
-    public function setUserGroup($uids, int $group_id)
+     */    public function setUserGroup($uids, int $group_id)
     {
         return $this->dao->batchUpdate($uids, ['group_id' => $group_id], 'uid');
     }
 
     /**
-     * Tăng số dư người dùng
+     * Tăng số dư Khách hàng
      * @param int $uid
      * @param float $old_now_money
      * @param float $now_money
      * @return bool
      * @throws Exception
-     */
-    public function addNowMoney(int $uid, $old_now_money, $now_money)
+     */    public function addNowMoney(int $uid, $old_now_money, $now_money)
     {
         if (!$this->dao->update($uid, ['now_money' => bcadd($old_now_money, $now_money, 2)]))
-            throw new AdminException('Không thể tăng số dư người dùng');
+            throw new AdminException('Không thể tăng số dư Khách hàng');
         return true;
     }
 
     /**
-     * Giảm số dư của người dùng
+     * Giảm số dư của Khách hàng
      * @param int $uid
      * @param float $old_now_money
      * @param float $now_money
      * @return bool
      * @throws Exception
-     */
-    public function cutNowMoney(int $uid, $old_now_money, $now_money)
+     */    public function cutNowMoney(int $uid, $old_now_money, $now_money)
     {
         if ($old_now_money > $now_money) {
             $money = ['now_money' => bcsub($old_now_money, $now_money, 2)];
@@ -472,97 +450,90 @@ class UserServices extends BaseServices
             $money = ['now_money' => 0];
         }
         if (!$this->dao->update($uid, $money, 'uid'))
-            throw new AdminException('Không thể giảm số dư của người dùng');
+            throw new AdminException('Không thể giảm số dư của Khách hàng');
         return true;
     }
 
     /**
-     * Giảm hoa hồng cho người dùng
+     * Giảm hoa hồng cho Khách hàng
      * @param int $uid
      * @param float $brokerage_price
      * @param float $price
      * @return bool
      * @throws Exception
-     */
-    public function cutBrokeragePrice(int $uid, $brokerage_price, $price)
+     */    public function cutBrokeragePrice(int $uid, $brokerage_price, $price)
     {
         if (!$this->dao->update($uid, ['brokerage_price' => bcsub($brokerage_price, $price, 2)]))
-            throw new AdminException('Không thể giảm hoa hồng cho người dùng');
+            throw new AdminException('Không thể giảm hoa hồng cho Khách hàng');
         return true;
     }
 
     /**
-     * Tăng điểm người dùng
+     * Tăng điểm Khách hàng
      * @param int $uid
      * @param float $old_integral
      * @param float $integral
      * @return bool
      * @throws Exception
-     */
-    public function addIntegral(int $uid, $old_integral, $integral)
+     */    public function addIntegral(int $uid, $old_integral, $integral)
     {
         if (!$this->dao->update($uid, ['integral' => bcadd($old_integral, $integral, 2)]))
-            throw new AdminException('Không thể tăng điểm người dùng');
+            throw new AdminException('Không thể tăng điểm Khách hàng');
         return true;
     }
 
     /**
-     * Giảm điểm người dùng
+     * Giảm điểm Khách hàng
      * @param int $uid
      * @param float $old_integral
      * @param float $integral
      * @return bool
      * @throws Exception
-     */
-    public function cutIntegral(int $uid, $old_integral, $integral)
+     */    public function cutIntegral(int $uid, $old_integral, $integral)
     {
         if (!$this->dao->update($uid, ['integral' => bcsub($old_integral, $integral, 2)]))
-            throw new AdminException('Không thể giảm điểm người dùng');
+            throw new AdminException('Không thể giảm điểm Khách hàng');
         return true;
     }
 
     /**
-     * Tăng trải nghiệm người dùng
+     * Tăng trải nghiệm Khách hàng
      * @param int $uid
      * @param float $old_exp
      * @param float $exp
      * @return bool
      * @throws Exception
-     */
-    public function addExp(int $uid, float $old_exp, float $exp)
+     */    public function addExp(int $uid, float $old_exp, float $exp)
     {
         if (!$this->dao->update($uid, ['exp' => bcadd($old_exp, $exp, 2)]))
-            throw new AdminException('Không thể tăng trải nghiệm người dùng');
+            throw new AdminException('Không thể tăng trải nghiệm Khách hàng');
         return true;
     }
 
     /**
-     * Giảm trải nghiệm người dùng
+     * Giảm trải nghiệm Khách hàng
      * @param int $uid
      * @param float $old_exp
      * @param float $exp
      * @return bool
      * @throws Exception
-     */
-    public function cutExp(int $uid, float $old_exp, float $exp)
+     */    public function cutExp(int $uid, float $old_exp, float $exp)
     {
         if (!$this->dao->update($uid, ['exp' => bcsub($old_exp, $exp, 2)]))
-            throw new AdminException('Giảm thất bại trong trải nghiệm người dùng');
+            throw new AdminException('Giảm thất bại trong trải nghiệm Khách hàng');
         return true;
     }
 
     /**
-     * Nhận thẻ người dùng
+     * Nhận thẻ Khách hàng
      * @param $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserLablel(array $uids)
+     */    public function getUserLablel(array $uids)
     {
-        /** @var UserLabelRelationServices $services */
-        $services = app()->make(UserLabelRelationServices::class);
+        /** @var UserLabelRelationServices $services */        $services = app()->make(UserLabelRelationServices::class);
         $userlabels = $services->getUserLabelList($uids);
         $data = [];
         foreach ($uids as $uid) {
@@ -580,11 +551,9 @@ class UserServices extends BaseServices
      * Danh sách thành viên
      * @param array $where
      * @return array
-     */
-    public function index(array $where)
+     */    public function index(array $where)
     {
-        /** @var UserWechatuserServices $userWechatUser */
-        $userWechatUser = app()->make(UserWechatuserServices::class);
+        /** @var UserWechatuserServices $userWechatUser */        $userWechatUser = app()->make(UserWechatuserServices::class);
         $fields = 'u.*,w.country,w.province,w.city,w.sex,w.unionid,w.openid,w.user_type as w_user_type,w.groupid,w.tagid_list,w.subscribe,w.subscribe_time';
         [$list, $count] = $userWechatUser->getWhereUserList($where, $fields);
         if ($list) {
@@ -606,7 +575,7 @@ class UserServices extends BaseServices
                 $item['birthday'] = $item['birthday'] ? date('Y-m-d', (int)$item['birthday']) : '';
                 $item['extract_count_price'] = $userExtract[$item['uid']] ?? 0;//Rút tiền tích lũy
                 $item['spread_uid_nickname'] = $item['spread_uid'] ? ($spread_names[$item['spread_uid']] ?? '') . '(' . $item['spread_uid'] . ')' : 'không có';
-                //Loại người dùng
+                //Loại Khách hàng
                 if ($item['user_type'] == 'routine') {
                     $item['user_type'] = 'Mini App';
                 } else if ($item['user_type'] == 'wechat') {
@@ -635,7 +604,7 @@ class UserServices extends BaseServices
                 $item['level'] = $levelName[$item['level']] ?? 'Chưa có';
                 //Tên nhóm
                 $item['group_id'] = $userGroup[$item['group_id']] ?? 'Chưa có';
-                //Cấp độ người dùng
+                //Hạng khách hàng
                 $item['vip_name'] = false;
                 $levelInfo = $userLevel[$item['uid']] ?? null;
                 if ($levelInfo) {
@@ -662,25 +631,24 @@ class UserServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit(int $id)
+     */    public function edit(int $id)
     {
         $user = $this->getUserInfo($id);
         if (!$user)
             throw new AdminException('Dữ liệu không tồn tại');
         $f = array();
-        $f[] = Form::input('uid', 'ID người dùng', $user->getData('uid'))->disabled(true);
+        $f[] = Form::input('uid', 'ID Khách hàng', $user->getData('uid'))->disabled(true);
         $f[] = Form::input('real_name', 'tên thật', $user->getData('real_name'));
         $f[] = Form::input('phone', 'số điện thoại', $user->getData('phone'));
 
         $f[] = Form::date('birthday', 'Sinh nhật', $user->getData('birthday') ? date('Y-m-d', $user->getData('birthday')) : '');
         $f[] = Form::input('card_id', 'số CMND', $user->getData('card_id'));
-        $f[] = Form::input('addres', 'Địa chỉ người dùng', $user->getData('addres'));
-        $f[] = Form::textarea('mark', 'Nhận xét của người dùng', $user->getData('mark'));
+        $f[] = Form::input('addres', 'Địa chỉ Khách hàng', $user->getData('addres'));
+        $f[] = Form::textarea('mark', 'Nhận xét của Khách hàng', $user->getData('mark'));
         $f[] = Form::input('pwd', 'Mật khẩu đăng nhập')->type('password')->placeholder('Vui lòng để trống nếu bạn không muốn thay đổi mật khẩu của mình.');
         $f[] = Form::input('true_pwd', 'Xác nhận mật khẩu')->type('password')->placeholder('Vui lòng để trống nếu bạn không muốn thay đổi mật khẩu của mình.');
 
-        //Truy vấn tất cả các cấp thành viên cao hơn thành viên hiện tại
+        //Tìm kiếm Tất cả các cấp thành viên cao hơn thành viên hiện tại
 //        $grade = app()->make(UserLevelServices::class)->getUerLevelInfoByUid($id, 'grade');
         $systemLevelList = app()->make(SystemUserLevelServices::class)->getWhereLevelList([], 'id,name');
         $setOptionLevel = function () use ($systemLevelList) {
@@ -710,31 +678,30 @@ class UserServices extends BaseServices
             return $menus;
         };
         $f[] = Form::select('label_id', 'Thẻ khách hàng', $labels)->setOptions(FormBuilder::setOptions($setOptionLabel))->filterable(true)->multiple(true);
-        $f[] = Form::radio('spread_open', 'Trình độ thăng hạng', $user->getData('spread_open'))->info('Sau khi vô hiệu hóa trình độ khuyến mãi của người dùng, người dùng sẽ không có quyền phân phối theo bất kỳ chế độ phân phối nào.')->options([['value' => 1, 'label' => 'cho phép'], ['value' => 0, 'label' => 'Vô hiệu hóa']]);
+        $f[] = Form::radio('spread_open', 'Trình độ thăng hạng', $user->getData('spread_open'))->info('Sau khi vô hiệu hóa trình độ khuyến mãi của Khách hàng, Khách hàng sẽ không có quyền phân phối theo bất kỳ chế độ phân phối nào.')->options([['value' => 1, 'label' => 'cho phép'], ['value' => 0, 'label' => 'Vô hiệu hóa']]);
         //Mô hình phân phối Renren Distribution
         $storeBrokerageStatus = sys_config('store_brokerage_statu', 1);
         if ($storeBrokerageStatus == 1) {
-            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', $user->getData('is_promoter'))->info('Bật hoặc tắt quyền khuyến mãi của người dùng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
+            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', $user->getData('is_promoter'))->info('Bật hoặc tắt quyền khuyến mãi của Khách hàng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
         }
-        $f[] = Form::radio('status', 'Trạng thái người dùng', $user->getData('status'))->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'khóa']]);
+        $f[] = Form::radio('status', 'Trạng thái Khách hàng', $user->getData('status'))->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'khóa']]);
         return create_form('Sửa', $f, Url::buildUrl('/user/user/' . $id), 'PUT');
     }
 
     /**
-     * Thêm biểu mẫu người dùng
+     * Thêm biểu mẫu Khách hàng
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function saveForm()
+     */    public function saveForm()
     {
         $f = array();
         $f[] = Form::input('real_name', 'tên thật', '')->placeholder('Vui lòng nhập tên thật của bạn');
         $f[] = Form::input('phone', 'số điện thoại', '')->placeholder('Vui lòng nhập số điện thoại di động')->required();
         $f[] = Form::date('birthday', 'Sinh nhật', '')->placeholder('Vui lòng chọn ngày sinh');
         $f[] = Form::input('card_id', 'số CMND', '')->placeholder('Vui lòng nhập số ID của bạn');
-        $f[] = Form::input('addres', 'Địa chỉ người dùng', '')->placeholder('Vui lòng nhập địa chỉ người dùng');
-        $f[] = Form::textarea('mark', 'Nhận xét của người dùng', '')->placeholder('Vui lòng nhập nhận xét của người dùng');
+        $f[] = Form::input('addres', 'Địa chỉ Khách hàng', '')->placeholder('Vui lòng nhập địa chỉ Khách hàng');
+        $f[] = Form::textarea('mark', 'Nhận xét của Khách hàng', '')->placeholder('Vui lòng nhập nhận xét của Khách hàng');
         $f[] = Form::input('pwd', 'Mật khẩu đăng nhập')->type('password')->placeholder('Vui lòng nhập mật khẩu đăng nhập của bạn');
         $f[] = Form::input('true_pwd', 'Xác nhận mật khẩu')->type('password')->placeholder('Vui lòng xác nhận lại mật khẩu');
         $systemLevelList = app()->make(SystemUserLevelServices::class)->getWhereLevelList([], 'id,name');
@@ -764,13 +731,13 @@ class UserServices extends BaseServices
             return $menus;
         };
         $f[] = Form::select('label_id', 'Thẻ khách hàng', '')->setOptions(FormBuilder::setOptions($setOptionLabel))->filterable(true)->multiple(true);
-        $f[] = Form::radio('spread_open', 'Trình độ thăng hạng', 1)->info('Sau khi vô hiệu hóa trình độ khuyến mãi của người dùng, người dùng sẽ không có quyền phân phối theo bất kỳ chế độ phân phối nào.')->options([['value' => 1, 'label' => 'cho phép'], ['value' => 0, 'label' => 'Vô hiệu hóa']]);
+        $f[] = Form::radio('spread_open', 'Trình độ thăng hạng', 1)->info('Sau khi vô hiệu hóa trình độ khuyến mãi của Khách hàng, Khách hàng sẽ không có quyền phân phối theo bất kỳ chế độ phân phối nào.')->options([['value' => 1, 'label' => 'cho phép'], ['value' => 0, 'label' => 'Vô hiệu hóa']]);
         //Mô hình phân phối Renren Distribution
         $storeBrokerageStatus = sys_config('store_brokerage_statu', 1);
         if ($storeBrokerageStatus == 1) {
-            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', 0)->info('Bật hoặc tắt quyền khuyến mãi của người dùng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
+            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', 0)->info('Bật hoặc tắt quyền khuyến mãi của Khách hàng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
         }
-        $f[] = Form::radio('status', 'Trạng thái người dùng', 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'khóa']]);
+        $f[] = Form::radio('status', 'Trạng thái Khách hàng', 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'khóa']]);
         return create_form('Thêm khách hàng', $f, $this->url('/user/user'), 'POST');
     }
 
@@ -782,8 +749,7 @@ class UserServices extends BaseServices
      * @throws Exception
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateInfo(int $id, array $data)
+     */    public function updateInfo(int $id, array $data)
     {
         $user = $this->getUserInfo($id);
         if (!$user) {
@@ -793,8 +759,7 @@ class UserServices extends BaseServices
         $res2 = false;
         $edit = array();
         if ($data['money_status'] && $data['money']) {//Số dư tăng hoặc giảm
-            /** @var UserMoneyServices $userMoneyServices */
-            $userMoneyServices = app()->make(UserMoneyServices::class);
+            /** @var UserMoneyServices $userMoneyServices */            $userMoneyServices = app()->make(UserMoneyServices::class);
             if ($data['money_status'] == 1) {//Tăng
                 $edit['now_money'] = bcadd($user['now_money'], $data['money'], 2);
                 $res1 = $userMoneyServices->income('system_add', $user['uid'], $data['money'], $edit['now_money'], $data['adminId'] ?? 0, $data['mark']);
@@ -810,8 +775,7 @@ class UserServices extends BaseServices
                     'channel_type' => 'system',
                     'pay_time' => time(),
                 ];
-                /** @var UserRechargeServices $rechargeServices */
-                $rechargeServices = app()->make(UserRechargeServices::class);
+                /** @var UserRechargeServices $rechargeServices */                $rechargeServices = app()->make(UserRechargeServices::class);
                 $rechargeServices->save($recharge_data);
             } else if ($data['money_status'] == 2) {//giảm bớt
                 if ($user['now_money'] > $data['money']) {
@@ -827,8 +791,7 @@ class UserServices extends BaseServices
             $res1 = true;
         }
         if ($data['integration_status'] && $data['integration']) {//Điểm tăng hoặc giảm
-            /** @var UserBillServices $userBill */
-            $userBill = app()->make(UserBillServices::class);
+            /** @var UserBillServices $userBill */            $userBill = app()->make(UserBillServices::class);
             $integral_data = ['link_id' => $data['adminId'] ?? 0, 'number' => $data['integration']];
             if ($data['integration_status'] == 1) {//Tăng
                 $edit['integral'] = bcadd($user['integral'], $data['integration'], 2);
@@ -867,8 +830,7 @@ class UserServices extends BaseServices
             $edit['addres'] = $data['addres'];
             $edit['group_id'] = $data['group_id'];
             if ($user['level'] != $data['level']) {
-                /** @var UserLevelServices $userLevelService */
-                $userLevelService = app()->make(UserLevelServices::class);
+                /** @var UserLevelServices $userLevelService */                $userLevelService = app()->make(UserLevelServices::class);
                 $userLevelService->setUserLevel((int)$user['uid'], (int)$data['level']);
             }
             if ($data['is_promoter'] == 0) {
@@ -888,8 +850,7 @@ class UserServices extends BaseServices
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function editOther($id, $type)
+     */    public function editOther($id, $type)
     {
         $user = $this->getUserInfo($id);
         if (!$user) {
@@ -911,11 +872,9 @@ class UserServices extends BaseServices
      * Thiết lập các nhóm thành viên
      * @param $id
      * @return mixed
-     */
-    public function setGroup($uids)
+     */    public function setGroup($uids)
     {
-        /** @var UserGroupServices $groupServices */
-        $groupServices = app()->make(UserGroupServices::class);
+        /** @var UserGroupServices $groupServices */        $groupServices = app()->make(UserGroupServices::class);
         $userGroup = $groupServices->getGroupList();
         if (count($uids) == 1) {
             $user = $this->getUserInfo($uids[0], ['group_id']);
@@ -938,18 +897,16 @@ class UserServices extends BaseServices
             $field[] = Form::select('group_id', 'Nhóm khách hàng')->setOptions(FormBuilder::setOptions($setOptionUserGroup))->filterable(true);
         }
         $field[] = Form::hidden('uids', implode(',', $uids));
-        return create_form('Thiết lập nhóm người dùng', $field, Url::buildUrl('/user/save_set_group'), 'PUT');
+        return create_form('Thiết lập nhóm Khách hàng', $field, Url::buildUrl('/user/save_set_group'), 'PUT');
     }
 
     /**
      * Lưu nhóm thành viên
      * @param $id
      * @return mixed
-     */
-    public function saveSetGroup($uids, int $group_id)
+     */    public function saveSetGroup($uids, int $group_id)
     {
-        /** @var UserGroupServices $userGroup */
-        $userGroup = app()->make(UserGroupServices::class);
+        /** @var UserGroupServices $userGroup */        $userGroup = app()->make(UserGroupServices::class);
         if (!$userGroup->getGroup($group_id)) {
             throw new AdminException('Nhóm này không tồn tại');
         }
@@ -960,14 +917,12 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Đặt nhãn người dùng
+     * Đặt nhãn Khách hàng
      * @param $uids
      * @return mixed
-     */
-    public function setLabel($uids)
+     */    public function setLabel($uids)
     {
-        /** @var UserLabelServices $labelServices */
-        $labelServices = app()->make(UserLabelServices::class);
+        /** @var UserLabelServices $labelServices */        $labelServices = app()->make(UserLabelServices::class);
         $userLabel = $labelServices->getLabelList();
         if (count($uids) == 1) {
             $lids = app()->make(UserLabelRelationServices::class)->getUserLabels($uids[0]);
@@ -990,22 +945,20 @@ class UserServices extends BaseServices
             $field[] = Form::select('label_id', 'Thẻ khách hàng')->setOptions(FormBuilder::setOptions($setOptionUserLabel))->filterable(true)->multiple(true);
         }
         $field[] = Form::hidden('uids', implode(',', $uids));
-        return create_form('Đặt nhãn người dùng', $field, Url::buildUrl('/user/save_set_label'), 'PUT');
+        return create_form('Đặt nhãn Khách hàng', $field, Url::buildUrl('/user/save_set_label'), 'PUT');
     }
 
     /**
-     * Lưu nhãn người dùng
+     * Lưu nhãn Khách hàng
      * @return mixed
-     */
-    public function saveSetLabel($uids, $labels, $label_type = 0)
+     */    public function saveSetLabel($uids, $labels, $label_type = 0)
     {
         foreach ($labels as $id) {
             if (!app()->make(UserLabelServices::class)->getLable((int)$id)) {
                 throw new AdminException('Thẻ không tồn tại hoặc đã bị xóa');
             }
         }
-        /** @var UserLabelRelationServices $services */
-        $services = app()->make(UserLabelRelationServices::class);
+        /** @var UserLabelRelationServices $services */        $services = app()->make(UserLabelRelationServices::class);
         if (!$services->setUserLabel($uids, $labels, $label_type)) {
             throw new AdminException('Không đặt được nhãn');
         }
@@ -1016,13 +969,12 @@ class UserServices extends BaseServices
      * Cấp độ thành viên miễn phí
      * @param int $uid
      * @return mixed
-     * */
-    public function giveLevel($id)
+     * */    public function giveLevel($id)
     {
         if (!$this->getUserInfo($id)) {
             throw new AdminException('Người dùng không tồn tại');
         }
-        //Truy vấn tất cả các cấp thành viên cao hơn thành viên hiện tại
+        //Tìm kiếm Tất cả các cấp thành viên cao hơn thành viên hiện tại
         $grade = app()->make(UserLevelServices::class)->getUerLevelInfoByUid($id, 'grade');
         $systemLevelList = app()->make(SystemUserLevelServices::class)->getWhereLevelList(['grade', '>', $grade ?? 0], 'id,name');
 
@@ -1045,23 +997,20 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveGiveLevel(int $id, int $level_id)
+     */    public function saveGiveLevel(int $id, int $level_id)
     {
         if (!$this->getUserInfo($id)) {
             throw new AdminException('Người dùng không tồn tại');
         }
-        /** @var SystemUserLevelServices $systemLevelServices */
-        $systemLevelServices = app()->make(SystemUserLevelServices::class);
-        /** @var UserLevelServices $userLevelServices */
-        $userLevelServices = app()->make(UserLevelServices::class);
-        //Truy vấn cấp độ thành viên hiện được chọn
+        /** @var SystemUserLevelServices $systemLevelServices */        $systemLevelServices = app()->make(SystemUserLevelServices::class);
+        /** @var UserLevelServices $userLevelServices */        $userLevelServices = app()->make(UserLevelServices::class);
+        //Tìm kiếm cấp độ thành viên hiện được chọn
         $systemLevel = $systemLevelServices->getLevel($level_id);
         if (!$systemLevel) throw new AdminException('Cấp độ không tồn tại hoặc đã bị xóa');
         //Kiểm tra xem bạn có cấp độ thành viên này không
         $level = $userLevelServices->getWhereLevel(['uid' => $id, 'level_id' => $level_id], 'valid_time,is_forever');
         if ($level && $level['status'] == 1 && $level['is_del'] == 0) {
-            throw new AdminException('Người dùng này đã có cấp độ người dùng này và không thể tặng quà nữa.');
+            throw new AdminException('Người dùng này đã có cấp độ Khách hàng này và không thể tặng quà nữa.');
         }
         //Lưu thông tin thành viên
         if (!$userLevelServices->setUserLevel($id, $level_id, $systemLevel)) {
@@ -1078,8 +1027,7 @@ class UserServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function giveLevelTime($id)
+     */    public function giveLevelTime($id)
     {
         $userInfo = $this->getUserInfo($id);
         if (!$userInfo) {
@@ -1107,8 +1055,7 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveGiveLevelTime(int $id, int $days)
+     */    public function saveGiveLevelTime(int $id, int $days)
     {
         $userInfo = $this->getUserInfo($id);
         if ($userInfo->is_ever_level == 1) {
@@ -1136,8 +1083,7 @@ class UserServices extends BaseServices
             }
         }
         $userInfo->save();
-        /** @var StoreOrderCreateServices $storeOrderCreateService */
-        $storeOrderCreateService = app()->make(StoreOrderCreateServices::class);
+        /** @var StoreOrderCreateServices $storeOrderCreateService */        $storeOrderCreateService = app()->make(StoreOrderCreateServices::class);
         $orderInfo = [
             'uid' => $id,
             'order_id' => $storeOrderCreateService->getNewOrderId(),
@@ -1151,8 +1097,7 @@ class UserServices extends BaseServices
             'vip_day' => $days,
             'add_time' => time()
         ];
-        /** @var OtherOrderServices $otherOrder */
-        $otherOrder = app()->make(OtherOrderServices::class);
+        /** @var OtherOrderServices $otherOrder */        $otherOrder = app()->make(OtherOrderServices::class);
         $otherOrder->save($orderInfo);
         return true;
     }
@@ -1161,13 +1106,11 @@ class UserServices extends BaseServices
      * Xóa cấp độ thành viên
      * @paran int $uid
      * @paran boolean
-     * */
-    public function cleanUpLevel($uid)
+     * */    public function cleanUpLevel($uid)
     {
         if (!$this->getUserInfo($uid))
             throw new AdminException('Người dùng không tồn tại');
-        /** @var UserLevelServices $services */
-        $services = app()->make(UserLevelServices::class);
+        /** @var UserLevelServices $services */        $services = app()->make(UserLevelServices::class);
         return $this->transaction(function () use ($uid, $services) {
             $res = $services->delUserLevel($uid);
             $res1 = $this->dao->update($uid, ['clean_time' => time(), 'level' => 0, 'exp' => 0], 'uid');
@@ -1178,18 +1121,16 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Chi tiết người dùng
+     * Chi tiết khách hàng
      * @param int $uid
      * @param array $userIfno
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserDetailed(int $uid, $userIfno = [])
+     */    public function getUserDetailed(int $uid, $userIfno = [])
     {
-        /** @var UserAddressServices $userAddress */
-        $userAddress = app()->make(UserAddressServices::class);
+        /** @var UserAddressServices $userAddress */        $userAddress = app()->make(UserAddressServices::class);
         $field = 'real_name,phone,province,city,district,detail,post_code';
         $address = $userAddress->getUserDefaultAddress($uid, $field);
         if (!$address) {
@@ -1215,17 +1156,15 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Có được khả năng chi tiêu của người dùng và điểm cân bằng của người dùng trong thông tin chi tiết về người dùng, v.v.
+     * Có được khả năng chi tiêu của Khách hàng và điểm cân bằng của Khách hàng trong thông tin chi tiết về Khách hàng, v.v.
      * @param $uid
      * @return array[]
-     */
-    public function getHeaderList(int $uid, $userInfo = [])
+     */    public function getHeaderList(int $uid, $userInfo = [])
     {
         if (!$userInfo) {
             $userInfo = $this->getUserInfo($uid);
         }
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $where = ['uid' => $uid, 'paid' => 1, 'refund_status' => 0, 'pid' => 0];
         return [
             [
@@ -1263,14 +1202,12 @@ class UserServices extends BaseServices
 
 
     /**
-     * Lấy tổng số điểm, số lần check-in và số dư thay đổi trong hồ sơ người dùng
+     * Lấy tổng số điểm, số lần check-in và số dư thay đổi trong hồ sơ Khách hàng
      * @param $uid
      * @return array
-     */
-    public function getUserBillCountData($uid)
+     */    public function getUserBillCountData($uid)
     {
-        /** @var UserBillServices $userBill */
-        $userBill = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBill */        $userBill = app()->make(UserBillServices::class);
         $integral_count = $userBill->getIntegralCount($uid);
         $sign_count = $userBill->getSignCount($uid);
         $balanceChang_count = $userBill->getBrokerageCount($uid);
@@ -1278,14 +1215,13 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Chi tiết người dùng
+     * Chi tiết khách hàng
      * @param int $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function read(int $uid)
+     */    public function read(int $uid)
     {
         $userInfo = $this->getUserInfo($uid);
         if (!$userInfo) {
@@ -1323,13 +1259,11 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFriendList(int $id, string $field = 'uid,nickname,level,add_time,spread_time')
+     */    public function getFriendList(int $id, string $field = 'uid,nickname,level,add_time,spread_time')
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList(['spread_uid' => $id], $field, $page, $limit);
-        /** @var SystemUserLevelServices $systemLevelServices */
-        $systemLevelServices = app()->make(SystemUserLevelServices::class);
+        /** @var SystemUserLevelServices $systemLevelServices */        $systemLevelServices = app()->make(SystemUserLevelServices::class);
         $systemLevelList = $systemLevelServices->getWhereLevelList([], 'id,name');
         if ($systemLevelServices) $systemLevelServices = array_combine(array_column($systemLevelList, 'id'), $systemLevelList);
         foreach ($list as &$item) {
@@ -1341,11 +1275,10 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Nhận thông tin người dùng cá nhân
-     * @param $id người dùngid
+     * Nhận thông tin Khách hàng cá nhân
+     * @param $id Khách hàngid
      * @return mixed
-     */
-    public function oneUserInfo(int $id, string $type)
+     */    public function oneUserInfo(int $id, string $type)
     {
         switch ($type) {
             case 'spread':
@@ -1354,54 +1287,46 @@ class UserServices extends BaseServices
 //                return $services->getFriendList(['uid' => $id], ['level', 'nickname']);
                 return $this->getFriendList($id);
             case 'order':
-                /** @var StoreOrderServices $services */
-                $services = app()->make(StoreOrderServices::class);
+                /** @var StoreOrderServices $services */                $services = app()->make(StoreOrderServices::class);
                 return $services->getUserOrderList($id);
             case 'integral':
-                /** @var UserBillServices $services */
-                $services = app()->make(UserBillServices::class);
+                /** @var UserBillServices $services */                $services = app()->make(UserBillServices::class);
                 return $services->getIntegralList($id, [], 'title,number,balance,mark,add_time,frozen_time,pm');
             case 'sign':
-                /** @var UserBillServices $services */
-                $services = app()->make(UserBillServices::class);
+                /** @var UserBillServices $services */                $services = app()->make(UserBillServices::class);
                 return $services->getSignList($id, [], 'title,number,mark,add_time');
             case 'coupon':
-                /** @var StoreCouponUserServices $services */
-                $services = app()->make(StoreCouponUserServices::class);
+                /** @var StoreCouponUserServices $services */                $services = app()->make(StoreCouponUserServices::class);
                 return $services->getUserCouponList($id);
             case 'balance_change':
-                /** @var UserMoneyServices $services */
-                $services = app()->make(UserMoneyServices::class);
+                /** @var UserMoneyServices $services */                $services = app()->make(UserMoneyServices::class);
                 return $services->balanceList(['uid' => $id]);
             default:
                 throw new AdminException('Lỗi tham số');
         }
     }
 
-    /**Lấy số lượt truy cập của người dùng tại một thời điểm cụ thể
+    /**Lấy số lượt truy cập của Khách hàng tại một thời điểm cụ thể
      * @param $time
      * @param $week
      * @return int
-     */
-    public function todayLastVisits($time, $week)
+     */    public function todayLastVisits($time, $week)
     {
         return $this->dao->todayLastVisit($time, $week);
     }
 
-    /**Nhận người dùng mới vào một thời điểm cụ thể
+    /**Nhận Khách hàng mới vào một thời điểm cụ thể
      * @param $time
      * @param $week
      * @return int
-     */
-    public function todayAddVisits($time, $week)
+     */    public function todayAddVisits($time, $week)
     {
         return $this->dao->todayAddVisit($time, $week);
     }
 
     /**
-     * biểu đồ người dùng
-     */
-    public function userChart()
+     * biểu đồ Khách hàng
+     */    public function userChart()
     {
         $starday = date('Y-m-d', strtotime('-30 day'));
         $yesterday = date('Y-m-d', strtotime('+1 day'));
@@ -1409,7 +1334,7 @@ class UserServices extends BaseServices
         $user_list = $this->dao->userList($starday, $yesterday);
         $chartdata = [];
         $data = [];
-        $chartdata['legend'] = ['Số lượng người dùng'];//Phân loại
+        $chartdata['legend'] = ['Số lượng Khách hàng'];//Phân loại
         $chartdata['yAxis']['maxnum'] = 0;//Số lượng giá trị tối đa
         $chartdata['xAxis'] = [date('m-d')];//Xgiá trị trục
         $chartdata['series'] = [0];//Giá trị loại 1
@@ -1423,7 +1348,7 @@ class UserServices extends BaseServices
             $chartdata['xAxis'] = $data['day'];//Xgiá trị trục
             $chartdata['series'] = $data['count'];//Giá trị loại 1
         }
-        $chartdata['bing_xdata'] = ['Người dùng chưa tiêu dùng', 'Một người dùng tiêu dùng', 'giữ chân khách hàng', 'Khách hàng quay lại'];
+        $chartdata['bing_xdata'] = ['Người dùng chưa tiêu dùng', 'Một Khách hàng tiêu dùng', 'giữ chân khách hàng', 'Khách hàng quay lại'];
         $color = ['#5cadff', '#b37feb', '#19be6b', '#ff9900'];
         $pay[0] = $this->dao->count(['pay_count' => 0]);
         $pay[1] = $this->dao->count(['pay_count' => 1]);
@@ -1436,19 +1361,14 @@ class UserServices extends BaseServices
         return $chartdata;
     }
 
-    /***********************************************/
-    /************ Dịch vụ api giao diện người dùng *******************/
-    /************************************************/
-
+    /***********************************************/    /************ Dịch vụ api giao diện Khách hàng *******************/    /************************************************/
     /**
-     * Thông tin người dùng
+     * Thông tin Khách hàng
      * @param $info
      * @return mixed
-     */
-    public function userInfo($info)
+     */    public function userInfo($info)
     {
-        /** @var UserBillServices $userBill */
-        $userBill = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBill */        $userBill = app()->make(UserBillServices::class);
         $uid = (int)$info['uid'];
         $broken_time = intval(sys_config('extract_time'));
         $search_time = time() - 86400 * $broken_time;
@@ -1471,37 +1391,23 @@ class UserServices extends BaseServices
     /**
      * Trung tâm cá nhân
      * @param array $user
-     */
-    public function personalHome(array $user, $tokenData)
+     */    public function personalHome(array $user, $tokenData)
     {
         $userInfo = $user;
         $uid = (int)$user['uid'];
-        /** @var StoreCouponUserServices $storeCoupon */
-        $storeCoupon = app()->make(StoreCouponUserServices::class);
-        /** @var UserBillServices $userBill */
-        $userBill = app()->make(UserBillServices::class);
-        /** @var UserExtractServices $userExtract */
-        $userExtract = app()->make(UserExtractServices::class);
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
-        /** @var UserLevelServices $userLevel */
-        $userLevel = app()->make(UserLevelServices::class);
-        /** @var StoreServiceServices $storeService */
-        $storeService = app()->make(StoreServiceServices::class);
-        /** @var WechatUserServices $wechatUser */
-        $wechatUser = app()->make(WechatUserServices::class);
-        /** @var UserInvoiceServices $userInvoice */
-        $userInvoice = app()->make(UserInvoiceServices::class);
-        /** @var MemberCardServices $memberCardService */
-        $memberCardService = app()->make(MemberCardServices::class);
-        /** @var StoreProductRelationServices $collect */
-        $collect = app()->make(StoreProductRelationServices::class);
-        /** @var MessageSystemServices $messageSystemServices */
-        $messageSystemServices = app()->make(MessageSystemServices::class);
-        /** @var DiyServices $diyServices */
-        $diyServices = app()->make(DiyServices::class);
-        /** @var AgentLevelServices $agentLevelServices */
-        $agentLevelServices = app()->make(AgentLevelServices::class);
+        /** @var StoreCouponUserServices $storeCoupon */        $storeCoupon = app()->make(StoreCouponUserServices::class);
+        /** @var UserBillServices $userBill */        $userBill = app()->make(UserBillServices::class);
+        /** @var UserExtractServices $userExtract */        $userExtract = app()->make(UserExtractServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var UserLevelServices $userLevel */        $userLevel = app()->make(UserLevelServices::class);
+        /** @var StoreServiceServices $storeService */        $storeService = app()->make(StoreServiceServices::class);
+        /** @var WechatUserServices $wechatUser */        $wechatUser = app()->make(WechatUserServices::class);
+        /** @var UserInvoiceServices $userInvoice */        $userInvoice = app()->make(UserInvoiceServices::class);
+        /** @var MemberCardServices $memberCardService */        $memberCardService = app()->make(MemberCardServices::class);
+        /** @var StoreProductRelationServices $collect */        $collect = app()->make(StoreProductRelationServices::class);
+        /** @var MessageSystemServices $messageSystemServices */        $messageSystemServices = app()->make(MessageSystemServices::class);
+        /** @var DiyServices $diyServices */        $diyServices = app()->make(DiyServices::class);
+        /** @var AgentLevelServices $agentLevelServices */        $agentLevelServices = app()->make(AgentLevelServices::class);
         //Kiểm tra xem thành viên trả phí có được bật hay không
         $isOpenMember = $memberCardService->isOpenMemberCard();
         $user['is_open_member'] = $isOpenMember;
@@ -1527,8 +1433,7 @@ class UserServices extends BaseServices
         $user['like'] = app()->make(StoreProductRelationServices::class)->getUserCollectCount($user['uid']);
         $user['orderStatusNum'] = $storeOrder->getOrderData($uid);
         $user['notice'] = 0;
-        /** @var UserMoneyServices $userMoney */
-        $userMoney = app()->make(UserMoneyServices::class);
+        /** @var UserMoneyServices $userMoney */        $userMoney = app()->make(UserMoneyServices::class);
 
         $user['recharge'] = $userMoney->sum([
             ['uid', '=', $uid], ['pm', '=', 1], ['type', 'in', ['recharge', 'system_add', 'extract', 'register_system_add', 'lottery_add']]
@@ -1544,8 +1449,7 @@ class UserServices extends BaseServices
                 $user['is_promoter'] = 1;
             }
         }
-        /** @var UserBrokerageServices $frozenPrices */
-        $frozenPrices = app()->make(UserBrokerageServices::class);
+        /** @var UserBrokerageServices $frozenPrices */        $frozenPrices = app()->make(UserBrokerageServices::class);
         $user['broken_commission'] = $frozenPrices->getUserFrozenPrice($uid);
         if ($user['broken_commission'] < 0)
             $user['broken_commission'] = 0;
@@ -1602,13 +1506,11 @@ class UserServices extends BaseServices
             }
         }
         $user['svip_open'] = (bool)sys_config('member_card_status');
-        /** @var StoreServiceRecordServices $servicesRecord */
-        $servicesRecord = app()->make(StoreServiceRecordServices::class);
+        /** @var StoreServiceRecordServices $servicesRecord */        $servicesRecord = app()->make(StoreServiceRecordServices::class);
         $service_num = $servicesRecord->sum(['user_id' => $uid], 'mssage_num');
         $message = $messageSystemServices->count(['uid' => $uid, 'look' => 0, 'is_del' => 0]);
         $user['service_num'] = $service_num + $message;
-        /** @var AgentLevelServices $userSpread */
-        $agentLevel = app()->make(AgentLevelServices::class);
+        /** @var AgentLevelServices $userSpread */        $agentLevel = app()->make(AgentLevelServices::class);
         $user['spread_level_count'] = $agentLevel->count(['status' => 1, 'is_del' => 0]);
         $user['extract_type'] = sys_config('extract_type');
         $user['integral'] = intval($user['integral']);
@@ -1623,19 +1525,16 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Thống kê quỹ người dùng
+     * Thống kê quỹ Khách hàng
      * @param int $uid
-     */
-    public function balance(int $uid)
+     */    public function balance(int $uid)
     {
         $userInfo = $this->getUserInfo($uid);
         if (!$userInfo) {
             throw new AdminException('Người dùng không tồn tại');
         }
-        /** @var UserBillServices $userBill */
-        $userBill = app()->make(UserBillServices::class);
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var UserBillServices $userBill */        $userBill = app()->make(UserBillServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
         $user['now_money'] = $userInfo['now_money'];//Tổng quỹ hiện tại
         $user['recharge'] = $userBill->getRechargeSum($uid);//Nạp tiền tích lũy
         $user['orderStatusSum'] = $storeOrder->sum(['uid' => $uid, 'paid' => 1, 'is_del' => 0], 'pay_price');//Tiêu thụ tích lũy
@@ -1643,11 +1542,10 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Thông tin người dùng sửa đổi
+     * Thông tin Khách hàng sửa đổi
      * @param Request $request
      * @return mixed
-     */
-    public function eidtNickname(int $uid, array $data)
+     */    public function eidtNickname(int $uid, array $data)
     {
         $info = $this->dao->get(['uid' => $uid]);
         if (!$info) {
@@ -1657,7 +1555,7 @@ class UserServices extends BaseServices
             throw new ApiException('Sửa đổi không thành công');
         }
 
-        //Thông tin thay đổi người dùng sự kiện tùy chỉnh
+        //Thông tin thay đổi Khách hàng sự kiện tùy chỉnh
         event('CustomEventListener', ['user_change_info', [
             'uid' => $uid,
             'nickname' => $info['nickname'],
@@ -1677,8 +1575,7 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function getRankList(array $data)
+     */    public function getRankList(array $data)
     {
         $startTime = strtotime('this week Monday');
         $endTime = time();
@@ -1704,16 +1601,14 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function spread(int $uid, int $spreadUid, $code, $agent_id)
+     */    public function spread(int $uid, int $spreadUid, $code, $agent_id)
     {
         $userInfo = $this->dao->getOne(['uid' => $uid]);
         if (!$userInfo) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
         if ($code && !$spreadUid) {
-            /** @var QrcodeServices $qrCode */
-            $qrCode = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrCode */            $qrCode = app()->make(QrcodeServices::class);
             if ($info = $qrCode->getOne(['id' => $code, 'status' => 1])) {
                 if ($info['third_type'] == 'agent') {
                     $agent_id = $info['third_id'];
@@ -1742,8 +1637,7 @@ class UserServices extends BaseServices
         $userSpreadUid = $this->dao->value(['uid' => $spreadUid], 'spread_uid');
         //Ghi lại mối quan hệ bạn bè
         if ($spreadUid && $uid && $spreadUid != $uid) {
-            /** @var UserFriendsServices $serviceFriend */
-            $serviceFriend = app()->make(UserFriendsServices::class);
+            /** @var UserFriendsServices $serviceFriend */            $serviceFriend = app()->make(UserFriendsServices::class);
             $serviceFriend->saveFriend([
                 'uid' => $uid,
                 'friends_uid' => $spreadUid,
@@ -1787,8 +1681,7 @@ class UserServices extends BaseServices
      * Thêm bản ghi truy cập
      * @param Request $request
      * @return mixed
-     */
-    public function setVisit(array $data)
+     */    public function setVisit(array $data)
     {
         $userInfo = $this->getUserInfo($data['uid'], 'uid,user_type');
         if (!$userInfo) {
@@ -1796,8 +1689,7 @@ class UserServices extends BaseServices
         }
         $data['channel_type'] = $userInfo['user_type'];
         $data['add_time'] = time();
-        /** @var WechatUserServices $wechatUserServices */
-        $wechatUserServices = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $wechatUserServices */        $wechatUserServices = app()->make(WechatUserServices::class);
         $wechatUser = $wechatUserServices->get(['uid' => $userInfo['uid'], 'user_type' => $userInfo['user_type']]);
         if (!$wechatUser) {
             $wechatUser = $wechatUserServices->get(['uid' => $userInfo['uid']]);
@@ -1805,8 +1697,7 @@ class UserServices extends BaseServices
         if ($wechatUser) {
             $data['province'] = $wechatUser['province'];
         }
-        /** @var UserVisitServices $userVisit */
-        $userVisit = app()->make(UserVisitServices::class);
+        /** @var UserVisitServices $userVisit */        $userVisit = app()->make(UserVisitServices::class);
         if ($userVisit->save($data)) {
             return true;
         } else {
@@ -1817,15 +1708,11 @@ class UserServices extends BaseServices
     /**
      * Nhận trạng thái hoạt động
      * @return mixed
-     */
-    public function activity()
+     */    public function activity()
     {
-        /** @var StoreBargainServices $storeBragain */
-        $storeBragain = app()->make(StoreBargainServices::class);
-        /** @var StoreCombinationServices $storeCombinaion */
-        $storeCombinaion = app()->make(StoreCombinationServices::class);
-        /** @var StoreSeckillServices $storeSeckill */
-        $storeSeckill = app()->make(StoreSeckillServices::class);
+        /** @var StoreBargainServices $storeBragain */        $storeBragain = app()->make(StoreBargainServices::class);
+        /** @var StoreCombinationServices $storeCombinaion */        $storeCombinaion = app()->make(StoreCombinationServices::class);
+        /** @var StoreSeckillServices $storeSeckill */        $storeSeckill = app()->make(StoreSeckillServices::class);
         $data['is_bargin'] = (bool)$storeBragain->validBargain();
         $data['is_pink'] = (bool)$storeCombinaion->validCombination();
         $data['is_seckill'] = (bool)$storeSeckill->getSeckillCount();
@@ -1833,14 +1720,13 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Có được người quảng bá cấp dưới của người dùng
-     * @param int $uid người dùng hiện tại
+     * Có được người quảng bá cấp dưới của Khách hàng
+     * @param int $uid Khách hàng hiện tại
      * @param int $grade Cấp 0 Cấp 1 1 Cấp 2
      * @param string $orderBy loại
      * @param string $keyword
      * @return array|bool
-     */
-    public function getUserSpreadGrade(int $uid = 0, $grade = 0, $orderBy = '', $keyword = '')
+     */    public function getUserSpreadGrade(int $uid = 0, $grade = 0, $orderBy = '', $keyword = '')
     {
         $user = $this->getUserInfo($uid);
         if (!$user) {
@@ -1858,8 +1744,7 @@ class UserServices extends BaseServices
         } else {
             $data['count'] = $data['total'] + $data['totalLevel'];
         }
-        /** @var UserStoreOrderServices $userStoreOrder */
-        $userStoreOrder = app()->make(UserStoreOrderServices::class);
+        /** @var UserStoreOrderServices $userStoreOrder */        $userStoreOrder = app()->make(UserStoreOrderServices::class);
         $list = [];
         if ($grade == 0) {
             if ($spread_one_ids) $list = $userStoreOrder->getUserSpreadCountList($spread_one_ids, $orderBy, $keyword);
@@ -1881,8 +1766,7 @@ class UserServices extends BaseServices
      * @param int $uid
      * @param bool $one
      * @return array
-     */
-    public function getUserSpredadUids(int $uid, int $type = 0)
+     */    public function getUserSpredadUids(int $uid, int $type = 0)
     {
         $uids = $this->dao->getColumn(['spread_uid' => $uid, 'is_del' => 0], 'uid');
         if ($type === 1) {
@@ -1902,12 +1786,11 @@ class UserServices extends BaseServices
 
 
     /**
-     * Phát hiện xem người dùng có phải là người quảng bá hay không
+     * Phát hiện xem Khách hàng có phải là người quảng bá hay không
      * @param int $uid
      * @param $user
      * @return bool
-     */
-    public function checkUserPromoter(int $uid, $user = [])
+     */    public function checkUserPromoter(int $uid, $user = [])
     {
         if (!$user) {
             $user = $this->getUserInfo($uid, 'spread_open,is_promoter');
@@ -1922,8 +1805,7 @@ class UserServices extends BaseServices
         if (isset($user['spread_open']) && !$user['spread_open']) {
             return false;
         }
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
         $sumPrice = $storeOrder->sum(['uid' => $uid, 'paid' => 1], 'pay_price');//Tiêu thụ tích lũy
         $store_brokerage_statu = sys_config('store_brokerage_statu');
         $store_brokerage_price = sys_config('store_brokerage_price');
@@ -1937,10 +1819,9 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Đồng bộ hóa người dùng người hâm mộ WeChat(Giao diện phụ trợ)
+     * Đồng bộ hóa Khách hàng người hâm mộ WeChat(Giao diện phụ trợ)
      * @return bool
-     */
-    public function syncWechatUsers()
+     */    public function syncWechatUsers()
     {
         $appid = sys_config('wechat_appid');
         $appSecret = sys_config('wechat_appsecret');
@@ -1959,7 +1840,7 @@ class UserServices extends BaseServices
             //Chia mảng lớn
             $opemidArr = array_chunk($userOpenids, 100);
             foreach ($opemidArr as $openids) {
-                //Tham gia đồng bộ hóa|Cập nhật hàng đợi người dùng
+                //Tham gia đồng bộ hóa|Cập nhật hàng đợi Khách hàng
                 UserJob::dispatch([$openids]);
             }
             $next_openid = $result['next_openid'];
@@ -1969,11 +1850,10 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Nhập người dùng người hâm mộ WeChat
+     * Nhập Khách hàng người hâm mộ WeChat
      * @param array $openids
      * @return bool
-     */
-    public function importUser(array $noBeOpenids)
+     */    public function importUser(array $noBeOpenids)
     {
         if (!$noBeOpenids) {
             return true;
@@ -1992,7 +1872,7 @@ class UserServices extends BaseServices
             $data['headimgurl'] = $info['headimgurl'] ?? '';
             $userInfoData = $this->setUserInfo($data);
             if (!$userInfoData) {
-                throw new AdminException('Lưu trữ thông tin người dùng không thành công');
+                throw new AdminException('Lưu trữ thông tin Khách hàng không thành công');
             }
             $data['uid'] = $userInfoData['uid'];
             $data['subscribe'] = $info['subscribe'] ?? 1;
@@ -2012,10 +1892,9 @@ class UserServices extends BaseServices
             $dataAll[] = $data;
         }
         if ($dataAll) {
-            /** @var WechatUserServices $wechatUser */
-            $wechatUser = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUser */            $wechatUser = app()->make(WechatUserServices::class);
             if (!$wechatUser->saveAll($dataAll)) {
-                throw new AdminException('Lưu trữ thông tin người dùng không thành công');
+                throw new AdminException('Lưu trữ thông tin Khách hàng không thành công');
             }
         }
         return true;
@@ -2023,15 +1902,14 @@ class UserServices extends BaseServices
 
     /** Sửa đổi thời gian thành viên và trạng thái thành viên
      * @param int $vip_day Số ngày thành viên
-     * @param array $user_id người dùngid
+     * @param array $user_id Khách hàngid
      * @param int $is_money_level Kênh nguồn thành viên
      * @param bool $member_type Loại thẻ thành viên
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setMemberOverdueTime($vip_day, int $user_id, int $is_money_level, $member_type = false)
+     */    public function setMemberOverdueTime($vip_day, int $user_id, int $is_money_level, $member_type = false)
     {
         if ($vip_day == 0) throw new ApiException('Số ngày không thể0');
         $user_info = $this->getUserInfo($user_id, 'is_money_level,overdue_time');
@@ -2063,8 +1941,7 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function offMemberLevel($uid, $userInfo = [])
+     */    public function offMemberLevel($uid, $userInfo = [])
     {
         if (!$uid) return false;
         if (!$userInfo) {
@@ -2084,14 +1961,13 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserInfoList(array $where, $field = "*")
+     */    public function getUserInfoList(array $where, $field = "*")
     {
         return $this->dao->getUserInfoList($where, $field);
     }
 
     /**
-     * Tăng hoa hồng cho việc quảng bá người dùng
+     * Tăng hoa hồng cho việc quảng bá Khách hàng
      * @param int $uid
      * @param int $spread_uid
      * @param array $userInfo
@@ -2100,8 +1976,7 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function addBrokeragePrice(int $uid, int $spread_uid, array $userInfo = [], array $spread_user = [])
+     */    public function addBrokeragePrice(int $uid, int $spread_uid, array $userInfo = [], array $spread_user = [])
     {
         if (!$uid || !$spread_uid) {
             return false;
@@ -2123,11 +1998,11 @@ class UserServices extends BaseServices
             return false;
         }
 
-        //Kiểm tra xem người dùng này đã đăng xuất dựa trên số điện thoại di động hay chưa, sẽ không phát sinh hoa hồng khuyến mãi
+        //Kiểm tra xem Khách hàng này đã đăng xuất dựa trên số điện thoại di động hay chưa, sẽ không phát sinh hoa hồng khuyến mãi
         if ($userInfo['phone'] != '' && $this->dao->getCount(['phone' => $userInfo['phone'], 'is_del' => 1])) {
             return false;
         }
-        //Theo truy vấn openid, người dùng này đã đăng xuất và không có hoa hồng khuyến mãi.
+        //Theo truy vấn openid, Khách hàng này đã đăng xuất và không có hoa hồng khuyến mãi.
         $wechatUserServices = app()->make(WechatUserServices::class);
         $openidArray = $wechatUserServices->getColumn(['uid' => $uid], 'openid', 'id');
         if ($wechatUserServices->getCount([['openid', 'in', $openidArray], ['is_del', '=', 1]])) {
@@ -2143,14 +2018,13 @@ class UserServices extends BaseServices
         if (!$this->checkUserPromoter($spread_uid, $spread_user)) {
             return false;
         }
-        /** @var UserBrokerageServices $userBrokerageServices */
-        $userBrokerageServices = app()->make(UserBrokerageServices::class);
+        /** @var UserBrokerageServices $userBrokerageServices */        $userBrokerageServices = app()->make(UserBrokerageServices::class);
         // -1không có giới hạn
         if ($day_brokerage_price_upper != -1) {
             if ($day_brokerage_price_upper <= 0) {
                 return true;
             } else {
-                //Có được người dùng cấp cao và nhận hoa hồng khi quảng bá người dùng ngay hôm nay
+                //Có được Khách hàng cấp cao và nhận hoa hồng khi quảng bá Khách hàng ngay hôm nay
                 $spread_day_brokerage = $userBrokerageServices->getUserBrokerageSum($spread_uid, ['brokerage_user'], 'today');
                 //Vượt quá giới hạn trên
                 if (($spread_day_brokerage + $brokerage_price) > $day_brokerage_price_upper) {
@@ -2169,11 +2043,10 @@ class UserServices extends BaseServices
                 'nickname' => $userInfo['nickname'],
                 'number' => floatval($brokerage_price)
             ], $balance, $uid);
-            // Thêm số dư người dùng
+            // Thêm số dư Khách hàng
             $res2 = $this->dao->bcInc($spread_uid, 'brokerage_price', $brokerage_price, 'uid');
             //Gửi tin nhắn mẫu kiếm tiền hoa hồng cho cấp trên của bạn
-            /** @var StoreOrderTakeServices $storeOrderTakeServices */
-            $storeOrderTakeServices = app()->make(StoreOrderTakeServices::class);
+            /** @var StoreOrderTakeServices $storeOrderTakeServices */            $storeOrderTakeServices = app()->make(StoreOrderTakeServices::class);
             $storeOrderTakeServices->sendBackOrderBrokerage([], $spread_uid, $brokerage_price, 'user');
             return $res1 && $res2;
         });
@@ -2185,8 +2058,7 @@ class UserServices extends BaseServices
      * @param array $userInfo
      * @param bool $is_spread
      * @return int|mixed
-     */
-    public function getSpreadUid(int $uid, $userInfo = [], $is_spread = true)
+     */    public function getSpreadUid(int $uid, $userInfo = [], $is_spread = true)
     {
         if (!$uid) {
             return 0;
@@ -2229,8 +2101,7 @@ class UserServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDivisionList(array $where = [], string $field = '*')
+     */    public function getDivisionList(array $where = [], string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $field, $page, $limit);
@@ -2239,25 +2110,19 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Thêm thông tin khi chỉnh sửa thông tin người dùng
+     * Thêm thông tin khi chỉnh sửa thông tin Khách hàng
      * @param $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserSaveInfo($uid)
+     */    public function getUserSaveInfo($uid)
     {
-        /** @var UserLabelServices $userLabelServices */
-        $userLabelServices = app()->make(UserLabelServices::class);
-        /** @var UserLabelRelationServices $userLabelRelationServices */
-        $userLabelRelationServices = app()->make(UserLabelRelationServices::class);
-        /** @var UserLabelCateServices $userLabelCateServices */
-        $userLabelCateServices = app()->make(UserLabelCateServices::class);
-        /** @var UserGroupServices $userGroupServices */
-        $userGroupServices = app()->make(UserGroupServices::class);
-        /** @var SystemUserLevelServices $systemUserLevelServices */
-        $systemUserLevelServices = app()->make(SystemUserLevelServices::class);
+        /** @var UserLabelServices $userLabelServices */        $userLabelServices = app()->make(UserLabelServices::class);
+        /** @var UserLabelRelationServices $userLabelRelationServices */        $userLabelRelationServices = app()->make(UserLabelRelationServices::class);
+        /** @var UserLabelCateServices $userLabelCateServices */        $userLabelCateServices = app()->make(UserLabelCateServices::class);
+        /** @var UserGroupServices $userGroupServices */        $userGroupServices = app()->make(UserGroupServices::class);
+        /** @var SystemUserLevelServices $systemUserLevelServices */        $systemUserLevelServices = app()->make(SystemUserLevelServices::class);
         $userInfo = $this->dao->get($uid);
         if ($userInfo) {
             $label_ids = $userLabelRelationServices->getUserLabels($uid);
@@ -2282,15 +2147,14 @@ class UserServices extends BaseServices
 
 
     /**
-     * Phần thưởng đăng ký người dùng mới
+     * Phần thưởng đăng ký Khách hàng mới
      * @param int $id
      * @return bool
      * @throws Exception
      *
      * @date 2022/09/28
      * @author yyw
-     */
-    public function rewardNewUser(int $id)
+     */    public function rewardNewUser(int $id)
     {
         $user = $this->getUserInfo($id);
         if (!$user) {
@@ -2302,21 +2166,19 @@ class UserServices extends BaseServices
         $reward_integral = sys_config('reward_integral');
         $edit = array();
         if ($reward_money > 0) {//số dư tăng lên
-            /** @var UserMoneyServices $userMoneyServices */
-            $userMoneyServices = app()->make(UserMoneyServices::class);
+            /** @var UserMoneyServices $userMoneyServices */            $userMoneyServices = app()->make(UserMoneyServices::class);
             $edit['now_money'] = bcadd($user['now_money'], $reward_money, 2);
             $res1 = $userMoneyServices->income('register_system_add', $user['uid'], $reward_money, $edit['now_money'], 1);
         } else {
             $res1 = true;
         }
         if ($reward_integral > 0) {//Điểm tăng
-            /** @var UserBillServices $userBill */
-            $userBill = app()->make(UserBillServices::class);
+            /** @var UserBillServices $userBill */            $userBill = app()->make(UserBillServices::class);
             $integral_data = ['link_id' => 1, 'number' => $reward_integral];
             $edit['integral'] = bcadd($user['integral'], $reward_integral, 2);
             $integral_data['balance'] = $edit['integral'];
-            $integral_data['title'] = 'Đăng ký người dùng mới tăng điểm';
-            $integral_data['mark'] = 'Số lượt đăng ký người dùng mới tăng lên' . floatval($reward_integral) . 'điểm thưởng';
+            $integral_data['title'] = 'Đăng ký Khách hàng mới tăng điểm';
+            $integral_data['mark'] = 'Số lượt đăng ký Khách hàng mới tăng lên' . floatval($reward_integral) . 'điểm thưởng';
             $res2 = $userBill->incomeIntegral($user['uid'], 'system_add', $integral_data);
         } else {
             $res2 = true;
@@ -2334,13 +2196,12 @@ class UserServices extends BaseServices
     }
 
     /**
-     * Đẩy thông tin người dùng
+     * Đẩy thông tin Khách hàng
      * @param $data
      * @param $pushUrl
      * @return bool
-     */
-    public function userUpdate($data, $pushUrl)
+     */    public function userUpdate($data, $pushUrl)
     {
-        return out_push($pushUrl, $data, 'Cập nhật thông tin người dùng');
+        return out_push($pushUrl, $data, 'Cập nhật thông tin Khách hàng');
     }
 }

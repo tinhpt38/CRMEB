@@ -19,8 +19,7 @@ use app\services\BaseServices;
 /**
  * Class LiveRoomGoodsServices
  * @package app\services\activity\live
- */
-class LiveRoomGoodsServices extends BaseServices
+ */class LiveRoomGoodsServices extends BaseServices
 {
     public function __construct(LiveRoomGoodsDao $dao)
     {

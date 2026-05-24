@@ -20,20 +20,17 @@ class SystemCrontab extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_timer';
+     */    protected $name = 'system_timer';
 
     /**
      * Không có cập nhật tự độngupdate_time
      * @var bool
-     */
-    protected $updateTime = false;
+     */    protected $updateTime = false;
 
     /**
      * Có tùy chỉnh trình tìm kiếm tác vụ theo lịch trình hay không
@@ -43,8 +40,7 @@ class SystemCrontab extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/6/6
-     */
-    public function searchCustomAttr($query, $value, $data)
+     */    public function searchCustomAttr($query, $value, $data)
     {
         if ($value !== '') {
             if ($value == 0) {

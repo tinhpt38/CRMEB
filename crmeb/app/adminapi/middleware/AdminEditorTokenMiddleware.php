@@ -24,15 +24,13 @@ use think\facade\Config;
  * Phần mềm trung gian xác minh đăng nhập phụ trợ
  * Class AdminAuthTokenMiddleware
  * @package app\adminapi\middleware
- */
-class AdminEditorTokenMiddleware implements MiddlewareInterface
+ */class AdminEditorTokenMiddleware implements MiddlewareInterface
 {
     public function handle(Request $request, \Closure $next)
     {
         $token = CacheService::get(trim($request->get('fileToken')));
 
-        /** @var SystemFileServices $service */
-        $service = app()->make(SystemFileServices::class);
+        /** @var SystemFileServices $service */        $service = app()->make(SystemFileServices::class);
         $service->parseToken($token);
 
         return $next($request);

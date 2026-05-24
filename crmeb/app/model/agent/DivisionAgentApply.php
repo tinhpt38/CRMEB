@@ -21,21 +21,18 @@ class DivisionAgentApply extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'division_agent_apply';
+     */    protected $name = 'division_agent_apply';
 
     /**
      * uid
      * @param $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value != '') $query->where('uid', $value);
     }
@@ -44,8 +41,7 @@ class DivisionAgentApply extends BaseModel
      * division_id
      * @param $query
      * @param $value
-     */
-    public function searchDivisionIdAttr($query, $value)
+     */    public function searchDivisionIdAttr($query, $value)
     {
         if ((int)$value !== 0) $query->where('division_id', $value);
     }
@@ -54,8 +50,7 @@ class DivisionAgentApply extends BaseModel
      * division_invite
      * @param $query
      * @param $value
-     */
-    public function searchDivisionInviteAttr($query, $value)
+     */    public function searchDivisionInviteAttr($query, $value)
     {
         if ($value != '') $query->where('division_invite', $value);
     }
@@ -64,8 +59,7 @@ class DivisionAgentApply extends BaseModel
      * status
      * @param $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '' && $value !== 'all') $query->where('status', $value);
     }
@@ -73,8 +67,7 @@ class DivisionAgentApply extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value !== '') $query->where('uid|agent_name', 'like', '%' . $value . '%');
     }
@@ -83,8 +76,7 @@ class DivisionAgentApply extends BaseModel
      * is_del
      * @param $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }

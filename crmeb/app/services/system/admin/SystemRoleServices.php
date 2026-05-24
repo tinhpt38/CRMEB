@@ -26,20 +26,17 @@ use crmeb\services\CacheService;
  * @method save(array $data) lưu dữ liệu
  * @method get(int $id, ?array $field = []) Nhận dữ liệu
  * @method delete(int $id, ?string $key = null) Xóa dữ liệu
- */
-class SystemRoleServices extends BaseServices
+ */class SystemRoleServices extends BaseServices
 {
 
     /**
      * Tiền tố bộ đệm đặc quyền của quản trị viên hiện tại
-     */
-    const ADMIN_RULES_LEVEL = 'Admin_rules_level_';
+     */    const ADMIN_RULES_LEVEL = 'Admin_rules_level_';
 
     /**
      * SystemRoleServices constructor.
      * @param SystemRoleDao $dao
-     */
-    public function __construct(SystemRoleDao $dao)
+     */    public function __construct(SystemRoleDao $dao)
     {
         $this->dao = $dao;
     }
@@ -47,8 +44,7 @@ class SystemRoleServices extends BaseServices
     /**
      * Nhận quyền
      * @return mixed
-     */
-    public function getRoleArray(array $where = [], string $field = '', string $key = '')
+     */    public function getRoleArray(array $where = [], string $field = '', string $key = '')
     {
         return $this->dao->getRoule($where, $field, $key);
     }
@@ -57,8 +53,7 @@ class SystemRoleServices extends BaseServices
      * Nhận danh sách tên quyền theo yêu cầu của biểu mẫu
      * @param int $level
      * @return array
-     */
-    public function getRoleFormSelect(int $level)
+     */    public function getRoleFormSelect(int $level)
     {
         $list = $this->getRoleArray(['level' => $level, 'status' => 1]);
         $options = [];
@@ -72,14 +67,12 @@ class SystemRoleServices extends BaseServices
      * Danh sách quản lý danh tính
      * @param array $where
      * @return array
-     */
-    public function getRoleList(array $where)
+     */    public function getRoleList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getRouleList($where, $page, $limit);
         $count = $this->dao->count($where);
-        /** @var SystemMenusServices $service */
-        $service = app()->make(SystemMenusServices::class);
+        /** @var SystemMenusServices $service */        $service = app()->make(SystemMenusServices::class);
         foreach ($list as &$item) {
             $item['rules'] = implode(',', array_merge($service->column(['id' => $item['rules']], 'menu_name', 'id')));
         }
@@ -91,8 +84,7 @@ class SystemRoleServices extends BaseServices
      * @param Request $request
      * @return bool|void
      * @throws \throwable
-     */
-    public function verifyAuth(Request $request)
+     */    public function verifyAuth(Request $request)
     {
         // Lấy giao diện hiện tại và loại giao diện
         $rule = trim(strtolower($request->rule()->getRule()));
@@ -103,10 +95,9 @@ class SystemRoleServices extends BaseServices
             return true;
         }
 
-        // Nhận tất cả các loại giao diện và giao diện tương ứng
+        // Nhận Tất cả các loại giao diện và giao diện tương ứng
         $allAuth = CacheService::remember('all_auth', function () {
-            /** @var SystemMenusServices $menusService */
-            $menusService = app()->make(SystemMenusServices::class);
+            /** @var SystemMenusServices $menusService */            $menusService = app()->make(SystemMenusServices::class);
             $allList = $menusService->getColumn([['api_url', '<>', ''], ['auth_type', '=', 2]], 'api_url,methods');
             $allAuth = [];
             foreach ($allList as $item) {
@@ -137,14 +128,12 @@ class SystemRoleServices extends BaseServices
      * @param string $cachePrefix
      * @return array|mixed
      * @throws \throwable
-     */
-    public function getRolesByAuth(array $rules, int $type = 1, string $cachePrefix = self::ADMIN_RULES_LEVEL)
+     */    public function getRolesByAuth(array $rules, int $type = 1, string $cachePrefix = self::ADMIN_RULES_LEVEL)
     {
         if (empty($rules)) return [];
         $cacheName = md5($cachePrefix . '_' . $type . '_' . implode('_', $rules));
         return CacheService::remember($cacheName, function () use ($rules, $type) {
-            /** @var SystemMenusServices $menusService */
-            $menusService = app()->make(SystemMenusServices::class);
+            /** @var SystemMenusServices $menusService */            $menusService = app()->make(SystemMenusServices::class);
             $authList = $menusService->getColumn([['id', 'IN', $this->getRoleIds($rules)], ['auth_type', '=', $type]], 'api_url,methods');
             $rolesAuth = [];
             foreach ($authList as $item) {
@@ -158,8 +147,7 @@ class SystemRoleServices extends BaseServices
      * Nhận quyềnid
      * @param array $rules
      * @return array
-     */
-    public function getRoleIds(array $rules)
+     */    public function getRoleIds(array $rules)
     {
         $rules = $this->dao->getColumn([['id', 'IN', $rules], ['status', '=', '1']], 'rules', 'id');
         return array_unique(explode(',', implode(',', $rules)));

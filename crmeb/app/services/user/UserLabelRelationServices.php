@@ -22,37 +22,33 @@ use crmeb\exceptions\AdminException;
  * @package app\services\user
  * @method getColumn(array $where, string $field, string $key = '') Nhận một mảng trường
  * @method saveAll(array $data) Lưu dữ liệu theo lô
- */
-class UserLabelRelationServices extends BaseServices
+ */class UserLabelRelationServices extends BaseServices
 {
 
     /**
      * UserLabelRelationServices constructor.
      * @param UserLabelRelationDao $dao
-     */
-    public function __construct(UserLabelRelationDao $dao)
+     */    public function __construct(UserLabelRelationDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Nhận thẻ người dùngids
+     * Nhận thẻ Khách hàngids
      * @param int $uid
      * @return array
-     */
-    public function getUserLabels(int $uid)
+     */    public function getUserLabels(int $uid)
     {
         return $this->dao->getColumn(['uid' => $uid], 'label_id', '');
     }
 
     /**
-     * Nhãn cài đặt người dùng
+     * Nhãn Cài đặt Khách hàng
      * @param $uids
      * @param array $labels
      * @return bool
      * @throws \Exception
-     */
-    public function setUserLabel($uids, array $labels, $label_type = 0)
+     */    public function setUserLabel($uids, array $labels, $label_type = 0)
     {
         if (!is_array($uids)) $uids = [$uids];
         if (!count($labels)) {
@@ -77,12 +73,11 @@ class UserLabelRelationServices extends BaseServices
     }
 
     /**
-     * Hủy nhãn người dùng
+     * Hủy nhãn Khách hàng
      * @param int $uid
      * @param array $labels
      * @return mixed
-     */
-    public function unUserLabel(int $uid, array $labels)
+     */    public function unUserLabel(int $uid, array $labels)
     {
         if (!count($labels)) {
             return true;
@@ -95,14 +90,13 @@ class UserLabelRelationServices extends BaseServices
     }
 
     /**
-     * Nhận thẻ người dùng
+     * Nhận thẻ Khách hàng
      * @param array $uids
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserLabelList(array $uids)
+     */    public function getUserLabelList(array $uids)
     {
         return $this->dao->getLabelList($uids);
     }

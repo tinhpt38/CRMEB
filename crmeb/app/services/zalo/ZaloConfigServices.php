@@ -31,14 +31,11 @@ use think\Model;
  *
  * Class ZaloConfigServices
  * @package app\services\zalo
- */
-class ZaloConfigServices extends BaseServices
+ */class ZaloConfigServices extends BaseServices
 {
-    /** Prefix tất cả key Zalo trong eb_system_config */
-    const CONFIG_PREFIX = 'zalo_';
+    /** Prefix Tất cả key Zalo trong eb_system_config */    const CONFIG_PREFIX = 'zalo_';
 
-    /** Danh sách tất cả config keys */
-    const CONFIG_KEYS = [
+    /** Danh sách Tất cả config keys */    const CONFIG_KEYS = [
         'zalo_login_open',
         'zalo_app_id',
         'zalo_app_secret',
@@ -48,8 +45,7 @@ class ZaloConfigServices extends BaseServices
         'zalo_mini_app_qr_image',
     ];
 
-    /** TTL cache xác thực token (giây) */
-    const TOKEN_VERIFY_TTL = 300;
+    /** TTL cache xác thực token (giây) */    const TOKEN_VERIFY_TTL = 300;
 
     // ─────────────────────────────────────────────────────────────────────────
     // Đọc / Ghi cấu hình
@@ -59,11 +55,9 @@ class ZaloConfigServices extends BaseServices
      * Lấy toàn bộ cấu hình Zalo hiện tại
      *
      * @return array
-     */
-    public function getConfig(): array
+     */    public function getConfig(): array
     {
-        /** @var ZaloMiniAppThemeServices $themeServices */
-        $themeServices = app()->make(ZaloMiniAppThemeServices::class);
+        /** @var ZaloMiniAppThemeServices $themeServices */        $themeServices = app()->make(ZaloMiniAppThemeServices::class);
 
         return [
             'zalo_login_open'            => (int)sys_config('zalo_login_open', 0),
@@ -84,11 +78,9 @@ class ZaloConfigServices extends BaseServices
      *
      * @param array $data Dữ liệu từ form admin
      * @throws ApiException
-     */
-    public function saveConfig(array $data): void
+     */    public function saveConfig(array $data): void
     {
-        /** @var SystemConfigServices $configServices */
-        $configServices = app()->make(SystemConfigServices::class);
+        /** @var SystemConfigServices $configServices */        $configServices = app()->make(SystemConfigServices::class);
 
         $saveMap = [
             'zalo_login_open'            => (int)($data['zalo_login_open'] ?? 0),
@@ -99,7 +91,7 @@ class ZaloConfigServices extends BaseServices
             'zalo_mini_app_qr_image'     => trim((string)($data['zalo_mini_app_qr_image'] ?? '')),
         ];
 
-        // App Secret: chỉ cập nhật nếu người dùng nhập giá trị mới (không phải chuỗi mask)
+        // App Secret: chỉ cập nhật nếu Khách hàng nhập giá trị mới (không phải chuỗi mask)
         $secretInput = trim($data['zalo_app_secret'] ?? '');
         if ($secretInput && !$this->isMaskedSecret($secretInput)) {
             $saveMap['zalo_app_secret'] = $secretInput;
@@ -145,8 +137,7 @@ class ZaloConfigServices extends BaseServices
      * không phải Zalo Mini App.
      *
      * @return array{status:bool, message:string, details?:array}
-     */
-    public function testConnection(): array
+     */    public function testConnection(): array
     {
         $appId     = (string)sys_config('zalo_app_id', '');
         $appSecret = (string)sys_config('zalo_app_secret', '');
@@ -234,8 +225,7 @@ class ZaloConfigServices extends BaseServices
 
     /**
      * Tạo bản ghi eb_system_config cho deeplink & ảnh QR landing nếu chưa có.
-     */
-    private function ensureZaloMiniAppLandingConfigRows(SystemConfigServices $configServices): void
+     */    private function ensureZaloMiniAppLandingConfigRows(SystemConfigServices $configServices): void
     {
         $ref = $configServices->getOne(['menu_name' => 'zalo_login_open'])
             ?: $configServices->getOne(['menu_name' => 'site_name']);
@@ -286,8 +276,7 @@ class ZaloConfigServices extends BaseServices
     /**
      * Che bớt secret key khi hiển thị trên UI
      * VD: "abcdefghij1234" → "abcd**********34"
-     */
-    private function maskSecret(string $secret): string
+     */    private function maskSecret(string $secret): string
     {
         if (strlen($secret) <= 8) {
             return $secret ? str_repeat('*', strlen($secret)) : '';
@@ -297,8 +286,7 @@ class ZaloConfigServices extends BaseServices
 
     /**
      * Kiểm tra xem chuỗi có phải đang là masked value không
-     */
-    private function isMaskedSecret(string $value): bool
+     */    private function isMaskedSecret(string $value): bool
     {
         return (bool)preg_match('/\*{3,}/', $value);
     }

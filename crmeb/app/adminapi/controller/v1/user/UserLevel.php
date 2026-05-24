@@ -18,16 +18,14 @@ use think\facade\App;
  * Cài đặt thành viên
  * Class UserLevel
  * @package app\adminapi\controller\v1\user
- */
-class UserLevel extends AuthController
+ */class UserLevel extends AuthController
 {
 
     /**
      * user constructor.
      * @param App $app
      * @param UserLevelServices $services
-     */
-    public function __construct(App $app, UserLevelServices $services)
+     */    public function __construct(App $app, UserLevelServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -35,8 +33,7 @@ class UserLevel extends AuthController
 
     /*
      * Nhận biểu mẫu thêm tài nguyên
-     * */
-    public function create()
+     * */    public function create()
     {
         $where = $this->request->getMore(
             ['id', 0]
@@ -48,8 +45,7 @@ class UserLevel extends AuthController
      * Thêm hoặc sửa đổi cấp độ thành viên
      * @param $id mức độ sửa đổiid
      * @return json
-     * */
-    public function save()
+     * */    public function save()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -79,8 +75,7 @@ class UserLevel extends AuthController
      * Lấy danh sách VIP do hệ thống thiết lập
      * @param int page
      * @param int limit
-     * */
-    public function get_system_vip_list()
+     * */    public function get_system_vip_list()
     {
         $where = $this->request->getMore([
             ['page', 0],
@@ -94,8 +89,7 @@ class UserLevel extends AuthController
     /*
      * Xóa cấp độ thành viên
      * @param int $id
-     * */
-    public function delete($id)
+     * */    public function delete($id)
     {
         return app('json')->success($this->services->delLevel((int)$id));
     }
@@ -104,8 +98,7 @@ class UserLevel extends AuthController
      * Đặt hiển thị cấp độ thành viên|trốn
      *
      * @return json
-     */
-    public function set_show($is_show = '', $id = '')
+     */    public function set_show($is_show = '', $id = '')
     {
         if ($is_show == '' || $id == '') return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->setShow((int)$id, (int)$is_show));
@@ -115,8 +108,7 @@ class UserLevel extends AuthController
      * Chỉnh sửa nhanh danh sách cấp độ
      * field:value name:Thành viên kim cương/grade:8/discount:92.00
      * @return json
-     */
-    public function set_value($id)
+     */    public function set_value($id)
     {
         $data = $this->request->postMore([
             ['field', ''],

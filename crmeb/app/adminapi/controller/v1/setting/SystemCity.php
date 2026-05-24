@@ -20,16 +20,14 @@ use crmeb\services\{CacheService};
  * dữ liệu thành phố
  * Class SystemCity
  * @package app\adminapi\controller\v1\setting
- */
-class SystemCity extends AuthController
+ */class SystemCity extends AuthController
 {
     /**
      * Người xây dựng
      * SystemCity constructor.
      * @param App $app
      * @param SystemCityServices $services
-     */
-    public function __construct(App $app, SystemCityServices $services)
+     */    public function __construct(App $app, SystemCityServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,8 +37,7 @@ class SystemCity extends AuthController
      * Danh sách thành phố
      * @return string
      * @throws \Exception
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             [['parent_id', 'd'], 0]
@@ -55,8 +52,7 @@ class SystemCity extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function add()
+     */    public function add()
     {
         [$parentId] = $this->request->getMore([
             [['parent_id', 'd'], 0]
@@ -65,9 +61,8 @@ class SystemCity extends AuthController
     }
 
     /**
-     * cứu
-     */
-    public function save()
+     * Lưu
+     */    public function save()
     {
         $data = $this->request->postMore([
             [['id', 'd'], 0],
@@ -105,8 +100,7 @@ class SystemCity extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function edit()
+     */    public function edit()
     {
         [$id] = $this->request->getMore([
             [['id', 'd'], 0]
@@ -117,8 +111,7 @@ class SystemCity extends AuthController
     /**
      * Xóa thành phố
      * @throws \Exception
-     */
-    public function delete()
+     */    public function delete()
     {
         [$id] = $this->request->getMore([
             [['city_id', 'd'], 0]
@@ -130,8 +123,7 @@ class SystemCity extends AuthController
     /**
      * Xóa bộ nhớ đệm thành phố
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function clean_cache()
+     */    public function clean_cache()
     {
         CacheService::delete('CITY_LIST');
         CacheService::delete('CITY_FULL_LIST');
@@ -144,8 +136,7 @@ class SystemCity extends AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/10
-     */
-    public function fullList()
+     */    public function fullList()
     {
         return app('json')->success($this->services->fullList('parent_id,name as label,city_id as value'));
     }

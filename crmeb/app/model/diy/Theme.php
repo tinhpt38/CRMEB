@@ -18,8 +18,7 @@ use crmeb\traits\ModelTrait;
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2025/12/18
- */
-class Theme extends BaseModel
+ */class Theme extends BaseModel
 {
     use ModelTrait;
 

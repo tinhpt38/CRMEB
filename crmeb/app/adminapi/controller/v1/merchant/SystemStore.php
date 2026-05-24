@@ -19,16 +19,14 @@ use app\services\system\store\SystemStoreServices;
  * Class SystemAttachment
  * @package app\admin\controller\system
  *
- */
-class SystemStore extends AuthController
+ */class SystemStore extends AuthController
 {
     /**
      * Người xây dựng
      * SystemStore constructor.
      * @param App $app
      * @param SystemStoreServices $services
-     */
-    public function __construct(App $app, SystemStoreServices $services)
+     */    public function __construct(App $app, SystemStoreServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -40,8 +38,7 @@ class SystemStore extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             [['keywords', 's'], ''],
@@ -53,8 +50,7 @@ class SystemStore extends AuthController
     /**
      * Nhận tiêu đề cửa hàng
      * @return mixed
-     */
-    public function get_header()
+     */    public function get_header()
     {
         $count = $this->services->getStoreData();
         return app('json')->success(compact('count'));
@@ -66,8 +62,7 @@ class SystemStore extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function get_info()
+     */    public function get_info()
     {
         [$id] = $this->request->getMore([
             [['id', 'd'], 0],
@@ -79,8 +74,7 @@ class SystemStore extends AuthController
     /**
      * Lựa chọn vị trí
      * @return mixed
-     */
-    public function select_address()
+     */    public function select_address()
     {
         $key = sys_config('tengxun_map_key');
         if (!$key) return app('json')->fail('Vui lòng định cấu hình bản đồ TencentKEY');
@@ -92,8 +86,7 @@ class SystemStore extends AuthController
      * @param string $is_show
      * @param string $id
      * @return mixed
-     */
-    public function set_show($is_show = '', $id = '')
+     */    public function set_show($is_show = '', $id = '')
     {
         ($is_show == '' || $id == '') && app('json')->fail('Lỗi tham số');
         $res = $this->services->update((int)$id, ['is_show' => (int)$is_show]);
@@ -108,8 +101,7 @@ class SystemStore extends AuthController
      * Lưu và sửa đổi thông tin cửa hàng
      * @param int $id
      * @return mixed
-     */
-    public function save($id = 0)
+     */    public function save($id = 0)
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -145,8 +137,7 @@ class SystemStore extends AuthController
      * Xóa cửa hàng khôi phục
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $storeInfo = $this->services->get($id);

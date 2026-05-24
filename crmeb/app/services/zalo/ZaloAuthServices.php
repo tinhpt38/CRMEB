@@ -23,25 +23,22 @@ use think\facade\Log;
  * Dịch vụ xác thực Zalo Mini App
  *
  * Luồng đăng nhập:
- *  1. Zalo Mini App gọi getAccessToken() để lấy access_token của người dùng
+ *  1. Zalo Mini App gọi getAccessToken() để lấy access_token của Khách hàng
  *  2. Gửi access_token đó lên CRMEB: POST /api/zalo/auth
- *  3. Service này xác thực với Zalo Open API để lấy thông tin người dùng
+ *  3. Service này xác thực với Zalo Open API để lấy thông tin Khách hàng
  *  4. Tạo hoặc tìm user trong CRMEB, trả về JWT token
  *
  * Bảng sử dụng:
- *  - eb_user          : thông tin người dùng chính
+ *  - eb_user          : thông tin Khách hàng chính
  *  - eb_wechat_user   : liên kết social (user_type = 'zalo')
  *
  * Class ZaloAuthServices
  * @package app\services\zalo
- */
-class ZaloAuthServices extends BaseServices
+ */class ZaloAuthServices extends BaseServices
 {
-    /** Zalo Open API endpoint lấy thông tin user */
-    const ZALO_GRAPH_API = 'https://graph.zalo.me/v2.0/me';
+    /** Zalo Open API endpoint lấy thông tin user */    const ZALO_GRAPH_API = 'https://graph.zalo.me/v2.0/me';
 
-    /** user_type lưu trong eb_wechat_user */
-    const USER_TYPE = 'zalo';
+    /** user_type lưu trong eb_wechat_user */    const USER_TYPE = 'zalo';
     const DEFAULT_SOURCE = 'fchan';
     const SOURCE_LABEL_CATE_NAME = 'Nguồn đăng nhập miniapp';
 
@@ -63,16 +60,14 @@ class ZaloAuthServices extends BaseServices
      * @param string $phone         Số điện thoại đã xác thực từ luồng tích hợp
      * @return array{token:string, expires_time:int, userInfo:array}
      * @throws ApiException
-     */
-    public function authLogin(string $accessToken, int $spread = 0, string $source = self::DEFAULT_SOURCE, string $phone = ''): array
+     */    public function authLogin(string $accessToken, int $spread = 0, string $source = self::DEFAULT_SOURCE, string $phone = ''): array
     {
         $zaloUser = $this->fetchZaloUserInfo($accessToken);
         $openid = $zaloUser['openid'];
         $source = $this->normalizeSource($source);
         $phone = $this->normalizePhone($phone);
 
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $this->resolveUserByPhoneOrMapping($phone, $openid);
 
         if ($user) {
@@ -95,8 +90,7 @@ class ZaloAuthServices extends BaseServices
         }
         $user = $userServices->get((int)$user['uid']);
 
-        /** @var LoginServices $loginServices */
-        $loginServices = app()->make(LoginServices::class);
+        /** @var LoginServices $loginServices */        $loginServices = app()->make(LoginServices::class);
         $token = $loginServices->createToken((int)$user['uid'], 'api');
         if (!$token) {
             throw new ApiException('Đăng nhập không thành công, vui lòng thử lại');
@@ -129,8 +123,7 @@ class ZaloAuthServices extends BaseServices
      * @param string $phoneToken   token từ getPhoneNumber()
      * @return string  Số điện thoại đã chuẩn hoá (vd: "0901234567")
      * @throws ApiException
-     */
-    public function fetchPhoneFromToken(string $accessToken, string $phoneToken): string
+     */    public function fetchPhoneFromToken(string $accessToken, string $phoneToken): string
     {
         $secretKey = (string)sys_config('zalo_app_secret', '');
         if ($secretKey === '') {
@@ -193,8 +186,7 @@ class ZaloAuthServices extends BaseServices
      * @param string $locationToken  token từ getLocation()
      * @return array{lat: float, lng: float}
      * @throws ApiException
-     */
-    public function fetchLocationFromToken(string $accessToken, string $locationToken): array
+     */    public function fetchLocationFromToken(string $accessToken, string $locationToken): array
     {
         $secretKey = (string)sys_config('zalo_app_secret', '');
         if ($secretKey === '') {
@@ -248,15 +240,13 @@ class ZaloAuthServices extends BaseServices
     /**
      * Gắn số điện thoại vào tài khoản Zalo đang đăng nhập
      *
-     * @param int    $uid   UID người dùng hiện tại
+     * @param int    $uid   UID Khách hàng hiện tại
      * @param string $phone Số điện thoại cần gắn
      * @return bool
      * @throws ApiException
-     */
-    public function bindPhone(int $uid, string $phone): bool
+     */    public function bindPhone(int $uid, string $phone): bool
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
 
         $user = $userServices->get($uid);
         if (!$user) {
@@ -283,13 +273,12 @@ class ZaloAuthServices extends BaseServices
     // -------------------------------------------------------------------------
 
     /**
-     * Gọi Zalo Graph API để lấy thông tin người dùng
+     * Gọi Zalo Graph API để lấy thông tin Khách hàng
      *
      * @param string $accessToken
      * @return array{openid:string, nickname:string, avatar:string}
      * @throws ApiException
-     */
-    private function fetchZaloUserInfo(string $accessToken): array
+     */    private function fetchZaloUserInfo(string $accessToken): array
     {
         $appSecret = (string)sys_config('zalo_app_secret', '');
 
@@ -339,17 +328,15 @@ class ZaloAuthServices extends BaseServices
     }
 
     /**
-     * Tạo người dùng CRMEB mới từ thông tin Zalo
+     * Tạo Khách hàng CRMEB mới từ thông tin Zalo
      *
      * @param array{openid:string, nickname:string, avatar:string} $zaloUser
      * @param int $spread UID người giới thiệu
      * @return object  Bản ghi eb_user vừa tạo
      * @throws ApiException
-     */
-    private function createZaloUser(array $zaloUser, int $spread, string $phone = ''): object
+     */    private function createZaloUser(array $zaloUser, int $spread, string $phone = ''): object
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
 
         $data = [
             'account'   => $phone ?: ('zalo_' . $zaloUser['openid']),
@@ -381,7 +368,7 @@ class ZaloAuthServices extends BaseServices
             throw new ApiException('Không thể tạo tài khoản, vui lòng thử lại');
         }
 
-        // Tặng thưởng người dùng mới (nếu có cấu hình)
+        // Tặng thưởng Khách hàng mới (nếu có cấu hình)
         $userServices->rewardNewUser((int)$user->uid);
 
         event('UserRegisterListener', [$spread, self::USER_TYPE, $data['nickname'], $user->uid, 1]);
@@ -415,11 +402,9 @@ class ZaloAuthServices extends BaseServices
      * @param string $phone
      * @param string $openid
      * @return array|\think\Model|null
-     */
-    private function resolveUserByPhoneOrMapping(string $phone, string $openid)
+     */    private function resolveUserByPhoneOrMapping(string $phone, string $openid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         if ($phone !== '') {
             $user = $userServices->getOne(['phone' => $phone, 'is_del' => 0]);
             if ($user) return $user;
@@ -437,11 +422,9 @@ class ZaloAuthServices extends BaseServices
 
     /**
      * Cập nhật giới hạn cho user trùng số điện thoại.
-     */
-    /**
+     */    /**
      * Nickname fallback do Graph /me không có name (chưa xin scope.userInfo) — cho phép ghi đè khi đã có tên thật.
-     */
-    private function isZaloPlaceholderNickname(string $nickname): bool
+     */    private function isZaloPlaceholderNickname(string $nickname): bool
     {
         $nickname = trim($nickname);
 
@@ -450,8 +433,7 @@ class ZaloAuthServices extends BaseServices
 
     /**
      * Avatar mặc định CRMEB — nên cập nhật khi Zalo đã trả ảnh thật.
-     */
-    private function isLikelyDefaultAvatar(string $avatar): bool
+     */    private function isLikelyDefaultAvatar(string $avatar): bool
     {
         $avatar = trim($avatar);
 
@@ -460,8 +442,7 @@ class ZaloAuthServices extends BaseServices
 
     private function limitedUpdateExistingUser(int $uid, array $zaloUser): void
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $currentUser = $userServices->get($uid);
         if (!$currentUser) {
             throw new ApiException('Người dùng không tồn tại');
@@ -492,8 +473,7 @@ class ZaloAuthServices extends BaseServices
 
     /**
      * Đồng bộ mapping zalo trong eb_wechat_user theo uid hiện tại.
-     */
-    private function syncZaloMapping(int $uid, array $zaloUser): void
+     */    private function syncZaloMapping(int $uid, array $zaloUser): void
     {
         $wechatUser = $this->dao->getOne([
             'openid' => $zaloUser['openid'],
@@ -518,13 +498,10 @@ class ZaloAuthServices extends BaseServices
 
     /**
      * Gắn tag nguồn đăng nhập cho user.
-     */
-    private function attachSourceTag(int $uid, string $source): void
+     */    private function attachSourceTag(int $uid, string $source): void
     {
-        /** @var UserLabelServices $labelServices */
-        $labelServices = app()->make(UserLabelServices::class);
-        /** @var UserLabelRelationServices $relationServices */
-        $relationServices = app()->make(UserLabelRelationServices::class);
+        /** @var UserLabelServices $labelServices */        $labelServices = app()->make(UserLabelServices::class);
+        /** @var UserLabelRelationServices $relationServices */        $relationServices = app()->make(UserLabelRelationServices::class);
 
         $labelCateId = $this->getOrCreateSourceLabelCateId();
         $labelName = 'source:' . $source;
@@ -547,11 +524,9 @@ class ZaloAuthServices extends BaseServices
 
     /**
      * Lấy hoặc tạo category chứa source label.
-     */
-    private function getOrCreateSourceLabelCateId(): int
+     */    private function getOrCreateSourceLabelCateId(): int
     {
-        /** @var UserLabelCateServices $cateServices */
-        $cateServices = app()->make(UserLabelCateServices::class);
+        /** @var UserLabelCateServices $cateServices */        $cateServices = app()->make(UserLabelCateServices::class);
         $cateId = (int)$cateServices->value(['type' => 0, 'name' => self::SOURCE_LABEL_CATE_NAME], 'id');
         if ($cateId) return $cateId;
 
@@ -565,8 +540,7 @@ class ZaloAuthServices extends BaseServices
 
     /**
      * Chuẩn hóa số điện thoại đầu vào.
-     */
-    private function normalizePhone(string $phone): string
+     */    private function normalizePhone(string $phone): string
     {
         $phone = trim($phone);
         if ($phone === '') return '';
@@ -577,8 +551,7 @@ class ZaloAuthServices extends BaseServices
 
     /**
      * Chuẩn hóa source để lưu tag.
-     */
-    private function normalizeSource(string $source): string
+     */    private function normalizeSource(string $source): string
     {
         $source = strtolower(trim($source));
         $source = preg_replace('/[^a-z0-9_\-]/', '', $source);

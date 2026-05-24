@@ -25,36 +25,30 @@ use crmeb\exceptions\AdminException;
 /**
  * Class UserStatisticServices
  * @package app\services\statistic
- */
-class UserStatisticServices extends BaseServices
+ */class UserStatisticServices extends BaseServices
 {
     /**
      * Tổng quan cơ bản
      * @param $where
      * @return mixed
-     */
-    public function getBasic($where)
+     */    public function getBasic($where)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Vui lòng chọn thời gian');
-        /** @var UserVisitServices $userVisit */
-        $userVisit = app()->make(UserVisitServices::class);
-        /** @var UserServices $user */
-        $user = app()->make(UserServices::class);
-        /** @var StoreOrderServices $order */
-        $order = app()->make(StoreOrderServices::class);
-        /** @var OtherOrderServices $otherOrder */
-        $otherOrder = app()->make(OtherOrderServices::class);
+        /** @var UserVisitServices $userVisit */        $userVisit = app()->make(UserVisitServices::class);
+        /** @var UserServices $user */        $user = app()->make(UserServices::class);
+        /** @var StoreOrderServices $order */        $order = app()->make(StoreOrderServices::class);
+        /** @var OtherOrderServices $otherOrder */        $otherOrder = app()->make(OtherOrderServices::class);
 
         $toEndTime = implode('-', [0, $time[1]]);
         $cumulativeUserWhere = ['time' => $toEndTime, 'user_type' => $where['channel_type']];
 
         $now['people'] = $userVisit->getDistinctCount($where, 'uid');//Số lượng khách truy cập
         $now['browse'] = $userVisit->count($where);//lượt truy cập
-        $now['newUser'] = $user->count($where + ['user_type' => $where['channel_type']]);//Số lượng người dùng mới
-        $now['payPeople'] = $order->getDistinctCount($where + ['paid' => 1], 'uid');//Số lượng người dùng đã thực hiện giao dịch
+        $now['newUser'] = $user->count($where + ['user_type' => $where['channel_type']]);//Số lượng Khách hàng mới
+        $now['payPeople'] = $order->getDistinctCount($where + ['paid' => 1], 'uid');//Số lượng Khách hàng đã thực hiện giao dịch
         $now['payUser'] = $otherOrder->getDistinctCount($where + ['member_type' => -1], 'uid');//Kích hoạt thành viên trả phí
-        $now['cumulativeUser'] = $user->count($cumulativeUserWhere);//Số lượng người dùng tích lũy
+        $now['cumulativeUser'] = $user->count($cumulativeUserWhere);//Số lượng Khách hàng tích lũy
 
 
         $dayNum = (strtotime($time[1]) - strtotime($time[0])) / 86400 + 1;
@@ -66,11 +60,11 @@ class UserStatisticServices extends BaseServices
         $toEndTime = implode('-', [0, $lastTime[1]]);
         $last['people'] = $userVisit->getDistinctCount($where, 'uid');//Số lượng khách truy cập
         $last['browse'] = $userVisit->count($where);//lượt truy cập
-        $last['newUser'] = $user->count($where + ['user_type' => $where['channel_type']]);//Số lượng người dùng mới
-        $last['payPeople'] = $order->getDistinctCount($where + ['paid' => 1], 'uid');//Số lượng người dùng đã thực hiện giao dịch
+        $last['newUser'] = $user->count($where + ['user_type' => $where['channel_type']]);//Số lượng Khách hàng mới
+        $last['payPeople'] = $order->getDistinctCount($where + ['paid' => 1], 'uid');//Số lượng Khách hàng đã thực hiện giao dịch
         $last['payUser'] = $otherOrder->getDistinctCount($where + ['member_type' => -1], 'uid');//Kích hoạt thành viên trả phí
         $cumulativeUserWhere['time'] = $toEndTime;
-        $last['cumulativeUser'] = $user->count($cumulativeUserWhere);//Số lượng người dùng tích lũy
+        $last['cumulativeUser'] = $user->count($cumulativeUserWhere);//Số lượng Khách hàng tích lũy
 
         //Kết hợp dữ liệu và tính tỷ lệ chuỗi
         $data = [];
@@ -84,12 +78,11 @@ class UserStatisticServices extends BaseServices
     }
 
     /**
-     * Xu hướng người dùng
+     * Xu hướng Khách hàng
      * @param $where
      * @param $excel
      * @return mixed
-     */
-    public function getTrend($where, $excel = false)
+     */    public function getTrend($where, $excel = false)
     {
         $time = explode('-', $where['time']);
         $channelType = $where['channel_type'];
@@ -109,30 +102,25 @@ class UserStatisticServices extends BaseServices
     }
 
     /**
-     * Xu hướng người dùng
+     * Xu hướng Khách hàng
      * @param $time
      * @param $channelType
      * @param $num
      * @param $excel
      * @return array
-     */
-    public function trend($time, $channelType, $num, $excel)
+     */    public function trend($time, $channelType, $num, $excel)
     {
-        /** @var UserServices $user */
-        $user = app()->make(UserServices::class);
-        /** @var UserVisitServices $userVisit */
-        $userVisit = app()->make(UserVisitServices::class);
-        /** @var StoreOrderServices $order */
-        $order = app()->make(StoreOrderServices::class);
-        /** @var OtherOrderServices $otherOrder */
-        $otherOrder = app()->make(OtherOrderServices::class);
+        /** @var UserServices $user */        $user = app()->make(UserServices::class);
+        /** @var UserVisitServices $userVisit */        $userVisit = app()->make(UserVisitServices::class);
+        /** @var StoreOrderServices $order */        $order = app()->make(StoreOrderServices::class);
+        /** @var OtherOrderServices $otherOrder */        $otherOrder = app()->make(OtherOrderServices::class);
 
         $newPeople = $visitPeople = $paidPeople = $rechargePeople = $vipPeople = [];
-        $newPeople['name'] = 'Số lượng người dùng mới';
+        $newPeople['name'] = 'Số lượng Khách hàng mới';
         $visitPeople['name'] = 'Số lượng khách truy cập';
-        $paidPeople['name'] = 'Số lượng người dùng đã thực hiện giao dịch';
-        $rechargePeople['name'] = 'Nạp tiền cho người dùng';
-        $vipPeople['name'] = 'Số lượng người dùng trả phí mới';
+        $paidPeople['name'] = 'Số lượng Khách hàng đã thực hiện giao dịch';
+        $rechargePeople['name'] = 'Nạp tiền cho Khách hàng';
+        $vipPeople['name'] = 'Số lượng Khách hàng trả phí mới';
         if ($num == 0) {
             $xAxis = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
             $timeType = '%H';
@@ -169,18 +157,17 @@ class UserStatisticServices extends BaseServices
                     'vip' => $vipPeople[$item] ?? 0,
                 ];
             }
-            /** @var ExportServices $exportService */
-            $exportService = app()->make(ExportServices::class);
+            /** @var ExportServices $exportService */            $exportService = app()->make(ExportServices::class);
             $url = $exportService->userTrade($data);
             return compact('url');
         } else {
             $data = $series = [];
             foreach ($xAxis as $item) {
-                $data['Số lượng người dùng mới'][] = isset($newPeople[$item]) ? intval($newPeople[$item]) : 0;
+                $data['Số lượng Khách hàng mới'][] = isset($newPeople[$item]) ? intval($newPeople[$item]) : 0;
                 $data['Số lượng khách truy cập'][] = isset($visitPeople[$item]) ? intval($visitPeople[$item]) : 0;
                 $data['Lượt xem'][] = isset($visitNum[$item]) ? intval($visitNum[$item]) : 0;
-                $data['Số lượng người dùng đã thực hiện giao dịch'][] = isset($paidPeople[$item]) ? intval($paidPeople[$item]) : 0;
-                $data['Số lượng người dùng trả phí mới'][] = isset($vipPeople[$item]) ? intval($vipPeople[$item]) : 0;
+                $data['Số lượng Khách hàng đã thực hiện giao dịch'][] = isset($paidPeople[$item]) ? intval($paidPeople[$item]) : 0;
+                $data['Số lượng Khách hàng trả phí mới'][] = isset($vipPeople[$item]) ? intval($vipPeople[$item]) : 0;
             }
             foreach ($data as $key => $item) {
                 $series[] = ['name' => $key, 'value' => $item];
@@ -190,16 +177,14 @@ class UserStatisticServices extends BaseServices
     }
 
     /**
-     * Thông tin người dùng WeChat
+     * Thông tin Khách hàng WeChat
      * @param $where
      * @return array
-     */
-    public function getWechat($where)
+     */    public function getWechat($where)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Lỗi tham số');
-        /** @var WechatUserServices $user */
-        $user = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $user */        $user = app()->make(WechatUserServices::class);
 
         $now['subscribe'] = $user->getCount([
             ['subscribe', '=', 1],
@@ -259,11 +244,10 @@ class UserStatisticServices extends BaseServices
     }
 
     /**
-     * Xu hướng người dùng WeChat
+     * Xu hướng Khách hàng WeChat
      * @param $where
      * @return array
-     */
-    public function getWechatTrend($where)
+     */    public function getWechatTrend($where)
     {
         $time = explode('-', $where['time']);
         if (count($time) != 2) throw new AdminException('Lỗi tham số');
@@ -282,15 +266,13 @@ class UserStatisticServices extends BaseServices
     }
 
     /**
-     * Xu hướng người dùng WeChat
+     * Xu hướng Khách hàng WeChat
      * @param $time
      * @param $num
      * @return array
-     */
-    public function wechatTrend($time, $num)
+     */    public function wechatTrend($time, $num)
     {
-        /** @var WechatUserServices $user */
-        $user = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $user */        $user = app()->make(WechatUserServices::class);
 
         $subscribe = $unSubscribe = $increaseSubscribe = $cumulativeSubscribe = $cumulativeUnSubscribe = [];
         if ($num == 0) {
@@ -350,7 +332,7 @@ class UserStatisticServices extends BaseServices
             $data['Thêm khách hàng mới theo dõi'][] = $subscribe[$item] ?? 0;
             $data['Thêm khách hàng mới được bỏ chặn'][] = $unSubscribe[$item] ?? 0;
             $data['Người dùng theo dõi tích lũy'][] = $cumulativeSubscribe[$item] ?? 0;
-            $data['Tích lũy người dùng được bỏ chặn'][] = $cumulativeUnSubscribe[$item] ?? 0;
+            $data['Tích lũy Khách hàng được bỏ chặn'][] = $cumulativeUnSubscribe[$item] ?? 0;
         }
         foreach ($data['Thêm khách hàng mới theo dõi'] as $keys => $items) {
             $data['Người dùng được thêm ròng'][] = $data['Thêm khách hàng mới theo dõi'][$keys] - $data['Thêm khách hàng mới được bỏ chặn'][$keys];
@@ -362,24 +344,19 @@ class UserStatisticServices extends BaseServices
     }
 
     /**
-     * Biểu đồ khu vực người dùng
+     * Biểu đồ khu vực Khách hàng
      * @param $where
      * @return array
-     */
-    public function getRegion($where)
+     */    public function getRegion($where)
     {
         $time = explode('-', $where['time']);
         $channelType = $where['channel_type'];
         if (count($time) != 2) throw new AdminException('Lỗi tham số');
 
-        /** @var UserVisitServices $userVisit */
-        $userVisit = app()->make(UserVisitServices::class);
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
-        /** @var StoreOrderServices $order */
-        $order = app()->make(StoreOrderServices::class);
-        /** @var WechatUserServices $user */
-        $wechatUser = app()->make(WechatUserServices::class);
+        /** @var UserVisitServices $userVisit */        $userVisit = app()->make(UserVisitServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
+        /** @var StoreOrderServices $order */        $order = app()->make(StoreOrderServices::class);
+        /** @var WechatUserServices $user */        $wechatUser = app()->make(WechatUserServices::class);
 
         $all = $wechatUser->getRegionAll($time, $channelType);
         $new = $wechatUser->getRegionNew($time, $channelType);
@@ -430,18 +407,16 @@ class UserStatisticServices extends BaseServices
     }
 
     /**
-     * Giới tính người dùng
+     * Giới tính Khách hàng
      * @param $where
      * @return mixed
-     */
-    public function getSex($where)
+     */    public function getSex($where)
     {
         $time = explode('-', $where['time']);
         $channelType = $where['channel_type'];
         if (count($time) != 2) throw new AdminException('Lỗi tham số');
 
-        /** @var UserWechatuserServices $user */
-        $wechatUser = app()->make(UserWechatuserServices::class);
+        /** @var UserWechatuserServices $user */        $wechatUser = app()->make(UserWechatuserServices::class);
 
         $data = $wechatUser->getSex($time, $channelType);
         $oneData = [

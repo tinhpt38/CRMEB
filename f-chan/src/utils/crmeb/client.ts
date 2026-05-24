@@ -22,12 +22,10 @@ export class CrmebClientError extends Error {
 export type CrmebClientOptions = {
   /**
    * Should return CRMEB JWT (the one received from `POST /api/zalo/auth`)
-   */
-  getToken: CrmebTokenGetter;
+   */  getToken: CrmebTokenGetter;
   /**
    * Optional override. If omitted, uses `app-config.json -> template.apiUrl`.
-   */
-  apiBaseUrl?: string;
+   */  apiBaseUrl?: string;
 };
 
 function joinUrl(baseUrl: string, path: string) {

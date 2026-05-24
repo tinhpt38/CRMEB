@@ -19,22 +19,19 @@ use crmeb\traits\ModelTrait;
  * Phân loại mã kênhmodel
  * Class WechatKey
  * @package app\model\wechat
- */
-class WechatQrcodeCate extends BaseModel
+ */class WechatQrcodeCate extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'wechat_qrcode_cate';
+     */    protected $name = 'wechat_qrcode_cate';
 
     public function searchIsDelAttr($query, $value)
     {

@@ -22,15 +22,13 @@ use think\facade\Route;
  * Quyền thực đơn
  * Class SystemMenus
  * @package app\adminapi\controller\v1\setting
- */
-class SystemMenus extends AuthController
+ */class SystemMenus extends AuthController
 {
     /**
      * SystemMenus constructor.
      * @param App $app
      * @param SystemMenusServices $services
-     */
-    public function __construct(App $app, SystemMenusServices $services)
+     */    public function __construct(App $app, SystemMenusServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -46,8 +44,7 @@ class SystemMenus extends AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/05/06
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['is_show', ''],
@@ -65,8 +62,7 @@ class SystemMenus extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/14
-     */
-    public function unique()
+     */    public function unique()
     {
         $adminInfo = $this->request->adminInfo();
         [$menus, $uniqueAuth] = app()->make(SystemMenusServices::class)->getMenusList($adminInfo['roles'], (int)$adminInfo['level']);
@@ -77,8 +73,7 @@ class SystemMenus extends AuthController
      * Hiển thị trang biểu mẫu tạo tài nguyên.
      *
      * @return \think\Response
-     */
-    public function create()
+     */    public function create()
     {
 
         return app('json')->success($this->services->createMenus());
@@ -87,8 +82,7 @@ class SystemMenus extends AuthController
     /**
      * Lưu quyền thực đơn
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->getMore([
             ['menu_name', ''],
@@ -128,8 +122,7 @@ class SystemMenus extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function batchSave()
+     */    public function batchSave()
     {
         $menus = $this->request->post('menus', []);
         if (!$menus) {
@@ -193,8 +186,7 @@ class SystemMenus extends AuthController
      * Nhận thông tin cho phép menu
      * @param int $id
      * @return \think\Response
-     */
-    public function read($id)
+     */    public function read($id)
     {
 
         if (!$id) {
@@ -207,8 +199,7 @@ class SystemMenus extends AuthController
      * Sửa đổi việc mua lại biểu mẫu cấp phép menu
      * @param int $id
      * @return \think\Response
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -220,8 +211,7 @@ class SystemMenus extends AuthController
      * Sửa đổi trình đơn
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         if (!$id || !($menu = $this->services->get($id)))
             return app('json')->fail('Dữ liệu không tồn tại');
@@ -260,8 +250,7 @@ class SystemMenus extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -278,8 +267,7 @@ class SystemMenus extends AuthController
      * Bật và tắt quyền, hiển thị và ẩn chúng
      * @param $id
      * @return mixed
-     */
-    public function show($id)
+     */    public function show($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -305,8 +293,7 @@ class SystemMenus extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function menus()
+     */    public function menus()
     {
         [$menus, $unique] = $this->services->getMenusList($this->adminInfo['roles'], (int)$this->adminInfo['level']);
         return app('json')->success(['menus' => $menus, 'unique' => $unique]);
@@ -319,8 +306,7 @@ class SystemMenus extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/25
-     */
-    public function ruleCate(SystemRouteCateServices $service)
+     */    public function ruleCate(SystemRouteCateServices $service)
     {
         return app('json')->success($service->getAllList('adminapi'));
     }
@@ -328,11 +314,10 @@ class SystemMenus extends AuthController
     /**
      * Nhận danh sách giao diện
      * @return array
-     */
-    public function ruleList(SystemRouteServices $services)
+     */    public function ruleList(SystemRouteServices $services)
     {
         $cateId = request()->get('cate_id', 0);
-        //Nhận tất cả các tuyến đường
+        //Nhận Tất cả các tuyến đường
         $ruleList = $services->selectList(['cate_id' => $cateId, 'app_name' => 'adminapi'])->toArray();
         return app('json')->success($ruleList);
     }

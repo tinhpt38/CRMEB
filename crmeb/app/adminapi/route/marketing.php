@@ -11,15 +11,13 @@
 use think\facade\Route;
 
 /**
- * Phiếu giảm giá, thương lượng, mua theo nhóm, định tuyến bán hàng chớp nhoáng
- */
-Route::group('marketing', function () {
+ * Mã giảm giá, thương lượng, mua theo nhóm, định tuyến bán hàng chớp nhoáng
+ */Route::group('marketing', function () {
 
-    /** Phiếu giảm giá */
-    Route::group(function () {
+    /** Mã giảm giá */    Route::group(function () {
         //Danh sách phiếu giảm giá đã xuất bản
         Route::get('coupon/released', 'v1.marketing.StoreCouponIssue/index')->option(['real_name' => 'Danh sách phiếu giảm giá đã xuất bản']);
-        //thêm phiếu giảm giá
+        //Tạo mã giảm giá
         Route::post('coupon/save_coupon', 'v1.marketing.StoreCouponIssue/saveCoupon')->option(['real_name' => 'Tạo mã giảm giá']);
         //Sửa đổi trạng thái phiếu giảm giá
         Route::get('coupon/status/:id/:status', 'v1.marketing.StoreCouponIssue/status')->option(['real_name' => 'Sửa đổi trạng thái phiếu giảm giá']);
@@ -37,12 +35,11 @@ Route::group('marketing', function () {
         Route::get('coupon/released/issue_log/:id', 'v1.marketing.StoreCouponIssue/issue_log')->option(['real_name' => 'Kỷ lục thu thập phiếu giảm giá đã được phát hành']);
         //Hồ sơ thu thập thành viên
         Route::get('coupon/user', 'v1.marketing.StoreCouponUser/index')->option(['real_name' => 'Hồ sơ thu thập thành viên']);
-        //Gửi phiếu giảm giá
+        //Tặng mã giảm giá
         Route::post('coupon/user/grant', 'v1.marketing.StoreCouponUser/grant')->option(['real_name' => 'Tặng mã giảm giá']);
     })->option(['parent' => 'marketing', 'cate_name' => 'Mã giảm giá']);
 
-    /** Hoạt động mặc cả */
-    Route::group(function () {
+    /** Hoạt động mặc cả */    Route::group(function () {
         //Danh sách sản phẩm mặc cả
         Route::get('bargain', 'v1.marketing.StoreBargain/index')->option(['real_name' => 'Danh sách sản phẩm mặc cả']);
         //Chi tiết mặc cả
@@ -53,20 +50,19 @@ Route::group('marketing', function () {
         Route::delete('bargain/:id', 'v1.marketing.StoreBargain/delete')->option(['real_name' => 'Xóa các Sản phẩm trả giá']);
         //Sửa đổi trạng thái thương lượng
         Route::put('bargain/set_status/:id/:status', 'v1.marketing.StoreBargain/set_status')->option(['real_name' => 'Sửa đổi trạng thái mặt hàng mặc cả']);
-        //Danh sách mặc cả
+        //Lịch sử trả giá
         Route::get('bargain_list', 'v1.marketing.StoreBargain/bargainList')->option(['real_name' => 'Tham gia vào danh sách thương lượng']);
         //Danh sách người thương lượng
         Route::get('bargain_list_info/:id', 'v1.marketing.StoreBargain/bargainListInfo')->option(['real_name' => 'Danh sách người thương lượng']);
         //Thống kê mặc cả
         Route::get('bargain/statistics/head/:id', 'v1.marketing.StoreBargain/bargainStatistics')->option(['real_name' => 'Thống kê mặc cả']);
-        //Danh sách mặc cả
+        //Lịch sử trả giá
         Route::get('bargain/statistics/list/:id', 'v1.marketing.StoreBargain/bargainStatisticsList')->option(['real_name' => 'Danh sách thống kê thương lượng']);
-        //lệnh mặc cả
+        //Đơn hàng mặc cả
         Route::get('bargain/statistics/order/:id', 'v1.marketing.StoreBargain/bargainStatisticsOrder')->option(['real_name' => 'Thống kê thương lượng lệnh']);
     })->option(['parent' => 'marketing', 'cate_name' => 'Hoạt động mặc cả']);
 
-    /** Hoạt động nhóm */
-    Route::group(function () {
+    /** Hoạt động nhóm */    Route::group(function () {
         //Danh sách sản phẩm nhóm
         Route::get('combination', 'v1.marketing.StoreCombination/index')->option(['real_name' => 'Danh sách sản phẩm nhóm']);
         //Thống kê nhóm nhóm
@@ -75,28 +71,27 @@ Route::group('marketing', function () {
         Route::get('combination/:id', 'v1.marketing.StoreCombination/read')->option(['real_name' => 'Chi tiết sản phẩm nhóm']);
         //Lưu Tân Cương hoặc chỉnh sửa
         Route::post('combination/:id', 'v1.marketing.StoreCombination/save')->option(['real_name' => 'Thêm hoặc chỉnh sửa sản phẩm nhóm']);
-        //xóa bỏ
+        //Xóa
         Route::delete('combination/:id', 'v1.marketing.StoreCombination/delete')->option(['real_name' => 'Xóa sản phẩm nhóm']);
         //Sửa đổi trạng thái nhóm nhóm
         Route::put('combination/set_status/:id/:status', 'v1.marketing.StoreCombination/set_status')->option(['real_name' => 'Sửa đổi trạng thái sản phẩm của nhóm']);
-        //Danh sách nhóm nhóm
+        //Đơn hàng mua chung
         Route::get('combination/combine/list', 'v1.marketing.StoreCombination/combine_list')->option(['real_name' => 'Tham gia vào danh sách chia sẻ nhóm']);
         //Danh sách những người tham gia nhóm
         Route::get('combination/order_pink/:id', 'v1.marketing.StoreCombination/order_pink')->option(['real_name' => 'Danh sách những người tham gia nhóm']);
         //Thống kê nhóm nhóm
         Route::get('combination/statistics/head/:id', 'v1.marketing.StoreCombination/combinationStatistics')->option(['real_name' => 'Thống kê nhóm nhóm']);
-        //Danh sách nhóm nhóm
+        //Đơn hàng mua chung
         Route::get('combination/statistics/list/:id', 'v1.marketing.StoreCombination/combinationStatisticsList')->option(['real_name' => 'Danh sách thống kê nhóm nhóm']);
-        //Thứ tự nhóm
+        //Đơn hàng mua chung
         Route::get('combination/statistics/order/:id', 'v1.marketing.StoreCombination/combinationStatisticsOrder')->option(['real_name' => 'Thống kê đơn hàng nhóm']);
         //Lập nhóm ngay
         Route::get('combination/immediately/:id', 'v1.marketing.StoreCombination/immediatelyCombination')->option(['real_name' => 'Lập nhóm ngay']);
 
     })->option(['parent' => 'marketing', 'cate_name' => 'Hoạt động nhóm']);
 
-    /** hoạt động flash sale */
-    Route::group(function () {
-        //danh sách bán chớp nhoáng
+    /** hoạt động flash sale */    Route::group(function () {
+        //Sản phẩm Flash Sale
         Route::get('seckill', 'v1.marketing.StoreSeckill/index')->option(['real_name' => 'Danh sách sản phẩm Flashsale']);
         //Danh sách khoảng thời gian flash sale
         Route::get('seckill/time_list', 'v1.marketing.StoreSeckill/time_list')->option(['real_name' => 'Danh sách khoảng thời gian flash sale']);
@@ -112,7 +107,7 @@ Route::group('marketing', function () {
         Route::get('seckill/statistics/head/:id', 'v1.marketing.StoreSeckill/seckillStatistics')->option(['real_name' => 'Thống kê tiêu diệt chớp nhoáng']);
         //Người tham gia
         Route::get('seckill/statistics/people/:id', 'v1.marketing.StoreSeckill/seckillPeople')->option(['real_name' => 'Flash kill người tham gia']);
-        //Đơn hàng flash sale
+        //Đơn hàng Flash Sale
         Route::get('seckill/statistics/order/:id', 'v1.marketing.StoreSeckill/seckillOrder')->option(['real_name' => 'Flash kill người tham gia']);
 
         Route::get('seckill_activity/list', 'v1.marketing.StoreSeckill/seckillActivityList')->option(['real_name' => 'Danh sách hoạt động flash sale']);
@@ -125,8 +120,7 @@ Route::group('marketing', function () {
 
     })->option(['parent' => 'marketing', 'cate_name' => 'hoạt động flash sale']);
 
-    /** Hoạt động điểm */
-    Route::group(function () {
+    /** Hoạt động điểm */    Route::group(function () {
         //Danh sách nhật ký điểm
         Route::get('integral', 'v1.marketing.UserPoint/index')->option(['real_name' => 'Danh sách nhật ký điểm']);
         //Dữ liệu tiêu đề nhật ký điểm
@@ -171,11 +165,11 @@ Route::group('marketing', function () {
         Route::get('integral/order/express/temp', 'v1.marketing.integral.StoreIntegralOrder/express_temp')->option(['real_name' => 'Mẫu biểu mẫu điện tử của công ty chuyển phát nhanh điểm']);
         //Nhận thông tin hậu cần cho đơn đặt hàng điểm
         Route::get('integral/order/express/:id', 'v1.marketing.integral.StoreIntegralOrder/get_express')->option(['real_name' => 'Nhận thông tin hậu cần cho đơn đặt hàng điểm']);
-        //Thứ tự điểm in
+        //Đơn hàng điểm in
         Route::get('integral/order/print/:id', 'v1.marketing.integral.StoreIntegralOrder/order_print')->option(['real_name' => 'Đơn hàng điểm in']);
         //Nhận người giao hàng từ danh sách đặt hàng điểm
         Route::get('integral/order/delivery/list', 'v1.order.DeliveryService/get_delivery_list')->option(['real_name' => 'Nhận người giao hàng từ danh sách đặt hàng điểm']);
-        //Thứ tự điểm lấy thông tin cấu hình mặc định của thứ tự khuôn mặt
+        //Đơn hàng điểm lấy thông tin cấu hình mặc định của thứ tự khuôn mặt
         Route::get('integral/order/sheet_info', 'v1.marketing.integral.StoreIntegralOrder/getDeliveryInfo')->option(['real_name' => 'Đơn hàng điểm lấy thông tin cấu hình mặc định của thứ tự khuôn mặt']);
         //Kỷ lục điểm
         Route::get('point_record', 'v1.marketing.integral.StorePointRecord/pointRecord')->option(['real_name' => 'Danh sách ghi điểm']);
@@ -188,8 +182,7 @@ Route::group('marketing', function () {
         Route::get('point/get_type', 'v1.marketing.integral.StorePointRecord/getType')->option(['real_name' => 'Thống kê tiêu thụ điểm']);
     })->option(['parent' => 'marketing', 'cate_name' => 'Hoạt động điểm']);
 
-    /** rút thăm trúng thưởng */
-    Route::group(function () {
+    /** rút thăm trúng thưởng */    Route::group(function () {
         //Danh sách rút thăm trúng thưởng
         Route::get('lottery/list', 'v1.marketing.lottery.LuckLottery/index')->option(['real_name' => 'Danh sách rút thăm trúng thưởng']);
         //Chi tiết rút thăm may mắn
@@ -213,13 +206,12 @@ Route::group('marketing', function () {
 
     })->option(['parent' => 'marketing', 'cate_name' => 'rút thăm trúng thưởng']);
 
-    /** Nhận phòng hàng ngày */
-    Route::group(function () {
+    /** Điểm danh nhận quà */    Route::group(function () {
         //Danh sách phần thưởng đăng nhập
         Route::get('sign/rewards', 'v1.marketing.SignRewards/index')->option(['real_name' => 'Danh sách phần thưởng đăng nhập']);
         //Thêm phần thưởng đăng nhập
         Route::get('sign/add_rewards', 'v1.marketing.SignRewards/addRewards')->option(['real_name' => 'Thêm phần thưởng đăng nhập']);
-        //Phần thưởng đăng nhập của biên tập viên
+        //Phần thưởng đăng nhập của Sửa viên
         Route::get('sign/edit_rewards/:id', 'v1.marketing.SignRewards/editRewards')->option(['real_name' => 'Lưu phần thưởng đăng nhập']);
         //Lưu phần thưởng đăng nhập
         Route::post('sign/save_rewards/:id', 'v1.marketing.SignRewards/saveRewards')->option(['real_name' => 'Lưu phần thưởng đăng nhập']);
@@ -232,4 +224,4 @@ Route::group('marketing', function () {
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'marketing', 'mark_name' => 'Hoạt động tiếp thị']);
+])->option(['mark' => 'marketing', 'mark_name' => 'Hoạt động Marketing']);

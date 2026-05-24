@@ -38,8 +38,7 @@ import CONFIG from "@/config";
  * Xin quyền Zalo cho luồng đăng nhập: luôn xin `scope.userInfo` trước.
  * `scope.userPhonenumber` gọi tách — nếu Zalo chưa duyệt quyền ở cấp Mini App
  * thì gộp chung một lần authorize có thể fail toàn bộ và không lấy được user.
- */
-async function authorizeZaloForLogin(): Promise<void> {
+ */async function authorizeZaloForLogin(): Promise<void> {
   try {
     await authorize({ scopes: ["scope.userInfo"] });
   } catch (e) {
@@ -249,8 +248,7 @@ export function useCustomerSupport() {
  *  1. getAccessToken() + getPhoneNumber() từ Zalo SDK
  *  2. Gửi cả hai token lên POST /zalo/bind_phone_direct
  *  3. Backend decode phone_token → lấy số thực → lưu vào CRMEB
- */
-export function useBindPhone() {
+ */export function useBindPhone() {
   const apiUrl = getConfig((config) => config.template.apiUrl);
   const setUserInfoKey = useSetAtom(userInfoKeyState);
 
@@ -280,7 +278,7 @@ export function useBindPhone() {
         const info = JSON.parse(saved);
         info.phone = res?.phone ?? info.phone;
         localStorage.setItem(CONFIG.STORAGE_KEYS.USER_INFO, JSON.stringify(info));
-      } catch { /* ignore */ }
+      } catch { /* ignore */}
     }
     setUserInfoKey((k) => k + 1);
   };
@@ -408,26 +406,29 @@ export function useCheckout() {
     uni: string | number;
     payType: string;
   }) => {
-    const { payInfo, client, uni, payType } = args;
+    const { payInfo, payType } = args;
+    const onlineGateways = new Set(["vnpay", "momo", "zalopay"]);
 
-    // 1) If CRMEB provides a direct payment URL, open it.
-    const payUrl = payInfo?.pay_url;
-    if (typeof payUrl === "string" && payUrl.length > 0) {
+    const payUrl =
+      typeof payInfo?.pay_url === "string"
+        ? payInfo.pay_url
+        : typeof payInfo?.payUrl === "string"
+          ? payInfo.payUrl
+          : "";
+
+    if (payUrl.length > 0) {
       window.location.href = payUrl;
       return;
     }
 
-    // 2) If CRMEB returns `jsConfig` (WeChat/JS config), current MVP
-    // does not bridge it into Zalo checkout. Fallback to selected paytype.
+    if (onlineGateways.has(payType)) {
+      throw new Error("Cổng thanh toán không trả về URL thanh toán. Kiểm tra cấu hình VNPay/MoMo/ZaloPay.");
+    }
+
+    // WeChat jsConfig — không bridge vào Zalo Mini App ở MVP này.
     if (payInfo?.jsConfig) {
-      toast("CRMEB trả jsConfig (WeChat). Fallback sang phương thức đã chọn...", {
+      toast("CRMEB trả jsConfig (WeChat). Phương thức này chưa hỗ trợ trên Mini App.", {
         icon: "ℹ",
-      });
-      await client.post<any>("/order/pay", {
-        uni,
-        paytype: payType,
-        quitUrl: "",
-        type: 0,
       });
     }
   };
@@ -605,16 +606,18 @@ export function useCheckout() {
           "Đã tạo đơn. Vui lòng chuyển khoản theo hướng dẫn và chờ shop xác nhận."
         );
       } else if (payType === "vn_cod") {
-        toast.success("Đặt hàng thành công. Bạn thanh toán khi nhận hàng.");
+        toast.success("Đơn hàng thành công. Bạn thanh toán khi nhận hàng.");
       } else if (payType === "offline") {
         toast.success("Đã tạo đơn. Đang chờ cửa hàng xác nhận thanh toán.");
+      } else if (["vnpay", "momo", "zalopay"].includes(payType)) {
+        toast.success("Đang chuyển sang cổng thanh toán...");
       } else {
-        toast.success("Đặt hàng thành công.");
+        toast.success("Đơn hàng thành công.");
       }
     } catch (error) {
       console.warn(error);
       toast.error(
-        "Thanh toán thất bại. Vui lòng kiểm tra nội dung lỗi bên trong Console."
+        "Thanh toán thất bại. Vui lòng kiểm tra Nội dung lỗi bên trong Console."
       );
       return;
     }

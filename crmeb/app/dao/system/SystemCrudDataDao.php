@@ -21,8 +21,7 @@ use app\model\system\SystemCrudData;
  * @email 136327134@qq.com
  * @date 2023/7/28
  * @package app\dao\system
- */
-class SystemCrudDataDao extends BaseDao
+ */class SystemCrudDataDao extends BaseDao
 {
 
     /**
@@ -30,8 +29,7 @@ class SystemCrudDataDao extends BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/7/28
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemCrudData::class;
     }

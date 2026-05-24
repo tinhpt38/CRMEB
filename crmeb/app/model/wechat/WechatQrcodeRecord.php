@@ -22,20 +22,17 @@ class WechatQrcodeRecord extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'wechat_qrcode_record';
+     */    protected $name = 'wechat_qrcode_record';
 
     /**
      * sự kết hợpuser
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid');
     }

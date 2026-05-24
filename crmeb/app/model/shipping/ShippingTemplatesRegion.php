@@ -15,33 +15,29 @@ use crmeb\basic\BaseModel;
 use think\Model;
 
 /**
- *  Vận chuyển hàng hóa khu vựcModel
+ *  Vận chuyển sản phẩm khu vựcModel
  * Class ShippingTemplatesRegion
  * @package app\model\shipping
- */
-class ShippingTemplatesRegion extends BaseModel
+ */class ShippingTemplatesRegion extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'shipping_templates_region';
+     */    protected $name = 'shipping_templates_region';
 
     /**
      * Công cụ tìm ID thành phố
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCityIdAttr($query, $value)
+     */    public function searchCityIdAttr($query, $value)
     {
         $query->where('city_id', $value);
     }
@@ -50,8 +46,7 @@ class ShippingTemplatesRegion extends BaseModel
      * uniqid Người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUniqidAttr($query, $value)
+     */    public function searchUniqidAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('uniqid', $value);
@@ -64,8 +59,7 @@ class ShippingTemplatesRegion extends BaseModel
      * Tìm kiếm id mẫu
      * @param Model $query
      * @param $value
-     */
-    public function searchTempIdAttr($query, $value)
+     */    public function searchTempIdAttr($query, $value)
     {
         $query->where('temp_id', $value);
     }

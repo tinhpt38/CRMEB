@@ -22,14 +22,12 @@ class MemberCardBatch extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'member_card_batch';
+     */    protected $name = 'member_card_batch';
 
     protected $insert = ['add_time'];
 
@@ -41,8 +39,7 @@ class MemberCardBatch extends BaseModel
      * Trình tìm kiếm tên lô thẻ
      * @param Model $query
      * @param $value
-     */
-    public function searchTitleAttr($query, $value)
+     */    public function searchTitleAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('title', 'like', '%' . $value . '%');
@@ -53,8 +50,7 @@ class MemberCardBatch extends BaseModel
      * Định dạng dữ liệu
      * @param $value
      * @return array|mixed
-     */
-    public function getQrcodeAttr($value)
+     */    public function getQrcodeAttr($value)
     {
         $value = $value ? json_decode($value, true) : [];
         return is_array($value) ? $value : [];

@@ -21,20 +21,17 @@ use crmeb\utils\DownloadImage;
 /**
  * Class UploadService
  * @package crmeb\services
- */
-class UploadService
+ */class UploadService
 {
 
     /**
      * @var array
-     */
-    protected static $upload = [];
+     */    protected static $upload = [];
 
     /**
      * @param null $type
      * @return Upload|mixed
-     */
-    public static function init($type = null)
+     */    public static function init($type = null)
     {
         if (is_null($type)) {
             $type = (int)sys_config('upload_type', 1);
@@ -91,8 +88,7 @@ class UploadService
 
         //Ngoài việc lưu trữ cục bộ, còn có các thông tin cấu hình khác.
         if (1 !== $type) {
-            /** @var SystemStorageServices $make */
-            $make = app()->make(SystemStorageServices::class);
+            /** @var SystemStorageServices $make */            $make = app()->make(SystemStorageServices::class);
             $res = $make->getConfig($type);
             $config['uploadUrl'] = $res['domain'];
             $config['storageName'] = $res['name'];
@@ -132,8 +128,7 @@ class UploadService
      * @param string $filePath
      * @param bool $is_remote_down
      * @return Upload
-     */
-    public static function getOssInit(string $filePath, bool $is_remote_down = false)
+     */    public static function getOssInit(string $filePath, bool $is_remote_down = false)
     {
         //địa phương
         $uploadUrl = sys_config('site_url');
@@ -143,8 +138,7 @@ class UploadService
         }
         $fileArr = parse_url($filePath);
         $fileHost = $fileArr['scheme'] . '://' . $fileArr['host'];
-        /** @var SystemStorageServices $storageServices */
-        $storageServices = app()->make(SystemStorageServices::class);
+        /** @var SystemStorageServices $storageServices */        $storageServices = app()->make(SystemStorageServices::class);
         $storageArr = CacheService::remember('storage_list', function () use ($storageServices) {
             return $storageServices->selectList([], 'domain,type')->toArray();
         });
@@ -156,8 +150,7 @@ class UploadService
         //Tải ảnh từ xa về xử lý cục bộ
         if ($is_remote_down) {
             try {
-                /** @var DownloadImage $down */
-                $down = app()->make(DownloadImage::class);
+                /** @var DownloadImage $down */                $down = app()->make(DownloadImage::class);
                 $data = $down->path('thumb_water')->downloadImage($filePath);
                 $filePath = $data['path'] ?? '';
             } catch (\Throwable $e) {

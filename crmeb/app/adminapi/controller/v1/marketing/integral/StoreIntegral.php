@@ -18,15 +18,13 @@ use think\facade\App;
  * Quản lý trung tâm điểm
  * Class StoreCombination
  * @package app\admin\controller\store
- */
-class StoreIntegral extends AuthController
+ */class StoreIntegral extends AuthController
 {
     /**
      * StoreIntegral constructor.
      * @param App $app
      * @param StoreIntegralServices $services
-     */
-    public function __construct(App $app, StoreIntegralServices $services)
+     */    public function __construct(App $app, StoreIntegralServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -35,8 +33,7 @@ class StoreIntegral extends AuthController
     /**
      * Danh sách sản phẩm điểm
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['integral_time', ''],
@@ -51,8 +48,7 @@ class StoreIntegral extends AuthController
     /**
      * Lưu sản phẩm
      * @param int $id
-     */
-    public function save($id = 0)
+     */    public function save($id = 0)
     {
         $data = $this->request->postMore([
             [['product_id', 'd'], 0],
@@ -88,8 +84,7 @@ class StoreIntegral extends AuthController
     /**
      * Thêm sản phẩm theo lô
      * @return mixed
-     */
-    public function batch_add()
+     */    public function batch_add()
     {
         $data = $this->request->postMore([
             ['attrs', []],
@@ -103,8 +98,7 @@ class StoreIntegral extends AuthController
      * Chi tiết
      * @param $id
      * @return mixed
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->getInfo($id);
         return app('json')->success(compact('info'));
@@ -115,8 +109,7 @@ class StoreIntegral extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_show($id, $is_show)
+     */    public function set_show($id, $is_show)
     {
         $this->services->update($id, ['is_show' => $is_show]);
         return app('json')->success('Thiết lập thành công');
@@ -127,8 +120,7 @@ class StoreIntegral extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['is_del' => 1]);

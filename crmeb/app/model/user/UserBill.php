@@ -19,22 +19,19 @@ use think\model;
 /**
  * Class UserBill
  * @package app\model\user
- */
-class UserBill extends BaseModel
+ */class UserBill extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_bill';
+     */    protected $name = 'user_bill';
 
     protected $autoWriteTimestamp = 'int';
 
@@ -43,8 +40,7 @@ class UserBill extends BaseModel
     /**
      * Thêm công cụ sửa đổi thời gian
      * @return int
-     */
-    public function setAddTimeAttr()
+     */    public function setAddTimeAttr()
     {
         return time();
     }
@@ -53,8 +49,7 @@ class UserBill extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         if (!empty($value)) {
             if (is_string($value)) {
@@ -69,8 +64,7 @@ class UserBill extends BaseModel
     /**
      * Bảng thứ tự liên kết
      * @return UserBill|model\relation\HasOne
-     */
-    public function order()
+     */    public function order()
     {
         return $this->hasOne(StoreOrder::class, 'id', 'link_id')->field(['id', 'total_num'])->bind(['total_num']);
     }
@@ -78,18 +72,16 @@ class UserBill extends BaseModel
     /**
      * Người dùng được liên kết
      * @return model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid');
     }
 
     /**
-     * người dùnguid
+     * Khách hànguid
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if ($value !== '') {
             if (is_array($value))
@@ -103,8 +95,7 @@ class UserBill extends BaseModel
      * sự kết hợpid
      * @param Model $query
      * @param $value
-     */
-    public function searchLinkIdAttr($query, $value)
+     */    public function searchLinkIdAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('link_id', $value);
@@ -116,18 +107,16 @@ class UserBill extends BaseModel
      * chi tiêu|lấy
      * @param Model $query
      * @param $value
-     */
-    public function searchPmAttr($query, $value)
+     */    public function searchPmAttr($query, $value)
     {
         if ($value !== '') $query->where('pm', $value);
     }
 
     /**
-     * kiểu now_money:Sự cân bằng integral:tích phân exp:kinh nghiệm
+     * kiểu now_money:Số dư integral:điểm thưởng exp:kinh nghiệm
      * @param Model $query
      * @param $value
-     */
-    public function searchCategoryAttr($query, $value)
+     */    public function searchCategoryAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('category', $value);
@@ -138,8 +127,7 @@ class UserBill extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchNotCategoryAttr($query, $value)
+     */    public function searchNotCategoryAttr($query, $value)
     {
         if (is_array($value))
             $query->whereNotIn('category', $value);
@@ -151,8 +139,7 @@ class UserBill extends BaseModel
      * kiểu
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('type', $value);
@@ -163,8 +150,7 @@ class UserBill extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchNotTypeAttr($query, $value)
+     */    public function searchNotTypeAttr($query, $value)
     {
         if (is_array($value))
             $query->whereNotIn('type', $value);
@@ -176,8 +162,7 @@ class UserBill extends BaseModel
      * Trạng thái 0: Đã xác nhận 1: Hợp lệ -1: Không hợp lệ
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->where('status', $value);
     }
@@ -186,8 +171,7 @@ class UserBill extends BaseModel
      * Có nhận hàng hay không 0: Chưa nhận 1: Đã nhận
      * @param Model $query
      * @param $value
-     */
-    public function searchTakeAttr($query, $value)
+     */    public function searchTakeAttr($query, $value)
     {
         $query->where('take', $value);
     }
@@ -196,8 +180,7 @@ class UserBill extends BaseModel
      *
      * @param $query
      * @param $value
-     */
-    public function searchIntegralTypeAttr($query, $value)
+     */    public function searchIntegralTypeAttr($query, $value)
     {
         if ($value == 'get') {
             $query->where('type', '<>', 'pay_product_integral_back');
@@ -208,8 +191,7 @@ class UserBill extends BaseModel
      * tìm kiếm mờ
      * @param Model $query
      * @param $value
-     */
-    public function searchLikeAttr($query, $value)
+     */    public function searchLikeAttr($query, $value)
     {
         $query->where(function ($query) use ($value) {
             $query->where('uid|title', 'like', "%$value%")->whereOr('uid', 'in', function ($query) use ($value) {
@@ -222,8 +204,7 @@ class UserBill extends BaseModel
      * thời gian
      * @param Model $query
      * @param $value
-     */
-    public function searchAddTimeAttr($query, $value)
+     */    public function searchAddTimeAttr($query, $value)
     {
         if (is_string($value)) $query->whereTime($query, $value);
         if (is_array($value) && count($value) == 2) $query->whereTime('add_time', 'between', $value);
@@ -232,8 +213,7 @@ class UserBill extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchTradingTypeAttr($query, $value)
+     */    public function searchTradingTypeAttr($query, $value)
     {
         if ($value !== '') $query->where('type', $value);
     }
@@ -241,8 +221,7 @@ class UserBill extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchIsFrozenAttr($query, $value)
+     */    public function searchIsFrozenAttr($query, $value)
     {
         if ($value) $query->where('frozen_time', '>', time());
     }

@@ -19,21 +19,18 @@ use app\services\system\log\SystemFileServices;
  * Class SystemFile
  * @package app\admin\controller\system
  *
- */
-class SystemFile extends AuthController
+ */class SystemFile extends AuthController
 {
     /**
      * @var SystemFileServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * Người xây dựng
      * SystemFile constructor.
      * @param App $app
      * @param SystemFileServices $services
-     */
-    public function __construct(App $app, SystemFileServices $services)
+     */    public function __construct(App $app, SystemFileServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -42,8 +39,7 @@ class SystemFile extends AuthController
     /**
      * Hồ sơ xác minh tập tin
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         return app('json')->success(['list' => $this->services->getFileList()]);
     }
@@ -56,8 +52,7 @@ class SystemFile extends AuthController
      *
      * @date 2022/09/07
      * @author yyw
-     */
-    public function login()
+     */    public function login()
     {
         [$password] = $this->request->postMore([
             'password',
@@ -136,8 +131,7 @@ class SystemFile extends AuthController
      *
      * @date 2022/09/17
      * @author yyw
-     */
-    public function createFolder()
+     */    public function createFolder()
     {
         [$path, $name] = $this->request->postMore([
             ['path', ''],
@@ -174,8 +168,7 @@ class SystemFile extends AuthController
      *
      * @date 2022/09/17
      * @author yyw
-     */
-    public function createFile()
+     */    public function createFile()
     {
         [$path, $name] = $this->request->postMore([
             ['path', ''],
@@ -212,8 +205,7 @@ class SystemFile extends AuthController
      *
      * @date 2022/09/17
      * @author yyw
-     */
-    public function delFolder()
+     */    public function delFolder()
     {
         [$path] = $this->request->postMore([
             ['path', '']
@@ -235,8 +227,7 @@ class SystemFile extends AuthController
      *
      * @date 2022/09/28
      * @author yyw
-     */
-    public function rename()
+     */    public function rename()
     {
         [$newname, $oldname] = $this->request->postMore([
             ['newname', ''],
@@ -277,8 +268,7 @@ class SystemFile extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/2/25
-     */
-    public function writeMd5()
+     */    public function writeMd5()
     {
         try {
             $this->services->writeMd5();

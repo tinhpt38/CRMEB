@@ -20,8 +20,7 @@ class LiveAnchorValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'name' => 'require',
         'wechat' => 'require',
         'phone' => 'require|checkPhone',
@@ -32,8 +31,7 @@ class LiveAnchorValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'name.require' => 'Vui lòng nhập tên',
         'wechat.require' => 'Vui lòng nhập tài khoản WeChat của bạn',
         'phone.require' => 'Vui lòng điền số điện thoại di động của bạn',

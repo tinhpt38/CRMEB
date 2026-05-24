@@ -55,8 +55,7 @@ class CustomNoticeListener implements ListenerInterface
             $data['type'] = 1;
             $data['add_time'] = time();
             $data['data'] = json_encode($sendData);
-            /** @var MessageSystemServices $MessageSystemServices */
-            $MessageSystemServices = app()->make(MessageSystemServices::class);
+            /** @var MessageSystemServices $MessageSystemServices */            $MessageSystemServices = app()->make(MessageSystemServices::class);
             $MessageSystemServices->save($data);
         } catch (\Exception $e) {
             Log::error('Không thể gửi tin nhắn trang web,Lý do thất bại:' . $e->getMessage());

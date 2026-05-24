@@ -19,29 +19,25 @@ use think\Model;
  * mô hình cấu hình hệ thống
  * Class SystemConfig
  * @package app\model\system\config
- */
-class SystemConfig extends BaseModel
+ */class SystemConfig extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_config';
+     */    protected $name = 'system_config';
 
     /**
      * Trình tìm kiếm tên menu
      * @param Model $query
      * @param $value
-     */
-    public function searchMenuNameAttr($query, $value)
+     */    public function searchMenuNameAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('menu_name', $value);
@@ -54,8 +50,7 @@ class SystemConfig extends BaseModel
      * tab id tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchTabIdAttr($query, $value)
+     */    public function searchTabIdAttr($query, $value)
     {
         if ($value != 0) {
             $query->where('config_tab_id', $value);
@@ -66,8 +61,7 @@ class SystemConfig extends BaseModel
      * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->where('status', $value ?: 1);
     }
@@ -76,8 +70,7 @@ class SystemConfig extends BaseModel
      * valueNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchValueAttr($query, $value)
+     */    public function searchValueAttr($query, $value)
     {
         $query->where('value', $value);
     }
@@ -86,8 +79,7 @@ class SystemConfig extends BaseModel
      * infoNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchConfigNameAttr($query, $value)
+     */    public function searchConfigNameAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('info|menu_name', 'like', "%$value%");

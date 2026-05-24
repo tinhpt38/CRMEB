@@ -19,14 +19,12 @@ use app\model\other\Auxiliary;
  * Bàn phụ
  * Class AuxiliaryDao
  * @package app\dao\other
- */
-class AuxiliaryDao extends BaseDao
+ */class AuxiliaryDao extends BaseDao
 {
 
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return Auxiliary::class;
     }

@@ -17,8 +17,7 @@ use app\model\system\SystemSignReward;
  * @author: thủy triều
  * @email: 442384644@qq.com
  * @date: 2023/7/28
- */
-class SystemSignRewardDao extends BaseDao
+ */class SystemSignRewardDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
@@ -26,8 +25,7 @@ class SystemSignRewardDao extends BaseDao
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/28
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemSignReward::class;
     }

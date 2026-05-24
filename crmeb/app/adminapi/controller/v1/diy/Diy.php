@@ -26,14 +26,12 @@ use think\facade\App;
  *
  * Class Diy
  * @package app\controller\admin\v1\diy
- */
-class Diy extends AuthController
+ */class Diy extends AuthController
 {
     /**
      * @param App $app
      * @param DiyServices $services
-     */
-    public function __construct(App $app, DiyServices $services)
+     */    public function __construct(App $app, DiyServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -45,8 +43,7 @@ class Diy extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList()
+     */    public function getList()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -63,8 +60,7 @@ class Diy extends AuthController
      * Tiết kiệm tài nguyên chỉnh sửa trực quan
      * @param int $id
      * @return mixed
-     */
-    public function saveData(int $id = 0)
+     */    public function saveData(int $id = 0)
     {
         $data = $this->request->postMore([
             ['value', ''],
@@ -98,8 +94,7 @@ class Diy extends AuthController
      * Tiết kiệm tài nguyên DIY
      * @param int $id
      * @return mixed
-     */
-    public function saveDiyData(int $id = 0)
+     */    public function saveDiyData(int $id = 0)
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -178,8 +173,7 @@ class Diy extends AuthController
      * Xóa mẫu
      * @param $id
      * @return mixed
-     */
-    public function del($id)
+     */    public function del($id)
     {
         $this->services->del($id);
         return app('json')->success('Xóa thành công');
@@ -189,8 +183,7 @@ class Diy extends AuthController
      * Sử dụng mẫu
      * @param $id
      * @return mixed
-     */
-    public function setStatus($id)
+     */    public function setStatus($id)
     {
         $this->services->setStatus($id);
         return app('json')->success('Thiết lập thành công');
@@ -207,8 +200,7 @@ class Diy extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getInfo(int $id, StoreProductServices $services, StoreSeckillServices $seckillServices, StoreCombinationServices $combinationServices, StoreBargainServices $bargainServices)
+     */    public function getInfo(int $id, StoreProductServices $services, StoreSeckillServices $seckillServices, StoreCombinationServices $combinationServices, StoreBargainServices $bargainServices)
     {
         if (!$id) throw new AdminException('Lỗi tham số');
         $info = $this->services->get($id);
@@ -264,8 +256,7 @@ class Diy extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDiyInfo($id, StoreProductServices $services)
+     */    public function getDiyInfo($id, StoreProductServices $services)
     {
         if (!$id) throw new AdminException('Lỗi tham số');
         $info = $this->services->get($id);
@@ -276,8 +267,7 @@ class Diy extends AuthController
         }
         $info['value'] = json_decode($info['value'], true);
         if ($info['value']) {
-            /** @var ArticleServices $articleServices */
-            $articleServices = app()->make(ArticleServices::class);
+            /** @var ArticleServices $articleServices */            $articleServices = app()->make(ArticleServices::class);
             if ($info['is_diy']) {
                 foreach ($info['value'] as &$item) {
                     if ($item['name'] === 'goodList') {
@@ -323,11 +313,9 @@ class Diy extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    protected function get_groom_list($type, int $num = 0)
+     */    protected function get_groom_list($type, int $num = 0)
     {
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         $info = [];
         if ($type == 1) {// Sản phẩm được đề xuất
             $info = $services->getRecommendProduct(0, 'is_best', $num);// Số lượng sản phẩm được đề xuất
@@ -357,8 +345,7 @@ class Diy extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/3/11
-     */
-    public function getGroomList($type)
+     */    public function getGroomList($type)
     {
         [$page, $limit] = $this->request->getMore([
             ['page', 1],
@@ -371,8 +358,7 @@ class Diy extends AuthController
     /**
      * Nhận đường dẫn uni-app
      * @return mixed
-     */
-    public function getUrl()
+     */    public function getUrl()
     {
         $url = sys_data('uni_app_link');
         if ($url) {
@@ -385,8 +371,7 @@ class Diy extends AuthController
                 if (!in_array('combination', $model_checkbox) && strpos($link['name'], 'Chia sẻ nhóm') !== false) unset($url[$key]);
             }
         } else {
-            /** @var CacheServices $cache */
-            $cache = app()->make(CacheServices::class);
+            /** @var CacheServices $cache */            $cache = app()->make(CacheServices::class);
             $url = $cache->getDbCache('uni_app_url', null);
         }
         return app('json')->success(compact('url'));
@@ -398,11 +383,9 @@ class Diy extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCategory()
+     */    public function getCategory()
     {
-        /** @var StoreCategoryServices $categoryService */
-        $categoryService = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $categoryService */        $categoryService = app()->make(StoreCategoryServices::class);
         $list = $categoryService->cascaderList(1, 1);
         return app('json')->success($list);
     }
@@ -410,8 +393,7 @@ class Diy extends AuthController
     /**
      * Nhận sản phẩm
      * @return mixed
-     */
-    public function getProduct()
+     */    public function getProduct()
     {
         $where = $this->request->getMore([
             ['id', 0],
@@ -421,16 +403,14 @@ class Diy extends AuthController
         $id = $where['id'];
         unset($where['id']);
         $where['is_show'] = 1;
-        /** @var StoreCategoryServices $storeCategoryServices */
-        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $storeCategoryServices */        $storeCategoryServices = app()->make(StoreCategoryServices::class);
         if ($storeCategoryServices->value(['id' => $id], 'pid')) {
             $where['sid'] = $id;
         } else {
             $where['cid'] = $id;
         }
         [$page, $limit] = $this->services->getPageValue();
-        /** @var StoreProductServices $productService */
-        $productService = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $productService */        $productService = app()->make(StoreProductServices::class);
         $list = $productService->getSearchList($where, $page, $limit);
         return app('json')->success($list);
     }
@@ -438,8 +418,7 @@ class Diy extends AuthController
     /**
      * Nhận trạng thái kích hoạt tự nhận hàng tại điểm đón
      * @return mixed
-     */
-    public function getStoreStatus()
+     */    public function getStoreStatus()
     {
         $data['store_status'] = sys_config('store_self_mention', 0);
         return app('json')->success($data);
@@ -449,8 +428,7 @@ class Diy extends AuthController
      * Khôi phục dữ liệu mẫu
      * @param $id
      * @return mixed
-     */
-    public function Recovery($id)
+     */    public function Recovery($id)
     {
         if (!$id) throw new AdminException('Lỗi tham số');
         $info = $this->services->get($id);
@@ -467,15 +445,13 @@ class Diy extends AuthController
     /**
      * Nhận phân loại thứ cấp
      * @return mixed
-     */
-    public function getByCategory()
+     */    public function getByCategory()
     {
         $where = $this->request->getMore([
             ['pid', -1],
             ['name', '']
         ]);
-        /** @var StoreCategoryServices $categoryServices */
-        $categoryServices = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $categoryServices */        $categoryServices = app()->make(StoreCategoryServices::class);
         return app('json')->success($categoryServices->getALlByIndex($where));
     }
 
@@ -483,8 +459,7 @@ class Diy extends AuthController
      * Thêm trang
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->createForm());
     }
@@ -492,8 +467,7 @@ class Diy extends AuthController
     /**
      * Lưu trang
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -511,8 +485,7 @@ class Diy extends AuthController
      * Đặt dữ liệu mặc định
      * @param $id
      * @return mixed
-     */
-    public function setRecovery($id)
+     */    public function setRecovery($id)
     {
         if (!$id) throw new AdminException('Lỗi tham số');
         $info = $this->services->get($id);
@@ -532,8 +505,7 @@ class Diy extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductList()
+     */    public function getProductList()
     {
         $where = $this->request->getMore([
             ['cate_id', ''],
@@ -542,8 +514,7 @@ class Diy extends AuthController
         ]);
         $where['is_show'] = 1;
         $where['is_del'] = 0;
-        /** @var StoreCategoryServices $storeCategoryServices */
-        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $storeCategoryServices */        $storeCategoryServices = app()->make(StoreCategoryServices::class);
         if ($where['cate_id'] !== '') {
             if ($storeCategoryServices->value(['id' => $where['cate_id']], 'pid')) {
                 $where['sid'] = $where['cate_id'];
@@ -560,8 +531,7 @@ class Diy extends AuthController
      * Danh mục, trung tâm cá nhân, thay đổi màu sắc chỉ bằng một cú nhấp chuột
      * @param $type
      * @return mixed
-     */
-    public function getColorChange($type)
+     */    public function getColorChange($type)
     {
         $status = (int)$this->services->getColorChange((string)$type);
         return app('json')->success(compact('status'));
@@ -572,8 +542,7 @@ class Diy extends AuthController
      * @param $status
      * @param $type
      * @return mixed
-     */
-    public function colorChange($status, $type)
+     */    public function colorChange($status, $type)
     {
         if (!$status) throw new AdminException('Lỗi tham số');
         $info = $this->services->get(['template_name' => $type, 'type' => 1]);
@@ -590,8 +559,7 @@ class Diy extends AuthController
     /**
      * Nhận dữ liệu trung tâm cá nhân
      * @return mixed
-     */
-    public function getMember()
+     */    public function getMember()
     {
         $data = $this->services->getMemberData();
         return app('json')->success($data);
@@ -603,8 +571,7 @@ class Diy extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function memberSaveData()
+     */    public function memberSaveData()
     {
         $data = $this->request->postMore([
             ['status', 0],
@@ -622,11 +589,9 @@ class Diy extends AuthController
     /**
      * Nhận quảng cáo màn hình mở
      * @return mixed
-     */
-    public function getOpenAdv()
+     */    public function getOpenAdv()
     {
-        /** @var CacheServices $cacheServices */
-        $cacheServices = app()->make(CacheServices::class);
+        /** @var CacheServices $cacheServices */        $cacheServices = app()->make(CacheServices::class);
         $data = $cacheServices->getDbCache('open_adv', '');
         if ($data == '') {
             $data = [
@@ -643,8 +608,7 @@ class Diy extends AuthController
     /**
      * Lưu quảng cáo màn hình mở
      * @return mixed
-     */
-    public function openAdvAdd()
+     */    public function openAdvAdd()
     {
         $data = $this->request->postMore([
             ['status', 0],
@@ -654,8 +618,7 @@ class Diy extends AuthController
             ['video_link', '']
         ]);
         if ($data['type'] == '') $data['type'] = 'pic';
-        /** @var CacheServices $cacheServices */
-        $cacheServices = app()->make(CacheServices::class);
+        /** @var CacheServices $cacheServices */        $cacheServices = app()->make(CacheServices::class);
         $cacheServices->setDbCache('open_adv', $data);
         return app('json')->success('Đã lưu thành công');
     }
@@ -664,8 +627,7 @@ class Diy extends AuthController
      * Nhận mã QR xem trước của một applet DIY
      * @param $id
      * @return mixed
-     */
-    public function getRoutineCode($id)
+     */    public function getRoutineCode($id)
     {
         $image = $this->services->getRoutineCode((int)$id);
         return app('json')->success(compact('image'));

@@ -19,8 +19,7 @@ use app\model\order\StoreOrderStatus;
 /**
  * Class StoreOrderStoreOrderStatusDao
  * @package app\dao\order
- */
-class StoreOrderStoreOrderStatusDao extends BaseDao
+ */class StoreOrderStoreOrderStatusDao extends BaseDao
 {
     protected $alias = 'o';
 
@@ -29,8 +28,7 @@ class StoreOrderStoreOrderStatusDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreOrder::class;
     }
@@ -38,8 +36,7 @@ class StoreOrderStoreOrderStatusDao extends BaseDao
     /**
      * Thiết lập mô hình danh sách liên kết
      * @return string
-     */
-    protected function setJoinModel(): string
+     */    protected function setJoinModel(): string
     {
         return StoreOrderStatus::class;
     }
@@ -47,8 +44,7 @@ class StoreOrderStoreOrderStatusDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return \crmeb\basic\BaseModel
-     */
-    protected function getModel()
+     */    protected function getModel()
     {
         $name = app()->make($this->setJoinModel())->getName();
         return parent::getModel()->join($name . ' ' . $this->joinAlis, $this->joinAlis . '.oid = ' . $this->alias . '.id')->alias($this->alias);
@@ -58,8 +54,7 @@ class StoreOrderStoreOrderStatusDao extends BaseDao
      * tìm kiếm
      * @param array $where
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return $this->getModel()->when(isset($where['paid']), function ($query) use ($where) {
             $query->where($this->alias . '.paid', $where['paid']);
@@ -87,8 +82,7 @@ class StoreOrderStoreOrderStatusDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function getTakeOrderIds(array $where, int $limit = 0)
+     */    public function getTakeOrderIds(array $where, int $limit = 0)
     {
         return $this->search($where)->whereIn('refund_type', [0, 3])->where('pid', '<>', -1)->field([$this->alias . '.*'])
             ->when($limit != 0, function ($query) use ($limit) {

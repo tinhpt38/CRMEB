@@ -21,8 +21,7 @@ class ExpressValidata extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'com' => 'require',
         'temp_id' => 'require',
         'to_name' => 'require',
@@ -36,8 +35,7 @@ class ExpressValidata extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'com.require' => 'Hãy chọn công ty chuyển phát nhanh',
         'temp_id.number' => 'Vui lòng chọn mẫu vận chuyển sản phẩm',
         'to_name.require' => 'Vui lòng điền tên người gửi',

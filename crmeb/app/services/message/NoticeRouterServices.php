@@ -13,13 +13,11 @@ use think\facade\Log;
 
 /**
  * Router thông báo theo event + channel cấu hình tập trung.
- */
-class NoticeRouterServices extends BaseServices
+ */class NoticeRouterServices extends BaseServices
 {
     /**
      * @var NoticeEventChannelDao
-     */
-    protected $dao;
+     */    protected $dao;
 
     public function __construct(NoticeEventChannelDao $dao)
     {
@@ -31,8 +29,7 @@ class NoticeRouterServices extends BaseServices
      * @param string $eventMark
      * @param array $data
      * @return int Số kênh đã thử gửi.
-     */
-    public function dispatchTelegram(string $eventMark, array $data): int
+     */    public function dispatchTelegram(string $eventMark, array $data): int
     {
         if ($eventMark === '') {
             return 0;

@@ -20,12 +20,10 @@ class SystemTicket extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_ticket';
+     */    protected $name = 'system_ticket';
 }

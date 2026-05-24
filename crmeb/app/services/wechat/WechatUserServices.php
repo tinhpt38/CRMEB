@@ -26,7 +26,7 @@ use think\facade\Log;
  *
  * Class WechatUserServices
  * @package app\services\wechat
- * @method delete($id, ?string $key = null)  xóa bỏ
+ * @method delete($id, ?string $key = null)  Xóa
  * @method update($id, array $data, ?string $key = null) Cập nhật dữ liệu
  * @method getColumn(array $where, string $field, string $key = '') Nhận một mảng trường
  * @method get($id, ?array $field = []) Nhận một phần dữ liệu bằng khóa chính
@@ -34,15 +34,13 @@ use think\facade\Log;
  * @method value(array $value, string $key) Lấy một phần dữ liệu
  * @method getWechatTrendData($time, $where, $timeType, $key)
  * @method getWechatOpenid(int $uid, string $userType = 'wechat') Nhận tài khoản công khai WeChatopenid
- */
-class WechatUserServices extends BaseServices
+ */class WechatUserServices extends BaseServices
 {
 
     /**
      * WechatUserServices constructor.
      * @param WechatUserDao $dao
-     */
-    public function __construct(WechatUserDao $dao)
+     */    public function __construct(WechatUserDao $dao)
     {
         $this->dao = $dao;
     }
@@ -53,15 +51,14 @@ class WechatUserServices extends BaseServices
     }
 
     /**
-     * Nhận một người dùng WeChat
+     * Nhận một Khách hàng WeChat
      * @param array $where
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getWechatUserInfo(array $where, $field = '*')
+     */    public function getWechatUserInfo(array $where, $field = '*')
     {
         return $this->dao->getOne($where, $field);
     }
@@ -74,8 +71,7 @@ class WechatUserServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/17
-     */
-    public function uidToOpenid(int $uid, string $userType = 'wechat')
+     */    public function uidToOpenid(int $uid, string $userType = 'wechat')
     {
         return $this->dao->value(['uid' => $uid, 'user_type' => $userType], 'openid');
     }
@@ -86,8 +82,7 @@ class WechatUserServices extends BaseServices
      * @param $openid
      * @param string $openidType
      * @return mixed
-     */
-    public function openidToUid($openid, string $openidType = 'openid')
+     */    public function openidToUid($openid, string $openidType = 'openid')
     {
         $uid = $this->dao->value([$openidType => $openid, 'is_del' => 0], 'uid');
         if (!$uid)
@@ -99,8 +94,7 @@ class WechatUserServices extends BaseServices
      * Người dùng hủy theo dõi
      * @param $openid
      * @return bool
-     */
-    public function unSubscribe($openid)
+     */    public function unSubscribe($openid)
     {
         if (!$this->dao->update($openid, ['subscribe' => 0, 'subscribe_time' => time()], 'openid'))
             throw new AdminException('Hủy theo dõi không thành công');
@@ -108,14 +102,13 @@ class WechatUserServices extends BaseServices
     }
 
     /**
-     * Cập nhật nếu người dùng tồn tại. Thêm nếu người dùng không tồn tại.
+     * Cập nhật nếu Khách hàng tồn tại. Thêm nếu Khách hàng không tồn tại.
      * @param $openid
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveUser($openid)
+     */    public function saveUser($openid)
     {
         if ($this->getWechatUserInfo(['openid' => $openid, 'is_del' => 0])) {
             $this->updateUser($openid);
@@ -127,11 +120,10 @@ class WechatUserServices extends BaseServices
     }
 
     /**
-     * Cập nhật thông tin người dùng
+     * Cập nhật thông tin Khách hàng
      * @param $openid
      * @return bool
-     */
-    public function updateUser($openid)
+     */    public function updateUser($openid)
     {
         $userInfo = WechatService::getUserInfo($openid);
         $userInfo = is_object($userInfo) ? $userInfo->toArray() : $userInfo;
@@ -151,11 +143,10 @@ class WechatUserServices extends BaseServices
     }
 
     /**
-     * .Thêm người dùng mới
+     * .Thêm khách hàng mới
      * @param $openid
      * @return object
-     */
-    public function setNewUser($openid)
+     */    public function setNewUser($openid)
     {
         $userInfo = WechatService::getUserInfo($openid);
         if (!isset($userInfo['openid']))
@@ -178,11 +169,10 @@ class WechatUserServices extends BaseServices
             $wechatInfo = $this->getWechatUserInfo(['unionid' => $userInfo['unionid'], 'is_del' => 0]);
         }
         if (!$wechatInfo) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfoData = $userServices->setUserInfo($userInfo);
             if (!$userInfoData) {
-                throw new AdminException('Lưu trữ thông tin người dùng không thành công');
+                throw new AdminException('Lưu trữ thông tin Khách hàng không thành công');
             }
             $uid = $userInfoData->uid;
         } else {
@@ -192,25 +182,24 @@ class WechatUserServices extends BaseServices
         $userInfo['add_time'] = time();
         $userInfo['uid'] = $uid;
         if (!$this->dao->save($userInfo)) {
-            throw new AdminException('Lưu trữ thông tin người dùng không thành công');
+            throw new AdminException('Lưu trữ thông tin Khách hàng không thành công');
         }
         //TODO Giá trị trả về này cần được cải thiện
         return $userInfoData;
     }
 
     /**
-     * Lấy thông tin người dùng sau khi được ủy quyền
+     * Lấy thông tin Khách hàng sau khi được ủy quyền
      * @param $openid
      * @param $user_type
      * @return array|\think\Model|null
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
-     */
-    public function getAuthUserInfo($openid, $user_type)
+     */    public function getAuthUserInfo($openid, $user_type)
     {
         $user = [];
-        //Tương thích với người dùng cũ
+        //Tương thích với Khách hàng cũ
         $uids = $this->dao->getColumn(['unionid|openid' => $openid, 'is_del' => 0], 'uid,user_type', 'user_type');
         if ($uids) {
             $uid = $uids[$user_type]['uid'] ?? 0;
@@ -218,32 +207,27 @@ class WechatUserServices extends BaseServices
                 $ids = array_column($uids, 'uid');
                 $uid = $ids[0];
             }
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $user = $userServices->getUserInfo($uid);
         }
         return $user;
     }
 
     /**
-     * Cập nhật thông tin người dùng WeChat
+     * Cập nhật thông tin Khách hàng WeChat
      * @param $event
      * @return bool
-     */
-    public function wechatUpdata($data)
+     */    public function wechatUpdata($data)
     {
         [$uid, $userData] = $data;
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         if (!$userInfo = $userServices->getUserInfo((int)$uid)) {
             return false;
         }
-        /** @var LoginServices $loginService */
-        $loginService = app()->make(LoginServices::class);
+        /** @var LoginServices $loginService */        $loginService = app()->make(LoginServices::class);
         $loginService->updateUserInfo($userData, $userInfo);
-        //Cập nhật thông tin người dùng
-        /** @var WechatUserServices $wechatUser */
-        $wechatUser = app()->make(WechatUserServices::class);
+        //Cập nhật thông tin Khách hàng
+        /** @var WechatUserServices $wechatUser */        $wechatUser = app()->make(WechatUserServices::class);
 
         $wechatUserInfo = [];
         if (isset($userData['nickname']) && $userData['nickname']) $wechatUserInfo['nickname'] = filter_emoji($userData['nickname'] ?? '');//Tên
@@ -272,13 +256,11 @@ class WechatUserServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
-     */
-    public function wechatOauthAfter($data)
+     */    public function wechatOauthAfter($data)
     {
-        if (!$data) throw new ApiException('Không lấy được thông tin người dùng, vui lòng làm mới trang và thử lại');
+        if (!$data) throw new ApiException('Không lấy được thông tin Khách hàng, vui lòng làm mới trang và thử lại');
         [$openid, $wechatInfo, $spreadId, $agent_id, $login_type, $userType] = $data;
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $spreadInfo = $userServices->getUserInfo((int)$spreadId);
         if (!$spreadInfo) {
             $spreadId = 0;
@@ -335,15 +317,14 @@ class WechatUserServices extends BaseServices
         $wechatInfo['user_type'] = $userType;
         //userBảng tồn tại và bảng wechat_user tồn tại cùng lúc
         if ($userInfo) {
-            //Cập nhật bảng người dùng và bảng wechat_user
-            //Xác định xem loại người dùng này có tồn tại trong wechatUser không
+            //Cập nhật bảng Khách hàng và bảng wechat_user
+            //Xác định xem loại Khách hàng này có tồn tại trong wechatUser không
             $wechatUser = $this->dao->getOne(['uid' => $uid, 'user_type' => $userType, 'is_del' => 0]);
-            //Khi đánh giá rằng openid thu được không nhất quán với openid được truyền vào lần đăng nhập hiện tại, thông tin người dùng sẽ không được cập nhật.
+            //Khi đánh giá rằng openid thu được không nhất quán với openid được truyền vào lần đăng nhập hiện tại, thông tin Khách hàng sẽ không được cập nhật.
             if ($wechatUser && $wechatUser['openid'] != $wechatInfo['openid']) {
                 return $userInfo;
             }
-            /** @var LoginServices $loginService */
-            $loginService = app()->make(LoginServices::class);
+            /** @var LoginServices $loginService */            $loginService = app()->make(LoginServices::class);
             $this->transaction(function () use ($loginService, $wechatInfo, $userInfo, $uid, $userType, $spreadId, $wechatUser, $agent_id) {
                 if ($agent_id) {
                     $wechatInfo['code'] = $agent_id;
@@ -364,17 +345,17 @@ class WechatUserServices extends BaseServices
                 }
             });
         } else {
-            //userBảng không có người dùng,wechat_userBảng không có người dùng Tạo người dùng mới
-            //Tạo người dùng nếu nó không tồn tại
+            //userBảng không có Khách hàng,wechat_userBảng không có Khách hàng Tạo Khách hàng mới
+            //Tạo Khách hàng nếu nó không tồn tại
             $userInfo = $this->transaction(function () use ($userServices, $wechatInfo, $spreadId, $userType) {
                 $userInfo = $userServices->setUserInfo($wechatInfo, (int)$spreadId, $userType);
                 if (!$userInfo) {
-                    throw new AuthException('Không thêm được người dùng');
+                    throw new AuthException('Không thêm được Khách hàng');
                 }
                 $wechatInfo['uid'] = $userInfo->uid;
                 $wechatInfo['add_time'] = $userInfo->add_time;
                 if (!$this->dao->save($wechatInfo)) {
-                    throw new AuthException('Không thêm được người dùng');
+                    throw new AuthException('Không thêm được Khách hàng');
                 }
                 $userInfo['new_user'] = (int)sys_config('get_avatar', 0);
                 return $userInfo;
@@ -384,14 +365,13 @@ class WechatUserServices extends BaseServices
     }
 
     /**
-     * Cập nhật thông tin người dùng (đồng bộ）
+     * Cập nhật thông tin Khách hàng (đồng bộ）
      * @param array $openids
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function syncWechatUser(array $openids)
+     */    public function syncWechatUser(array $openids)
     {
         if (!$openids) {
             return [];
@@ -435,14 +415,13 @@ class WechatUserServices extends BaseServices
     }
 
     /**
-     * Sự chú ý của người dùng
+     * Sự chú ý của Khách hàng
      * @param $openid
      * @return bool
-     */
-    public function subscribe($openid): bool
+     */    public function subscribe($openid): bool
     {
         if (!$this->dao->update($openid, ['subscribe' => 1, 'subscribe_time' => time()], 'openid'))
-            throw new AdminException('Sự chú ý của người dùng không thành công');
+            throw new AdminException('Sự chú ý của Khách hàng không thành công');
         return true;
     }
 }

@@ -13,11 +13,9 @@ use think\facade\Route;
 
 /**
  * Định tuyến liên quan đến phát sóng trực tiếp
- */
-Route::group('live', function () {
+ */Route::group('live', function () {
 
-    /** Neo */
-    Route::group(function () {
+    /** Neo */    Route::group(function () {
         //Danh sách neo
         Route::get('anchor/list', 'v1.marketing.live.LiveAnchor/list')->option(['real_name' => 'Danh sách neo']);
         //Thêm và sửa đổi biểu mẫu máy chủ
@@ -30,8 +28,7 @@ Route::group('live', function () {
         Route::get('anchor/set_show/:id/:is_show', 'v1.marketing.live.LiveAnchor/setShow')->option(['real_name' => 'Đặt xem neo có được hiển thị hay không']);
     })->option(['parent' => 'live', 'cate_name' => 'Neo']);
 
-    /** Sản phẩm sống */
-    Route::group(function () {
+    /** Sản phẩm sống */    Route::group(function () {
         //Danh sách sản phẩm trực tiếp
         Route::get('goods/list', 'v1.marketing.live.LiveGoods/list')->option(['real_name' => 'Danh sách sản phẩm trực tiếp']);
         //Tạo sản phẩm phát sóng trực tiếp
@@ -52,8 +49,7 @@ Route::group('live', function () {
         Route::get('goods/syncGoods', 'v1.marketing.live.liveGoods/syncGoods')->option(['real_name' => 'Đồng bộ hóa trạng thái sản phẩm trực tiếp']);
     })->option(['parent' => 'live', 'cate_name' => 'Sản phẩm sống']);
 
-    /** phòng neo */
-    Route::group(function () {
+    /** phòng neo */    Route::group(function () {
         //Danh sách phòng phát sóng trực tiếp
         Route::get('room/list', 'v1.marketing.live.LiveRoom/list')->option(['real_name' => 'Danh sách phòng phát sóng trực tiếp']);
         //Thêm phòng phát sóng trực tiếp

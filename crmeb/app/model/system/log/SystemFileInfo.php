@@ -17,20 +17,17 @@ use crmeb\traits\ModelTrait;
  * @author thủy triều
  * @email 442384644@qq.com
  * @date 2023/04/07
- */
-class SystemFileInfo extends BaseModel
+ */class SystemFileInfo extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_file_info';
+     */    protected $name = 'system_file_info';
 }

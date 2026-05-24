@@ -23,8 +23,7 @@ class MiniOrderJob extends BaseJobs
 
     /**
      * @throws HttpException
-     */
-    public function doJob(string $out_trade_no, int $logistics_type, array $shipping_list, string $payer_openid, string $path, int $delivery_mode = 1, bool $is_all_delivered = true)
+     */    public function doJob(string $out_trade_no, int $logistics_type, array $shipping_list, string $payer_openid, string $path, int $delivery_mode = 1, bool $is_all_delivered = true)
     {
         try {
             MiniOrderService::shippingByTradeNo($out_trade_no, $logistics_type, $shipping_list, $payer_openid, $path, $delivery_mode, $is_all_delivered);
@@ -41,8 +40,7 @@ class MiniOrderJob extends BaseJobs
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/8/14
-     */
-    public function syncOrderShipping()
+     */    public function syncOrderShipping()
     {
         try {
             if (sys_config('order_shipping_open')) {

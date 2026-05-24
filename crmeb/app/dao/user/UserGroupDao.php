@@ -19,15 +19,13 @@ use app\model\user\UserGroup;
  *
  * Class UserGroupDao
  * @package app\dao\user
- */
-class UserGroupDao extends BaseDao
+ */class UserGroupDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserGroup::class;
     }
@@ -43,8 +41,7 @@ class UserGroupDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [], string $field = '*', int $page = 0, int $limit = 0)
+     */    public function getList(array $where = [], string $field = '*', int $page = 0, int $limit = 0)
     {
         return $this->search($where)
             ->field($field)

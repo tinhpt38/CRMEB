@@ -18,54 +18,49 @@ use app\services\kefu\ProductServices;
 /**
  * Class Product
  * @package app\kefuapi\controller
- */
-class Product extends AuthController
+ */class Product extends AuthController
 {
     /**
      * Product constructor.
      * @param App $app
      * @param ProductServices $services
-     */
-    public function __construct(App $app, ProductServices $services)
+     */    public function __construct(App $app, ProductServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Nhận hồ sơ mua hàng của người dùng
+     * Nhận hồ sơ mua hàng của Khách hàng
      * @param $uid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCartProductList($uid, string $store_name = '')
+     */    public function getCartProductList($uid, string $store_name = '')
     {
         return app('json')->success(get_thumb_water($this->services->getProductCartList((int)$uid, $store_name)));
     }
 
     /**
-     * Lịch sử duyệt web của người dùng
+     * Lịch sử duyệt web của Khách hàng
      * @param $uid
      * @param string $store_name
      * @return mixed
-     */
-    public function getVisitProductList($uid, string $store_name = '')
+     */    public function getVisitProductList($uid, string $store_name = '')
     {
         return app('json')->success(get_thumb_water($this->services->getVisitProductList((int)$uid, $store_name)));
     }
 
     /**
-     * Nhận các sản phẩm bán chạy nhất được người dùng mua
+     * Nhận các sản phẩm bán chạy nhất được Khách hàng mua
      * @param $uid
      * @param string $store_name
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductHotSale($uid, string $store_name = '')
+     */    public function getProductHotSale($uid, string $store_name = '')
     {
         return app('json')->success(get_thumb_water($this->services->getProductHotSale((int)$uid, $store_name)));
     }
@@ -77,8 +72,7 @@ class Product extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductInfo($id)
+     */    public function getProductInfo($id)
     {
         return app('json')->success(get_thumb_water($this->services->getProductInfo((int)$id), 'big', ['image', 'slider_image']));
     }

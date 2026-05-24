@@ -19,30 +19,26 @@ use think\Model;
  * TODO Giúp thương lượngModel
  * Class StoreBargainUserHelp
  * @package app\model\activity
- */
-class StoreBargainUserHelp extends BaseModel
+ */class StoreBargainUserHelp extends BaseModel
 {
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_bargain_user_help';
+     */    protected $name = 'store_bargain_user_help';
 
     use ModelTrait;
 
     /**
-     * Người tìm kiếm người dùng
+     * Người tìm kiếm Khách hàng
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchUidAttr($query, $value, $data)
+     */    public function searchUidAttr($query, $value, $data)
     {
         $query->where('uid', $value);
     }
@@ -52,8 +48,7 @@ class StoreBargainUserHelp extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchBargainIdAttr($query, $value, $data)
+     */    public function searchBargainIdAttr($query, $value, $data)
     {
         $query->where('bargain_id', $value);
     }
@@ -62,8 +57,7 @@ class StoreBargainUserHelp extends BaseModel
      * Công cụ tìm ID mặc cả
      * @param $query
      * @param $value
-     */
-    public function searchBargainUserIdAttr($query, $value)
+     */    public function searchBargainUserIdAttr($query, $value)
     {
         $query->where('bargain_user_id', $value);
     }
@@ -72,8 +66,7 @@ class StoreBargainUserHelp extends BaseModel
      * Công cụ tìm ID mặc cả
      * @param $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         $query->where('type', $value);
     }

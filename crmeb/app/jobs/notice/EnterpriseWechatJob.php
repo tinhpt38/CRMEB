@@ -24,12 +24,10 @@ class EnterpriseWechatJob extends BaseJobs
      * Gửi tin nhắn đến nhóm WeChat doanh nghiệp
      * @param $data
      * @return bool
-     */
-    public function doJob($data): bool
+     */    public function doJob($data): bool
     {
         try {
-            /** @var EnterpriseWechatService $enterpriseWechatService */
-            $enterpriseWechatService = app()->make(EnterpriseWechatService::class);
+            /** @var EnterpriseWechatService $enterpriseWechatService */            $enterpriseWechatService = app()->make(EnterpriseWechatService::class);
             $enterpriseWechatService->weComSend($data);
             return true;
         } catch (\Exception $e) {

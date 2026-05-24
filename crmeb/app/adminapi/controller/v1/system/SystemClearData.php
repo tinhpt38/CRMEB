@@ -29,16 +29,14 @@ use app\services\system\attachment\SystemAttachmentServices;
  * Xóa bộ điều khiển dữ liệu mặc định
  * Class SystemClearData
  * @package app\admin\controller\system
- */
-class SystemClearData extends AuthController
+ */class SystemClearData extends AuthController
 {
     /**
      * Người xây dựng
      * SystemClearData constructor.
      * @param App $app
      * @param SystemClearServices $services
-     */
-    public function __construct(App $app, SystemClearServices $services)
+     */    public function __construct(App $app, SystemClearServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -48,8 +46,7 @@ class SystemClearData extends AuthController
      * cách tiếp cận thống nhất
      * @param $type
      * @return mixed
-     */
-    public function index($type)
+     */    public function index($type)
     {
         switch ($type) {
             case 'temp':
@@ -80,13 +77,11 @@ class SystemClearData extends AuthController
     }
 
     /**
-     * Xóa các tệp đính kèm tạm thời do người dùng tạo
+     * Xóa các tệp đính kèm tạm thời do Khách hàng tạo
      * @return mixed
-     */
-    public function userTemp()
+     */    public function userTemp()
     {
-        /** @var SystemAttachmentServices $services */
-        $services = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $services */        $services = app()->make(SystemAttachmentServices::class);
         $imageUrl = $services->getColumn(['module_type' => 2], 'att_dir');
         foreach ($imageUrl as $item) {
             @unlink(app()->getRootPath() . 'public' . $item);
@@ -99,56 +94,45 @@ class SystemClearData extends AuthController
     /**
      * Xóa các mục khỏi thùng rác
      * @return mixed
-     */
-    public function recycleProduct($id = 0)
+     */    public function recycleProduct($id = 0)
     {
-        /** @var StoreProductServices $product */
-        $product = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $product */        $product = app()->make(StoreProductServices::class);
         if ($id) {
             $ids = [$id];
         } else {
             $ids = $product->getColumn(['is_del' => 1], 'id');
         }
         //Xóa dữ liệu bảng thông số kỹ thuật
-        /** @var StoreProductAttrServices $ProductAttr */
-        $productAttr = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrServices $ProductAttr */        $productAttr = app()->make(StoreProductAttrServices::class);
         $productAttr->delete([['product_id', 'in', $ids], ['type', '=', '0']]);
 
-        /** @var StoreProductAttrResultServices $productAttrResult */
-        $productAttrResult = app()->make(StoreProductAttrResultServices::class);
+        /** @var StoreProductAttrResultServices $productAttrResult */        $productAttrResult = app()->make(StoreProductAttrResultServices::class);
         $productAttrResult->delete([['product_id', 'in', $ids], ['type', '=', '0']]);
 
-        /** @var StoreProductAttrValueServices $productAttrValue */
-        $productAttrValue = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $productAttrValue */        $productAttrValue = app()->make(StoreProductAttrValueServices::class);
         $productAttrValue->delete([['product_id', 'in', $ids], ['type', '=', '0']]);
 
         //Xóa chi tiết sản phẩm
-        /** @var StoreDescriptionServices $productDescription */
-        $productDescription = app()->make(StoreDescriptionServices::class);
+        /** @var StoreDescriptionServices $productDescription */        $productDescription = app()->make(StoreDescriptionServices::class);
         $productDescription->delete([['product_id', 'in', $ids], ['type', '=', '0']]);
 
         //Xóa dữ liệu phân loại liên quan đến sản phẩm
-        /** @var StoreProductCateServices $productCate */
-        $productCate = app()->make(StoreProductCateServices::class);
+        /** @var StoreProductCateServices $productCate */        $productCate = app()->make(StoreProductCateServices::class);
         $productCate->delete([['product_id', 'in', $ids]]);
 
         //Xóa dữ liệu phiếu giảm giá liên quan đến sản phẩm
-        /** @var StoreProductCouponServices $productCoupon */
-        $productCoupon = app()->make(StoreProductCouponServices::class);
+        /** @var StoreProductCouponServices $productCoupon */        $productCoupon = app()->make(StoreProductCouponServices::class);
         $productCoupon->delete([['product_id', 'in', $ids]]);
 
         //Xóa hồ sơ thu thập sản phẩm
-        /** @var StoreProductReplyServices $productRelation */
-        $productRelation = app()->make(StoreProductReplyServices::class);
+        /** @var StoreProductReplyServices $productRelation */        $productRelation = app()->make(StoreProductReplyServices::class);
         $productRelation->delete([['product_id', 'in', $ids], ['reply_type', '=', 'product']]);
 
         //Xóa bình luận sản phẩm
-        /** @var StoreProductReplyServices $productReply */
-        $productReply = app()->make(StoreProductReplyServices::class);
+        /** @var StoreProductReplyServices $productReply */        $productReply = app()->make(StoreProductReplyServices::class);
         $productReply->delete([['product_id', 'in', $ids]]);
 
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
         if ($id) {
             $services->delete($id);
             return true;
@@ -159,10 +143,9 @@ class SystemClearData extends AuthController
     }
 
     /**
-     * Xóa dữ liệu người dùng
+     * Xóa dữ liệu Khách hàng
      * @return mixed
-     */
-    public function userRelevantData()
+     */    public function userRelevantData()
     {
         $this->services->clearData([
             'agent_level_task_record',
@@ -229,8 +212,7 @@ class SystemClearData extends AuthController
     /**
      * Xóa dữ liệu cửa hàng
      * @return mixed
-     */
-    public function storeData()
+     */    public function storeData()
     {
         $this->services->clearData([
             'agent_level_task',
@@ -341,8 +323,7 @@ class SystemClearData extends AuthController
     /**
      * Xóa danh mục sản phẩm
      * @return mixed
-     */
-    public function categoryData()
+     */    public function categoryData()
     {
         $this->services->clearData(['store_category'], true);
         return app('json')->success('Xóa dữ liệu thành công');
@@ -351,8 +332,7 @@ class SystemClearData extends AuthController
     /**
      * Xóa dữ liệu đơn hàng
      * @return mixed
-     */
-    public function orderData()
+     */    public function orderData()
     {
         $this->services->clearData([
             'other_order',
@@ -372,10 +352,9 @@ class SystemClearData extends AuthController
     }
 
     /**
-     * Xóa dữ liệu dịch vụ khách hàng
+     * Xóa dữ liệu CSKH
      * @return mixed
-     */
-    public function kefuData()
+     */    public function kefuData()
     {
         $this->services->clearData([
             'store_service',
@@ -391,8 +370,7 @@ class SystemClearData extends AuthController
     /**
      * Xóa dữ liệu quản lý WeChat
      * @return mixed
-     */
-    public function wechatData()
+     */    public function wechatData()
     {
         $this->services->clearData([
             'cache',
@@ -410,10 +388,9 @@ class SystemClearData extends AuthController
     }
 
     /**
-     * Xóa tất cả tệp đính kèm
+     * Xóa Tất cả tệp đính kèm
      * @return mixed
-     */
-    public function attachmentData()
+     */    public function attachmentData()
     {
         $this->services->clearData([
             'system_attachment',
@@ -423,7 +400,7 @@ class SystemClearData extends AuthController
         return app('json')->success('Xóa dữ liệu thành công');
     }
 
-    //Xóa danh mục nội dung
+    //Xóa danh mục Nội dung
     public function articleData()
     {
         $this->services->clearData([
@@ -447,8 +424,7 @@ class SystemClearData extends AuthController
     /**
      * Cách thay thế tên miền
      * @return mixed
-     */
-    public function replaceSiteUrl()
+     */    public function replaceSiteUrl()
     {
         list($url) = $this->request->postMore([
             ['url', '']

@@ -18,15 +18,13 @@ use app\model\diy\PageCategory;
 /**
  * Class PageCategoryDao
  * @package app\dao\diy
- */
-class PageCategoryDao extends BaseDao
+ */class PageCategoryDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return PageCategory::class;
     }
@@ -42,8 +40,7 @@ class PageCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0)
+     */    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0)
     {
         $where['no_model'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
         return $this->search($where)->field($field)->when($page && $limit, function ($query) use ($page, $limit) {

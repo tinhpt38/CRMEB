@@ -12,8 +12,7 @@ export interface ProductItemProps {
   /**
    * Whether to replace the current page when user clicks on this product item. Default behavior is to push a new page to the history stack.
    * This prop should be used when navigating to a new product detail from a current product detail page (related products, etc.)
-   */
-  replace?: boolean;
+   */  replace?: boolean;
 }
 
 export default function ProductItem(props: ProductItemProps) {

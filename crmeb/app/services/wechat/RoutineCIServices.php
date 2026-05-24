@@ -38,8 +38,7 @@ use think\facade\Log;
  * 
  * @see https://developers.weixin.qq.com/miniprogram/dev/devtools/ci.html
  * @package app\services\wechat
- */
-class RoutineCIServices extends BaseServices
+ */class RoutineCIServices extends BaseServices
 {
     /**
      * Đường dẫn lưu trữ tệp dự án chương trình nhỏ
@@ -48,8 +47,7 @@ class RoutineCIServices extends BaseServices
      * Đường dẫn mặc định: public/statics/download
      * 
      * @var string
-     */
-    protected $projectPath;
+     */    protected $projectPath;
 
     /**
      * Đường dẫn lưu trữ tệp chính tải lên mã chương trình nhỏ
@@ -61,8 +59,7 @@ class RoutineCIServices extends BaseServices
      * và loại trừ nó trong .gitignore để tránh phạm vào hệ thống kiểm soát phiên bản。
      * 
      * @var string
-     */
-    protected $privateKeyPath;
+     */    protected $privateKeyPath;
 
     /**
      * AppId chương trình nhỏ
@@ -71,8 +68,7 @@ class RoutineCIServices extends BaseServices
      * Dùng để xác định applet đích, phải phù hợp với applet tương ứng với key khi upload。
      * 
      * @var string
-     */
-    protected $appId;
+     */    protected $appId;
 
     /**
      * Trình xây dựng - khởi tạo đường dẫn cấu hình
@@ -81,8 +77,7 @@ class RoutineCIServices extends BaseServices
      * - Đường dẫn lưu trữ file dự án
      * - Đường dẫn lưu trữ file key
      * - đọc từ cấu hình hệ thống AppId
-     */
-    public function __construct()
+     */    public function __construct()
     {
         // Đặt thư mục lưu trữ tệp dự án (public/statics/download)
         $this->projectPath = public_path() . 'statics' . DIRECTORY_SEPARATOR . 'download';
@@ -95,8 +90,8 @@ class RoutineCIServices extends BaseServices
     /**
      * Nhận thông tin trạng thái cấu hình tải lên
      *
-     * Trả về tất cả trạng thái cấu hình liên quan đến tải lên chương trình mini hiện tại,
-     * Giao diện người dùng hiển thị trạng thái cấu hình dựa trên thông tin này và hướng dẫn người dùng hoàn tất cấu hình.
+     * Trả về Tất cả trạng thái cấu hình liên quan đến tải lên chương trình mini hiện tại,
+     * Giao diện Khách hàng hiển thị trạng thái cấu hình dựa trên thông tin này và hướng dẫn Khách hàng hoàn tất cấu hình.
      *
      * @return thông tin trạng thái cấu hình mảng, bao gồm:
      *               - app_id: Chương trình nhỏ AppId
@@ -105,8 +100,7 @@ class RoutineCIServices extends BaseServices
      *               - private_key_path: Đường dẫn tệp chính
      *               - project_path: Đường dẫn tệp dự án
      *               - project_exists: Thư mục dự án có tồn tại không?
-     */
-    public function getUploadConfig(): array
+     */    public function getUploadConfig(): array
     {
         return [
             'app_id' => $this->appId,                           // Chương trình nhỏ AppId
@@ -121,20 +115,19 @@ class RoutineCIServices extends BaseServices
     /**
      * Lưu khóa tải lên mã chương trình mini
      *
-     * Lưu nội dung chính được tải xuống từ nền tảng công cộng WeChat vào máy chủ.
+     * Lưu Nội dung chính được tải xuống từ nền tảng công cộng WeChat vào máy chủ.
      * Khóa được sử dụng để xác thực bằng công cụ miniprogram-ci.
      *
      *Quy trình xử lý:
      * 1. Xác minh định dạng khóa (Phải bắt đầu bằng -----BEGIN RSA PRIVATE KEY-----)
      * 2. Đảm bảo thư mục lưu trữ khóa tồn tại
-     * 3. Ghi nội dung chính vào file
+     * 3. Ghi Nội dung chính vào file
      * 4. Đặt quyền truy cập tệp thành 0600 (Chỉ chủ sở hữu mới có thể đọc và viết)
      * 
      * @param string $keyContent Nội dung chính (RSA Định dạng PEM khóa riêng)
      * @return bool Trả về true nếu lưu thành công
      * @throws AdminException được ném ra khi định dạng khóa không chính xác hoặc không lưu được
-     */
-    public function savePrivateKey(string $keyContent): bool
+     */    public function savePrivateKey(string $keyContent): bool
     {
         // Xác minh định dạng khóa: Phải ở định dạng PEM khóa riêng RSA
         if (strpos($keyContent, '-----BEGIN RSA PRIVATE KEY-----') === false) {
@@ -147,7 +140,7 @@ class RoutineCIServices extends BaseServices
             mkdir($keyDir, 0755, true);
         }
 
-        // Viết nội dung chính vào tập tin
+        // Viết Nội dung chính vào tập tin
         $result = file_put_contents($this->privateKeyPath, $keyContent);
         if ($result === false) {
             throw new AdminException('Lưu khóa không thành công, vui lòng kiểm tra quyền thư mục');
@@ -166,8 +159,7 @@ class RoutineCIServices extends BaseServices
      * Nếu tệp khóa không tồn tại, thành công sẽ được trả về trực tiếp.
      *
      * @return bool Trả về khi xóa thành công hoặc file không tồn tại true
-     */
-    public function deletePrivateKey(): bool
+     */    public function deletePrivateKey(): bool
     {
         if (file_exists($this->privateKeyPath)) {
             return unlink($this->privateKeyPath);
@@ -189,8 +181,7 @@ class RoutineCIServices extends BaseServices
      * Cấu hình plug-in phát sóng trực tiếp trong app.json sẽ bị xóa khi đóng
      * @return string Đường dẫn dự án sau khi chuẩn bị xong
      * @throws AdminException Ném khi AppId không được định cấu hình hoặc xảy ra lỗi trong quá trình chuẩn bị
-     */
-    public function prepareProject(bool $isLive = false): string
+     */    public function prepareProject(bool $isLive = false): string
     {
         // Kiểm tra xem AppId đã được định cấu hình chưa
         if (empty($this->appId)) {
@@ -205,8 +196,7 @@ class RoutineCIServices extends BaseServices
 
             // bước chân2: Sao chép mã nguồn chương trình mini vào thư mục đích
             // thư mục nguồn: public/statics/mp_view (Tổng hợp mã nguồn của chương trình mini)
-            /** @var FileService $fileService */
-            $fileService = app(FileService::class);
+            /** @var FileService $fileService */            $fileService = app(FileService::class);
             $fileService->copyDir(public_path() . 'statics/mp_view', $this->projectPath);
 
             // bước chân3: Thay thế tên appid và dự án trong project.config.json
@@ -244,8 +234,7 @@ class RoutineCIServices extends BaseServices
      * @param bool $isLive Việc bật chức năng phát sóng trực tiếp có ảnh hưởng đến việc chuẩn bị dự án hay không
      * @return kết quả tải lên mảng, bao gồm: success, version, desc, message, output
      * @throws AdminException Ngoại lệ được đưa ra khi kiểm tra môi trường không thành công hoặc tải lên không thành công
-     */
-    public function upload(string $version, string $desc = '', bool $isLive = false): array
+     */    public function upload(string $version, string $desc = '', bool $isLive = false): array
     {
         // Kiểm tra xem môi trường hoạt động có đáp ứng yêu cầu không
         $this->checkEnvironment();
@@ -298,8 +287,7 @@ class RoutineCIServices extends BaseServices
      *                         Khi trống, trang chủ của chương trình mini sẽ được xem trước theo mặc định.
      * @return kết quả xem trước mảng, bao gồm: success, qrcode_url, message, output
      * @throws AdminException Ngoại lệ được đưa ra khi kiểm tra môi trường không thành công hoặc xem trước không thành công
-     */
-    public function preview(string $pagePath = ''): array
+     */    public function preview(string $pagePath = ''): array
     {
         // Kiểm tra xem môi trường hoạt động có đáp ứng yêu cầu không
         $this->checkEnvironment();
@@ -356,8 +344,7 @@ class RoutineCIServices extends BaseServices
      * @param string $version số phiên bản
      * @param string $desc Mô tả phiên bản, mặc định là "phiên bản {version}"
      * @return string Hoàn thành chuỗi dòng lệnh
-     */
-    protected function buildUploadCommand(string $version, string $desc = ''): string
+     */    protected function buildUploadCommand(string $version, string $desc = ''): string
     {
         // Mô tả phiên bản mặc định
         $desc = $desc ?: 'Phiên bản ' . $version;
@@ -391,8 +378,7 @@ class RoutineCIServices extends BaseServices
      * @param string $qrcodePath Đường dẫn lưu ảnh mã QR
      * @param string $pagePath Đường dẫn trang xem trước (Không bắt buộc)
      * @return string Hoàn thành chuỗi dòng lệnh
-     */
-    protected function buildPreviewCommand(string $qrcodePath, string $pagePath = ''): string
+     */    protected function buildPreviewCommand(string $qrcodePath, string $pagePath = ''): string
     {
         // Xây dựng các lệnh xem trước cơ bản
         $command = sprintf(
@@ -417,27 +403,26 @@ class RoutineCIServices extends BaseServices
      * Kiểm tra các điều kiện môi trường cần thiết trước khi thực hiện tải lên hoặc xem trước:
      * 1. Chương trình nhỏ AppId được định cấu hình
      * 2. Tệp khóa được tải lên đã tồn tại
-     * 3. Công cụ miniprogram-ci đã được cài đặt trên toàn cầu
+     * 3. Công cụ miniprogram-ci đã được Cài đặt trên toàn cầu
      *
      * @throws AdminException ném ngoại lệ khi không đáp ứng bất kỳ điều kiện nào
-     */
-    protected function checkEnvironment(): void
+     */    protected function checkEnvironment(): void
     {
-        // nghiên cứu1: AppId Nó đã được cấu hình chưa?
+        // nghiên Lưu1: AppId Nó đã được cấu hình chưa?
         if (empty($this->appId)) {
             throw new AdminException('Hãy cấu hình chương trình mini trước AppId');
         }
 
-        // nghiên cứu2: Tệp khóa có tồn tại không?
+        // nghiên Lưu2: Tệp khóa có tồn tại không?
         if (!file_exists($this->privateKeyPath)) {
             throw new AdminException('Vui lòng tải lên mã chương trình mini để tải khóa trước');
         }
 
-        // nghiên cứu3: miniprogram-ci Nó đã được cài đặt trên toàn cầu chưa?
+        // nghiên Lưu3: miniprogram-ci Nó đã được Cài đặt trên toàn cầu chưa?
         $output = [];
         exec('which miniprogram-ci 2>&1', $output, $returnCode);
         if ($returnCode !== 0) {
-            throw new AdminException('miniprogram-ci Chưa cài đặt, vui lòng cài đặt môi trường hoạt động trước');
+            throw new AdminException('miniprogram-ci Chưa Cài đặt, vui lòng Cài đặt môi trường hoạt động trước');
         }
     }
 
@@ -448,8 +433,7 @@ class RoutineCIServices extends BaseServices
      * Thay thế nó bằng tên miền của máy chủ hiện tại để đảm bảo rằng chương trình mini có thể gọi chính xác giao diện phụ trợ.。
      * 
      * @param string $url Tên miền mới sẽ được thay thế bằng (giống https://your-domain.com)
-     */
-    protected function updateUrl(string $url): void
+     */    protected function updateUrl(string $url): void
     {
         // Xây dựng đường dẫn tệp của nhà cung cấp.js (Chứa cấu hình tên miền API)
         $fileUrl = $this->projectPath . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'vendor.js';
@@ -457,7 +441,7 @@ class RoutineCIServices extends BaseServices
             return;
         }
 
-        // Đọc nội dung tập tin
+        // Đọc Nội dung tập tin
         $string = file_get_contents($fileUrl);
         // Thay thế tên miền mặc định bằng tên miền máy chủ hiện tại
         $string = str_replace('https://demo.crmeb.com', $url, $string);
@@ -470,8 +454,7 @@ class RoutineCIServices extends BaseServices
      *
      * Khi không cần chức năng phát sóng trực tiếp, hãy xóa cấu hình plugin trình phát trực tiếp trong app.json.
      * Điều này có thể tránh tạo ra các phần phụ thuộc không cần thiết khi không sử dụng tính năng phát trực tiếp。
-     */
-    protected function updateAppJson(): void
+     */    protected function updateAppJson(): void
     {
         // app.json đường dẫn tập tin
         $fileUrl = $this->projectPath . DIRECTORY_SEPARATOR . 'app.json';
@@ -495,8 +478,7 @@ class RoutineCIServices extends BaseServices
      * 
      * @param string $appId Chương trình nhỏ AppId
      * @param string $projectName Tên dự án (Không bắt buộc)
-     */
-    protected function updateConfigJson(string $appId, string $projectName = ''): void
+     */    protected function updateConfigJson(string $appId, string $projectName = ''): void
     {
         // project.config.json đường dẫn tập tin
         $fileUrl = $this->projectPath . DIRECTORY_SEPARATOR . 'project.config.json';
@@ -520,22 +502,21 @@ class RoutineCIServices extends BaseServices
     }
 
     /**
-     * Đệ quy xóa một thư mục và tất cả nội dung của nó
+     * Đệ quy xóa một thư mục và Tất cả Nội dung của nó
      *
      * Dùng để dọn dẹp các tập tin dự án cũ trước khi chuẩn bị một dự án mới.
-     * Sẽ xóa đệ quy tất cả các tệp và thư mục con trong thư mục đã chỉ định。
+     * Sẽ xóa đệ quy Tất cả các tệp và thư mục con trong thư mục đã chỉ định。
      * 
      * @param string $dir Đường dẫn thư mục cần xóa
      * @return bool Xóa trả lại thành công true
-     */
-    protected function deleteDirectory(string $dir): bool
+     */    protected function deleteDirectory(string $dir): bool
     {
         // Nếu thư mục không tồn tại, thành công sẽ được trả về trực tiếp.
         if (!is_dir($dir)) {
             return true;
         }
 
-        // Duyệt qua tất cả các tập tin và thư mục con trong một thư mục (loại trừ . Và ..)
+        // Duyệt qua Tất cả các tập tin và thư mục con trong một thư mục (loại trừ . Và ..)
         $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
             $path = $dir . DIRECTORY_SEPARATOR . $file;
@@ -554,8 +535,7 @@ class RoutineCIServices extends BaseServices
      *Bao gồm số phiên bản, thời gian tải lên, người tải lên và các thông tin khác.
      *
      * Mảng @return Mảng lịch sử tải lên
-     */
-    public function getUploadHistory(): array
+     */    public function getUploadHistory(): array
     {
         // TODO: Triển khai chức năng lịch sử tải lên
         // Bạn có thể lưu các bản ghi tải lên cơ sở dữ liệu, bao gồm:

@@ -21,14 +21,12 @@ use crmeb\exceptions\AdminException;
 /**
  * Class StoreProductAttrService
  * @package app\services\product\sku
- */
-class StoreProductAttrServices extends BaseServices
+ */class StoreProductAttrServices extends BaseServices
 {
     /**
      * StoreProductAttrServices constructor.
      * @param StoreProductAttrDao $dao
-     */
-    public function __construct(StoreProductAttrDao $dao)
+     */    public function __construct(StoreProductAttrDao $dao)
     {
         $this->dao = $dao;
     }
@@ -39,15 +37,11 @@ class StoreProductAttrServices extends BaseServices
      * @param int $id
      * @param int $type
      * @return bool
-     */
-    public function saveProductAttr(array $data, int $id, int $type = 0, $is_vip = 0, $is_virtual = 0)
+     */    public function saveProductAttr(array $data, int $id, int $type = 0, $is_vip = 0, $is_virtual = 0)
     {
-        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */
-        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
-        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */
-        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
-        /** @var StoreProductServices $storeProductService */
-        $storeProductService = app()->make(StoreProductServices::class);
+        /** @var StoreProductAttrResultServices $storeProductAttrResultServices */        $storeProductAttrResultServices = app()->make(StoreProductAttrResultServices::class);
+        /** @var StoreProductAttrValueServices $storeProductAttrValueServices */        $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductServices $storeProductService */        $storeProductService = app()->make(StoreProductServices::class);
         $this->dao->del($id, $type);
         $storeProductAttrResultServices->del($id, $type);
         $storeProductAttrValueServices->del($id, $type);
@@ -76,8 +70,7 @@ class StoreProductAttrServices extends BaseServices
             }
             return $storeProductAttrValueServices->saveAll($data['valueGroup']);
         } else {
-            /** @var StoreProductVirtualServices $productVirtual */
-            $productVirtual = app()->make(StoreProductVirtualServices::class);
+            /** @var StoreProductVirtualServices $productVirtual */            $productVirtual = app()->make(StoreProductVirtualServices::class);
             $cardStock = 0;
             foreach ($data['valueGroup'] as &$item) {
                 $res = $storeProductAttrValueServices->save($item);
@@ -112,8 +105,7 @@ class StoreProductAttrServices extends BaseServices
      * Nhận thông số kỹ thuật sản phẩm
      * @param array $where
      * @return array
-     */
-    public function getProductAttr(array $where)
+     */    public function getProductAttr(array $where)
     {
         return $this->dao->getProductAttr($where);
     }
@@ -126,14 +118,11 @@ class StoreProductAttrServices extends BaseServices
      * @param int $typeId
      * @param int $productId
      * @return array
-     */
-    public function getProductAttrDetail(int $id, int $uid, int $type, int $typeId = 0, int $productId = 0)
+     */    public function getProductAttrDetail(int $id, int $uid, int $type, int $typeId = 0, int $productId = 0)
     {
         $attrDetail = $this->dao->getProductAttr(['product_id' => $id, 'type' => $typeId]);
-        /** @var StoreProductAttrValueServices $storeProductAttrValueService */
-        $storeProductAttrValueService = app()->make(StoreProductAttrValueServices::class);
-        /** @var StoreProductServices $storeProductService */
-        $storeProductService = app()->make(StoreProductServices::class);
+        /** @var StoreProductAttrValueServices $storeProductAttrValueService */        $storeProductAttrValueService = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductServices $storeProductService */        $storeProductService = app()->make(StoreProductServices::class);
         $_values = $storeProductAttrValueService->getProductAttrValue(['product_id' => $id, 'type' => $typeId]);
         if ($productId == 0) $productId = $id;
         $is_vip = $storeProductService->get($productId, ['is_vip']);
@@ -144,8 +133,7 @@ class StoreProductAttrServices extends BaseServices
         $cartNumList = [];
         $activityAttr = [];
         if ($uid) {
-            /** @var StoreCartServices $storeCartService */
-            $storeCartService = app()->make(StoreCartServices::class);
+            /** @var StoreCartServices $storeCartService */            $storeCartService = app()->make(StoreCartServices::class);
             $cartNumList = $storeCartService->getUserCartNums(array_column($_values, 'unique'), $id, $uid);
         }
         foreach ($_values as $value) {

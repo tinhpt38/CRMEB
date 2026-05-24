@@ -19,13 +19,12 @@ use crmeb\services\pay\Pay;
  * Cổng thanh toán thống nhất
  * Class PayServices
  * @package app\services\pay
- */
-class PayServices
+ */class PayServices
 {
     //Loại thanh toán WeChat
     const WEIXIN_PAY = 'weixin';
 
-    //thanh toán số dư
+    //Thanh toán bằng số dư
     const YUE_PAY = 'yue';
 
     //Thanh toán ngoại tuyến
@@ -34,7 +33,7 @@ class PayServices
     //Alipay
     const ALIAPY_PAY = 'alipay';
 
-    //thanh toán Tonglian
+    //Thanh toán Tonglian
     const ALLIN_PAY = 'allinpay';
 
     //Bạn bè trả tiền thay mặt
@@ -49,23 +48,34 @@ class PayServices
     /** Chuyển khoản ngân hàng / VietQR — xác nhận thủ công */
     const VN_BANK = 'vn_bank';
 
+    /** VNPay — cổng thẻ / QR / ví liên kết */
+    const VN_VNPAY = 'vnpay';
+
+    /** MoMo — ví điện tử */
+    const VN_MOMO = 'momo';
+
+    /** ZaloPay — ví điện tử */
+    const VN_ZALOPAY = 'zalopay';
+
     //Phương thức thanh toán
     const PAY_TYPE = [
         PayServices::WEIXIN_PAY => 'Thanh toán WeChat',
-        PayServices::YUE_PAY => 'thanh toán số dư',
+        PayServices::YUE_PAY => 'Thanh toán bằng số dư',
         PayServices::OFFLINE_PAY => 'Thanh toán ngoại tuyến',
         PayServices::ALIAPY_PAY => 'Alipay',
         PayServices::FRIEND => 'Bạn bè trả tiền thay mặt',
-        PayServices::ALLIN_PAY => 'thanh toán Tonglian',
+        PayServices::ALLIN_PAY => 'Thanh toán Tonglian',
         PayServices::BANK => 'chuyển khoản ngân hàng',
         PayServices::VN_COD => 'Thanh toán khi nhận hàng (COD)',
         PayServices::VN_BANK => 'Chuyển khoản ngân hàng / VietQR',
+        PayServices::VN_VNPAY => 'VNPay',
+        PayServices::VN_MOMO => 'MoMo',
+        PayServices::VN_ZALOPAY => 'ZaloPay',
     ];
 
     /**
      * @var array
-     */
-    protected $options = [];
+     */    protected $options = [];
 
     /**
      * @param string $key
@@ -74,8 +84,7 @@ class PayServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/16
-     */
-    public function setOption(string $key, $value)
+     */    public function setOption(string $key, $value)
     {
         $this->options[$key] = $value;
         return $this;
@@ -87,8 +96,7 @@ class PayServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/16
-     */
-    public function setOptions(array $value)
+     */    public function setOptions(array $value)
     {
         $this->options = $value;
         return $this;
@@ -101,8 +109,7 @@ class PayServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/1/16
-     */
-    protected function getOption(string $key, $default = null)
+     */    protected function getOption(string $key, $default = null)
     {
         return $this->options[$key] ?? $default;
     }
@@ -116,12 +123,11 @@ class PayServices
      * @param string $successAction
      * @param string $body
      * @return array|string
-     */
-    public function pay(string $payType, string $orderId, string $price, string $successAction, string $body, array $options = [])
+     */    public function pay(string $payType, string $orderId, string $price, string $successAction, string $body, array $options = [])
     {
         try {
 
-            //Đây là tất cả các khoản thanh toán WeChat
+            //Đây là Tất cả các khoản thanh toán WeChat
             if (in_array($payType, ['routine', 'weixinh5', 'weixin', 'pc', 'store'])) {
                 $payType = 'wechat_pay';
                 //Xác định xem có nên sử dụngv3
@@ -133,11 +139,16 @@ class PayServices
                     $payType = 'ali_pay';
                 } elseif ($payType == 'allinpay') {
                     $payType = 'allin_pay';
+                } elseif ($payType === self::VN_VNPAY) {
+                    $payType = 'vnpay_pay';
+                } elseif ($payType === self::VN_MOMO) {
+                    $payType = 'momo_pay';
+                } elseif ($payType === self::VN_ZALOPAY) {
+                    $payType = 'zalopay_pay';
                 }
             }
 
-            /** @var Pay $pay */
-            $pay = app()->make(Pay::class, [$payType]);
+            /** @var Pay $pay */            $pay = app()->make(Pay::class, [$payType]);
 
 
             return $pay->create($orderId, $price, $successAction, $body, '', ['pay_new_weixin_open' => (bool)sys_config('pay_new_weixin_open')] + $options);
@@ -159,12 +170,11 @@ class PayServices
      * @param string $successAction
      * @param string $body
      * @return array|string
-     */
-//    public function pay(string $payType, string $openid, string $orderId, string $price, string $successAction, string $body, bool $isCode = false)
+     *///    public function pay(string $payType, string $openid, string $orderId, string $price, string $successAction, string $body, bool $isCode = false)
 //    {
 //        try {
 //
-//            //Đây là tất cả các khoản thanh toán WeChat
+//            //Đây là Tất cả các khoản thanh toán WeChat
 //            if (in_array($payType, ['routine', 'weixinh5', 'weixin', 'pc', 'store'])) {
 //                $payType = 'wechat_pay';
 //                //Xác định xem có nên sử dụngv3

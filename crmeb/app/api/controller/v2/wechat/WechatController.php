@@ -17,16 +17,14 @@ use crmeb\services\CacheService;
 /**
  * Class WechatController
  * @package app\api\controller\v2\wechat
- */
-class WechatController
+ */class WechatController
 {
     protected $services = NUll;
 
     /**
      * WechatController constructor.
      * @param WechatServices $services
-     */
-    public function __construct(WechatServices $services)
+     */    public function __construct(WechatServices $services)
     {
         $this->services = $services;
     }
@@ -42,8 +40,7 @@ class WechatController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function authLogin($spread = '', $agent_id = '')
+     */    public function authLogin($spread = '', $agent_id = '')
     {
         $data = $this->services->authLogin($spread, $agent_id);
         return app('json')->success($data);
@@ -62,8 +59,7 @@ class WechatController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/12
-     */
-    public function authBindingPhone($key = '', $phone = '', $captcha = '')
+     */    public function authBindingPhone($key = '', $phone = '', $captcha = '')
     {
         //Xác minh mã xác minh
         $verifyCode = CacheService::get('code_' . $phone);

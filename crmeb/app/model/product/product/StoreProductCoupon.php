@@ -18,22 +18,19 @@ use crmeb\traits\ModelTrait;
 /**
  * Class StoreProductCoupon
  * @package app\model\product\product
- */
-class StoreProductCoupon extends BaseModel
+ */class StoreProductCoupon extends BaseModel
 {
     use  ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_coupon';
+     */    protected $name = 'store_product_coupon';
 
 
     public function searchProductIdAttr($query, $value)

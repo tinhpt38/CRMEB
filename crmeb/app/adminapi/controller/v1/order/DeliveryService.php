@@ -19,15 +19,13 @@ use think\facade\App;
  * Quản lý nhân viên giao hàng
  * Class StoreService
  * @package app\admin\controller\store
- */
-class DeliveryService extends AuthController
+ */class DeliveryService extends AuthController
 {
     /**
      * DeliveryService constructor.
      * @param App $app
      * @param DeliveryServiceServices $services
-     */
-    public function __construct(App $app, DeliveryServiceServices $services)
+     */    public function __construct(App $app, DeliveryServiceServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,27 +37,24 @@ class DeliveryService extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         return app('json')->success($this->services->getServiceList([]));
     }
 
     /**
-     * Thêm biểu mẫu dịch vụ khách hàng
+     * Thêm biểu mẫu CSKH
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function add()
+     */    public function add()
     {
         return app('json')->success($this->services->create());
     }
 
     /**
-     * Cứu người giao hàng
+     * Lưu người giao hàng
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['image', ''],
@@ -79,8 +74,7 @@ class DeliveryService extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->edit((int)$id));
     }
@@ -89,8 +83,7 @@ class DeliveryService extends AuthController
      * Sửa đổi người giao hàng
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['avatar', ''],
@@ -107,8 +100,7 @@ class DeliveryService extends AuthController
      * Xóa người giao hàng
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$this->services->delete($id))
             return app('json')->fail('Xóa không thành công');
@@ -121,8 +113,7 @@ class DeliveryService extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function set_status($id, $status)
+     */    public function set_status($id, $status)
     {
         if ($status == '' || $id == 0) return app('json')->fail('Lỗi tham số');
         $this->services->update($id, ['status' => $status]);
@@ -130,10 +121,9 @@ class DeliveryService extends AuthController
     }
 
     /**
-     * Nhận danh sách tất cả các nhà chuyển phát nhanh
+     * Nhận danh sách Tất cả các nhà chuyển phát nhanh
      * @return mixed
-     */
-    public function get_delivery_list()
+     */    public function get_delivery_list()
     {
         $data = $this->services->getDeliveryList();
         return app('json')->success($data);

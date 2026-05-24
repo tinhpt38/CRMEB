@@ -17,8 +17,7 @@ use think\Validate;
 /**
  * Class SystemConfigValidata
  * @package app\adminapi\validate\setting
- */
-class SystemConfigValidata extends Validate
+ */class SystemConfigValidata extends Validate
 {
 
     protected $regex = ['float_two' => '/^[0-9]+(.[0-9]{1,2})?$/'];
@@ -27,8 +26,7 @@ class SystemConfigValidata extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'site_url' => 'url',
         'store_brokerage_ratio' => 'float|egt:0|elt:100|regex:float_two',
         'store_brokerage_two' => 'float|egt:0|elt:100|regex:float_two',
@@ -75,8 +73,7 @@ class SystemConfigValidata extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'site_url.url' => 'Vui lòng nhập một URL hợp lệ',
         'store_brokerage_ratio.float' => 'Tỷ lệ giảm giá cấp đầu tiên phải là một con số',
         'store_brokerage_ratio.regex' => 'Tỷ lệ giảm giá cấp đầu tiên có thể được đặt tối đa là hai chữ số thập phân.',
@@ -119,8 +116,8 @@ class SystemConfigValidata extends Validate
         'offline_rule_number.number' => 'Số giảm giá phải lớn hơn0',
         'order_give_exp.number' => 'Tỷ lệ trải nghiệm miễn phí khi đặt hàng phải là một con số',
         'order_give_exp.egt' => 'Tỷ lệ trải nghiệm miễn phí khi đặt hàng phải lớn hơn0',
-        'invite_user_exp.number' => 'Mời người dùng mới trải nghiệm quà tặng phải là một con số',
-        'invite_user_exp.egt' => 'Việc mời người dùng mới trải nghiệm quà tặng phải lớn hơn0',
+        'invite_user_exp.number' => 'Mời Khách hàng mới trải nghiệm quà tặng phải là một con số',
+        'invite_user_exp.egt' => 'Việc mời Khách hàng mới trải nghiệm quà tặng phải lớn hơn0',
         'config_export_to_name.chs' => 'Tên người gửi hàng phải bằng tiếng Trung',
         'config_export_to_name.length' => 'Độ dài của tên người gửi hàng phải từ 2 đến 10 ký tự.',
         'config_export_to_tel.number' => 'Số điện thoại của người gửi hàng phải là số',
@@ -129,7 +126,7 @@ class SystemConfigValidata extends Validate
         'config_export_to_address.length' => 'Độ dài địa chỉ người gửi hàng là 10-100 chữ số',
         'config_export_siid.alphaNum' => 'Số máy in biểu mẫu điện tử phải là số hoặc chữ cái',
         'config_export_siid.length' => 'Độ dài số máy in biểu mẫu điện tử là 10-50 chữ số',
-        'service_feedback.length' => 'Độ dài phản hồi của dịch vụ khách hàng dao động từ 10 đến 90 ký tự',
+        'service_feedback.length' => 'Độ dài phản hồi của CSKH dao động từ 10 đến 90 ký tự',
         'thumb_big_height.number' => 'Kích thước hình thu nhỏ (chiều cao) phải là số',
         'thumb_big_height.egt' => 'Kích thước ảnh thu nhỏ (chiều cao) phải lớn hơn hoặc bằng0',
         'thumb_big_width.number' => 'Kích thước hình thu nhỏ (chiều rộng) phải là số',

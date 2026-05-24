@@ -19,14 +19,12 @@ use app\services\BaseServices;
  * Class WechatMediaServices
  * @package app\services\wechat
  * @method save(array $data) lưu dữ liệu
- */
-class WechatMediaServices extends BaseServices
+ */class WechatMediaServices extends BaseServices
 {
     /**
      * WechatMediaServices constructor.
      * @param WechatMediaDao $dao
-     */
-    public function __construct(WechatMediaDao $dao)
+     */    public function __construct(WechatMediaDao $dao)
     {
         $this->dao = $dao;
     }

@@ -22,35 +22,31 @@ use crmeb\services\FormBuilder;
  * Class SystemStoreStaffServices
  * @package app\services\system\store
  * @mixin SystemStoreStaffDao
- */
-class SystemStoreStaffServices extends BaseServices
+ */class SystemStoreStaffServices extends BaseServices
 {
     /**
      * @var FormBuilder
-     */
-    protected $builder;
+     */    protected $builder;
 
     /**
      * Người xây dựng
      * SystemStoreStaffServices constructor.
      * @param SystemStoreStaffDao $dao
      * @param FormBuilder $builder
-     */
-    public function __construct(SystemStoreStaffDao $dao, FormBuilder $builder)
+     */    public function __construct(SystemStoreStaffDao $dao, FormBuilder $builder)
     {
         $this->dao = $dao;
         $this->builder = $builder;
     }
 
     /**
-     * Xác định xem nhân viên bán hàng có được phép xóa sổ hay không
+     * Xác định xem nhân viên bán hàng có được phép xác nhận hay không
      * @param $uid
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function verifyStatus($uid)
+     */    public function verifyStatus($uid)
     {
         return (bool)$this->dao->getOne(['uid' => $uid, 'status' => 1, 'verify_status' => 1]);
     }
@@ -62,8 +58,7 @@ class SystemStoreStaffServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStoreStaffList(array $where)
+     */    public function getStoreStaffList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getStoreStaffList($where, $page, $limit);
@@ -77,11 +72,9 @@ class SystemStoreStaffServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStoreSelectFormData()
+     */    public function getStoreSelectFormData()
     {
-        /** @var SystemStoreServices $service */
-        $service = app()->make(SystemStoreServices::class);
+        /** @var SystemStoreServices $service */        $service = app()->make(SystemStoreServices::class);
         $menus = [];
         foreach ($service->getStore() as $menu) {
             $menus[] = ['value' => $menu['id'], 'label' => $menu['name']];
@@ -97,8 +90,7 @@ class SystemStoreStaffServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createStoreStaffForm(array $formData = [])
+     */    public function createStoreStaffForm(array $formData = [])
     {
         if ($formData) {
             $field[] = $this->builder->frameImage('image', 'Thay đổi hình đại diện', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'image'),true), $formData['avatar'] ?? '')->icon('el-icon-user')->width('950px')->height('560px')->props(['footer' => false]);
@@ -122,8 +114,7 @@ class SystemStoreStaffServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createForm()
+     */    public function createForm()
     {
         return create_form('Thêm người bảo lãnh', $this->createStoreStaffForm(), $this->url('/merchant/store_staff/save/0'));
     }
@@ -136,8 +127,7 @@ class SystemStoreStaffServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateForm(int $id)
+     */    public function updateForm(int $id)
     {
         $storeStaff = $this->dao->get($id);
         if (!$storeStaff) {

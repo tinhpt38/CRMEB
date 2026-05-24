@@ -28,8 +28,7 @@ class DivisionController
     /**
      * DivisionController constructor.
      * @param DivisionAgentApplyServices $services
-     */
-    public function __construct(DivisionAgentApplyServices $services)
+     */    public function __construct(DivisionAgentApplyServices $services)
     {
         $this->services = $services;
     }
@@ -39,8 +38,7 @@ class DivisionController
      * @param Request $request
      * @param $id
      * @return mixed
-     */
-    public function applyAgent(Request $request, $id)
+     */    public function applyAgent(Request $request, $id)
     {
         $data = $request->postMore([
             ['uid', 0],
@@ -59,14 +57,13 @@ class DivisionController
     }
 
     /**
-     * Chi tiết ứng dụng
+     * Chi tiết Ứng dụng
      * @param Request $request
      * @return mixed
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function applyInfo(Request $request)
+     */    public function applyInfo(Request $request)
     {
         $uid = $request->uid();
         $data = $this->services->applyInfo($uid);
@@ -80,8 +77,7 @@ class DivisionController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function getAgentAgreement(AgreementServices $agreementServices)
+     */    public function getAgentAgreement(AgreementServices $agreementServices)
     {
         $data = $agreementServices->getAgreementBytype(2);
         return app('json')->success($data);
@@ -94,8 +90,7 @@ class DivisionController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function getStaffList(Request $request)
+     */    public function getStaffList(Request $request)
     {
         $where = $request->postMore([
             ['keyword', ''],
@@ -109,8 +104,7 @@ class DivisionController
      * Đặt tỷ lệ nhân viên
      * @param Request $request
      * @return mixed
-     */
-    public function setStaffPercent(Request $request)
+     */    public function setStaffPercent(Request $request)
     {
         [$agentPercent, $uid] = $request->postMore([
             ['agent_percent', ''],
@@ -118,8 +112,7 @@ class DivisionController
         ], true);
         $agentId = $request->uid();
         if (!$uid) return app('json')->fail('Lỗi tham số');
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $upPercent = $userService->value(['uid' => $agentId], 'division_percent');
         if ($agentPercent >= $upPercent) return app('json')->fail('Tỷ lệ không thể lớn hơn tỷ lệ của bạn');
         $userService->update(['uid' => $uid, 'agent_id' => $agentId], ['division_percent' => $agentPercent]);
@@ -131,13 +124,11 @@ class DivisionController
      * @param Request $request
      * @param $uid
      * @return mixed
-     */
-    public function delStaff(Request $request, $uid)
+     */    public function delStaff(Request $request, $uid)
     {
         if (!$uid) return app('json')->fail('Lỗi tham số');
         $agentId = $request->uid();
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $userService->update(['uid' => $uid, 'agent_id' => $agentId], ['division_percent' => 0, 'agent_id' => 0, 'division_id' => 0, 'staff_id' => 0, 'division_type' => 0, 'is_staff' => 0]);
         return app('json')->success('Xóa thành công');
     }
@@ -152,8 +143,7 @@ class DivisionController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2024/2/2
-     */
-    public function agentSpread(Request $request)
+     */    public function agentSpread(Request $request)
     {
         [$agentId, $agentCode] = $request->postMore([
             ['agent_id', 0],

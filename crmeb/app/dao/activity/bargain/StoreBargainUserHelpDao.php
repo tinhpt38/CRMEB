@@ -19,15 +19,13 @@ use app\model\activity\bargain\StoreBargainUserHelp;
  *
  * Class StoreBargainUserHelpDao
  * @package app\dao\activity
- */
-class StoreBargainUserHelpDao extends BaseDao
+ */class StoreBargainUserHelpDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreBargainUserHelp::class;
     }
@@ -35,8 +33,7 @@ class StoreBargainUserHelpDao extends BaseDao
     /**
      * Nhận số lượng người giúp đỡ
      * @return array
-     */
-    public function getHelpAllCount(array $where = [])
+     */    public function getHelpAllCount(array $where = [])
     {
         return $this->getModel()->where($where)->group('bargain_id')->column('count(*)', 'bargain_id');
     }
@@ -47,8 +44,7 @@ class StoreBargainUserHelpDao extends BaseDao
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function getHelpList(int $bid, int $page = 0, int $limit = 0)
+     */    public function getHelpList(int $bid, int $page = 0, int $limit = 0)
     {
         return $this->getModel()
             ->where('bargain_user_id', $bid)
@@ -61,8 +57,7 @@ class StoreBargainUserHelpDao extends BaseDao
     /**
      * Lấy số lượng người đã giảm giá sản phẩm ở mức giá ưu đãi
      * @return array
-     */
-    public function getNums()
+     */    public function getNums()
     {
         return $this->getModel()->field('count(id) as num,bargain_user_id')->group('bargain_user_id')->select()->toArray();
     }

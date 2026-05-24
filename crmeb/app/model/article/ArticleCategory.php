@@ -19,28 +19,24 @@ use think\Model;
  * TODO Phân loại bài viếtModel
  * Class ArticleCategory
  * @package app\model\article
- */
-class ArticleCategory extends BaseModel
+ */class ArticleCategory extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'article_category';
+     */    protected $name = 'article_category';
 
     /**
      * Nhận điều kiện truy vấn phân loại tập hợp con
      * @return \think\model\relation\HasMany
-     */
-    public function children()
+     */    public function children()
     {
         return $this->hasMany(self::class, 'pid', 'id')->where(['hidden' => 0, 'is_del' => 0, 'status' => 1])->order('sort DESC,id DESC')->field('id,pid,title');
     }
@@ -50,8 +46,7 @@ class ArticleCategory extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStatusAttr($query, $value, $data)
+     */    public function searchStatusAttr($query, $value, $data)
     {
         if ($value !== '') $query->where('status', $value);
     }
@@ -61,8 +56,7 @@ class ArticleCategory extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTitleAttr($query, $value, $data)
+     */    public function searchTitleAttr($query, $value, $data)
     {
         $query->where('title', 'like', '%' . $value . '%');
     }
@@ -72,8 +66,7 @@ class ArticleCategory extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchHiddenAttr($query, $value, $data)
+     */    public function searchHiddenAttr($query, $value, $data)
     {
         $query->where('hidden', $value);
     }
@@ -83,8 +76,7 @@ class ArticleCategory extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value);
     }
@@ -93,8 +85,7 @@ class ArticleCategory extends BaseModel
      * Người tìm kiếm cao cấp
      * @param $query
      * @param $value
-     */
-    public function searchPidAttr($query, $value)
+     */    public function searchPidAttr($query, $value)
     {
         if ($value !== '') $query->where('pid', $value);
     }

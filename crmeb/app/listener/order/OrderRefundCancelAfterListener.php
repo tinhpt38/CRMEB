@@ -17,8 +17,7 @@ use crmeb\interfaces\ListenerInterface;
  * Hủy đơn hàng sau bán hàng
  * Class OrderRefundCancelAfterListener
  * @package app\listener\order
- */
-class OrderRefundCancelAfterListener implements ListenerInterface
+ */class OrderRefundCancelAfterListener implements ListenerInterface
 {
     public function handle($event): void
     {

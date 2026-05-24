@@ -20,13 +20,11 @@ use app\model\wechat\WechatReply;
  *
  * Class UserWechatUserDao
  * @package app\dao\user
- */
-class WechatReplyDao extends BaseDao
+ */class WechatReplyDao extends BaseDao
 {
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return WechatReply::class;
     }
@@ -38,8 +36,7 @@ class WechatReplyDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getKey($key)
+     */    public function getKey($key)
     {
         $res = $this->getModel()->whereIn('id', function ($query) use ($key) {
             $query->name('wechat_key')->where('keys', $key)->where('key_type', 0)->field(['reply_id'])->select();

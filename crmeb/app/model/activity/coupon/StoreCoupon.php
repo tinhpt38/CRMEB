@@ -19,34 +19,29 @@ use think\Model;
  * TODO mẫu phiếu giảm giáModel
  * Class StoreCoupon
  * @package app\model\coupon
- */
-class StoreCoupon extends BaseModel
+ */class StoreCoupon extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_coupon';
+     */    protected $name = 'store_coupon';
 
     /**
      * Loại phiếu giảm giá
      * @var string[]
-     */
-    protected $couponType = [0 => 'Mã giảm giá phổ quát', 1 => 'Mã giảm giá danh mục', 2 => 'phiếu giảm giá sản phẩm'];
+     */    protected $couponType = [0 => 'Mã giảm giá phổ quát', 1 => 'Mã giảm giá danh mục', 2 => 'phiếu giảm giá sản phẩm'];
 
     /**
      * liên kết một-nhiều
      * @return \think\model\relation\HasMany
-     */
-    public function productId()
+     */    public function productId()
     {
         return $this->hasMany(StoreCouponProduct::class, 'coupon_id', 'id');
     }
@@ -55,8 +50,7 @@ class StoreCoupon extends BaseModel
      * Trình nhận loại phiếu giảm giá
      * @param $value
      * @return string
-     */
-    public function getTypeAttr($value)
+     */    public function getTypeAttr($value)
     {
         return $this->couponType[$value];
     }
@@ -66,8 +60,7 @@ class StoreCoupon extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTitleAttr($query, $value, $data)
+     */    public function searchTitleAttr($query, $value, $data)
     {
         if ($value) $query->where('title', 'like', '%' . $value . '%');
     }
@@ -77,8 +70,7 @@ class StoreCoupon extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStatusAttr($query, $value, $data)
+     */    public function searchStatusAttr($query, $value, $data)
     {
         if ($value != '') $query->where('status', $value);
     }
@@ -88,8 +80,7 @@ class StoreCoupon extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchUseMinPriceAttr($query, $value, $data)
+     */    public function searchUseMinPriceAttr($query, $value, $data)
     {
         $query->where('use_min_price', $value);
     }
@@ -99,8 +90,7 @@ class StoreCoupon extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCouponPriceAttr($query, $value, $data)
+     */    public function searchCouponPriceAttr($query, $value, $data)
     {
         $query->where('coupon_price', $value);
     }
@@ -110,8 +100,7 @@ class StoreCoupon extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value ?? 0);
     }
@@ -121,8 +110,7 @@ class StoreCoupon extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchTypeAttr($query, $value, $data)
+     */    public function searchTypeAttr($query, $value, $data)
     {
         $query->where('type', $value ?? 0);
     }
@@ -132,8 +120,7 @@ class StoreCoupon extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCategoryIdAttr($query, $value, $data)
+     */    public function searchCategoryIdAttr($query, $value, $data)
     {
         $query->where('category_id', $value);
     }

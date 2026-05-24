@@ -21,8 +21,7 @@ use crmeb\services\FormBuilder;
  * Class StoreServiceSpeechcraftCateServices
  * @package app\services\kefu\service
  * @property CategoryDao dao
- */
-class StoreServiceSpeechcraftCateServices extends CategoryServices
+ */class StoreServiceSpeechcraftCateServices extends CategoryServices
 {
 
 
@@ -30,8 +29,7 @@ class StoreServiceSpeechcraftCateServices extends CategoryServices
      * Nhận mẫu phân loại
      * @param array $data
      * @return mixed
-     */
-    public function serviceSpeechcraftCateForm(array $data = [])
+     */    public function serviceSpeechcraftCateForm(array $data = [])
     {
         $f[] = FormBuilder::input('name', 'Tên danh mục', $data['name'] ?? '')->required();
         $f[] = FormBuilder::number('sort', 'loại', (int)($data['sort'] ?? 0))->min(0);
@@ -42,8 +40,7 @@ class StoreServiceSpeechcraftCateServices extends CategoryServices
      * Nhận biểu mẫu tạo
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm()
+     */    public function createForm()
     {
         return create_form('Thêm danh mục', $this->serviceSpeechcraftCateForm(), $this->url('/app/wechat/speechcraftcate'), 'POST');
     }
@@ -56,8 +53,7 @@ class StoreServiceSpeechcraftCateServices extends CategoryServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function editForm(int $id)
+     */    public function editForm(int $id)
     {
         $cateInfo = $this->dao->get($id);
         if (!$cateInfo) {

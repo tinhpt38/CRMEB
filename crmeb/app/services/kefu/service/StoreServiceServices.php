@@ -19,40 +19,36 @@ use crmeb\exceptions\ApiException;
 use crmeb\services\FormBuilder;
 
 /**
- * dịch vụ khách hàng
+ * CSKH
  * Class StoreServiceServices
  * @package app\services\kefu\service
- * @method getStoreServiceOrderNotice() Nhận dịch vụ khách hàng chấp nhận thông báo
- */
-class StoreServiceServices extends BaseServices
+ * @method getStoreServiceOrderNotice() Nhận CSKH chấp nhận thông báo
+ */class StoreServiceServices extends BaseServices
 {
 
     /**
      * Tạo biểu mẫu
      * @var Form
-     */
-    protected $builder;
+     */    protected $builder;
 
     /**
      * Người xây dựng
      * StoreServiceServices constructor.
      * @param StoreServiceDao $dao
-     */
-    public function __construct(StoreServiceDao $dao, FormBuilder $builder)
+     */    public function __construct(StoreServiceDao $dao, FormBuilder $builder)
     {
         $this->dao = $dao;
         $this->builder = $builder;
     }
 
     /**
-     * Nhận danh sách dịch vụ khách hàng
+     * Nhận danh sách CSKH
      * @param array $where
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceList(array $where)
+     */    public function getServiceList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getServiceList($where, $page, $limit);
@@ -69,35 +65,32 @@ class StoreServiceServices extends BaseServices
     /**
      * @param array $uids
      * @return bool
-     */
-    public function updateNonExistentService(array $uids = [])
+     */    public function updateNonExistentService(array $uids = [])
     {
         if (!$uids) {
             return true;
         }
-        /** @var UserServices $services */
-        $services = app()->make(UserServices::class);
+        /** @var UserServices $services */        $services = app()->make(UserServices::class);
         $userUids = $services->getColumn([['uid', 'in', $uids]], 'uid');
         $unUids = array_diff($uids, $userUids);
         return $this->dao->deleteNonExistentService($unUids);
     }
 
     /**
-     * Tạo biểu mẫu dịch vụ khách hàng
+     * Tạo biểu mẫu CSKH
      * @param array $formData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createServiceForm(array $formData = [])
+     */    public function createServiceForm(array $formData = [])
     {
         if ($formData) {
-            $field[] = $this->builder->frameImage('avatar', 'Hình đại diện dịch vụ khách hàng', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'avatar'], true), $formData['avatar'] ?? '')->icon('el-icon-user')->width('950px')->height('560px')->props(['footer' => false]);
+            $field[] = $this->builder->frameImage('avatar', 'Hình đại diện CSKH', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'avatar'], true), $formData['avatar'] ?? '')->icon('el-icon-user')->width('950px')->height('560px')->props(['footer' => false]);
         } else {
-            $field[] = $this->builder->frameImage('image', 'Chọn người dùng', $this->url(config('app.admin_prefix', 'admin') . '/system.user/list', ['fodder' => 'image'], true))->icon('el-icon-user')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
+            $field[] = $this->builder->frameImage('image', 'Chọn Khách hàng', $this->url(config('app.admin_prefix', 'admin') . '/system.user/list', ['fodder' => 'image'], true))->icon('el-icon-user')->width('950px')->height('560px')->Props(['srcKey' => 'image', 'footer' => false]);
             $field[] = $this->builder->hidden('uid', 0);
             $field[] = $this->builder->hidden('avatar', '');
         }
-        $field[] = $this->builder->input('nickname', 'Tên dịch vụ khách hàng', $formData['nickname'] ?? '')->col(24)->required();
+        $field[] = $this->builder->input('nickname', 'Tên CSKH', $formData['nickname'] ?? '')->col(24)->required();
         $field[] = $this->builder->input('phone', 'số điện thoại', $formData['phone'] ?? '')->col(24)->required();
         if ($formData) {
             $field[] = $this->builder->input('account', 'Đăng nhập tài khoản', $formData['account'] ?? '')->col(24)->required();
@@ -108,7 +101,7 @@ class StoreServiceServices extends BaseServices
             $field[] = $this->builder->input('password', 'Mật khẩu đăng nhập')->type('password')->col(24)->required();
             $field[] = $this->builder->input('true_password', 'Xác nhận mật khẩu')->type('password')->col(24)->required();
         }
-        $field[] = $this->builder->switches('status', 'Tình trạng dịch vụ khách hàng', (string)($formData['status'] ?? 1))->appendControl('1', [
+        $field[] = $this->builder->switches('status', 'Tình trạng CSKH', (string)($formData['status'] ?? 1))->appendControl('1', [
             $this->builder->switches('customer', 'Quản lý đơn hàng di động：', (string)($formData['customer'] ?? 0)),
             $this->builder->switches('notify', 'Thông báo đặt hàng：', (string)($formData['notify'] ?? 0)),
         ])->activeValue('1')->inactiveValue('0');
@@ -116,13 +109,12 @@ class StoreServiceServices extends BaseServices
     }
 
     /**
-     * Tạo biểu mẫu mua lại dịch vụ khách hàng
+     * Tạo biểu mẫu mua lại CSKH
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function create()
+     */    public function create()
     {
-        return create_form('Thêm dịch vụ khách hàng', $this->createServiceForm(), $this->url('/app/wechat/kefu'), 'POST');
+        return create_form('Thêm CSKH', $this->createServiceForm(), $this->url('/app/wechat/kefu'), 'POST');
     }
 
     /**
@@ -130,30 +122,26 @@ class StoreServiceServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit(int $id)
+     */    public function edit(int $id)
     {
         $serviceInfo = $this->dao->get($id);
         if (!$serviceInfo) {
             throw new AdminException('Dữ liệu không tồn tại');
         }
-        return create_form('Chỉnh sửa dịch vụ khách hàng', $this->createServiceForm($serviceInfo->toArray()), $this->url('/app/wechat/kefu/' . $id), 'PUT');
+        return create_form('Chỉnh sửa CSKH', $this->createServiceForm($serviceInfo->toArray()), $this->url('/app/wechat/kefu/' . $id), 'PUT');
     }
 
     /**
-     * Lấy danh sách người dùng lịch sử trò chuyện của ai đó
+     * Lấy danh sách Khách hàng lịch sử trò chuyện của ai đó
      * @param int $uid
      * @return array|array[]
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getChatUser(int $uid)
+     */    public function getChatUser(int $uid)
     {
-        /** @var StoreServiceLogServices $serviceLog */
-        $serviceLog = app()->make(StoreServiceLogServices::class);
-        /** @var UserServices $serviceUser */
-        $serviceUser = app()->make(UserServices::class);
+        /** @var StoreServiceLogServices $serviceLog */        $serviceLog = app()->make(StoreServiceLogServices::class);
+        /** @var UserServices $serviceUser */        $serviceUser = app()->make(UserServices::class);
         $uids = $serviceLog->getChatUserIds($uid);
         if (!$uids) {
             return [];
@@ -162,30 +150,28 @@ class StoreServiceServices extends BaseServices
     }
 
     /**
-     * Kiểm tra xem người dùng có phải là nhân viên dịch vụ khách hàng không
+     * Kiểm tra xem Khách hàng có phải là nhân viên CSKH không
      * @param array $where
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkoutIsService(array $where)
+     */    public function checkoutIsService(array $where)
     {
         return (bool)$this->dao->count($where);
     }
 
     /**
-     * Kiểm tra lịch sử trò chuyện và nhận dịch vụ khách hànguid
-     * @param int $uid người dùng hiện tạiuid
+     * Kiểm tra lịch sử trò chuyện và nhận CSKHuid
+     * @param int $uid Khách hàng hiện tạiuid
      * @param int $uidTo Trang lênid
      * @param int $limit Số hiển thị
-     * @param int $toUid dịch vụ khách hànguid
+     * @param int $toUid CSKHuid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRecord(int $uid, int $uidTo, int $limit = 10, int $toUid = 0)
+     */    public function getRecord(int $uid, int $uidTo, int $limit = 10, int $toUid = 0)
     {
         if (!$toUid) {
             $serviceInfoList = $this->getServiceList(['status' => 1, 'online' => 1]);
@@ -196,11 +182,10 @@ class StoreServiceServices extends BaseServices
             if (!$uids) {
                 throw new ApiException('Hiện tại chưa có nhân viên chăm sóc khách hàng trực tuyến, vui lòng liên hệ sau.');
             }
-            /** @var StoreServiceRecordServices $recordServices */
-            $recordServices = app()->make(StoreServiceRecordServices::class);
-            //Cuộc trò chuyện ưu tiên dịch vụ khách hàng cuối cùng
+            /** @var StoreServiceRecordServices $recordServices */            $recordServices = app()->make(StoreServiceRecordServices::class);
+            //Cuộc trò chuyện ưu tiên CSKH cuối cùng
             $toUid = $recordServices->getLatelyMsgUid(['to_uid' => $uid], 'user_id');
-            //Nếu khách hàng mà bạn trò chuyện lần trước không thuộc dịch vụ khách hàng hiện tại, hãy bắt đầu một khách hàng mới
+            //Nếu khách hàng mà bạn trò chuyện lần trước không thuộc CSKH hiện tại, hãy bắt đầu một khách hàng mới
             if (!in_array($toUid, $uids)) {
                 $toUid = 0;
             }
@@ -213,8 +198,7 @@ class StoreServiceServices extends BaseServices
         }
         $userInfo = $this->dao->get(['uid' => $toUid], ['nickname', 'avatar']);
         if (!$userInfo) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->get(['uid' => $toUid], ['nickname', 'avatar']);
             if (!$userInfo) {
                 $userInfo['nickname'] = '';
@@ -222,8 +206,7 @@ class StoreServiceServices extends BaseServices
             }
         }
         if ($userInfo['avatar']) $userInfo['avatar'] = set_file_url($userInfo['avatar']);
-        /** @var StoreServiceLogServices $logServices */
-        $logServices = app()->make(StoreServiceLogServices::class);
+        /** @var StoreServiceLogServices $logServices */        $logServices = app()->make(StoreServiceLogServices::class);
         $result = ['serviceList' => [], 'uid' => $toUid, 'nickname' => $userInfo['nickname'], 'avatar' => $userInfo['avatar']];
         $serviceLogList = $logServices->getServiceChatList(['chat' => [$uid, $toUid], 'is_tourist' => 0], $limit, $uidTo);
         $result['serviceList'] = array_reverse($logServices->tidyChat($serviceLogList));

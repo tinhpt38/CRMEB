@@ -24,18 +24,16 @@ use think\facade\Route as Url;
 /**
  * Class AgentLevelTaskServices
  * @package app\services\agent
- */
-class AgentLevelTaskServices extends BaseServices
+ */class AgentLevelTaskServices extends BaseServices
 {
     /**
      * Loại nhiệm vụ
      * bản ghi loại được sử dụng để phân biệt các tác vụ trong cơ sở dữ liệu
-     * tên tên nhiệm vụ (trong tên nhiệm vụ{$num}Nó sẽ được tự động thay thế bằng số + đơn vị đã đặt)
-     * max_number Giá trị cài đặt tối đa 0 nghĩa là không có giới hạn
-     * giá trị cài đặt tối thiểu min_number
-     * đơn vị đơn vị
-     * */
-    protected $TaskType = [
+     * tên tên nhiệm vụ (trong tên nhiệm vụ{$num}Nó sẽ được tự động thay thế bằng số + Đơn vị đã đặt)
+     * max_number Giá trị Cài đặt tối đa 0 nghĩa là không có giới hạn
+     * giá trị Cài đặt tối thiểu min_number
+     * Đơn vị Đơn vị
+     * */    protected $TaskType = [
         [
             'type' => 1,
             'method' => 'spread',
@@ -86,8 +84,7 @@ class AgentLevelTaskServices extends BaseServices
     /**
      * AgentLevelTaskServices constructor.
      * @param AgentLevelTaskDao $dao
-     */
-    public function __construct(AgentLevelTaskDao $dao)
+     */    public function __construct(AgentLevelTaskDao $dao)
     {
         $this->dao = $dao;
     }
@@ -101,8 +98,7 @@ class AgentLevelTaskServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLevelTaskInfo(int $id, string $field = '*', array $with = [])
+     */    public function getLevelTaskInfo(int $id, string $field = '*', array $with = [])
     {
         return $this->dao->getOne(['id' => $id, 'is_del' => 0], $field, $with);
     }
@@ -114,8 +110,7 @@ class AgentLevelTaskServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLevelTaskList(array $where)
+     */    public function getLevelTaskList(array $where)
     {
         $where['is_del'] = 0;
         [$page, $limit] = $this->getPageValue();
@@ -139,8 +134,7 @@ class AgentLevelTaskServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLevelTypeTask(int $level_id, int $type = 1)
+     */    public function getLevelTypeTask(int $level_id, int $type = 1)
     {
         return $this->dao->get(['level_id' => $level_id, 'type' => $type, 'is_del' => 0]);
     }
@@ -150,11 +144,9 @@ class AgentLevelTaskServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm(int $level_id)
+     */    public function createForm(int $level_id)
     {
-        /** @var AgentLevelServices $levelServices */
-        $levelServices = app()->make(AgentLevelServices::class);
+        /** @var AgentLevelServices $levelServices */        $levelServices = app()->make(AgentLevelServices::class);
         if (!$levelServices->getLevelInfo($level_id)) {
             throw new AdminException('Cấp độ đã chọn không tồn tại');
         }
@@ -181,8 +173,7 @@ class AgentLevelTaskServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function editForm(int $id)
+     */    public function editForm(int $id)
     {
         $levelTaskInfo = $this->getLevelTaskInfo($id);
         if (!$levelTaskInfo)
@@ -210,8 +201,7 @@ class AgentLevelTaskServices extends BaseServices
     /**
      * Nhận loại nhiệm vụ
      * @return array[]
-     */
-    public function getTaskTypeAll()
+     */    public function getTaskTypeAll()
     {
         return $this->TaskType;
     }
@@ -220,8 +210,7 @@ class AgentLevelTaskServices extends BaseServices
      * Nhận một nhiệm vụ
      * @param string $type Loại nhiệm vụ
      * @return array
-     * */
-    public static function getTaskType($type)
+     * */    public static function getTaskType($type)
     {
         foreach (self::$TaskType as $item) {
             if ($item['type'] == $type) return $item;
@@ -229,28 +218,25 @@ class AgentLevelTaskServices extends BaseServices
     }
 
     /**
-     * Lấy trạng thái nhiệm vụ ở một mức độ phân phối nhất định của người dùng
+     * Lấy trạng thái nhiệm vụ ở một mức độ phân phối nhất định của Khách hàng
      * @param int $uid
      * @param int $level_id
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserLevelTaskList(int $uid, int $level_id)
+     */    public function getUserLevelTaskList(int $uid, int $level_id)
     {
         //Phân phối trung tâm mua sắm có được kích hoạt không?
         if (!sys_config('brokerage_func_status')) {
             return [];
         }
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Người dùng không tồn tại');
         }
-        /** @var AgentLevelServices $levelServices */
-        $levelServices = app()->make(AgentLevelServices::class);
+        /** @var AgentLevelServices $levelServices */        $levelServices = app()->make(AgentLevelServices::class);
         $levelInfo = $levelServices->getLevelInfo($level_id);
         if (!$levelInfo) {
             throw new ApiException('Cấp bậc Affiliate không tồn tại');
@@ -293,8 +279,7 @@ class AgentLevelTaskServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkLevelTaskFinish(int $uid, int $task_id, $levelTaskInfo = [])
+     */    public function checkLevelTaskFinish(int $uid, int $task_id, $levelTaskInfo = [])
     {
         if (!$levelTaskInfo) {
             $levelTaskInfo = $this->getLevelTaskInfo($task_id);
@@ -306,40 +291,33 @@ class AgentLevelTaskServices extends BaseServices
         $msg = $allTyep[$levelTaskInfo['type']]['name'] ?? '';
         switch ($levelTaskInfo['type']) {
             case 1:
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
                 $userNumber = $userServices->count(['spread_uid' => $uid, 'pid' => 0]);
                 break;
             case 2:
-                /** @var StoreOrderServices $storeOrderServices */
-                $storeOrderServices = app()->make(StoreOrderServices::class);
+                /** @var StoreOrderServices $storeOrderServices */                $storeOrderServices = app()->make(StoreOrderServices::class);
                 $where = ['uid' => $uid, 'paid' => 1, 'refund_status' => 0, 'pid' => 0];
                 $userNumber = $storeOrderServices->sum($where, 'pay_price');
                 break;
             case 3:
-                /** @var StoreOrderServices $storeOrderServices */
-                $storeOrderServices = app()->make(StoreOrderServices::class);
+                /** @var StoreOrderServices $storeOrderServices */                $storeOrderServices = app()->make(StoreOrderServices::class);
                 $where = ['uid' => $uid, 'paid' => 1, 'refund_status' => 0, 'pid' => 0];
                 $userNumber = $storeOrderServices->count($where);
                 break;
             case 4:
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
                 $spread_uids = $userServices->getColumn(['spread_uid' => $uid], 'uid');
                 if ($spread_uids) {
-                    /** @var StoreOrderServices $storeOrderServices */
-                    $storeOrderServices = app()->make(StoreOrderServices::class);
+                    /** @var StoreOrderServices $storeOrderServices */                    $storeOrderServices = app()->make(StoreOrderServices::class);
                     $where = ['uid' => $spread_uids, 'paid' => 1, 'refund_status' => 0, 'pid' => 0];
                     $userNumber = $storeOrderServices->sum($where, 'pay_price');
                 }
                 break;
             case 5:
-                /** @var UserServices $userServices */
-                $userServices = app()->make(UserServices::class);
+                /** @var UserServices $userServices */                $userServices = app()->make(UserServices::class);
                 $spread_uids = $userServices->getColumn(['spread_uid' => $uid], 'uid');
                 if ($spread_uids) {
-                    /** @var StoreOrderServices $storeOrderServices */
-                    $storeOrderServices = app()->make(StoreOrderServices::class);
+                    /** @var StoreOrderServices $storeOrderServices */                    $storeOrderServices = app()->make(StoreOrderServices::class);
                     $where = ['uid' => $spread_uids, 'paid' => 1, 'refund_status' => 0, 'pid' => 0];
                     $userNumber = $storeOrderServices->count($where);
                 }
@@ -349,8 +327,7 @@ class AgentLevelTaskServices extends BaseServices
         }
         $isComplete = false;
         if ($userNumber >= $levelTaskInfo['number']) {
-            /** @var AgentLevelTaskRecordServices $agentLevelTaskRecordServices */
-            $agentLevelTaskRecordServices = app()->make(AgentLevelTaskRecordServices::class);
+            /** @var AgentLevelTaskRecordServices $agentLevelTaskRecordServices */            $agentLevelTaskRecordServices = app()->make(AgentLevelTaskRecordServices::class);
             $isComplete = true;
             if (!$agentLevelTaskRecordServices->get(['uid' => $uid, 'level_id' => $levelTaskInfo['level_id'], 'task_id' => $levelTaskInfo['id']])) {
                 $data = ['uid' => $uid, 'level_id' => $levelTaskInfo['level_id'], 'task_id' => $levelTaskInfo['id'], 'add_time' => time()];
@@ -368,8 +345,7 @@ class AgentLevelTaskServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkTypeTask(int $id, array $data)
+     */    public function checkTypeTask(int $id, array $data)
     {
         if (!$id && (!isset($data['level_id']) || !$data['level_id'])) {
             throw new AdminException('Lỗi tham số');
@@ -381,8 +357,7 @@ class AgentLevelTaskServices extends BaseServices
             }
             $data['level_id'] = $task['level_id'];
         }
-        /** @var AgentLevelServices $agentLevelServices */
-        $agentLevelServices = app()->make(AgentLevelServices::class);
+        /** @var AgentLevelServices $agentLevelServices */        $agentLevelServices = app()->make(AgentLevelServices::class);
         $levelInfo = $agentLevelServices->getLevelInfo($data['level_id']);
         if (!$levelInfo) {
             throw new AdminException('Dữ liệu không tồn tại');

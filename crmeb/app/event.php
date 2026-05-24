@@ -15,7 +15,7 @@
  * @param mixed $args  tham số
  * event($event,$args);
  * event('OrderCreateAfterListener',$order);
-*/ 
+*/
 
 return [
     'bind' => [],
@@ -29,17 +29,17 @@ return [
         'QueueStartListener' => [\app\listener\queue\QueueStartListener::class],
         'UserLoginListener' => [\app\listener\user\LoginListener::class],
         'AdminLoginListener' => [\app\listener\admin\AdminLoginListener::class],//Đăng nhập quản trị viên
-        'UserRegisterListener' => [\app\listener\user\RegisterListener::class], //Đăng ký người dùng sau sự kiện
-        'WechatAuthListener' => [\app\listener\wechat\AuthListener::class], //Ủy quyền người dùng sau sự kiện
+        'UserRegisterListener' => [\app\listener\user\RegisterListener::class], //Đăng ký Khách hàng sau sự kiện
+        'WechatAuthListener' => [\app\listener\wechat\AuthListener::class], //Ủy quyền Khách hàng sau sự kiện
         'OrderCreateAfterListener' => [\app\listener\order\OrderCreateAfterListener::class], //Tạo đơn hàng sau sự kiện
         'OrderPaySuccessListener' => [\app\listener\order\OrderPaySuccessListener::class], //Sự kiện sau khi thanh toán đơn hàng thành công
-        'OrderDeliveryListener' => [\app\listener\order\OrderDeliveryListener::class], //Đặt hàng giao hàng sau sự kiện
+        'OrderDeliveryListener' => [\app\listener\order\OrderDeliveryListener::class], //Đơn hàng giao hàng sau sự kiện
         'OrderTakeListener' => [\app\listener\order\OrderTakeListener::class], //Nhận đơn hàng sau sự kiện
-        'OrderRefundCreateAfterListener' => [\app\listener\order\OrderRefundCreateAfterListener::class], //Đơn hàng sau bán hàng tạo ra sự kiện sau
+        'OrderRefundCreateAfterListener' => [\app\listener\order\OrderRefundCreateAfterListener::class], //Yêu cầu trả hàng / hoàn tiền tạo ra sự kiện sau
         'OrderRefundCancelAfterListener' => [\app\listener\order\OrderRefundCancelAfterListener::class], //Hủy đơn hàng sau bán hàng sau sự kiện
         'OutPushListener' => [\app\listener\out\OutPushListener::class], //Sự kiện đẩy bên ngoài
-        'UserLevelListener' => [\app\listener\user\UserLevelListener::class], //Sự kiện nâng cấp người dùng
-        'UserVisitListener' => [\app\listener\user\UserVisitListener::class], //Sự kiện truy cập của người dùng
+        'UserLevelListener' => [\app\listener\user\UserLevelListener::class], //Sự kiện nâng cấp Khách hàng
+        'UserVisitListener' => [\app\listener\user\UserVisitListener::class], //Sự kiện truy cập của Khách hàng
         'NoticeListener' => [\app\listener\notice\NoticeListener::class], //thông báo->sự kiện tin nhắn
         'CustomNoticeListener' => [\app\listener\notice\CustomNoticeListener::class], //thông báo->Sự kiện gửi tin nhắn tùy chỉnh
         'NotifyListener' => [\app\listener\pay\NotifyListener::class],//Trả tiền gọi lại không đồng bộ

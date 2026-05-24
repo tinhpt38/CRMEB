@@ -16,17 +16,15 @@ use app\dao\BaseDao;
 use app\model\order\StoreOrderCartInfo;
 
 /**
- * Chi tiết đặt hàng
+ * Chi tiết đơn hàng
  * Class StoreOrderCartInfoDao
  * @package app\dao\order
- */
-class StoreOrderCartInfoDao extends BaseDao
+ */class StoreOrderCartInfoDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreOrderCartInfo::class;
     }
@@ -39,8 +37,7 @@ class StoreOrderCartInfoDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCartInfoList(array $where, array $field)
+     */    public function getCartInfoList(array $where, array $field)
     {
         return $this->search($where)->field($field)->select()->toArray();
     }
@@ -50,8 +47,7 @@ class StoreOrderCartInfoDao extends BaseDao
      * @param array $where
      * @param string $field
      * @param string $key
-     */
-    public function getCartColunm(array $where, string $field, string $key = '')
+     */    public function getCartColunm(array $where, string $field, string $key = '')
     {
         return $this->search($where)->column($field, $key);
     }

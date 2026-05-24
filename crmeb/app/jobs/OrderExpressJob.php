@@ -44,7 +44,7 @@ class OrderExpressJob extends BaseJobs
         try {
             app()->make(StoreOrderDeliveryServices::class)->splitDelivery($id, $data, false);
         } catch (\Throwable $e) {
-            Log::error('Đặt hàngID' . $id . 'Giao hàng không thành công,Lý do thất bại:' . $e->getMessage());
+            Log::error('Đơn hàngID' . $id . 'Giao hàng không thành công,Lý do thất bại:' . $e->getMessage());
         }
         return true;
     }

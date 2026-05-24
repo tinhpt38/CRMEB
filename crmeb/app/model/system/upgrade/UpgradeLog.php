@@ -18,8 +18,7 @@ use crmeb\traits\ModelTrait;
  * Bản ghi nâng cấp
  * Class UpgradeLog
  * @package app\model\system\upgrade
- */
-class UpgradeLog extends BaseModel
+ */class UpgradeLog extends BaseModel
 {
 
     use ModelTrait;
@@ -27,12 +26,10 @@ class UpgradeLog extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'upgrade_log';
+     */    protected $name = 'upgrade_log';
 }

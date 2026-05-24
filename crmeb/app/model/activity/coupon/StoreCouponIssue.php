@@ -19,28 +19,24 @@ use think\Model;
  * TODO Đăng phiếu giảm giáModel
  * Class StoreCouponIssue
  * @package app\model\coupon
- */
-class StoreCouponIssue extends BaseModel
+ */class StoreCouponIssue extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_coupon_issue';
+     */    protected $name = 'store_coupon_issue';
 
     /**
      * Người dùng có
      * @return \think\model\relation\HasOne
-     */
-    public function used()
+     */    public function used()
     {
         return $this->hasMany(StoreCouponIssueUser::class, 'issue_coupon_id', 'id');
     }
@@ -49,8 +45,7 @@ class StoreCouponIssue extends BaseModel
      * id
      * @param Model $query
      * @param $value
-     */
-    public function searchIdAttr($query, $value)
+     */    public function searchIdAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('id', $value);
@@ -63,41 +58,37 @@ class StoreCouponIssue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCidAttr($query, $value, $data)
+     */    public function searchCidAttr($query, $value, $data)
     {
         $query->where('cid', $value);
     }
 
     /**
-     * Phiếu giảm giá có giới hạn không?
+     * Mã giảm giá có giới hạn không?
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsPermanentAttr($query, $value, $data)
+     */    public function searchIsPermanentAttr($query, $value, $data)
     {
         $query->where('is_permanent', $value);
     }
 
     /**
-     * Phiếu giảm giá có phải là phiếu giảm giá dành cho người mới không?
+     * Mã giảm giá có phải là phiếu giảm giá dành cho người mới không?
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsGiveSubscribeAttr($query, $value, $data)
+     */    public function searchIsGiveSubscribeAttr($query, $value, $data)
     {
         $query->where('is_give_subscribe', $value);
     }
 
     /**
-     * Phiếu giảm giá có đầy đủ không?
+     * Mã giảm giá có đầy đủ không?
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsFullGiveAttr($query, $value, $data)
+     */    public function searchIsFullGiveAttr($query, $value, $data)
     {
         $query->where('is_full_give', $value);
     }
@@ -107,8 +98,7 @@ class StoreCouponIssue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStatusAttr($query, $value, $data)
+     */    public function searchStatusAttr($query, $value, $data)
     {
         if ($value != '') $query->where('status', $value);
     }
@@ -118,8 +108,7 @@ class StoreCouponIssue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value ?? 0);
     }
@@ -129,8 +118,7 @@ class StoreCouponIssue extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCouponTitleAttr($query, $value, $data)
+     */    public function searchCouponTitleAttr($query, $value, $data)
     {
         if ($value) $query->whereLike('coupon_title', '%' . $value . '%');
     }
@@ -139,8 +127,7 @@ class StoreCouponIssue extends BaseModel
      * Loại phiếu giảm giá
      * @param Model $query
      * @param $value
-     */
-    public function searchCouponTypeAttr($query, $value)
+     */    public function searchCouponTypeAttr($query, $value)
     {
         if ($value != '') $query->where('type', $value);
     }

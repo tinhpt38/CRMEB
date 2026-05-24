@@ -16,32 +16,28 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * Phân loại sản phẩmModel
+ * Danh mục sản phẩmModel
  * Class StoreCategory
  * @package app\model\product\product
- */
-class StoreCategory extends BaseModel
+ */class StoreCategory extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_category';
+     */    protected $name = 'store_category';
 
     /**
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    protected function getAddTimeAttr($value)
+     */    protected function getAddTimeAttr($value)
     {
         return date('Y-m-d H:i:s', $value);
     }
@@ -49,8 +45,7 @@ class StoreCategory extends BaseModel
     /**
      * Nhận điều kiện truy vấn phân loại tập hợp con
      * @return \think\model\relation\HasMany
-     */
-    public function children()
+     */    public function children()
     {
         return $this->hasMany(self::class, 'pid', 'id')->where('is_show', 1)->order('sort DESC,id DESC');
     }
@@ -60,8 +55,7 @@ class StoreCategory extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsShowAttr($query, $value, $data)
+     */    public function searchIsShowAttr($query, $value, $data)
     {
         if ($value !== '') $query->where('is_show', $value);
     }
@@ -71,8 +65,7 @@ class StoreCategory extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchPidAttr($query, $value, $data)
+     */    public function searchPidAttr($query, $value, $data)
     {
         if ($value !== '') $query->where('pid', $value);
     }
@@ -82,8 +75,7 @@ class StoreCategory extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchCateNameAttr($query, $value, $data)
+     */    public function searchCateNameAttr($query, $value, $data)
     {
         if ($value !== '') $query->where('cate_name', 'like', '%' . $value . '%');
     }
@@ -93,8 +85,7 @@ class StoreCategory extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIdAttr($query, $value, $data)
+     */    public function searchIdAttr($query, $value, $data)
     {
         if ($value) $query->whereIn('id', is_array($value) ? $value : (string)$value);
     }

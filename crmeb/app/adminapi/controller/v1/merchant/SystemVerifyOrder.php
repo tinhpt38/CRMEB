@@ -16,19 +16,17 @@ use app\services\user\UserServices;
 use think\facade\App;
 
 /**
- * Viết đơn đặt hàng
+ * Xác nhận đơn hàng
  * Class SystemVerifyOrder
  * @package app\adminapi\controller\v1\merchant
- */
-class SystemVerifyOrder extends AuthController
+ */class SystemVerifyOrder extends AuthController
 {
     /**
      * Người xây dựng
      * SystemVerifyOrder constructor.
      * @param App $app
      * @param StoreOrderServices $services
-     */
-    public function __construct(App $app, StoreOrderServices $services)
+     */    public function __construct(App $app, StoreOrderServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -37,8 +35,7 @@ class SystemVerifyOrder extends AuthController
     /**
      * Nhận danh sách các lệnh xóa nợ
      * return json
-     */
-    public function list()
+     */    public function list()
     {
         $where = $this->request->getMore([
             ['data', '', '', 'time'],
@@ -54,8 +51,7 @@ class SystemVerifyOrder extends AuthController
     /**
      * Không được sử dụng,Nhận người đứng đầu lệnh xóa nợ
      * @return mixed
-     */
-    public function getVerifyBadge()
+     */    public function getVerifyBadge()
     {
         return app('json')->success([]);
     }
@@ -67,11 +63,9 @@ class SystemVerifyOrder extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function order_spread_user($uid)
+     */    public function order_spread_user($uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $spread = [];
         $spread = $userServices->getUserInfo((int)$uid);
         if ($spread) {

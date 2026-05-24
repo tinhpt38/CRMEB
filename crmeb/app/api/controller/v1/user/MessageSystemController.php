@@ -15,19 +15,17 @@ use app\services\message\MessageSystemServices;
 
 
 /**
- * Lớp địa chỉ người dùng
+ * Lớp địa chỉ Khách hàng
  * Class UserController
  * @package app\api\controller\store
- */
-class MessageSystemController
+ */class MessageSystemController
 {
     protected $services = NUll;
 
     /**
      * MessageSystemController constructor.
      * @param MessageSystemServices $services
-     */
-    public function __construct(MessageSystemServices $services)
+     */    public function __construct(MessageSystemServices $services)
     {
         $this->services = $services;
     }
@@ -39,8 +37,7 @@ class MessageSystemController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function message_list(Request $request)
+     */    public function message_list(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->getMessageSystemList($uid));
@@ -54,8 +51,7 @@ class MessageSystemController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function detail(Request $request, $id)
+     */    public function detail(Request $request, $id)
     {
         if (!$id) {
             app('json')->fail('Lỗi tham số');
@@ -70,8 +66,7 @@ class MessageSystemController
      * Chỉnh sửa/sửa đổi trường danh sách tin nhắn
      * @param Request $request
      * @return mixed
-     */
-    public function edit_message(Request $request)
+     */    public function edit_message(Request $request)
     {
         $data = $request->getMore([
             ['id', 0],

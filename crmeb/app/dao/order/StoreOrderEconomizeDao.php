@@ -18,8 +18,7 @@ use app\model\order\StoreOrderEconomize;
 /**
  * Class StoreOrderEconomizeDao
  * @package app\dao\order
- */
-class StoreOrderEconomizeDao extends BaseDao
+ */class StoreOrderEconomizeDao extends BaseDao
 {
 
     protected function setModel(): string
@@ -33,8 +32,7 @@ class StoreOrderEconomizeDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         return $this->getModel()->where($where)->select()->toArray();
     }

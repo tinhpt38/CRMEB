@@ -1,0 +1,2430 @@
+{
+  "roots": [
+    "template/admin/src"
+  ],
+  "summary": {
+    "files": 761,
+    "filesWithHits": 142,
+    "totalHits": 241,
+    "countByKind": {
+      "han": 0,
+      "suspect": 236,
+      "hon": 5
+    }
+  },
+  "countByTerm": {
+    "bật lên": 70,
+    "Truy vấn": 2,
+    "Xuất khẩu": 27,
+    "hàng hóa": 37,
+    "cứu": 2,
+    "Thứ tự": 5,
+    "biên tập": 63,
+    "vận hành": 8,
+    "cài lại": 5,
+    "Hơn": 5,
+    "Ôn lại": 8,
+    "Đặt hàng ": 6,
+    "Xuất người dùng": 2,
+    "nam giới": 1
+  },
+  "perFile": [
+    {
+      "file": "template/admin/src/App.vue",
+      "hits": [
+        {
+          "line": 56,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên cấu hình bố cục sẽ mở ra."
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/diy.js",
+      "hits": [
+        {
+          "line": 224,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "* @description Thêm thủ công,Dữ liệu danh sách cửa sổ bật lên"
+        },
+        {
+          "line": 513,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Truy vấn",
+          "preview": "* @description Truy vấn bản ghi xuất chủ đề (để bỏ phiếu)"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/export.js",
+      "hits": [
+        {
+          "line": 57,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "* Xuất khẩu di chuyển sản phẩm"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/marketing.js",
+      "hits": [
+        {
+          "line": 27,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "* type:Thêm phiếu giảm giá loại 0: chung, 1: danh mục, 2: hàng hóa"
+        },
+        {
+          "line": 477,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "* @description Hoạt động thương lượng tại cửa hàng -- Xuất khẩu"
+        },
+        {
+          "line": 488,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "* @description Nhóm cửa hàng -- Xuất khẩu"
+        },
+        {
+          "line": 499,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "* @description Khuyến mãi chớp nhoáng tại cửa hàng -- Xuất khẩu"
+        },
+        {
+          "line": 532,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "cứu",
+          "preview": "* @description Sản phẩm tích điểm -- (Nhiều) cứu"
+        },
+        {
+          "line": 844,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Thứ tự",
+          "preview": "* Thứ tự nhóm"
+        },
+        {
+          "line": 921,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "* Phần thưởng đăng nhập của biên tập viên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/order.js",
+      "hits": [
+        {
+          "line": 410,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "* @description Quản lý đơn hàng -- Xuất khẩu"
+        },
+        {
+          "line": 498,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "* @description Đơn hàng Points Mall -- Xuất khẩu"
+        },
+        {
+          "line": 633,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Thứ tự",
+          "preview": "* Thứ tự id @paramid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/product.js",
+      "hits": [
+        {
+          "line": 370,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "* @description Cửa hàng sản phẩm -- Xuất khẩu"
+        },
+        {
+          "line": 609,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "* @description Dịch vụ bảo lãnh hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/api/setting.js",
+      "hits": [
+        {
+          "line": 744,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "* @description Thiết lập mẫu vận chuyển hàng hóa -- Danh sách"
+        },
+        {
+          "line": 756,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "* @description Thiết lập mẫu vận chuyển hàng hóa -- Dữ liệu thành phố"
+        },
+        {
+          "line": 766,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "* @description Thiết lập mẫu vận chuyển hàng hóa -- Gửi biểu mẫu sửa đổi；"
+        },
+        {
+          "line": 777,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "* @description Thiết lập mẫu vận chuyển hàng hóa -- Gửi biểu mẫu sửa đổi；"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/cropperImg/index.vue",
+      "hits": [
+        {
+          "line": 33,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "vận hành",
+          "preview": "<!--Các nút công cụ vận hành phía dưới-->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/diyComponents/c_bg_color.vue",
+      "hits": [
+        {
+          "line": 68,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/diyComponents/c_upload_img.vue",
+      "hits": [
+        {
+          "line": 93,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/diyComponents/c_upload_list.vue",
+      "hits": [
+        {
+          "line": 191,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/diyComponents/c_upload_video.vue",
+      "hits": [
+        {
+          "line": 93,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/hotpotModal/AreaBox.vue",
+      "hits": [
+        {
+          "line": 89,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "vận hành",
+          "preview": "// boxđiểm ban đầu vận hành"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_bg_color.vue",
+      "hits": [
+        {
+          "line": 64,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_goods_label.vue",
+      "hits": [
+        {
+          "line": 107,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_hot_imgs.vue",
+      "hits": [
+        {
+          "line": 144,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_menu_list.vue",
+      "hits": [
+        {
+          "line": 238,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_page_ueditor.vue",
+      "hits": [
+        {
+          "line": 60,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_promotion.vue",
+      "hits": [
+        {
+          "line": 374,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_swipers_list.vue",
+      "hits": [
+        {
+          "line": 162,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_upload_img.vue",
+      "hits": [
+        {
+          "line": 136,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/mobileConfigRight/c_upload_video.vue",
+      "hits": [
+        {
+          "line": 93,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/newsCategory/index.vue",
+      "hits": [
+        {
+          "line": 233,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/uploadVideo2/index.vue",
+      "hits": [
+        {
+          "line": 256,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Nhập cửa sổ bật lên liên kết -->"
+        },
+        {
+          "line": 364,
+          "kind": "suspect",
+          "context": "script",
+          "term": "bật lên",
+          "preview": "inputModal: false, // Nhập cửa sổ bật lên liên kết"
+        },
+        {
+          "line": 381,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Mở cửa sổ bật lên liên kết đầu vào"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/verifition/Verify/VerifyPoints.vue",
+      "hits": [
+        {
+          "line": 73,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/components/verifition/Verify/VerifySlide.vue",
+      "hits": [
+        {
+          "line": 88,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// bật lên, đã sửafixed"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/i18n/index.js",
+      "hits": [
+        {
+          "line": 80,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu quốc tế hóa ngôn ngữ"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/layout/navBars/breadcrumb/search.vue",
+      "hits": [
+        {
+          "line": 33,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên tìm kiếm mở ra"
+        },
+        {
+          "line": 42,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên tìm kiếm đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/layout/navBars/breadcrumb/setings.vue",
+      "hits": [
+        {
+          "line": 490,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên cấu hình bố cục sẽ mở ra."
+        },
+        {
+          "line": 494,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Khi đóng cửa sổ bật lên, hãy khởi tạo các biến"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/layout/navBars/breadcrumb/user.vue",
+      "hits": [
+        {
+          "line": 114,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "* Mở cửa sổ bật lên mới"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/libs/tools.js",
+      "hits": [
+        {
+          "line": 136,
+          "kind": "hon",
+          "context": "comment",
+          "term": "Hơn",
+          "preview": "// Hơn 59 giây, nhỏ hơn hoặc bằng 59 phút 59 giây"
+        },
+        {
+          "line": 140,
+          "kind": "hon",
+          "context": "comment",
+          "term": "Hơn",
+          "preview": "// Hơn 23 giờ, 59 phút và 59 giây, nhỏ hơn hoặc bằng 29 ngày, 59 phút và 59 giây"
+        },
+        {
+          "line": 142,
+          "kind": "hon",
+          "context": "comment",
+          "term": "Hơn",
+          "preview": "// Hơn 29 ngày, 59 phút và 59 giây, ít hơn 364 ngày, 23 giờ, 59 phút và 59 giây và dấu thời gian đến sớm hơn dấu thời gian hiện tại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/agent/agentManage.vue",
+      "hits": [
+        {
+          "line": 277,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 292,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        },
+        {
+          "line": 373,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Thứ tự",
+          "preview": "// Thứ tự danh sách nhà quảng bá"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/agent/spread/apply.vue",
+      "hits": [
+        {
+          "line": 245,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/routine/ciUpload/index.vue",
+      "hits": [
+        {
+          "line": 294,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên hướng dẫn cài đặt thủ công -->"
+        },
+        {
+          "line": 366,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên khóa tải lên -->"
+        },
+        {
+          "line": 440,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Trạng thái bật lên"
+        },
+        {
+          "line": 1545,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        },
+        {
+          "line": 1579,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên hướng dẫn cài đặt"
+        },
+        {
+          "line": 1913,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên tải lên khóa"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/wechat/reply/keyword.vue",
+      "hits": [
+        {
+          "line": 214,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/wechat/user/handle/sendOut.vue",
+      "hits": [
+        {
+          "line": 184,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/app/wechat/user/tag.vue",
+      "hits": [
+        {
+          "line": 76,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/cms/article/index.vue",
+      "hits": [
+        {
+          "line": 247,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/cms/articleCategory/index.vue",
+      "hits": [
+        {
+          "line": 136,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/crud/index.vue",
+      "hits": [
+        {
+          "line": 350,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/division/agent/applyList.vue",
+      "hits": [
+        {
+          "line": 253,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/division/agent/index.vue",
+      "hits": [
+        {
+          "line": 297,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/division/list/index.vue",
+      "hits": [
+        {
+          "line": 299,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/finance/commission/index.vue",
+      "hits": [
+        {
+          "line": 125,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/finance/financialRecords/bill/index.vue",
+      "hits": [
+        {
+          "line": 174,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/finance/financialRecords/recharge/index.vue",
+      "hits": [
+        {
+          "line": 274,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/finance/userExtract/index.vue",
+      "hits": [
+        {
+          "line": 395,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/appChat/mobile/index.vue",
+      "hits": [
+        {
+          "line": 67,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        },
+        {
+          "line": 75,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Đặt hàng ",
+          "preview": "<!-- Đặt hàng -->"
+        },
+        {
+          "line": 560,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Đặt hàng ",
+          "preview": "// Đặt hàng của người dùng"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/components/words.vue",
+      "hits": [
+        {
+          "line": 113,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Chỉnh sửa cửa sổ bật lên  -->"
+        },
+        {
+          "line": 301,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên Thêm từ"
+        },
+        {
+          "line": 309,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên"
+        },
+        {
+          "line": 370,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Mở cửa sổ bật lên nhóm"
+        },
+        {
+          "line": 379,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Đóng cửa sổ bật lên nhóm"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/mobile/index.vue",
+      "hits": [
+        {
+          "line": 33,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        },
+        {
+          "line": 41,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Đặt hàng ",
+          "preview": "<!-- Đặt hàng -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/pc/components/msgWindow.vue",
+      "hits": [
+        {
+          "line": 205,
+          "kind": "suspect",
+          "context": "script",
+          "term": "bật lên",
+          "preview": "maskTitle: '', // Tiêu đề cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/pc/components/rightMenu.vue",
+      "hits": [
+        {
+          "line": 249,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên vận chuyển -->"
+        },
+        {
+          "line": 397,
+          "kind": "suspect",
+          "context": "script",
+          "term": "bật lên",
+          "preview": "isDelivery: false, // Cửa sổ bật lên vận chuyển"
+        },
+        {
+          "line": 398,
+          "kind": "suspect",
+          "context": "script",
+          "term": "bật lên",
+          "preview": "isRemarks: false, // Cửa sổ bật lên nhận xét"
+        },
+        {
+          "line": 399,
+          "kind": "suspect",
+          "context": "script",
+          "term": "bật lên",
+          "preview": "isUserGroup: false, //Cửa sổ bật lên nhóm"
+        },
+        {
+          "line": 531,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Đặt hàng ",
+          "preview": "// Đặt hàng Nhập"
+        },
+        {
+          "line": 575,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Đặt hàng ",
+          "preview": "// Đặt hàng Tải thêm"
+        },
+        {
+          "line": 617,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// dấu chân hàng hóa"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/kefu/pc/index.vue",
+      "hits": [
+        {
+          "line": 40,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        },
+        {
+          "line": 60,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Đặt hàng ",
+          "preview": "<!-- Đặt hàng -->"
+        },
+        {
+          "line": 164,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên sản phẩm -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/channelCode/channelCodeIndex.vue",
+      "hits": [
+        {
+          "line": 426,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/channelCode/createCode.vue",
+      "hits": [
+        {
+          "line": 268,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/live/anchor.vue",
+      "hits": [
+        {
+          "line": 100,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/lottery/addGoods.vue",
+      "hits": [
+        {
+          "line": 153,
+          "kind": "suspect",
+          "context": "script",
+          "term": "hàng hóa",
+          "preview": "product_id: 0, //hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/lottery/create.vue",
+      "hits": [
+        {
+          "line": 708,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/lottery/index.vue",
+      "hits": [
+        {
+          "line": 218,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/lottery/lotteryList.vue",
+      "hits": [
+        {
+          "line": 306,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/recharge/index.vue",
+      "hits": [
+        {
+          "line": 525,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/sign/index.vue",
+      "hits": [
+        {
+          "line": 351,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeBargain/create.vue",
+      "hits": [
+        {
+          "line": 411,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 653,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 684,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        },
+        {
+          "line": 722,
+          "kind": "suspect",
+          "context": "script",
+          "term": "hàng hóa",
+          "preview": "virtual_type: row.virtual_type, //Loại hàng hóa ảo"
+        },
+        {
+          "line": 914,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        },
+        {
+          "line": 921,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Chỉ định đường dẫn của trang trong lớp bật lên. Chỉ có các trang được hỗ trợ ở đây. Vui lòng tham khảo Câu hỏi thường gặp để biết đường dẫn. 2"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeBargain/index.vue",
+      "hits": [
+        {
+          "line": 293,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất người dùng",
+          "preview": "// Xuất người dùng"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeCombination/create.vue",
+      "hits": [
+        {
+          "line": 463,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 706,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 750,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        },
+        {
+          "line": 784,
+          "kind": "suspect",
+          "context": "script",
+          "term": "hàng hóa",
+          "preview": "virtual_type: row.virtual_type, //Loại hàng hóa ảo"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeCombination/index.vue",
+      "hits": [
+        {
+          "line": 212,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 246,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeCoupon/index.vue",
+      "hits": [
+        {
+          "line": 321,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegral/create.vue",
+      "hits": [
+        {
+          "line": 484,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegral/index.vue",
+      "hits": [
+        {
+          "line": 214,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 230,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegralOrder/components/tableFrom.vue",
+      "hits": [
+        {
+          "line": 184,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegralOrder/components/tableList.vue",
+      "hits": [
+        {
+          "line": 220,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        },
+        {
+          "line": 357,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeIntegralOrder/handle/queueList.vue",
+      "hits": [
+        {
+          "line": 464,
+          "kind": "hon",
+          "context": "comment",
+          "term": "Hơn",
+          "preview": "// Hơn"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storePresell/create.vue",
+      "hits": [
+        {
+          "line": 287,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 533,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 572,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storePresell/index.vue",
+      "hits": [
+        {
+          "line": 209,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 224,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeSeckill/create.vue",
+      "hits": [
+        {
+          "line": 382,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 608,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 662,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        },
+        {
+          "line": 695,
+          "kind": "suspect",
+          "context": "script",
+          "term": "hàng hóa",
+          "preview": "virtual_type: row.virtual_type, //Loại hàng hóa ảo"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeSeckill/createMore.vue",
+      "hits": [
+        {
+          "line": 277,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 616,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 648,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeSeckill/index.vue",
+      "hits": [
+        {
+          "line": 279,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 309,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/storeSeckill/list.vue",
+      "hits": [
+        {
+          "line": 283,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 313,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/marketing/userPoint/index.vue",
+      "hits": [
+        {
+          "line": 198,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/invoice/index.vue",
+      "hits": [
+        {
+          "line": 357,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Xác nhận cửa sổ bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/orderList/components/tableFrom.vue",
+      "hits": [
+        {
+          "line": 168,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/orderList/components/tableList.vue",
+      "hits": [
+        {
+          "line": 643,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        },
+        {
+          "line": 855,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 1088,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/order/refund/index.vue",
+      "hits": [
+        {
+          "line": 305,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/labelList/index.vue",
+      "hits": [
+        {
+          "line": 322,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/paramList/index.vue",
+      "hits": [
+        {
+          "line": 171,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productAdd/components/MarketingSetting.vue",
+      "hits": [
+        {
+          "line": 216,
+          "kind": "suspect",
+          "context": "template",
+          "term": "Thứ tự",
+          "preview": "<el-form-item label=\"Thứ tự hiển thị：\">"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productAdd/index.vue",
+      "hits": [
+        {
+          "line": 1075,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "//Đóng cửa sổ bật lên Taobao và tạo dữ liệu；"
+        },
+        {
+          "line": 1244,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 1312,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Chức năng gọi lại cửa sổ bật lên thuộc tính；"
+        },
+        {
+          "line": 2105,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// hàng hóaid"
+        },
+        {
+          "line": 2126,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productAttr/index.vue",
+      "hits": [
+        {
+          "line": 196,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productClassify/index.vue",
+      "hits": [
+        {
+          "line": 167,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productList/index.vue",
+      "hits": [
+        {
+          "line": 573,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên sản phẩm -->"
+        },
+        {
+          "line": 676,
+          "kind": "suspect",
+          "context": "script",
+          "term": "hàng hóa",
+          "preview": "templateList: [], // Mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 753,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        },
+        {
+          "line": 941,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        },
+        {
+          "line": 982,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 1205,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên thuộc tính；"
+        },
+        {
+          "line": 1212,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 1255,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/productList/taoBao.vue",
+      "hits": [
+        {
+          "line": 776,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/product/protectionList/index.vue",
+      "hits": [
+        {
+          "line": 187,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/cityDada/index.vue",
+      "hits": [
+        {
+          "line": 144,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/deliveryService/index.vue",
+      "hits": [
+        {
+          "line": 124,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/devise/components/uploadPic.vue",
+      "hits": [
+        {
+          "line": 143,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên tùy chỉnh"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/devise/diyIndex.vue",
+      "hits": [
+        {
+          "line": 1270,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/devise/list.vue",
+      "hits": [
+        {
+          "line": 420,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/devisePage/list.vue",
+      "hits": [
+        {
+          "line": 189,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/freight/index.vue",
+      "hits": [
+        {
+          "line": 65,
+          "kind": "suspect",
+          "context": "code",
+          "term": "Thứ tự",
+          "preview": "<el-table-column label=\"Thứ tự\" width=\"100\">"
+        },
+        {
+          "line": 196,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/membershipLevel/index.vue",
+      "hits": [
+        {
+          "line": 494,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 501,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/multiLanguage/list.vue",
+      "hits": [
+        {
+          "line": 129,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/shippingTemplates/index.vue",
+      "hits": [
+        {
+          "line": 81,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- Mẫu vận chuyển hàng hóa-->"
+        },
+        {
+          "line": 138,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// Thêm mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 164,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "// Danh sách mẫu vận chuyển hàng hóa"
+        },
+        {
+          "line": 179,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/storeService/autoReply.vue",
+      "hits": [
+        {
+          "line": 211,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/storeService/index.vue",
+      "hits": [
+        {
+          "line": 377,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/storeService/speechcraft.vue",
+      "hits": [
+        {
+          "line": 419,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemAdmin/index.vue",
+      "hits": [
+        {
+          "line": 202,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemMenus/index.vue",
+      "hits": [
+        {
+          "line": 391,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemOutAccount/index.vue",
+      "hits": [
+        {
+          "line": 438,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 469,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemOutInterface/components/MonacoEditor.vue",
+      "hits": [
+        {
+          "line": 52,
+          "kind": "suspect",
+          "context": "script",
+          "term": "biên tập",
+          "preview": "theme: 'vs', // Chủ đề biên tập：vs, hc-black, or vs-dark，Để có thêm lựa chọn, hãy xem trang web chính thức"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/systemRole/index.vue",
+      "hits": [
+        {
+          "line": 303,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/components/themeSelect/index.vue",
+      "hits": [
+        {
+          "line": 335,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/editTheme/components/Header.vue",
+      "hits": [
+        {
+          "line": 17,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Sửa đổi cửa sổ bật lên thông tin chủ đề -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/editTheme/components/StyleConfig.vue",
+      "hits": [
+        {
+          "line": 70,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên lựa chọn kiểu -->"
+        },
+        {
+          "line": 572,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Phong cách bật lên"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/mallTheme/index.vue",
+      "hits": [
+        {
+          "line": 67,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Thay đổi cửa sổ bật lên chủ đề -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/theme/myTheme/index.vue",
+      "hits": [
+        {
+          "line": 98,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Nhập cửa sổ bật lên chủ đề -->"
+        },
+        {
+          "line": 110,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Chọn cửa sổ bật lên chủ đề -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/ticket/content.vue",
+      "hits": [
+        {
+          "line": 95,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "hàng hóa",
+          "preview": "<!-- hàng hóa -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/ticket/index.vue",
+      "hits": [
+        {
+          "line": 264,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Ôn lại",
+          "preview": "//Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/setting/verifyOrder/index.vue",
+      "hits": [
+        {
+          "line": 248,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/statistic/product/components/productInfo.vue",
+      "hits": [
+        {
+          "line": 122,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/statistic/product/components/productRanking.vue",
+      "hits": [
+        {
+          "line": 89,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên sản phẩm -->"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/statistic/user/index.vue",
+      "hits": [
+        {
+          "line": 89,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/backendRouting/components/MonacoEditor.vue",
+      "hits": [
+        {
+          "line": 52,
+          "kind": "suspect",
+          "context": "script",
+          "term": "biên tập",
+          "preview": "theme: 'vs', // Chủ đề biên tập：vs, hc-black, or vs-dark，Để có thêm lựa chọn, hãy xem trang web chính thức"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/codeGeneration/list.vue",
+      "hits": [
+        {
+          "line": 231,
+          "kind": "suspect",
+          "context": "script",
+          "term": "biên tập",
+          "preview": "indexEditor: 0, //Chỉ mục biên tập hiện tại"
+        },
+        {
+          "line": 350,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 495,
+          "kind": "suspect",
+          "context": "script",
+          "term": "biên tập",
+          "preview": "that.indexEditor = '0'; //Chỉ mục biên tập hiện tại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/configTab/index.vue",
+      "hits": [
+        {
+          "line": 158,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/crossVersionUpgrade/index.vue",
+      "hits": [
+        {
+          "line": 356,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Cửa sổ bật lên giao thức nâng cấp -->"
+        },
+        {
+          "line": 377,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "<!-- Tải lên cửa sổ bật lên thành công -->"
+        },
+        {
+          "line": 557,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Mở cửa sổ bật lên thỏa thuận"
+        },
+        {
+          "line": 580,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Đầu tiên hãy đóng cửa sổ bật lên giao thức và hiển thị nội dung trang."
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/group/index.vue",
+      "hits": [
+        {
+          "line": 185,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/group/list.vue",
+      "hits": [
+        {
+          "line": 305,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/group/visualization.vue",
+      "hits": [
+        {
+          "line": 949,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/maintain/systemFile/opendir.vue",
+      "hits": [
+        {
+          "line": 210,
+          "kind": "suspect",
+          "context": "script",
+          "term": "biên tập",
+          "preview": "indexEditor: 0, //Chỉ mục biên tập hiện tại"
+        },
+        {
+          "line": 366,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tậpß"
+        },
+        {
+          "line": 394,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "cứu",
+          "preview": "* cứu"
+        },
+        {
+          "line": 892,
+          "kind": "suspect",
+          "context": "script",
+          "term": "biên tập",
+          "preview": "that.indexEditor = '0'; //Chỉ mục biên tập hiện tại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/system/systemMenus/index.vue",
+      "hits": [
+        {
+          "line": 445,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/cancel/handle/task.vue",
+      "hits": [
+        {
+          "line": 185,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/grade/card/index.vue",
+      "hits": [
+        {
+          "line": 251,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Truy vấn",
+          "preview": "// Truy vấn tên hàng loạt"
+        },
+        {
+          "line": 269,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu"
+        },
+        {
+          "line": 288,
+          "kind": "hon",
+          "context": "comment",
+          "term": "Hơn",
+          "preview": "// Hơn"
+        },
+        {
+          "line": 305,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Thêm cửa sổ bật lên hàng loạt"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/grade/right/index.vue",
+      "hits": [
+        {
+          "line": 200,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        },
+        {
+          "line": 212,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/group/index.vue",
+      "hits": [
+        {
+          "line": 109,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/label/index.vue",
+      "hits": [
+        {
+          "line": 167,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Ôn lại",
+          "preview": "// Ôn lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/level/handle/task.vue",
+      "hits": [
+        {
+          "line": 187,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/level/index.vue",
+      "hits": [
+        {
+          "line": 228,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/list/handle/userEdit.vue",
+      "hits": [
+        {
+          "line": 286,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/list/handle/userEditForm.vue",
+      "hits": [
+        {
+          "line": 353,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/list/handle/userInfo.vue",
+      "hits": [
+        {
+          "line": 24,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "nam giới",
+          "preview": "<div v-if=\"psInfo.sex\" class=\"value\">{{ psInfo.sex == 1 ? 'nam giới' : 'nữ giới' }}</div>"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/pages/user/list/index.vue",
+      "hits": [
+        {
+          "line": 728,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "bật lên",
+          "preview": "// Cửa sổ bật lên nhãn đóng lại"
+        },
+        {
+          "line": 931,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "vận hành",
+          "preview": "// vận hành"
+        },
+        {
+          "line": 1094,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất người dùng",
+          "preview": "// Xuất người dùng"
+        },
+        {
+          "line": 1151,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "cài lại",
+          "preview": "// cài lại"
+        },
+        {
+          "line": 1238,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "biên tập",
+          "preview": "// biên tập"
+        }
+      ]
+    },
+    {
+      "file": "template/admin/src/router/routers.js",
+      "hits": [
+        {
+          "line": 217,
+          "kind": "suspect",
+          "context": "comment",
+          "term": "Xuất khẩu",
+          "preview": "// Xuất khẩu sau khi tổ chức lại"
+        }
+      ]
+    }
+  ]
+}

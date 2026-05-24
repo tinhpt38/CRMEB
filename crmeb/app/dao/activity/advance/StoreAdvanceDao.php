@@ -19,15 +19,13 @@ use app\model\activity\advance\StoreAdvance;
  * Các mặt hàng bán trước
  * Class StoreAdvanceDao
  * @package app\dao\activity
- */
-class StoreAdvanceDao extends BaseDao
+ */class StoreAdvanceDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreAdvance::class;
     }
@@ -44,8 +42,7 @@ class StoreAdvanceDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/20
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0)
+     */    public function getList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where, false)
             ->when($where['time_type'], function ($query) use ($where) {
@@ -62,8 +59,7 @@ class StoreAdvanceDao extends BaseDao
      * @param array $where
      * @return int
      * @throws \ReflectionException
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         return $this->search($where, false)
             ->when($where['time_type'], function ($query) use ($where) {
@@ -78,8 +74,7 @@ class StoreAdvanceDao extends BaseDao
      * Biết liệu sản phẩm bán trước có được bật hay không
      * @param array $ids
      * @return int
-     */
-    public function getAdvanceStatus(array $ids)
+     */    public function getAdvanceStatus(array $ids)
     {
         return $this->getModel()->whereIn('product_id', $ids)->where('is_del', 0)->where('status', 1)->count();
     }

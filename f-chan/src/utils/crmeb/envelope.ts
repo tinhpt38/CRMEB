@@ -27,8 +27,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
  * - success:   { status: 200, msg: "...", data: <payload> }
  * - business:  { status: 200, msg: "...", data: { status: "NONE", result: <payload> } }
  * - fail:      { status: 400, msg: "...", (no data) }
- */
-export function normalizeCrmebEnvelope<T = unknown>(
+ */export function normalizeCrmebEnvelope<T = unknown>(
   raw: unknown
 ): NormalizedCrmebResult<T> {
   if (!isRecord(raw)) {

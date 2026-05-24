@@ -25,8 +25,7 @@ use think\facade\Route as Url;
  * Class SystemNotificationServices
  * @package app\services\system
  * @method value($where, $value) Điều kiện để lấy giá trị của một trường
- */
-class SystemNotificationServices extends BaseServices
+ */class SystemNotificationServices extends BaseServices
 {
 
     protected $messageData = [
@@ -37,38 +36,38 @@ class SystemNotificationServices extends BaseServices
             ['label' => 'Thời gian hợp lệ', 'value' => 'time'],
         ],
 
-        //Đăng nhập người dùng
+        //Đăng nhập Khách hàng
         'login_success' => [
-            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Biệt hiệu của Khách hàng', 'value' => 'nickname'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'phone'],
             ['label' => 'Lần đăng nhập cuối cùng', 'value' => 'last_time'],
-            ['label' => 'Số dư người dùng', 'value' => 'now_money'],
-            ['label' => 'Hoa hồng người dùng', 'value' => 'brokerage_price'],
-            ['label' => 'Điểm người dùng', 'value' => 'integral'],
-            ['label' => 'trải nghiệm người dùng', 'value' => 'exp'],
+            ['label' => 'Số dư Khách hàng', 'value' => 'now_money'],
+            ['label' => 'Hoa hồng Khách hàng', 'value' => 'brokerage_price'],
+            ['label' => 'Điểm Khách hàng', 'value' => 'integral'],
+            ['label' => 'trải nghiệm Khách hàng', 'value' => 'exp'],
             ['label' => 'Thời gian đăng nhập', 'value' => 'time'],
         ],
 
-        //Mối quan hệ ràng buộc người dùng
+        //Mối quan hệ ràng buộc Khách hàng
         'spread_success' => [
-            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
+            ['label' => 'Biệt hiệu của Khách hàng', 'value' => 'nickname'],
             ['label' => 'thời gian ràng buộc', 'value' => 'time'],
         ],
 
         //Số tiền sửa đổi đơn hàng chưa thanh toán
         'price_change_price' => [
-            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Đơn hàngorder_id', 'value' => 'order_id'],
             ['label' => 'Số lượng đặt hàng ban đầu', 'value' => 'pay_price'],
             ['label' => 'Số tiền được sửa đổi', 'value' => 'change_price'],
         ],
 
         //Thanh toán đơn hàng thành công
         'order_pay_success' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
-            ['label' => 'Tên người dùng', 'value' => 'real_name'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
-            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Đơn hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên Khách hàng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ Khách hàng', 'value' => 'user_address'],
             ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
             ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
             ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
@@ -81,11 +80,11 @@ class SystemNotificationServices extends BaseServices
 
         //Chuyển phát nhanh các đơn hàng
         'order_express_success' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
-            ['label' => 'Tên người dùng', 'value' => 'real_name'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
-            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Đơn hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên Khách hàng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ Khách hàng', 'value' => 'user_address'],
             ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
             ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
             ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
@@ -100,11 +99,11 @@ class SystemNotificationServices extends BaseServices
 
         //Giao hàng theo đơn đặt hàng chuyển phát nhanh
         'order_send_success' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
-            ['label' => 'Tên người dùng', 'value' => 'real_name'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
-            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Đơn hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên Khách hàng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ Khách hàng', 'value' => 'user_address'],
             ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
             ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
             ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
@@ -120,11 +119,11 @@ class SystemNotificationServices extends BaseServices
 
         //Biên nhận đơn hàng
         'order_take' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
-            ['label' => 'Tên người dùng', 'value' => 'real_name'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
-            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Đơn hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên Khách hàng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ Khách hàng', 'value' => 'user_address'],
             ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
             ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
             ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
@@ -139,11 +138,11 @@ class SystemNotificationServices extends BaseServices
 
         //Hoàn tiền đơn hàng
         'order_initiated_refund' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
-            ['label' => 'Tên người dùng', 'value' => 'real_name'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
-            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Đơn hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên Khách hàng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ Khách hàng', 'value' => 'user_address'],
             ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
             ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
             ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
@@ -154,11 +153,11 @@ class SystemNotificationServices extends BaseServices
 
         //Đã hoàn tiền đơn hàng thành công
         'order_refund_success' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Đặt hàngorder_id', 'value' => 'order_id'],
-            ['label' => 'Tên người dùng', 'value' => 'real_name'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'user_phone'],
-            ['label' => 'Địa chỉ người dùng', 'value' => 'user_address'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Đơn hàngorder_id', 'value' => 'order_id'],
+            ['label' => 'Tên Khách hàng', 'value' => 'real_name'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'user_phone'],
+            ['label' => 'Địa chỉ Khách hàng', 'value' => 'user_address'],
             ['label' => 'Tổng số mặt hàng', 'value' => 'total_num'],
             ['label' => 'Số tiền thanh toán', 'value' => 'pay_price'],
             ['label' => 'Trả bưu phí', 'value' => 'pay_postage'],
@@ -172,46 +171,46 @@ class SystemNotificationServices extends BaseServices
 
         //Đơn hàng bị từ chối hoàn tiền
         'order_refund_fail' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
             ['label' => 'Số tiền hoàn lại', 'value' => 'refund_price'],
             ['label' => 'Lý do từ chối hoàn tiền', 'value' => 'refuse_reason'],
             ['label' => 'thời gian từ chối', 'value' => 'time'],
         ],
 
-        //Nạp tiền người dùng
+        //Nạp tiền vào ví
         'recharge_success' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Biệt hiệu của Khách hàng', 'value' => 'nickname'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'phone'],
             ['label' => 'Số tiền nạp', 'value' => 'price'],
             ['label' => 'Số tiền quà tặng', 'value' => 'give_price'],
-            ['label' => 'Số dư người dùng sau khi nạp tiền', 'value' => 'now_money'],
+            ['label' => 'Số dư Khách hàng sau khi nạp tiền', 'value' => 'now_money'],
             ['label' => 'thời gian nạp tiền', 'value' => 'time'],
         ],
 
         //Người dùng nạp tiền và hoàn tiền
         'recharge_refund' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Biệt hiệu của Khách hàng', 'value' => 'nickname'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'phone'],
             ['label' => 'Số tiền hoàn lại', 'value' => 'price'],
-            ['label' => 'Số dư của người dùng sau khi hoàn tiền', 'value' => 'now_money'],
+            ['label' => 'Số dư của Khách hàng sau khi hoàn tiền', 'value' => 'now_money'],
             ['label' => 'Thời gian hoàn tiền', 'value' => 'time'],
         ],
 
-        //Thẻ rút tiền của người dùng
+        //Thẻ rút tiền của Khách hàng
         'extract_success' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Biệt hiệu của Khách hàng', 'value' => 'nickname'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'phone'],
             ['label' => 'Số tiền rút', 'value' => 'price'],
             ['label' => 'Thời gian rút tiền', 'value' => 'time'],
         ],
 
-        //Rút tiền của người dùng không thành công
+        //Rút tiền của Khách hàng không thành công
         'extract_fail' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Biệt hiệu của người dùng', 'value' => 'nickname'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Biệt hiệu của Khách hàng', 'value' => 'nickname'],
             ['label' => 'Lý do thất bại', 'value' => 'message'],
             ['label' => 'Số tiền rút', 'value' => 'price'],
             ['label' => 'thời gian thất bại', 'value' => 'time'],
@@ -219,8 +218,8 @@ class SystemNotificationServices extends BaseServices
 
         //Hoa hồng nhận được
         'brokerage_received' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'phone'],
             ['label' => 'Số tiền nhận được', 'value' => 'brokeragePrice'],
             ['label' => 'Tên sản phẩm', 'value' => 'goodsName'],
             ['label' => 'số lượng sản phẩm', 'value' => 'goodsPrice'],
@@ -229,8 +228,8 @@ class SystemNotificationServices extends BaseServices
 
         //Điểm đến
         'point_received' => [
-            ['label' => 'người dùnguid', 'value' => 'uid'],
-            ['label' => 'Số điện thoại của người dùng', 'value' => 'phone'],
+            ['label' => 'Khách hànguid', 'value' => 'uid'],
+            ['label' => 'Số điện thoại của Khách hàng', 'value' => 'phone'],
             ['label' => 'Số điểm', 'value' => 'give_integral'],
             ['label' => 'Tên sản phẩm', 'value' => 'storeTitle'],
             ['label' => 'Tổng số điểm', 'value' => 'integral'],
@@ -243,8 +242,7 @@ class SystemNotificationServices extends BaseServices
     /**
      * SystemNotificationServices constructor.
      * @param SystemNotificationDao $dao
-     */
-    public function __construct(SystemNotificationDao $dao)
+     */    public function __construct(SystemNotificationDao $dao)
     {
         $this->dao = $dao;
     }
@@ -256,8 +254,7 @@ class SystemNotificationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOneNotce(array $where)
+     */    public function getOneNotce(array $where)
     {
         return $this->dao->getOne($where);
     }
@@ -269,8 +266,7 @@ class SystemNotificationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getNotList(array $where)
+     */    public function getNotList(array $where)
     {
         return $this->dao->getList($where);
     }
@@ -282,8 +278,7 @@ class SystemNotificationServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/2/19
-     */
-    public function getNotForm($id = 0)
+     */    public function getNotForm($id = 0)
     {
         if ($id) {
             $info = $this->dao->get($id);
@@ -292,7 +287,7 @@ class SystemNotificationServices extends BaseServices
             $info = [];
         }
         $data = [
-            ['value' => 'login_success', 'label' => 'Kịch bản đăng nhập người dùng thành công'],
+            ['value' => 'login_success', 'label' => 'Kịch bản đăng nhập Khách hàng thành công'],
             ['value' => 'spread_success', 'label' => 'Kịch bản thành công của mối quan hệ thăng tiến ràng buộc'],
             ['value' => 'price_change_price', 'label' => 'Kịch bản sửa đổi giá đơn hàng chưa thanh toán'],
             ['value' => 'order_pay_success', 'label' => 'Kịch bản thành công thanh toán đơn hàng'],
@@ -324,8 +319,7 @@ class SystemNotificationServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/2/20
-     */
-    public function notFormSave($id, $data)
+     */    public function notFormSave($id, $data)
     {
         if ($id) {
             $data['title'] = $data['name'];
@@ -348,8 +342,7 @@ class SystemNotificationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getNotInfo(array $where)
+     */    public function getNotInfo(array $where)
     {
         $type = $where['type'];
         unset($where['type']);
@@ -403,8 +396,7 @@ class SystemNotificationServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveData(array $data)
+     */    public function saveData(array $data)
     {
         $type = $data['type'];
         $id = $data['id'];
@@ -500,8 +492,7 @@ class SystemNotificationServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/16
-     */
-    public function getTempId($type)
+     */    public function getTempId($type)
     {
         return $this->dao->getTempId($type);
     }
@@ -516,8 +507,7 @@ class SystemNotificationServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/16
-     */
-    public function getTempKey($type)
+     */    public function getTempKey($type)
     {
         return $this->dao->getTempKey($type);
     }
@@ -526,8 +516,7 @@ class SystemNotificationServices extends BaseServices
      * Gửi thử tin nhắn Telegram.
      * @param array $data
      * @return bool
-     */
-    public function testTelegram(array $data): bool
+     */    public function testTelegram(array $data): bool
     {
         $botToken = trim((string)($data['telegram_bot_token'] ?? ''));
         $chatId = trim((string)($data['telegram_chat_id'] ?? ''));
@@ -545,7 +534,7 @@ class SystemNotificationServices extends BaseServices
         }
 
         if ($botToken === '' || $chatId === '' || $text === '') {
-            throw new AdminException('Vui lòng nhập đủ Bot Token, Chat ID và nội dung Telegram');
+            throw new AdminException('Vui lòng nhập đủ Bot Token, Chat ID và Nội dung Telegram');
         }
 
         $testData = [

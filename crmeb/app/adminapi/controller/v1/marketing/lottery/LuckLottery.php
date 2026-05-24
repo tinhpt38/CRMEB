@@ -20,16 +20,14 @@ use think\facade\App;
  * rút thăm trúng thưởng
  * Class LuckLottery
  * @package app\controller\admin\v1\marketing\lottery
- */
-class LuckLottery extends AuthController
+ */class LuckLottery extends AuthController
 {
 
     /**
      * LuckLottery constructor.
      * @param App $app
      * @param LuckLotteryServices $services
-     */
-    public function __construct(App $app, LuckLotteryServices $services)
+     */    public function __construct(App $app, LuckLotteryServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -38,8 +36,7 @@ class LuckLottery extends AuthController
     /**
      * Danh sách xổ số
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['factor', ''],
@@ -58,8 +55,7 @@ class LuckLottery extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function detail($id)
+     */    public function detail($id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -73,8 +69,7 @@ class LuckLottery extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function add()
+     */    public function add()
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -126,8 +121,7 @@ class LuckLottery extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -181,8 +175,7 @@ class LuckLottery extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function delete()
+     */    public function delete()
     {
         list($id) = $this->request->getMore([
             ['id', 0],
@@ -200,8 +193,7 @@ class LuckLottery extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setStatus($id = '', $status = '')
+     */    public function setStatus($id = '', $status = '')
     {
         if ($status == '' || $id == '') return app('json')->fail('Lỗi tham số');
         $this->services->setStatus((int)$id, (int)$status);

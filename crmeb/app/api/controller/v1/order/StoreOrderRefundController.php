@@ -21,14 +21,12 @@ class StoreOrderRefundController
 {
     /**
      * @var StoreOrderRefundServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * StoreOrderRefundController constructor.
      * @param StoreOrderRefundServices $services
-     */
-    public function __construct(StoreOrderRefundServices $services)
+     */    public function __construct(StoreOrderRefundServices $services)
     {
         $this->services = $services;
     }
@@ -37,8 +35,7 @@ class StoreOrderRefundController
      * Danh sách đơn hàng hoàn tiền
      * @param Request $request
      * @return mixed
-     */
-    public function refundList(Request $request)
+     */    public function refundList(Request $request)
     {
         $where = $request->getMore([
             ['refund_status', ''],
@@ -55,8 +52,7 @@ class StoreOrderRefundController
      * @param Request $request
      * @param $uni
      * @return mixed
-     */
-    public function refundDetail(Request $request, $uni)
+     */    public function refundDetail(Request $request, $uni)
     {
         $orderData = $this->services->refundDetail($uni);
         return app('json')->success($orderData);
@@ -70,8 +66,7 @@ class StoreOrderRefundController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function cancelApply(Request $request, $uni)
+     */    public function cancelApply(Request $request, $uni)
     {
         if (!strlen(trim($uni))) return app('json')->fail('Lỗi tham số');
         $orderRefund = $this->services->get(['order_id' => $uni, 'is_cancel' => 0]);
@@ -84,7 +79,7 @@ class StoreOrderRefundController
         $this->services->update($orderRefund['id'], ['is_cancel' => 1]);
         $this->services->cancelOrderRefundCartInfo((int)$orderRefund['id'], (int)$orderRefund['store_order_id'], $orderRefund);
 
-        //Sự kiện tùy chỉnh - người dùng hủy hoàn tiền
+        //Sự kiện tùy chỉnh - Khách hàng hủy hoàn tiền
         event('CustomEventListener', ['order_refund_cancel', [
             'uid' => $orderRefund['uid'],
             'id' => $orderRefund['id'],
@@ -102,8 +97,7 @@ class StoreOrderRefundController
      * Người dùng trả lại hàng và gửi số theo dõi chuyển phát nhanh
      * @param Request $request
      * @return mixed
-     */
-    public function applyExpress(Request $request)
+     */    public function applyExpress(Request $request)
     {
         $data = $request->postMore([
             ['id', ''],
@@ -126,13 +120,11 @@ class StoreOrderRefundController
      * @param Request $request
      * @param $uni
      * @return mixed
-     */
-    public function delRefund(Request $request, $uni)
+     */    public function delRefund(Request $request, $uni)
     {
         $oid = $this->services->value(['order_id' => $uni, 'uid' => $request->uid()], 'store_order_id');
         $res = $this->services->update(['order_id' => $uni, 'uid' => $request->uid()], ['is_del' => 1]);
-        /** @var StoreOrderServices $orderServices */
-        $orderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderServices */        $orderServices = app()->make(StoreOrderServices::class);
         $orderServices->update($oid, ['is_del' => 1], 'id');
         if ($res)
             return app('json')->success('Xóa thành công');

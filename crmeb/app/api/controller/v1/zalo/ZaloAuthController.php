@@ -18,7 +18,7 @@ use think\exception\ValidateException;
 use think\facade\Config;
 
 /**
- * Xác thực người dùng từ Zalo Mini App
+ * Xác thực Khách hàng từ Zalo Mini App
  *
  * Endpoints:
  *  POST /api/zalo/auth           - Đăng nhập bằng Zalo access_token (không cần token CRMEB)
@@ -26,8 +26,7 @@ use think\facade\Config;
  *
  * Class ZaloAuthController
  * @package app\api\controller\v1\zalo
- */
-class ZaloAuthController
+ */class ZaloAuthController
 {
     protected ZaloAuthServices $services;
 
@@ -48,12 +47,11 @@ class ZaloAuthController
      * Response 200:
      *   token         string  - JWT dùng cho các request sau
      *   expires_time  int     - Unix timestamp hết hạn token
-     *   userInfo      object  - Thông tin cơ bản người dùng {uid, nickname, avatar, phone}
+     *   userInfo      object  - Thông tin cơ bản Khách hàng {uid, nickname, avatar, phone}
      *
      * @param Request $request
      * @return mixed
-     */
-    public function auth(Request $request)
+     */    public function auth(Request $request)
     {
         [$accessToken, $spread, $source, $phone] = $request->postMore([
             ['access_token', ''],
@@ -84,8 +82,7 @@ class ZaloAuthController
      *
      * @param Request $request
      * @return mixed
-     */
-    public function location(Request $request)
+     */    public function location(Request $request)
     {
         [$accessToken, $code] = $request->postMore([
             ['access_token', ''],
@@ -111,8 +108,7 @@ class ZaloAuthController
      *
      * @param Request $request
      * @return mixed
-     */
-    public function bindPhone(Request $request)
+     */    public function bindPhone(Request $request)
     {
         [$phone, $captcha] = $request->postMore([
             ['phone', ''],
@@ -159,8 +155,7 @@ class ZaloAuthController
      *
      * @param Request $request
      * @return mixed
-     */
-    public function bindPhoneDirect(Request $request)
+     */    public function bindPhoneDirect(Request $request)
     {
         [$accessToken, $phoneToken] = $request->postMore([
             ['access_token', ''],
@@ -205,8 +200,7 @@ class ZaloAuthController
      * @param SmsService $smsService
      * @param LoginServices $loginServices
      * @return mixed
-     */
-    public function sendBindOtp(Request $request, SmsService $smsService, LoginServices $loginServices)
+     */    public function sendBindOtp(Request $request, SmsService $smsService, LoginServices $loginServices)
     {
         [$phone] = $request->postMore([
             ['phone', ''],

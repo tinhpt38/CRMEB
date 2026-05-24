@@ -23,14 +23,12 @@ use think\facade\Log;
 /**
  * Class LiveRoomServices
  * @package app\services\activity\live
- */
-class LiveRoomServices extends BaseServices
+ */class LiveRoomServices extends BaseServices
 {
     /**
      * LiveRoomServices constructor.
      * @param LiveRoomDao $dao
-     */
-    public function __construct(LiveRoomDao $dao)
+     */    public function __construct(LiveRoomDao $dao)
     {
         $this->dao = $dao;
     }
@@ -85,8 +83,7 @@ class LiveRoomServices extends BaseServices
     public function add(array $data)
     {
         [$data['start_time'], $data['end_time']] = $data['start_time'];
-        /** @var LiveAnchorServices $anchorServices */
-        $anchorServices = app()->make(LiveAnchorServices::class);
+        /** @var LiveAnchorServices $anchorServices */        $anchorServices = app()->make(LiveAnchorServices::class);
         $anchor = $anchorServices->get(['wechat' => $data['anchor_wechat']]);
         if (!$anchor) {
             throw new AdminException('Mỏ neo không tồn tại');
@@ -139,8 +136,7 @@ class LiveRoomServices extends BaseServices
     public function wxCreate($room)
     {
         try {
-            /** @var DownloadImage $downloadImage */
-            $downloadImage = app()->make(DownloadImage::class);
+            /** @var DownloadImage $downloadImage */            $downloadImage = app()->make(DownloadImage::class);
             $coverImg = $downloadImage->downloadImage($room['cover_img'])['path'];
             $shareImg = $downloadImage->downloadImage($room['share_img'])['path'];
         } catch (\Throwable $e) {
@@ -185,8 +181,7 @@ class LiveRoomServices extends BaseServices
             if (!$this->dao->update($id, ['is_del' => 1])) {
                 throw new AdminException('Xóa không thành công');
             }
-            /** @var LiveRoomGoodsServices $liveRoomGoods */
-            $liveRoomGoods = app()->make(LiveRoomGoodsServices::class);
+            /** @var LiveRoomGoodsServices $liveRoomGoods */            $liveRoomGoods = app()->make(LiveRoomGoodsServices::class);
             $liveRoomGoods->delete(['live_room_id' => $id]);
         }
         return true;
@@ -205,8 +200,7 @@ class LiveRoomServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function exportGoods(int $room_id, array $ids)
+     */    public function exportGoods(int $room_id, array $ids)
     {
         if (!$room_id) throw new AdminException('Lỗi tham số');
         if (!$ids) throw new AdminException('Lỗi tham số');
@@ -216,9 +210,8 @@ class LiveRoomServices extends BaseServices
         if (!$room = $this->dao->validRoom($room_id))
             throw new AdminException('Tình trạng phòng phát sóng trực tiếp bị sai');
         $data = [];
-        /** @var LiveRoomGoodsServices $liveRoomGoodsServices */
-        $liveRoomGoodsServices = app()->make(LiveRoomGoodsServices::class);
-        //Truy vấn liên quan
+        /** @var LiveRoomGoodsServices $liveRoomGoodsServices */        $liveRoomGoodsServices = app()->make(LiveRoomGoodsServices::class);
+        //Tìm kiếm liên quan
         $roomGoods = $liveRoomGoodsServices->getColumn(['live_room_id' => $room_id], 'live_goods_id', 'Live_goods_id');
         $goods_ids = [];
         foreach ($goods as $key => $item) {
@@ -243,8 +236,7 @@ class LiveRoomServices extends BaseServices
      * Đồng bộ trạng thái phòng live
      * @return bool
      * @throws \Exception
-     */
-    public function syncRoomStatus()
+     */    public function syncRoomStatus()
     {
         $start = 1;
         $limit = 50;

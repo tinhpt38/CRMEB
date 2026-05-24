@@ -31,20 +31,17 @@ use app\jobs\OtherOrderJob;
  * @method getDistinctCount(array $where, $field, ?bool $search = true)
  * @method getPayUserCount(int $time, string $channel_type)
  * @method getTrendData($time, $type, $timeType)
- */
-class OtherOrderServices extends BaseServices
+ */class OtherOrderServices extends BaseServices
 {
     /**
      * @var OtherOrderDao
-     */
-    protected $dao;
+     */    protected $dao;
 
     /**
      * Khởi tạo và lấy phần xử lý lớp dao
      * OtherOrderServices constructor.
      * @param OtherOrderDao $dao
-     */
-    public function __construct(OtherOrderDao $dao)
+     */    public function __construct(OtherOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -53,8 +50,7 @@ class OtherOrderServices extends BaseServices
      * Tạo dữ liệu đơn đặt hàng thành viên
      * @param array $data
      * @return mixed
-     */
-    public function addOtherOrderData(array $data)
+     */    public function addOtherOrderData(array $data)
     {
         if (!$data) throw new ApiException('Dữ liệu không tồn tại');
         $add = [
@@ -87,15 +83,11 @@ class OtherOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function isCanGetFree(int $uid)
+     */    public function isCanGetFree(int $uid)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
-        /** @var MemberShipServices $memberShipService */
-        $memberShipService = app()->make(MemberShipServices::class);
-        /** @var StoreOrderEconomizeServices $economizeService */
-        $economizeService = app()->make(StoreOrderEconomizeServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
+        /** @var MemberShipServices $memberShipService */        $memberShipService = app()->make(MemberShipServices::class);
+        /** @var StoreOrderEconomizeServices $economizeService */        $economizeService = app()->make(StoreOrderEconomizeServices::class);
         $freeDay = $memberShipService->getVipDay(['type' => "free"]);
         $freeConfig = array();
         $freeConfig['price'] = 0;
@@ -123,8 +115,7 @@ class OtherOrderServices extends BaseServices
      * @param $timeKey
      * @param bool $isNum
      * @throws \Exception
-     */
-    public function TimeConvert($timeKey, $isNum = false)
+     */    public function TimeConvert($timeKey, $isNum = false)
     {
         switch ($timeKey) {
             case "today":
@@ -191,15 +182,14 @@ class OtherOrderServices extends BaseServices
 
 
     /**
-     * Truy vấn dữ liệu đơn hàng thẻ thành viên
+     * Tìm kiếm dữ liệu đơn hàng thẻ thành viên
      * @param array $where
      * @param string $field
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOne(array $where, string $field = '*')
+     */    public function getOne(array $where, string $field = '*')
     {
         return $this->dao->getOne($where, $field);
     }
@@ -210,14 +200,12 @@ class OtherOrderServices extends BaseServices
      * @param bool $memberType Loại thẻ thành viên
      * @param string $payPrice Số tiền thanh toán
      * @param string $payType Phương thức thanh toán
-     * @param $type Loại lệnh
+     * @param $type Loại đơn hàng
      * @return mixed
      * @throws \Exception
-     */
-    public function createOrder(int $uid, string $channelType, $memberType = false, string $payPrice, string $payType, $type, $money, $mcId)
+     */    public function createOrder(int $uid, string $channelType, $memberType = false, string $payPrice, string $payType, $type, $money, $mcId)
     {
-        /** @var StoreOrderCreateServices $storeOrderCreateService */
-        $storeOrderCreateService = app()->make(StoreOrderCreateServices::class);
+        /** @var StoreOrderCreateServices $storeOrderCreateService */        $storeOrderCreateService = app()->make(StoreOrderCreateServices::class);
         $orderInfo = [
             'uid' => $uid,
             'order_id' => $storeOrderCreateService->getNewOrderId('hy'),
@@ -248,8 +236,7 @@ class OtherOrderServices extends BaseServices
         if (!$memberOrder) {
             throw new ApiException('Tạo đơn hàng không thành công');
         }
-        /** @var OtherOrderStatusServices $statusService */
-        $statusService = app()->make(OtherOrderStatusServices::class);
+        /** @var OtherOrderStatusServices $statusService */        $statusService = app()->make(OtherOrderStatusServices::class);
         $statusService->save([
             'oid' => $memberOrder['id'],
             'change_type' => $changeType,
@@ -264,8 +251,7 @@ class OtherOrderServices extends BaseServices
      * Thanh toán nhận thẻ miễn phí
      * @param $orderInfo
      * @return bool
-     */
-    public function zeroYuanPayment($orderInfo)
+     */    public function zeroYuanPayment($orderInfo)
     {
         if ($orderInfo['paid']) {
             throw new ApiException('Đơn hàng đã thanh toán');
@@ -282,15 +268,11 @@ class OtherOrderServices extends BaseServices
      * @param array $orderInfo
      * @param string $paytype
      * @return bool
-     */
-    public function paySuccess(array $orderInfo, string $paytype = PayServices::WEIXIN_PAY, array $other = [])
+     */    public function paySuccess(array $orderInfo, string $paytype = PayServices::WEIXIN_PAY, array $other = [])
     {
-        /** @var OtherOrderStatusServices $statusService */
-        $statusService = app()->make(OtherOrderStatusServices::class);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
-        /** @var UserBillServices $userBillServices */
-        $userBillServices = app()->make(UserBillServices::class);
+        /** @var OtherOrderStatusServices $statusService */        $statusService = app()->make(OtherOrderStatusServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
+        /** @var UserBillServices $userBillServices */        $userBillServices = app()->make(UserBillServices::class);
         $type = 'pay_member';
         $res1 = true;
         switch ($orderInfo['type']) {
@@ -329,15 +311,14 @@ class OtherOrderServices extends BaseServices
         $orderInfo['total_num'] = 1;
 
         if ($orderInfo['pay_type'] != 'yue') {
-            /** @var CapitalFlowServices $capitalFlowServices */
-            $capitalFlowServices = app()->make(CapitalFlowServices::class);
+            /** @var CapitalFlowServices $capitalFlowServices */            $capitalFlowServices = app()->make(CapitalFlowServices::class);
             $userInfo = $userServices->get($orderInfo['uid']);
             $orderInfo['nickname'] = $userInfo['nickname'];
             $orderInfo['phone'] = $userInfo['phone'];
             $capitalFlowServices->setFlow($orderInfo, $type);
         }
         $res = $res1 && $res2 && $res3 && $res4;
-        //Mua cài đặt giảm giá thành viên trả phí
+        //Mua Cài đặt giảm giá thành viên trả phí
         if (sys_config('member_brokerage', 0) == 1 && sys_config('brokerage_func_status', 0) == 1) {
             $spread_one = sys_config('is_self_brokerage') ? $orderInfo['uid'] : $userServices->getSpreadUid($orderInfo['uid']);
             $spread_two = sys_config('brokerage_level', 2) == 2 ? $userServices->getSpreadUid($spread_one, [], false) : 0;
@@ -359,23 +340,20 @@ class OtherOrderServices extends BaseServices
      * @param $price
      * @param $type
      * @param $orderInfo
-     */
-    public function memberBrokerage($uid, $price, $type, $orderInfo)
+     */    public function memberBrokerage($uid, $price, $type, $orderInfo)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($uid);
         // Số tiền sau khi giảm hoa hồng cho nhà quảng cáo cấp trên
         $balance = bcadd($userInfo['brokerage_price'], $price, 2);
-        // Thêm hoa hồng người dùng
+        // Thêm hoa hồng Khách hàng
         $res1 = $userServices->bcInc($uid, 'brokerage_price', $price, 'uid');
         if ($res1) {
             //thời gian đóng băng
             $broken_time = intval(sys_config('extract_time'));
             $frozen_time = time() + $broken_time * 86400;
             // Thêm hồ sơ hoa hồng
-            /** @var UserBrokerageServices $userBrokerageServices */
-            $userBrokerageServices = app()->make(UserBrokerageServices::class);
+            /** @var UserBrokerageServices $userBrokerageServices */            $userBrokerageServices = app()->make(UserBrokerageServices::class);
             $userBrokerageServices->income($type, $uid, [
                 'nickname' => $userInfo['nickname'],
                 'pay_price' => floatval($orderInfo['pay_price']),
@@ -386,12 +364,11 @@ class OtherOrderServices extends BaseServices
     }
 
     /**
-     * Ôn lại
+     * Sửa
      * @param $where
      * @param array $data
      * @return \crmeb\basic\BaseModel
-     */
-    public function update($where, array $data)
+     */    public function update($where, array $data)
     {
         return $this->dao->update($where, $data);
     }
@@ -407,13 +384,10 @@ class OtherOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkPayMemberType(string $memberType, string $payPrice, string $type, $uid, $mcId)
+     */    public function checkPayMemberType(string $memberType, string $payPrice, string $type, $uid, $mcId)
     {
-        /** @var MemberCardServices $memberCardService */
-        $memberCardService = app()->make(MemberCardServices::class);
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var MemberCardServices $memberCardService */        $memberCardService = app()->make(MemberCardServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $userInfo = $userService->get($uid);
         if ($userInfo['is_money_level'] > 0 && $userInfo['is_ever_level'] > 0) throw new ApiException('Bạn đã là thành viên thường trực và không cần phải mua thêm nữa');
         $newMemberRight = $memberCardService->getMemberTypeValue();
@@ -453,11 +427,10 @@ class OtherOrderServices extends BaseServices
     }
 
     /**
-     * Theo truy vấn số tiền mua thành viên của người dùng
+     * Theo truy vấn số tiền mua thành viên của Khách hàng
      * @param array $where
      * @return mixed
-     */
-    public function getMemberMoneyByWhere(array $where, string $sumField, string $selectType, string $group = "")
+     */    public function getMemberMoneyByWhere(array $where, string $sumField, string $selectType, string $group = "")
     {
         switch ($selectType) {
             case "sum":
@@ -474,8 +447,7 @@ class OtherOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getScanOrderList(array $where)
+     */    public function getScanOrderList(array $where)
     {
         $where['type'] = 3;
         $where['paid'] = 1;
@@ -489,15 +461,13 @@ class OtherOrderServices extends BaseServices
             }
         }
         if ($where['name']) {
-            /** @var UserServices $userService */
-            $userService = app()->make(UserServices::class);
+            /** @var UserServices $userService */            $userService = app()->make(UserServices::class);
             $userInfo = $userService->getUserInfoList(['nickname' => $where['name']], "uid");
             if ($userInfo) $where['uid'] = array_column($userInfo, 'uid');
         }
         $list = $this->dao->getScanOrderList($where, $page, $limit);
         if ($list) {
-            /** @var UserServices $userService */
-            $userService = app()->make(UserServices::class);
+            /** @var UserServices $userService */            $userService = app()->make(UserServices::class);
             $userInfo = $userService->getColumn([['uid', 'in', array_unique(array_column($list, 'uid'))]], 'uid,phone,nickname', 'uid');
             foreach ($list as &$v) {
                 $v['add_time'] = date('Y-m-d H:i:s', $v['add_time']);
@@ -529,8 +499,7 @@ class OtherOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMemberRecord(array $where)
+     */    public function getMemberRecord(array $where)
     {
         $where['type'] = [0, 1, 2];
         $where['paid'] = 1;
@@ -546,8 +515,7 @@ class OtherOrderServices extends BaseServices
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getMemberRecord($where, $page, $limit);
         if ($list) {
-            /** @var MemberShipServices $memberShipService */
-            $memberShipService = app()->make(MemberShipServices::class);
+            /** @var MemberShipServices $memberShipService */            $memberShipService = app()->make(MemberShipServices::class);
             $shipInfo = $memberShipService->getApiList([]);
             $shipInfo = array_column($shipInfo, 'title', 'type');
             $shipInfo['owner'] = 'Tùy chỉnh';
@@ -567,7 +535,7 @@ class OtherOrderServices extends BaseServices
                         $v['pay_type'] = "Alipay";
                         break;
                     case 'allinpay':
-                        $v['pay_type'] = "thanh toán Tonglian";
+                        $v['pay_type'] = "Thanh toán Tonglian";
                         break;
                     case "admin":
                         $v['pay_type'] = "Quà tặng hậu trường";

@@ -19,15 +19,13 @@ use app\model\user\UserRecharge;
  *
  * Class UserRechargeDao
  * @package app\dao\user
- */
-class UserRechargeDao extends BaseDao
+ */class UserRechargeDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserRecharge::class;
     }
@@ -38,8 +36,7 @@ class UserRechargeDao extends BaseDao
      * @param string $filed
      * @param int $page
      * @param int $limit
-     */
-    public function getList(array $where, string $filed = "*", int $page, int $limit)
+     */    public function getList(array $where, string $filed = "*", int $page, int $limit)
     {
         return $this->search($where)->field($filed)->with([
             'user' => function ($query) {
@@ -54,8 +51,7 @@ class UserRechargeDao extends BaseDao
      * @param array $where
      * @param string $field
      * @return float
-     */
-    public function getWhereSumField(array $where, string $field)
+     */    public function getWhereSumField(array $where, string $field)
     {
         return $this->search($where, false)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -64,13 +60,12 @@ class UserRechargeDao extends BaseDao
             ->sum($field);
     }
 
-    /**Truy vấn nhóm dựa trên một trường nhất định
+    /**Tìm kiếm nhóm dựa trên một trường nhất định
      * @param array $where
      * @param string $field
      * @param string $group
      * @return mixed
-     */
-    public function getGroupField(array $where, string $field, string $group)
+     */    public function getGroupField(array $where, string $field, string $group)
     {
         return $this->search($where, false)
             ->when(isset($where['timeKey']), function ($query) use ($where, $field, $group) {

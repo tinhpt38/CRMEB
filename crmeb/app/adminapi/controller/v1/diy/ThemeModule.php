@@ -19,20 +19,17 @@ use think\facade\App;
 
 /**
  * Quản lý thành phần chủ đề
- */
-class ThemeModule extends AuthController
+ */class ThemeModule extends AuthController
 {
     /**
      * @var ThemeModuleServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * Người xây dựng
      * @param App $app
      * @param ThemeModuleServices $services
-     */
-    public function __construct(App $app, ThemeModuleServices $services)
+     */    public function __construct(App $app, ThemeModuleServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -44,8 +41,7 @@ class ThemeModule extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['type', ''],
@@ -61,8 +57,7 @@ class ThemeModule extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function read(int $id)
+     */    public function read(int $id)
     {
         if (!$id) {
             throw new AdminException('Lỗi tham số');
@@ -74,8 +69,7 @@ class ThemeModule extends AuthController
     /**
      * Thêm thành phần mới
      * @return \think\Response
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['type', ''],
@@ -89,8 +83,7 @@ class ThemeModule extends AuthController
      * Chỉnh sửa thành phần
      * @param int $id
      * @return \think\Response
-     */
-    public function update(int $id)
+     */    public function update(int $id)
     {
         if (!$id) {
             throw new AdminException('Lỗi tham số');
@@ -107,8 +100,7 @@ class ThemeModule extends AuthController
      * Xóa thành phần
      * @param int $id
      * @return \think\Response
-     */
-    public function delete(int $id)
+     */    public function delete(int $id)
     {
         if (!$id) {
             throw new AdminException('Lỗi tham số');

@@ -19,15 +19,13 @@ use app\dao\user\UserWechatUserDao;
  *
  * Class UserWechatuserServices
  * @package app\services\user
- */
-class UserWechatuserServices extends BaseServices
+ */class UserWechatuserServices extends BaseServices
 {
 
     /**
      * UserWechatuserServices constructor.
      * @param UserWechatUserDao $dao
-     */
-    public function __construct(UserWechatUserDao $dao)
+     */    public function __construct(UserWechatUserDao $dao)
     {
         $this->dao = $dao;
     }
@@ -36,8 +34,7 @@ class UserWechatuserServices extends BaseServices
      * Tổng số truy vấn đơn giản tùy chỉnh
      * @param array $where
      * @return int
-     */
-    public function getCount(array $where): int
+     */    public function getCount(array $where): int
     {
         return $this->dao->getCount($where);
     }
@@ -47,8 +44,7 @@ class UserWechatuserServices extends BaseServices
      * @param array $where
      * @param string $field
      * @return array
-     */
-    public function getWhereUserList(array $where, string $field): array
+     */    public function getWhereUserList(array $where, string $field): array
     {
         [$page, $limit] = $this->getPageValue();
         $order_string = '';

@@ -19,30 +19,26 @@ use think\Model;
  * Danh sách cửa hàng
  * Class SystemStore
  * @package app\model\system\store
- */
-class SystemStore extends BaseModel
+ */class SystemStore extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_store';
+     */    protected $name = 'system_store';
 
     /**
      * Máy thu vĩ độ và kinh độ
      * @param $value
      * @param $data
      * @return string
-     */
-    public static function getLatlngAttr($value, $data)
+     */    public static function getLatlngAttr($value, $data)
     {
         return $data['latitude'] . ',' . $data['longitude'];
     }
@@ -51,8 +47,7 @@ class SystemStore extends BaseModel
      * Công cụ tìm loại cửa hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         switch ((int)$value) {
             case 1:
@@ -71,8 +66,7 @@ class SystemStore extends BaseModel
      * Số điện thoại,id,Người tìm kiếm biệt hiệu
      * @param Model $query
      * @param $value
-     */
-    public function searchKeywordsAttr($query, $value)
+     */    public function searchKeywordsAttr($query, $value)
     {
         if ($value) {
             $query->where('id|name|introduction|phone', 'LIKE', "%$value%");

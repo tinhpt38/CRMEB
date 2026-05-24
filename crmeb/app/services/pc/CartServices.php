@@ -26,25 +26,19 @@ class CartServices extends BaseServices
      * PCdanh sách giỏ hàng thiết bị đầu cuối
      * @param int $uid
      * @return array[]
-     */
-    public function getCartList(int $uid)
+     */    public function getCartList(int $uid)
     {
-        /** @var StoreCartServices $storeCartServices */
-        $storeCartServices = app()->make(StoreCartServices::class);
-        /** @var StoreProductServices $productServices */
-        $productServices = app()->make(StoreProductServices::class);
+        /** @var StoreCartServices $storeCartServices */        $storeCartServices = app()->make(StoreCartServices::class);
+        /** @var StoreProductServices $productServices */        $productServices = app()->make(StoreProductServices::class);
         $list = $storeCartServices->getCartList(['uid' => $uid], 0, 0, ['productInfo', 'attrInfo']);
-        /** @var MemberCardServices $memberCardService */
-        $memberCardService = app()->make(MemberCardServices::class);
+        /** @var MemberCardServices $memberCardService */        $memberCardService = app()->make(MemberCardServices::class);
         $vipStatus = $memberCardService->isOpenMemberCard('vip_price', false);
-        /** @var UserServices $user */
-        $user = app()->make(UserServices::class);
+        /** @var UserServices $user */        $user = app()->make(UserServices::class);
         $userInfo = $user->getUserInfo($uid);
-        //Cấp độ người dùng có được bật không?
+        //Hạng khách hàng có được bật không?
         $discount = 100;
         if (sys_config('member_func_status', 1)) {
-            /** @var SystemUserLevelServices $systemLevel */
-            $systemLevel = app()->make(SystemUserLevelServices::class);
+            /** @var SystemUserLevelServices $systemLevel */            $systemLevel = app()->make(SystemUserLevelServices::class);
             $discount = $systemLevel->value(['id' => $userInfo['level'], 'is_del' => 0, 'is_show' => 1], 'discount') ?: 100;
         }
         $valid = $invalid = [];

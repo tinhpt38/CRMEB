@@ -1,7 +1,6 @@
 import CONFIG from "@/config";
 
-/** Người dùng đã bấm đăng xuất — không gọi lại /zalo/auth cho đến khi chủ động đăng nhập. */
-export function isSessionLoggedOut(): boolean {
+/** Người dùng đã bấm đăng xuất — không gọi lại /zalo/auth cho đến khi chủ động đăng nhập. */export function isSessionLoggedOut(): boolean {
   try {
     return localStorage.getItem(CONFIG.STORAGE_KEYS.SESSION_LOGGED_OUT) === "1";
   } catch {

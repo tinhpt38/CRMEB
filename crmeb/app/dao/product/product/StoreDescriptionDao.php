@@ -17,14 +17,12 @@ use app\model\product\product\StoreDescription;
 /**
  * Class StoreDescriptionDao
  * @package app\dao\product\product
- */
-class StoreDescriptionDao extends BaseDao
+ */class StoreDescriptionDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreDescription::class;
     }
@@ -36,8 +34,7 @@ class StoreDescriptionDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getDescription(array $where)
+     */    public function getDescription(array $where)
     {
         return $this->getOne($where);
     }

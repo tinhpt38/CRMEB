@@ -17,15 +17,13 @@ use think\facade\App;
 /**
  * Class UserRecharge
  * @package app\adminapi\controller\v1\finance
- */
-class UserRecharge extends AuthController
+ */class UserRecharge extends AuthController
 {
     /**
      * UserRecharge constructor.
      * @param App $app
      * @param UserRechargeServices $services
-     */
-    public function __construct(App $app, UserRechargeServices $services)
+     */    public function __construct(App $app, UserRechargeServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -34,8 +32,7 @@ class UserRecharge extends AuthController
     /**
      * Hiển thị danh sách tài nguyên
      * @return \think\Response
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['data', ''],
@@ -49,18 +46,16 @@ class UserRecharge extends AuthController
      * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->delRecharge((int)$id) ? 'Xóa thành công' : 'Xóa không thành công');
     }
 
     /**
-     * Nhận dữ liệu nạp tiền của người dùng
+     * Nhận dữ liệu nạp tiền của Khách hàng
      * @return array
-     */
-    public function user_recharge()
+     */    public function user_recharge()
     {
         $where = $this->request->getMore([
             ['data', ''],
@@ -74,8 +69,7 @@ class UserRecharge extends AuthController
      * Hình thức hoàn tiền
      * @param $id
      * @return mixed|void
-     */
-    public function refund_edit($id)
+     */    public function refund_edit($id)
     {
         if (!$id) return app('json')->fail('Dữ liệu không tồn tại');
         return app('json')->success($this->services->refund_edit((int)$id));
@@ -85,8 +79,7 @@ class UserRecharge extends AuthController
      * Hoạt động hoàn tiền
      * @param $id
      * @return mixed
-     */
-    public function refund_update($id)
+     */    public function refund_update($id)
     {
         $data = $this->request->postMore([
             'refund_price',

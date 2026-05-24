@@ -20,8 +20,7 @@ use think\facade\App;
  * Quản lý phiếu giảm giá đã xuất bản
  * Class StoreCouponIssue
  * @package app\adminapi\controller\v1\marketing
- */
-class StoreCouponIssue extends AuthController
+ */class StoreCouponIssue extends AuthController
 {
     public function __construct(App $app, StoreCouponIssueServices $services)
     {
@@ -35,8 +34,7 @@ class StoreCouponIssue extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['status', 1],
@@ -50,10 +48,9 @@ class StoreCouponIssue extends AuthController
     }
 
     /**
-     * thêm phiếu giảm giá
+     * Tạo mã giảm giá
      * @return mixed
-     */
-    public function saveCoupon()
+     */    public function saveCoupon()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -85,8 +82,7 @@ class StoreCouponIssue extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function status($id, $status)
+     */    public function status($id, $status)
     {
         $this->services->update($id, ['status' => $status]);
         return app('json')->success('Sửa đổi thành công');
@@ -96,8 +92,7 @@ class StoreCouponIssue extends AuthController
      * Sao chép phiếu giảm giá để nhận chi tiết phiếu giảm giá
      * @param int $id
      * @return mixed
-     */
-    public function copy($id = 0)
+     */    public function copy($id = 0)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $info = $this->services->get($id);
@@ -111,8 +106,7 @@ class StoreCouponIssue extends AuthController
         }
         if ($info['product_id'] != '') {
             $productIds = explode(',', $info['product_id']);
-            /** @var StoreProductServices $product */
-            $product = app()->make(StoreProductServices::class);
+            /** @var StoreProductServices $product */            $product = app()->make(StoreProductServices::class);
             $productImages = $product->getColumn([['id', 'in', $productIds]], 'image', 'id');
             foreach ($productIds as $item) {
                 $info['productInfo'][] = [
@@ -131,15 +125,13 @@ class StoreCouponIssue extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param string $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         $this->services->update($id, ['is_del' => 1]);
-        /** @var StoreProductCouponServices $storeProductService */
-        $storeProductService = app()->make(StoreProductCouponServices::class);
+        /** @var StoreProductCouponServices $storeProductService */        $storeProductService = app()->make(StoreProductCouponServices::class);
         //Xóa phiếu giảm giá này được liên kết với sản phẩm
         $storeProductService->delete(['issue_coupon_id' => $id]);
         return app('json')->success('Xóa thành công');
@@ -150,8 +142,7 @@ class StoreCouponIssue extends AuthController
      * @param $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->createForm($id));
     }
@@ -160,8 +151,7 @@ class StoreCouponIssue extends AuthController
      * Nhận hồ sơ
      * @param string $id
      * @return mixed|string
-     */
-    public function issue_log($id)
+     */    public function issue_log($id)
     {
         $list = $this->services->issueLog($id);
         return app('json')->success($list);

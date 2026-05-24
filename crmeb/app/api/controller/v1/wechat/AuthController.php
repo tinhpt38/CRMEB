@@ -20,16 +20,14 @@ use app\services\wechat\RoutineServices;
  * Chương trình nhỏ liên quan
  * Class AuthController
  * @package app\api\controller\wechat
- */
-class AuthController
+ */class AuthController
 {
     protected $services = NUll;
 
     /**
      * AuthController constructor.
      * @param RoutineServices $services
-     */
-    public function __construct(RoutineServices $services)
+     */    public function __construct(RoutineServices $services)
     {
         $this->services = $services;
     }
@@ -43,8 +41,7 @@ class AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
-     */
-    public function mp_auth(Request $request)
+     */    public function mp_auth(Request $request)
     {
         [$code, $cache_key, $login_type, $spread_spid, $spread_code, $iv, $encryptedData] = $request->postMore([
             ['code', ''],
@@ -71,8 +68,7 @@ class AuthController
     /**
      * Nhận ủy quyềnlogo
      * @return mixed
-     */
-    public function get_logo()
+     */    public function get_logo()
     {
         $logo = sys_config('wap_login_logo');
         if (strstr($logo, 'http') === false && $logo) $logo = sys_config('site_url') . $logo;
@@ -81,8 +77,7 @@ class AuthController
 
     /**
      * Gọi lại thanh toán chương trình nhỏ
-     */
-    public function notify()
+     */    public function notify()
     {
         return $this->services->notify();
     }
@@ -90,8 +85,7 @@ class AuthController
     /**
      * Nhận tin nhắn đăng ký chương trình nhỏid
      * @return mixed
-     */
-    public function temp_ids()
+     */    public function temp_ids()
     {
         return app('json')->success($this->services->tempIds());
     }
@@ -101,8 +95,7 @@ class AuthController
      * @param Request $request
      * @param LiveRoomServices $liveRoom
      * @return mixed
-     */
-    public function live(Request $request, LiveRoomServices $liveRoom)
+     */    public function live(Request $request, LiveRoomServices $liveRoom)
     {
         return app('json')->success($liveRoom->userList([]));
     }
@@ -112,8 +105,7 @@ class AuthController
      * @param $id
      * @param LiveRoomServices $lvieRoom
      * @return mixed
-     */
-    public function livePlaybacks($id, LiveRoomServices $lvieRoom)
+     */    public function livePlaybacks($id, LiveRoomServices $lvieRoom)
     {
         return app('json')->success($lvieRoom->getPlaybacks((int)$id));
     }

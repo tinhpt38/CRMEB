@@ -17,8 +17,7 @@ use crmeb\interfaces\ListenerInterface;
  * Người dùng đăng nhập sau sự kiện
  * Class LoginListener
  * @package app\listener\user
- */
-class LoginListener implements ListenerInterface
+ */class LoginListener implements ListenerInterface
 {
     public function handle($event): void
     {

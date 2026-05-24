@@ -19,15 +19,13 @@ use app\model\activity\coupon\StoreCouponProduct;
  *
  * Class StoreCouponProductDao
  * @package app\dao\coupon
- */
-class StoreCouponProductDao extends BaseDao
+ */class StoreCouponProductDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreCouponProduct::class;
     }

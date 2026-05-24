@@ -32,15 +32,13 @@ use think\facade\Log;
  * @method getBillSum(array $where) Lấy tổng số của một điều kiện nhất định
  * @method getList(array $where, string $field, int $page, int $limit, $typeWhere = [], $order = 'id desc') Lấy tổng số của một điều kiện nhất định
  * @method getUserRefundPriceList(array $time, string $timeType, string $str, string $field = 'add_time', array $with = []) Nhận số tiền hoàn lại được nhóm theo thời gian
- */
-class UserBillServices extends BaseServices
+ */class UserBillServices extends BaseServices
 {
 
     /**
-     * Mẫu hồ sơ người dùng
+     * Mẫu hồ sơ Khách hàng
      * @var array[]
-     */
-    protected $incomeData = [
+     */    protected $incomeData = [
         'pay_give_integral' => [
             'title' => 'Tích điểm khi mua sản phẩm',
             'category' => 'integral',
@@ -82,10 +80,10 @@ class UserBillServices extends BaseServices
             'pm' => 1
         ],
         'get_user_brokerage' => [
-            'title' => 'Nhận hoa hồng khi quảng bá người dùng',
+            'title' => 'Nhận hoa hồng khi quảng bá Khách hàng',
             'category' => 'now_money',
             'type' => 'brokerage_user',
-            'mark' => 'Quảng bá người dùng thành công：{%nickname%},Hoa hồng khuyến mãi thưởng{%number%}',
+            'mark' => 'Quảng bá Khách hàng thành công：{%nickname%},Hoa hồng khuyến mãi thưởng{%number%}',
             'status' => 1,
             'pm' => 1
         ],
@@ -117,7 +115,7 @@ class UserBillServices extends BaseServices
             'title' => 'Hoàn lại điểm sản phẩm',
             'category' => 'integral',
             'type' => 'pay_product_integral_back',
-            'mark' => 'Hoàn trả điểm đặt hàng{%num%}Điểm tới điểm của người dùng',
+            'mark' => 'Hoàn trả điểm đặt hàng{%num%}Điểm tới điểm của Khách hàng',
             'status' => 1,
             'pm' => 1
         ],
@@ -133,7 +131,7 @@ class UserBillServices extends BaseServices
             'title' => 'Thanh toán số dư để mua hàng',
             'category' => 'now_money',
             'type' => 'pay_product',
-            'mark' => 'thanh toán số dư{%num%}nhân dân tệ để mua hàng',
+            'mark' => 'Thanh toán bằng số dư{%num%}nhân dân tệ để mua hàng',
             'status' => 1,
             'pm' => 0
         ],
@@ -222,20 +220,18 @@ class UserBillServices extends BaseServices
     /**
      * UserBillServices constructor.
      * @param UserBillDao $dao
-     */
-    public function __construct(UserBillDao $dao)
+     */    public function __construct(UserBillDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * TODO Lấy tổng số hồ sơ người dùng
+     * TODO Lấy tổng số hồ sơ Khách hàng
      * @param $uid
      * @param string $category
      * @param array $type
      * @return mixed
-     */
-    public function getRecordCount(int $uid, $category = 'now_money', $type = [], $time = '', $pm = false)
+     */    public function getRecordCount(int $uid, $category = 'now_money', $type = [], $time = '', $pm = false)
     {
 
         $where = [];
@@ -270,11 +266,10 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Tổng hoa hồng của một người dùng nhất định
+     * Tổng hoa hồng của một Khách hàng nhất định
      * @param int $uid
      * @return float
-     */
-    public function getUserBillBrokerageSum(int $uid, array $type = ['brokerage', 'brokerage_user'], $time = '')
+     */    public function getUserBillBrokerageSum(int $uid, array $type = ['brokerage', 'brokerage_user'], $time = '')
     {
         $where = ['uid' => $uid, 'category' => 'now_money'];
         if ($type) $where['type'] = $type;
@@ -283,12 +278,11 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Nhận người dùng|Tổng số tiền hoa hồng
+     * Nhận Khách hàng|Tổng số tiền hoa hồng
      * @param int $uid
      * @param array $where_time
      * @return float
-     */
-    public function getBrokerageSum(int $uid = 0, $where_time = [])
+     */    public function getBrokerageSum(int $uid = 0, $where_time = [])
     {
         $where = ['category' => 'now_money', 'type' => ['system_add', 'pay_product', 'extract', 'pay_product_refund', 'system_sub'], 'pm' => 1, 'status' => 1];
         if ($uid) $where['uid'] = $uid;
@@ -304,12 +298,11 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Nhận người dùng|Tổng số tiền hoa hồng
+     * Nhận Khách hàng|Tổng số tiền hoa hồng
      * @param int $uid
      * @param array $where_time
      * @return float
-     */
-    public function getBrokerageCount(int $uid = 0, $where_time = [])
+     */    public function getBrokerageCount(int $uid = 0, $where_time = [])
     {
         $where = ['category' => 'now_money', 'type' => ['system_add', 'pay_product', 'extract', 'pay_product_refund', 'system_sub'], 'pm' => 1, 'status' => 1];
         if ($uid) $where['uid'] = $uid;
@@ -318,12 +311,11 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * người dùng|Danh sách tất cả các thay đổi quỹ
+     * Khách hàng|Danh sách Tất cả các thay đổi quỹ
      * @param int $uid
      * @param string $field
      * @return array
-     */
-    public function getBrokerageList(int $uid = 0, $where_time = [], string $field = '*')
+     */    public function getBrokerageList(int $uid = 0, $where_time = [], string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $where = ['category' => 'now_money', 'type' => ['pay_money', 'system_add', 'pay_product_refund', 'pay_member', 'offline_scan', 'lottery_add', 'system_sub']];
@@ -343,13 +335,12 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Nhận tổng số tiền nạp của người dùng
+     * Nhận tổng số tiền nạp của Khách hàng
      * @param int $uid
      * @return float
-     */
-    public function getRechargeSum(int $uid = 0, $where_time = [])
+     */    public function getRechargeSum(int $uid = 0, $where_time = [])
     {
-        $where = ['category' => 'now_money', 'type' => 'recharge', 'pm' => 1, 'status' => 1];//Số dư nạp lại của người dùng
+        $where = ['category' => 'now_money', 'type' => 'recharge', 'pm' => 1, 'status' => 1];//Số dư nạp lại của Khách hàng
         $where_system = ['category' => 'now_money', 'type' => 'system_add', 'pm' => 1, 'status' => 1];//Số dư quà tặng hệ thống
         if ($uid) $where['uid'] = $where_system['uid'] = $uid;
         if ($where_time) $where['add_time'] = $where_system['add_time'] = $where_time;
@@ -359,12 +350,11 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * người dùng|Tất cả danh sách nạp tiền
+     * Khách hàng|Tất cả danh sách nạp tiền
      * @param int $uid
      * @param string $field
      * @return array
-     */
-    public function getRechargeList(int $uid = 0, $where_time = [], string $field = '*')
+     */    public function getRechargeList(int $uid = 0, $where_time = [], string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $where = ['category' => 'now_money', 'type' => 'recharge'];
@@ -376,11 +366,10 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Lấy tổng số điểm của người dùng
+     * Lấy tổng số điểm của Khách hàng
      * @param int $uid
      * @return float
-     */
-    public function getIntegralSum(int $uid = 0, $where_time = [])
+     */    public function getIntegralSum(int $uid = 0, $where_time = [])
     {
         $where = ['category' => 'integral', 'type' => ['sign', 'system_add'], 'pm' => 1, 'status' => 1];
         if ($uid) $where['uid'] = $uid;
@@ -389,11 +378,10 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Lấy tổng số điểm mà người dùng kiếm được
+     * Lấy tổng số điểm mà Khách hàng kiếm được
      * @param int $uid
      * @return float
-     */
-    public function getIntegralCount(int $uid = 0, $where_time = [])
+     */    public function getIntegralCount(int $uid = 0, $where_time = [])
     {
         $where = ['category' => 'integral', 'type' => ['sign', 'system_add'], 'pm' => 1, 'status' => 1];
         if ($uid) $where['uid'] = $uid;
@@ -410,8 +398,7 @@ class UserBillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getIntegralList(int $uid = 0, array $where_time = [], string $field = '*')
+     */    public function getIntegralList(int $uid = 0, array $where_time = [], string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $where = ['category' => 'integral'];
@@ -427,11 +414,10 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Lấy tổng số lượt đăng ký của người dùng
+     * Lấy tổng số lượt đăng ký của Khách hàng
      * @param int $uid
      * @return float
-     */
-    public function getSignlSum(int $uid = 0, $where_time = [])
+     */    public function getSignlSum(int $uid = 0, $where_time = [])
     {
         $where = ['category' => 'integral', 'type' => 'sign', 'pm' => 1, 'status' => 1];
         if ($uid) $where['uid'] = $uid;
@@ -440,11 +426,10 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Lấy tổng số lượt check-in của người dùng
+     * Lấy tổng số lượt check-in của Khách hàng
      * @param int $uid
      * @return float
-     */
-    public function getSignCount(int $uid = 0, $where_time = [])
+     */    public function getSignCount(int $uid = 0, $where_time = [])
     {
         $where = ['category' => 'integral', 'type' => 'sign', 'pm' => 1, 'status' => 1];
         if ($uid) $where['uid'] = $uid;
@@ -458,8 +443,7 @@ class UserBillServices extends BaseServices
      * @param array $where_time
      * @param string $field
      * @return array
-     */
-    public function getSignList(int $uid = 0, $where_time = [], string $field = '*')
+     */    public function getSignList(int $uid = 0, $where_time = [], string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $where = ['category' => 'integral', 'type' => 'sign'];
@@ -475,8 +459,7 @@ class UserBillServices extends BaseServices
      * @param int $uid
      * @param array $where_time
      * @return float
-     */
-    public function getExpSum(int $uid = 0, $where_time = [])
+     */    public function getExpSum(int $uid = 0, $where_time = [])
     {
         $where = ['category' => ['exp'], 'pm' => 1, 'status' => 1];
         if ($uid) $where['uid'] = $uid;
@@ -485,13 +468,12 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Nhận danh sách tất cả các trải nghiệm
+     * Nhận danh sách Tất cả các trải nghiệm
      * @param int $uid
      * @param array $where_time
      * @param string $field
      * @return array
-     */
-    public function getExpList(int $uid = 0, $where_time = [], string $field = '*')
+     */    public function getExpList(int $uid = 0, $where_time = [], string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $where = ['category' => ['exp']];
@@ -511,8 +493,7 @@ class UserBillServices extends BaseServices
      * @param array $data
      * @return bool
      * @throws Exception
-     */
-    public function incomeNowMoney(int $uid, string $type, array $data)
+     */    public function incomeNowMoney(int $uid, string $type, array $data)
     {
         $data['uid'] = $uid;
         $data['category'] = 'now_money';
@@ -532,8 +513,7 @@ class UserBillServices extends BaseServices
      * @param array $data
      * @return bool
      * @throws Exception
-     */
-    public function expendNowMoney(int $uid, string $type, array $data)
+     */    public function expendNowMoney(int $uid, string $type, array $data)
     {
         $data['uid'] = $uid;
         $data['category'] = 'now_money';
@@ -553,8 +533,7 @@ class UserBillServices extends BaseServices
      * @param array $data
      * @return bool
      * @throws Exception
-     */
-    public function incomeIntegral(int $uid, string $type, array $data)
+     */    public function incomeIntegral(int $uid, string $type, array $data)
     {
         $data['uid'] = $uid;
         $data['category'] = 'integral';
@@ -574,8 +553,7 @@ class UserBillServices extends BaseServices
      * @param array $data
      * @return bool
      * @throws Exception
-     */
-    public function expendIntegral(int $uid, string $type, array $data)
+     */    public function expendIntegral(int $uid, string $type, array $data)
     {
         $data['uid'] = $uid;
         $data['category'] = 'integral';
@@ -590,15 +568,14 @@ class UserBillServices extends BaseServices
 
 
     /**
-     * Viết hồ sơ người dùng
+     * Viết hồ sơ Khách hàng
      * @param string $type viết kiểu
      * @param int $uid
      * @param int|string|array $number
      * @param int|string $balance
      * @param int $link_id
      * @return bool|mixed
-     */
-    public function income(string $type, int $uid, $number, $balance, $link_id)
+     */    public function income(string $type, int $uid, $number, $balance, $link_id)
     {
         $data = $this->incomeData[$type] ?? null;
         if (!$data) {
@@ -631,20 +608,18 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Mời người dùng mới để tăng trải nghiệm của họ
+     * Mời Khách hàng mới để tăng trải nghiệm của họ
      * @param int $spreadUid
-     */
-    public function inviteUserIncExp(int $spreadUid)
+     */    public function inviteUserIncExp(int $spreadUid)
     {
         if (!$spreadUid) {
             return false;
         }
-        //Cấp độ người dùng có được bật không?
+        //Hạng khách hàng có được bật không?
         if (!sys_config('member_func_status', 1)) {
             return false;
         }
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $spread_user = $userService->getUserInfo($spreadUid);
         if (!$spread_user) {
             return false;
@@ -665,7 +640,7 @@ class UserBillServices extends BaseServices
         }
         //Kiểm tra cấp độ thành viên
         try {
-            //Sự kiện nâng cấp người dùng
+            //Sự kiện nâng cấp Khách hàng
             event('UserLevelListener', [$spreadUid]);
         } catch (\Throwable $e) {
             Log::error('Nâng cấp cấp thành viên không thành công,Lý do thất bại:' . $e->getMessage());
@@ -677,16 +652,14 @@ class UserBillServices extends BaseServices
      * lấytype
      * @param array $where
      * @param string $filed
-     */
-    public function getBillType(array $where)
+     */    public function getBillType(array $where)
     {
         return $this->dao->getType($where);
     }
 
     /**
      * Loại quỹ
-     */
-    public function bill_type()
+     */    public function bill_type()
     {
         $where = [];
         $where['not_type'] = ['gain', 'system_sub', 'deduction', 'sign'];
@@ -701,8 +674,7 @@ class UserBillServices extends BaseServices
      * @param array $where
      * @param string $field
      * @return array
-     */
-    public function getBillList(array $where, string $field = '*', $is_page = true)
+     */    public function getBillList(array $where, string $field = '*', $is_page = true)
     {
         $where_data = [];
         if (isset($where['uid']) && $where['uid'] != '') {
@@ -743,8 +715,7 @@ class UserBillServices extends BaseServices
      * @param array $where
      * @param int $limit
      * @return array
-     */
-    public function getCommissionList(array $where, int $limit = 0)
+     */    public function getCommissionList(array $where, int $limit = 0)
     {
         $where_data = [];
         $where_data['time'] = $where['time'];
@@ -771,12 +742,10 @@ class UserBillServices extends BaseServices
         if ($order_string) {
             $order_string = trim($order_string, ',');
         }
-        /** @var UserUserBrokerageServices $userUserBrokerage */
-        $userUserBrokerage = app()->make(UserUserBrokerageServices::class);
+        /** @var UserUserBrokerageServices $userUserBrokerage */        $userUserBrokerage = app()->make(UserUserBrokerageServices::class);
         [$count, $list] = $userUserBrokerage->getBrokerageList($where_data, 'b.type,b.pm,sum(IF(b.pm = 1 AND b.type <> \'extract_fail\', b.number, 0)) as income,sum(IF(b.pm = 0, b.number, 0)) as pay,u.nickname,u.phone,u.uid,u.now_money,u.brokerage_price,b.add_time as time', $order_string, $limit);
         $uids = array_unique(array_column($list, 'uid'));
-        /** @var UserExtractServices $userExtract */
-        $userExtract = app()->make(UserExtractServices::class);
+        /** @var UserExtractServices $userExtract */        $userExtract = app()->make(UserExtractServices::class);
         $extractSumList = $userExtract->getUsersSumList($uids);
         foreach ($list as &$item) {
             $item['sum_number'] = $item['income'];
@@ -789,11 +758,10 @@ class UserBillServices extends BaseServices
 
     public function user_info(int $uid)
     {
-        /** @var UserServices $user */
-        $user = app()->make(UserServices::class);
+        /** @var UserServices $user */        $user = app()->make(UserServices::class);
         $user_info = $user->getUserInfo($uid, 'nickname,spread_uid,now_money,add_time,brokerage_price');
         if (!$user_info) {
-            throw new AdminException('Thông tin người dùng không tồn tại');
+            throw new AdminException('Thông tin Khách hàng không tồn tại');
         }
         $user_info = $user_info->toArray();
         $user_info['number'] = $user_info['brokerage_price'];
@@ -804,23 +772,21 @@ class UserBillServices extends BaseServices
 
     /**
      * Ghi lại thời gian chia sẻ
-     * @param int $uid người dùnguid
+     * @param int $uid Khách hànguid
      * @param int $cd Thời gian làm mát
      * @return Boolean
-     * */
-    public function setUserShare(int $uid, $cd = 300)
+     * */    public function setUserShare(int $uid, $cd = 300)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
-            throw new AdminException('Thông tin người dùng không tồn tại');
+            throw new AdminException('Thông tin Khách hàng không tồn tại');
         }
         $cachename = 'Share_' . $uid;
         if (CacheService::get($cachename)) {
             return false;
         }
-        $data = ['title' => 'Bản ghi chia sẻ của người dùng', 'uid' => $uid, 'category' => 'share', 'type' => 'share', 'number' => 0, 'link_id' => 0, 'balance' => 0, 'mark' => date('Y-m-d H:i:s', time()) . ':Chia sẻ của người dùng'];
+        $data = ['title' => 'Bản ghi chia sẻ của Khách hàng', 'uid' => $uid, 'category' => 'share', 'type' => 'share', 'number' => 0, 'link_id' => 0, 'balance' => 0, 'mark' => date('Y-m-d H:i:s', time()) . ':Chia sẻ của Khách hàng'];
         if (!$this->dao->save($data)) {
             throw new AdminException('Bản ghi chia sẻ bản ghi không thành công');
         }
@@ -836,8 +802,7 @@ class UserBillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getBillOneList(int $uid, array $where)
+     */    public function getBillOneList(int $uid, array $where)
     {
         $where['uid'] = $uid;
         $data = $this->getBillList($where);
@@ -852,8 +817,7 @@ class UserBillServices extends BaseServices
      * @param array $where
      * @param string $field
      * @return array
-     */
-    public function getPointList(array $where, string $field = '*', $is_page = true)
+     */    public function getPointList(array $where, string $field = '*', $is_page = true)
     {
         $where_data = [];
         $where_data['category'] = 'integral';
@@ -890,8 +854,7 @@ class UserBillServices extends BaseServices
      * Thông tin tiêu đề điểm
      * @param array $where
      * @return array[]
-     */
-    public function getUserPointBadgelist(array $where)
+     */    public function getUserPointBadgelist(array $where)
     {
         $data = [];
         $where_data = [];
@@ -938,8 +901,7 @@ class UserBillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderRefundBrokerageBack(int $id, string $orderId)
+     */    public function orderRefundBrokerageBack(int $id, string $orderId)
     {
         $brokerageList = $this->dao->getUserBillList([
             'category' => 'now_money',
@@ -947,8 +909,7 @@ class UserBillServices extends BaseServices
             'link_id' => $id,
             'pm' => 1
         ]);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $brokerages = $userServices->getColumn([['uid', 'in', array_column($brokerageList, 'uid')]], 'brokerage_price', 'uid');
         $userBillData = [];
         $res = true;
@@ -974,8 +935,7 @@ class UserBillServices extends BaseServices
         if ($userBillData) {
             $res = $res && $this->dao->saveAll($userBillData);
         }
-        /** @var UserBrokerageFrozenServices $services */
-        $services = app()->make(UserBrokerageFrozenServices::class);
+        /** @var UserBrokerageFrozenServices $services */        $services = app()->make(UserBrokerageFrozenServices::class);
         $services->updateFrozen($orderId);
         return $res;
     }
@@ -987,8 +947,7 @@ class UserBillServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function brokerageRankList(string $time = 'week')
+     */    public function brokerageRankList(string $time = 'week')
     {
         $where = [];
         $where['category'] = 'now_money';
@@ -1014,11 +973,10 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Nhận xếp hạng người dùng
+     * Nhận xếp hạng Khách hàng
      * @param int $uid
      * @param string $time
-     */
-    public function getUserBrokerageRank(int $uid, string $time = 'week')
+     */    public function getUserBrokerageRank(int $uid, string $time = 'week')
     {
         $where = [];
         $where['category'] = 'now_money';
@@ -1046,16 +1004,13 @@ class UserBillServices extends BaseServices
      * Dữ liệu khuyến mãi Hoa hồng của ngày hôm qua Số tiền rút tích lũy Hoa hồng hiện tại
      * @param int $uid
      * @return mixed
-     */
-    public function commission(int $uid)
+     */    public function commission(int $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         if (!$userServices->getUserInfo($uid)) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
-        /** @var UserExtractServices $userExtract */
-        $userExtract = app()->make(UserExtractServices::class);
+        /** @var UserExtractServices $userExtract */        $userExtract = app()->make(UserExtractServices::class);
         $data = [];
         $data['uid'] = $uid;
         $data['pm'] = 1;
@@ -1070,18 +1025,16 @@ class UserBillServices extends BaseServices
     }
 
     /**
-     * Dữ liệu trang xếp hạng hoa hồng giao diện người dùng
+     * Dữ liệu trang xếp hạng hoa hồng giao diện Khách hàng
      * @param int $uid
      * @param $type
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function brokerage_rank(int $uid, $type)
+     */    public function brokerage_rank(int $uid, $type)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         if (!$userService->getUserInfo($uid)) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
@@ -1095,8 +1048,7 @@ class UserBillServices extends BaseServices
      * @param $uid
      * @param $type
      * @return array
-     */
-    public function getUserBillList(int $uid, int $type)
+     */    public function getUserBillList(int $uid, int $type)
     {
         $where = [];
         $where['uid'] = $uid;
@@ -1116,8 +1068,7 @@ class UserBillServices extends BaseServices
                 break;
             case 4:
                 $where['type'] = ['extract'];
-                /** @var UserExtractServices $userExtractService */
-                $userExtractService = app()->make(UserExtractServices::class);
+                /** @var UserExtractServices $userExtractService */                $userExtractService = app()->make(UserExtractServices::class);
                 $userExtract = $userExtractService->getColumn(['uid' => $uid], 'fail_msg', 'id');
                 break;
         }
@@ -1154,11 +1105,9 @@ class UserBillServices extends BaseServices
      * @param int $uid
      * @param $type 3 Hoa hồng 4 Rút tiền
      * @return mixed
-     */
-    public function spread_count(int $uid, $type)
+     */    public function spread_count(int $uid, $type)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         if (!$userService->getUserInfo($uid)) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
@@ -1168,28 +1117,24 @@ class UserBillServices extends BaseServices
             $count2 = $this->getRecordCount($uid, 'now_money', ['brokerage', 'brokerage_user'], '', true);
             $count = $count1 - $count2;
         } else if ($type == 4) {
-            /** @var UserExtractServices $userExtract */
-            $userExtract = app()->make(UserExtractServices::class);
+            /** @var UserExtractServices $userExtract */            $userExtract = app()->make(UserExtractServices::class);
             $count = $userExtract->getUserExtract($uid);//Rút tiền tích lũy
         }
         return $count ?: 0;
     }
 
     /**
-     * Đơn hàng khuyến mãi
+     * Đơn hàng Affiliate
      * @param Request $request
      * @return mixed
-     */
-    public function spread_order(int $uid, array $data)
+     */    public function spread_order(int $uid, array $data)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         if (!$userService->getUserInfo($uid, 'uid')) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
         $result = ['list' => [], 'time' => [], 'count' => 0];
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         [$page, $limit] = $this->getPageValue();
         $time = [];
         $where = ['paid' => 1, 'type' => 6, 'all_spread' => $uid, 'pid' => 0, 'refund_status' => 0];
@@ -1238,11 +1183,10 @@ class UserBillServices extends BaseServices
     }
 
 
-    /**Theo số tiền nạp lại của người dùng truy vấn
+    /**Theo số tiền nạp lại của Khách hàng truy vấn
      * @param array $where
      * @return float|int
-     */
-    public function getRechargeMoneyByWhere(array $where, string $rechargeSumField, string $selectType, string $group = "")
+     */    public function getRechargeMoneyByWhere(array $where, string $rechargeSumField, string $selectType, string $group = "")
     {
         switch ($selectType) {
             case "sum" :
@@ -1256,13 +1200,10 @@ class UserBillServices extends BaseServices
      * Đơn đặt hàng Phòng Kinh doanh/Đại lý
      * @param $uid
      * @return array
-     */
-    public function divisionOrder($uid)
+     */    public function divisionOrder($uid)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
-        /** @var StoreOrderServices $storeOrderServices */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
+        /** @var StoreOrderServices $storeOrderServices */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $userInfo = $userService->getUserInfo($uid);
         if (!$userInfo) {
             throw new ApiException('Dữ liệu không tồn tại');

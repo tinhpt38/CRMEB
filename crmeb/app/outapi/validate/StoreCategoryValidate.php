@@ -19,8 +19,7 @@ class StoreCategoryValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'pid' => 'number|egt:0',
         'cate_name' => 'require|max:25',
         'pic' => 'max:128',
@@ -34,8 +33,7 @@ class StoreCategoryValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'pid.number' => 'Loại tham số ID gốc không đúng',
         'pid.egt' => 'Loại tham số ID gốc không đúng',
         'cate_name.require' => 'Tên danh mục không được để trống',

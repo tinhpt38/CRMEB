@@ -23,8 +23,7 @@ class WechatMessageServices extends BaseServices
      * Người xây dựng
      * WechatMessageServices constructor.
      * @param WechatMessageDao $dao
-     */
-    public function __construct(WechatMessageDao $dao)
+     */    public function __construct(WechatMessageDao $dao)
     {
         $this->dao = $dao;
     }
@@ -34,8 +33,7 @@ class WechatMessageServices extends BaseServices
      * @param $openid
      * @param $type
      * @return \think\Model
-     */
-    public function setMessage($result, $openid, $type)
+     */    public function setMessage($result, $openid, $type)
     {
         if (is_object($result) || is_array($result)) $result = json_encode($result);
         $add_time = time();
@@ -59,13 +57,11 @@ class WechatMessageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function wechatMessageBefore($message)
+     */    public function wechatMessageBefore($message)
     {
-        //Khi nền được bật, người dùng sẽ chỉ được tạo khi họ theo dõi trực tiếp tài khoản công khai.
+        //Khi nền được bật, Khách hàng sẽ chỉ được tạo khi họ theo dõi trực tiếp tài khoản công khai.
         if (intval(sys_config('create_wechat_user', 0))) {
-            /** @var WechatUserServices $wechatUser */
-            $wechatUser = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUser */            $wechatUser = app()->make(WechatUserServices::class);
             $wechatUser->saveUser($message->FromUserName);
         }
         $event = isset($message->Event) ?

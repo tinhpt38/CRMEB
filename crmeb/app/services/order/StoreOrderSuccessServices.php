@@ -23,15 +23,13 @@ use crmeb\exceptions\ApiException;
  * Class StoreOrderSuccessServices
  * @package app\services\order
  * @method getOne(array $where, ?string $field = '*', array $with = []) Lấy một phần dữ liệu
- */
-class StoreOrderSuccessServices extends BaseServices
+ */class StoreOrderSuccessServices extends BaseServices
 {
     /**
      *
      * StoreOrderSuccessServices constructor.
      * @param StoreOrderDao $dao
-     */
-    public function __construct(StoreOrderDao $dao)
+     */    public function __construct(StoreOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -45,8 +43,7 @@ class StoreOrderSuccessServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function zeroYuanPayment(array $orderInfo, int $uid, string $payType = PayServices::YUE_PAY)
+     */    public function zeroYuanPayment(array $orderInfo, int $uid, string $payType = PayServices::YUE_PAY)
     {
         if ($orderInfo['paid']) {
             throw new ApiException('Đơn hàng đã được thanh toán');
@@ -64,8 +61,7 @@ class StoreOrderSuccessServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function paySuccess(array $orderInfo, string $paytype = PayServices::WEIXIN_PAY, array $other = [])
+     */    public function paySuccess(array $orderInfo, string $paytype = PayServices::WEIXIN_PAY, array $other = [])
     {
         $updata = ['paid' => 1, 'pay_type' => $paytype, 'pay_time' => time()];
         $orderInfo['pay_time'] = $updata['pay_time'];
@@ -73,29 +69,25 @@ class StoreOrderSuccessServices extends BaseServices
         if ($other && isset($other['trade_no'])) {
             $updata['trade_no'] = $other['trade_no'];
         }
-        /** @var StoreOrderCartInfoServices $orderInfoServices */
-        $orderInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $orderInfoServices */        $orderInfoServices = app()->make(StoreOrderCartInfoServices::class);
         $orderInfo['storeName'] = $orderInfoServices->getCarIdByProductTitle((int)$orderInfo['id']);
         $res1 = $this->dao->update($orderInfo['id'], $updata);
         $resPink = true;
         if ($orderInfo['combination_id'] && $res1 && !$orderInfo['refund_status']) {
-            /** @var StorePinkServices $pinkServices */
-            $pinkServices = app()->make(StorePinkServices::class);
-            /** @var StoreOrderServices $orderServices */
-            $orderServices = app()->make(StoreOrderServices::class);
+            /** @var StorePinkServices $pinkServices */            $pinkServices = app()->make(StorePinkServices::class);
+            /** @var StoreOrderServices $orderServices */            $orderServices = app()->make(StoreOrderServices::class);
             $resPink = $pinkServices->createPink($orderServices->tidyOrder($orderInfo, true));//Tạo chuyến tham quan theo nhóm
         }
         //Lưu vào bộ nhớ đệm số lần rút thăm ngoại trừ thanh toán ngoại tuyến
         $deferPayTypes = [PayServices::OFFLINE_PAY, PayServices::VN_COD, PayServices::VN_BANK];
         if (isset($orderInfo['pay_type']) && !in_array($orderInfo['pay_type'], $deferPayTypes, true)) {
-            /** @var LuckLotteryServices $luckLotteryServices */
-            $luckLotteryServices = app()->make(LuckLotteryServices::class);
+            /** @var LuckLotteryServices $luckLotteryServices */            $luckLotteryServices = app()->make(LuckLotteryServices::class);
             $luckLotteryServices->setCacheLotteryNum((int)$orderInfo['uid'], 'order');
         }
         $orderInfo['send_name'] = $orderInfo['real_name'];
         //Sự kiện sau khi thanh toán đơn hàng thành công
         event('OrderPaySuccessListener', [$orderInfo]);
-        //Sự kiện tin nhắn đẩy của người dùng
+        //Sự kiện tin nhắn đẩy của Khách hàng
         event('NoticeListener', [$orderInfo, 'order_pay_success']);
         //Gửi tin nhắn tới bộ phận chăm sóc khách hàng sau khi thanh toán thành công
         event('NoticeListener', [$orderInfo, 'admin_pay_success_code']);

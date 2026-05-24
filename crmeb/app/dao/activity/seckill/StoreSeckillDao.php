@@ -19,15 +19,13 @@ use app\model\activity\seckill\StoreSeckill;
  *
  * Class StoreSeckillDao
  * @package app\dao\activity
- */
-class StoreSeckillDao extends BaseDao
+ */class StoreSeckillDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreSeckill::class;
     }
@@ -38,8 +36,7 @@ class StoreSeckillDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where)->when(isset($where['seckllTime']), function ($query) use ($where) {
             [$startTime, $stopTime] = is_array($where['seckllTime']) ? $where['seckllTime'] : [time(), time() - 86400];
@@ -66,8 +63,7 @@ class StoreSeckillDao extends BaseDao
      * @param array $where
      * @return int
      * @throws \ReflectionException
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         return $this->search($where)->count();
     }
@@ -80,8 +76,7 @@ class StoreSeckillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0)
+     */    public function getList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where)->where('is_del', 0)
             ->when(isset($where['start_status']) && $where['start_status'] !== '', function ($query) use ($where) {
@@ -122,8 +117,7 @@ class StoreSeckillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getHomeList(array $where, int $page = 0, int $limit = 0)
+     */    public function getHomeList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where)->where('is_del', 0)->where('status', 1)
             ->where('start_time', '<=', time())
@@ -161,11 +155,10 @@ class StoreSeckillDao extends BaseDao
 
     /**
      * Lấy danh sách các sản phẩm flash sale hiện đang được kích hoạt dựa trên ID sản phẩm và trả về dưới dạng mảng
-     * @param array $ids Truy vấn tất cả nếu trống
+     * @param array $ids Tìm kiếm Tất cả nếu trống
      * @param array $field
      * @return array
-     */
-    public function getSeckillIdsArray(array $ids = [], array $field = [])
+     */    public function getSeckillIdsArray(array $ids = [], array $field = [])
     {
         return $this->search(['is_del' => 0, 'status' => 1])
             ->where('start_time', '<=', time())
@@ -184,8 +177,7 @@ class StoreSeckillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getListByTime(int $time, int $page, int $limit)
+     */    public function getListByTime(int $time, int $page, int $limit)
     {
         return $this->search(['is_del' => 0, 'status' => 1])->with(['product'])
             ->where('start_time', '<=', time())
@@ -206,8 +198,7 @@ class StoreSeckillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function idSeckillList(array $ids, string $field)
+     */    public function idSeckillList(array $ids, string $field)
     {
         return $this->getModel()->whereIn('id', $ids)->field($field)->select()->toArray();
     }
@@ -219,8 +210,7 @@ class StoreSeckillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function validProduct($id, $field)
+     */    public function validProduct($id, $field)
     {
         $where = ['status' => 1, 'is_del' => 0];
         $time = time();

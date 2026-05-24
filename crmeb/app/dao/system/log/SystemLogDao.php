@@ -19,14 +19,12 @@ use app\model\system\log\SystemLog;
  * Nhật ký hệ thống
  * Class SystemLogDao
  * @package app\dao\system\log
- */
-class SystemLogDao extends BaseDao
+ */class SystemLogDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemLog::class;
     }
@@ -34,8 +32,7 @@ class SystemLogDao extends BaseDao
     /**
      * Xóa nhật ký hết hạn
      * @throws \Exception
-     */
-    public function deleteLog()
+     */    public function deleteLog()
     {
         $this->getModel()->where('add_time', '<', time() - 7776000)->delete();
     }
@@ -49,8 +46,7 @@ class SystemLogDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLogList(array $where, int $page, int $limit)
+     */    public function getLogList(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->order('add_time DESC')->select()->toArray();
     }

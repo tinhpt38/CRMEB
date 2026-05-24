@@ -26,27 +26,24 @@ use crmeb\services\CacheService;
  *
  * Class StoreProductCouponServices
  * @package app\services\coupon
- * @method delete($id, ?string $key = null) xóa bỏ
- */
-class StoreProductCouponServices extends BaseServices
+ * @method delete($id, ?string $key = null) Xóa
+ */class StoreProductCouponServices extends BaseServices
 {
 
     /**
      * StoreProductCouponServices constructor.
      * @param StoreProductCouponDao $dao
-     */
-    public function __construct(StoreProductCouponDao $dao)
+     */    public function __construct(StoreProductCouponDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Phiếu giảm giá liên quan đến sản phẩm
+     * Mã giảm giá liên quan đến sản phẩm
      * @param int $id
      * @param array $coupon_ids
      * @return bool
-     */
-    public function setCoupon(int $id, array $coupon_ids)
+     */    public function setCoupon(int $id, array $coupon_ids)
     {
         $this->dao->delete(['product_id' => $id]);
         if ($coupon_ids) {
@@ -74,11 +71,9 @@ class StoreProductCouponServices extends BaseServices
      * @param $orderId
      * @return mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function getOrderProductCoupon(int $uid, $orderId)
+     */    public function getOrderProductCoupon(int $uid, $orderId)
     {
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
         $order = $storeOrder->getOne(['order_id' => $orderId]);
         if (!$order || $order['uid'] != $uid) {
             throw new ApiException('Đơn hàng không tồn tại');
@@ -95,30 +90,25 @@ class StoreProductCouponServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function giveOrderProductCoupon(int $uid, $orderId)
+     */    public function giveOrderProductCoupon(int $uid, $orderId)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Người dùng không tồn tại');
         }
-        /** @var StoreOrderServices $storeOrder */
-        $storeOrder = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $storeOrder */        $storeOrder = app()->make(StoreOrderServices::class);
         $order = $storeOrder->getOne(['id' => $orderId]);
         if (!$order || $order['uid'] != $uid) {
             throw new ApiException('Đơn hàng không tồn tại');
         }
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfo */
-        $storeOrderCartInfo = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfo */        $storeOrderCartInfo = app()->make(StoreOrderCartInfoServices::class);
         $productIds = $storeOrderCartInfo->getColumn(['oid' => $order['id']], 'product_id');
         $list = [];
         if ($productIds) {
             $couponList = $this->dao->getProductCoupon($productIds);
             if ($couponList) {
-                /** @var StoreCouponIssueServices $storeCoupon */
-                $storeCoupon = app()->make(StoreCouponIssueServices::class);
+                /** @var StoreCouponIssueServices $storeCoupon */                $storeCoupon = app()->make(StoreCouponIssueServices::class);
                 $list = $storeCoupon->orderPayGiveCoupon($uid, array_column($couponList, 'issue_coupon_id'));
                 foreach ($list as &$item) {
                     $item['add_time'] = date('Y-m-d', $item['add_time']);

@@ -38,30 +38,27 @@ use app\services\product\sku\StoreProductAttrValueServices;
  * @method getUserCartNum(int $uid, string $type, int $numType) Số lượng giỏ hàng
  * @method deleteCartStatus(array $cartIds) Sửa đổi trạng thái giỏ hàng
  * @method array productIdByCartNum(array $ids, int $uid)  Lấy số lượng giỏ hàng dựa trên id sản phẩm
- * @method getCartList(array $where, ?int $page = 0, ?int $limit = 0, ?array $with = []) Nhận giỏ hàng của người dùng
+ * @method getCartList(array $where, ?int $page = 0, ?int $limit = 0, ?array $with = []) Nhận giỏ hàng của Khách hàng
  * @method getSum($where, $field) Tổng
  * @method getProductTrend($time, $timeType, $str) xu hướng giỏ hàng
- */
-class StoreCartServices extends BaseServices
+ */class StoreCartServices extends BaseServices
 {
 
     /**
      * StoreCartServices constructor.
      * @param StoreCartDao $dao
-     */
-    public function __construct(StoreCartDao $dao)
+     */    public function __construct(StoreCartDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Lấy số lượng giỏ hàng được người dùng đặt
+     * Lấy số lượng giỏ hàng được Khách hàng đặt
      * @param array $unique
      * @param int $productId
      * @param int $uid
      * @return array
-     */
-    public function getUserCartNums(array $unique, int $productId, int $uid)
+     */    public function getUserCartNums(array $unique, int $productId, int $uid)
     {
         $where['is_pay'] = 0;
         $where['is_del'] = 0;
@@ -72,7 +69,7 @@ class StoreCartServices extends BaseServices
     }
 
     /**
-     * Lấy danh sách giỏ hàng của người dùng
+     * Lấy danh sách giỏ hàng của Khách hàng
      * @param $uid
      * @param string $cartIds
      * @param bool $new
@@ -82,8 +79,7 @@ class StoreCartServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserProductCartListV1($uid, $cartIds = '', bool $new, $addr = [], int $shipping_type = 1, $is_gift = 0)
+     */    public function getUserProductCartListV1($uid, $cartIds = '', bool $new, $addr = [], int $shipping_type = 1, $is_gift = 0)
     {
         if ($new) {
             $cartIds = explode(',', $cartIds);
@@ -117,8 +113,7 @@ class StoreCartServices extends BaseServices
      * Tạo đơn hàng bằng thuật toán bông tuyếtID
      * @return string
      * @throws \Exception
-     */
-    public function getCartId($prefix)
+     */    public function getCartId($prefix)
     {
         $snowflake = new \Godruoyi\Snowflake\Snowflake();
         //32Chút
@@ -145,18 +140,15 @@ class StoreCartServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function checkProductStock(int $uid, int $cartNum, string $unique, int $type = 0, $productId, int $seckillId, int $bargainId, int $combinationId, int $advanceId)
+     */    public function checkProductStock(int $uid, int $cartNum, string $unique, int $type = 0, $productId, int $seckillId, int $bargainId, int $combinationId, int $advanceId)
     {
-        /** @var StoreProductAttrValueServices $attrValueServices */
-        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $attrValueServices */        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
         switch ($type) {
             case 0://bình thường
                 if ($unique == '') {
                     $unique = $attrValueServices->value(['product_id' => $productId, 'type' => 0], 'unique');
                 }
-                /** @var StoreProductServices $productServices */
-                $productServices = app()->make(StoreProductServices::class);
+                /** @var StoreProductServices $productServices */                $productServices = app()->make(StoreProductServices::class);
                 $productInfo = $productServices->isValidProduct($productId);
                 if (!$productInfo) {
                     throw new ApiException('Sản phẩm này đã bị gỡ bỏ khỏi kệ hoặc bị xóa');
@@ -170,8 +162,7 @@ class StoreCartServices extends BaseServices
                     throw new ApiException('Sản phẩm này đã hết hàng{:num}', ['num' => $cartNum]);
                 }
                 if ($productInfo['is_virtual'] == 1 && $productInfo['virtual_type'] == 2 && $attrInfo['coupon_id']) {
-                    /** @var StoreCouponIssueServices $issueCoupon */
-                    $issueCoupon = app()->make(StoreCouponIssueServices::class);
+                    /** @var StoreCouponIssueServices $issueCoupon */                    $issueCoupon = app()->make(StoreCouponIssueServices::class);
                     if (!$issueCoupon->getCount(['id' => $attrInfo['coupon_id'], 'status' => 1, 'is_del' => 0])) {
                         throw new ApiException('Mã giảm giá bạn muốn mua đã hết hạn và không thể mua được');
                     }
@@ -185,23 +176,19 @@ class StoreCartServices extends BaseServices
                 }
                 break;
             case 1://bán chớp nhoáng
-                /** @var StoreSeckillServices $seckillService */
-                $seckillService = app()->make(StoreSeckillServices::class);
+                /** @var StoreSeckillServices $seckillService */                $seckillService = app()->make(StoreSeckillServices::class);
                 [$attrInfo, $unique, $productInfo] = $seckillService->checkSeckillStock($uid, $seckillId, $cartNum, $unique);
                 break;
             case 2://Mặc cả
-                /** @var StoreBargainServices $bargainService */
-                $bargainService = app()->make(StoreBargainServices::class);
+                /** @var StoreBargainServices $bargainService */                $bargainService = app()->make(StoreBargainServices::class);
                 [$attrInfo, $unique, $productInfo, $bargainUserInfo] = $bargainService->checkBargainStock($uid, $bargainId, $cartNum, $unique);
                 break;
             case 3://Chia sẻ nhóm
-                /** @var StoreCombinationServices $combinationService */
-                $combinationService = app()->make(StoreCombinationServices::class);
+                /** @var StoreCombinationServices $combinationService */                $combinationService = app()->make(StoreCombinationServices::class);
                 [$attrInfo, $unique, $productInfo] = $combinationService->checkCombinationStock($uid, $combinationId, $cartNum, $unique);
                 break;
             case 6://Bán trước
-                /** @var StoreAdvanceServices $advanceService */
-                $advanceService = app()->make(StoreAdvanceServices::class);
+                /** @var StoreAdvanceServices $advanceService */                $advanceService = app()->make(StoreAdvanceServices::class);
                 [$attrInfo, $unique, $productInfo] = $advanceService->checkAdvanceStock($uid, $advanceId, $cartNum, $unique);
                 break;
             default:
@@ -218,23 +205,22 @@ class StoreCartServices extends BaseServices
     }
 
     /**
-     * Thêm vào giỏ hàng
-     * @param int $uid người dùngUID
-     * @param int $product_id hàng hóaID
+     * Thêm mới giỏ hàng
+     * @param int $uid Khách hàngUID
+     * @param int $product_id ID sản phẩm
      * @param int $cart_num số lượng sản phẩm
-     * @param string $product_attr_unique hàng hóaSKU
+     * @param string $product_attr_unique sản phẩmSKU
      * @param string $type Thêm loại giỏ hàng
      * @param bool $new true = Mua nó ngay bây giờ，false = thêm vào giỏ hàng
-     * @param int $combination_id Nhóm sản phẩmID
+     * @param int $combination_id Sản phẩm mua chungID
      * @param int $seckill_id mặt hàng flash saleID
-     * @param int $bargain_id mặt hàng giá hờiID
+     * @param int $bargain_id Sản phẩm trả giáID
      * @return mixed|string
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setCart(int $uid, int $product_id, int $cart_num = 1, string $product_attr_unique = '', int $type = 0, bool $new = true, int $combination_id = 0, int $seckill_id = 0, int $bargain_id = 0, int $advance_id = 0)
+     */    public function setCart(int $uid, int $product_id, int $cart_num = 1, string $product_attr_unique = '', int $type = 0, bool $new = true, int $combination_id = 0, int $seckill_id = 0, int $bargain_id = 0, int $advance_id = 0)
     {
         if ($cart_num < 1) $cart_num = 1;
         if ($type == 0) {
@@ -244,8 +230,7 @@ class StoreCartServices extends BaseServices
         //Kiểm tra giới hạn hàng tồn kho
         [$attrInfo, $product_attr_unique, $bargainPriceMin, $cart_num, $productInfo] = $this->checkProductStock($uid, $cart_num, $product_attr_unique, $type, $product_id, $seckill_id, $bargain_id, $combination_id, $advance_id);
         if ($new) {
-            /** @var StoreOrderCreateServices $storeOrderCreateService */
-            $storeOrderCreateService = app()->make(StoreOrderCreateServices::class);
+            /** @var StoreOrderCreateServices $storeOrderCreateService */            $storeOrderCreateService = app()->make(StoreOrderCreateServices::class);
             $key = $storeOrderCreateService->getNewOrderId((string)$uid);
             $info['id'] = $key;
             $info['type'] = $type;
@@ -280,11 +265,11 @@ class StoreCartServices extends BaseServices
                 throw new ApiException($e->getMessage());
             }
             return $key;
-        } else {//Thêm vào giỏ hàng
+        } else {//Thêm mới giỏ hàng
             ProductLogJob::dispatch(['cart', ['uid' => $uid, 'product_id' => $product_id, 'cart_num' => $cart_num]]);
             $cart = $this->dao->getOne(['type' => $type, 'uid' => $uid, 'product_id' => $product_id, 'product_attr_unique' => $product_attr_unique, 'is_del' => 0, 'is_new' => 0, 'is_pay' => 0, 'status' => 1]);
 
-            //Sự kiện tùy chỉnh-Thêm vào giỏ hàng
+            //Sự kiện tùy chỉnh-Thêm mới giỏ hàng
             event('CustomEventListener', ['user_add_cart', [
                 'product_id' => $product_id,
                 'uid' => $uid,
@@ -308,8 +293,7 @@ class StoreCartServices extends BaseServices
      * @param int $uid
      * @param array $ids
      * @return StoreCartDao|bool
-     */
-    public function removeUserCart(int $uid, array $ids)
+     */    public function removeUserCart(int $uid, array $ids)
     {
         if (!$uid || !$ids) return false;
         return $this->dao->removeUserCart($uid, $ids);
@@ -323,16 +307,14 @@ class StoreCartServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function changeUserCartNum($id, $number, $uid)
+     */    public function changeUserCartNum($id, $number, $uid)
     {
         if (!$id || !$number || !$uid) return false;
         $where = ['uid' => $uid, 'id' => $id];
         $carInfo = $this->dao->getOne($where, 'product_id,combination_id,seckill_id,bargain_id,product_attr_unique,cart_num');
 
         //Kiểm tra số lượng sửa đổi giỏ hàng mua hàng giới hạn mua hàng
-        /** @var StoreProductServices $productServices */
-        $productServices = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $productServices */        $productServices = app()->make(StoreProductServices::class);
         $limitInfo = $productServices->get($carInfo->product_id, ['is_limit', 'limit_type', 'limit_num', 'min_qty']);
         if ($number < $limitInfo['min_qty']) {
             throw new ApiException('Không thể ít hơn số lượng mua tối thiểu');
@@ -342,8 +324,7 @@ class StoreCartServices extends BaseServices
             if ($limitInfo['limit_type'] == 1 && $num > $limitInfo['limit_num']) {
                 throw new ApiException('Số lượng mua một lần không được lớn hơn {:limit} miếng', ['limit' => $limitInfo['limit_num']]);
             } else if ($limitInfo['limit_type'] == 2) {
-                /** @var StoreOrderCartInfoServices $orderCartServices */
-                $orderCartServices = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $orderCartServices */                $orderCartServices = app()->make(StoreOrderCartInfoServices::class);
                 $orderPayNum = $orderCartServices->sum(['uid' => $uid, 'product_id' => $carInfo->product_id], 'cart_num');
                 $orderRefundNum = $orderCartServices->sum(['uid' => $uid, 'product_id' => $carInfo->product_id], 'refund_num');
                 $orderNum = $orderPayNum - $orderRefundNum;
@@ -364,8 +345,7 @@ class StoreCartServices extends BaseServices
      * Sửa đổi trạng thái giỏ hàng
      * @param int $productId
      * @param int $status 0 Sản phẩm bị loại khỏi kệ
-     */
-    public function changeStatus(int $productId, $status = 0)
+     */    public function changeStatus(int $productId, $status = 0)
     {
         $this->dao->update($productId, ['status' => $status], 'product_id');
     }
@@ -378,8 +358,7 @@ class StoreCartServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserCartList(int $uid, int $status, string $cartIds = '')
+     */    public function getUserCartList(int $uid, int $status, string $cartIds = '')
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getCartList(['uid' => $uid, 'status' => $status, 'id' => $cartIds], $page, $limit, ['productInfo', 'attrInfo' => function ($query) {
@@ -403,11 +382,9 @@ class StoreCartServices extends BaseServices
      * @param int $cart_id
      * @param int $product_id
      * @param string $unique
-     */
-    public function modifyCart(int $cart_id, int $product_id, string $unique)
+     */    public function modifyCart(int $cart_id, int $product_id, string $unique)
     {
-        /** @var StoreProductAttrValueServices $attrService */
-        $attrService = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $attrService */        $attrService = app()->make(StoreProductAttrValueServices::class);
         $stock = $attrService->value(['product_id' => $product_id, 'unique' => $unique, 'type' => 0], 'stock');
         if ($stock > 0) {
             $this->dao->update($cart_id, ['product_attr_unique' => $unique, 'cart_num' => 1]);
@@ -426,8 +403,7 @@ class StoreCartServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function resetCart($id, $uid, $productId, $unique, $num)
+     */    public function resetCart($id, $uid, $productId, $unique, $num)
     {
         $res = $this->dao->getOne(['uid' => $uid, 'product_id' => $productId, 'product_attr_unique' => $unique]);
         if ($res) {
@@ -440,7 +416,7 @@ class StoreCartServices extends BaseServices
     }
 
     /**
-     * Trang chủThêm vào giỏ hàng
+     * Trang chủThêm mới giỏ hàng
      * @param $uid
      * @param $productId
      * @param $num
@@ -450,22 +426,19 @@ class StoreCartServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setCartNum($uid, $productId, $num, $unique, $type)
+     */    public function setCartNum($uid, $productId, $num, $unique, $type)
     {
         if ($type == 1) {
             //Kiểm tra giới hạn mua hàng
             $this->checkLimit($uid, $productId, $num, 0);
         }
 
-        /** @var StoreProductAttrValueServices $attrValueServices */
-        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
+        /** @var StoreProductAttrValueServices $attrValueServices */        $attrValueServices = app()->make(StoreProductAttrValueServices::class);
 
         if ($unique == '') {
             $unique = $attrValueServices->value(['product_id' => $productId, 'type' => 0], 'unique');
         }
-        /** @var StoreProductServices $productServices */
-        $productServices = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $productServices */        $productServices = app()->make(StoreProductServices::class);
 
         if (!$productServices->isValidProduct((int)$productId, 'id')) {
             throw new ApiException('Sản phẩm này đã bị gỡ bỏ khỏi kệ hoặc bị xóa');
@@ -512,32 +485,27 @@ class StoreCartServices extends BaseServices
     }
 
     /**
-     * Nhận id số giỏ hàng của người dùng và số lượng thống kê
+     * Nhận id số giỏ hàng của Khách hàng và số lượng thống kê
      * @param int $uid
      * @param string $numType
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserCartCount(int $uid, string $numType)
+     */    public function getUserCartCount(int $uid, string $numType)
     {
         $count = 0;
         $ids = [];
         $sum_price = 0;
         $cartList = $this->dao->getUserCartList($uid, '*', ['productInfo', 'attrInfo']);
         if ($cartList) {
-            /** @var StoreProductServices $productServices */
-            $productServices = app()->make(StoreProductServices::class);
-            /** @var MemberCardServices $memberCardService */
-            $memberCardService = app()->make(MemberCardServices::class);
+            /** @var StoreProductServices $productServices */            $productServices = app()->make(StoreProductServices::class);
+            /** @var MemberCardServices $memberCardService */            $memberCardService = app()->make(MemberCardServices::class);
             $vipStatus = $memberCardService->isOpenMemberCard('vip_price', false);
-            /** @var UserServices $user */
-            $user = app()->make(UserServices::class);
+            /** @var UserServices $user */            $user = app()->make(UserServices::class);
             $userInfo = $user->getUserInfo($uid);
             $discount = 100;
             if (sys_config('member_func_status', 1)) {
-                /** @var SystemUserLevelServices $systemLevel */
-                $systemLevel = app()->make(SystemUserLevelServices::class);
+                /** @var SystemUserLevelServices $systemLevel */                $systemLevel = app()->make(SystemUserLevelServices::class);
                 $discount = $systemLevel->value(['id' => $userInfo['level'], 'is_del' => 0, 'is_show' => 1], 'discount') ?: 100;
             }
             foreach ($cartList as &$item) {
@@ -576,31 +544,27 @@ class StoreCartServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/16
-     */
-    public function handleCartList(int $uid, array $cartList, array $addr = [], int $shipping_type = 1)
+     */    public function handleCartList(int $uid, array $cartList, array $addr = [], int $shipping_type = 1)
     {
         if (!$cartList) return [$cartList, [], []];
         $tempIds = [];
         $userInfo = [];
         $discount = 100;
         if ($uid) {
-            /** @var UserServices $user */
-            $user = app()->make(UserServices::class);
+            /** @var UserServices $user */            $user = app()->make(UserServices::class);
             $userInfo = $user->getUserInfo($uid);
-            //Cấp độ người dùng có được bật không?
+            //Hạng khách hàng có được bật không?
             if (sys_config('member_func_status', 1)) {
-                /** @var SystemUserLevelServices $systemLevel */
-                $systemLevel = app()->make(SystemUserLevelServices::class);
+                /** @var SystemUserLevelServices $systemLevel */                $systemLevel = app()->make(SystemUserLevelServices::class);
                 $discount = $systemLevel->value(['id' => $userInfo['level'], 'is_del' => 0, 'is_show' => 1], 'discount') ?: 100;
             }
         }
 
-        //Cho dù tư cách thành viên trả phí có được bật hay không và người dùng có phải là thành viên trả phí hay không, nếu cả hai đều đáp ứng, số tiền tính đơn hàng sẽ được tính theo tư cách thành viên trả phí.。
-        /** @var MemberCardServices $memberCardService */
-        $memberCardService = app()->make(MemberCardServices::class);
+        //Cho dù tư cách thành viên trả phí có được bật hay không và Khách hàng có phải là thành viên trả phí hay không, nếu cả hai đều đáp ứng, số tiền tính đơn hàng sẽ được tính theo tư cách thành viên trả phí.。
+        /** @var MemberCardServices $memberCardService */        $memberCardService = app()->make(MemberCardServices::class);
         $vipStatus = $memberCardService->isOpenMemberCard('vip_price', false) && $userInfo['is_money_level'] > 0;
 
-        //Mẫu vận chuyển hàng hóa không giao hàng
+        //Mẫu vận chuyển sản phẩm không giao hàng
         if ($shipping_type == 1 && $addr) {
             $cityId = (int)($addr['city_id'] ?? 0);
             if ($cityId) {
@@ -611,15 +575,13 @@ class StoreCartServices extends BaseServices
                 $shippingService = app()->make(\app\services\shipping\ShippingTemplatesServices::class);
                 $tempIds = $shippingService->getColumn([['id', 'in', $tempIds], ['no_delivery', '=', 1]], 'id');
                 if ($tempIds) {
-                    /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */
-                    $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
+                    /** @var ShippingTemplatesNoDeliveryServices $noDeliveryServices */                    $noDeliveryServices = app()->make(ShippingTemplatesNoDeliveryServices::class);
                     $tempIds = $noDeliveryServices->isNoDelivery(array_unique($tempIds), $cityId);
                 }
             }
         }
 
-        /** @var StoreProductServices $productServices */
-        $productServices = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $productServices */        $productServices = app()->make(StoreProductServices::class);
         $valid = $invalid = [];
         foreach ($cartList as &$item) {
             if ($item['type'] == 0) $item['min_qty'] = $item['productInfo']['min_qty'];
@@ -717,13 +679,10 @@ class StoreCartServices extends BaseServices
      * @param $new
      * @return bool
      * @throws \ReflectionException
-     */
-    public function checkLimit($uid, $product_id, $num, $new)
+     */    public function checkLimit($uid, $product_id, $num, $new)
     {
-        /** @var StoreProductServices $productServices */
-        $productServices = app()->make(StoreProductServices::class);
-        /** @var StoreOrderCartInfoServices $orderCartServices */
-        $orderCartServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreProductServices $productServices */        $productServices = app()->make(StoreProductServices::class);
+        /** @var StoreOrderCartInfoServices $orderCartServices */        $orderCartServices = app()->make(StoreOrderCartInfoServices::class);
 
         $limitInfo = $productServices->get($product_id, ['is_limit', 'limit_type', 'limit_num']);
         if (!$limitInfo) throw new ApiException('Sản phẩm không tồn tại');
@@ -757,8 +716,7 @@ class StoreCartServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/10/30
-     */
-    public function checkVipGoodsBuy($user, $pid)
+     */    public function checkVipGoodsBuy($user, $pid)
     {
         $is_vip_product = app()->make(StoreProductServices::class)->value(['id' => $pid], 'vip_product');
         if ($is_vip_product == 1 && $user['is_money_level'] == 0) throw new ApiException('Sản phẩm này chỉ dành riêng cho thành viên trả phí và bạn không có quyền mua nó.');

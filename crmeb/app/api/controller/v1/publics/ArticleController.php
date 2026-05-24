@@ -16,8 +16,7 @@ use app\services\article\ArticleServices;
  * bài viết
  * Class ArticleController
  * @package app\api\controller\publics
- */
-class ArticleController
+ */class ArticleController
 {
     protected $services;
 
@@ -34,8 +33,7 @@ class ArticleController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst($cid)
+     */    public function lst($cid)
     {
         if ($cid == 0) {
             $where = ['is_hot' => 1];
@@ -58,8 +56,7 @@ class ArticleController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function details($id)
+     */    public function details($id)
     {
         $info = $this->services->getInfo($id);
         return app('json')->success($info);
@@ -72,8 +69,7 @@ class ArticleController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function hot()
+     */    public function hot()
     {
         [$page, $limit] = $this->services->getPageValue();
         $list = $this->services->getList(['is_hot' => 1], $page, $limit)['list'];
@@ -89,8 +85,7 @@ class ArticleController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function new()
+     */    public function new()
     {
         [$page, $limit] = $this->services->getPageValue();
         $list = $this->services->getList([], $page, $limit)['list'];
@@ -107,8 +102,7 @@ class ArticleController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function banner()
+     */    public function banner()
     {
         [$page, $limit] = $this->services->getPageValue();
         $list = $this->services->getList(['is_banner' => 1], $page, $limit)['list'];

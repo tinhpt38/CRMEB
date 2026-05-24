@@ -40,19 +40,13 @@ class MessageServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
-     */
-    public function wechatEventScan($message)
+     */    public function wechatEventScan($message)
     {
-        /** @var QrcodeServices $qrcodeService */
-        $qrcodeService = app()->make(QrcodeServices::class);
-        /** @var WechatReplyServices $wechatReplyService */
-        $wechatReplyService = app()->make(WechatReplyServices::class);
-        /** @var WechatUserServices $wechatUser */
-        $wechatUser = app()->make(WechatUserServices::class);
-        /** @var LoginServices $loginService */
-        $loginService = app()->make(LoginServices::class);
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var QrcodeServices $qrcodeService */        $qrcodeService = app()->make(QrcodeServices::class);
+        /** @var WechatReplyServices $wechatReplyService */        $wechatReplyService = app()->make(WechatReplyServices::class);
+        /** @var WechatUserServices $wechatUser */        $wechatUser = app()->make(WechatUserServices::class);
+        /** @var LoginServices $loginService */        $loginService = app()->make(LoginServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
 
         $response = $wechatReplyService->reply('subscribe');
         if ($message->EventKey && ($qrInfo = $qrcodeService->getQrcode($message->Ticket, 'ticket'))) {
@@ -60,7 +54,7 @@ class MessageServices extends BaseServices
             $thirdType = explode('-', $qrInfo['third_type']);
             $baseUrl = sys_config('site_url');
             if (in_array(strtolower($thirdType[0]), ['spread', 'agent', 'wechatqrcode', 'product', 'combination', 'seckill', 'bargain', 'pink'])) {
-                //Quét mã QR yêu cầu tạo luồng người dùng
+                //Quét mã QR yêu cầu tạo luồng Khách hàng
                 $spreadUid = $qrInfo['third_id'];
                 $spreadInfo = $userService->get($spreadUid);
                 $is_new = $wechatUser->saveUser($message->FromUserName);
@@ -103,8 +97,7 @@ class MessageServices extends BaseServices
                             }
                             break;
                         case 'wechatqrcode':
-                            /** @var WechatQrcodeServices $wechatQrcodeService */
-                            $wechatQrcodeService = app()->make(WechatQrcodeServices::class);
+                            /** @var WechatQrcodeServices $wechatQrcodeService */                            $wechatQrcodeService = app()->make(WechatQrcodeServices::class);
                             //wechatqrcodeloại dữ liệu mã QR,third_idĐối với mã kênhid
                             $qrcodeInfo = $wechatQrcodeService->qrcodeInfo($qrInfo['third_id']);
                             $spreadUid = $qrcodeInfo['uid'];
@@ -121,13 +114,12 @@ class MessageServices extends BaseServices
                             } else if (!$spreadInfo) {
                                 $response = 'Người dùng cao cấp không tồn tại';
                             } else if ($loginService->updateUserInfo(['code' => $spreadUid], $userInfo, $is_new)) {
-                                //Viết bản ghi mã quét,Trả lại nội dung
+                                //Viết bản ghi mã quét,Trả lại Nội dung
                                 $response = $wechatQrcodeService->wechatQrcodeRecord($qrcodeInfo, $userInfo, $spreadInfo);
                             }
                             break;
                         case 'product':
-                            /** @var StoreProductServices $productService */
-                            $productService = app()->make(StoreProductServices::class);
+                            /** @var StoreProductServices $productService */                            $productService = app()->make(StoreProductServices::class);
                             $productInfo = $productService->get($thirdType[1] ?? 0);
                             $wechatNews['title'] = $productInfo->store_name;
                             $wechatNews['image'] = $productInfo->image;
@@ -138,8 +130,7 @@ class MessageServices extends BaseServices
                             WechatService::staffService()->message($messages)->to($message->FromUserName)->send();
                             break;
                         case 'combination':
-                            /** @var StoreCombinationServices $combinationService */
-                            $combinationService = app()->make(StoreCombinationServices::class);
+                            /** @var StoreCombinationServices $combinationService */                            $combinationService = app()->make(StoreCombinationServices::class);
                             $productInfo = $combinationService->get($thirdType[1] ?? 0);
                             $wechatNews['title'] = $productInfo->title;
                             $wechatNews['image'] = $productInfo->image;
@@ -150,8 +141,7 @@ class MessageServices extends BaseServices
                             WechatService::staffService()->message($messages)->to($message->FromUserName)->send();
                             break;
                         case 'seckill':
-                            /** @var StoreSeckillServices $seckillService */
-                            $seckillService = app()->make(StoreSeckillServices::class);
+                            /** @var StoreSeckillServices $seckillService */                            $seckillService = app()->make(StoreSeckillServices::class);
                             $productInfo = $seckillService->get($thirdType[1] ?? 0);
                             $wechatNews['title'] = $productInfo->title;
                             $wechatNews['image'] = $productInfo->image;
@@ -162,8 +152,7 @@ class MessageServices extends BaseServices
                             WechatService::staffService()->message($messages)->to($message->FromUserName)->send();
                             break;
                         case 'bargain':
-                            /** @var StoreBargainServices $bargainService */
-                            $bargainService = app()->make(StoreBargainServices::class);
+                            /** @var StoreBargainServices $bargainService */                            $bargainService = app()->make(StoreBargainServices::class);
                             $productInfo = $bargainService->get($thirdType[1] ?? 0);
                             $wechatNews['title'] = $productInfo->title;
                             $wechatNews['image'] = $productInfo->image;
@@ -174,10 +163,8 @@ class MessageServices extends BaseServices
                             WechatService::staffService()->message($messages)->to($message->FromUserName)->send();
                             break;
                         case 'pink':
-                            /** @var StorePinkServices $pinkService */
-                            $pinkService = app()->make(StorePinkServices::class);
-                            /** @var StoreCombinationServices $combinationService */
-                            $combinationService = app()->make(StoreCombinationServices::class);
+                            /** @var StorePinkServices $pinkService */                            $pinkService = app()->make(StorePinkServices::class);
+                            /** @var StoreCombinationServices $combinationService */                            $combinationService = app()->make(StoreCombinationServices::class);
                             $pinktInfo = $pinkService->get($thirdType[1]);
                             $productInfo = $combinationService->get($pinktInfo->cid);
                             $wechatNews['title'] = $productInfo->title;
@@ -193,7 +180,7 @@ class MessageServices extends BaseServices
                     $response = $e->getMessage();
                 }
             } else {
-                //Quét mã QR không tạo ra luồng người dùng
+                //Quét mã QR không tạo ra luồng Khách hàng
             }
         }
         return $response;
@@ -202,11 +189,9 @@ class MessageServices extends BaseServices
     /**
      * Hủy theo dõi
      * @param $message
-     */
-    public function wechatEventUnsubscribe($message)
+     */    public function wechatEventUnsubscribe($message)
     {
-        /** @var WechatUserServices $wechatUser */
-        $wechatUser = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $wechatUser */        $wechatUser = app()->make(WechatUserServices::class);
         $wechatUser->unSubscribe($message->FromUserName);
     }
 
@@ -220,19 +205,13 @@ class MessageServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/24
-     */
-    public function wechatEventSubscribe($message)
+     */    public function wechatEventSubscribe($message)
     {
-        /** @var QrcodeServices $qrcodeService */
-        $qrcodeService = app()->make(QrcodeServices::class);
-        /** @var WechatReplyServices $wechatReplyService */
-        $wechatReplyService = app()->make(WechatReplyServices::class);
-        /** @var WechatUserServices $wechatUser */
-        $wechatUser = app()->make(WechatUserServices::class);
-        /** @var LoginServices $loginService */
-        $loginService = app()->make(LoginServices::class);
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var QrcodeServices $qrcodeService */        $qrcodeService = app()->make(QrcodeServices::class);
+        /** @var WechatReplyServices $wechatReplyService */        $wechatReplyService = app()->make(WechatReplyServices::class);
+        /** @var WechatUserServices $wechatUser */        $wechatUser = app()->make(WechatUserServices::class);
+        /** @var LoginServices $loginService */        $loginService = app()->make(LoginServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
 
         $response = $wechatReplyService->reply('subscribe');
         if ($message->EventKey && ($qrInfo = $qrcodeService->getQrcode($message->Ticket, 'ticket'))) {
@@ -240,7 +219,7 @@ class MessageServices extends BaseServices
             $thirdType = explode('-', $qrInfo['third_type']);
             $baseUrl = sys_config('site_url');
             if (in_array(strtolower($thirdType[0]), ['spread', 'agent', 'wechatqrcode', 'product', 'combination', 'seckill', 'bargain', 'pink'])) {
-                //Quét mã QR yêu cầu tạo luồng người dùng
+                //Quét mã QR yêu cầu tạo luồng Khách hàng
                 $spreadUid = $qrInfo['third_id'];
                 $spreadInfo = $userService->get($spreadUid);
                 $is_new = $wechatUser->saveUser($message->FromUserName);
@@ -283,8 +262,7 @@ class MessageServices extends BaseServices
                             }
                             break;
                         case 'wechatqrcode':
-                            /** @var WechatQrcodeServices $wechatQrcodeService */
-                            $wechatQrcodeService = app()->make(WechatQrcodeServices::class);
+                            /** @var WechatQrcodeServices $wechatQrcodeService */                            $wechatQrcodeService = app()->make(WechatQrcodeServices::class);
                             //wechatqrcodeloại dữ liệu mã QR,third_idĐối với mã kênhid
                             $qrcodeInfo = $wechatQrcodeService->qrcodeInfo($qrInfo['third_id']);
                             $spreadUid = $qrcodeInfo['uid'];
@@ -301,13 +279,12 @@ class MessageServices extends BaseServices
                             } else if (!$spreadInfo) {
                                 $response = 'Người dùng cao cấp không tồn tại';
                             } else if ($loginService->updateUserInfo(['code' => $spreadUid], $userInfo, $is_new)) {
-                                //Viết bản ghi mã quét,Trả lại nội dung
+                                //Viết bản ghi mã quét,Trả lại Nội dung
                                 $response = $wechatQrcodeService->wechatQrcodeRecord($qrcodeInfo, $userInfo, $spreadInfo);
                             }
                             break;
                         case 'product':
-                            /** @var StoreProductServices $productService */
-                            $productService = app()->make(StoreProductServices::class);
+                            /** @var StoreProductServices $productService */                            $productService = app()->make(StoreProductServices::class);
                             $productInfo = $productService->get($thirdType[1] ?? 0);
                             $wechatNews['title'] = $productInfo->store_name;
                             $wechatNews['image'] = $productInfo->image;
@@ -318,8 +295,7 @@ class MessageServices extends BaseServices
                             WechatService::staffService()->message($messages)->to($message->FromUserName)->send();
                             break;
                         case 'combination':
-                            /** @var StoreCombinationServices $combinationService */
-                            $combinationService = app()->make(StoreCombinationServices::class);
+                            /** @var StoreCombinationServices $combinationService */                            $combinationService = app()->make(StoreCombinationServices::class);
                             $productInfo = $combinationService->get($thirdType[1] ?? 0);
                             $wechatNews['title'] = $productInfo->title;
                             $wechatNews['image'] = $productInfo->image;
@@ -330,8 +306,7 @@ class MessageServices extends BaseServices
                             WechatService::staffService()->message($messages)->to($message->FromUserName)->send();
                             break;
                         case 'seckill':
-                            /** @var StoreSeckillServices $seckillService */
-                            $seckillService = app()->make(StoreSeckillServices::class);
+                            /** @var StoreSeckillServices $seckillService */                            $seckillService = app()->make(StoreSeckillServices::class);
                             $productInfo = $seckillService->get($thirdType[1] ?? 0);
                             $wechatNews['title'] = $productInfo->title;
                             $wechatNews['image'] = $productInfo->image;
@@ -342,8 +317,7 @@ class MessageServices extends BaseServices
                             WechatService::staffService()->message($messages)->to($message->FromUserName)->send();
                             break;
                         case 'bargain':
-                            /** @var StoreBargainServices $bargainService */
-                            $bargainService = app()->make(StoreBargainServices::class);
+                            /** @var StoreBargainServices $bargainService */                            $bargainService = app()->make(StoreBargainServices::class);
                             $productInfo = $bargainService->get($thirdType[1] ?? 0);
                             $wechatNews['title'] = $productInfo->title;
                             $wechatNews['image'] = $productInfo->image;
@@ -354,10 +328,8 @@ class MessageServices extends BaseServices
                             WechatService::staffService()->message($messages)->to($message->FromUserName)->send();
                             break;
                         case 'pink':
-                            /** @var StorePinkServices $pinkService */
-                            $pinkService = app()->make(StorePinkServices::class);
-                            /** @var StoreCombinationServices $combinationService */
-                            $combinationService = app()->make(StoreCombinationServices::class);
+                            /** @var StorePinkServices $pinkService */                            $pinkService = app()->make(StorePinkServices::class);
+                            /** @var StoreCombinationServices $combinationService */                            $combinationService = app()->make(StoreCombinationServices::class);
                             $pinktInfo = $pinkService->get($thirdType[1]);
                             $productInfo = $combinationService->get($pinktInfo->cid);
                             $wechatNews['title'] = $productInfo->title;
@@ -373,7 +345,7 @@ class MessageServices extends BaseServices
                     $response = $e->getMessage();
                 }
             } else {
-                //Quét mã QR không tạo ra luồng người dùng
+                //Quét mã QR không tạo ra luồng Khách hàng
             }
         }
 
@@ -388,8 +360,7 @@ class MessageServices extends BaseServices
      * địa điểm sự kiện
      * @param $message
      * @return string
-     */
-    public function wechatEventLocation($message)
+     */    public function wechatEventLocation($message)
     {
         //return 'location';
     }
@@ -398,8 +369,7 @@ class MessageServices extends BaseServices
      * Sự kiện nhảy URL
      * @param $message
      * @return string
-     */
-    public function wechatEventView($message)
+     */    public function wechatEventView($message)
     {
         //return 'view';
     }
@@ -408,8 +378,7 @@ class MessageServices extends BaseServices
      * Tin nhắn hình ảnh
      * @param $message
      * @return string
-     */
-    public function wechatMessageImage($message)
+     */    public function wechatMessageImage($message)
     {
         //return 'image';
     }
@@ -418,8 +387,7 @@ class MessageServices extends BaseServices
      * tin nhắn thoại
      * @param $message
      * @return string
-     */
-    public function wechatMessageVoice($message)
+     */    public function wechatMessageVoice($message)
     {
         //return 'voice';
     }
@@ -428,16 +396,14 @@ class MessageServices extends BaseServices
      * tin nhắn video
      * @param $message
      * @return string
-     */
-    public function wechatMessageVideo($message)
+     */    public function wechatMessageVideo($message)
     {
         //return 'video';
     }
 
     /**
      * tin nhắn vị trí
-     */
-    public function wechatMessageLocation($message)
+     */    public function wechatMessageLocation($message)
     {
         //return 'location';
     }
@@ -446,16 +412,14 @@ class MessageServices extends BaseServices
      * tin nhắn liên kết
      * @param $message
      * @return string
-     */
-    public function wechatMessageLink($message)
+     */    public function wechatMessageLink($message)
     {
         //return 'link';
     }
 
     /**
      * Tin tức khác
-     */
-    public function wechatMessageOther($message)
+     */    public function wechatMessageOther($message)
     {
         //return 'other';
     }

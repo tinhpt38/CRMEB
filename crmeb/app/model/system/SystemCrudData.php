@@ -20,18 +20,15 @@ use crmeb\basic\BaseModel;
  * @email 136327134@qq.com
  * @date 2023/7/28
  * @package app\model\system
- */
-class SystemCrudData extends BaseModel
+ */class SystemCrudData extends BaseModel
 {
     /**
      * @var string
-     */
-    protected $name = 'system_crud_data';
+     */    protected $name = 'system_crud_data';
 
     /**
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
 //    public function getValueAttr($value)
 //    {
@@ -44,8 +41,7 @@ class SystemCrudData extends BaseModel
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/10
-     */
-    public function searchNameAttr($query, $value)
+     */    public function searchNameAttr($query, $value)
     {
         if ($value != '') {
             $query->where('name', 'like', '%' . $value . '%');
@@ -58,8 +54,7 @@ class SystemCrudData extends BaseModel
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function searchPidAttr($query, $value)
+     */    public function searchPidAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('pid', $value);

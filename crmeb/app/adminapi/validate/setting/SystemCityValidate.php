@@ -19,8 +19,7 @@ class SystemCityValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'name' => 'require',
         'level' => 'number',
         'parent_id' => 'number',
@@ -31,8 +30,7 @@ class SystemCityValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'name.require' => 'Vui lòng điền tên thành phố',
         'level.number' => 'levelLỗi định dạng dữ liệu, dự kiến ​​là số nguyên',
         'parent_id.number' => 'parent_idLỗi định dạng dữ liệu, dự kiến ​​là số nguyên',

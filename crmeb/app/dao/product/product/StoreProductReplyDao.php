@@ -17,14 +17,12 @@ use app\model\product\product\StoreProductReply;
 /**
  * Class StoreProductReplyDao
  * @package app\dao\product\product
- */
-class StoreProductReplyDao extends BaseDao
+ */class StoreProductReplyDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductReply::class;
     }
@@ -38,8 +36,7 @@ class StoreProductReplyDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function sysPage(array $where, int $page, int $limit)
+     */    public function sysPage(array $where, int $page, int $limit)
     {
         return $this->search($where)->page($page, $limit)->select()->toArray();
     }
@@ -51,8 +48,7 @@ class StoreProductReplyDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductReply(int $productId)
+     */    public function getProductReply(int $productId)
     {
         return $this->search(['product_id' => $productId, 'is_del' => 0, 'status' => 1])
             ->with(['cartInfo', 'userInfo'])
@@ -65,8 +61,7 @@ class StoreProductReplyDao extends BaseDao
      * @param int $id
      * @param int $type
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
-     */
-    public function replyWhere(int $id, int $type = 0)
+     */    public function replyWhere(int $id, int $type = 0)
     {
         return $this->search(['product_id' => $id, 'is_del' => 0, 'status' => 1])
             ->when($type == 1, function ($query) {
@@ -91,8 +86,7 @@ class StoreProductReplyDao extends BaseDao
      * @param int $id
      * @param int $type
      * @return int
-     */
-    public function replyCount(int $id, int $type = 0)
+     */    public function replyCount(int $id, int $type = 0)
     {
         return $this->replyWhere($id, $type)->count();
     }
@@ -105,8 +99,7 @@ class StoreProductReplyDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function replyList(int $id, int $type = 0, int $page = 0, int $limit = 0)
+     */    public function replyList(int $id, int $type = 0, int $page = 0, int $limit = 0)
     {
         return $this->replyWhere($id, $type)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);

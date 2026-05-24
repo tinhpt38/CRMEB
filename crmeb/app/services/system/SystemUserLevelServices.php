@@ -19,15 +19,13 @@ use app\dao\system\SystemUserLevelDao;
  *
  * Class SystemUserLevelServices
  * @package app\services\system
- */
-class SystemUserLevelServices extends BaseServices
+ */class SystemUserLevelServices extends BaseServices
 {
 
     /**
      * SystemUserLevelServices constructor.
      * @param SystemUserLevelDao $dao
-     */
-    public function __construct(SystemUserLevelDao $dao)
+     */    public function __construct(SystemUserLevelDao $dao)
     {
         $this->dao = $dao;
     }
@@ -40,8 +38,7 @@ class SystemUserLevelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLevel(int $id, string $field = '*')
+     */    public function getLevel(int $id, string $field = '*')
     {
         return $this->dao->getOne(['id' => $id, 'is_del' => 0], $field);
     }
@@ -54,21 +51,19 @@ class SystemUserLevelServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getWhereLevel(array $where, string $field = '*')
+     */    public function getWhereLevel(array $where, string $field = '*')
     {
         return $this->dao->getOne($where, $field);
     }
 
     /**
-     * Nhận danh sách tất cả các cấp
+     * Nhận danh sách Tất cả các cấp
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLevelList(array $where, string $field = '*')
+     */    public function getLevelList(array $where, string $field = '*')
     {
         $where_data = [];
         if (isset($where['is_show']) && $where['is_show'] !== '') $where_data[] = ['is_show', '=', $where['is_show']];
@@ -88,8 +83,7 @@ class SystemUserLevelServices extends BaseServices
      * Nhận danh sách các cấp độ thành viên cho các điều kiện
      * @param array $where
      * @param string $field
-     */
-    public function getWhereLevelList(array $where, string $field = '*')
+     */    public function getWhereLevelList(array $where, string $field = '*')
     {
         if ($where) {
             $whereData = [['is_show', '=', 1], ['is_del', '=', 0], $where];
@@ -100,11 +94,10 @@ class SystemUserLevelServices extends BaseServices
     }
 
     /**
-     * Nhận một số tên cấp độ người dùng
+     * Nhận một số tên cấp độ Khách hàng
      * @param $ids
      * @return array
-     */
-    public function getUsersLevel($ids)
+     */    public function getUsersLevel($ids)
     {
         return $this->dao->getColumn([['id', 'IN', $ids]], 'name', 'id');
     }
@@ -113,8 +106,7 @@ class SystemUserLevelServices extends BaseServices
      * Nhận danh sách cấp thành viên
      * @param int $leval_id
      * @return array
-     */
-    public function getLevelListAndGrade(int $leval_id = 0, string $field = 'name,discount,image,icon,explain,id,grade,is_forever,valid_date,exp_num')
+     */    public function getLevelListAndGrade(int $leval_id = 0, string $field = 'name,discount,image,icon,explain,id,grade,is_forever,valid_date,exp_num')
     {
         $list = $this->dao->getList(['is_del' => 0, 'is_show' => 1], $field);
         if ($list) {

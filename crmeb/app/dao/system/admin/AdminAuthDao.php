@@ -19,14 +19,12 @@ use app\model\system\admin\SystemAdmin;
  * adminỦy quyềndao
  * Class AdminAuthDao
  * @package app\dao\system\admin
- */
-class AdminAuthDao extends BaseDao
+ */class AdminAuthDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemAdmin::class;
     }

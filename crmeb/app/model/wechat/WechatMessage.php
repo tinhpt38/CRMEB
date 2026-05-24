@@ -15,25 +15,22 @@ use crmeb\basic\BaseModel;
 use crmeb\traits\ModelTrait;
 
 /**
- * Hồ sơ hành vi người dùng WeChat  model
+ * Hồ sơ hành vi Khách hàng WeChat  model
  * Class WechatMessage
  * @package app\model\wechat
- */
-class WechatMessage extends BaseModel
+ */class WechatMessage extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'wechat_message';
+     */    protected $name = 'wechat_message';
 
     protected $insert = ['add_time'];
 

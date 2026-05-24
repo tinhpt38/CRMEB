@@ -21,8 +21,7 @@ class ServeValidata extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'phone' => 'require|number|mobile',
         'password' => 'require',
         'verify_code' => 'require|number',
@@ -34,8 +33,7 @@ class ServeValidata extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'phone.require' => 'Vui lòng điền số điện thoại di động của bạn',
         'phone.number' => 'Số điện thoại di động bạn nhập phải là số',
         'phone.mobile' => 'Lỗi định dạng số điện thoại di động',

@@ -18,8 +18,7 @@ class StoreOrderRefundDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreOrderRefund::class;
     }
@@ -30,8 +29,7 @@ class StoreOrderRefundDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|\think\Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         $realName = $where['real_name'] ?? '';
         $fieldKey = $where['field_key'] ?? '';
@@ -95,8 +93,7 @@ class StoreOrderRefundDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList($where, $page = 0, $limit = 0, $field = '*', $with = [])
+     */    public function getList($where, $page = 0, $limit = 0, $field = '*', $with = [])
     {
         return $this->search($where)->field($field)->with(array_merge(['user'], $with))->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -112,8 +109,7 @@ class StoreOrderRefundDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/19
-     */
-    public function count(array $where = [], bool $search = false)
+     */    public function count(array $where = [], bool $search = false)
     {
         return $this->search($where, $search)->count();
     }
@@ -125,8 +121,7 @@ class StoreOrderRefundDao extends BaseDao
      * @param string $selectType
      * @param string $group
      * @return float|int
-     */
-    public function getOrderRefundMoneyByWhere(array $where, string $sum_field, string $selectType, string $group = "")
+     */    public function getOrderRefundMoneyByWhere(array $where, string $sum_field, string $selectType, string $group = "")
     {
         switch ($selectType) {
             case "sum" :
@@ -137,12 +132,11 @@ class StoreOrderRefundDao extends BaseDao
     }
 
     /**
-     * Tính số tiền thanh toán theo thời gian thanh toán
+     * Tính số tiền thanh toán theo Thời gian thanh toán
      * @param array $where
      * @param string $sumField
      * @return mixed
-     */
-    public function getDayTotalMoney(array $where, string $sumField)
+     */    public function getDayTotalMoney(array $where, string $sumField)
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -156,8 +150,7 @@ class StoreOrderRefundDao extends BaseDao
      * @param array $where
      * @param string $sumField
      * @return mixed
-     */
-    public function getDayGroupMoney(array $where, string $sumField, string $group)
+     */    public function getDayGroupMoney(array $where, string $sumField, string $group)
     {
         return $this->search($where)
             ->when(isset($where['timeKey']), function ($query) use ($where, $sumField, $group) {
@@ -188,8 +181,7 @@ class StoreOrderRefundDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/06
-     */
-    public function getProductTrend($time, $timeType, $field, $str)
+     */    public function getProductTrend($time, $timeType, $field, $str)
     {
         return $this->getModel()->where(function ($query) use ($time, $field) {
             if ($time[0] == $time[1]) {

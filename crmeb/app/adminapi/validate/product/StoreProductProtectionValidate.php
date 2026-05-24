@@ -25,11 +25,11 @@ class StoreProductProtectionValidate extends Validate
     protected $message = [
         'title.require' => 'Vui lòng nhập tên mục bảo vệ',
         'title.max' => 'Tên mục bảo vệ không được vượt quá 32 ký tự',
-        'content.require' => 'Vui lòng nhập nội dung bảo vệ',
+        'content.require' => 'Vui lòng nhập Nội dung bảo vệ',
         'content.max' => 'Nội dung bảo vệ không được vượt quá 5000 ký tự',
         'image.max' => 'Đường dẫn biểu tượng quá dài',
-        'sort.integer' => 'Thứ tự phải là số nguyên',
-        'sort.egt' => 'Thứ tự không được nhỏ hơn 0',
+        'sort.integer' => 'Đơn hàng phải là số nguyên',
+        'sort.egt' => 'Đơn hàng không được nhỏ hơn 0',
         'status.in' => 'Trạng thái hiển thị không hợp lệ',
     ];
 

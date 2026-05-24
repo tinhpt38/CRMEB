@@ -19,27 +19,23 @@ use app\model\product\product\StoreVisit;
 /**
  * Class StoreProductVisitDao
  * @package app\dao\product\product
- */
-class StoreProductVisitDao extends BaseDao
+ */class StoreProductVisitDao extends BaseDao
 {
 
     /**
      * Bí danh bảng chính
      * @var string
-     */
-    protected $alias = 'a';
+     */    protected $alias = 'a';
 
     /**
      * Lên lịch bí danh
      * @var string
-     */
-    protected $joinAlis = 'c';
+     */    protected $joinAlis = 'c';
 
     /**
      * Cài đặt mô hình bảng chính
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProduct::class;
     }
@@ -47,8 +43,7 @@ class StoreProductVisitDao extends BaseDao
     /**
      * Cài đặt mô hình bảng được kết nối
      * @return string
-     */
-    protected function setJoinModel(): string
+     */    protected function setJoinModel(): string
     {
         return StoreVisit::class;
     }
@@ -56,15 +51,14 @@ class StoreProductVisitDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return \crmeb\basic\BaseModel
-     */
-    protected function getModel()
+     */    protected function getModel()
     {
         $name = app()->make($this->setJoinModel())->getName();
         return parent::getModel()->alias($this->alias)->join($name . ' ' . $this->joinAlis, $this->alias . '.id = ' . $this->joinAlis . '.product_id');
     }
 
     /**
-     * Lịch sử duyệt sản phẩm của người dùng
+     * Lịch sử duyệt sản phẩm của Khách hàng
      * @param array $where
      * @param int $page
      * @param int $limit
@@ -72,8 +66,7 @@ class StoreProductVisitDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserVisitProductList(array $where, int $page, int $limit)
+     */    public function getUserVisitProductList(array $where, int $page, int $limit)
     {
         return $this->getModel()->when(isset($where['uid']), function ($query) use ($where) {
             $query->where($this->joinAlis . '.uid', $where['uid']);

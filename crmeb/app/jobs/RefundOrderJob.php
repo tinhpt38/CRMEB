@@ -20,8 +20,7 @@ use think\facade\Log;
  * Hàng đợi tin nhắn sau bán hàng
  * Class RefundOrderJob
  * @package app\jobs
- */
-class RefundOrderJob extends BaseJobs
+ */class RefundOrderJob extends BaseJobs
 {
     use QueueTrait;
 }

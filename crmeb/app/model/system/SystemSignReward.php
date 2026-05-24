@@ -17,22 +17,19 @@ use crmeb\traits\ModelTrait;
  * @author: thủy triều
  * @email: 442384644@qq.com
  * @date: 2023/7/28
- */
-class SystemSignReward extends BaseModel
+ */class SystemSignReward extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_sign_reward';
+     */    protected $name = 'system_sign_reward';
 
     /**
      * Nhập trình tìm kiếm
@@ -41,8 +38,7 @@ class SystemSignReward extends BaseModel
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/28
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value !== '') $query->where('type', $value);
     }

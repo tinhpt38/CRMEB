@@ -20,37 +20,32 @@ use think\Model;
  *
  * Class StoreOrder
  * @package app\model\order
- */
-class StoreOrderEconomize extends BaseModel
+ */class StoreOrderEconomize extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_order_economize';
+     */    protected $name = 'store_order_economize';
 
     protected $insert = ['add_time'];
 
     /**
      * Thời gian cập nhật
      * @var bool | string | int
-     */
-    protected $updateTime = false;
+     */    protected $updateTime = false;
 
 
     /**
-     * Liên kết một-một của các bảng người dùng
+     * Liên kết một-một của các bảng Khách hàng
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname', 'phone', 'spread_uid'])->bind([
             'nickname' => 'nickname',
@@ -62,8 +57,7 @@ class StoreOrderEconomize extends BaseModel
      * Tìm kiếm đơn hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchOrderIdAttr($query, $value)
+     */    public function searchOrderIdAttr($query, $value)
     {
         $query->where('order_id', $value);
     }

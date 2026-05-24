@@ -27,12 +27,11 @@ class UserController
     }
 
     /**
-     * Chi tiết hồ sơ quỹ người dùng
+     * Chi tiết hồ sơ quỹ Khách hàng
      * @param Request $request
      * @param $type 0 Tất cả 1 Chi tiêu 2 Nạp tiền 3 Hoàn tiền 4 Rút tiền
      * @return mixed
-     */
-    public function getBalanceRecord(Request $request, $type)
+     */    public function getBalanceRecord(Request $request, $type)
     {
         $uid = (int)$request->uid();
         $data = [];
@@ -40,14 +39,12 @@ class UserController
             case 0:
             case 1:
             case 2:
-                /** @var UserMoneyServices $moneyService */
-                $moneyService = app()->make(UserMoneyServices::class);
+                /** @var UserMoneyServices $moneyService */                $moneyService = app()->make(UserMoneyServices::class);
                 $data = $moneyService->getMoneyList($uid, $type);
                 break;
             case 3:
             case 4:
-                /** @var UserBrokerageServices $brokerageService */
-                $brokerageService = app()->make(UserBrokerageServices::class);
+                /** @var UserBrokerageServices $brokerageService */                $brokerageService = app()->make(UserBrokerageServices::class);
                 $data = $brokerageService->getBrokerageList($uid, $type);
                 break;
         }
@@ -58,8 +55,7 @@ class UserController
      * Nhận danh sách yêu thích
      * @param Request $request
      * @return mixed
-     */
-    public function getCollectList(Request $request)
+     */    public function getCollectList(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->getCollectList($uid));

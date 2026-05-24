@@ -18,16 +18,14 @@ use think\facade\Config;
  * Rút tiền
  * Class UserExtractController
  * @package app\api\controller\user
- */
-class UserExtractController
+ */class UserExtractController
 {
     protected $services = NUll;
 
     /**
      * UserExtractController constructor.
      * @param UserExtractServices $services
-     */
-    public function __construct(UserExtractServices $services)
+     */    public function __construct(UserExtractServices $services)
     {
         $this->services = $services;
     }
@@ -36,19 +34,17 @@ class UserExtractController
      * Ngân hàng rút tiền
      * @param Request $request
      * @return mixed
-     */
-    public function bank(Request $request)
+     */    public function bank(Request $request)
     {
         $uid = (int)$request->uid();
         return app('json')->success($this->services->bank($uid));
     }
 
     /**
-     * Đơn xin rút tiền
+     * Yêu cầu rút tiền
      * @param Request $request
      * @return mixed
-     */
-    public function cash(Request $request)
+     */    public function cash(Request $request)
     {
         $extractInfo = $request->postMore([
             ['alipay_code', ''],

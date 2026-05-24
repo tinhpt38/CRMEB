@@ -18,23 +18,20 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * TODO mặt hàng giá hờiModel
+ * TODO Sản phẩm trả giáModel
  * Class StoreBargain
  * @package app\model\activity
- */
-class StoreBargain extends BaseModel
+ */class StoreBargain extends BaseModel
 {
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_bargain';
+     */    protected $name = 'store_bargain';
 
     use ModelTrait;
 
@@ -47,8 +44,7 @@ class StoreBargain extends BaseModel
      * hiệp hội một-một
      *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function description()
+     */    public function description()
     {
         return $this->hasOne(StoreDescription::class, 'product_id', 'id')->where('type', 2)->bind(['description']);
     }
@@ -56,8 +52,7 @@ class StoreBargain extends BaseModel
     /**
      * giá gốc
      * @return \think\model\relation\HasOne
-     */
-    public function product()
+     */    public function product()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')->field(['id', 'ot_price', 'cate_id', 'price'])->bind([
             'ot_price' => 'ot_price',
@@ -70,8 +65,7 @@ class StoreBargain extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    protected function getAddTimeAttr($value)
+     */    protected function getAddTimeAttr($value)
     {
         if ($value) return date('Y-m-d H:i:s', (int)$value);
         return '';
@@ -82,8 +76,7 @@ class StoreBargain extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStoreNameAttr($query, $value, $data)
+     */    public function searchStoreNameAttr($query, $value, $data)
     {
         if ($value != '') $query->where('title|id', 'like', '%' . $value . '%');
     }
@@ -93,8 +86,7 @@ class StoreBargain extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStatusAttr($query, $value, $data)
+     */    public function searchStatusAttr($query, $value, $data)
     {
         if ($value != '') $query->where('status', $value ?? 1);
     }
@@ -104,8 +96,7 @@ class StoreBargain extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsHotAttr($query, $value, $data)
+     */    public function searchIsHotAttr($query, $value, $data)
     {
         $query->where('is_hot', $value ?? 0);
     }
@@ -115,8 +106,7 @@ class StoreBargain extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value ?? 0);
     }
@@ -126,8 +116,7 @@ class StoreBargain extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductIdAttr($query, $value, $data)
+     */    public function searchProductIdAttr($query, $value, $data)
     {
         if ($value) {
             if (is_array($value)) {
@@ -142,8 +131,7 @@ class StoreBargain extends BaseModel
      * Trình tìm kiếm thời gian hợp lệ của sự kiện
      * @param $query
      * @param $value
-     */
-    public function searchBargainTimeAttr($query, $value)
+     */    public function searchBargainTimeAttr($query, $value)
     {
         if ($value == 1) {
             $time = time();

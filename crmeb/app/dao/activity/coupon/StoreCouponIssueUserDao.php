@@ -19,15 +19,13 @@ use app\model\activity\coupon\StoreCouponIssueUser;
  *
  * Class StoreCouponIssueUserDao
  * @package app\dao\coupon
- */
-class StoreCouponIssueUserDao extends BaseDao
+ */class StoreCouponIssueUserDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreCouponIssueUser::class;
     }
@@ -41,18 +39,16 @@ class StoreCouponIssueUserDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page, int $limit)
+     */    public function getList(array $where, int $page, int $limit)
     {
         return $this->search($where)->with('userInfo')->page($page, $limit)->select()->toArray();
     }
 
     /**
-     * Xóa phiếu giảm giá mà người dùng nhận được
+     * Xóa phiếu giảm giá mà Khách hàng nhận được
      * @param $where
      * @return bool
-     */
-    public function delIssueUserCoupon($where)
+     */    public function delIssueUserCoupon($where)
     {
         return $this->getModel()->where($where)->delete();
     }

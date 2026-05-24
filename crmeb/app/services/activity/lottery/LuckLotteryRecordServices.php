@@ -30,15 +30,13 @@ use think\facade\Log;
  *  Kỷ lục xổ số
  * Class LuckLotteryRecordServices
  * @package app\services\activity\lottery
- */
-class LuckLotteryRecordServices extends BaseServices
+ */class LuckLotteryRecordServices extends BaseServices
 {
 
     /**
      * LuckLotteryRecordServices constructor.
      * @param LuckLotteryRecordDao $dao
-     */
-    public function __construct(LuckLotteryRecordDao $dao)
+     */    public function __construct(LuckLotteryRecordDao $dao)
     {
         $this->dao = $dao;
     }
@@ -50,8 +48,7 @@ class LuckLotteryRecordServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, '*', ['lottery', 'prize', 'user'], $page, $limit);
@@ -70,8 +67,7 @@ class LuckLotteryRecordServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getWinList(array $where, int $limit = 20)
+     */    public function getWinList(array $where, int $limit = 20)
     {
         $where = $where + ['not_type' => 1];
         $list = $this->dao->getList($where, 'id,uid,prize_id,lottery_id,receive_time,add_time', ['user', 'prize'], 0, $limit);
@@ -86,8 +82,7 @@ class LuckLotteryRecordServices extends BaseServices
      * Tham gia thống kê xổ số
      * @param int $lottery_id
      * @return int[]
-     */
-    public function getLotteryRecordData(int $lottery_id)
+     */    public function getLotteryRecordData(int $lottery_id)
     {
         $data = ['all' => 0, 'people' => 0, 'win' => 0];
         if ($lottery_id) {
@@ -108,12 +103,10 @@ class LuckLotteryRecordServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function insertPrizeRecord(int $uid, array $prize, array $userInfo = [], $channel_type)
+     */    public function insertPrizeRecord(int $uid, array $prize, array $userInfo = [], $channel_type)
     {
         if (!$userInfo) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $userInfo = $userServices->getUserInfo($uid);
         }
         if (!$userInfo) {
@@ -145,11 +138,9 @@ class LuckLotteryRecordServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function receivePrize(int $uid, int $lottery_record_id, array $receive_info = [])
+     */    public function receivePrize(int $uid, int $lottery_record_id, array $receive_info = [])
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if (!$userInfo) {
             throw new ApiException('Người dùng không tồn tại');
@@ -164,26 +155,23 @@ class LuckLotteryRecordServices extends BaseServices
         $data = ['is_receive' => 1, 'receive_time' => time(), 'receive_info' => $receive_info];
         $prize = $lotteryRecord['prize'];
         $this->transaction(function () use ($uid, $userInfo, $lottery_record_id, $data, $prize, $userServices, $receive_info, $lotteryRecord) {
-            //Loại giải thưởng 1: Không trúng giải 2: Điểm3:Số dư 4: phong bì màu đỏ5:Phiếu giảm giá 6: Sản phẩm trang web 7: Kinh nghiệm cấp độ 8: Cấp độ người dùng 9: Số ngày svip
+            //Loại giải thưởng 1: Không trúng giải 2: Điểm3:Số dư 4: phong bì màu đỏ5:Mã giảm giá 6: Sản phẩm trang web 7: Kinh nghiệm cấp độ 8: Hạng khách hàng 9: Số ngày svip
             switch ($prize['type']) {
                 case 1:
                     break;
                 case 2:
-                    /** @var UserBillServices $userBillServices */
-                    $userBillServices = app()->make(UserBillServices::class);
+                    /** @var UserBillServices $userBillServices */                    $userBillServices = app()->make(UserBillServices::class);
                     $userBillServices->income('lottery_give_integral', $uid, $prize['num'], $userInfo['integral'] + $prize['num'], $prize['id']);
                     $userServices->update($uid, ['integral' => bcadd((string)$userInfo['integral'], (string)$prize['num'], 0)], 'uid');
                     break;
                 case 3:
-                    /** @var UserMoneyServices $userMoneyServices */
-                    $userMoneyServices = app()->make(UserMoneyServices::class);
+                    /** @var UserMoneyServices $userMoneyServices */                    $userMoneyServices = app()->make(UserMoneyServices::class);
                     $now_money = bcadd((string)$userInfo['now_money'], (string)$prize['num'], 2);
                     $userMoneyServices->income('lottery_give_money', $uid, $prize['num'], $now_money, $prize['id']);
                     $userServices->update($uid, ['now_money' => $now_money], 'uid');
                     break;
                 case 4:
-                    /** @var WechatUserServices $wechatServices */
-                    $wechatServices = app()->make(WechatUserServices::class);
+                    /** @var WechatUserServices $wechatServices */                    $wechatServices = app()->make(WechatUserServices::class);
                     $type = '';
                     $openid = $wechatServices->uidToOpenid((int)$uid, $lotteryRecord['channel_type']);
                     if ($lotteryRecord['channel_type'] == 'wechat') {
@@ -194,11 +182,9 @@ class LuckLotteryRecordServices extends BaseServices
                         $type = 'APP';
                     }
                     if ($openid) {
-                        /** @var StoreOrderCreateServices $services */
-                        $services = app()->make(StoreOrderCreateServices::class);
+                        /** @var StoreOrderCreateServices $services */                        $services = app()->make(StoreOrderCreateServices::class);
                         $wechat_order_id = $services->getNewOrderId('hb');
-                        /** @var CapitalFlowServices $capitalFlowServices */
-                        $capitalFlowServices = app()->make(CapitalFlowServices::class);
+                        /** @var CapitalFlowServices $capitalFlowServices */                        $capitalFlowServices = app()->make(CapitalFlowServices::class);
                         $capitalFlowServices->setFlow([
                             'order_id' => $wechat_order_id,
                             'uid' => $uid,
@@ -246,8 +232,7 @@ class LuckLotteryRecordServices extends BaseServices
                     }
                     break;
                 case 5:
-                    /** @var StoreCouponIssueServices $couponIssueService */
-                    $couponIssueService = app()->make(StoreCouponIssueServices::class);
+                    /** @var StoreCouponIssueServices $couponIssueService */                    $couponIssueService = app()->make(StoreCouponIssueServices::class);
                     try {
                         $couponIssueService->issueUserCoupon($prize['coupon_id'], $userInfo);
                     } catch (\Throwable $e) {
@@ -276,8 +261,7 @@ class LuckLotteryRecordServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function setDeliver(int $lottery_record_id, array $data)
+     */    public function setDeliver(int $lottery_record_id, array $data)
     {
         $lotteryRecord = $this->dao->get($lottery_record_id);
         if (!$lotteryRecord) {
@@ -314,8 +298,7 @@ class LuckLotteryRecordServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRecord(int $uid, $where = [])
+     */    public function getRecord(int $uid, $where = [])
     {
         if (!$where) {
             $where['uid'] = $uid;

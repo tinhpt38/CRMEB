@@ -20,27 +20,23 @@ use think\Model;
 /**người giao hàng
  * Class DeliveryService
  * @package app\model\service
- */
-class DeliveryService extends BaseModel
+ */class DeliveryService extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'delivery_service';
+     */    protected $name = 'delivery_service';
 
     /**
      * @var bool
-     */
-    protected $updateTime = false;
+     */    protected $updateTime = false;
 
 
     protected function getAddTimeAttr($value)
@@ -50,10 +46,9 @@ class DeliveryService extends BaseModel
     }
 
     /**
-     * Tên người dùng liên kết một-nhiều
+     * Tên Khách hàng liên kết một-nhiều
      * @return mixed
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname'])->bind([
             'nickname' => 'nickname'
@@ -64,8 +59,7 @@ class DeliveryService extends BaseModel
      * uidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -74,8 +68,7 @@ class DeliveryService extends BaseModel
      * statusNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->where('status', $value);
     }
@@ -84,18 +77,16 @@ class DeliveryService extends BaseModel
      * customer
      * @param Model $query
      * @param $value
-     */
-    public function searchCustomerAttr($query, $value)
+     */    public function searchCustomerAttr($query, $value)
     {
         $query->where('customer', $value);
     }
 
     /**
-     * Người tìm kiếm biệt danh người dùng
+     * Người tìm kiếm biệt danh Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchNicknameAttr($query, $value)
+     */    public function searchNicknameAttr($query, $value)
     {
         $query->whereLike('nickname', '%' . $value . '%');
     }

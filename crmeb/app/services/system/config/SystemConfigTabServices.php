@@ -25,26 +25,23 @@ use crmeb\services\FormBuilder as Form;
  * @method save(array $data) Ghi dữ liệu
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  * @method delete($id, ?string $key = null) Xóa dữ liệu
- */
-class SystemConfigTabServices extends BaseServices
+ */class SystemConfigTabServices extends BaseServices
 {
     /**
      * SystemConfigTabServices constructor.
      * @param SystemConfigTabDao $dao
-     */
-    public function __construct(SystemConfigTabDao $dao)
+     */    public function __construct(SystemConfigTabDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Đọc phân loại tiêu đề cài đặt hệ thống
+     * Đọc phân loại tiêu đề Cài đặt hệ thống
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfigTab(int $pid)
+     */    public function getConfigTab(int $pid)
     {
         $list = $this->dao->getConfigTabAll(['status' => 1, 'pid' => $pid], ['id', 'id as value', 'title as label', 'pid', 'icon', 'type'], $pid ? [] : [['type', '=', '0']]);
         return get_tree_children($list);
@@ -57,8 +54,7 @@ class SystemConfigTabServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getConfgTabList(array $where)
+     */    public function getConfgTabList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getConfgTabList($where, $page, $limit);
@@ -78,8 +74,7 @@ class SystemConfigTabServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSelectForm()
+     */    public function getSelectForm()
     {
         $menuList = $this->dao->getConfigTabAll([], ['id', 'pid', 'title']);
         $list = sort_list_tier($menuList, 0, 'pid', 'id');
@@ -100,8 +95,7 @@ class SystemConfigTabServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/9/12
-     */
-    public function getConfigTabListForm($value)
+     */    public function getConfigTabListForm($value)
     {
         $configTabList = $this->dao->getConfigTabAll([], ['id as value', 'pid', 'title as label']);
         if ($value) {
@@ -122,8 +116,7 @@ class SystemConfigTabServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createConfigTabForm(array $formData = [])
+     */    public function createConfigTabForm(array $formData = [])
     {
         [$configTabList, $data1] = $this->getConfigTabListForm((int)($formData['pid'] ?? 0), 3);
         $form[] = Form::cascader('pid', 'Danh mục gốc', $data1)->options($configTabList)->filterable(true)->props(['props' => ['multiple' => false, 'checkStrictly' => true, 'emitPath' => false]])->style(['width'=>'100%']);
@@ -145,8 +138,7 @@ class SystemConfigTabServices extends BaseServices
      * Thêm biểu mẫu phân loại cấu hình
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm()
+     */    public function createForm()
     {
         return create_form('Thêm danh mục cấu hình', $this->createConfigTabForm(), $this->url('/setting/config_class'));
     }
@@ -156,8 +148,7 @@ class SystemConfigTabServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function updateForm(int $id)
+     */    public function updateForm(int $id)
     {
         $configTabInfo = $this->dao->get($id);
         if (!$configTabInfo) {

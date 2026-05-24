@@ -19,15 +19,13 @@ use app\services\BaseServices;
  * Class StoreOrderStoreOrderStatusServices
  * @package app\services\order
  * @method getTakeOrderIds(array $where, ?int $limit = 0)
- */
-class StoreOrderStoreOrderStatusServices extends BaseServices
+ */class StoreOrderStoreOrderStatusServices extends BaseServices
 {
 
     /**
      * StoreOrderStoreOrderStatusServices constructor.
      * @param StoreOrderStoreOrderStatusDao $dao
-     */
-    public function __construct(StoreOrderStoreOrderStatusDao $dao)
+     */    public function __construct(StoreOrderStoreOrderStatusDao $dao)
     {
         $this->dao = $dao;
     }

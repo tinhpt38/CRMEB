@@ -19,13 +19,11 @@ class SystemRouteCate extends BaseModel
 
     /**
      * @var string
-     */
-    protected $name = 'system_route_cate';
+     */    protected $name = 'system_route_cate';
 
     /**
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     protected $autoWriteTimestamp = false;
 
@@ -34,8 +32,7 @@ class SystemRouteCate extends BaseModel
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function children()
+     */    public function children()
     {
         return $this->hasMany(SystemRoute::class, 'cate_id', 'id')->field(['id', 'type', 'cate_id', 'name', 'name as real_name', 'path', 'method'])->order('add_time desc');
     }

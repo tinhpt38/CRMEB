@@ -26,8 +26,7 @@ class ThemeModuleDao extends BaseDao
      * Đối tượng mô hình truy vấn có điều kiện
      * @param $where
      * @return \crmeb\basic\BaseModel
-     */
-    public function getConditionModel($where)
+     */    public function getConditionModel($where)
     {
         return $this->getModel()
             ->when(isset($where['type']) && $where['type'] !== '', function ($query) use ($where) {
@@ -46,8 +45,7 @@ class ThemeModuleDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function themeModuleList($where, $field, $page = 0, $limit = 0, $order = 'id desc')
+     */    public function themeModuleList($where, $field, $page = 0, $limit = 0, $order = 'id desc')
     {
         return $this->getConditionModel($where)
             ->field($field)
@@ -61,8 +59,7 @@ class ThemeModuleDao extends BaseDao
      * Lấy số lượng thành phần
      * @param $where
      * @return int
-     */
-    public function themeModuleCount($where)
+     */    public function themeModuleCount($where)
     {
         return $this->getConditionModel($where)->count();
     }

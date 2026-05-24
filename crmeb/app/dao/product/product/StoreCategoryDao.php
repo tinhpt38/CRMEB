@@ -17,14 +17,12 @@ use app\model\product\product\StoreCategory;
 /**
  * Class StoreCategoryDao
  * @package app\dao\product\product
- */
-class StoreCategoryDao extends BaseDao
+ */class StoreCategoryDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreCategory::class;
     }
@@ -36,8 +34,7 @@ class StoreCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         return $this->search($where)->with('children')->order('sort desc,id desc')->select()->toArray();
     }
@@ -51,8 +48,7 @@ class StoreCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTierList(array $where = [], array $field = ['*'])
+     */    public function getTierList(array $where = [], array $field = ['*'])
     {
         return $this->search($where)->field($field)->order('sort desc,id desc')->select()->toArray();
     }
@@ -62,8 +58,7 @@ class StoreCategoryDao extends BaseDao
      * @param array $where
      * @return array
      * @throws \ReflectionException
-     */
-    public function getMenus(array $where)
+     */    public function getMenus(array $where)
     {
         return $this->search($where)->order('sort desc,id desc')->column('cate_name,id');
     }
@@ -75,8 +70,7 @@ class StoreCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCateArray(string $cateIds)
+     */    public function getCateArray(string $cateIds)
     {
         return $this->search(['id' => $cateIds])->field('cate_name,id')->select()->toArray();
     }
@@ -87,8 +81,7 @@ class StoreCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCategory()
+     */    public function getCategory()
     {
         return $this->getModel()->with('children')->where('is_show', 1)->where('pid', 0)->order('sort desc,id desc')->hidden(['add_time', 'is_show', 'sort', 'children.sort', 'children.add_time', 'children.pid', 'children.is_show'])->select()->toArray();
     }
@@ -97,8 +90,7 @@ class StoreCategoryDao extends BaseDao
      * Nhận được sự vượt trội dựa trên id danh mụcid
      * @param array $cateId
      * @return array
-     */
-    public function cateIdByPid(array $cateId)
+     */    public function cateIdByPid(array $cateId)
     {
         return $this->getModel()->whereIn('id', $cateId)->column('pid');
     }
@@ -111,8 +103,7 @@ class StoreCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function byIndexList($limit = 4, $field = 'id,cate_name,pid,pic')
+     */    public function byIndexList($limit = 4, $field = 'id,cate_name,pid,pic')
     {
         return $this->getModel()->where('pid', '>', 0)->where('is_show', 1)->field($field)->order('sort DESC')->limit($limit)->select()->toArray();
     }
@@ -121,8 +112,7 @@ class StoreCategoryDao extends BaseDao
      * Nhận bộ sưu tập bao gồm phân loại cấp một và phân loại cấp hai
      * @param $cateId
      * @return mixed
-     */
-    public function getCateParentAndChildName(string $cateId)
+     */    public function getCateParentAndChildName(string $cateId)
     {
         return $this->getModel()->alias('c')->leftJoin('StoreCategory b', 'b.id = c.pid')
             ->where('c.id', 'IN', $cateId)->field('c.cate_name as two,b.cate_name as one,c.id')
@@ -134,8 +124,7 @@ class StoreCategoryDao extends BaseDao
      * @param $page
      * @param $limit
      * @return array
-     */
-    public function getCid($page, $limit)
+     */    public function getCid($page, $limit)
     {
         return $this->getModel()
             ->where('is_show', 1)
@@ -153,8 +142,7 @@ class StoreCategoryDao extends BaseDao
      * @param $page
      * @param $limit
      * @return int
-     */
-    public function getCidCount()
+     */    public function getCidCount()
     {
         return $this->getModel()
             ->where('is_show', 1)
@@ -166,15 +154,14 @@ class StoreCategoryDao extends BaseDao
     }
 
     /**
-     * Nhận tất cả các danh mục (riêng và cấp dưới) theo id danh mục
+     * Nhận Tất cả các danh mục (riêng và cấp dưới) theo id danh mục
      * @param $id
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAllById($id, string $field = 'id')
+     */    public function getAllById($id, string $field = 'id')
     {
         if (is_array($id)) {
             return $this->getModel()->where(function ($query) use ($id) {
@@ -188,7 +175,7 @@ class StoreCategoryDao extends BaseDao
     }
 
     /**
-     * Có thể tìm kiếm để có được tất cả các danh mục phụ
+     * Có thể tìm kiếm để có được Tất cả các danh mục phụ
      * @param array $where
      * @param string $field
      * @param int $limit
@@ -196,8 +183,7 @@ class StoreCategoryDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getALlByIndex(array $where, string $field = 'id,cate_name,pid,pic', $limit = 0)
+     */    public function getALlByIndex(array $where, string $field = 'id,cate_name,pid,pic', $limit = 0)
     {
         $pid = $where['pid'] ?? -1;
         return $this->getModel()->where('is_show', 1)->field($field)

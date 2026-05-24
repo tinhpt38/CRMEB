@@ -19,8 +19,7 @@ use think\Model;
 /**
  * Class LiveRoom
  * @package app\model\live
- */
-class LiveRoom extends BaseModel
+ */class LiveRoom extends BaseModel
 {
     use ModelTrait;
 
@@ -41,8 +40,7 @@ class LiveRoom extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         if (!empty($value)) {
             return date('Y-m-d H:i:s', (int)$value);
@@ -80,8 +78,7 @@ class LiveRoom extends BaseModel
      * Phòng phát sóng trực tiếpid
      * @param Model $query
      * @param $value
-     */
-    public function searchRoomIdAttr($query, $value)
+     */    public function searchRoomIdAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('room_id', $value);
@@ -92,8 +89,7 @@ class LiveRoom extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsShowAttr($query, $value)
+     */    public function searchIsShowAttr($query, $value)
     {
         if ($value !== '') $query->where('is_show', $value);
     }
@@ -101,8 +97,7 @@ class LiveRoom extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }
@@ -110,8 +105,7 @@ class LiveRoom extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchKerwordAttr($query, $value)
+     */    public function searchKerwordAttr($query, $value)
     {
         if ($value !== '') $query->whereLike('id|room_id|name|anchor_name|anchor_wechat', "%{$value}%");
     }
@@ -119,8 +113,7 @@ class LiveRoom extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') {
             switch ($value) {

@@ -18,7 +18,7 @@
  *   node tools/localization/apply-glossary.js --dry-run
  *   node tools/localization/apply-glossary.js --report tools/localization/out/apply-report.json
  *   node tools/localization/apply-glossary.js --root template/admin/src
- *   node tools/localization/apply-glossary.js --root crmeb/app
+ *   node tools/localization/apply-glossary.js --include-comments
  */
 
 const fs = require('fs');
@@ -26,22 +26,24 @@ const path = require('path');
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run');
+const INCLUDE_COMMENTS = args.includes('--include-comments');
 const rootIdx = args.indexOf('--root');
 const reportIdx = args.indexOf('--report');
 const ROOTS = rootIdx >= 0
   ? [args[rootIdx + 1]]
-  : ['template/admin/src', 'template/uni-app', 'crmeb/app'];
+  : ['template/admin/src', 'crmeb/app', 'f-chan/src'];
 const REPORT_PATH = reportIdx >= 0 ? args[reportIdx + 1] : null;
 
 const glossaryPath = path.join(__dirname, 'vi-glossary.json');
 const glossary = JSON.parse(fs.readFileSync(glossaryPath, 'utf8'));
+const allEntries = glossary.entries.concat(glossary.menuEntriesExact || []);
 
 // --------------------- Replacer ---------------------
 
 function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
 // Sort longest-first để cụm dài match trước.
-const sortedEntries = glossary.entries.slice().sort((a, b) => b.bad.length - a.bad.length);
+const sortedEntries = allEntries.slice().sort((a, b) => b.bad.length - a.bad.length);
 const lookup = Object.create(null);
 for (const e of sortedEntries) if (!(e.bad in lookup)) lookup[e.bad] = e.good;
 const masterRe = new RegExp(sortedEntries.map(e => escapeRegExp(e.bad)).join('|'), 'g');
@@ -131,7 +133,8 @@ function processTemplate(src, context) {
     if (src.startsWith('<!--', i)) {
       const end = src.indexOf('-->', i + 4);
       if (end === -1) { out += src.slice(i); break; }
-      out += src.slice(i, end + 3);
+      const inner = src.slice(i + 4, end);
+      out += '<!--' + (INCLUDE_COMMENTS ? replaceText(inner, context) : inner) + '-->';
       i = end + 3;
       continue;
     }
@@ -222,17 +225,23 @@ function processScript(src, context) {
   const n = src.length;
   let state = 'code'; // code | sq | dq | bt | sline | mline | regex
   let buf = '';
+  let commentBuf = '';
   let lastCodeChar = '\n'; // để heuristic regex vs chia
 
   const flushBuf = () => { if (buf) { out += replaceText(buf, context); buf = ''; } };
+  const flushComment = () => {
+    if (!commentBuf) return;
+    out += INCLUDE_COMMENTS ? replaceText(commentBuf, context) : commentBuf;
+    commentBuf = '';
+  };
 
   while (i < n) {
     const ch = src[i];
     const next = src[i + 1];
 
     if (state === 'code') {
-      if (ch === '/' && next === '/') { out += '//'; i += 2; state = 'sline'; continue; }
-      if (ch === '/' && next === '*') { out += '/*'; i += 2; state = 'mline'; continue; }
+      if (ch === '/' && next === '/') { out += '//'; i += 2; state = 'sline'; commentBuf = ''; continue; }
+      if (ch === '/' && next === '*') { out += '/*'; i += 2; state = 'mline'; commentBuf = ''; continue; }
       if (ch === '"')  { out += '"'; state = 'dq'; buf = ''; i++; continue; }
       if (ch === "'")  { out += "'"; state = 'sq'; buf = ''; i++; continue; }
       if (ch === '`')  { out += '`'; state = 'bt'; buf = ''; i++; continue; }
@@ -242,14 +251,25 @@ function processScript(src, context) {
       continue;
     }
     if (state === 'sline') {
-      out += ch;
-      if (ch === '\n') state = 'code';
+      if (ch === '\n') {
+        flushComment();
+        out += ch;
+        state = 'code';
+      } else {
+        commentBuf += ch;
+      }
       i++;
       continue;
     }
     if (state === 'mline') {
-      out += ch;
-      if (ch === '*' && next === '/') { out += '/'; i += 2; state = 'code'; continue; }
+      if (ch === '*' && next === '/') {
+        flushComment();
+        out += '*/';
+        i += 2;
+        state = 'code';
+      } else {
+        commentBuf += ch;
+      }
       i++;
       continue;
     }
@@ -340,23 +360,50 @@ function processPhp(src, context) {
   const n = src.length;
   let state = 'code';
   let buf = '';
+  let commentBuf = '';
 
   const flushBuf = () => { if (buf) { out += replaceText(buf, context); buf = ''; } };
+  const flushComment = () => {
+    if (!commentBuf) return;
+    out += INCLUDE_COMMENTS ? replaceText(commentBuf, context) : commentBuf;
+    commentBuf = '';
+  };
 
   while (i < n) {
     const ch = src[i];
     const next = src[i + 1];
 
     if (state === 'code') {
-      if (ch === '/' && next === '/') { out += '//'; i += 2; state = 'sline'; continue; }
-      if (ch === '#')                  { out += '#';  i += 1; state = 'sline'; continue; }
-      if (ch === '/' && next === '*')  { out += '/*'; i += 2; state = 'mline'; continue; }
+      if (ch === '/' && next === '/') { out += '//'; i += 2; state = 'sline'; commentBuf = ''; continue; }
+      if (ch === '#')                  { out += '#';  i += 1; state = 'sline'; commentBuf = ''; continue; }
+      if (ch === '/' && next === '*')  { out += '/*'; i += 2; state = 'mline'; commentBuf = ''; continue; }
       if (ch === '"') { out += '"'; state = 'dq'; buf = ''; i++; continue; }
       if (ch === "'") { out += "'"; state = 'sq'; buf = ''; i++; continue; }
       out += ch; i++; continue;
     }
-    if (state === 'sline') { out += ch; if (ch === '\n') state = 'code'; i++; continue; }
-    if (state === 'mline') { out += ch; if (ch === '*' && next === '/') { out += '/'; i += 2; state = 'code'; continue; } i++; continue; }
+    if (state === 'sline') {
+      if (ch === '\n') {
+        flushComment();
+        out += ch;
+        state = 'code';
+      } else {
+        commentBuf += ch;
+      }
+      i++;
+      continue;
+    }
+    if (state === 'mline') {
+      if (ch === '*' && next === '/') {
+        flushComment();
+        out += '*/';
+        i += 2;
+        state = 'code';
+      } else {
+        commentBuf += ch;
+      }
+      i++;
+      continue;
+    }
     if (state === 'sq' || state === 'dq') {
       const quote = state === 'sq' ? "'" : '"';
       if (ch === '\\') { buf += ch + (next || ''); i += 2; continue; }
@@ -387,7 +434,7 @@ function walk(dir, out = []) {
   const st = fs.statSync(dir);
   if (st.isFile()) {
     const ext = path.extname(dir).toLowerCase();
-    if (['.vue', '.js', '.php'].includes(ext)) out.push(dir);
+    if (['.vue', '.js', '.php', '.ts', '.tsx'].includes(ext)) out.push(dir);
     return out;
   }
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -396,7 +443,7 @@ function walk(dir, out = []) {
       walk(path.join(dir, entry.name), out);
     } else if (entry.isFile()) {
       const ext = path.extname(entry.name).toLowerCase();
-      if (['.vue', '.js', '.php'].includes(ext)) {
+      if (['.vue', '.js', '.php', '.ts', '.tsx'].includes(ext)) {
         out.push(path.join(dir, entry.name));
       } else if (ext === '.json') {
         // Chỉ quét JSON config có chứa text UI (pages.json của UniApp).
@@ -428,7 +475,7 @@ function processFile(file) {
         out += b.content;
       }
     }
-  } else if (ext === '.js') {
+  } else if (ext === '.js' || ext === '.ts' || ext === '.tsx') {
     out = processScript(src, ctx);
   } else if (ext === '.php') {
     out = processPhp(src, ctx);

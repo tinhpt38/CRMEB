@@ -19,29 +19,25 @@ use think\model;
 /**
  * Class UserSpread
  * @package app\model\user
- */
-class UserSpread extends BaseModel
+ */class UserSpread extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_spread';
+     */    protected $name = 'user_spread';
 
     /**
-     * người dùnguid
+     * Khách hànguid
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('uid', $value);
@@ -54,8 +50,7 @@ class UserSpread extends BaseModel
      * người quảng báuid
      * @param Model $query
      * @param $value
-     */
-    public function searchSpreadUidAttr($query, $value)
+     */    public function searchSpreadUidAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('spread_uid', $value);

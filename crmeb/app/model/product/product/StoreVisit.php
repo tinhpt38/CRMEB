@@ -17,21 +17,18 @@ use crmeb\basic\BaseModel;
  *  Phân tích duyệt sản phẩmModel
  * Class StoreVisit
  * @package app\model\product\product
- */
-class StoreVisit extends BaseModel
+ */class StoreVisit extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_visit';
+     */    protected $name = 'store_visit';
 
 }

@@ -23,16 +23,14 @@ use app\services\system\SystemRouteServices;
  * Class SystemLogServices
  * @package app\services\system\log
  * @method deleteLog() Xóa nhật ký thường xuyên
- */
-class SystemLogServices extends BaseServices
+ */class SystemLogServices extends BaseServices
 {
 
     /**
      * Người xây dựng
      * SystemLogServices constructor.
      * @param SystemLogDao $dao
-     */
-    public function __construct(SystemLogDao $dao)
+     */    public function __construct(SystemLogDao $dao)
     {
         $this->dao = $dao;
     }
@@ -43,15 +41,13 @@ class SystemLogServices extends BaseServices
      * @param string $adminName
      * @param string $type
      * @return bool
-     */
-    public function recordAdminLog(int $adminId, string $adminName, string $type)
+     */    public function recordAdminLog(int $adminId, string $adminName, string $type)
     {
         $request = app()->request;
         $module = app('http')->getName();
         $rule = trim(strtolower($request->rule()->getRule()));
 
-        /** @var SystemMenusServices $service */
-        $service = app()->make(SystemMenusServices::class);
+        /** @var SystemMenusServices $service */        $service = app()->make(SystemMenusServices::class);
         $data = [
             'method' => $module,
             'admin_id' => $adminId,
@@ -76,13 +72,11 @@ class SystemLogServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLogList(array $where, int $level)
+     */    public function getLogList(array $where, int $level)
     {
         [$page, $limit] = $this->getPageValue();
         if (!$where['admin_id']) {
-            /** @var SystemAdminServices $service */
-            $service = app()->make(SystemAdminServices::class);
+            /** @var SystemAdminServices $service */            $service = app()->make(SystemAdminServices::class);
             $where['admin_id'] = $service->getAdminIds($level);
         }
         $routeArr = app()->make(SystemRouteServices::class)->getNameList('adminapi');

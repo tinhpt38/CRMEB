@@ -34,15 +34,13 @@ use think\facade\Route as Url;
  *
  * Class UserExtractServices
  * @package app\services\user
- */
-class UserExtractServices extends BaseServices
+ */class UserExtractServices extends BaseServices
 {
 
     /**
      * UserExtractServices constructor.
      * @param UserExtractDao $dao
-     */
-    public function __construct(UserExtractDao $dao)
+     */    public function __construct(UserExtractDao $dao)
     {
         $this->dao = $dao;
     }
@@ -52,27 +50,24 @@ class UserExtractServices extends BaseServices
      * @param int $id
      * @param array $field
      * @return array|\think\Model|null
-     */
-    public function getExtract(int $id, array $field = [])
+     */    public function getExtract(int $id, array $field = [])
     {
         return $this->dao->get($id, $field);
     }
 
     /**
-     * Nhận tổng số tiền rút của người dùng
+     * Nhận tổng số tiền rút của Khách hàng
      * @param int $uid
      * @return float
-     */
-    public function getUserExtract(int $uid)
+     */    public function getUserExtract(int $uid)
     {
         return $this->dao->getWhereSum(['uid' => $uid, 'status' => 1]);
     }
 
     /**
-     * Nhận danh sách tổng số tiền rút cho một số người dùng nhất định
+     * Nhận danh sách tổng số tiền rút cho một số Khách hàng nhất định
      * @param array $uids
-     */
-    public function getUsersSumList(array $uids)
+     */    public function getUsersSumList(array $uids)
     {
         return $this->dao->getWhereSumList(['uid' => $uids, 'status' => 1]);
     }
@@ -90,8 +85,7 @@ class UserExtractServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserExtractList(array $where, string $field = '*')
+     */    public function getUserExtractList(array $where, string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getExtractList($where, $field, $page, $limit);
@@ -106,8 +100,7 @@ class UserExtractServices extends BaseServices
     /**
      * Nhận tổng số tiền rút
      * @param array $where
-     */
-    public function getExtractSum(array $where)
+     */    public function getExtractSum(array $where)
     {
         return $this->dao->getExtractMoneyByWhere($where, 'extract_price');
     }
@@ -120,25 +113,22 @@ class UserExtractServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     */
-    public function changeFail(int $id, $userExtract, $message)
+     */    public function changeFail(int $id, $userExtract, $message)
     {
         $fail_time = time();
         $extract_number = $userExtract['extract_price'];
         $mark = 'Rút tiền không thành công,Hoa hồng trả lại' . $extract_number . 'Nhân dân tệ';
         $uid = $userExtract['uid'];
         $status = -1;
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         $this->transaction(function () use ($user, $uid, $id, $extract_number, $message, $userServices, $status, $fail_time) {
             //Tăng kỷ lục hoa hồng
-            /** @var UserBrokerageServices $userBrokerageServices */
-            $userBrokerageServices = app()->make(UserBrokerageServices::class);
+            /** @var UserBrokerageServices $userBrokerageServices */            $userBrokerageServices = app()->make(UserBrokerageServices::class);
             $now_brokerage = bcadd((string)$user['brokerage_price'], (string)$extract_number, 2);
             $userBrokerageServices->income('extract_fail', $uid, $extract_number, $now_brokerage, $id);
             if (!$userServices->update($uid, ['brokerage_price' => bcadd((string)$user['brokerage_price'], (string)$extract_number, 2)], 'uid'))
-                throw new AdminException('Không thể tăng hoa hồng cho người dùng');
+                throw new AdminException('Không thể tăng hoa hồng cho Khách hàng');
             if (!$this->dao->update($id, ['fail_time' => $fail_time, 'fail_msg' => $message, 'status' => $status])) {
                 throw new AdminException('Sửa đổi không thành công');
             }
@@ -146,7 +136,7 @@ class UserExtractServices extends BaseServices
 
         event('NoticeListener', [['uid' => $uid, 'userType' => strtolower($user['user_type']), 'extract_number' => $extract_number, 'nickname' => $user['nickname'], 'message' => $message], 'user_balance_change']);
 
-        //Thông báo tùy chỉnh - việc rút tiền của người dùng không thành công
+        //Thông báo tùy chỉnh - việc rút tiền của Khách hàng không thành công
         $userExtract['nickname'] = $user['nickname'];
         $userExtract['message'] = $message;
         $userExtract['time'] = date('Y-m-d H:i:s');
@@ -154,7 +144,7 @@ class UserExtractServices extends BaseServices
         $userExtract['phone'] = app()->make(UserServices::class)->value($userExtract['uid'], 'phone');
         event('CustomNoticeListener', [$userExtract['uid'], $userExtract, 'extract_fail']);
 
-        //Sự kiện tùy chỉnh - lỗi rút tiền của người dùng
+        //Sự kiện tùy chỉnh - lỗi rút tiền của Khách hàng
         event('CustomEventListener', ['admin_extract_fail', [
             'uid' => $userExtract['uid'],
             'price' => $userExtract['price'],
@@ -175,14 +165,11 @@ class UserExtractServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function changeSuccess(int $id, $userExtract)
+     */    public function changeSuccess(int $id, $userExtract)
     {
         $extractNumber = bcsub($userExtract['extract_price'], $userExtract['extract_fee'], 2);
-        /** @var WechatUserServices $wechatServices */
-        $wechatServices = app()->make(WechatUserServices::class);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var WechatUserServices $wechatServices */        $wechatServices = app()->make(WechatUserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userType = $userServices->value(['uid' => $userExtract['uid']], 'user_type');
         $nickname = $userServices->value(['uid' => $userExtract['uid']], 'nickname');
         $phone = $userServices->value(['uid' => $userExtract['uid']], 'phone');
@@ -303,14 +290,12 @@ class UserExtractServices extends BaseServices
             }
         }
 
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $user = $userService->getUserInfo($userExtract['uid']);
         $insertData['nickname'] = $user['nickname'];
         $insertData['phone'] = $user['phone'];
 
-        /** @var CapitalFlowServices $capitalFlowServices */
-        $capitalFlowServices = app()->make(CapitalFlowServices::class);
+        /** @var CapitalFlowServices $capitalFlowServices */        $capitalFlowServices = app()->make(CapitalFlowServices::class);
         $capitalFlowServices->setFlow([
             'order_id' => $order_id,
             'uid' => $userExtract['uid'],
@@ -325,7 +310,7 @@ class UserExtractServices extends BaseServices
         }
         event('NoticeListener', [['uid' => $userExtract['uid'], 'userType' => strtolower($userType), 'extractNumber' => $extractNumber, 'nickname' => $nickname], 'user_extract']);
 
-        //Thông báo tùy chỉnh-người dùng rút tiền thành công
+        //Thông báo tùy chỉnh-Khách hàng rút tiền thành công
         $userExtract['nickname'] = $nickname;
         $userExtract['phone'] = $phone;
         $userExtract['time'] = date('Y-m-d H:i:s');
@@ -352,20 +337,17 @@ class UserExtractServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index(array $where)
+     */    public function index(array $where)
     {
         $list = $this->getUserExtractList($where);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         //Số tiền mặt cần rút
         $where['status'] = 0;
         $extract_statistics['price'] = $this->getExtractSum($where);
         //Số tiền đã rút
         $where['status'] = 1;
         $extract_statistics['priced'] = $this->getExtractSum($where);
-        /** @var UserBrokerageServices $userBrokerageServices */
-        $userBrokerageServices = app()->make(UserBrokerageServices::class);
+        /** @var UserBrokerageServices $userBrokerageServices */        $userBrokerageServices = app()->make(UserBrokerageServices::class);
         $where['pm'] = 1;
         $brokerage_count = $userBrokerageServices->getUsersBokerageSum($where);
         $refund_brokerage = $userBrokerageServices->sum(['type' => 'refund'], 'number');
@@ -380,8 +362,7 @@ class UserExtractServices extends BaseServices
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function edit(int $id)
+     */    public function edit(int $id)
     {
         $UserExtract = $this->getExtract($id);
         if (!$UserExtract) {
@@ -415,8 +396,7 @@ class UserExtractServices extends BaseServices
      * từ chối
      * @param $id
      * @return mixed
-     */
-    public function refuse(int $id, string $message)
+     */    public function refuse(int $id, string $message)
     {
         $extract = $this->getExtract($id);
         if (!$extract) {
@@ -442,8 +422,7 @@ class UserExtractServices extends BaseServices
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function adopt(int $id)
+     */    public function adopt(int $id)
     {
         $extract = $this->getExtract($id);
         if (!$extract) {
@@ -465,8 +444,7 @@ class UserExtractServices extends BaseServices
 
     /**Số tiền cần rút
      * @return int
-     */
-    public function userExtractCount()
+     */    public function userExtractCount()
     {
         return $this->dao->count(['status' => 0]);
     }
@@ -475,17 +453,14 @@ class UserExtractServices extends BaseServices
      * Rút tiền mặt thẻ ngân hàng
      * @param int $uid
      * @return mixed
-     */
-    public function bank(int $uid)
+     */    public function bank(int $uid)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $user = $userService->getUserInfo($uid, 'brokerage_price,uid');
         if (!$user) {
             throw new ApiException('Dữ liệu không tồn tại');
         }
-        /** @var UserBrokerageServices $services */
-        $services = app()->make(UserBrokerageServices::class);
+        /** @var UserBrokerageServices $services */        $services = app()->make(UserBrokerageServices::class);
         $data['broken_commission'] = $services->getUserFrozenPrice($uid);
         if ($data['broken_commission'] < 0)
             $data['broken_commission'] = '0';
@@ -503,14 +478,12 @@ class UserExtractServices extends BaseServices
     }
 
     /**
-     * Đơn xin rút tiền
+     * Yêu cầu rút tiền
      * @param int $uid
      * @param array $data
-     */
-    public function cash(int $uid, array $data)
+     */    public function cash(int $uid, array $data)
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
         $user = $userService->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Dữ liệu không tồn tại');
@@ -524,8 +497,7 @@ class UserExtractServices extends BaseServices
             throw new ApiException('Số tiền rút tối thiểu trên WeChat không được nhỏ hơn 0,1 nhân dân tệ');
         }
 
-        /** @var WechatUserServices $wechatServices */
-        $wechatServices = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $wechatServices */        $wechatServices = app()->make(WechatUserServices::class);
         $openid = $wechatServices->uidToOpenid($uid, 'wechat');
         if (!$openid) $openid = $wechatServices->uidToOpenid($uid, 'routine');
 
@@ -533,8 +505,7 @@ class UserExtractServices extends BaseServices
             throw new ApiException('Vui lòng theo dõi tài khoản công khai trước');
         }
 
-        /** @var UserBrokerageServices $services */
-        $services = app()->make(UserBrokerageServices::class);
+        /** @var UserBrokerageServices $services */        $services = app()->make(UserBrokerageServices::class);
         $data['broken_commission'] = $services->getUserFrozenPrice($uid);
         if ($data['broken_commission'] < 0)
             $data['broken_commission'] = 0;
@@ -610,8 +581,7 @@ class UserExtractServices extends BaseServices
             }
 
             //Lưu giữ hồ sơ hoa hồng
-            /** @var UserBrokerageServices $userBrokerageServices */
-            $userBrokerageServices = app()->make(UserBrokerageServices::class);
+            /** @var UserBrokerageServices $userBrokerageServices */            $userBrokerageServices = app()->make(UserBrokerageServices::class);
             $userBrokerageServices->income('extract', $uid, ['mark' => $mark, 'number' => $data['extract_price']], $balance, $res1['id']);
             return $res1;
         });
@@ -620,13 +590,12 @@ class UserExtractServices extends BaseServices
             ChannelService::instance()->send('WITHDRAW', ['id' => $res1->id]);
         } catch (\Exception $e) {
         }
-        /** @var SystemAdminServices $systemAdmin */
-        $systemAdmin = app()->make(SystemAdminServices::class);
+        /** @var SystemAdminServices $systemAdmin */        $systemAdmin = app()->make(SystemAdminServices::class);
         $systemAdmin->adminNewPush();
         //thông tin
         event('NoticeListener', [['nickname' => $user['nickname'], 'money' => $data['extract_price']], 'kefu_send_extract_application']);
 
-        //Sự kiện tùy chỉnh - rút tiền của người dùng
+        //Sự kiện tùy chỉnh - rút tiền của Khách hàng
         event('CustomEventListener', ['user_extract', [
             'uid' => $insertData['uid'],
             'phone' => $user['phone'],
@@ -645,8 +614,7 @@ class UserExtractServices extends BaseServices
      * @param string $selectType
      * @param string $group
      * @return float|mixed
-     */
-    public function getOutMoneyByWhere(array $where, string $SumField, string $selectType, string $group = "")
+     */    public function getOutMoneyByWhere(array $where, string $SumField, string $selectType, string $group = "")
     {
         switch ($selectType) {
             case "sum" :

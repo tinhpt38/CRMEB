@@ -19,39 +19,35 @@ use app\model\shipping\ShippingTemplatesNoDelivery;
  * Chưa giao
  * Class ShippingTemplatesNoDeliveryDao
  * @package app\dao\shipping
- */
-class ShippingTemplatesNoDeliveryDao extends BaseDao
+ */class ShippingTemplatesNoDeliveryDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return ShippingTemplatesNoDelivery::class;
     }
 
     /**
-     * Nhận danh sách các mẫu vận chuyển hàng hóa và nhóm chúng theo các trường được chỉ định
+     * Nhận danh sách các mẫu vận chuyển sản phẩm và nhóm chúng theo các trường được chỉ định
      * @param array $where
      * @param string $group
      * @param string $field
      * @param string $key
      * @return mixed
-     */
-    public function getShippingGroupArray(array $where, string $group, string $field, string $key)
+     */    public function getShippingGroupArray(array $where, string $group, string $field, string $key)
     {
         return $this->search($where)->group($group)->column($field, $key);
     }
 
     /**
-     * Nhận danh sách các mẫu vận chuyển hàng hóa
+     * Nhận danh sách các mẫu vận chuyển sản phẩm
      * @param array $where
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getShippingArray(array $where)
+     */    public function getShippingArray(array $where)
     {
         return $this->search($where)->select()->toArray();
     }
@@ -61,8 +57,7 @@ class ShippingTemplatesNoDeliveryDao extends BaseDao
      * @param $tempId
      * @param $cityid
      * @return int
-     */
-    public function isNoDelivery($tempId, $cityid)
+     */    public function isNoDelivery($tempId, $cityid)
     {
         if (is_array($tempId)) {
             return $this->getModel()->where('temp_id', 'in', $tempId)->where('city_id', $cityid)->column('temp_id');

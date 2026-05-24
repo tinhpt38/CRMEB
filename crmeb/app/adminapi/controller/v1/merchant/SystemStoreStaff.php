@@ -19,16 +19,14 @@ use app\adminapi\controller\AuthController;
  * nhân viên văn phòng
  * Class SystemStoreStaff
  * @package app\adminapi\controller\v1\merchant
- */
-class SystemStoreStaff extends AuthController
+ */class SystemStoreStaff extends AuthController
 {
     /**
      * Người xây dựng
      * SystemStoreStaff constructor.
      * @param App $app
      * @param SystemStoreStaffServices $services
-     */
-    public function __construct(App $app, SystemStoreStaffServices $services)
+     */    public function __construct(App $app, SystemStoreStaffServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -40,8 +38,7 @@ class SystemStoreStaff extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             [['store_id', 'd'], 0],
@@ -56,8 +53,7 @@ class SystemStoreStaff extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function store_list(SystemStoreServices $services)
+     */    public function store_list(SystemStoreServices $services)
     {
         return app('json')->success($services->getStore());
     }
@@ -69,8 +65,7 @@ class SystemStoreStaff extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->createForm());
     }
@@ -82,8 +77,7 @@ class SystemStoreStaff extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function edit()
+     */    public function edit()
     {
         [$id] = $this->request->getMore([
             [['id', 'd'], 0],
@@ -95,8 +89,7 @@ class SystemStoreStaff extends AuthController
      * Lưu thông tin nhân viên cửa hàng
      * @param int $id
      * @return mixed
-     */
-    public function save($id = 0)
+     */    public function save($id = 0)
     {
         $data = $this->request->postMore([
             ['image', ''],
@@ -110,7 +103,7 @@ class SystemStoreStaff extends AuthController
         ]);
         if (!$id) {
             if ($data['image'] == '') {
-                return app('json')->fail('Vui lòng chọn người dùng');
+                return app('json')->fail('Vui lòng chọn Khách hàng');
             }
             if ($this->services->count(['uid' => $data['image']['uid']])) {
                 return app('json')->fail('Người dùng bảo lãnh được thêm vào đã tồn tại');
@@ -121,7 +114,7 @@ class SystemStoreStaff extends AuthController
             $data['avatar'] = $data['image'];
         }
         if ($data['uid'] == 0) {
-            return app('json')->fail('Vui lòng chọn người dùng');
+            return app('json')->fail('Vui lòng chọn Khách hàng');
         }
         if ($data['store_id'] == '') {
             return app('json')->fail('Vui lòng chọn điểm đón của bạn');
@@ -156,8 +149,7 @@ class SystemStoreStaff extends AuthController
      * @param string $is_show
      * @param string $id
      * @return mixed
-     */
-    public function set_show($is_show = '', $id = '')
+     */    public function set_show($is_show = '', $id = '')
     {
         if ($is_show == '' || $id == '') {
             app('json')->fail('Lỗi tham số');
@@ -174,8 +166,7 @@ class SystemStoreStaff extends AuthController
      * Xóa thư ký
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         if (!$this->services->delete($id))

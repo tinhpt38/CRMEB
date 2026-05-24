@@ -21,15 +21,13 @@ use app\adminapi\validate\service\StoreServiceSpeechcraftValidata;
  * Bộ điều khiển trống từ vựng
  * Class StoreServiceSpeechcraft
  * @package app\adminapi\controller\v1\application\wechat
- */
-class StoreServiceSpeechcraft extends AuthController
+ */class StoreServiceSpeechcraft extends AuthController
 {
     /**
      * StoreServiceSpeechcraft constructor.
      * @param App $app
      * @param StoreServiceSpeechcraftServices $services
-     */
-    public function __construct(App $app, StoreServiceSpeechcraftServices $services)
+     */    public function __construct(App $app, StoreServiceSpeechcraftServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -42,8 +40,7 @@ class StoreServiceSpeechcraft extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index(Request $request)
+     */    public function index(Request $request)
     {
         $where = $request->getMore([
             ['title', ''],
@@ -57,8 +54,7 @@ class StoreServiceSpeechcraft extends AuthController
     /**
      * Hiển thị trang biểu mẫu tạo tài nguyên
      * @return mixed
-     */
-    public function create()
+     */    public function create()
     {
         return app('json')->success($this->services->createForm());
     }
@@ -67,8 +63,7 @@ class StoreServiceSpeechcraft extends AuthController
      * Lưu tài nguyên mới
      * @param Request $request
      * @return \think\Response
-     */
-    public function save(Request $request)
+     */    public function save(Request $request)
     {
         $data = $request->postMore([
             ['title', ''],
@@ -94,8 +89,7 @@ class StoreServiceSpeechcraft extends AuthController
      * Hiển thị tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->get($id);
         if (!$info) {
@@ -112,8 +106,7 @@ class StoreServiceSpeechcraft extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->updateForm((int)$id));
     }
@@ -123,8 +116,7 @@ class StoreServiceSpeechcraft extends AuthController
      * @param Request $request
      * @param int $id
      * @return \think\Response
-     */
-    public function update(Request $request, $id)
+     */    public function update(Request $request, $id)
     {
         $data = $request->postMore([
             ['title', ''],
@@ -150,8 +142,7 @@ class StoreServiceSpeechcraft extends AuthController
      * Xóa tài nguyên được chỉ định
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id || !($info = $this->services->get($id))) {
             return app('json')->fail('Các từ đã xóa không tồn tại');

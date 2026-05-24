@@ -13,7 +13,6 @@
  * @email: 442384644@qq.com
  * @date: 2023/7/31
  */
-
 namespace app\adminapi\controller\v1\marketing;
 
 use app\adminapi\controller\AuthController;
@@ -25,8 +24,7 @@ class SignRewards extends AuthController
     /**
      * @param App $app
      * @param SystemSignRewardServices $services
-     */
-    public function __construct(App $app, SystemSignRewardServices $services)
+     */    public function __construct(App $app, SystemSignRewardServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -42,8 +40,7 @@ class SignRewards extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
-     */
-    public function index()
+     */    public function index()
     {
         [$type] = $this->request->getMore([
             ['type', 0]
@@ -62,8 +59,7 @@ class SignRewards extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
-     */
-    public function addRewards()
+     */    public function addRewards()
     {
         [$type] = $this->request->getMore([
             ['type', 0]
@@ -83,8 +79,7 @@ class SignRewards extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
-     */
-    public function editRewards($id)
+     */    public function editRewards($id)
     {
         $data = $this->services->rewardsForm($id);
         return app('json')->success($data);
@@ -97,8 +92,7 @@ class SignRewards extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
-     */
-    public function saveRewards($id)
+     */    public function saveRewards($id)
     {
         $data = $this->request->postMore([
             ['type', 0],
@@ -117,8 +111,7 @@ class SignRewards extends AuthController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/7/31
-     */
-    public function delRewards($id)
+     */    public function delRewards($id)
     {
         $this->services->delete($id);
         return app('json')->success('Xóa thành công');

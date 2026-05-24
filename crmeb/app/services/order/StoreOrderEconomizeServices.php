@@ -19,14 +19,12 @@ use crmeb\exceptions\ApiException;
 /**
  * Class StoreOrderInvoiceServices
  * @package app\services\order
- */
-class StoreOrderEconomizeServices extends BaseServices
+ */class StoreOrderEconomizeServices extends BaseServices
 {
     /**
      * LiveAnchorServices constructor.
      * @param StoreOrderInvoiceDao $dao
-     */
-    public function __construct(StoreOrderEconomizeDao $dao)
+     */    public function __construct(StoreOrderEconomizeDao $dao)
     {
         $this->dao = $dao;
     }
@@ -34,8 +32,7 @@ class StoreOrderEconomizeServices extends BaseServices
     /**Thêm dữ liệu tiết kiệm
      * @param array $add
      * @return mixed
-     */
-    public function addEconomize(array $add)
+     */    public function addEconomize(array $add)
     {
         if (!$add) throw new ApiException('Dữ liệu không tồn tại');
         return $this->dao->save($add);
@@ -47,8 +44,7 @@ class StoreOrderEconomizeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOne(array $where)
+     */    public function getOne(array $where)
     {
         if (!$where) throw new ApiException('Lỗi tham số');
         return $this->dao->getOne($where);
@@ -60,8 +56,7 @@ class StoreOrderEconomizeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function sumEconomizeMoney($uid)
+     */    public function sumEconomizeMoney($uid)
     {
         if (!$uid) return false;
         $list = $this->dao->getList(['uid' => $uid]);

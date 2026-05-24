@@ -24,15 +24,13 @@ use think\Model;
  * @package app\services\kefu\service
  * @method array|Model|null get($id, ?array $field = [], ?array $with = []) Lấy một phần dữ liệu
  * @method update($id, array $data, ?string $key = null) Cập nhật dữ liệu
- */
-class StoreServiceSpeechcraftServices extends BaseServices
+ */class StoreServiceSpeechcraftServices extends BaseServices
 {
 
     /**
      * StoreServiceSpeechcraftServices constructor.
      * @param StoreServiceSpeechcraftDao $dao
-     */
-    public function __construct(StoreServiceSpeechcraftDao $dao)
+     */    public function __construct(StoreServiceSpeechcraftDao $dao)
     {
         $this->dao = $dao;
     }
@@ -43,8 +41,7 @@ class StoreServiceSpeechcraftServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSpeechcraftList(array $where)
+     */    public function getSpeechcraftList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getSpeechcraftList($where, $page, $limit);
@@ -58,8 +55,7 @@ class StoreServiceSpeechcraftServices extends BaseServices
     /**
      * Tạo biểu mẫu
      * @return mixed
-     */
-    public function createForm()
+     */    public function createForm()
     {
         return create_form('Thêm từ', $this->speechcraftForm(), $this->url('/app/wechat/speechcraft'), 'POST');
     }
@@ -71,8 +67,7 @@ class StoreServiceSpeechcraftServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateForm(int $id)
+     */    public function updateForm(int $id)
     {
         $info = $this->dao->get($id);
         if (!$info) {
@@ -84,11 +79,9 @@ class StoreServiceSpeechcraftServices extends BaseServices
     /**
      * @param array $infoData
      * @return mixed
-     */
-    protected function speechcraftForm(array $infoData = [])
+     */    protected function speechcraftForm(array $infoData = [])
     {
-        /** @var StoreServiceSpeechcraftCateServices $services */
-        $services = app()->make(StoreServiceSpeechcraftCateServices::class);
+        /** @var StoreServiceSpeechcraftCateServices $services */        $services = app()->make(StoreServiceSpeechcraftCateServices::class);
         $cateList = $services->getCateList(['owner_id' => 0, 'type' => 1]);
         $data = [];
         $data[] = ['value' => 0, 'label' => 'Phân loại mặc định'];
@@ -97,7 +90,7 @@ class StoreServiceSpeechcraftServices extends BaseServices
         }
         $form[] = FormBuilder::select('cate_id', 'Phân loại kỹ năng nói', $infoData['cate_id'] ?? '')->setOptions($data);
         $form[] = FormBuilder::textarea('title', 'tiêu đề tu từ', $infoData['title'] ?? '')->required();
-        $form[] = FormBuilder::textarea('message', 'nội dung diễn ngôn', $infoData['message'] ?? '')->required();
+        $form[] = FormBuilder::textarea('message', 'Nội dung diễn ngôn', $infoData['message'] ?? '')->required();
         $form[] = FormBuilder::number('sort', 'loại', (int)($infoData['sort'] ?? 0));
         return $form;
     }

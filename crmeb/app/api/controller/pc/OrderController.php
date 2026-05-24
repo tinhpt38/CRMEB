@@ -29,8 +29,7 @@ class OrderController
      * Trạng thái thứ tự thăm dò ý kiến
      * @param Request $request
      * @return mixed
-     */
-    public function checkOrderStatus(Request $request)
+     */    public function checkOrderStatus(Request $request)
     {
         list($order_id, $end_time) = $request->getMore([
             ['order_id', ''],
@@ -49,8 +48,7 @@ class OrderController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderList(Request $request)
+     */    public function getOrderList(Request $request)
     {
         $where = $request->getMore([
             ['type', '', '', 'status'],
@@ -68,8 +66,7 @@ class OrderController
      * @param Request $request
      * @param StoreOrderRefundServices $refundServices
      * @return mixed
-     */
-    public function getRefundOrderList(Request $request,StoreOrderRefundServices $refundServices)
+     */    public function getRefundOrderList(Request $request,StoreOrderRefundServices $refundServices)
     {
         $where['uid'] = $request->uid();
         $where['is_cancel'] = 0;

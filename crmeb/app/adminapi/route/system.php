@@ -13,11 +13,9 @@ use think\facade\Route;
 
 /**
  * Duy trì các tuyến đường liên quan
- */
-Route::group('system', function () {
+ */Route::group('system', function () {
 
-    /** Cấu hình lưu trữ */
-    Route::group(function () {
+    /** Cấu hình lưu trữ */    Route::group(function () {
         //Danh sách lưu trữ đám mây
         Route::get('config/storage/save_type/:type', 'v1.setting.SystemStorage/uploadType')->name('SystemStorageUploadType')->option(['real_name' => 'Chọn phương pháp lưu trữ']);
         //Danh sách lưu trữ đám mây
@@ -44,8 +42,7 @@ Route::group('system', function () {
         Route::put('config/storage/status/:id', 'v1.setting.SystemStorage/status')->name('SystemStorageStatus')->option(['real_name' => 'Sửa đổi trạng thái lưu trữ đám mây']);
     })->option(['parent' => 'system', 'cate_name' => 'Cấu hình lưu trữ']);
 
-    /** Nhật ký hệ thống */
-    Route::group(function () {
+    /** Nhật ký hệ thống */    Route::group(function () {
         //Nhật ký hệ thống
         Route::get('log', 'v1.system.SystemLog/index')->name('SystemLog')->option(['real_name' => 'Nhật ký hệ thống']);
         //Tiêu chí tìm kiếm của quản trị viên nhật ký hệ thống
@@ -55,9 +52,8 @@ Route::group('system', function () {
     })->option(['parent' => 'system', 'cate_name' => 'Nhật ký hệ thống']);
 
 
-    /** Sao lưu dữ liệu */
-    Route::group(function () {
-        //Dữ liệu tất cả các bảng
+    /** Sao lưu dữ liệu */    Route::group(function () {
+        //Dữ liệu Tất cả các bảng
         Route::get('backup', 'v1.system.SystemDatabackup/index')->option(['real_name' => 'Tất cả các bảng cơ sở dữ liệu']);
         //Chi tiết sao lưu dữ liệu
         Route::get('backup/read', 'v1.system.SystemDatabackup/read')->option(['real_name' => 'Chi tiết sao lưu dữ liệu']);
@@ -79,10 +75,9 @@ Route::group('system', function () {
         //Route::get('backup/download', 'v1.system.SystemDatabackup/downloadFile');
     })->option(['parent' => 'system', 'cate_name' => 'Sao lưu dữ liệu']);
 
-    /** Xóa dữ liệu */
-    Route::group(function () {
-        //Xóa dữ liệu người dùng
-        Route::get('clear/:type', 'v1.system.SystemClearData/index')->option(['real_name' => 'Xóa dữ liệu người dùng']);
+    /** Xóa dữ liệu */    Route::group(function () {
+        //Xóa dữ liệu Khách hàng
+        Route::get('clear/:type', 'v1.system.SystemClearData/index')->option(['real_name' => 'Xóa dữ liệu Khách hàng']);
         //xóa bộ nhớ đệm
         Route::get('refresh_cache/cache', 'v1.system.Clear/refresh_cache')->option(['real_name' => 'Xóa bộ nhớ đệm hệ thống']);
         //xóa nhật ký
@@ -99,8 +94,7 @@ Route::group('system', function () {
         Route::delete('version_del/:id', 'v1.system.AppVersion/del')->option(['real_name' => 'xóa phiên bản']);
     })->option(['parent' => 'system', 'cate_name' => 'Xóa dữ liệu']);
 
-    /** Nâng cấp trực tuyến */
-    Route::group(function () {
+    /** Nâng cấp trực tuyến */    Route::group(function () {
         //Trạng thái nâng cấp
         Route::get('upgrade_status', 'UpgradeController/upgradeStatus')->option(['real_name' => 'Trạng thái nâng cấp']);
         //Danh sách gói nâng cấp
@@ -133,7 +127,7 @@ Route::group('system', function () {
         Route::get('cross_version/pending_sql', 'UpgradeController/pendingUpgradeSql')->option(['real_name' => 'Danh sách SQL sẽ được thực thi']);
         //Thực hiện nâng cấp nhiều phiên bản(bước đơn)
         Route::post('cross_version/execute', 'UpgradeController/executeCrossVersionUpgrade')->option(['real_name' => 'Thực hiện nâng cấp nhiều phiên bản']);
-        //Thực hiện tất cả các nâng cấp trên nhiều phiên bản chỉ bằng một cú nhấp chuột
+        //Thực hiện Tất cả các nâng cấp trên nhiều phiên bản chỉ bằng một cú nhấp chuột
         Route::post('cross_version/execute_all', 'UpgradeController/executeAllCrossVersionUpgrade')->option(['real_name' => 'Nâng cấp bằng một cú nhấp chuột']);
         //Kiểm tra xem có cần nâng cấp nhiều phiên bản không
         Route::get('cross_version/check', 'UpgradeController/checkCrossVersionUpgrade')->option(['real_name' => 'Kiểm tra nâng cấp phiên bản chéo']);
@@ -147,8 +141,7 @@ Route::group('system', function () {
         Route::post('rollback/execute', 'UpgradeController/executeRollback')->option(['real_name' => 'Thực hiện khôi phục phiên bản']);
     })->option(['parent' => 'system', 'cate_name' => 'Nâng cấp trực tuyến']);
 
-    /** nhiệm vụ theo lịch trình */
-    Route::group(function () {
+    /** nhiệm vụ theo lịch trình */    Route::group(function () {
         //Danh sách nhiệm vụ theo lịch trình
         Route::get('crontab/list', 'v1.system.SystemCrontab/getTimerList')->option(['real_name' => 'Danh sách nhiệm vụ theo lịch trình']);
         //Loại nhiệm vụ theo lịch trình
@@ -163,8 +156,7 @@ Route::group('system', function () {
         Route::get('crontab/set_open/:id/:is_open', 'v1.system.SystemCrontab/setTimerStatus')->option(['real_name' => 'Tác vụ theo lịch trình có được bật hay không']);
     })->option(['parent' => 'system', 'cate_name' => 'nhiệm vụ theo lịch trình']);
 
-    /** sự kiện tùy chỉnh */
-    Route::group(function () {
+    /** sự kiện tùy chỉnh */    Route::group(function () {
         //Danh sách nhiệm vụ theo lịch trình
         Route::get('event/list', 'v1.system.SystemEvent/getEventList')->option(['real_name' => 'Danh sách sự kiện tùy chỉnh']);
         //Loại nhiệm vụ theo lịch trình
@@ -179,8 +171,7 @@ Route::group('system', function () {
         Route::get('event/set_open/:id/:is_open', 'v1.system.SystemEvent/setEventStatus')->option(['real_name' => 'Liệu sự kiện tùy chỉnh có bật nút chuyển hay không']);
     })->option(['parent' => 'system', 'cate_name' => 'sự kiện tùy chỉnh']);
 
-    /** Định tuyến hệ thống */
-    Route::group(function () {
+    /** Định tuyến hệ thống */    Route::group(function () {
         //giao diện định tuyến đồng bộ
         Route::get('route/sync_route/[:appName]', 'v1.setting.SystemRoute/syncRoute')->option(['real_name' => 'Định tuyến đồng bộ']);
         //Nhận dữ liệu hàng cây định tuyến
@@ -204,8 +195,7 @@ Route::group('system', function () {
         ]);
     })->option(['parent' => 'system', 'cate_name' => 'Định tuyến hệ thống']);
 
-    /** tạo mã */
-    Route::group(function () {
+    /** tạo mã */    Route::group(function () {
         //Lưu các tệp đã sửa đổi CRUD
         Route::post('crud/save_file/:id', 'v1.setting.SystemCrud/savefile')->option(['real_name' => 'Lưu các tệp đã sửa đổi CRUD']);
         //Nhận cấu hình CRUD
@@ -227,14 +217,14 @@ Route::group('system', function () {
         Route::post('crud/data_dictionary_list/save/:id', 'v1.setting.SystemCrud/dataDictionaryListSave')->option(['real_name' => 'Lưu từ điển dữ liệu']);
         //Xóa từ điển dữ liệu
         Route::delete('crud/data_dictionary_list/del/:id', 'v1.setting.SystemCrud/dataDictionaryListDel')->option(['real_name' => 'Xóa từ điển dữ liệu']);
-        //Xem danh sách nội dung từ điển dữ liệu
-        Route::get('crud/data_dictionary/info_list/:cid', 'v1.setting.SystemCrud/dataDictionaryInfoList')->option(['real_name' => 'Xem danh sách nội dung từ điển dữ liệu']);
-        //Xem nội dung từ điển dữ liệu và thêm và sửa đổi biểu mẫu
-        Route::get('crud/data_dictionary/info_create/:cid/:id/:pid', 'v1.setting.SystemCrud/dataDictionaryInfoCreate')->option(['real_name' => 'Xem nội dung từ điển dữ liệu và thêm và sửa đổi biểu mẫu']);
-        //Sửa đổi hoặc lưu nội dung dữ liệu từ điển
-        Route::post('crud/data_dictionary/info_save/:cid/:id', 'v1.setting.SystemCrud/dataDictionaryInfoSave')->option(['real_name' => 'Sửa đổi hoặc lưu nội dung dữ liệu từ điển']);
-        //Xóa nội dung từ điển dữ liệu
-        Route::delete('crud/data_dictionary/info_del/:id', 'v1.setting.SystemCrud/dataDictionaryInfoDel')->option(['real_name' => 'Xóa nội dung từ điển dữ liệu']);
+        //Xem danh sách Nội dung từ điển dữ liệu
+        Route::get('crud/data_dictionary/info_list/:cid', 'v1.setting.SystemCrud/dataDictionaryInfoList')->option(['real_name' => 'Xem danh sách Nội dung từ điển dữ liệu']);
+        //Xem Nội dung từ điển dữ liệu và thêm và sửa đổi biểu mẫu
+        Route::get('crud/data_dictionary/info_create/:cid/:id/:pid', 'v1.setting.SystemCrud/dataDictionaryInfoCreate')->option(['real_name' => 'Xem Nội dung từ điển dữ liệu và thêm và sửa đổi biểu mẫu']);
+        //Sửa đổi hoặc lưu Nội dung dữ liệu từ điển
+        Route::post('crud/data_dictionary/info_save/:cid/:id', 'v1.setting.SystemCrud/dataDictionaryInfoSave')->option(['real_name' => 'Sửa đổi hoặc lưu Nội dung dữ liệu từ điển']);
+        //Xóa Nội dung từ điển dữ liệu
+        Route::delete('crud/data_dictionary/info_del/:id', 'v1.setting.SystemCrud/dataDictionaryInfoDel')->option(['real_name' => 'Xóa Nội dung từ điển dữ liệu']);
 
         //Lấy danh sách từ điển dữ liệu
         Route::get('crud/data_dictionary', 'v1.setting.SystemCrud/getDataDictionary')->option(['real_name' => 'Lấy danh sách từ điển dữ liệu']);
@@ -248,7 +238,7 @@ Route::group('system', function () {
         Route::get('crud/association_table', 'v1.setting.SystemCrud/getAssociationTable')->option(['real_name' => 'Lấy tên bảng có thể được liên kết']);
         //Nhận chi tiết bảng
         Route::get('crud/association_table/:tableName', 'v1.setting.SystemCrud/getAssociationTableInfo')->option(['real_name' => 'Nhận chi tiết bảng']);
-        //xóa bỏCRUD
+        //XóaCRUD
         Route::delete('crud/:id', 'v1.setting.SystemCrud/delete')->option(['real_name' => 'XóaCRUD']);
         //Kiểm traCRUD
         Route::get('crud/:id', 'v1.setting.SystemCrud/read')->option(['real_name' => 'Kiểm traCRUD']);
@@ -258,8 +248,7 @@ Route::group('system', function () {
         Route::post('crud', 'v1.setting.SystemCrud/save')->option(['real_name' => 'Lưu đã tạoCRUD']);
     })->option(['parent' => 'system', 'cate_name' => 'tạo mã']);
 
-    /** In biên lai */
-    Route::group(function () {
+    /** In phiếu giao hàng */    Route::group(function () {
         Route::get('ticket/list', 'v1.system.SystemTicket/ticketList')->option(['real_name' => 'Danh sách in hóa đơn']);
         Route::get('ticket/form/:id', 'v1.system.SystemTicket/ticketForm')->option(['real_name' => 'Thêm và sửa đổi mẫu in biên lai']);
         Route::post('ticket/save/:id', 'v1.system.SystemTicket/ticketSave')->option(['real_name' => 'Thêm và sửa đổi in biên lai']);
@@ -269,11 +258,10 @@ Route::group('system', function () {
         Route::post('ticket/save_content/:id', 'v1.system.SystemTicket/ticketContentSave')->option(['real_name' => 'Lưu chi tiết in hóa đơn']);
     })->option(['parent' => 'system', 'cate_name' => 'In phiếu giao hàng']);
 
-    /** Quản lý tập tin */
-    Route::group(function () {
+    /** Quản lý tập tin */    Route::group(function () {
         //Đăng nhập quản lý tập tin
         Route::post('file/login', 'v1.system.SystemFile/login')->option(['real_name' => 'Đăng nhập quản lý tập tin']);
-        //Thực thi và ghi các giá trị md5 của tất cả các file trong hai thư mục app và crmeb vào cơ sở dữ liệu.
+        //Thực thi và ghi các giá trị md5 của Tất cả các file trong hai thư mục app và crmeb vào cơ sở dữ liệu.
         Route::get('write_md5', 'v1.system.SystemFile/writeMd5')->option(['real_name' => 'Thực hiện ghi giá trị md5']);
     })->option(['parent' => 'system', 'cate_name' => 'Quản lý tập tin']);
 

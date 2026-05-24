@@ -23,25 +23,20 @@ class UserCancelServices extends BaseServices
     /**
      * UserExtractServices constructor.
      * @param UserCancelDao $dao
-     */
-    public function __construct(UserCancelDao $dao)
+     */    public function __construct(UserCancelDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Gửi đăng xuất người dùng
+     * Gửi đăng xuất Khách hàng
      * @param $userInfo
      * @return mixed
-     */
-    public function SetUserCancel($uid)
+     */    public function SetUserCancel($uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
-        /** @var WechatUserServices $wechatUserServices */
-        $wechatUserServices = app()->make(WechatUserServices::class);
-        /** @var StoreServiceServices $ServiceServices */
-        $ServiceServices = app()->make(StoreServiceServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
+        /** @var WechatUserServices $wechatUserServices */        $wechatUserServices = app()->make(WechatUserServices::class);
+        /** @var StoreServiceServices $ServiceServices */        $ServiceServices = app()->make(StoreServiceServices::class);
         $userServices->update($uid, ['is_del' => 1]);
         $userServices->update(['spread_uid' => $uid], ['spread_uid' => 0, 'spread_time' => 0]);
         $wechatUserServices->update(['uid' => $uid], ['is_del' => 1]);
@@ -49,7 +44,7 @@ class UserCancelServices extends BaseServices
 
         $user = $userServices->getUserInfo($uid);
 
-        //Đăng xuất người dùng sự kiện tùy chỉnh
+        //Đăng xuất Khách hàng sự kiện tùy chỉnh
         event('CustomEventListener', ['user_cancel', [
             'uid' => $uid,
             'nickname' => $user['nickname'],
@@ -66,8 +61,7 @@ class UserCancelServices extends BaseServices
      * Nhận danh sách đăng xuất
      * @param $where
      * @return array
-     */
-    public function getCancelList($where)
+     */    public function getCancelList($where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
@@ -85,8 +79,7 @@ class UserCancelServices extends BaseServices
      * @param $id
      * @param $mark
      * @return mixed
-     */
-    public function serMark($id, $mark)
+     */    public function serMark($id, $mark)
     {
         return $this->dao->update($id, ['remark' => $mark]);
     }

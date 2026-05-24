@@ -19,16 +19,14 @@ use app\services\system\config\SystemGroupServices;
  * Dữ liệu kết hợp
  * Class SystemGroup
  * @package app\adminapi\controller\v1\setting
- */
-class SystemGroup extends AuthController
+ */class SystemGroup extends AuthController
 {
     /**
      * Người xây dựng
      * SystemGroup constructor.
      * @param App $app
      * @param SystemGroupServices $services
-     */
-    public function __construct(App $app, SystemGroupServices $services)
+     */    public function __construct(App $app, SystemGroupServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -38,8 +36,7 @@ class SystemGroup extends AuthController
      * Hiển thị danh sách tài nguyên
      *
      * @return \think\Response
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['title', '']
@@ -51,8 +48,7 @@ class SystemGroup extends AuthController
      * Hiển thị trang biểu mẫu tạo tài nguyên.
      *
      * @return \think\Response
-     */
-    public function create()
+     */    public function create()
     {
         //
     }
@@ -61,8 +57,7 @@ class SystemGroup extends AuthController
      * Lưu tài nguyên mới
      *
      * @return \think\Response
-     */
-    public function save()
+     */    public function save()
     {
         $params = $this->request->postMore([
             ['name', ''],
@@ -108,8 +103,7 @@ class SystemGroup extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->get($id);
         $fields = json_decode($info['fields'], true);
@@ -130,8 +124,7 @@ class SystemGroup extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         //
     }
@@ -141,8 +134,7 @@ class SystemGroup extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $params = $this->request->postMore([
             ['name', ''],
@@ -190,8 +182,7 @@ class SystemGroup extends AuthController
      *
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id, SystemGroupDataServices $services)
+     */    public function delete($id, SystemGroupDataServices $services)
     {
         if (!$this->services->delete($id))
             return app('json')->fail('Xóa không thành công');
@@ -207,8 +198,7 @@ class SystemGroup extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getGroup()
+     */    public function getGroup()
     {
         return app('json')->success($this->services->getGroupList(['cate_id' => 1], ['id', 'name', 'config_name'])['list']);
     }

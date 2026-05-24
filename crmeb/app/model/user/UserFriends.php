@@ -24,20 +24,17 @@ class UserFriends extends BaseModel
     /**
      * trình diễn
      * @var string
-     */
-    protected $name = 'user_friends';
+     */    protected $name = 'user_friends';
 
     /**
      * khóa chính
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      *
      * @return \think\model\relation\HasOne
-     */
-    public function level()
+     */    public function level()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'level'])->bind([
             'level' => 'level'
@@ -46,8 +43,7 @@ class UserFriends extends BaseModel
 
     /**
      * @return \think\model\relation\HasOne
-     */
-    public function nickname()
+     */    public function nickname()
     {
         return $this->hasOne(User::class, 'uid', 'uid')->field(['uid', 'nickname'])->bind([
             'nickname' => 'nickname'
@@ -58,8 +54,7 @@ class UserFriends extends BaseModel
      * uidNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -68,8 +63,7 @@ class UserFriends extends BaseModel
      * Sửa đổi và thêm thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         return date('Y-m-d H:i:s', $value);
     }

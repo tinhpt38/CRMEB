@@ -18,8 +18,7 @@ use think\facade\App;
 /**
  * Class StoreProduct
  * @package aapp\outapi\controller
- */
-class StoreProduct extends AuthController
+ */class StoreProduct extends AuthController
 {
     protected $services;
 
@@ -32,8 +31,7 @@ class StoreProduct extends AuthController
     /**
      * Hiển thị danh sách tài nguyên
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['cate_id', ''],
@@ -45,8 +43,7 @@ class StoreProduct extends AuthController
             ['is_presale', -1]
         ]);
         $where['is_del'] = 0;
-        /** @var StoreCategoryServices $storeCategoryServices */
-        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+        /** @var StoreCategoryServices $storeCategoryServices */        $storeCategoryServices = app()->make(StoreCategoryServices::class);
         if ($where['cate_id'] !== '') {
             if ($storeCategoryServices->value(['id' => $where['cate_id']], 'pid')) {
                 $where['sid'] = $where['cate_id'];
@@ -64,8 +61,7 @@ class StoreProduct extends AuthController
      * Sửa đổi trạng thái
      * @param string $id
      * @param string $is_show
-     */
-    public function set_show($id = '', $is_show = '')
+     */    public function set_show($id = '', $is_show = '')
     {
         if ($id == '' || $is_show == '') return app('json')->fail('Lỗi tham số');
         $this->services->setShow((int)$id, (int)$is_show);
@@ -78,24 +74,22 @@ class StoreProduct extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function read($id = 0)
+     */    public function read($id = 0)
     {
         return app('json')->success($this->services->getInfo((int)$id));
     }
 
     /**
-     * cứu
+     * Lưu
      * @return mixed
      * @throws \Exception
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['cate_id', []],//Phân loạiid
             ['store_name', ''],//Tên sản phẩm
             ['keyword', ''],//Từ khóa
-            ['unit_name', 'miếng'],//đơn vị
+            ['unit_name', 'miếng'],//Đơn vị
             ['store_info', ''],//Giới thiệu sản phẩm
             ['slider_image', []],//băng chuyền
             ['video_open', 0],//Có bật video hay không
@@ -111,7 +105,7 @@ class StoreProduct extends AuthController
             ['is_sub', 0],//Hoa hồng là riêng biệt hay mặc định?
             ['is_vip', 0],//Giá thành viên trả phí
             ['recommend', []],//Khuyến nghị sản phẩm
-            ['temp_id', 0],//Mẫu vận chuyển hàng hóaid
+            ['temp_id', 0],//Mẫu vận chuyển sản phẩmid
             ['give_integral', 0],//Tặng điểm
             ['presale', 0],//Chuyển đổi sản phẩm trước khi bán
             ['presale_time', 0],//Thời gian bán trước
@@ -136,14 +130,13 @@ class StoreProduct extends AuthController
      * gia hạn
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['cate_id', []],//Phân loạiid
             ['store_name', ''],//Tên sản phẩm
             ['keyword', ''],//Từ khóa
-            ['unit_name', 'miếng'],//đơn vị
+            ['unit_name', 'miếng'],//Đơn vị
             ['store_info', ''],//Giới thiệu sản phẩm
             ['slider_image', []],//băng chuyền
             ['video_open', 0],//Có bật video hay không
@@ -159,7 +152,7 @@ class StoreProduct extends AuthController
             ['is_sub', 0],//Hoa hồng là riêng biệt hay mặc định?
             ['is_vip', 0],//Giá thành viên trả phí
             ['recommend', []],//Khuyến nghị sản phẩm
-            ['temp_id', 0],//Mẫu vận chuyển hàng hóaid
+            ['temp_id', 0],//Mẫu vận chuyển sản phẩmid
             ['give_integral', 0],//Tặng điểm
             ['presale', 0],//Chuyển đổi sản phẩm trước khi bán
             ['presale_time', 0],//Thời gian bán trước
@@ -181,17 +174,15 @@ class StoreProduct extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
      * @return \think\Response
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         //Xóa một sản phẩm để kiểm tra xem nó đã tham gia hoạt động chưa
         $this->services->checkActivity($id);
         $res = $this->services->del($id);
-        /** @var StoreCartServices $cartService */
-        $cartService = app()->make(StoreCartServices::class);
+        /** @var StoreCartServices $cartService */        $cartService = app()->make(StoreCartServices::class);
         $cartService->changeStatus($id, 0);
         return app('json')->success($res);
     }
@@ -199,8 +190,7 @@ class StoreProduct extends AuthController
     /**
      * Đồng bộ hóa hàng tồn kho
      * @return void
-     */
-    public function uploadStock()
+     */    public function uploadStock()
     {
         [$items] = $this->request->postMore([['items', []]], true);
 

@@ -18,24 +18,21 @@ use app\model\other\Agreement;
 /**
  * Class AgreementDao
  * @package app\dao\other
- */
-class AgreementDao extends BaseDao
+ */class AgreementDao extends BaseDao
 {
 
     /**
      * @return string
-     */
-    public function setModel(): string
+     */    public function setModel(): string
     {
         return Agreement::class;
     }
 
-    /**Sửa đổi nội dung thỏa thuận
+    /**Sửa đổi Nội dung thỏa thuận
      * @param array $where
      * @param $agreement
      * @return bool|\crmeb\basic\BaseModel
-     */
-    public function saveAgreement(array $agreement, $id = 0)
+     */    public function saveAgreement(array $agreement, $id = 0)
     {
         if (!$agreement) return false;
         $agreement['add_time'] = time();

@@ -27,14 +27,12 @@ use crmeb\services\workerman\ChannelService;
  * @method value(array $where, string $field = '') Nhận dữ liệu cho một giá trị khóa duy nhất
  * @method decStockIncSales(array $where, int $num, string $stock = 'stock', string $sales = 'sales') Giảm hàng tồn kho và tăng doanh số bán hàng
  * @method count(array $where) Lấy số lượng theo điều kiện quy định
- */
-class StoreProductAttrValueServices extends BaseServices
+ */class StoreProductAttrValueServices extends BaseServices
 {
     /**
      * StoreProductAttrValueServices constructor.
      * @param StoreProductAttrValueDao $dao
-     */
-    public function __construct(StoreProductAttrValueDao $dao)
+     */    public function __construct(StoreProductAttrValueDao $dao)
     {
         $this->dao = $dao;
     }
@@ -45,8 +43,7 @@ class StoreProductAttrValueServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOne(array $where)
+     */    public function getOne(array $where)
     {
         return $this->dao->getOne($where);
     }
@@ -57,8 +54,7 @@ class StoreProductAttrValueServices extends BaseServices
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getColumn(array $where, string $field = '*', string $key = 'suk')
+     */    public function getColumn(array $where, string $field = '*', string $key = 'suk')
     {
         return $this->dao->getColumn($where, $field, $key);
     }
@@ -67,8 +63,7 @@ class StoreProductAttrValueServices extends BaseServices
      * Xóa một phần dữ liệu
      * @param int $id
      * @param int $type
-     */
-    public function del(int $id, int $type)
+     */    public function del(int $id, int $type)
     {
         $this->dao->del($id, $type);
     }
@@ -76,8 +71,7 @@ class StoreProductAttrValueServices extends BaseServices
     /**
      * Lưu theo đợt
      * @param array $data
-     */
-    public function saveAll(array $data)
+     */    public function saveAll(array $data)
     {
         $res = $this->dao->saveAll($data);
         if (!$res) throw new AdminException('Lưu không thành công');
@@ -88,8 +82,7 @@ class StoreProductAttrValueServices extends BaseServices
      * lấysku
      * @param array $where
      * @return array
-     */
-    public function getSkuArray(array $where, $field = 'id,bar_code,bar_code_number,cost,price,vip_price,ot_price,stock,image as pic,weight,volume,brokerage,brokerage_two,quota,unique', $key = 'suk')
+     */    public function getSkuArray(array $where, $field = 'id,bar_code,bar_code_number,cost,price,vip_price,ot_price,stock,image as pic,weight,volume,brokerage,brokerage_two,quota,unique', $key = 'suk')
     {
         return $this->dao->getColumn($where, $field, $key);
     }
@@ -100,12 +93,10 @@ class StoreProductAttrValueServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function purchaseRanking()
+     */    public function purchaseRanking()
     {
         $dlist = $this->dao->attrValue();
-        /** @var StoreProductServices $proServices */
-        $proServices = app()->make(StoreProductServices::class);
+        /** @var StoreProductServices $proServices */        $proServices = app()->make(StoreProductServices::class);
         $slist = $proServices->getProductLimit(['is_del' => 0], $limit = 20, 'id as product_id,store_name,sales * price as val');
         $data = array_merge($dlist, $slist);
         $last_names = array_column($data, 'val');
@@ -119,8 +110,7 @@ class StoreProductAttrValueServices extends BaseServices
      * @param $unique
      * @param $type
      * @return int
-     */
-    public function getAttrvalueCount($product_id, $unique, $type)
+     */    public function getAttrvalueCount($product_id, $unique, $type)
     {
         return $this->dao->count(['product_id' => $product_id, 'unique' => $unique, 'type' => $type]);
     }
@@ -129,8 +119,7 @@ class StoreProductAttrValueServices extends BaseServices
      * Nhận hàng tồn kho theo giá trị duy nhất
      * @param string $unique
      * @return int
-     */
-    public function uniqueByStock(string $unique)
+     */    public function uniqueByStock(string $unique)
     {
         if (!$unique) return 0;
         return $this->dao->uniqueByStock($unique);
@@ -143,8 +132,7 @@ class StoreProductAttrValueServices extends BaseServices
      * @param $num
      * @param int $type
      * @return mixed
-     */
-    public function decProductAttrStock($productId, $unique, $num, $type = 0)
+     */    public function decProductAttrStock($productId, $unique, $num, $type = 0)
     {
         $res = $this->dao->decStockIncSales([
             'product_id' => $productId,
@@ -163,8 +151,7 @@ class StoreProductAttrValueServices extends BaseServices
      * @param $unique
      * @param $num
      * @return bool
-     */
-    public function incProductAttrStock(int $productId, string $unique, int $num, int $type = 0)
+     */    public function incProductAttrStock(int $productId, string $unique, int $num, int $type = 0)
     {
         return $this->dao->incStockDecSales(['unique' => $unique, 'product_id' => $productId, 'type' => $type], $num);
     }
@@ -174,8 +161,7 @@ class StoreProductAttrValueServices extends BaseServices
      * @param int $productId
      * @param string $unique
      * @param int $type
-     */
-    public function workSendStock(int $productId, string $unique, int $type)
+     */    public function workSendStock(int $productId, string $unique, int $type)
     {
         $stock = $this->dao->value([
             'product_id' => $productId,
@@ -201,8 +187,7 @@ class StoreProductAttrValueServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSeckillAttrStock(int $productId, string $unique, bool $isNew = false)
+     */    public function getSeckillAttrStock(int $productId, string $unique, bool $isNew = false)
     {
         $key = md5('seclkill_attr_stock_' . $productId . '_' . $unique);
         $stock = CacheService::get($key);
@@ -222,8 +207,7 @@ class StoreProductAttrValueServices extends BaseServices
      * @param bool $is_new
      * @return int|mixed
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function getProductAttrStock(int $productId, string $suk = '', string $unique = '', $isNew = false)
+     */    public function getProductAttrStock(int $productId, string $suk = '', string $unique = '', $isNew = false)
     {
         if (!$suk && !$unique) return 0;
         $key = md5('product_attr_stock_' . $productId . '_' . $suk . '_' . $unique);

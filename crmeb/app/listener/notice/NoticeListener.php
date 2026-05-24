@@ -31,19 +31,16 @@ use crmeb\utils\Str;
  * @author: thủy triều
  * @email: 442384644@qq.com
  * @date: 2023/8/29
- */
-class NoticeListener implements ListenerInterface
+ */class NoticeListener implements ListenerInterface
 {
     /**
      * @var array
-     */
-    protected $services = [];
+     */    protected $services = [];
 
     /**
      * phương pháp
      * @var string[]
-     */
-    protected $eventMethods = [
+     */    protected $eventMethods = [
         'bind_spread_uid' => 'handleBindSpreadUid',
         'order_pay_success' => 'handleOrderPaySuccess',
         'order_deliver_success' => 'handleOrderDeliverSuccess',
@@ -76,8 +73,7 @@ class NoticeListener implements ListenerInterface
 
     /**
      * Bắt đầu tải
-     */
-    public function __construct()
+     */    public function __construct()
     {
         $this->services = [
             'Wechat' => app()->make(WechatTemplateListService::class),
@@ -96,8 +92,7 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    private function getNoticeService($mark)
+     */    private function getNoticeService($mark)
     {
         return $this->services[$mark];
     }
@@ -108,8 +103,7 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    public function handle($event): void
+     */    public function handle($event): void
     {
         try {
             [$data, $mark] = $event;
@@ -130,14 +124,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Quảng bá người dùng mới và gửi tin nhắn cho cấp trên
+     * Quảng bá Khách hàng mới và gửi tin nhắn cho cấp trên
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleBindSpreadUid($data)
+     */    protected function handleBindSpreadUid($data)
     {
         if (isset($data['spreadUid']) && $data['spreadUid']) {
             $name = $data['nickname'] ?? '';
@@ -148,14 +141,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng khi thanh toán thành công
+     * Gửi tin nhắn cho Khách hàng khi thanh toán thành công
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleOrderPaySuccess($data)
+     */    protected function handleOrderPaySuccess($data)
     {
         $pay_price = $data['pay_price'];
         $order_id = $data['order_id'];
@@ -175,14 +167,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn tới người dùng
+     * Gửi tin nhắn tới Khách hàng
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleOrderDeliverSuccess($data)
+     */    protected function handleOrderDeliverSuccess($data)
     {
         $orderInfo = $data['orderInfo'];
         $storeTitle = $data['storeName'];
@@ -203,14 +194,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn nhanh cho người dùng
+     * Gửi tin nhắn nhanh cho Khách hàng
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleOrderPostageSuccess($data)
+     */    protected function handleOrderPostageSuccess($data)
     {
         $orderInfo = $data['orderInfo'];
         $storeTitle = $data['storeName'];
@@ -231,14 +221,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng để xác nhận đã nhận
+     * Gửi tin nhắn cho Khách hàng để xác nhận đã nhận
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleOrderTake($data)
+     */    protected function handleOrderTake($data)
     {
         $order = is_object($data['order']) ? $data['order']->toArray() : $data['order'];
         $store_name = Str::substrUTf8($data['storeTitle'], 20, 'UTF-8', '');
@@ -256,7 +245,7 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng về việc thay đổi giá
+     * Gửi tin nhắn cho Khách hàng về việc thay đổi giá
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -265,8 +254,7 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handlePriceRevision($data)
+     */    protected function handlePriceRevision($data)
     {
         $order = $data['order'];
         $pay_price = $data['pay_price'];
@@ -280,7 +268,7 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng nếu hoàn tiền thành công
+     * Gửi tin nhắn cho Khách hàng nếu hoàn tiền thành công
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -289,8 +277,7 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleOrderRefund($data)
+     */    protected function handleOrderRefund($data)
     {
         $datas = $data['data'];
         $order = $data['order'];
@@ -311,14 +298,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng nếu hoàn tiền không thành công
+     * Gửi tin nhắn cho Khách hàng nếu hoàn tiền không thành công
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleSendOrderRefundNoStatus($data)
+     */    protected function handleSendOrderRefundNoStatus($data)
     {
         $order = $data['orderInfo'];
         $order['pay_price'] = $order['refund_price'];
@@ -335,14 +321,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng nếu nạp tiền thành công
+     * Gửi tin nhắn cho Khách hàng nếu nạp tiền thành công
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleRechargeSuccess($data)
+     */    protected function handleRechargeSuccess($data)
     {
         $order = $data['order'];
         $order['now_money'] = $data['now_money'];
@@ -357,14 +342,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng để nạp tiền và hoàn tiền
+     * Gửi tin nhắn cho Khách hàng để nạp tiền và hoàn tiền
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleRechargeOrderRefundStatus($data)
+     */    protected function handleRechargeOrderRefundStatus($data)
     {
         $datas = $data['data'];
         $UserRecharge = $data['UserRecharge'];
@@ -380,14 +364,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng khi nhận được điểm
+     * Gửi tin nhắn cho Khách hàng khi nhận được điểm
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleIntegralAccout($data)
+     */    protected function handleIntegralAccout($data)
     {
         $order = $data['order'];
         //Thông báo trang web
@@ -398,14 +381,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng khi nhận được hoa hồng
+     * Gửi tin nhắn cho Khách hàng khi nhận được hoa hồng
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleOrderBrokerage($data)
+     */    protected function handleOrderBrokerage($data)
     {
         $brokeragePrice = $data['brokeragePrice'];
         $goodsName = $data['goodsName'];
@@ -418,14 +400,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng sau khi thương lượng thành công
+     * Gửi tin nhắn cho Khách hàng sau khi thương lượng thành công
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleBargainSuccess($data)
+     */    protected function handleBargainSuccess($data)
     {
         $uid = $data['uid'];
         $bargainInfo = $data['bargainInfo'];
@@ -440,14 +421,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Nhóm bắt đầu thành công,Gửi tin nhắn cho người dùng sau khi tham gia nhóm thành công
+     * Nhóm bắt đầu thành công,Gửi tin nhắn cho Khách hàng sau khi tham gia nhóm thành công
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handlePinkSuccess($data)
+     */    protected function handlePinkSuccess($data)
     {
         $orderInfo = $data['orderInfo'];
         $title = $data['title'];
@@ -460,14 +440,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng nếu cuộc chiến nhóm thành công
+     * Gửi tin nhắn cho Khách hàng nếu cuộc chiến nhóm thành công
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleGroupsSuccess($data)
+     */    protected function handleGroupsSuccess($data)
     {
         $list = $data['list'];
         $title = $data['title'];
@@ -482,14 +461,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Nếu mua nhóm không thành công, việc mua nhóm sẽ bị hủy và một tin nhắn sẽ được gửi đến người dùng.
+     * Nếu mua nhóm không thành công, việc mua nhóm sẽ bị hủy và một tin nhắn sẽ được gửi đến Khách hàng.
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handlePinkFail($data)
+     */    protected function handlePinkFail($data)
     {
         $uid = $data['uid'];
         $pink = $data['pink'];
@@ -500,14 +478,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng nếu rút tiền thành công
+     * Gửi tin nhắn cho Khách hàng nếu rút tiền thành công
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleUserExtract($data)
+     */    protected function handleUserExtract($data)
     {
         $extractNumber = $data['extractNumber'];
         $nickname = $data['nickname'];
@@ -523,14 +500,13 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn cho người dùng nếu rút tiền không thành công
+     * Gửi tin nhắn cho Khách hàng nếu rút tiền không thành công
      * @param $data
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleUserBalanceChange($data)
+     */    protected function handleUserBalanceChange($data)
     {
         $extract_number = $data['extract_number'];
         $message = $data['message'];
@@ -545,7 +521,7 @@ class NoticeListener implements ListenerInterface
     }
 
     /**
-     * Gửi tin nhắn tới người dùng để nhắc nhở thanh toán
+     * Gửi tin nhắn tới Khách hàng để nhắc nhở thanh toán
      * @param $data
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
@@ -554,8 +530,7 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleOrderPayFalse($data)
+     */    protected function handleOrderPayFalse($data)
     {
         $order = $data['order'];
         $order_id = $order['order_id'];
@@ -578,8 +553,7 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleAdminPaySuccessCode($data)
+     */    protected function handleAdminPaySuccessCode($data)
     {
         $order = $data;
         $storeName = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
@@ -615,13 +589,12 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleSendAdminConfirmTakeOver($data)
+     */    protected function handleSendAdminConfirmTakeOver($data)
     {
         $order = $data['order'];
         $storeTitle = $data['storeTitle'];
         $storeName = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
-        $title = 'Kính gửi, người dùng đã nhận được hàng.！';
+        $title = 'Kính gửi, Khách hàng đã nhận được hàng.！';
         $status = 'Biên nhận đơn hàng';
         $link = '/pages/admin/orderDetail/index?id=' . $order['order_id'];
 
@@ -653,8 +626,7 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleSendOrderApplyRefund($data)
+     */    protected function handleSendOrderApplyRefund($data)
     {
         $order = $data['order'];
         $storeName = app()->make(StoreOrderCartInfoServices::class)->getCarIdByProductTitle((int)$order['id']);
@@ -688,8 +660,7 @@ class NoticeListener implements ListenerInterface
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/29
-     */
-    protected function handleKefuSendExtractApplication($data)
+     */    protected function handleKefuSendExtractApplication($data)
     {
         //Thông báo trang web
         $this->getNoticeService('SysMsg')->kefuSystemSend($data);
@@ -705,8 +676,7 @@ class NoticeListener implements ListenerInterface
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2023/9/30
-     */
-    public function handleSignRemind($data)
+     */    public function handleSignRemind($data)
     {
         //Thông báo trang web
         $this->getNoticeService('SysMsg')->sendMsg($data['uid'], ['site_name' => sys_config('site_name')]);

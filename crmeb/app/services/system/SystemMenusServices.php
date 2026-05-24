@@ -28,16 +28,14 @@ use crmeb\utils\Arr;
  * @method getSearchList() Tìm kiếm trang chủ
  * @method getColumn(array $where, string $field, ?string $key = '') Tìm kiếm trang chủ
  * @method getVisitName(string $rule) Lấy tên menu dựa trên địa chỉ truy cập
- */
-class SystemMenusServices extends BaseServices
+ */class SystemMenusServices extends BaseServices
 {
 
     /**
      * khởi tạo
      * SystemMenusServices constructor.
      * @param SystemMenusDao $dao
-     */
-    public function __construct(SystemMenusDao $dao)
+     */    public function __construct(SystemMenusDao $dao)
     {
         $this->dao = $dao;
     }
@@ -46,8 +44,7 @@ class SystemMenusServices extends BaseServices
      * Lấy dữ liệu của menu chưa được modifier sửa đổi
      * @param $menusList
      * @return array
-     */
-    public function getMenusData($menusList)
+     */    public function getMenusData($menusList)
     {
         $data = [];
         foreach ($menusList as $item) {
@@ -69,11 +66,9 @@ class SystemMenusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMenusList($rouleId, int $level)
+     */    public function getMenusList($rouleId, int $level)
     {
-        /** @var SystemRoleServices $systemRoleServices */
-        $systemRoleServices = app()->make(SystemRoleServices::class);
+        /** @var SystemRoleServices $systemRoleServices */        $systemRoleServices = app()->make(SystemRoleServices::class);
         $rules = $systemRoleServices->getRoleArray(['status' => 1, 'id' => $rouleId], 'rules');
         $rulesStr = Arr::unique($rules);
         $menusList = $this->dao->getMenusRoule(['route' => $level ? $rulesStr : '', 'is_show_path' => 1]);
@@ -88,8 +83,7 @@ class SystemMenusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, array $field = ['*'])
+     */    public function getList(array $where, array $field = ['*'])
     {
         $menusList = $this->dao->getMenusList($where, $field);
         $menusList = $this->getMenusData($menusList);
@@ -102,8 +96,7 @@ class SystemMenusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    protected function getFormSelectMenus()
+     */    protected function getFormSelectMenus()
     {
         $menuList = $this->dao->getMenusRoule(['is_del' => 0], ['id', 'pid', 'menu_name']);
         $list = sort_list_tier($this->getMenusData($menuList), '0', 'pid', 'id');
@@ -119,8 +112,7 @@ class SystemMenusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFormCascaderMenus(int $value = 0, $auth_type = 0)
+     */    public function getFormCascaderMenus(int $value = 0, $auth_type = 0)
     {
         $where = ['is_del' => 0];
         $menuList = $this->dao->getMenusRoule($where, ['id as value', 'pid', 'menu_name as label']);
@@ -141,8 +133,7 @@ class SystemMenusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createMenusForm(array $formData = [])
+     */    public function createMenusForm(array $formData = [])
     {
         $field[] = Form::input('menu_name', 'Tên nút', $formData['menu_name'] ?? '')->required('Cần có tên nút');
         $field[] = Form::input('menu_path', 'Tên tuyến đường', $formData['menu_path'] ?? '')->placeholder('Vui lòng nhập địa chỉ định tuyến nhảy của quầy lễ tân')->required('Vui lòng điền địa chỉ định tuyến của quầy lễ tân');
@@ -164,8 +155,7 @@ class SystemMenusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createMenus()
+     */    public function createMenus()
     {
         return create_form('Thêm quyền', $this->createMenusForm(), $this->url('/setting/save'));
     }
@@ -178,8 +168,7 @@ class SystemMenusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateMenus(int $id)
+     */    public function updateMenus(int $id)
     {
         $menusInfo = $this->dao->get($id);
         if (!$menusInfo) {
@@ -192,8 +181,7 @@ class SystemMenusServices extends BaseServices
      * Lấy một phần dữ liệu
      * @param int $id
      * @return mixed
-     */
-    public function find(int $id)
+     */    public function find(int $id)
     {
         $menusInfo = $this->dao->get($id);
         if (!$menusInfo) {
@@ -223,8 +211,7 @@ class SystemMenusServices extends BaseServices
      * xóa thực đơn
      * @param int $id
      * @return mixed
-     */
-    public function delete(int $id)
+     */    public function delete(int $id)
     {
         $ids = $this->dao->column(['pid' => $id], 'id');
         if (count($ids)) {
@@ -242,16 +229,14 @@ class SystemMenusServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMenus($roles, $check = []): array
+     */    public function getMenus($roles, $check = []): array
     {
         $field = ['menu_name', 'pid', 'id'];
         $where = ['is_del' => 0, 'is_show_path' => 1];
         if (!$roles) {
             $menus = $this->dao->getMenusRoule($where, $field);
         } else {
-            /** @var SystemRoleServices $service */
-            $service = app()->make(SystemRoleServices::class);
+            /** @var SystemRoleServices $service */            $service = app()->make(SystemRoleServices::class);
             $roles = is_string($roles) ? explode(',', $roles) : $roles;
             $ids = $service->getRoleIds($roles);
             $menus = $this->dao->getMenusRoule(['rule' => $ids] + $where, $field);
@@ -269,8 +254,7 @@ class SystemMenusServices extends BaseServices
      * @param int $pid
      * @param array $navList
      * @return array
-     */
-    public function tidyMenuTier(bool $adminFilter = false, $menusList, int $pid = 0, array $navList = []): array
+     */    public function tidyMenuTier(bool $adminFilter = false, $menusList, int $pid = 0, array $navList = []): array
     {
         foreach ($menusList as $k => $menu) {
             $menu = $menu->getData();

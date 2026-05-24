@@ -27,22 +27,19 @@ use think\facade\Log;
  * Created by PhpStorm.
  * User: xurongyao <763569752@qq.com>
  * Date: 2021/9/22 1:23 PM
- */
-class SmsService extends NoticeService
+ */class SmsService extends NoticeService
 {
     /**
      * loại tin nhắn
      * @var string[]
-     */
-    private $smsType = ['yihaotong', 'aliyun', 'tencent'];
+     */    private $smsType = ['yihaotong', 'aliyun', 'tencent'];
 
     /**
      * Gửi tin nhắn SMS
      * @param $phone
      * @param array $data
      * @return bool|void
-     */
-    public function sendSms($phone, array $data)
+     */    public function sendSms($phone, array $data)
     {
         try {
             if ($this->noticeInfo['is_sms'] == 1) {
@@ -66,8 +63,7 @@ class SmsService extends NoticeService
      * @param array $data
      * @param string $mark
      * @return bool
-     */
-    public function send(bool $switch, $phone, array $data, string $mark)
+     */    public function send(bool $switch, $phone, array $data, string $mark)
     {
         if ($switch && $phone) {
             //Nhận loại trình điều khiển để gửi SMS
@@ -92,12 +88,10 @@ class SmsService extends NoticeService
      * Hoàn tiền Gửi tin nhắn của quản trị viên Nhiệm vụ
      * @param $order
      * @return bool
-     */
-    public function sendAdminRefund($order)
+     */    public function sendAdminRefund($order)
     {
         if ($this->noticeInfo['is_sms'] == 1) {
-            /** @var StoreServiceServices $StoreServiceServices */
-            $StoreServiceServices = app()->make(StoreServiceServices::class);
+            /** @var StoreServiceServices $StoreServiceServices */            $StoreServiceServices = app()->make(StoreServiceServices::class);
             $adminList = $StoreServiceServices->getStoreServiceOrderNotice();
 
             foreach ($adminList as $item) {
@@ -114,12 +108,10 @@ class SmsService extends NoticeService
      * @param $adminList
      * @param $order
      * @return bool
-     */
-    public function sendAdminConfirmTakeOver($order)
+     */    public function sendAdminConfirmTakeOver($order)
     {
         if ($this->noticeInfo['is_sms'] == 1) {
-            /** @var StoreServiceServices $StoreServiceServices */
-            $StoreServiceServices = app()->make(StoreServiceServices::class);
+            /** @var StoreServiceServices $StoreServiceServices */            $StoreServiceServices = app()->make(StoreServiceServices::class);
             $adminList = $StoreServiceServices->getStoreServiceOrderNotice();
             foreach ($adminList as $item) {
                 $data = ['order_id' => $order['order_id'], 'admin_name' => $item['nickname']];
@@ -130,17 +122,15 @@ class SmsService extends NoticeService
     }
 
     /**
-     * Nếu đơn hàng được đặt thành công, hãy gửi tin nhắn văn bản cho quản trị viên dịch vụ khách hàng
+     * Nếu đơn hàng được đặt thành công, hãy gửi tin nhắn văn bản cho quản trị viên CSKH
      * @param $switch
      * @param $adminList
      * @param $order
      * @return bool
-     */
-    public function sendAdminPaySuccess($order)
+     */    public function sendAdminPaySuccess($order)
     {
         if ($this->noticeInfo['is_sms'] == 1) {
-            /** @var StoreServiceServices $StoreServiceServices */
-            $StoreServiceServices = app()->make(StoreServiceServices::class);
+            /** @var StoreServiceServices $StoreServiceServices */            $StoreServiceServices = app()->make(StoreServiceServices::class);
             $adminList = $StoreServiceServices->getStoreServiceOrderNotice();
             foreach ($adminList as $item) {
                 $data = ['order_id' => $order['order_id'], 'admin_name' => $item['nickname']];
@@ -155,8 +145,7 @@ class SmsService extends NoticeService
      * @param $mark
      * @param $data
      * @return array
-     */
-    public function handleTencent($mark, $data)
+     */    public function handleTencent($mark, $data)
     {
         $result = [];
         switch ($mark) {

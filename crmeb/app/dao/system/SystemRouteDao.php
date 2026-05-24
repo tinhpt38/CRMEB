@@ -21,8 +21,7 @@ use app\model\system\SystemRoute;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\dao\system
- */
-class SystemRouteDao extends BaseDao
+ */class SystemRouteDao extends BaseDao
 {
 
     /**
@@ -30,8 +29,7 @@ class SystemRouteDao extends BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemRoute::class;
     }
@@ -42,8 +40,7 @@ class SystemRouteDao extends BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/23
-     */
-    public function deleteRoutes(array $ids)
+     */    public function deleteRoutes(array $ids)
     {
         return $this->getModel()::destroy(function ($q) use ($ids) {
             $q->whereIn('id', $ids);

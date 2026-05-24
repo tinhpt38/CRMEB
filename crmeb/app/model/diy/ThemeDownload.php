@@ -20,20 +20,17 @@ use crmeb\traits\ModelTrait;
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2026/3/10
- */
-class ThemeDownload extends BaseModel
+ */class ThemeDownload extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'theme_download';
+     */    protected $name = 'theme_download';
 }

@@ -25,8 +25,7 @@ use think\facade\Config;
  * @email 136327134@qq.com
  * @date 2023/2/8
  * @package app\api\middleware
- */
-class BlockerMiddleware implements MiddlewareInterface
+ */class BlockerMiddleware implements MiddlewareInterface
 {
     /**
      * @param Request $request
@@ -34,8 +33,7 @@ class BlockerMiddleware implements MiddlewareInterface
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/11/21
-     */
-    public function handle(Request $request, \Closure $next)
+     */    public function handle(Request $request, \Closure $next)
     {
         if (Config::get('cache.default') == 'file') {
             return $next($request);
@@ -60,8 +58,7 @@ class BlockerMiddleware implements MiddlewareInterface
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2022/11/22
-     */
-    public function after($response, $key)
+     */    public function after($response, $key)
     {
         CacheService::delMutex($key);
     }

@@ -20,15 +20,13 @@ use app\dao\activity\coupon\StoreCouponProductDao;
  * Class StoreCouponProductServices
  * @package app\services\coupon
  * @method saveAll(array $data) Lưu theo đợt
- */
-class StoreCouponProductServices extends BaseServices
+ */class StoreCouponProductServices extends BaseServices
 {
 
     /**
      * StoreCouponProductServices constructor.
      * @param StoreCouponProductDao $dao
-     */
-    public function __construct(StoreCouponProductDao $dao)
+     */    public function __construct(StoreCouponProductDao $dao)
     {
         $this->dao = $dao;
     }

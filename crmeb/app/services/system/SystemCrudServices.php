@@ -40,8 +40,7 @@ use think\migration\db\Table;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\services\system
- */
-class SystemCrudServices extends BaseServices
+ */class SystemCrudServices extends BaseServices
 {
 
     //Không thể tạo bảng riêng của hệ thống
@@ -91,8 +90,7 @@ class SystemCrudServices extends BaseServices
     /**
      * SystemCrudServices constructor.
      * @param SystemCrudDao $dao
-     */
-    public function __construct(SystemCrudDao $dao)
+     */    public function __construct(SystemCrudDao $dao)
     {
         $this->dao = $dao;
     }
@@ -102,8 +100,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function getList()
+     */    public function getList()
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->selectList([], 'add_time,id,name,table_name,table_comment,table_collation', $page, $limit, 'id desc');
@@ -118,8 +115,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function getTabelRule()
+     */    public function getTabelRule()
     {
         $rule = [
             'varchar' => 'string',
@@ -281,8 +277,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/13
-     */
-    public function changeTabelRule(string $type)
+     */    public function changeTabelRule(string $type)
     {
 
         if (!in_array($type, $this->getTabelRule()['types'])) {
@@ -298,8 +293,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/14
-     */
-    public function getTableInfo(string $tableName)
+     */    public function getTableInfo(string $tableName)
     {
         $sql = 'SELECT * FROM `information_schema`.`TABLES` WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?';
 
@@ -315,8 +309,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function getColumnNamesList(string $tableName)
+     */    public function getColumnNamesList(string $tableName)
     {
         $sql = 'SELECT * FROM `information_schema`.`columns` WHERE TABLE_SCHEMA = ? AND table_name = ? ORDER BY ORDINAL_POSITION';
 
@@ -343,13 +336,12 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * Nhận tất cả tên bảng trong cơ sở dữ liệu hiện tại
+     * Nhận Tất cả tên bảng trong cơ sở dữ liệu hiện tại
      * @return hỗn hợp
      * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2023/8/2
-     */
-    public function getTableAll()
+     */    public function getTableAll()
     {
         $sql = "SELECT TABLE_NAME, TABLE_COMMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = ?";
 
@@ -375,8 +367,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/12
-     */
-    public function valueReplace(array $data)
+     */    public function valueReplace(array $data)
     {
         $replace = ['phar://'];
         $newData = [];
@@ -405,8 +396,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
-     */
-    protected function updateAlter(string $tableName, string $field, string $changeFiled, string $prevFiled, string $type, $limit = '', string $default = '', string $comment = '', array $options = [])
+     */    protected function updateAlter(string $tableName, string $field, string $changeFiled, string $prevFiled, string $type, $limit = '', string $default = '', string $comment = '', array $options = [])
     {
         $tableName = $this->getTableName($tableName);
         $comment = addslashes($comment);
@@ -465,8 +455,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
-     */
-    public function addAlter(string $tableName, string $field, string $prevFiled, string $type, $limit = '', string $default = '', string $comment = '', array $options = [])
+     */    public function addAlter(string $tableName, string $field, string $prevFiled, string $type, $limit = '', string $default = '', string $comment = '', array $options = [])
     {
         $tableName = $this->getTableName($tableName);
         $comment = addslashes($comment);
@@ -538,8 +527,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
-     */
-    protected function deleteAlter(string $tableName, string $field)
+     */    protected function deleteAlter(string $tableName, string $field)
     {
         $tableName = $this->getTableName($tableName);
         $field = addslashes($field);
@@ -555,8 +543,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
-     */
-    protected function updateFromCommon(string $tableName, string $common)
+     */    protected function updateFromCommon(string $tableName, string $common)
     {
         $tableName = $this->getTableName($tableName);
         $common = addslashes($common);
@@ -572,8 +559,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
-     */
-    protected function diffAlter(string $tableName, array $deleteField, array $tableField)
+     */    protected function diffAlter(string $tableName, array $deleteField, array $tableField)
     {
         $updateAlter = [];
         $addAlter = [];
@@ -673,8 +659,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function createCrud(int $id, array $data)
+     */    public function createCrud(int $id, array $data)
     {
         $tableName = $data['tableName'];
         $tableField = $this->valueReplace($data['tableField']);
@@ -917,8 +902,7 @@ class SystemCrudServices extends BaseServices
     /**
      * Nhận cấu hình cơ sở dữ liệu
      * @return array
-     */
-    protected function getDbConfig(): array
+     */    protected function getDbConfig(): array
     {
         $default = app()->config->get('database.default');
 
@@ -977,8 +961,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function makeDatebase(string $tableName, string $tableComment, array $tableField = [], string $collation = self::TABLR_COLLATION)
+     */    public function makeDatebase(string $tableName, string $tableComment, array $tableField = [], string $collation = self::TABLR_COLLATION)
     {
         $timestampsField = [];
         $softDelete = false;
@@ -1058,7 +1041,7 @@ class SystemCrudServices extends BaseServices
     }
 
     /**
-     * Tạo file trả về đường dẫn và nội dung file
+     * Tạo file trả về đường dẫn và Nội dung file
      * @param string $tableName
      * @param string $routeName
      * @param bool $isMake
@@ -1069,8 +1052,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function makeFile(string $tableName, string $routeName, bool $isMake = false, array $options = [], array $filePath = [], string $basePath = '')
+     */    public function makeFile(string $tableName, string $routeName, bool $isMake = false, array $options = [], array $filePath = [], string $basePath = '')
     {
         $options['fromField'] = is_array($options['fromField']) ? $options['fromField'] : [];
         $options['columnField'] = is_array($options['columnField']) ? $options['columnField'] : [];
@@ -1116,7 +1098,7 @@ class SystemCrudServices extends BaseServices
             'menus' => $options['modelName'] ?? $options['menuName'],
             'route' => $routeName
         ]);
-        //Tạo tuyến đường giao diện người dùng
+        //Tạo tuyến đường giao diện Khách hàng
         $viewRouter = app()->make(ViewRouter::class);
         $viewRouter->setFilePathName($filePath['router'] ?? '')->setbasePath($basePath)->handle($tableName, [
             'route' => $routeName,
@@ -1197,8 +1179,7 @@ class SystemCrudServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function getTableName(string $tableName, bool $fullName = true)
+     */    public function getTableName(string $tableName, bool $fullName = true)
     {
         $tablePrefix = config('database.connections.mysql.prefix');
         $pattern = '/^' . $tablePrefix . '/i';

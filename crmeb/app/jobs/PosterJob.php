@@ -23,8 +23,7 @@ use crmeb\traits\QueueTrait;
  * hàng đợi áp phích
  * Class PosterJob
  * @package crmeb\jobs
- */
-class PosterJob extends BaseJobs
+ */class PosterJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -33,14 +32,11 @@ class PosterJob extends BaseJobs
      * @param $user
      * @param $isSsl
      * @return bool
-     */
-    public function spreadPoster($user, $isSsl)
+     */    public function spreadPoster($user, $isSsl)
     {
-        /** @var SystemAttachmentServices $attachment */
-        $attachment = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $attachment */        $attachment = app()->make(SystemAttachmentServices::class);
 
-        /** @var QrcodeServices $qrcodeService */
-        $qrcodeService = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $qrcodeService */        $qrcodeService = app()->make(QrcodeServices::class);
 
         $rootPath = app()->getRootPath();
         try {

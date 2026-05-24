@@ -19,15 +19,13 @@ use app\model\user\User;
  *
  * Class UserAuthDao
  * @package app\dao\user
- */
-class UserAuthDao extends BaseDao
+ */class UserAuthDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return User::class;
     }

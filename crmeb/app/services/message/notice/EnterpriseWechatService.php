@@ -21,21 +21,18 @@ use think\facade\Log;
  * Created by PhpStorm.
  * User: xurongyao <763569752@qq.com>
  * Date: 2021/9/22 1:23 PM
- */
-class EnterpriseWechatService extends NoticeService
+ */class EnterpriseWechatService extends NoticeService
 {
     /**
      * Xác định xem quyền có được bật hay không
      * @var bool
-     */
-    private $isOpen = true;
+     */    private $isOpen = true;
 
     /**
      * Có bật quyền hay không
      * @param string $mark
      * @return $this
-     */
-    public function isOpen(string $mark)
+     */    public function isOpen(string $mark)
     {
         $this->isOpen = $this->noticeInfo['is_ent_wechat'] == 1 && $this->noticeInfo['url'] !== '';
         return $this;
@@ -43,10 +40,9 @@ class EnterpriseWechatService extends NoticeService
     }
 
     /**
-     * Gửi tin nhắn dịch vụ khách hàng WeChat của công ty
+     * Gửi tin nhắn CSKH WeChat của công ty
      * @param $data
-     */
-    public function weComSend($data)
+     */    public function weComSend($data)
     {
         if ($this->noticeInfo['is_ent_wechat'] == 1 && $this->noticeInfo['url'] !== '') {
             $url = $this->noticeInfo['url'];

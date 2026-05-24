@@ -46,19 +46,16 @@ use think\Response;
  * người điều khiển đơn hàng
  * Class StoreOrderController
  * @package app\api\controller\order
- */
-class StoreOrderController
+ */class StoreOrderController
 {
 
     /**
      * @var StoreOrderServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * @var int[]
-     */
-    protected $getChennel = [
+     */    protected $getChennel = [
         'wechat' => 0,
         'routine' => 1,
         'h5' => 2,
@@ -69,8 +66,7 @@ class StoreOrderController
     /**
      * StoreOrderController constructor.
      * @param StoreOrderServices $services
-     */
-    public function __construct(StoreOrderServices $services)
+     */    public function __construct(StoreOrderServices $services)
     {
         $this->services = $services;
     }
@@ -80,8 +76,7 @@ class StoreOrderController
      * @param Request $request
      * @return mixed
      * @throws InvalidArgumentException
-     */
-    public function checkShipping(Request $request)
+     */    public function checkShipping(Request $request)
     {
         [$cartId, $new] = $request->postMore(['cartId', 'new'], true);
         return app('json')->success($this->services->checkShipping($request->uid(), $cartId, $new));
@@ -96,8 +91,7 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function confirm(Request $request, ShippingTemplatesServices $services)
+     */    public function confirm(Request $request, ShippingTemplatesServices $services)
     {
         if (!$services->get(1, ['id'])) {
             return app('json')->fail('Mẫu vận chuyển sản phẩm mặc định không được định cấu hình và không thể đặt hàng.');
@@ -122,8 +116,7 @@ class StoreOrderController
      * @param StoreOrderComputedServices $computedServices
      * @param $key
      * @return mixed
-     */
-    public function computedOrder(Request $request, StoreOrderComputedServices $computedServices, $key)
+     */    public function computedOrder(Request $request, StoreOrderComputedServices $computedServices, $key)
     {
         if (!$key) return app('json')->fail('Lỗi tham số');
         $uid = $request->uid();
@@ -166,8 +159,7 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function create(Request $request, StoreOrderCreateServices $createServices, $key)
+     */    public function create(Request $request, StoreOrderCreateServices $createServices, $key)
     {
         if (!$key) return app('json')->fail('Lỗi tham số');
         $userInfo = $request->user()->toArray();
@@ -203,12 +195,11 @@ class StoreOrderController
     }
 
     /**
-     * Đặt hàng Đặt hàng lại
+     * Đơn hàng Đơn hàng lại
      * @param Request $request
      * @param StoreCartServices $services
      * @return mixed
-     */
-    public function again(Request $request, StoreCartServices $services)
+     */    public function again(Request $request, StoreCartServices $services)
     {
         list($uni) = $request->postMore([
             ['uni', ''],
@@ -228,8 +219,7 @@ class StoreOrderController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/13
-     */
-    public function cashier(Request $request, $orderId, $type = 'order')
+     */    public function cashier(Request $request, $orderId, $type = 'order')
     {
         if (!$orderId) {
             return app('json')->fail('Lỗi tham số');
@@ -244,8 +234,7 @@ class StoreOrderController
      * @param OrderPayServices $payServices
      * @param YuePayServices $yuePayServices
      * @return mixed
-     */
-    public function pay(Request $request, StorePinkServices $services, OrderPayServices $payServices, YuePayServices $yuePayServices)
+     */    public function pay(Request $request, StorePinkServices $services, OrderPayServices $payServices, YuePayServices $yuePayServices)
     {
         [$uni, $paytype, $quitUrl, $type] = $request->postMore([
             ['uni', ''],
@@ -277,8 +266,7 @@ class StoreOrderController
         //0thanh toán nhân dân tệ
         if (bcsub((string)$orderInfo['pay_price'], '0', 2) <= 0) {
             //Tạo đơn hàng thanh toán jspay
-            /** @var StoreOrderSuccessServices $success */
-            $success = app()->make(StoreOrderSuccessServices::class);
+            /** @var StoreOrderSuccessServices $success */            $success = app()->make(StoreOrderSuccessServices::class);
             $payPriceStatus = $success->zeroYuanPayment($orderInfo, $uid);
             if ($payPriceStatus)//0Thanh toán nhân dân tệ thành công
                 return app('json')->status('success', 'Thanh toán thành công', ['order_id' => $orderInfo['order_id'], 'key' => $orderInfo['unique']]);
@@ -322,8 +310,7 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function lst(Request $request)
+     */    public function lst(Request $request)
     {
         $where = $request->getMore([
             ['type', '', '', 'status'],
@@ -343,7 +330,7 @@ class StoreOrderController
     }
 
     /**
-     * Chi tiết đặt hàng
+     * Chi tiết đơn hàng
      * @param Request $request
      * @param StoreOrderEconomizeServices $services
      * @param $uni
@@ -351,8 +338,7 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function detail(Request $request, StoreOrderEconomizeServices $services, $uni)
+     */    public function detail(Request $request, StoreOrderEconomizeServices $services, $uni)
     {
         if (!strlen(trim($uni))) return app('json')->fail('Lỗi tham số');
         $orderData = $this->services->getUserOrderByKey($services, $uni, (int)$request->uid());
@@ -366,8 +352,7 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function friendDetail(Request $request)
+     */    public function friendDetail(Request $request)
     {
         [$orderId] = $request->getMore([
             ['order_id', '']
@@ -383,12 +368,10 @@ class StoreOrderController
      * @param $uni
      * @param string $cartId
      * @return mixed
-     */
-    public function refund_detail(Request $request, $uni, $cartId = '')
+     */    public function refund_detail(Request $request, $uni, $cartId = '')
     {
         if (!strlen(trim($uni))) return app('json')->fail('Lỗi tham số');
-        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */
-        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $storeOrderCartInfoServices */        $storeOrderCartInfoServices = app()->make(StoreOrderCartInfoServices::class);
         $order = $this->services->getUserOrderDetail($uni, (int)$request->uid(), ['split', 'invoice']);
         if (!$order) return app('json')->fail('Đơn hàng không tồn tại');
         $order = $order->toArray();
@@ -429,8 +412,7 @@ class StoreOrderController
      * @param Request $request
      * @return mixed
      * @throws InvalidArgumentException
-     */
-    public function del(Request $request)
+     */    public function del(Request $request)
     {
         [$uni] = $request->postMore([
             ['uni', ''],
@@ -450,8 +432,7 @@ class StoreOrderController
      * @param StoreOrderTakeServices $services
      * @param StoreCouponIssueServices $issueServices
      * @return mixed
-     */
-    public function take(Request $request, StoreOrderTakeServices $services, StoreCouponIssueServices $issueServices)
+     */    public function take(Request $request, StoreOrderTakeServices $services, StoreCouponIssueServices $issueServices)
     {
         list($uni) = $request->postMore([
             ['uni', ''],
@@ -466,7 +447,7 @@ class StoreOrderController
 
 
     /**
-     * Đặt hàng Xem hậu cần
+     * Đơn hàng Xem hậu cần
      * @param Request $request
      * @param StoreOrderCartInfoServices $services
      * @param ExpressServices $expressServices
@@ -476,12 +457,10 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function express(Request $request, StoreOrderCartInfoServices $services, ExpressServices $expressServices, $uni, $type = '')
+     */    public function express(Request $request, StoreOrderCartInfoServices $services, ExpressServices $expressServices, $uni, $type = '')
     {
         if ($type == 'refund') {
-            /** @var StoreOrderRefundServices $refundService */
-            $refundService = app()->make(StoreOrderRefundServices::class);
+            /** @var StoreOrderRefundServices $refundService */            $refundService = app()->make(StoreOrderRefundServices::class);
             $order = $refundService->refundDetail($uni);
             $express = $order['refund_express'];
             $cacheName = $uni . $express;
@@ -564,8 +543,7 @@ class StoreOrderController
      * @param StoreProductReplyServices $replyServices
      * @return Response|void
      * @throws InvalidArgumentException
-     */
-    public function comment(Request $request, StoreOrderCartInfoServices $cartInfoServices, StoreProductReplyServices $replyServices)
+     */    public function comment(Request $request, StoreOrderCartInfoServices $cartInfoServices, StoreProductReplyServices $replyServices)
     {
 
         $group = $request->postMore([
@@ -626,12 +604,10 @@ class StoreOrderController
             return app('json')->fail('Đánh giá không thành công');
         }
         //Lưu vào bộ nhớ đệm số lần rút
-        /** @var LuckLotteryServices $luckLotteryServices */
-        $luckLotteryServices = app()->make(LuckLotteryServices::class);
+        /** @var LuckLotteryServices $luckLotteryServices */        $luckLotteryServices = app()->make(LuckLotteryServices::class);
         $luckLotteryServices->setCacheLotteryNum((int)$uid == $orderInfo['uid'] ? $orderInfo['uid'] : $orderInfo['gift_uid'], 'comment');
 
-        /** @var SystemAdminServices $systemAdmin */
-        $systemAdmin = app()->make(SystemAdminServices::class);
+        /** @var SystemAdminServices $systemAdmin */        $systemAdmin = app()->make(SystemAdminServices::class);
         $systemAdmin->adminNewPush();
 
         $lottery = $luckLotteryServices->getFactorLottery(4);
@@ -653,8 +629,7 @@ class StoreOrderController
      * @param Request $request
      * @return mixed
      * @throws \ReflectionException
-     */
-    public function data(Request $request)
+     */    public function data(Request $request)
     {
         return app('json')->success($this->services->getOrderData((int)$request->uid()));
     }
@@ -662,8 +637,7 @@ class StoreOrderController
     /**
      * Lý do hoàn tiền đơn hàng
      * @return mixed
-     */
-    public function refund_reason()
+     */    public function refund_reason()
     {
         $reason = sys_config('stor_reason') ?: [];//Lý do hoàn tiền
         $reason = str_replace("\r\n", "\n", $reason);//Ngăn chặn sự không tương thích
@@ -677,8 +651,7 @@ class StoreOrderController
      * @param StoreOrderCartInfoServices $services
      * @param $id
      * @return mixed
-     */
-    public function refundCartInfo(Request $request, StoreOrderCartInfoServices $services, $id)
+     */    public function refundCartInfo(Request $request, StoreOrderCartInfoServices $services, $id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -708,8 +681,7 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function refundCartInfoList(Request $request)
+     */    public function refundCartInfoList(Request $request)
     {
         [$cart_ids, $id] = $request->postMore([
             ['cart_ids', []],
@@ -732,8 +704,7 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function applyRefund(Request $request, StoreOrderRefundServices $services, StoreOrderServices $storeOrderServices, $id)
+     */    public function applyRefund(Request $request, StoreOrderRefundServices $services, StoreOrderServices $storeOrderServices, $id)
     {
         if (!$id) {
             return app('json')->fail('Lỗi tham số');
@@ -778,8 +749,7 @@ class StoreOrderController
      * @param Request $request
      * @param StoreOrderRefundServices $services
      * @return mixed
-     */
-    public function refund_express(Request $request, StoreOrderRefundServices $services)
+     */    public function refund_express(Request $request, StoreOrderRefundServices $services)
     {
         [$id, $express_id] = $request->postMore([
             ['id', ''],
@@ -800,8 +770,7 @@ class StoreOrderController
      * @throws DataNotFoundException
      * @throws DbException
      * @throws ModelNotFoundException
-     */
-    public function cancel(Request $request)
+     */    public function cancel(Request $request)
     {
         list($id) = $request->postMore([['id', 0]], true);
         if (!$id) return app('json')->fail('Lỗi tham số');
@@ -811,12 +780,11 @@ class StoreOrderController
     }
 
     /**
-     * Đặt hàng thông tin sản phẩm
+     * Đơn hàng thông tin sản phẩm
      * @param Request $request
      * @param StoreOrderCartInfoServices $services
      * @return mixed
-     */
-    public function product(Request $request, StoreOrderCartInfoServices $services)
+     */    public function product(Request $request, StoreOrderCartInfoServices $services)
     {
         list($unique) = $request->postMore([['unique', '']], true);
         if (!$unique || !($cartInfo = $services->getOne(['unique' => $unique]))) return app('json')->fail('Sản phẩm không tồn tại');
@@ -847,8 +815,7 @@ class StoreOrderController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/6/12
-     */
-    public function callBack(Request $request)
+     */    public function callBack(Request $request)
     {
         $data = $request->postMore([
             ['type', ''],
@@ -882,8 +849,7 @@ class StoreOrderController
                             'status' => 1,
                             'is_stock_up' => 0
                         ]);
-                        /** @var StoreOrderStatusServices $services */
-                        $services = app()->make(StoreOrderStatusServices::class);
+                        /** @var StoreOrderStatusServices $services */                        $services = app()->make(StoreOrderStatusServices::class);
                         $services->save([
                             'oid' => $orderInfo->id,
                             'change_time' => time(),
@@ -955,8 +921,7 @@ class StoreOrderController
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    function decrypt(string $encryptedData, string $key)
+     */    function decrypt(string $encryptedData, string $key)
     {
         $key = substr($key, 0, 32);
         $decodedData = base64_decode($encryptedData);

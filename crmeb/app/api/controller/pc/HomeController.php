@@ -18,20 +18,17 @@ use app\services\other\QrcodeServices;
 /**
  * Class HomeController
  * @package app\api\controller\pc
- */
-class HomeController
+ */class HomeController
 {
     /**
      *
      * @var HomeServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * HomeController constructor.
      * @param HomeServices $services
-     */
-    public function __construct(HomeServices $services)
+     */    public function __construct(HomeServices $services)
     {
         $this->services = $services;
     }
@@ -39,8 +36,7 @@ class HomeController
     /**
      * PCHình ảnh băng chuyền trang chủ Terminal
      * @return mixed
-     */
-    public function getBanner()
+     */    public function getBanner()
     {
         $list = sys_data('pc_home_banner');
         return app('json')->success(compact('list'));
@@ -49,8 +45,7 @@ class HomeController
     /**
      * Home thể loại Sản phẩm thời trang
      * @return mixed
-     */
-    public function getCategoryProduct(Request $request)
+     */    public function getCategoryProduct(Request $request)
     {
         $data = $this->services->getCategoryProduct((int)$request->uid());
         return app('json')->success($data);
@@ -59,8 +54,7 @@ class HomeController
     /**
      * Nhận cấu hình url nhảy mua hàng trên thiết bị di động
      * @return string
-     */
-    public function getProductPhoneBuy()
+     */    public function getProductPhoneBuy()
     {
         $phoneBuy = sys_config('product_phone_buy_url', 1);
         $siteUrl = sys_config('site_url');
@@ -70,14 +64,12 @@ class HomeController
     /**
      * Mã QR mua thành viên trả phí
      * @return mixed
-     */
-    public function getPayVipCode()
+     */    public function getPayVipCode()
     {
         $type = sys_config('product_phone_buy_url', 1);
         $url = '/pages/annex/vip_paid/index';
         $name = "wechat_pay_vip_code.png";
-        /** @var QrcodeServices $QrcodeService */
-        $QrcodeService = app()->make(QrcodeServices::class);
+        /** @var QrcodeServices $QrcodeService */        $QrcodeService = app()->make(QrcodeServices::class);
         if ($type == 1) {
             $codeUrl = $QrcodeService->getWechatQrcodePath($name, $url, false, false);
         } else {

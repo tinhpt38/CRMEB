@@ -23,8 +23,7 @@ use think\facade\Log;
  * Hàng đợi tin nhắn đặt hàng
  * Class OrderJob
  * @package crmeb\jobs
- */
-class OtherOrderJob extends BaseJobs
+ */class OtherOrderJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -32,17 +31,16 @@ class OtherOrderJob extends BaseJobs
      * Gửi tin nhắn khi thanh toán đơn hàng được thực hiện thành công
      * @param $order
      * @return bool
-     */
-    public function doJob($order)
+     */    public function doJob($order)
     {
-        //Cập nhật số lượng đơn hàng thanh toán của người dùng
+        //Cập nhật số lượng đơn hàng thanh toán của Khách hàng
         try {
             $this->setUserPayCountAndPromoter($order);
         } catch (\Throwable $e) {
-            Log::error('Không thể cập nhật số đơn đặt hàng của người dùng,Lý do thất bại:' . $e->getMessage());
+            Log::error('Không thể cập nhật số đơn đặt hàng của Khách hàng,Lý do thất bại:' . $e->getMessage());
         }
 
-        // Tính toán mức tiết kiệm của người dùng
+        // Tính toán mức tiết kiệm của Khách hàng
         try {
             $this->setEconomizeMoney($order);
         } catch (\Throwable $e) {
@@ -59,19 +57,16 @@ class OtherOrderJob extends BaseJobs
     }
 
     /**
-     * Đặt số lượng người dùng mua hàng và thời gian phát hiện để trở thành người quảng bá
+     * Đặt số lượng Khách hàng mua hàng và thời gian phát hiện để trở thành người quảng bá
      * @param $order
-     */
-    public function setUserPayCountAndPromoter($order)
+     */    public function setUserPayCountAndPromoter($order)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($order['uid']);
         if ($userInfo) {
             $userInfo->pay_count = $userInfo->pay_count + 1;
             if (!$userInfo->is_promoter) {
-                /** @var OtherOrderServices $orderServices */
-                $orderServices = app()->make(OtherOrderServices::class);
+                /** @var OtherOrderServices $orderServices */                $orderServices = app()->make(OtherOrderServices::class);
                 $price = $orderServices->sum(['paid' => 1, 'uid' => $userInfo['uid']], 'pay_price');
                 $status = is_brokerage_statu($price);
                 if ($status) {
@@ -85,21 +80,18 @@ class OtherOrderJob extends BaseJobs
     /** Điểm thưởng thanh toán ngoại tuyến
      * @param $order
      * @return bool
-     */
-    public function sendMemberIntegral($order)
+     */    public function sendMemberIntegral($order)
     {
         //Phần thưởng chỉ có sẵn cho thanh toán ngoại tuyến
         if ($order['type'] == 3) {
             $order_give_integral = sys_config('order_give_integral');
             $order_integral = bcmul($order_give_integral, (string)$order['pay_price'], 0);
-            /** @var UserServices $userService */
-            $userService = app()->make(UserServices::class);
+            /** @var UserServices $userService */            $userService = app()->make(UserServices::class);
             $userInfo = $userService->getUserInfo($order['uid']);
             if (!$userInfo) return false;
             if ($userInfo['is_money_level'] > 0) {
                 //Kiểm tra xem phần thưởng nhân đôi điểm tiêu thụ có được kích hoạt hay không
-                /** @var MemberCardServices $memberCardService */
-                $memberCardService = app()->make(MemberCardServices::class);
+                /** @var MemberCardServices $memberCardService */                $memberCardService = app()->make(MemberCardServices::class);
                 $integral_rule_number = $memberCardService->isOpenMemberCard('integral');
                 if ($integral_rule_number) {
                     $order_integral = bcadd($order_integral, $integral_rule_number, 2);
@@ -115,15 +107,12 @@ class OtherOrderJob extends BaseJobs
     /**
      * Tính toán tiết kiệm
      * @param $order
-     */
-    public function setEconomizeMoney($order)
+     */    public function setEconomizeMoney($order)
     {
         //Khoản tiết kiệm chỉ được tính cho thanh toán ngoại tuyến
         if ($order['type'] == 3) {
-            /** @var StoreOrderEconomizeServices $economizeService */
-            $economizeService = app()->make(StoreOrderEconomizeServices::class);
-            /** @var MemberCardServices $memberRightService */
-            $memberRightService = app()->make(MemberCardServices::class);
+            /** @var StoreOrderEconomizeServices $economizeService */            $economizeService = app()->make(StoreOrderEconomizeServices::class);
+            /** @var MemberCardServices $memberRightService */            $memberRightService = app()->make(MemberCardServices::class);
             $isOpenOfflin = $memberRightService->isOpenMemberCard('offline');
             if ($isOpenOfflin) {
                 $save = [

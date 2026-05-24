@@ -18,21 +18,19 @@ use app\model\agent\AgentLevel;
 /**
  * Class AgentLevelDao
  * @package app\dao\agent
- */
-class AgentLevelDao extends BaseDao
+ */class AgentLevelDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return AgentLevel::class;
     }
 
     /**
-     * Nhận tất cả các cấp độ nhà phân phối
+     * Nhận Tất cả các cấp độ nhà phân phối
      * @param array $where
      * @param string $field
      * @param array $with
@@ -43,8 +41,7 @@ class AgentLevelDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where = [], string $field = '*', array $with = [], int $page = 0, int $limit = 0, $grade = 0)
+     */    public function getList(array $where = [], string $field = '*', array $with = [], int $page = 0, int $limit = 0, $grade = 0)
     {
         return $this->search($where, false)->when($grade, function ($query) use ($grade) {
             $query->where('grade', '>=', $grade);

@@ -20,8 +20,7 @@ use app\model\wechat\WechatKey;
  *
  * Class UserWechatUserDao
  * @package app\dao\user
- */
-class WechatKeyDao extends BaseDao
+ */class WechatKeyDao extends BaseDao
 {
     protected function setModel(): string
     {
@@ -34,8 +33,7 @@ class WechatKeyDao extends BaseDao
      * @param bool $search
      * @return \crmeb\basic\BaseModel|mixed|Model
      * @throws \ReflectionException
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         return parent::search($where, $search)->when(isset($where['id']), function ($query) use ($where) {
             $query->where('id', $where['id']);

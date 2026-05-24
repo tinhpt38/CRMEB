@@ -27,8 +27,7 @@ class LoginServices extends BaseServices
      * @param string $key
      * @return array|int[]
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function scanLogin(string $key)
+     */    public function scanLogin(string $key)
     {
         $hasKey = CacheService::has($key);
         if ($hasKey === false) {
@@ -37,8 +36,7 @@ class LoginServices extends BaseServices
             $keyValue = CacheService::get($key);
             if ($keyValue === 0) {
                 $status = 1;//Đang quét
-                /** @var UserServices $user */
-                $user = app()->make(UserServices::class);
+                /** @var UserServices $user */                $user = app()->make(UserServices::class);
                 $userInfo = $user->get(['uniqid' => $key], ['account', 'uniqid']);
                 if ($userInfo) {
                     $tokenInfo = $this->authLogin($userInfo->account);
@@ -60,15 +58,13 @@ class LoginServices extends BaseServices
      * @param string $account
      * @param string|null $password
      * @return array
-     */
-    public function authLogin(string $account, string $password = null)
+     */    public function authLogin(string $account, string $password = null)
     {
-        /** @var UserServices $user */
-        $user = app()->make(UserServices::class);
+        /** @var UserServices $user */        $user = app()->make(UserServices::class);
 
         $userInfo = $user->get(['account' => $account]);
         if (!$userInfo) {
-            throw new ApiException('Không có người dùng như vậy');
+            throw new ApiException('Không có Khách hàng như vậy');
         }
         if ($password && !password_verify($password, $userInfo->password)) {
             throw new ApiException('Tài khoản hoặc mật khẩu không chính xác');
@@ -93,11 +89,9 @@ class LoginServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function wechatAuth()
+     */    public function wechatAuth()
     {
-        /** @var OAuth $oauth */
-        $oauth = app()->make(OAuth::class);
+        /** @var OAuth $oauth */        $oauth = app()->make(OAuth::class);
         $info = $oauth->oauth(null, ['open' => true]);
 
         if (!$info) {
@@ -115,22 +109,20 @@ class LoginServices extends BaseServices
                 $wechatInfo['tagid_list'] = implode(',', $wechatInfo['tagid_list']);
         } else {
             if (isset($wechatInfo['privilege'])) unset($wechatInfo['privilege']);
-            /** @var WechatUserServices $wechatUser */
-            $wechatUser = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUser */            $wechatUser = app()->make(WechatUserServices::class);
             if (!$wechatUser->getOne(['openid' => $wechatInfo['openid']])) {
                 $wechatInfo['subscribe'] = 0;
             }
         }
         $wechatInfo['user_type'] = 'pc';
         $openid = $wechatInfo['openid'];
-        /** @var WechatUserServices $wechatUserServices */
-        $wechatUserServices = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $wechatUserServices */        $wechatUserServices = app()->make(WechatUserServices::class);
         $user = $wechatUserServices->getAuthUserInfo($openid, 'pc');
         $createData = [$openid, $wechatInfo, 0, 0, 'pc', 'pc'];
         if (!$user) {
             $user = $wechatUserServices->wechatOauthAfter($createData);
         } else {
-            //Cập nhật thông tin người dùng
+            //Cập nhật thông tin Khách hàng
             $wechatUserServices->wechatUpdata([$user['uid'], $wechatInfo]);
         }
         $token = $this->createToken((int)$user->uid, 'api');

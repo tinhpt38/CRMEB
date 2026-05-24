@@ -19,22 +19,19 @@ use think\Model;
  * mô hình đăng nhập
  * Class SystemLog
  * @package app\model\system\log
- */
-class SystemLog extends BaseModel
+ */class SystemLog extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_log';
+     */    protected $name = 'system_log';
 
     protected $insert = ['add_time'];
 
@@ -47,8 +44,7 @@ class SystemLog extends BaseModel
      * Trình tìm kiếm truy cập
      * @param Model $query
      * @param $value
-     */
-    public function searchPagesAttr($query, $value)
+     */    public function searchPagesAttr($query, $value)
     {
         if ($value !== '') {
             $query->whereLike('page', '%' . $value . '%');
@@ -59,8 +55,7 @@ class SystemLog extends BaseModel
      * Công cụ tìm đường dẫn truy cập
      * @param Model $query
      * @param $value
-     */
-    public function searchPathAttr($query, $value)
+     */    public function searchPathAttr($query, $value)
     {
         if ($value !== '') {
             $query->whereLike('path', '%' . $value . '%');
@@ -71,8 +66,7 @@ class SystemLog extends BaseModel
      * ipNgười tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchIpAttr($query, $value)
+     */    public function searchIpAttr($query, $value)
     {
         if ($value !== '') {
             $query->where('ip', 'LIKE', "%$value%");
@@ -83,8 +77,7 @@ class SystemLog extends BaseModel
      * Trình tìm kiếm id quản trị viên
      * @param Model $query
      * @param $value
-     */
-    public function searchAdminIdAttr($query, $value)
+     */    public function searchAdminIdAttr($query, $value)
     {
         if (!empty($value)) {
             $query->whereIn('admin_id', $value);

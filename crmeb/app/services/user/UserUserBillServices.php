@@ -19,15 +19,13 @@ use app\dao\user\UserUserBillDao;
  *
  * Class UserUserBillServices
  * @package app\services\user
- */
-class UserUserBillServices extends BaseServices
+ */class UserUserBillServices extends BaseServices
 {
 
     /**
      * UserUserBillServices constructor.
      * @param UserUserBillDao $dao
-     */
-    public function __construct(UserUserBillDao $dao)
+     */    public function __construct(UserUserBillDao $dao)
     {
         $this->dao = $dao;
     }
@@ -37,8 +35,7 @@ class UserUserBillServices extends BaseServices
      * @param $field
      * @param $order
      * @return array
-     */
-    public function getBrokerageList(array $where, string $field = '*', string $order = '', $is_page = true)
+     */    public function getBrokerageList(array $where, string $field = '*', string $order = '', $is_page = true)
     {
         [$page, $limit] = $this->getPageValue($is_page);
         $list = $this->dao->getList($where, $field, $order, $page, $limit);

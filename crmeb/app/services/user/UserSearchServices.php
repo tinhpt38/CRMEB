@@ -20,30 +20,27 @@ use app\dao\user\UserSearchDao;
  * Class UserLabelServices
  * @package app\services\user
  *  * @method getColumn(array $where, string $field, string $key = '') Nhận một mảng trường
- *  * @method getKeywordResult(int $uid, string $keyword, int $preTime = 7200) Có được bức tranh toàn cầu|Kết quả tìm kiếm của người dùng cho một từ khóa nhất định
- */
-class UserSearchServices extends BaseServices
+ *  * @method getKeywordResult(int $uid, string $keyword, int $preTime = 7200) Có được bức tranh toàn cầu|Kết quả tìm kiếm của Khách hàng cho một từ khóa nhất định
+ */class UserSearchServices extends BaseServices
 {
 
     /**
      * UserSearchServices constructor.
      * @param UserSearchDao $dao
-     */
-    public function __construct(UserSearchDao $dao)
+     */    public function __construct(UserSearchDao $dao)
     {
         $this->dao = $dao;
     }
 
 
     /**
-     * Lấy danh sách từ khóa tìm kiếm của người dùng
+     * Lấy danh sách từ khóa tìm kiếm của Khách hàng
      * @param int $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserList(int $uid)
+     */    public function getUserList(int $uid)
     {
         if (!$uid) {
             return [];
@@ -57,8 +54,7 @@ class UserSearchServices extends BaseServices
      * @param int $uid
      * @param string $key
      * @param array $result
-     */
-    public function saveUserSearch(int $uid, string $keyword, array $vicword, array $result)
+     */    public function saveUserSearch(int $uid, string $keyword, array $vicword, array $result)
     {
         $result = json_encode($result);
         $vicword = json_encode($vicword, JSON_UNESCAPED_UNICODE);

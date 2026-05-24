@@ -18,15 +18,13 @@ use app\services\BaseServices;
 /**
  * Class OtherOrderStatusServices
  * @package app\services\order
- */
-class OtherOrderStatusServices extends BaseServices
+ */class OtherOrderStatusServices extends BaseServices
 {
 
     /**
      * OtherOrderStatusServices constructor.
      * @param OtherOrderStatusDao $dao
-     */
-    public function __construct(OtherOrderStatusDao $dao)
+     */    public function __construct(OtherOrderStatusDao $dao)
     {
         $this->dao = $dao;
     }

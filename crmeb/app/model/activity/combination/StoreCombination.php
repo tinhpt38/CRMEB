@@ -18,39 +18,34 @@ use crmeb\basic\BaseModel;
 use think\Model;
 
 /**
- * TODO Nhóm sản phẩmModel
+ * TODO Sản phẩm mua chungModel
  * Class StoreCombination
  * @package app\model\activity
- */
-class StoreCombination extends BaseModel
+ */class StoreCombination extends BaseModel
 {
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_combination';
+     */    protected $name = 'store_combination';
 
     use ModelTrait;
 
     /**
      * Nhận giá gốc 1-1
      * @return \think\model\relation\HasOne
-     */
-    public function getPrice()
+     */    public function getPrice()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')->bind(['ot_price', 'product_price' => 'price']);
     }
     /**
      * Nhận phân loại sản phẩm từng cái một
      * @return \think\model\relation\HasOne
-     */
-    public function getCategory()
+     */    public function getCategory()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')->bind(['cate_id']);
     }
@@ -58,8 +53,7 @@ class StoreCombination extends BaseModel
      * hiệp hội một-một
      *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function total()
+     */    public function total()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')->where('is_show', 1)->where('is_del', 0)->field(['(sales+ficti) as total', 'id', 'price'])->bind([
             'total' => 'total', 'product_price' => 'price'
@@ -70,8 +64,7 @@ class StoreCombination extends BaseModel
      * hiệp hội một-một
      *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function description()
+     */    public function description()
     {
         return $this->hasOne(StoreDescription::class, 'product_id', 'id')->where('type', 3)->bind(['description']);
     }
@@ -80,8 +73,7 @@ class StoreCombination extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    protected function getAddTimeAttr($value)
+     */    protected function getAddTimeAttr($value)
     {
         if ($value) return date('Y-m-d H:i:s', (int)$value);
         return '';
@@ -91,8 +83,7 @@ class StoreCombination extends BaseModel
      * Trình lấy hình ảnh băng chuyền
      * @param $value
      * @return mixed
-     */
-    public function getImagesAttr($value)
+     */    public function getImagesAttr($value)
     {
         return json_decode($value, true) ?? [];
     }
@@ -102,8 +93,7 @@ class StoreCombination extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStoreNameAttr($query, $value, $data)
+     */    public function searchStoreNameAttr($query, $value, $data)
     {
         if ($value) $query->where('title|id', 'like', '%' . $value . '%');
     }
@@ -113,8 +103,7 @@ class StoreCombination extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsHostAttr($query, $value, $data)
+     */    public function searchIsHostAttr($query, $value, $data)
     {
         $query->where('is_host', $value ?? 1);
     }
@@ -124,8 +113,7 @@ class StoreCombination extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsShowAttr($query, $value, $data)
+     */    public function searchIsShowAttr($query, $value, $data)
     {
         if ($value != '') $query->where('is_show', $value ?: 0);
     }
@@ -135,8 +123,7 @@ class StoreCombination extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value ?? 0);
     }
@@ -146,8 +133,7 @@ class StoreCombination extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductIdAttr($query, $value, $data)
+     */    public function searchProductIdAttr($query, $value, $data)
     {
         if ($value) {
             if (is_array($value)) {

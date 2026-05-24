@@ -23,14 +23,12 @@ use app\dao\order\StoreOrderCartInfoDao;
  * @method array getCartInfoList(array $where, array $field) Lấy danh sách chi tiết giỏ hàng
  * @method getSplitCartNum(array $cart_id)
  * @method getOne(array $where, ?string $field = '*', array $with = []) Nhận một phần dữ liệu dựa trên các điều kiện
- */
-class StoreOrderCartInfoServices extends BaseServices
+ */class StoreOrderCartInfoServices extends BaseServices
 {
     /**
      * StoreOrderCartInfoServices constructor.
      * @param StoreOrderCartInfoDao $dao
-     */
-    public function __construct(StoreOrderCartInfoDao $dao)
+     */    public function __construct(StoreOrderCartInfoDao $dao)
     {
         $this->dao = $dao;
     }
@@ -40,8 +38,7 @@ class StoreOrderCartInfoServices extends BaseServices
      * @param int $oid
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function clearOrderCartInfo(int $oid)
+     */    public function clearOrderCartInfo(int $oid)
     {
         return CacheService::delete(md5('store_order_cart_info_' . $oid));
     }
@@ -51,8 +48,7 @@ class StoreOrderCartInfoServices extends BaseServices
      * @param int $oid
      * @return array|bool|mixed
      * @throws \ReflectionException
-     */
-    public function getOrderCartInfo(int $oid)
+     */    public function getOrderCartInfo(int $oid)
     {
         $cartInfo = CacheService::get(md5('store_order_cart_info_' . $oid));
         if ($cartInfo) return $cartInfo;
@@ -75,15 +71,14 @@ class StoreOrderCartInfoServices extends BaseServices
     }
 
     /**
-     * Tìm tất cả tiêu đề sản phẩm trong giỏ hàng của bạn
+     * Tìm Tất cả tiêu đề sản phẩm trong giỏ hàng của bạn
      * @param int $oid
      * @param false $goodsNum
      * @return bool|mixed|string
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCarIdByProductTitle(int $oid, bool $goodsNum = false)
+     */    public function getCarIdByProductTitle(int $oid, bool $goodsNum = false)
     {
         if ($goodsNum) {
             $key = md5('store_order_cart_product_title_num' . $oid);
@@ -117,8 +112,7 @@ class StoreOrderCartInfoServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getCartInfoPrintProduct($oid)
+     */    public function getCartInfoPrintProduct($oid)
     {
         $cartInfo = $this->dao->getCartInfoList(['oid' => $oid], ['cart_info']);
         $product = [];
@@ -138,8 +132,7 @@ class StoreOrderCartInfoServices extends BaseServices
      * @param array $cartInfo
      * @return \think\Collection
      * @throws \Exception
-     */
-    public function setCartInfo($oid, $uid, array $cartInfo)
+     */    public function setCartInfo($oid, $uid, array $cartInfo)
     {
         $group = [];
         foreach ($cartInfo as $cart) {
@@ -162,8 +155,7 @@ class StoreOrderCartInfoServices extends BaseServices
      * @param $oid
      * @param array $cartInfo
      * @return bool
-     */
-    public function updateCartInfo($oid, array $cartInfo)
+     */    public function updateCartInfo($oid, array $cartInfo)
     {
         foreach ($cartInfo as $cart) {
             $group = [
@@ -178,8 +170,7 @@ class StoreOrderCartInfoServices extends BaseServices
      * Số mặt hàng
      * @param $oid
      * @return array
-     */
-    public function getCartIdsProduct($oid)
+     */    public function getCartIdsProduct($oid)
     {
         return $this->dao->getColumn(['oid' => $oid], 'product_id', 'oid');
     }
@@ -190,8 +181,7 @@ class StoreOrderCartInfoServices extends BaseServices
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getSplitCartList(int $oid, string $field = '*', string $key = 'cart_id')
+     */    public function getSplitCartList(int $oid, string $field = '*', string $key = 'cart_id')
     {
         $cartInfo = $this->dao->getColumn([['oid', '=', $oid], ['split_status', 'IN', [0, 1]]], $field, $key);
         foreach ($cartInfo as &$item) {
@@ -214,8 +204,7 @@ class StoreOrderCartInfoServices extends BaseServices
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getRefundCartList(int $oid, string $field = '*', string $key = '')
+     */    public function getRefundCartList(int $oid, string $field = '*', string $key = '')
     {
         $cartInfo = array_merge($this->dao->getColumn(['oid' => $oid], $field, 'id'));
         foreach ($cartInfo as $key => &$item) {

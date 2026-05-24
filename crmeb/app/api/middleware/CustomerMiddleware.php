@@ -22,13 +22,10 @@ class CustomerMiddleware implements MiddlewareInterface
     public function handle(Request $request, \Closure $next)
     {
         $uid = $request->uid();
-        /** @var StoreServiceServices $services */
-        $services = app()->make(StoreServiceServices::class);
-        /** @var SystemStoreStaffServices $storeServices */
-        $storeServices = app()->make(SystemStoreStaffServices::class);
+        /** @var StoreServiceServices $services */        $services = app()->make(StoreServiceServices::class);
+        /** @var SystemStoreStaffServices $storeServices */        $storeServices = app()->make(SystemStoreStaffServices::class);
         $rule = trim(strtolower($request->rule()->getRule()));
-        /** @var DeliveryServiceServices $deliveryService */
-        $deliveryService = app()->make(DeliveryServiceServices::class);
+        /** @var DeliveryServiceServices $deliveryService */        $deliveryService = app()->make(DeliveryServiceServices::class);
         $isDelivery = $deliveryService->checkoutIsService($uid);
         $withRule = ['/api/order/order_verific', "/api/admin/order/detail/<orderId>"];
         if (((!$services->checkoutIsService(['uid' => $uid, 'status' => 1, 'customer' => 1]) && !$storeServices->verifyStatus($uid)) && !$isDelivery) && !(in_array($rule, $withRule)))

@@ -16,8 +16,7 @@ use think\Validate;
  *
  * Class StoreOrderValidate
  * @package app\adminapi\validates
- */
-class StoreOrderValidate extends Validate
+ */class StoreOrderValidate extends Validate
 {
 
     protected $rule = [

@@ -19,8 +19,7 @@ class UserBrokerageDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserBrokerage::class;
     }
@@ -37,8 +36,7 @@ class UserBrokerageDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0, array $typeWhere = [])
+     */    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0, array $typeWhere = [])
     {
         return $this->search($where)->when(count($typeWhere) > 0, function ($query) use ($typeWhere) {
             $query->where($typeWhere);
@@ -54,8 +52,7 @@ class UserBrokerageDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserBrokerageList(array $where)
+     */    public function getUserBrokerageList(array $where)
     {
         return $this->search($where)->select()->toArray();
     }
@@ -69,8 +66,7 @@ class UserBrokerageDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function brokerageRankList(array $where, int $page = 0, int $limit = 0)
+     */    public function brokerageRankList(array $where, int $page = 0, int $limit = 0)
     {
         //SUM(IF(pm=1,`number`,-`number`))
         if ($where['pm'] == 1) $where['not_type'] = ['extract_fail'];
@@ -86,8 +82,7 @@ class UserBrokerageDao extends BaseDao
      * @param array $where
      * @return mixed
      * @throws \ReflectionException
-     */
-    public function getBrokerageSumColumn(array $where)
+     */    public function getBrokerageSumColumn(array $where)
     {
         if ($where['pm'] == 1) $where['not_type'] = ['extract_fail'];
         if (isset($where['uid']) && is_array($where['uid'])) {
@@ -101,8 +96,7 @@ class UserBrokerageDao extends BaseDao
      * @param int $uid
      * @return float
      * @throws \ReflectionException
-     */
-    public function getUserFrozenPrice(int $uid)
+     */    public function getUserFrozenPrice(int $uid)
     {
         return $this->search(['uid' => $uid, 'status' => 1, 'pm' => 1])->where('frozen_time', '>', time())->sum('number');
     }

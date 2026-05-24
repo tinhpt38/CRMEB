@@ -18,14 +18,12 @@ use crmeb\exceptions\AdminException;
 /**
  * Class MemberRightServices
  * @package app\services\user
- */
-class MemberRightServices extends BaseServices
+ */class MemberRightServices extends BaseServices
 {
     /**
      * MemberCardServices constructor.
      * @param MemberRightDao $memberCardDao
-     */
-    public function __construct(MemberRightDao $memberRightDao)
+     */    public function __construct(MemberRightDao $memberRightDao)
     {
         $this->dao = $memberRightDao;
     }
@@ -36,8 +34,7 @@ class MemberRightServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSearchList(array $where = [])
+     */    public function getSearchList(array $where = [])
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getSearchList($where, $page, $limit);
@@ -53,8 +50,7 @@ class MemberRightServices extends BaseServices
      * Chỉnh sửa và lưu
      * @param int $id
      * @param array $data
-     */
-    public function save(int $id, array $data)
+     */    public function save(int $id, array $data)
     {
         if (!$data['right_type']) throw new AdminException('Loại lợi ích dành cho thành viên bị thiếu');
         if (!$id) throw new AdminException('Lỗi tham số');
@@ -98,8 +94,7 @@ class MemberRightServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOne(array $where)
+     */    public function getOne(array $where)
     {
         if (!$where) return false;
         return $this->dao->getOne($where);
@@ -109,8 +104,7 @@ class MemberRightServices extends BaseServices
      * Kiểm tra xem một lợi ích nhất định có được kích hoạt hay không
      * @param $rightType
      * @return bool
-     */
-    public function getMemberRightStatus($rightType)
+     */    public function getMemberRightStatus($rightType)
     {
         if (!$rightType) return false;
         $status = $this->dao->value(['right_type' => $rightType], 'status');

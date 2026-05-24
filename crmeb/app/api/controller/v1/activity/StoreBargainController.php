@@ -20,8 +20,7 @@ use app\services\user\UserServices;
  * Mặt hàng giảm giá
  * Class StoreBargainController
  * @package app\api\controller\activity
- */
-class StoreBargainController
+ */class StoreBargainController
 {
     protected $services;
 
@@ -33,8 +32,7 @@ class StoreBargainController
     /**
      * Hình ảnh trên cùng của danh sách giảm giá
      * @return mixed
-     */
-    public function config()
+     */    public function config()
     {
         $lovely = sys_data('routine_lovely') ?? [];//bannerhình ảnh
         $info = $lovely[2] ?? [];
@@ -45,8 +43,7 @@ class StoreBargainController
      * Danh sách sản phẩm mặc cả
      * @param Request $request
      * @return mixed
-     */
-    public function lst(Request $request)
+     */    public function lst(Request $request)
     {
         $bargainList = $this->services->getBargainList();
         return app('json')->success(get_thumb_water($bargainList));
@@ -60,8 +57,7 @@ class StoreBargainController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function detail(Request $request, $id)
+     */    public function detail(Request $request, $id)
     {
         list($bargainUid) = $request->getMore([
             ['bargainUid', 0]
@@ -74,11 +70,9 @@ class StoreBargainController
      * Mặc cả số lượt xem/chia sẻ/tham gia
      * @param Request $request
      * @return mixed
-     */
-    public function share(Request $request)
+     */    public function share(Request $request)
     {
-        /** @var StoreBargainUserHelpServices $bargainUserHelpService */
-        $bargainUserHelpService = app()->make(StoreBargainUserHelpServices::class);
+        /** @var StoreBargainUserHelpServices $bargainUserHelpService */        $bargainUserHelpService = app()->make(StoreBargainUserHelpServices::class);
         list($bargainId) = $request->postMore([['bargainId', 0]], true);
         $data['lookCount'] = $this->services->sum([], 'look');//TODO Số lượng người xem
         $data['userCount'] = $bargainUserHelpService->count([]);//TODO Số lượng người tham gia
@@ -95,8 +89,7 @@ class StoreBargainController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function start(Request $request)
+     */    public function start(Request $request)
     {
         list($bargainId) = $request->postMore([
             ['bargainId', 0]
@@ -111,8 +104,7 @@ class StoreBargainController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function help(Request $request)
+     */    public function help(Request $request)
     {
         list($bargainId, $bargainUserUid) = $request->postMore([
             ['bargainId', 0],
@@ -125,55 +117,48 @@ class StoreBargainController
      * Thương lượng Trợ giúp thương lượng
      * @param Request $request
      * @return mixed
-     */
-    public function help_list(Request $request)
+     */    public function help_list(Request $request)
     {
         list($bargainId, $bargainUserUid) = $request->postMore([
             ['bargainId', 0],
             ['bargainUserUid', 0],
         ], true);
-        /** @var StoreBargainUserServices $bargainUser */
-        $bargainUser = app()->make(StoreBargainUserServices::class);
+        /** @var StoreBargainUserServices $bargainUser */        $bargainUser = app()->make(StoreBargainUserServices::class);
         $bargainUserTableId = $bargainUser->getBargainUserTableId((int)$bargainId, (int)$bargainUserUid);
 
-        /** @var StoreBargainUserHelpServices $bargainUserHelp */
-        $bargainUserHelp = app()->make(StoreBargainUserHelpServices::class);
+        /** @var StoreBargainUserHelpServices $bargainUserHelp */        $bargainUserHelp = app()->make(StoreBargainUserHelpServices::class);
         [$page, $limit] = $this->services->getPageValue();
         $storeBargainUserHelp = $bargainUserHelp->getHelpList((int)$bargainUserTableId, $page, $limit);
         return app('json')->success($storeBargainUserHelp);
     }
 
     /**
-     * Mặc cả Cho phép mặc cả thông tin người dùng
+     * Mặc cả Cho phép mặc cả thông tin Khách hàng
      * @param Request $request
      * @return mixed
-     */
-    public function start_user(Request $request)
+     */    public function start_user(Request $request)
     {
         list($bargainId, $bargainUserUid) = $request->postMore([
             ['bargainId', 0],
             ['bargainUserUid', 0],
         ], true);
         if (!$bargainId || !$bargainUserUid) return app('json')->fail('Lỗi tham số');
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo((int)$bargainUserUid);
         if (!$userInfo) {
-            return app('json')->fail('Không thể lấy được thông tin người dùng');
+            return app('json')->fail('Không thể lấy được thông tin Khách hàng');
         }
         return app('json')->success(['nickname' => $userInfo['nickname'], 'avatar' => $userInfo['avatar']]);
     }
 
     /**
-     * Danh sách mặc cả(Đã tham gia)
+     * Lịch sử trả giá(Đã tham gia)
      * @param Request $request
      * @return mixed
-     */
-    public function user_list(Request $request)
+     */    public function user_list(Request $request)
     {
         $uid = $request->uid();
-        /** @var StoreBargainUserServices $bargainUser */
-        $bargainUser = app()->make(StoreBargainUserServices::class);
+        /** @var StoreBargainUserServices $bargainUser */        $bargainUser = app()->make(StoreBargainUserServices::class);
         $bargainUser->editBargainUserStatus($uid);// TODO Xác định hoạt động thương lượng đã hết hạn
         $list = $bargainUser->getBargainUserAll($uid);
         if (count($list)) return app('json')->success(get_thumb_water($list));
@@ -184,13 +169,11 @@ class StoreBargainController
      * Giảm giá Hủy bỏ
      * @param Request $request
      * @return mixed
-     */
-    public function user_cancel(Request $request)
+     */    public function user_cancel(Request $request)
     {
         list($bargainId) = $request->postMore([['bargainId', 0]], true);
         if (!$bargainId) return app('json')->fail('Lỗi tham số');
-        /** @var StoreBargainUserServices $bargainUser */
-        $bargainUser = app()->make(StoreBargainUserServices::class);
+        /** @var StoreBargainUserServices $bargainUser */        $bargainUser = app()->make(StoreBargainUserServices::class);
         $res = $bargainUser->cancelBargain($bargainId, $request->uid());
         if ($res) return app('json')->success('Hủy thành công');
         else return app('json')->success('Hủy không thành công');
@@ -203,8 +186,7 @@ class StoreBargainController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function poster(Request $request)
+     */    public function poster(Request $request)
     {
         [$bargainId, $from] = $request->postMore([
             ['bargainId', ''],
@@ -225,8 +207,7 @@ class StoreBargainController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function posterInfo(Request $request, $bargainId)
+     */    public function posterInfo(Request $request, $bargainId)
     {
         return app('json')->success($this->services->posterInfo((int)$bargainId, $request->user()));
     }

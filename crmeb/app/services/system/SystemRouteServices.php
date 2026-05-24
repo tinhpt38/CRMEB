@@ -25,15 +25,13 @@ use think\helper\Str;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\services\system
- */
-class SystemRouteServices extends BaseServices
+ */class SystemRouteServices extends BaseServices
 {
 
     /**
      * SystemRouteServices constructor.
      * @param SystemRouteDao $dao
-     */
-    public function __construct(SystemRouteDao $dao)
+     */    public function __construct(SystemRouteDao $dao)
     {
         $this->dao = $dao;
     }
@@ -44,8 +42,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->selectList($where, 'name,path,method', $page, $limit)->toArray();
@@ -59,8 +56,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/10
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         $routeInfo = $this->dao->get($id);
         if (!$routeInfo) {
@@ -80,8 +76,7 @@ class SystemRouteServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/05/06
-     */
-    public function getTreeList(string $appName = 'adminapi', string $name = '')
+     */    public function getTreeList(string $appName = 'adminapi', string $name = '')
     {
         return CacheService::remember('ROUTE_LIST' . strtoupper($appName), function () use ($name, $appName) {
             $list = app()->make(SystemRouteCateServices::class)
@@ -118,8 +113,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/26
-     */
-    public function importData(array $importData)
+     */    public function importData(array $importData)
     {
         foreach ($importData as $item) {
             $id = $this->dao->value(['method' => $item['method'], 'path' => $item['path']], 'id');
@@ -138,16 +132,15 @@ class SystemRouteServices extends BaseServices
     }
 
     /**
-     * Nhận tất cả các quyền định tuyến trong một ứng dụng
+     * Nhận Tất cả các quyền định tuyến trong một Ứng dụng
      * @param string $app
      * @return array
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function getRouteListAll(string $app = 'adminapi')
+     */    public function getRouteListAll(string $app = 'adminapi')
     {
-        //Nhận tất cả các tuyến đường
+        //Nhận Tất cả các tuyến đường
         $this->app = app();
         $this->app->route->setTestMode(true);
         $this->app->route->clear();
@@ -198,8 +191,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function topCateId(string $app, string $cateName, int $pid = 0)
+     */    public function topCateId(string $app, string $cateName, int $pid = 0)
     {
         $oneId = app()->make(SystemRouteCateServices::class)->value(['app_name' => $app, 'name' => $cateName, 'pid' => 0], 'id');
         if (!$oneId) {
@@ -222,8 +214,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    public function syncRoute(string $app = 'adminapi')
+     */    public function syncRoute(string $app = 'adminapi')
     {
         $listAll = $this->getRouteListAll($app);
 
@@ -326,8 +317,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/6
-     */
-    protected function diffRoute(array $data, string $path, string $method, string $key = 'path')
+     */    protected function diffRoute(array $data, string $path, string $method, string $key = 'path')
     {
         $res = false;
         foreach ($data as $item) {
@@ -349,8 +339,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/7
-     */
-    public function getFrom(int $id = 0, string $appName = 'adminapi')
+     */    public function getFrom(int $id = 0, string $appName = 'adminapi')
     {
         $cateList = app()->make(SystemRouteCateServices::class)->getAllList($appName, 'name as label,path as value');
 
@@ -391,8 +380,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/26
-     */
-    public function import(string $filePath)
+     */    public function import(string $filePath)
     {
         $preg = '/\{+[a-zA-Z0-9]+\}/';
 
@@ -490,8 +478,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/26
-     */
-    protected function getResponse(array $options, $parentId = '')
+     */    protected function getResponse(array $options, $parentId = '')
     {
         $response = [];
         foreach ($options as $key => $option) {
@@ -522,8 +509,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/26
-     */
-    protected function getRequest(array $options)
+     */    protected function getRequest(array $options)
     {
         $parameters = $options['parameters'] ?? [];
         $jsonSchema = $options['jsonSchema']['properties'] ?? [];
@@ -557,8 +543,7 @@ class SystemRouteServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/26
-     */
-    protected function getPathValue(array $options)
+     */    protected function getPathValue(array $options)
     {
         $path = [];
         foreach ($options as $option) {

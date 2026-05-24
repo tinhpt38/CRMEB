@@ -20,8 +20,7 @@ use app\model\user\User;
  *
  * Class StoreCouponUserUserDao
  * @package app\dao\coupon
- */
-class StoreCouponUserUserDao extends BaseDao
+ */class StoreCouponUserUserDao extends BaseDao
 {
     protected $alias = '';
     protected $join_alis = '';
@@ -29,8 +28,7 @@ class StoreCouponUserUserDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreCouponUser::class;
     }
@@ -38,8 +36,7 @@ class StoreCouponUserUserDao extends BaseDao
     /**
      * Mô hình bảng kết nối
      * @return string
-     */
-    public function joinModel(): string
+     */    public function joinModel(): string
     {
         return User::class;
     }
@@ -49,13 +46,11 @@ class StoreCouponUserUserDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    public function getModel(string $alias = 'c', string $join_alias = 'u', $join = 'left')
+     */    public function getModel(string $alias = 'c', string $join_alias = 'u', $join = 'left')
     {
         $this->alias = $alias;
         $this->join_alis = $join_alias;
-        /** @var User $user */
-        $user = app()->make($this->joinModel());
+        /** @var User $user */        $user = app()->make($this->joinModel());
         $table = $user->getName();
         return parent::getModel()->join($table . ' ' . $join_alias, $alias . '.uid = ' . $join_alias . '.uid', $join)->alias($alias);
     }
@@ -69,8 +64,7 @@ class StoreCouponUserUserDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function sysPage(array $where, int $page, int $limit)
+     */    public function sysPage(array $where, int $page, int $limit)
     {
         return $this->searchWhere($where)->page($page, $limit)->order('id desc')->select()->toArray();
     }
@@ -79,8 +73,7 @@ class StoreCouponUserUserDao extends BaseDao
      * tổng cộng
      * @param array $where
      * @return int
-     */
-    public function sysCount(array $where)
+     */    public function sysCount(array $where)
     {
         return $this->searchWhere($where)->count();
     }
@@ -89,8 +82,7 @@ class StoreCouponUserUserDao extends BaseDao
      * Tiêu chí lọc
      * @param array $where
      * @return \crmeb\basic\BaseModel
-     */
-    public function searchWhere(array $where = [])
+     */    public function searchWhere(array $where = [])
     {
         return $this->getModel()
             ->when($where['nickname'] != '', function ($query) use ($where) {

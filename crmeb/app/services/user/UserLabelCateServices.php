@@ -22,25 +22,22 @@ use think\Model;
 /**
  * Class UserLabelCateServices
  * @package app\services\user
- * @method delete($id, ?string $key = null) xóa bỏ
+ * @method delete($id, ?string $key = null) Xóa
  * @method update($id, array $data, ?string $key = null) Cập nhật dữ liệu
  * @method save(array $data) lưu dữ liệu
  * @method array|Model|null get($id, ?array $field = [], ?array $with = []) Lấy một phần dữ liệu
- * @method getAll(array $with = []) Nhận tất cả các loại thẻ
- */
-class UserLabelCateServices extends BaseServices
+ * @method getAll(array $with = []) Nhận Tất cả các loại thẻ
+ */class UserLabelCateServices extends BaseServices
 {
     /**
      * Bộ đệm phân loại thẻ
      * @var string
-     */
-    protected $cacheName = 'label_list_all';
+     */    protected $cacheName = 'label_list_all';
 
     /**
      * UserLabelCateServices constructor.
      * @param CategoryDao $dao
-     */
-    public function __construct(CategoryDao $dao)
+     */    public function __construct(CategoryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -52,8 +49,7 @@ class UserLabelCateServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getLabelList(array $where)
+     */    public function getLabelList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getCateList($where, $page, $limit);
@@ -65,17 +61,15 @@ class UserLabelCateServices extends BaseServices
      * Xóa bộ nhớ đệm danh mục
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function deleteCateCache()
+     */    public function deleteCateCache()
     {
         return CacheService::delete($this->cacheName);
     }
 
     /**
-     * Nhận tất cả các loại thẻ
+     * Nhận Tất cả các loại thẻ
      * @return bool|mixed|null
-     */
-    public function getLabelCateAll()
+     */    public function getLabelCateAll()
     {
         return CacheService::remember($this->cacheName, function () {
             return $this->dao->getCateList(['type' => 0]);
@@ -86,8 +80,7 @@ class UserLabelCateServices extends BaseServices
      * Mẫu phân loại thẻ
      * @param array $cataData
      * @return mixed
-     */
-    public function labelCateForm(array $cataData = [])
+     */    public function labelCateForm(array $cataData = [])
     {
         $f[] = FormBuilder::input('name', 'Tên danh mục', $cataData['name'] ?? '')->required();
         $f[] = FormBuilder::number('sort', 'loại', (int)($cataData['sort'] ?? 0));
@@ -98,8 +91,7 @@ class UserLabelCateServices extends BaseServices
      * Tạo biểu mẫu
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm()
+     */    public function createForm()
     {
         return create_form('Thêm phân loại thẻ', $this->labelCateForm(), $this->url('/user/user_label_cate'), 'POST');
     }
@@ -112,8 +104,7 @@ class UserLabelCateServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateForm(int $id)
+     */    public function updateForm(int $id)
     {
         $labelCate = $this->dao->get($id);
         if (!$labelCate) {
@@ -123,18 +114,16 @@ class UserLabelCateServices extends BaseServices
     }
 
     /**
-     * Danh sách thẻ người dùng
+     * Danh sách thẻ Khách hàng
      * @param int $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserLabel(int $uid)
+     */    public function getUserLabel(int $uid)
     {
         $list = $this->dao->getAll(['type' => 0], ['label']);
-        /** @var UserLabelRelationServices $services */
-        $services = app()->make(UserLabelRelationServices::class);
+        /** @var UserLabelRelationServices $services */        $services = app()->make(UserLabelRelationServices::class);
         $labelIds = $services->getUserLabels($uid) ?? [];
         foreach ($list as $key => &$item) {
             if (is_array($item['label'])) {

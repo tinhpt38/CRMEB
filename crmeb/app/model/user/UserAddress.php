@@ -18,22 +18,19 @@ use think\model;
 /**
  * Class UserAddress
  * @package app\model\user
- */
-class UserAddress extends BaseModel
+ */class UserAddress extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'user_address';
+     */    protected $name = 'user_address';
 
     protected $insert = ['add_time'];
 
@@ -45,11 +42,10 @@ class UserAddress extends BaseModel
     }
 
     /**
-     * người dùnguid
+     * Khách hànguid
      * @param $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -58,8 +54,7 @@ class UserAddress extends BaseModel
      * Có nên xóa không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         $query->where('is_del', $value);
     }
@@ -68,8 +63,7 @@ class UserAddress extends BaseModel
      * Cho dù địa chỉ mặc định
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDefaultAttr($query, $value)
+     */    public function searchIsDefaultAttr($query, $value)
     {
         $query->where('is_default', $value);
     }

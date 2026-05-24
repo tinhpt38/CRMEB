@@ -20,14 +20,12 @@ use think\facade\Log;
 /**
  * Class StoreProductDao
  * @package app\dao\product\product
- */
-class StoreProductDao extends BaseDao
+ */class StoreProductDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProduct::class;
     }
@@ -36,8 +34,7 @@ class StoreProductDao extends BaseDao
      * Số lượng mua lại có điều kiện
      * @param array $where
      * @return int
-     */
-    public function getCount(array $where)
+     */    public function getCount(array $where)
     {
         return $this->search($where, false)->when(isset($where['sid']) && $where['sid'], function ($query) use ($where) {
             $query->whereIn('id', function ($query) use ($where) {
@@ -81,8 +78,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0, string $order = '')
+     */    public function getList(array $where, int $page = 0, int $limit = 0, string $order = '')
     {
         $prefix = Config::get('database.connections.' . Config::get('database.default') . '.prefix');
         return $this->search($where, false)->with(['storeBranch'])->order(($order ? $order . ' ,' : '') . 'sort desc,id desc')
@@ -104,8 +100,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         return $this->search()->with('coupons')->find($id);
     }
@@ -121,8 +116,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSearchList(array $where, int $page = 0, int $limit = 0, array $field = ['*'], array $with = [])
+     */    public function getSearchList(array $where, int $page = 0, int $limit = 0, array $field = ['*'], array $with = [])
     {
         if (isset($where['star'])) $with[] = 'star';
         $with[] = 'storeBranch';
@@ -199,8 +193,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductLimit(array $where, $limit, $field)
+     */    public function getProductLimit(array $where, $limit, $field)
     {
         return $this->search($where)->field($field)->order('val', 'desc')->limit($limit)->select()->toArray();
 
@@ -214,8 +207,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function idByProductList(array $ids, string $field)
+     */    public function idByProductList(array $ids, string $field)
     {
         return $this->getModel()->whereIn('id', $ids)->field($field)->select()->toArray();
     }
@@ -230,8 +222,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRecommendProduct(array $where, string $field, int $num = 0, int $page = 0, int $limit = 0)
+     */    public function getRecommendProduct(array $where, string $field, int $num = 0, int $page = 0, int $limit = 0)
     {
         $where['is_show'] = 1;
         $where['is_del'] = 0;
@@ -266,8 +257,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductCartList(array $where, int $page, int $limit, array $field = ['*'])
+     */    public function getProductCartList(array $where, int $page, int $limit, array $field = ['*'])
     {
         $where['is_show'] = 1;
         $where['is_del'] = 0;
@@ -277,15 +267,14 @@ class StoreProductDao extends BaseDao
     }
 
     /**
-     * Nhận danh sách mua hàng bán chạy nhất của người dùng
+     * Nhận danh sách mua hàng bán chạy nhất của Khách hàng
      * @param array $where
      * @param int $limit
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserProductHotSale(array $where, int $page = 0, int $limit = 0)
+     */    public function getUserProductHotSale(array $where, int $page = 0, int $limit = 0)
     {
         $where['is_show'] = 1;
         $where['is_del'] = 0;
@@ -306,8 +295,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function productIdByCateId(array $productIds)
+     */    public function productIdByCateId(array $productIds)
     {
         return $this->search(['id' => $productIds])->with('cateName')->field('id')->select()->toArray();
     }
@@ -319,8 +307,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductListByWhere(array $where, $field)
+     */    public function getProductListByWhere(array $where, $field)
     {
         return $this->search($where)->field($field)->select()->toArray();
     }
@@ -334,8 +321,7 @@ class StoreProductDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAdvanceList($where, $page, $limit)
+     */    public function getAdvanceList($where, $page, $limit)
     {
         $model = $this->getModel()->where('presale', 1)->where('is_del', 0)->where('is_show', 1)->where(function ($query) use ($where) {
             switch ($where['time_type']) {
@@ -359,14 +345,13 @@ class StoreProductDao extends BaseDao
 
     /**
      * Các mặt hàng bán trước sẽ tự động hết hạn và bị loại khỏi kệ
-     */
-    public function downAdvance()
+     */    public function downAdvance()
     {
         $this->getModel()->where('presale', 1)->where('presale_end_time', '<', time())->update(['is_show' => 0]);
     }
 
     /**
-     * Thành phần-hàng hóa tùy chỉnh
+     * Thành phần-sản phẩm tùy chỉnh
      * @param $where
      * @param $order
      * @param $limit
@@ -377,8 +362,7 @@ class StoreProductDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/1/13
-     */
-    public function getThemeProduct($where, $order, $limit)
+     */    public function getThemeProduct($where, $order, $limit)
     {
         $model = $this->getModel()->with('cateName')->where('is_del', 0)->where('is_show', 1);
         if ($where['ids'] != '') {

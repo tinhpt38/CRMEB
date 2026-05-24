@@ -19,14 +19,12 @@ use app\model\system\store\SystemStoreStaff;
  * nhân viên cửa hàng
  * Class SystemStoreStaffDao
  * @package app\dao\system\store
- */
-class SystemStoreStaffDao extends BaseDao
+ */class SystemStoreStaffDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemStoreStaff::class;
     }
@@ -40,8 +38,7 @@ class SystemStoreStaffDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStoreStaffList(array $where, int $page, int $limit)
+     */    public function getStoreStaffList(array $where, int $page, int $limit)
     {
         return $this->search($where)->with(['store', 'user'])->page($page, $limit)->order('add_time DESC')->select()->toArray();
     }

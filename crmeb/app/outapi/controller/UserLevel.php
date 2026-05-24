@@ -17,16 +17,14 @@ use think\facade\App;
  * Cấp độ thành viên
  * Class UserLevel
  * @package app\outapi\controller
- */
-class UserLevel extends AuthController
+ */class UserLevel extends AuthController
 {
 
     /**
      * UserLevel constructor.
      * @param App $app
      * @param OutUserLevelServices $services
-     */
-    public function __construct(App $app, OutUserLevelServices $services)
+     */    public function __construct(App $app, OutUserLevelServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -35,8 +33,7 @@ class UserLevel extends AuthController
     /**
      * Danh sách bậc
      * @return void
-     */
-    public function lst()
+     */    public function lst()
     {
         $where = $this->request->getMore([
             ['title', ''],

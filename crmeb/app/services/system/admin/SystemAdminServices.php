@@ -35,21 +35,18 @@ use think\Model;
  * @package app\services\system\admin
  * @method getAdminIds(int $level) Nhận quản trị viên dựa trên cấp độ quản trị viênid
  * @method getOrdAdmin(string $field, int $level) Lấy tên của quản trị viên dưới cấp độ vàid
- */
-class SystemAdminServices extends BaseServices
+ */class SystemAdminServices extends BaseServices
 {
 
     /**
      * formTạo biểu mẫu
      * @var FormBuilder
-     */
-    protected $builder;
+     */    protected $builder;
 
     /**
      * SystemAdminServices constructor.
      * @param SystemAdminDao $dao
-     */
-    public function __construct(SystemAdminDao $dao, FormBuilder $builder)
+     */    public function __construct(SystemAdminDao $dao, FormBuilder $builder)
     {
         $this->dao = $dao;
         $this->builder = $builder;
@@ -63,8 +60,7 @@ class SystemAdminServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function verifyLogin(string $account, string $password)
+     */    public function verifyLogin(string $account, string $password)
     {
         $adminInfo = $this->dao->accountByAdmin($account);
         if (!$adminInfo || !password_verify($password, $adminInfo->pwd)) return false;
@@ -87,8 +83,7 @@ class SystemAdminServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function verifyFileLogin(string $account, string $password)
+     */    public function verifyFileLogin(string $account, string $password)
     {
         $adminInfo = $this->dao->accountByAdmin($account);
         if (!$adminInfo) {
@@ -117,14 +112,12 @@ class SystemAdminServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function login(string $account, string $password, string $type, string $key = '')
+     */    public function login(string $account, string $password, string $type, string $key = '')
     {
         $adminInfo = $this->verifyLogin($account, $password);
         if (!$adminInfo) return false;
         $tokenInfo = $this->createToken($adminInfo->id, $type, $adminInfo->pwd);
-        /** @var SystemMenusServices $services */
-        $services = app()->make(SystemMenusServices::class);
+        /** @var SystemMenusServices $services */        $services = app()->make(SystemMenusServices::class);
         [$menus, $uniqueAuth] = $services->getMenusList($adminInfo->roles, (int)$adminInfo['level']);
         $remind = Config::get('app.console_remind', false);
         if ($remind) {
@@ -167,8 +160,7 @@ class SystemAdminServices extends BaseServices
     /**
      * Nhận thông tin đăng nhập và các thông tin khác trước khi đăng nhập
      * @return array
-     */
-    public function getLoginInfo()
+     */    public function getLoginInfo()
     {
         $key = uniqid();
         CheckQueueJob::dispatchSecs(1, [$key]);
@@ -201,18 +193,16 @@ class SystemAdminServices extends BaseServices
     }
 
     /**
-     * Danh sách quản trị viên
+     * Tài khoản quản trị
      * @param array $where
      * @return array
-     */
-    public function getAdminList(array $where)
+     */    public function getAdminList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
         $count = $this->dao->count($where);
 
-        /** @var SystemRoleServices $service */
-        $service = app()->make(SystemRoleServices::class);
+        /** @var SystemRoleServices $service */        $service = app()->make(SystemRoleServices::class);
         $allRole = $service->getRoleArray();
         foreach ($list as &$item) {
             if ($item['roles']) {
@@ -238,8 +228,7 @@ class SystemAdminServices extends BaseServices
      * @param array $formData
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createAdminForm(int $level, array $formData = [])
+     */    public function createAdminForm(int $level, array $formData = [])
     {
         $f[] = $this->builder->input('account', 'Tài khoản quản trị viên', $formData['account'] ?? '')->required('Vui lòng điền vào tài khoản quản trị viên');
         if (empty($formData)) {
@@ -251,8 +240,7 @@ class SystemAdminServices extends BaseServices
         }
         $f[] = $this->builder->input('real_name', 'Tên quản trị viên', $formData['real_name'] ?? '')->required('Vui lòng nhập tên quản trị viên');
 
-        /** @var SystemRoleServices $service */
-        $service = app()->make(SystemRoleServices::class);
+        /** @var SystemRoleServices $service */        $service = app()->make(SystemRoleServices::class);
         $options = $service->getRoleFormSelect($level);
         if (isset($formData['roles'])) {
             foreach ($formData['roles'] as &$item) {
@@ -269,8 +257,7 @@ class SystemAdminServices extends BaseServices
      * @param int $level
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm(int $level)
+     */    public function createForm(int $level)
     {
         return create_form('Quản trị viên đã thêm', $this->createAdminForm($level), $this->url('/setting/admin'));
     }
@@ -279,8 +266,7 @@ class SystemAdminServices extends BaseServices
      * Tạo quản trị viên
      * @param array $data
      * @return bool
-     */
-    public function create(array $data)
+     */    public function create(array $data)
     {
         if ($data['conf_pwd'] != $data['pwd']) {
             throw new AdminException('Mật khẩu nhập hai lần không nhất quán');
@@ -315,8 +301,7 @@ class SystemAdminServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function updateForm(int $level, int $id)
+     */    public function updateForm(int $level, int $id)
     {
         $adminInfo = $this->dao->get($id);
         if (!$adminInfo) {
@@ -333,8 +318,7 @@ class SystemAdminServices extends BaseServices
      * @param int $id
      * @param array $data
      * @return bool
-     */
-    public function save(int $id, array $data)
+     */    public function save(int $id, array $data)
     {
         if (!$adminInfo = $this->dao->get($id)) {
             throw new AdminException('Quản trị viên không tồn tại');
@@ -381,8 +365,7 @@ class SystemAdminServices extends BaseServices
      * @param int $id
      * @param array $data
      * @return bool
-     */
-    public function updateAdmin(int $id, array $data)
+     */    public function updateAdmin(int $id, array $data)
     {
         $adminInfo = $this->dao->get($id);
         if (!$adminInfo)
@@ -419,8 +402,7 @@ class SystemAdminServices extends BaseServices
      * @param int $id
      * @param array $data
      * @return bool
-     */
-    public function setFilePassword(int $id, array $data)
+     */    public function setFilePassword(int $id, array $data)
     {
         $adminInfo = $this->dao->get($id);
         if (!$adminInfo)
@@ -445,21 +427,16 @@ class SystemAdminServices extends BaseServices
 
     /** Vị trí đặt hàng phụ trợ, nhận xét, thanh toán thành công và nhắc nhở tin nhắn phụ trợ
      * @param $event
-     */
-    public function adminNewPush()
+     */    public function adminNewPush()
     {
         try {
-            /** @var StoreOrderServices $orderServices */
-            $orderServices = app()->make(StoreOrderServices::class);
+            /** @var StoreOrderServices $orderServices */            $orderServices = app()->make(StoreOrderServices::class);
             $data['ordernum'] = $orderServices->count(['is_del' => 0, 'status' => 1, 'shipping_type' => 1]);
-            /** @var StoreProductServices $productServices */
-            $productServices = app()->make(StoreProductServices::class);
+            /** @var StoreProductServices $productServices */            $productServices = app()->make(StoreProductServices::class);
             $data['inventory'] = $productServices->count(['type' => 5]);
-            /** @var StoreProductReplyServices $replyServices */
-            $replyServices = app()->make(StoreProductReplyServices::class);
+            /** @var StoreProductReplyServices $replyServices */            $replyServices = app()->make(StoreProductReplyServices::class);
             $data['commentnum'] = $replyServices->count(['is_reply' => 0]);
-            /** @var UserExtractServices $extractServices */
-            $extractServices = app()->make(UserExtractServices::class);
+            /** @var UserExtractServices $extractServices */            $extractServices = app()->make(UserExtractServices::class);
             $data['reflectnum'] = $extractServices->getCount(['status' => 0]); //Rút tiền mặt
             $data['msgcount'] = intval($data['ordernum']) + intval($data['inventory']) + intval($data['commentnum']) + intval($data['reflectnum']);
             ChannelService::instance()->send('ADMIN_NEW_PUSH', $data);

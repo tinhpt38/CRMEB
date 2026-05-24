@@ -319,7 +319,7 @@ function OrderInfo(props: { order: Order }) {
           />
         )}
 
-        {/* Mã vận đơn + nhà vận chuyển — chỉ khi đang giao / có mã */}
+        {/* Mã vận đơn + nhà vận chuyển — chỉ khi đang giao / có mã */
         {props.order.deliveryName ? (
           <List.Item prefix={<Icon icon="zi-car" />} title="Nhà vận chuyển">
             <span className="text-xs text-inactive">{props.order.deliveryName}</span>
@@ -344,8 +344,10 @@ function OrderInfo(props: { order: Order }) {
           </List.Item>
         ) : null}
         {props.order.payType === "vn_bank" ? (
-          <List.Item prefix={<Icon icon="zi-note" />} title="Mã đơn (nội dung CK)">
-            <span className="text-xs font-mono text-primary">{props.order.id}</span>
+          <List.Item prefix={<Icon icon="zi-note" />} title="Nội dung chuyển khoản">
+            <span className="text-xs font-mono text-primary">
+              {props.order.bankTransferContent || props.order.id}
+            </span>
           </List.Item>
         ) : null}
         {props.order.payType === "vn_bank" && props.order.bankPayGuide ? (
@@ -371,7 +373,7 @@ function OrderInfo(props: { order: Order }) {
         )}
       </List>
 
-      {/* Nút hành động cho đơn đã giao (Lịch sử) */}
+      {/* Nút hành động cho đơn đã giao (Lịch sử) */
       {hasActions && (
         <div className="flex gap-3 mt-2">
           {canReview && (

@@ -22,15 +22,13 @@ use app\services\other\UploadService;
 /**
  * Class SystemStorageServices
  * @package app\services\system\config
- */
-class SystemStorageServices extends BaseServices
+ */class SystemStorageServices extends BaseServices
 {
 
     /**
      * SystemStorageServices constructor.
      * @param SystemStorageDao $dao
-     */
-    public function __construct(SystemStorageDao $dao)
+     */    public function __construct(SystemStorageDao $dao)
     {
         $this->dao = $dao;
     }
@@ -38,8 +36,7 @@ class SystemStorageServices extends BaseServices
     /**
      * @param array $where
      * @return array
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $config = $this->getStorageConfig((int)$where['type']);
@@ -65,8 +62,7 @@ class SystemStorageServices extends BaseServices
      * @param int $type
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function getFormStorage(int $type)
+     */    public function getFormStorage(int $type)
     {
         $upload = UploadService::init($type);
 
@@ -99,8 +95,7 @@ class SystemStorageServices extends BaseServices
     /**
      * @param int $type
      * @return array
-     */
-    public function getStorageConfig(int $type)
+     */    public function getStorageConfig(int $type)
     {
         $config = [
             'accessKey' => '',
@@ -154,8 +149,7 @@ class SystemStorageServices extends BaseServices
      * @param int $type
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function getFormStorageConfig(int $type)
+     */    public function getFormStorageConfig(int $type)
     {
         $config = $this->getStorageConfig($type);
         $rule = [
@@ -183,8 +177,7 @@ class SystemStorageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function deleteStorage(int $id)
+     */    public function deleteStorage(int $id)
     {
         $storageInfo = $this->dao->get(['is_delete' => 0, 'id' => $id]);
         if (!$storageInfo) {
@@ -232,8 +225,7 @@ class SystemStorageServices extends BaseServices
             if (!$accessKey || !$secretKey) {
                 return true;
             }
-            /** @var SystemConfigServices $make */
-            $make = app()->make(SystemConfigServices::class);
+            /** @var SystemConfigServices $make */            $make = app()->make(SystemConfigServices::class);
             switch ($type) {
                 case 2://Qiniu
                     $make->update('qiniu_accessKey', ['value' => json_encode($accessKey)], 'menu_name');
@@ -271,8 +263,7 @@ class SystemStorageServices extends BaseServices
      * @param int $type
      * @param array $data
      * @return mixed
-     */
-    public function saveStorage(int $type, array $data)
+     */    public function saveStorage(int $type, array $data)
     {
         //Lưu thông tin cấu hình
         $this->saveConfig($type, $data);
@@ -310,8 +301,7 @@ class SystemStorageServices extends BaseServices
      * Đồng bộ hóa nhóm lưu trữ đám mây
      * @param int $type
      * @return bool
-     */
-    public function synchronization(int $type)
+     */    public function synchronization(int $type)
     {
         $data = [];
         switch ($type) {
@@ -447,8 +437,7 @@ class SystemStorageServices extends BaseServices
      * @param int $type
      * @param string $reagion
      * @return mixed|string
-     */
-    public function getReagionHost(int $type, string $reagion)
+     */    public function getReagionHost(int $type, string $reagion)
     {
         $upload = UploadService::init($type);
         $reagionList = $upload->getRegion();
@@ -467,8 +456,7 @@ class SystemStorageServices extends BaseServices
      * @param string $reagion
      * @param string $appid
      * @return string
-     */
-    public function getDomain(int $type, string $name, string $reagion, string $appid = '')
+     */    public function getDomain(int $type, string $name, string $reagion, string $appid = '')
     {
         $domainName = '';
         switch ($type) {
@@ -496,8 +484,7 @@ class SystemStorageServices extends BaseServices
      * Nhận cấu hình lưu trữ đám mây
      * @param int $type
      * @return array|string[]
-     */
-    public function getConfig(int $type)
+     */    public function getConfig(int $type)
     {
         $res = ['name' => '', 'region' => '', 'domain' => '', 'cdn' => ''];
         try {
@@ -516,8 +503,7 @@ class SystemStorageServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function getUpdateDomainForm(int $id)
+     */    public function getUpdateDomainForm(int $id)
     {
         $storage = $this->dao->get(['id' => $id], ['domain', 'cdn']);
         $rule = [
@@ -535,8 +521,7 @@ class SystemStorageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function updateDomain(int $id, string $domain, array $data = [])
+     */    public function updateDomain(int $id, string $domain, array $data = [])
     {
         $info = $this->dao->get($id);
         if (!$info) {

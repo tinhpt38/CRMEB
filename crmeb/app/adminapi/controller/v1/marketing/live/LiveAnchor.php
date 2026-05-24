@@ -18,15 +18,13 @@ use think\facade\App;
  * Người dẫn chương trình phòng phát sóng trực tiếp
  * Class LiveAnchor
  * @package app\controller\admin\store
- */
-class LiveAnchor extends AuthController
+ */class LiveAnchor extends AuthController
 {
     /**
      * LiveAnchor constructor.
      * @param App $app
      * @param LiveAnchorServices $services
-     */
-    public function __construct(App $app, LiveAnchorServices $services)
+     */    public function __construct(App $app, LiveAnchorServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -35,8 +33,7 @@ class LiveAnchor extends AuthController
     /**
      * danh sách
      * @return mixed
-     */
-    public function list()
+     */    public function list()
     {
         $where = $this->request->postMore([
             ['kerword', ''],
@@ -47,8 +44,7 @@ class LiveAnchor extends AuthController
     /**
      * Thêm mẫu sửa đổi
      * @return mixed
-     */
-    public function add()
+     */    public function add()
     {
         list($id) = $this->request->getMore([
             ['id', 0],
@@ -59,8 +55,7 @@ class LiveAnchor extends AuthController
     /**
      * Lưu dữ liệu biểu mẫu nhãn
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -79,11 +74,10 @@ class LiveAnchor extends AuthController
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @return mixed
      * @throws \Exception
-     */
-    public function delete()
+     */    public function delete()
     {
         list($id) = $this->request->getMore([
             ['id', 0],
@@ -98,8 +92,7 @@ class LiveAnchor extends AuthController
      * @param string $id
      * @param string $is_show
      * @return mixed
-     */
-    public function setShow($id = '', $is_show = '')
+     */    public function setShow($id = '', $is_show = '')
     {
         if ($is_show == '' || $id == '') return app('json')->fail('Lỗi tham số');
         $this->services->setShow((int)$id, (int)$is_show);
@@ -109,8 +102,7 @@ class LiveAnchor extends AuthController
     /**
      * Đồng bộ hóa neo
      * @return mixed
-     */
-    public function syncAnchor()
+     */    public function syncAnchor()
     {
         $this->services->syncAnchor();
         return app('json')->success('Đồng bộ hóa thành công');

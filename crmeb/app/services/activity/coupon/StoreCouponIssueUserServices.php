@@ -20,15 +20,13 @@ use app\dao\activity\coupon\StoreCouponIssueUserDao;
  * @package app\services\coupon
  * @method  getColumn(array $where, string $field, ?string $key = '')
  * @method  delIssueUserCoupon(array $where)
- */
-class StoreCouponIssueUserServices extends BaseServices
+ */class StoreCouponIssueUserServices extends BaseServices
 {
 
     /**
      * StoreCouponIssueUserServices constructor.
      * @param StoreCouponIssueUserDao $dao
-     */
-    public function __construct(StoreCouponIssueUserDao $dao)
+     */    public function __construct(StoreCouponIssueUserDao $dao)
     {
         $this->dao = $dao;
     }
@@ -37,8 +35,7 @@ class StoreCouponIssueUserServices extends BaseServices
      * Nhận danh sách
      * @param array $where
      * @return array
-     */
-    public function issueLog(array $where)
+     */    public function issueLog(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);

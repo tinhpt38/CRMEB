@@ -19,29 +19,25 @@ use think\Model;
  * Mô hình cấu hình dữ liệu kết hợp
  * Class SystemGroup
  * @package app\model\system\config
- */
-class SystemGroup extends BaseModel
+ */class SystemGroup extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_group';
+     */    protected $name = 'system_group';
 
     /**
      * Trình tìm kiếm tên cấu hình
      * @param Model $query
      * @param $value
-     */
-    public function searchConfigNameAttr($query, $value)
+     */    public function searchConfigNameAttr($query, $value)
     {
         $query->where('config_name', $value);
     }
@@ -49,8 +45,7 @@ class SystemGroup extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchTitleAttr($query, $value)
+     */    public function searchTitleAttr($query, $value)
     {
         if ($value != '') {
             $query->whereLIke('id|name|info|config_name', "%$value%");
@@ -61,8 +56,7 @@ class SystemGroup extends BaseModel
      * Phân loại truy vấn
      * @param Model $query
      * @param $value
-     */
-    public function searchCateIdAttr($query, $value)
+     */    public function searchCateIdAttr($query, $value)
     {
         $query->where('cate_id', $value);
     }

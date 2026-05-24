@@ -19,15 +19,13 @@ use app\model\activity\combination\StorePink;
  *
  * Class StorePinkDao
  * @package app\dao\activity
- */
-class StorePinkDao extends BaseDao
+ */class StorePinkDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StorePink::class;
     }
@@ -36,8 +34,7 @@ class StorePinkDao extends BaseDao
      * Lấy số lượng nhóm đã đặt
      * @param array $where
      * @return array
-     */
-    public function getPinkCount(array $where = [])
+     */    public function getPinkCount(array $where = [])
     {
         return $this->getModel()->where($where)->group('cid')->column('count(*)', 'cid');
     }
@@ -51,8 +48,7 @@ class StorePinkDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, int $page = 0, int $limit = 0)
+     */    public function getList(array $where, int $page = 0, int $limit = 0)
     {
         return $this->search($where, false)->when($where['k_id'] != 0, function ($query) use ($where) {
             $query->whereOr('id', $where['k_id']);
@@ -70,8 +66,7 @@ class StorePinkDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPinking(array $where)
+     */    public function getPinking(array $where)
     {
         return $this->search($where)->order('add_time asc')->find();
     }
@@ -83,8 +78,7 @@ class StorePinkDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function pinkList(array $where)
+     */    public function pinkList(array $where)
     {
         return $this->search($where)
             ->where('stop_time', '>', time())
@@ -96,8 +90,7 @@ class StorePinkDao extends BaseDao
      * Lấy số lượng người đang tham gia nhóm
      * @param int $kid
      * @return int
-     */
-    public function getPinkPeople(int $kid)
+     */    public function getPinkPeople(int $kid)
     {
         return $this->count(['k_id' => $kid, 'is_refund' => 0]) + 1;
     }
@@ -106,8 +99,7 @@ class StorePinkDao extends BaseDao
      * Lấy số lượng người đang tham gia nhóm
      * @param array $kids
      * @return int
-     */
-    public function getPinkPeopleCount(array $kids)
+     */    public function getPinkPeopleCount(array $kids)
     {
         $count = $this->getModel()->whereIn('k_id', $kids)->where('is_refund', 0)->group('k_id')->column('COUNT(id) as count', 'k_id');
         $counts = [];
@@ -128,8 +120,7 @@ class StorePinkDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function successList(int $uid)
+     */    public function successList(int $uid)
     {
         return $this->search(['status' => 2, 'is_refund' => 0])
 //            ->where('uid', '<>', $uid)
@@ -142,8 +133,7 @@ class StorePinkDao extends BaseDao
      * Lấy số lượng câu đố nhóm đã hoàn thành
      * @return float
      * @throws \ReflectionException
-     */
-    public function getPinkOkSumTotalNum()
+     */    public function getPinkOkSumTotalNum()
     {
         return $this->sum(['status' => 2, 'is_refund' => 0], 'total_num');
     }
@@ -153,8 +143,7 @@ class StorePinkDao extends BaseDao
      * @param int $id
      * @param int $uid
      * @return int
-     */
-    public function isPink(int $id, int $uid)
+     */    public function isPink(int $id, int $uid)
     {
         return $this->getModel()->where('k_id|id', $id)->where('uid', $uid)->where('is_refund', 0)->count();
     }
@@ -166,8 +155,7 @@ class StorePinkDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPinkUserOne(int $id)
+     */    public function getPinkUserOne(int $id)
     {
         return $this->search()->with('getProduct')->find($id);
     }
@@ -179,8 +167,7 @@ class StorePinkDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPinkUserList(array $where)
+     */    public function getPinkUserList(array $where)
     {
         return $this->getModel()->where($where)->with('getProduct')->select()->toArray();
     }
@@ -191,8 +178,7 @@ class StorePinkDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function pinkListEnd()
+     */    public function pinkListEnd()
     {
         return $this->getModel()->where('stop_time', '<=', time())
             ->where('status', 1)

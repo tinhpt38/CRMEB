@@ -17,18 +17,16 @@ use app\services\BaseServices;
 use app\dao\user\UserUserBrokerageDao;
 
 /**
- * Hoa hồng liên kết người dùng
+ * Hoa hồng liên kết Khách hàng
  * Class UserUserBrokerageServices
  * @package app\services\user
- */
-class UserUserBrokerageServices extends BaseServices
+ */class UserUserBrokerageServices extends BaseServices
 {
 
     /**
      * UserUserBrokerageServices constructor.
      * @param UserUserBrokerageDao $dao
-     */
-    public function __construct(UserUserBrokerageDao $dao)
+     */    public function __construct(UserUserBrokerageDao $dao)
     {
         $this->dao = $dao;
     }
@@ -40,8 +38,7 @@ class UserUserBrokerageServices extends BaseServices
      * @param string $order
      * @param int $limit
      * @return array
-     */
-    public function getBrokerageList(array $where, string $field = '*', string $order = '', int $limit = 0)
+     */    public function getBrokerageList(array $where, string $field = '*', string $order = '', int $limit = 0)
     {
         if ($limit) {
             [$page] = $this->getPageValue();

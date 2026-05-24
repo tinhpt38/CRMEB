@@ -18,15 +18,13 @@ use app\model\agent\AgentLevelTask;
 /**
  * Class AgentLevelTaskDao
  * @package app\dao\agent
- */
-class AgentLevelTaskDao extends BaseDao
+ */class AgentLevelTaskDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return AgentLevelTask::class;
     }
@@ -42,8 +40,7 @@ class AgentLevelTaskDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTaskList(array $where, string $field = '*', array $with = [], int $page = 0, int $limit = 0)
+     */    public function getTaskList(array $where, string $field = '*', array $with = [], int $page = 0, int $limit = 0)
     {
         return $this->search($where)->when($with, function ($query) use ($with) {
             $query->with($with);
@@ -53,15 +50,14 @@ class AgentLevelTaskDao extends BaseDao
     }
 
     /**
-     * Nhận tất cả các nhiệm vụ cùng loại
+     * Nhận Tất cả các nhiệm vụ cùng loại
      * @param int $type
      * @param int $grade
      * @return array|\think\Model|null
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTypTaskList(int $type)
+     */    public function getTypTaskList(int $type)
     {
         return $this->getModel()->with(['level' => function ($query) {
             $query->field('id,grade')->where('status', 1)->where('is_del', 0)->bind(['grade']);

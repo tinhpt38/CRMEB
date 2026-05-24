@@ -20,16 +20,14 @@ use crmeb\services\CacheService;
  * Tài khoản công khai WeChat
  * Class WechatController
  * @package app\api\controller\wechat
- */
-class WechatController
+ */class WechatController
 {
     protected $services = NUll;
 
     /**
      * WechatController constructor.
      * @param WechatAuthServices $services
-     */
-    public function __construct(WechatAuthServices $services)
+     */    public function __construct(WechatAuthServices $services)
     {
         $this->services = $services;
     }
@@ -37,8 +35,7 @@ class WechatController
     /**
      * Dịch vụ tài khoản công cộng WeChat
      * @return \think\Response
-     */
-    public function serve()
+     */    public function serve()
     {
         return $this->services->serve();
     }
@@ -46,16 +43,14 @@ class WechatController
     /**
      * Dịch vụ tài khoản công cộng chương trình mini WeChat
      * @return \think\Response
-     */
-    public function miniServe()
+     */    public function miniServe()
     {
         return $this->services->miniServe();
     }
 
     /**
      * Trả tiền gọi lại không đồng bộ
-     */
-    public function notify()
+     */    public function notify()
     {
         return $this->services->notify();
     }
@@ -69,8 +64,7 @@ class WechatController
      * Lấy thông tin cấu hình quyền tài khoản công cộng
      * @param Request $request
      * @return mixed
-     */
-    public function config(Request $request)
+     */    public function config(Request $request)
     {
         return app('json')->success($this->services->config($request->get('url')));
     }
@@ -82,8 +76,7 @@ class WechatController
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function appAuth(Request $request)
+     */    public function appAuth(Request $request)
     {
         [$userInfo, $phone, $captcha] = $request->postMore([
             ['userInfo', []],
@@ -118,8 +111,7 @@ class WechatController
      * Theo dõi mã QR
      * @return mixed
      * @throws \Exception
-     */
-    public function follow()
+     */    public function follow()
     {
         $data = $this->services->follow();
         if ($data) {

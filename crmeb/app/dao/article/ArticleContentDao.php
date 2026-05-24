@@ -19,14 +19,12 @@ use app\model\article\ArticleContent;
  * Chi tiết bài viết
  * Class ArticleContentDao
  * @package app\dao\article
- */
-class ArticleContentDao extends BaseDao
+ */class ArticleContentDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return ArticleContent::class;
     }
@@ -36,8 +34,7 @@ class ArticleContentDao extends BaseDao
      * @param int $id
      * @return bool
      * @throws \Exception
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
         return $this->getModel()->where('nid',$id)->delete();
     }

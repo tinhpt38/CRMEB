@@ -19,19 +19,17 @@ use app\services\BaseServices;
  * Class TemplateMessageServices
  * @package app\services\other
  * @method getOne(array $where, ?string $field = '*')  Nhận tin nhắn
- * @method save(array $data) Thêm vào
+ * @method save(array $data) Thêm mới
  * @method get(int $id, ?array $field = []) Nhận tin nhắn
  * @method update($id, array $data, ?string $key = null) Cập nhật dữ liệu
- * @method delete($id, ?string $key = null) xóa bỏ
- */
-class TemplateMessageServices extends BaseServices
+ * @method delete($id, ?string $key = null) Xóa
+ */class TemplateMessageServices extends BaseServices
 {
     /**
      * tin nhắn mẫu
      * TemplateMessageServices constructor.
      * @param TemplateMessageDao $dao
-     */
-    public function __construct(TemplateMessageDao $dao)
+     */    public function __construct(TemplateMessageDao $dao)
     {
         $this->dao = $dao;
     }
@@ -43,8 +41,7 @@ class TemplateMessageServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTemplateList(array $where)
+     */    public function getTemplateList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getTemplateList($where, $page, $limit);
@@ -60,8 +57,7 @@ class TemplateMessageServices extends BaseServices
      * @param string $templateId
      * @param int $type
      * @return mixed
-     */
-    public function getTempId(string $templateId, int $type = 0)
+     */    public function getTempId(string $templateId, int $type = 0)
     {
         return $this->dao->value(['type' => $type, 'tempkey' => $templateId, 'status' => 1], 'tempid');
     }

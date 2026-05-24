@@ -19,34 +19,30 @@ use app\services\kefu\service\StoreServiceServices;
 /**
  * Class StoreService
  * @package app\api\controller\v2\user
- */
-class StoreService
+ */class StoreService
 {
 
     /**
      * @var StoreServiceLogServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * StoreService constructor.
      * @param StoreServiceLogServices $services
-     */
-    public function __construct(StoreServiceLogServices $services)
+     */    public function __construct(StoreServiceLogServices $services)
     {
         $this->services = $services;
     }
 
     /**
-     * Lịch sử trò chuyện dịch vụ khách hàng
+     * Lịch sử trò chuyện CSKH
      * @param Request $request
      * @param StoreServiceServices $services
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function record(Request $request, StoreServiceServices $services)
+     */    public function record(Request $request, StoreServiceServices $services)
     {
         [$uidTo, $limit, $toUid] = $request->getMore([
             [['uidTo', 'd'], 0],

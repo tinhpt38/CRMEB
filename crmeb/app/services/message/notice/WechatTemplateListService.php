@@ -24,15 +24,13 @@ use think\facade\Log;
  * Created by PhpStorm.
  * User: xurongyao <763569752@qq.com>
  * Date: 2021/9/22 1:23 PM
- */
-class WechatTemplateListService extends NoticeService
+ */class WechatTemplateListService extends NoticeService
 {
     /**
      * Nhận dựa trên UIDopenid
      * @param int $uid
      * @return mixed
-     */
-    public function getOpenidByUid(int $uid)
+     */    public function getOpenidByUid(int $uid)
     {
         $isDel = app()->make(UserServices::class)->value(['uid' => $uid], 'is_del');
         if ($isDel) {
@@ -50,8 +48,7 @@ class WechatTemplateListService extends NoticeService
      * @param string|null $link
      * @param string|null $color
      * @return bool|void
-     */
-    public function sendTemplate(int $uid, array $data, string $link = null, string $color = null)
+     */    public function sendTemplate(int $uid, array $data, string $link = null, string $color = null)
     {
         try {
             if ($this->noticeInfo['is_wechat'] === 1) {
@@ -72,8 +69,7 @@ class WechatTemplateListService extends NoticeService
      * @param $uid
      * @param $order
      * @return bool|void
-     */
-    public function sendOrderPaySuccess($uid, $order)
+     */    public function sendOrderPaySuccess($uid, $order)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string2' => $order['order_id'],
@@ -90,8 +86,7 @@ class WechatTemplateListService extends NoticeService
      * @param $order
      * @param array $data
      * @return bool|void
-     */
-    public function sendOrderDeliver($uid, string $goodsName, $order)
+     */    public function sendOrderDeliver($uid, string $goodsName, $order)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string1' => $order['order_id'],
@@ -103,13 +98,12 @@ class WechatTemplateListService extends NoticeService
     }
 
     /**
-     * Đơn hàng đã được vận chuyển
+     * Đã giao cho ĐVVC
      * @param $uid
      * @param $order
      * @param $storeTitle
      * @return bool|void
-     */
-    public function sendOrderPostage($uid, $order, $storeTitle)
+     */    public function sendOrderPostage($uid, $order, $storeTitle)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string2' => $order['order_id'],
@@ -126,8 +120,7 @@ class WechatTemplateListService extends NoticeService
      * @param $order
      * @param $title
      * @return bool|void
-     */
-    public function sendOrderTakeSuccess($uid, $order, $title)
+     */    public function sendOrderTakeSuccess($uid, $order, $title)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string2' => $order['order_id'],
@@ -143,8 +136,7 @@ class WechatTemplateListService extends NoticeService
      * @param $order
      * @param $title
      * @return bool|void
-     */
-    public function sendOrderRefund($uid, $order, $title)
+     */    public function sendOrderRefund($uid, $order, $title)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string1' => $order['refund_no'],
@@ -160,8 +152,7 @@ class WechatTemplateListService extends NoticeService
      * @param $order
      * @param $title
      * @return bool|void
-     */
-    public function sendOrderNoRefund($uid, $order, $title)
+     */    public function sendOrderNoRefund($uid, $order, $title)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string1' => $order['refund_no'],
@@ -176,8 +167,7 @@ class WechatTemplateListService extends NoticeService
      * @param $uid
      * @param $order
      * @return bool|void
-     */
-    public function sendRechargeSuccess($uid, $order)
+     */    public function sendRechargeSuccess($uid, $order)
     {
         return $this->sendTemplate((int)$uid, [
             'time1' => date('Y-m-d H:i:s', $order['add_time']),
@@ -192,8 +182,7 @@ class WechatTemplateListService extends NoticeService
      * @param $uid
      * @param $extractNumber
      * @return bool|void
-     */
-    public function sendUserExtract($uid, $extractNumber)
+     */    public function sendUserExtract($uid, $extractNumber)
     {
         return $this->sendTemplate((int)$uid, [
             'time3' => date('Y-m-d H:i:s', time()),
@@ -208,8 +197,7 @@ class WechatTemplateListService extends NoticeService
      * @param $order_id
      * @param $type
      * @return bool|void
-     */
-    public function sendRevenueReceived($uid, $extractNumber, $order_id, $type)
+     */    public function sendRevenueReceived($uid, $extractNumber, $order_id, $type)
     {
         return $this->sendTemplate((int)$uid, [
             'character_string9' => $order_id,
@@ -227,11 +215,9 @@ class WechatTemplateListService extends NoticeService
      * @param $status
      * @param $link
      * @return bool
-     */
-    public function sendAdminOrder($orderId, $storeName, $title, $status, $link)
+     */    public function sendAdminOrder($orderId, $storeName, $title, $status, $link)
     {
-        /** @var StoreServiceServices $StoreServiceServices */
-        $StoreServiceServices = app()->make(StoreServiceServices::class);
+        /** @var StoreServiceServices $StoreServiceServices */        $StoreServiceServices = app()->make(StoreServiceServices::class);
         $adminList = $StoreServiceServices->getStoreServiceOrderNotice();
         foreach ($adminList as $item) {
             $this->sendTemplate((int)$item['uid'], [

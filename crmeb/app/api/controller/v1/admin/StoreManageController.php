@@ -29,8 +29,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function statistics()
+     */    public function statistics()
     {
         return app('json')->success($this->services->statistics());
     }
@@ -42,8 +41,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function product(Request $request)
+     */    public function product(Request $request)
     {
         $where = $request->getMore([
             [['page', 'd'], 1],
@@ -61,8 +59,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function productShow(Request $request)
+     */    public function productShow(Request $request)
     {
         [$id, $isShow] = $request->postMore([
             [['id', 'd'], 0],
@@ -73,13 +70,12 @@ class StoreManageController
     }
 
     /**
-     * Thẻ sản phẩm của người bán
+     * Nhãn sản phẩm của người bán
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function productLabel()
+     */    public function productLabel()
     {
         return app('json')->success($this->services->productLabel());
     }
@@ -91,8 +87,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function saveProductLabel(Request $request)
+     */    public function saveProductLabel(Request $request)
     {
         [$ids, $label_list] = $request->postMore([
             ['ids', []],
@@ -104,13 +99,12 @@ class StoreManageController
     }
 
     /**
-     * Phân loại sản phẩm thương mại
+     * Danh mục sản phẩm thương mại
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function productCate()
+     */    public function productCate()
     {
         return app('json')->success($this->services->productCate());
     }
@@ -122,8 +116,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function saveProductCate(Request $request)
+     */    public function saveProductCate(Request $request)
     {
         [$ids, $cate_id] = $request->postMore([
             ['ids', []],
@@ -141,8 +134,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function productAttr($id)
+     */    public function productAttr($id)
     {
         return app('json')->success($this->services->productAttr($id));
     }
@@ -155,8 +147,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function saveProductAttr(Request $request, $id)
+     */    public function saveProductAttr(Request $request, $id)
     {
         [$attr_value] = $request->postMore([
             ['attr_value', []],
@@ -171,11 +162,9 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/8
-     */
-    public function shippingTemp()
+     */    public function shippingTemp()
     {
-        /** @var ShippingTemplatesServices $shippingTemplatesServices */
-        $shippingTemplatesServices = app()->make(ShippingTemplatesServices::class);
+        /** @var ShippingTemplatesServices $shippingTemplatesServices */        $shippingTemplatesServices = app()->make(ShippingTemplatesServices::class);
         $data = $shippingTemplatesServices->getSelectList();
         $data = array_merge([['id' => 0, 'name' => 'Không được chọn']], $data);
         return app('json')->success($data);
@@ -188,8 +177,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/9
-     */
-    public function createProduct(Request $request)
+     */    public function createProduct(Request $request)
     {
         $data = $request->postMore([
             ['store_name', ''],
@@ -209,14 +197,13 @@ class StoreManageController
     }
 
     /**
-     * Danh sách người dùng thương gia
+     * Danh sách Khách hàng thương gia
      * @param Request $request
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function user(Request $request)
+     */    public function user(Request $request)
     {
         $where = $request->getMore([
             ['page', 1],
@@ -230,7 +217,7 @@ class StoreManageController
     }
 
     /**
-     * Thông tin người dùng
+     * Thông tin Khách hàng
      * @param $uid
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -239,14 +226,13 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userInfo($uid)
+     */    public function userInfo($uid)
     {
         return app('json')->success($this->services->userInfo($uid));
     }
 
     /**
-     * Nhóm người dùng
+     * Nhóm khách hàng
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -254,14 +240,13 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userGroup()
+     */    public function userGroup()
     {
         return app('json')->success($this->services->userGroup());
     }
 
     /**
-     * Cấp độ người dùng
+     * Hạng khách hàng
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -269,14 +254,13 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userLevel()
+     */    public function userLevel()
     {
         return app('json')->success($this->services->userLevel());
     }
 
     /**
-     * Thẻ người dùng
+     * Thẻ khách hàng
      * @param int $uid
      * @return \think\Response
      * @throws \think\db\exception\DataNotFoundException
@@ -285,21 +269,19 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userLabel($uid = 0)
+     */    public function userLabel($uid = 0)
     {
         return app('json')->success($this->services->userLabel($uid));
     }
 
     /**
-     * Danh sách phiếu giảm giá người dùng
+     * Danh sách phiếu giảm giá Khách hàng
      * @param Request $request
      * @return \think\Response
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userCoupon(Request $request)
+     */    public function userCoupon(Request $request)
     {
         $where = $request->getMore([
             ['page', 1],
@@ -311,7 +293,7 @@ class StoreManageController
     }
 
     /**
-     * Sửa đổi thông tin người dùng
+     * Sửa đổi thông tin Khách hàng
      * @param Request $request
      * @param $uid
      * @return \think\Response
@@ -322,8 +304,7 @@ class StoreManageController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userUpdate(Request $request, $uid)
+     */    public function userUpdate(Request $request, $uid)
     {
         $data = $request->postMore([
             ['type', 0],

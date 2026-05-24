@@ -18,8 +18,7 @@ use app\model\diy\ThemeDownload;
  * @author wuhaotian
  * @email 442384644@qq.com
  * @date 2026/3/10
- */
-class ThemeDownloadDao extends BaseDao
+ */class ThemeDownloadDao extends BaseDao
 {
     /**
      * Lấy tên lớp mô hình
@@ -27,8 +26,7 @@ class ThemeDownloadDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return ThemeDownload::class;
     }
@@ -40,8 +38,7 @@ class ThemeDownloadDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function getConditionModel(array $where)
+     */    public function getConditionModel(array $where)
     {
         return $this->getModel()
             ->when(isset($where['tid']) && $where['tid'] !== '', function ($query) use ($where) {
@@ -66,8 +63,7 @@ class ThemeDownloadDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function themeDownloadList(array $where, string $field = '*', int $page = 0, int $limit = 0, string $order = 'id desc'): array
+     */    public function themeDownloadList(array $where, string $field = '*', int $page = 0, int $limit = 0, string $order = 'id desc'): array
     {
         return $this->getConditionModel($where)
             ->field($field)
@@ -84,8 +80,7 @@ class ThemeDownloadDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2026/3/10
-     */
-    public function themeDownloadCount(array $where): int
+     */    public function themeDownloadCount(array $where): int
     {
         return $this->getConditionModel($where)->count();
     }

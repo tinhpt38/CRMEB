@@ -18,18 +18,16 @@ use crmeb\exceptions\AdminException;
 use crmeb\services\FormBuilder;
 
 /**
- * Phản hồi về dịch vụ khách hàng
+ * Phản hồi về CSKH
  * Class StoreServiceFeedbackServices
  * @package app\services\kefu\service
- */
-class StoreServiceFeedbackServices extends BaseServices
+ */class StoreServiceFeedbackServices extends BaseServices
 {
 
     /**
      * StoreServiceFeedbackServices constructor.
      * @param StoreServiceFeedbackDao $dao
-     */
-    public function __construct(StoreServiceFeedbackDao $dao)
+     */    public function __construct(StoreServiceFeedbackDao $dao)
     {
         $this->dao = $dao;
     }
@@ -41,8 +39,7 @@ class StoreServiceFeedbackServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFeedbackList(array $where)
+     */    public function getFeedbackList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getFeedback($where, $page, $limit);
@@ -58,12 +55,11 @@ class StoreServiceFeedbackServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function editForm(int $id)
+     */    public function editForm(int $id)
     {
         $feedInfo = $this->dao->get($id);
         if (!$feedInfo) {
-            throw new AdminException('Không tìm thấy nội dung phản hồi');
+            throw new AdminException('Không tìm thấy Nội dung phản hồi');
         }
         $feedInfo = $feedInfo->toArray();
         $field = [

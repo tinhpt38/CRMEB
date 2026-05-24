@@ -23,15 +23,13 @@ use think\facade\App;
  * Bộ điều khiển trước khi bán
  * Class StoreAdvance
  * @package app\adminapi\controller\v1\marketing
- */
-class StoreAdvance extends AuthController
+ */class StoreAdvance extends AuthController
 {
     /**
      * StoreAdvance constructor.
      * @param App $app
      * @param StoreAdvanceServices $services
-     */
-    public function __construct(App $app, StoreAdvanceServices $services)
+     */    public function __construct(App $app, StoreAdvanceServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -40,8 +38,7 @@ class StoreAdvance extends AuthController
     /**
      * Quản lý kết thúc danh sách bán trước
      * @return mixed
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['title', ''],
@@ -56,8 +53,7 @@ class StoreAdvance extends AuthController
      * Thêm/sửa đổi các mặt hàng bán trước
      * @param $id
      * @return mixed
-     */
-    public function save($id)
+     */    public function save($id)
     {
         $data = $this->request->postMore([
             [['product_id', 'd'], 0],
@@ -82,20 +78,17 @@ class StoreAdvance extends AuthController
             ['copy', 0]
         ]);
         if (!$id) {
-            /** @var StoreSeckillServices $storeSeckillService */
-            $storeSeckillService = app()->make(StoreSeckillServices::class);
+            /** @var StoreSeckillServices $storeSeckillService */            $storeSeckillService = app()->make(StoreSeckillServices::class);
             $res1 = $storeSeckillService->count(['product_id' => $data['product_id'], 'is_del' => 0, 'status' => 1, 'seckill_time' => 1]);
             if ($res1) {
                 throw new AdminException('Sản phẩm được mở để tham gia vào các hoạt động khác, nhưng không thể bắt đầu bán trước.');
             }
-            /** @var StoreBargainServices $storeBargainService */
-            $storeBargainService = app()->make(StoreBargainServices::class);
+            /** @var StoreBargainServices $storeBargainService */            $storeBargainService = app()->make(StoreBargainServices::class);
             $res2 = $storeBargainService->count(['product_id' => $data['product_id'], 'is_del' => 0, 'status' => 1, 'bargain_time' => 1]);
             if ($res2) {
                 throw new AdminException('Sản phẩm được mở để tham gia vào các hoạt động khác, nhưng không thể bắt đầu bán trước.');
             }
-            /** @var StoreCombinationServices $storeCombinationService */
-            $storeCombinationService = app()->make(StoreCombinationServices::class);
+            /** @var StoreCombinationServices $storeCombinationService */            $storeCombinationService = app()->make(StoreCombinationServices::class);
             $res3 = $storeCombinationService->count(['product_id' => $data['product_id'], 'is_del' => 0, 'is_show' => 1, 'pinkIngTime' => 1]);
             if ($res3) {
                 throw new AdminException('Sản phẩm được mở để tham gia vào các hoạt động khác, nhưng không thể bắt đầu bán trước.');
@@ -109,8 +102,7 @@ class StoreAdvance extends AuthController
      * Chi tiết
      * @param $id
      * @return mixed
-     */
-    public function info($id)
+     */    public function info($id)
     {
         $info = $this->services->getInfo($id);
         return app('json')->success(compact('info'));
@@ -120,8 +112,7 @@ class StoreAdvance extends AuthController
      * Xóa bán trước
      * @param $id
      * @return mixed
-     */
-    public function del($id)
+     */    public function del($id)
     {
         $res = $this->services->update($id, ['is_del' => 1]);
         if ($res) {
@@ -136,8 +127,7 @@ class StoreAdvance extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function setStatus($id, $status)
+     */    public function setStatus($id, $status)
     {
         $res = $this->services->update($id, ['status' => $status]);
         if ($res) {

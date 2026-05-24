@@ -20,8 +20,7 @@ use think\Model;
  * Nhiệm vụ cấp nhà phân phối
  * Class AgentLevelTask
  * @package app\model\agent
- */
-class AgentLevelTask extends BaseModel
+ */class AgentLevelTask extends BaseModel
 {
 
     use ModelTrait;
@@ -29,20 +28,17 @@ class AgentLevelTask extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'agent_level_task';
+     */    protected $name = 'agent_level_task';
 
     /**
      * Cấp độ nhà phân phối liên kết
      * @return \think\model\relation\HasOne
-     */
-    public function level()
+     */    public function level()
     {
         return $this->hasOne(AgentLevel::class, 'id', 'level_id');
     }
@@ -50,8 +46,7 @@ class AgentLevelTask extends BaseModel
     /**
      * Hồ sơ hoàn thành nhiệm vụ liên quan
      * @return \think\model\relation\HasMany
-     */
-    public function record()
+     */    public function record()
     {
         return $this->hasMany(AgentLevelTaskRecord::class, 'task_id', 'id');
     }
@@ -60,8 +55,7 @@ class AgentLevelTask extends BaseModel
      * người tìm kiếm từ khóa
      * @param $query Model
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value !== '') $query->where('id|name|desc', 'like', '%' . $value . '%');
     }
@@ -70,8 +64,7 @@ class AgentLevelTask extends BaseModel
      * Công cụ tìm loại nhiệm vụ
      * @param $query Model
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('type', $value);
@@ -85,8 +78,7 @@ class AgentLevelTask extends BaseModel
      * Trình tìm kiếm cấp độ nhà phân phối
      * @param $query Model
      * @param $value
-     */
-    public function searchLevelIdAttr($query, $value)
+     */    public function searchLevelIdAttr($query, $value)
     {
         if (is_array($value)) {
             $query->whereIn('Level_id', $value);
@@ -101,8 +93,7 @@ class AgentLevelTask extends BaseModel
      * công cụ tìm trạng thái
      * @param $query Model
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') $query->where('status', $value);
     }
@@ -111,8 +102,7 @@ class AgentLevelTask extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param $query Model
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }

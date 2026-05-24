@@ -12,8 +12,7 @@ use think\facade\Route;
 
 /**
  * Định tuyến liên quan đến quản lý người bán
- */
-Route::group('freight', function () {
+ */Route::group('freight', function () {
     //Định tuyến tài nguyên công ty hậu cần
     Route::resource('express', 'v1.freight.Express')->except(['read'])->name('ExpressResource')->option([
         'real_name' => [

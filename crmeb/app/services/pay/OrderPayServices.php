@@ -26,14 +26,12 @@ use think\exception\ValidateException;
  * Thanh toán bắt đầu đặt hàng
  * Class OrderPayServices
  * @package app\services\pay
- */
-class OrderPayServices
+ */class OrderPayServices
 {
     /**
      * chi trả
      * @var PayServices
-     */
-    protected $payServices;
+     */    protected $payServices;
 
     public function __construct(PayServices $services)
     {
@@ -47,15 +45,14 @@ class OrderPayServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/15
-     */
-    public function getPayType(string $payType)
+     */    public function getPayType(string $payType)
     {
-        //Thanh toán WeChat không được bật, thanh toán Tonglian được bật và người dùng sử dụng thanh toán Tonglian WeChat H5 khi truy cập chương trình nhỏ hoặc tài khoản chính thức.
+        //Thanh toán WeChat không được bật, Thanh toán Tonglian được bật và Khách hàng sử dụng Thanh toán Tonglian WeChat H5 khi truy cập chương trình nhỏ hoặc tài khoản chính thức.
         if ($payType == PayServices::WEIXIN_PAY && !request()->isH5() && !request()->isApp()) {
             $payType = sys_config('pay_weixin_open', 0);
         }
 
-        //Alipay chưa được bật nhưng Tonglian Pay đã được bật. Người dùng sử dụng Alipay để thanh toán và khi truy cập ứng dụng, hãy sử dụng ứng dụng Tonglian Alipay để thanh toán.
+        //Alipay chưa được bật nhưng Tonglian Pay đã được bật. Người dùng sử dụng Alipay để thanh toán và khi truy cập Ứng dụng, hãy sử dụng Ứng dụng Tonglian Alipay để thanh toán.
         if ($payType == PayServices::ALIAPY_PAY && request()->isApp()) {
             $payType = sys_config('ali_pay_status', 0);
         }
@@ -70,8 +67,7 @@ class OrderPayServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/15
-     */
-    public function payStatus(string $payType)
+     */    public function payStatus(string $payType)
     {
         if ($payType == PayServices::WEIXIN_PAY) {
             if (request()->isH5()) {
@@ -85,6 +81,12 @@ class OrderPayServices
             $payStstus = 'alipay_pay';
         } else if ($payType == PayServices::ALLIN_PAY) {
             $payStstus = 'allinpay_pay';
+        } else if ($payType == PayServices::VN_VNPAY) {
+            $payStstus = 'vnpay_pay';
+        } else if ($payType == PayServices::VN_MOMO) {
+            $payStstus = 'momo_pay';
+        } else if ($payType == PayServices::VN_ZALOPAY) {
+            $payStstus = 'zalopay_pay';
         } else {
             throw new ValidateException('Không thể lấy được loại trả lại thanh toán');
         }
@@ -103,8 +105,7 @@ class OrderPayServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/15
-     */
-    public function beforePay(array $orderInfo, string $payType, array $options = [])
+     */    public function beforePay(array $orderInfo, string $payType, array $options = [])
     {
         $wechat = $payType == PayServices::WEIXIN_PAY;
 
@@ -126,11 +127,10 @@ class OrderPayServices
                     } else {
                         $userType = 'routine';
                     }
-                    /** @var WechatUserServices $services */
-                    $services = app()->make(WechatUserServices::class);
+                    /** @var WechatUserServices $services */                    $services = app()->make(WechatUserServices::class);
                     $openid = $services->uidToOpenid($orderInfo['pay_uid'] ?? $orderInfo['uid'], $userType);
                     if (!$openid) {
-                        throw new ApiException('Không thể lấy openid người dùng,Không thể thanh toán');
+                        throw new ApiException('Không thể lấy openid Khách hàng,Không thể thanh toán');
                     }
                 }
                 $options['openid'] = $openid;
@@ -145,6 +145,11 @@ class OrderPayServices
                     $options['returnUrl'] = sys_config('site_url') . '/pages/goods/order_pay_status/index?order_id=' . $orderInfo['order_id'];
                 }
                 break;
+            case PayServices::VN_VNPAY:
+            case PayServices::VN_MOMO:
+            case PayServices::VN_ZALOPAY:
+                $options['quitUrl'] = $options['quitUrl'] ?? (sys_config('site_url') . '/pages/goods/order_pay_status/index?order_id=' . $orderInfo['order_id']);
+                break;
         }
 
 
@@ -152,17 +157,14 @@ class OrderPayServices
         if (isset($orderInfo['member_type'])) {
             $body = Str::substrUTf8($site_name . '--' . $orderInfo['member_type'], 20);
             $successAction = "member";
-            /** @var OtherOrderServices $otherOrderServices */
-            $otherOrderServices = app()->make(OtherOrderServices::class);
+            /** @var OtherOrderServices $otherOrderServices */            $otherOrderServices = app()->make(OtherOrderServices::class);
             $otherOrderServices->update($orderInfo['id'], ['pay_type' => $payType]);
         } else {
-            /** @var StoreOrderCartInfoServices $orderInfoServices */
-            $orderInfoServices = app()->make(StoreOrderCartInfoServices::class);
+            /** @var StoreOrderCartInfoServices $orderInfoServices */            $orderInfoServices = app()->make(StoreOrderCartInfoServices::class);
             $body = $orderInfoServices->getCarIdByProductTitle((int)$orderInfo['id']);
             $body = Str::substrUTf8($site_name . '--' . $body, 20);
             $successAction = "product";
-            /** @var StoreOrderServices $orderServices */
-            $orderServices = app()->make(StoreOrderServices::class);
+            /** @var StoreOrderServices $orderServices */            $orderServices = app()->make(StoreOrderServices::class);
             $orderServices->update($orderInfo['id'], ['pay_type' => $payType]);
         }
 
@@ -192,8 +194,7 @@ class OrderPayServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/15
-     */
-    public function afterPay($order, $jsConfig, string $payType)
+     */    public function afterPay($order, $jsConfig, string $payType)
     {
         $payKey = md5($order['order_id']);
         switch ($payType) {
@@ -205,6 +206,13 @@ class OrderPayServices
                 if (request()->isWechat()) {
                     $payUrl = AllinPay::UNITODER_H5UNIONPAY;
                 }
+                break;
+            case PayServices::VN_VNPAY:
+                $payUrl = is_string($jsConfig) ? $jsConfig : '';
+                break;
+            case PayServices::VN_MOMO:
+            case PayServices::VN_ZALOPAY:
+                $payUrl = is_array($jsConfig) ? (string)($jsConfig['pay_url'] ?? '') : '';
                 break;
             case PayServices::WEIXIN_PAY:
                 if (isset($jsConfig['mweb_url'])) {

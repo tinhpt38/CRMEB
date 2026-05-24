@@ -18,20 +18,17 @@ use app\services\product\product\StoreCategoryServices;
  * Bộ điều khiển danh mục sản phẩm
  * Class StoreCategory
  * @package app\outapi\controller
- */
-class StoreCategory extends AuthController
+ */class StoreCategory extends AuthController
 {
     /**
      * @var StoreCategoryServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * StoreCategory constructor.
      * @param App $app
      * @param StoreCategoryServices $services
-     */
-    public function __construct(App $app, StoreCategoryServices $services)
+     */    public function __construct(App $app, StoreCategoryServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -43,8 +40,7 @@ class StoreCategory extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function index()
+     */    public function index()
     {
         $where = $this->request->getMore([
             ['is_show', ''],
@@ -59,8 +55,7 @@ class StoreCategory extends AuthController
     /**
      * Thêm danh mục mới
      * @return mixed
-     */
-    public function save()
+     */    public function save()
     {
         $data = $this->request->postMore([
             ['pid', 0],
@@ -79,8 +74,7 @@ class StoreCategory extends AuthController
      * Cập nhật danh mục
      * @param $id
      * @return mixed
-     */
-    public function update($id)
+     */    public function update($id)
     {
         $data = $this->request->postMore([
             ['pid', 0],
@@ -99,8 +93,7 @@ class StoreCategory extends AuthController
      * Xóa danh mục
      * @param $id
      * @return mixed
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         $this->services->del((int)$id);
         return app('json')->success('Xóa thành công');
@@ -110,8 +103,7 @@ class StoreCategory extends AuthController
      * Chi tiết
      * @param $id
      * @return mixed
-     */
-    public function read($id)
+     */    public function read($id)
     {
         $info = $this->services->getInfo((int)$id);
         return app('json')->success($info);
@@ -121,8 +113,7 @@ class StoreCategory extends AuthController
      * Sửa đổi trạng thái
      * @param string $id
      * @param string $is_show
-     */
-    public function set_show($id = '', $is_show = '')
+     */    public function set_show($id = '', $is_show = '')
     {
         if ( $id == '' || $is_show == '') return app('json')->fail('Lỗi tham số');
         $this->services->setShow((int)$id, (int)$is_show);

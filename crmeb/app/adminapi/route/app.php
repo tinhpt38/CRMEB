@@ -11,12 +11,10 @@
 use think\facade\Route;
 
 /**
- * Định tuyến liên quan đến mô-đun ứng dụng
- */
-Route::group('app', function () {
+ * Định tuyến liên quan đến mô-đun Ứng dụng
+ */Route::group('app', function () {
 
-    /** Tài khoản chính thức */
-    Route::group(function () {
+    /** Tài khoản chính thức */    Route::group(function () {
         //giá trị thực đơn
         Route::get('wechat/menu', 'v1.application.wechat.menus/index')->option(['real_name' => 'Danh sách menu tài khoản công khai WeChat']);
         //lưu thực đơn
@@ -49,8 +47,7 @@ Route::group('app', function () {
         Route::get('wechat/syncSubscribe', 'v1.application.wechat.WechatTemplate/syncSubscribe')->name('syncSubscribe')->option(['real_name' => 'Đồng bộ hóa tin nhắn mẫu bằng một cú nhấp chuột']);
     })->option(['parent' => 'app', 'cate_name' => 'Tài khoản chính thức']);
 
-    /** Chương trình nhỏ */
-    Route::group(function () {
+    /** Chương trình nhỏ */    Route::group(function () {
         //Đồng bộ hóa tin nhắn đăng ký bằng một cú nhấp chuột
         Route::get('routine/syncSubscribe', 'v1.application.routine.RoutineTemplate/syncSubscribe')->name('syncSubscribe')->option(['real_name' => 'Đồng bộ hóa tin nhắn đăng ký bằng một cú nhấp chuột']);
         //Tải xuống dữ liệu trang mẫu chương trình nhỏ
@@ -61,8 +58,8 @@ Route::group('app', function () {
         // ==================== Tải lên tự động CI chương trình nhỏ ====================
         //Nhận trạng thái môi trường đang chạy
         Route::get('routine/ci/environment', 'v1.application.routine.RoutineCI/environment')->option(['real_name' => 'Có được môi trường chạy CI chương trình nhỏ']);
-        //Nhận hướng dẫn cài đặt
-        Route::get('routine/ci/guide', 'v1.application.routine.RoutineCI/installGuide')->option(['real_name' => 'Nhận hướng dẫn cài đặt môi trường']);
+        //Nhận hướng dẫn Cài đặt
+        Route::get('routine/ci/guide', 'v1.application.routine.RoutineCI/installGuide')->option(['real_name' => 'Nhận hướng dẫn Cài đặt môi trường']);
         //Nhận cấu hình tải lên
         Route::get('routine/ci/config', 'v1.application.routine.RoutineCI/uploadConfig')->option(['real_name' => 'Nhận cấu hình tải lên chương trình nhỏ']);
         //Lưu khóa tải lên
@@ -80,8 +77,7 @@ Route::group('app', function () {
 
     })->option(['parent' => 'app', 'cate_name' => 'Chương trình nhỏ']);
 
-    /** Mã kênh tài khoản chính thức */
-    Route::group(function () {
+    /** Mã kênh tài khoản chính thức */    Route::group(function () {
         Route::get('wechat_qrcode/cate/list', 'v1.application.wechat.WechatQrcode/getCateList')->option(['real_name' => 'Danh sách phân loại mã kênh']);
         Route::get('wechat_qrcode/cate/create/:id', 'v1.application.wechat.WechatQrcode/createForm')->option(['real_name' => 'Thêm biểu mẫu chỉnh sửa cho danh mục mã kênh']);
         Route::post('wechat_qrcode/cate/save', 'v1.application.wechat.WechatQrcode/saveCate')->option(['real_name' => 'Phân loại và lưu trữ mã kênh']);
@@ -91,68 +87,67 @@ Route::group('app', function () {
         Route::get('wechat_qrcode/list', 'v1.application.wechat.WechatQrcode/qrcodeList')->option(['real_name' => 'Danh sách mã kênh']);
         Route::delete('wechat_qrcode/del/:id', 'v1.application.wechat.WechatQrcode/delQrcode')->option(['real_name' => 'Xóa mã kênh']);
         Route::put('wechat_qrcode/set_status/:id/:status', 'v1.application.wechat.WechatQrcode/setStatus')->option(['real_name' => 'Chuyển trạng thái mã kênh']);
-        Route::get('wechat_qrcode/user_list/:qid', 'v1.application.wechat.WechatQrcode/userList')->option(['real_name' => 'Danh sách người dùng mã kênh']);
+        Route::get('wechat_qrcode/user_list/:qid', 'v1.application.wechat.WechatQrcode/userList')->option(['real_name' => 'Danh sách Khách hàng mã kênh']);
         Route::get('wechat_qrcode/statistic/:qid', 'v1.application.wechat.WechatQrcode/qrcodeStatistic')->option(['real_name' => 'Thống kê mã kênh']);
     })->option(['parent' => 'app', 'cate_name' => 'Mã kênh tài khoản chính thức']);
 
-    /** Dịch vụ khách hàng liên quan */
-    Route::group(function () {
-        //Giao diện phản hồi dịch vụ khách hàng
+    /** Dịch vụ khách hàng liên quan */    Route::group(function () {
+        //Giao diện phản hồi CSKH
         Route::resource('feedback', 'v1.kefu.StoreServiceFeedback')->only(['index', 'delete', 'update', 'edit'])->option([
             'real_name' => [
-                'index' => 'Nhận danh sách phản hồi của người dùng',
-                'edit' => 'Nhận mẫu phản hồi của người dùng đã sửa đổi',
-                'update' => 'Sửa đổi phản hồi của người dùng',
-                'delete' => 'Xóa phản hồi của người dùng'
+                'index' => 'Nhận danh sách phản hồi của Khách hàng',
+                'edit' => 'Nhận mẫu phản hồi của Khách hàng đã sửa đổi',
+                'update' => 'Sửa đổi phản hồi của Khách hàng',
+                'delete' => 'Xóa phản hồi của Khách hàng'
             ]
         ]);
         //giao diện lời nói
         Route::resource('wechat/speechcraft', 'v1.kefu.StoreServiceSpeechcraft')->except(['read'])->option([
             'real_name' => [
-                'index' => 'Nhận danh sách các cụm từ dịch vụ khách hàng',
-                'create' => 'Nhận mẫu kỹ năng dịch vụ khách hàng',
+                'index' => 'Nhận danh sách các cụm từ CSKH',
+                'create' => 'Nhận mẫu kỹ năng CSKH',
                 'save' => 'Lưu kỹ năng phục vụ khách hàng',
-                'edit' => 'Lấy mẫu để sửa đổi kỹ năng dịch vụ khách hàng',
-                'update' => 'Sửa đổi từ vựng dịch vụ khách hàng',
-                'delete' => 'Xóa từ dịch vụ khách hàng'
+                'edit' => 'Lấy mẫu để sửa đổi kỹ năng CSKH',
+                'update' => 'Sửa đổi từ vựng CSKH',
+                'delete' => 'Xóa từ CSKH'
             ]
         ]);
         //Giao diện phân loại giọng nói
         Route::resource('wechat/speechcraftcate', 'v1.kefu.StoreServiceSpeechcraftCate')->except(['read'])->option([
             'real_name' => [
-                'index' => 'Nhận danh sách các hạng mục kỹ năng dịch vụ khách hàng',
-                'create' => 'Nhận mẫu phân loại kỹ năng dịch vụ khách hàng',
-                'save' => 'Lưu danh mục kỹ năng dịch vụ khách hàng',
-                'edit' => 'Lấy biểu mẫu sửa đổi phân loại từ vựng dịch vụ khách hàng',
-                'update' => 'Sửa danh mục kỹ năng nói dịch vụ khách hàng',
-                'delete' => 'Xóa danh mục kỹ năng dịch vụ khách hàng'
+                'index' => 'Nhận danh sách các hạng mục kỹ năng CSKH',
+                'create' => 'Nhận mẫu phân loại kỹ năng CSKH',
+                'save' => 'Lưu danh mục kỹ năng CSKH',
+                'edit' => 'Lấy biểu mẫu sửa đổi phân loại từ vựng CSKH',
+                'update' => 'Sửa danh mục kỹ năng nói CSKH',
+                'delete' => 'Xóa danh mục kỹ năng CSKH'
             ]
         ]);
-        //Danh sách dịch vụ khách hàng
-        Route::get('wechat/kefu', 'v1.kefu.StoreService/index')->option(['real_name' => 'Danh sách dịch vụ khách hàng']);
-        //Đăng nhập dịch vụ khách hàng
-        Route::get('wechat/kefu/login/:id', 'v1.kefu.StoreService/keufLogin')->option(['real_name' => 'Đăng nhập dịch vụ khách hàng']);
-        //Đã thêm danh sách người dùng lựa chọn dịch vụ khách hàng
-        Route::get('wechat/kefu/create', 'v1.kefu.StoreService/create')->option(['real_name' => 'Đã thêm danh sách người dùng lựa chọn dịch vụ khách hàng']);
-        //Thêm biểu mẫu dịch vụ khách hàng
-        Route::get('wechat/kefu/add', 'v1.kefu.StoreService/add')->option(['real_name' => 'Thêm biểu mẫu dịch vụ khách hàng']);
+        //Danh sách CSKH
+        Route::get('wechat/kefu', 'v1.kefu.StoreService/index')->option(['real_name' => 'Danh sách CSKH']);
+        //Đăng nhập CSKH
+        Route::get('wechat/kefu/login/:id', 'v1.kefu.StoreService/keufLogin')->option(['real_name' => 'Đăng nhập CSKH']);
+        //Đã thêm danh sách Khách hàng lựa chọn CSKH
+        Route::get('wechat/kefu/create', 'v1.kefu.StoreService/create')->option(['real_name' => 'Đã thêm danh sách Khách hàng lựa chọn CSKH']);
+        //Thêm biểu mẫu CSKH
+        Route::get('wechat/kefu/add', 'v1.kefu.StoreService/add')->option(['real_name' => 'Thêm biểu mẫu CSKH']);
         //Lưu dữ liệu mới tạo
-        Route::post('wechat/kefu', 'v1.kefu.StoreService/save')->option(['real_name' => 'Thêm dịch vụ khách hàng']);
-        //Chỉnh sửa biểu mẫu dịch vụ khách hàng
-        Route::get('wechat/kefu/:id/edit', 'v1.kefu.StoreService/edit')->option(['real_name' => 'Sửa đổi mẫu dịch vụ khách hàng']);
+        Route::post('wechat/kefu', 'v1.kefu.StoreService/save')->option(['real_name' => 'Thêm CSKH']);
+        //Chỉnh sửa biểu mẫu CSKH
+        Route::get('wechat/kefu/:id/edit', 'v1.kefu.StoreService/edit')->option(['real_name' => 'Sửa đổi mẫu CSKH']);
         //Lưu dữ liệu đã chỉnh sửa
-        Route::put('wechat/kefu/:id', 'v1.kefu.StoreService/update')->option(['real_name' => 'Sửa đổi dịch vụ khách hàng']);
-        //xóa bỏ
-        Route::delete('wechat/kefu/:id', 'v1.kefu.StoreService/delete')->option(['real_name' => 'Xóa dịch vụ khách hàng']);
+        Route::put('wechat/kefu/:id', 'v1.kefu.StoreService/update')->option(['real_name' => 'Sửa đổi CSKH']);
+        //Xóa
+        Route::delete('wechat/kefu/:id', 'v1.kefu.StoreService/delete')->option(['real_name' => 'Xóa CSKH']);
         //Sửa đổi trạng thái
-        Route::put('wechat/kefu/set_status/:id/:status', 'v1.kefu.StoreService/set_status')->option(['real_name' => 'Sửa đổi trạng thái dịch vụ khách hàng']);
+        Route::put('wechat/kefu/set_status/:id/:status', 'v1.kefu.StoreService/set_status')->option(['real_name' => 'Sửa đổi trạng thái CSKH']);
         //Lịch sử trò chuyện
         Route::get('wechat/kefu/record/:id', 'v1.kefu.StoreService/chat_user')->option(['real_name' => 'Lịch sử trò chuyện']);
         //Xem cuộc trò chuyện
         Route::get('wechat/kefu/chat_list', 'v1.kefu.StoreService/chat_list')->option(['real_name' => 'Xem cuộc trò chuyện']);
 
-        //Danh sách trả lời tự động của dịch vụ khách hàng
-        Route::get('kefu/auto_reply/list', 'v1.kefu.StoreServiceAutoReply/autoReplyList')->option(['real_name' => 'Danh sách trả lời tự động của dịch vụ khách hàng']);
+        //Danh sách trả lời tự động của CSKH
+        Route::get('kefu/auto_reply/list', 'v1.kefu.StoreServiceAutoReply/autoReplyList')->option(['real_name' => 'Danh sách trả lời tự động của CSKH']);
         //Dịch vụ khách hàng tự động trả lời để thêm và sửa đổi biểu mẫu
         Route::get('kefu/auto_reply/form/:id', 'v1.kefu.StoreServiceAutoReply/autoReplyForm')->option(['real_name' => 'Dịch vụ khách hàng tự động trả lời để thêm và sửa đổi biểu mẫu']);
         //Dịch vụ khách hàng tự động trả lời, thêm, thay đổi và lưu
@@ -164,8 +159,7 @@ Route::group('app', function () {
 
     })->option(['parent' => 'app', 'cate_name' => 'Dịch vụ khách hàng liên quan']);
 
-    /** Zalo Mini App */
-    Route::group(function () {
+    /** Zalo Mini App */    Route::group(function () {
         // Lấy cấu hình Zalo hiện tại
         Route::get('zalo/config', 'v1.application.zalo.ZaloConfig/getConfig')
             ->option(['real_name' => 'Zalo - Lấy cấu hình xác thực']);
@@ -188,4 +182,4 @@ Route::group('app', function () {
     \app\adminapi\middleware\AdminAuthTokenMiddleware::class,
     \app\adminapi\middleware\AdminCheckRoleMiddleware::class,
     \app\adminapi\middleware\AdminLogMiddleware::class
-])->option(['mark' => 'app', 'mark_name' => 'mô-đun ứng dụng']);
+])->option(['mark' => 'app', 'mark_name' => 'mô-đun Ứng dụng']);

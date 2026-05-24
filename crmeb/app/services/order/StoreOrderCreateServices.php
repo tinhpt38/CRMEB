@@ -45,14 +45,12 @@ use think\facade\Log;
  * Tạo đơn hàng
  * Class StoreOrderCreateServices
  * @package app\services\order
- */
-class StoreOrderCreateServices extends BaseServices
+ */class StoreOrderCreateServices extends BaseServices
 {
     /**
      * StoreOrderCreateServices constructor.
      * @param StoreOrderDao $dao
-     */
-    public function __construct(StoreOrderDao $dao)
+     */    public function __construct(StoreOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -61,8 +59,7 @@ class StoreOrderCreateServices extends BaseServices
      * Tạo đơn hàng bằng thuật toán bông tuyếtID
      * @return string
      * @throws \Exception
-     */
-    public function getNewOrderId(string $prefix = 'wx')
+     */    public function getNewOrderId(string $prefix = 'wx')
     {
         $snowflake = new \Godruoyi\Snowflake\Snowflake();
 
@@ -97,10 +94,9 @@ class StoreOrderCreateServices extends BaseServices
     }
 
     /**
-     * Lệnh xóa sổ tạo ra mã xóa sổ
+     * Lệnh xác nhận tạo ra mã xác nhận
      * @return false|string
-     */
-    public function getStoreCode()
+     */    public function getStoreCode()
     {
         list($msec, $sec) = explode(' ', microtime());
         $num = time() + mt_rand(10, 999999) . '' . substr($msec, 2, 3);//Tạo số ngẫu nhiên
@@ -143,11 +139,9 @@ class StoreOrderCreateServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/01
-     */
-    public function createOrder($uid, $key, $userInfo, $addressId, $payType, $useIntegral = false, $couponId = 0, $mark = '', $combinationId = 0, $pinkId = 0, $seckillId = 0, $bargainId = 0, $shippingType = 1, $real_name = '', $phone = '', $storeId = 0, $news = false, $advanceId = 0, $customForm = [], $invoice_id = 0, $is_gift = 0, $gift_mark = '')
+     */    public function createOrder($uid, $key, $userInfo, $addressId, $payType, $useIntegral = false, $couponId = 0, $mark = '', $combinationId = 0, $pinkId = 0, $seckillId = 0, $bargainId = 0, $shippingType = 1, $real_name = '', $phone = '', $storeId = 0, $news = false, $advanceId = 0, $customForm = [], $invoice_id = 0, $is_gift = 0, $gift_mark = '')
     {
-        /** @var StoreOrderServices $orderService */
-        $storeOrderServices = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderService */        $storeOrderServices = app()->make(StoreOrderServices::class);
         $bargainServices = app()->make(StoreBargainServices::class);
         $cartGroup = $storeOrderServices->getCacheOrderInfo($uid, $key);
         if (!$cartGroup) {
@@ -160,8 +154,7 @@ class StoreOrderCreateServices extends BaseServices
 
         if ($pinkId) {
             $pinkId = (int)$pinkId;
-            /** @var StorePinkServices $pinkServices */
-            $pinkServices = app()->make(StorePinkServices::class);
+            /** @var StorePinkServices $pinkServices */            $pinkServices = app()->make(StorePinkServices::class);
             if ($pinkServices->isPink($pinkId, $uid))
                 throw new ApiStatusException('ORDER_EXIST', 'Việc tạo đơn hàng không thành công. Bạn đã ở trong nhóm và không thể tham gia được nữa.', ['orderId' => $storeOrderServices->getStoreIdPink($pinkId, $uid)]);
             if ($storeOrderServices->getIsOrderPink($pinkId, $uid))
@@ -181,13 +174,16 @@ class StoreOrderCreateServices extends BaseServices
             throw new ApiException('Sản phẩm ảo không áp dụng thanh toán COD');
         }
 
-        /** @var StoreOrderComputedServices $computedServices */
-        $computedServices = app()->make(StoreOrderComputedServices::class);
+        /** @var StoreOrderComputedServices $computedServices */        $computedServices = app()->make(StoreOrderComputedServices::class);
         $priceData = $computedServices->computedOrder($uid, $userInfo, $cartGroup, $addressId, $payType, $useIntegral, $couponId, true, $shippingType, $is_gift);
-        /** @var WechatUserServices $wechatServices */
-        $wechatServices = app()->make(WechatUserServices::class);
-        /** @var UserAddressServices $addressServices */
-        $addressServices = app()->make(UserAddressServices::class);
+        if ($payType === PayServices::VN_COD) {
+            $codMax = (float)sys_config('vn_cod_max_amount', 0);
+            if ($codMax > 0 && (float)$priceData['pay_price'] > $codMax) {
+                throw new ApiException('Đơn COD vượt hạn mức ' . format_vnd((string)$codMax) . '. Vui lòng chọn phương thức khác.');
+            }
+        }
+        /** @var WechatUserServices $wechatServices */        $wechatServices = app()->make(WechatUserServices::class);
+        /** @var UserAddressServices $addressServices */        $addressServices = app()->make(UserAddressServices::class);
         if ($is_gift == 0) {
             if ($shippingType == 1 && $virtual_type == 0) {
                 if (!$addressId) {
@@ -293,15 +289,13 @@ class StoreOrderCreateServices extends BaseServices
 
         if ($shippingType == 2) {
             $orderInfo['verify_code'] = $this->getStoreCode();
-            /** @var SystemStoreServices $storeServices */
-            $storeServices = app()->make(SystemStoreServices::class);
+            /** @var SystemStoreServices $storeServices */            $storeServices = app()->make(SystemStoreServices::class);
             $orderInfo['store_id'] = $storeServices->getStoreDispose($storeId, 'id');
             if (!$orderInfo['store_id']) {
                 throw new ApiException('Hiện tại chưa có cửa hàng và bạn không thể chọn nhận hàng tại cửa hàng.');
             }
         }
-        /** @var StoreOrderCartInfoServices $cartServices */
-        $cartServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $cartServices */        $cartServices = app()->make(StoreOrderCartInfoServices::class);
         $priceData['coupon_id'] = $couponId;
         $order = $this->transaction(function () use ($cartIds, $orderInfo, $cartInfo, $key, $userInfo, $useIntegral, $priceData, $combinationId, $seckillId, $bargainId, $cartServices, $uid, $addressId, $advanceId) {
             //Tạo đơn hàng
@@ -310,8 +304,7 @@ class StoreOrderCreateServices extends BaseServices
                 throw new ApiException('Tạo đơn hàng không thành công');
             }
             //Ghi lại số điện thoại và tên người nhận xe
-            /** @var UserServices $userService */
-            $userService = app()->make(UserServices::class);
+            /** @var UserServices $userService */            $userService = app()->make(UserServices::class);
             $realName = $userService->value(['uid' => $uid], 'real_name');
             if ($realName == '') $userService->update(['uid' => $uid], ['real_name' => $orderInfo['real_name'], 'record_phone' => $orderInfo['user_phone']]);
             //Trừ điểm
@@ -363,20 +356,17 @@ class StoreOrderCreateServices extends BaseServices
      * @param array $priceData
      * @param int $uid
      * @param string $key
-     */
-    public function deductIntegral(array $userInfo, bool $useIntegral, array $priceData, int $uid, $orderId)
+     */    public function deductIntegral(array $userInfo, bool $useIntegral, array $priceData, int $uid, $orderId)
     {
         $res2 = true;
         if ($useIntegral && $userInfo['integral'] > 0) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             if (!$priceData['SurplusIntegral']) {
                 $res2 = false !== $userServices->update($uid, ['integral' => 0]);
             } else {
                 $res2 = false !== $userServices->bcDec($userInfo['uid'], 'integral', $priceData['usedIntegral'], 'uid');
             }
-            /** @var UserBillServices $userBillServices */
-            $userBillServices = app()->make(UserBillServices::class);
+            /** @var UserBillServices $userBillServices */            $userBillServices = app()->make(UserBillServices::class);
             $res3 = $userBillServices->income('deduction', $uid, [
                 'number' => $priceData['usedIntegral'],
                 'deductionPrice' => $priceData['deduction_price']
@@ -395,20 +385,14 @@ class StoreOrderCreateServices extends BaseServices
      * @param int $combinationId
      * @param int $seckillId
      * @param int $bargainId
-     */
-    public function decGoodsStock(array $cartInfo, int $combinationId, int $seckillId, int $bargainId, int $advanceId)
+     */    public function decGoodsStock(array $cartInfo, int $combinationId, int $seckillId, int $bargainId, int $advanceId)
     {
         $res5 = true;
-        /** @var StoreProductServices $services */
-        $services = app()->make(StoreProductServices::class);
-        /** @var StoreSeckillServices $seckillServices */
-        $seckillServices = app()->make(StoreSeckillServices::class);
-        /** @var StoreCombinationServices $pinkServices */
-        $pinkServices = app()->make(StoreCombinationServices::class);
-        /** @var StoreBargainServices $bargainServices */
-        $bargainServices = app()->make(StoreBargainServices::class);
-        /** @var StoreAdvanceServices $advanceServices */
-        $advanceServices = app()->make(StoreAdvanceServices::class);
+        /** @var StoreProductServices $services */        $services = app()->make(StoreProductServices::class);
+        /** @var StoreSeckillServices $seckillServices */        $seckillServices = app()->make(StoreSeckillServices::class);
+        /** @var StoreCombinationServices $pinkServices */        $pinkServices = app()->make(StoreCombinationServices::class);
+        /** @var StoreBargainServices $bargainServices */        $bargainServices = app()->make(StoreBargainServices::class);
+        /** @var StoreAdvanceServices $advanceServices */        $advanceServices = app()->make(StoreAdvanceServices::class);
         try {
             foreach ($cartInfo as $cart) {
                 //Giảm hàng tồn kho và tăng doanh số bán hàng
@@ -431,12 +415,10 @@ class StoreOrderCreateServices extends BaseServices
      * @param $order
      * @param array $group
      * @param $activity
-     */
-    public function orderCreateAfter($order, array $group, $activity)
+     */    public function orderCreateAfter($order, array $group, $activity)
     {
-        /** @var UserAddressServices $addressServices */
-        $addressServices = app()->make(UserAddressServices::class);
-        //Đặt địa chỉ mặc định của người dùng
+        /** @var UserAddressServices $addressServices */        $addressServices = app()->make(UserAddressServices::class);
+        //Đặt địa chỉ mặc định của Khách hàng
         if (!$addressServices->be(['is_default' => 1, 'uid' => $order['uid']])) {
             $addressServices->setDefaultAddress($group['addressId'], $order['uid']);
             $province = $addressServices->value(['id' => $group['addressId']], 'province') ?? '';
@@ -448,8 +430,7 @@ class StoreOrderCreateServices extends BaseServices
                 CacheService::delete($key);
             }, $group['cartIds']);
         } else {
-            /** @var StoreCartServices $cartServices */
-            $cartServices = app()->make(StoreCartServices::class);
+            /** @var StoreCartServices $cartServices */            $cartServices = app()->make(StoreCartServices::class);
             $cartServices->deleteCartStatus($group['cartIds']);
         }
         $uid = (int)$order['uid'];
@@ -459,19 +440,16 @@ class StoreOrderCreateServices extends BaseServices
             $priceData = $group['priceData'] ?? [];
             $addressId = $group['addressId'] ?? 0;
             $spread_ids = [];
-            /** @var StoreOrderCreateServices $createService */
-            $createService = app()->make(StoreOrderCreateServices::class);
+            /** @var StoreOrderCreateServices $createService */            $createService = app()->make(StoreOrderCreateServices::class);
             if ($cartInfo && $priceData) {
-                /** @var StoreOrderCartInfoServices $cartServices */
-                $cartServices = app()->make(StoreOrderCartInfoServices::class);
+                /** @var StoreOrderCartInfoServices $cartServices */                $cartServices = app()->make(StoreOrderCartInfoServices::class);
                 [$cartInfo, $spread_ids] = $createService->computeOrderProductTruePrice($cartInfo, $priceData, $addressId, $uid, $order);
                 $cartServices->updateCartInfo($orderId, $cartInfo);
             }
 
             $orderData = [];
             $spread_uid = $spread_two_uid = 0;
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             if ($spread_ids) {
                 [$spread_uid, $spread_two_uid] = $spread_ids;
                 $orderData['spread_uid'] = $spread_uid;
@@ -503,8 +481,7 @@ class StoreOrderCreateServices extends BaseServices
                 $isCommission = app()->make(StoreBargainServices::class)->value(['id' => $order['bargain_id']], 'is_commission');
             }
             if ($cartInfo && (!$activity || $isCommission)) {
-                /** @var StoreOrderComputedServices $orderComputed */
-                $orderComputed = app()->make(StoreOrderComputedServices::class);
+                /** @var StoreOrderComputedServices $orderComputed */                $orderComputed = app()->make(StoreOrderComputedServices::class);
                 if ($userServices->checkUserPromoter($spread_uid)) $orderData['one_brokerage'] = $orderComputed->getOrderSumPrice($cartInfo, 'one_brokerage', false);
                 if ($userServices->checkUserPromoter($spread_two_uid)) $orderData['two_brokerage'] = $orderComputed->getOrderSumPrice($cartInfo, 'two_brokerage', false);
                 $orderData['staff_brokerage'] = $orderComputed->getOrderSumPrice($cartInfo, 'staff_brokerage', false);
@@ -518,14 +495,13 @@ class StoreOrderCreateServices extends BaseServices
     }
 
     /**
-     * Tính giá thanh toán thực tế của từng mặt hàng trong đơn hàng
+     * Tính giá Thanh toán thực tế của từng mặt hàng trong đơn hàng
      * @param array $cartInfo
      * @param array $priceData
      * @param $addressId
      * @param int $uid
      * @return array
-     */
-    public function computeOrderProductTruePrice(array $cartInfo, array $priceData, $addressId, int $uid, $orderInfo)
+     */    public function computeOrderProductTruePrice(array $cartInfo, array $priceData, $addressId, int $uid, $orderInfo)
     {
         //Thống nhất dữ liệu mặc định
         foreach ($cartInfo as &$cart) {
@@ -572,28 +548,24 @@ class StoreOrderCreateServices extends BaseServices
      * @param array $cartInfo
      * @param array $priceData
      * @return array
-     */
-    public function computeOrderProductPostage(array $cartInfo, array $priceData, $addressId)
+     */    public function computeOrderProductPostage(array $cartInfo, array $priceData, $addressId)
     {
         $storePostage = $priceData['pay_postage'] ?? 0;
         if ($storePostage) {
-            /** @var UserAddressServices $addressServices */
-            $addressServices = app()->make(UserAddressServices::class);
+            /** @var UserAddressServices $addressServices */            $addressServices = app()->make(UserAddressServices::class);
             $addr = $addressServices->getAddress($addressId);
             if ($addr) {
                 $addr = $addr->toArray();
-                //Tính toán số lượng/trọng lượng/khối lượng và tổng số lượng hàng hóa theo từng mẫu cước theo mẫu cước. Sắp xếp theo thứ tự ưu tiên giảm dần.
+                //Tính toán số lượng/trọng lượng/khối lượng và tổng số lượng sản phẩm theo từng mẫu cước theo mẫu cước. Sắp xếp theo thứ tự ưu tiên giảm dần.
                 $cityId = $addr['city_id'] ?? 0;
                 $tempIds[] = 1;
                 foreach ($cartInfo as $key_c => $item_c) {
                     $tempIds[] = $item_c['productInfo']['temp_id'];
                 }
                 $tempIds = array_unique($tempIds);
-                /** @var ShippingTemplatesServices $shippServices */
-                $shippServices = app()->make(ShippingTemplatesServices::class);
+                /** @var ShippingTemplatesServices $shippServices */                $shippServices = app()->make(ShippingTemplatesServices::class);
                 $temp = $shippServices->getShippingColumn(['id' => $tempIds], 'type,appoint', 'id');
-                /** @var ShippingTemplatesRegionServices $regionServices */
-                $regionServices = app()->make(ShippingTemplatesRegionServices::class);
+                /** @var ShippingTemplatesRegionServices $regionServices */                $regionServices = app()->make(ShippingTemplatesRegionServices::class);
                 $regions = $regionServices->getTempRegionList($tempIds, [$cityId, 0], 'temp_id,first,first_price,continue,continue_price', 'temp_id');
                 $temp_num = [];
                 foreach ($cartInfo as $cart) {
@@ -625,8 +597,7 @@ class StoreOrderCreateServices extends BaseServices
                     }
                 }
                 $cartInfo = array_combine(array_column($cartInfo, 'id'), $cartInfo);
-                /** @var ShippingTemplatesFreeServices $freeServices */
-                $freeServices = app()->make(ShippingTemplatesFreeServices::class);
+                /** @var ShippingTemplatesFreeServices $freeServices */                $freeServices = app()->make(ShippingTemplatesFreeServices::class);
                 foreach ($temp_num as $k => $v) {
                     if (isset($temp[$v['temp_id']]['appoint']) && $temp[$v['temp_id']]['appoint']) {
                         if ($freeServices->isFree($v['temp_id'], $v['city_id'], $v['number'], $v['price'], $v['type'])) {
@@ -664,7 +635,7 @@ class StoreOrderCreateServices extends BaseServices
                 $cartInfo = array_merge($cartInfo);
             }
         }
-        //Đảm bảo rằng trường postage_price của các sản phẩm trong giỏ hàng không có trong tính toán mẫu vận chuyển hàng hóa có giá trị.
+        //Đảm bảo rằng trường postage_price của các sản phẩm trong giỏ hàng không có trong tính toán mẫu vận chuyển sản phẩm có giá trị.
         foreach ($cartInfo as &$item) {
             if (!isset($item['postage_price'])) $item['postage_price'] = 0.00;
         }
@@ -676,8 +647,7 @@ class StoreOrderCreateServices extends BaseServices
      * @param array $cartInfo
      * @param array $priceData
      * @return array
-     */
-    public function computeOrderProductIntegral(array $cartInfo, array $priceData)
+     */    public function computeOrderProductIntegral(array $cartInfo, array $priceData)
     {
         $usedIntegral = $priceData['usedIntegral'] ?? 0;
         $deduction_price = $priceData['deduction_price'] ?? 0;
@@ -715,16 +685,14 @@ class StoreOrderCreateServices extends BaseServices
      * @param array $cartInfo
      * @param array $priceData
      * @return array
-     */
-    public function computeOrderProductCoupon(array $cartInfo, array $priceData)
+     */    public function computeOrderProductCoupon(array $cartInfo, array $priceData)
     {
         if ($priceData['coupon_id'] && $priceData['coupon_price'] ?? 0) {
             $count = 0;
             $total_price = 0.00;
             $compute_price = 0.00;
             $coupon_price = 0.00;
-            /** @var StoreCouponUserServices $couponServices */
-            $couponServices = app()->make(StoreCouponUserServices::class);
+            /** @var StoreCouponUserServices $couponServices */            $couponServices = app()->make(StoreCouponUserServices::class);
             $couponInfo = $couponServices->getOne(['id' => $priceData['coupon_id']], '*', ['issue']);
             if ($couponInfo) {
                 $type = $couponInfo['applicable_type'] ?? 0;
@@ -748,9 +716,8 @@ class StoreOrderCreateServices extends BaseServices
                             $count--;
                         }
                         break;
-                    case 1://Phiếu giảm giá danh mục
-                        /** @var StoreCategoryServices $storeCategoryServices */
-                        $storeCategoryServices = app()->make(StoreCategoryServices::class);
+                    case 1://Mã giảm giá danh mục
+                        /** @var StoreCategoryServices $storeCategoryServices */                        $storeCategoryServices = app()->make(StoreCategoryServices::class);
                         $coupon_category = explode(',', (string)$couponInfo['category_id']);
                         $category_ids = $storeCategoryServices->getAllById($coupon_category);
                         if ($category_ids) {
@@ -778,7 +745,7 @@ class StoreOrderCreateServices extends BaseServices
                             }
                         }
                         break;
-                    case 2://phiếu giảm giá hàng hóa
+                    case 2://phiếu giảm giá sản phẩm
                         foreach ($cartInfo as $cart) {
                             if (isset($cart['product_id']) && in_array($cart['product_id'], explode(',', $couponInfo['product_id']))) {
                                 $total_price = bcadd((string)$total_price, (string)bcmul((string)$cart['truePrice'], (string)$cart['cart_num'], 4), 2);
@@ -815,14 +782,12 @@ class StoreOrderCreateServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function computeOrderProductBrokerage(int $uid, array $cartInfo)
+     */    public function computeOrderProductBrokerage(int $uid, array $cartInfo)
     {
 
         [$storeBrokerageRatio, $storeBrokerageTwo, $spread_one_uid, $spread_two_uid] = $this->getSpreadDate($uid);
 
-        /** @var DivisionServices $divisionService */
-        $divisionService = app()->make(DivisionServices::class);
+        /** @var DivisionServices $divisionService */        $divisionService = app()->make(DivisionServices::class);
         [$storeBrokerageRatio, $storeBrokerageTwo, $staffPercent, $agentPercent, $divisionPercent] = $divisionService->getDivisionPercent($uid, $storeBrokerageRatio, $storeBrokerageTwo, sys_config('is_self_brokerage', 0));
 
         foreach ($cartInfo as &$cart) {
@@ -830,7 +795,7 @@ class StoreOrderCreateServices extends BaseServices
             $twoBrokerage = '0';//Số tiền hoàn trả cấp 2
             $staffBrokerage = '0';//Số tiền giảm giá của nhân viên cửa hàng
             $agentBrokerage = '0';//Số tiền chiết khấu đại lý
-            $divisionBrokerage = '0';//Số tiền giảm giá của đơn vị kinh doanh
+            $divisionBrokerage = '0';//Số tiền giảm giá của Đơn vị kinh doanh
             $cartNum = (string)$cart['cart_num'] ?? '0';
             if (isset($cart['productInfo'])) {
                 $productInfo = $cart['productInfo'];
@@ -894,17 +859,15 @@ class StoreOrderCreateServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/10/8
-     */
-    public function getSpreadDate(int $uid)
+     */    public function getSpreadDate(int $uid)
     {
-        //Việc phân phối trung tâm mua sắm có được bật hay không, uid người dùng có tồn tại hay không, tất cả đều trả về0
+        //Việc phân phối trung tâm mua sắm có được bật hay không, uid Khách hàng có tồn tại hay không, Tất cả đều trả về0
         if (!sys_config('brokerage_func_status') || !$uid) {
             return [0, 0, 0, 0];
         }
 
-        //Lấy thông tin người dùng, trả lại nếu không lấy được hết0
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        //Lấy thông tin Khách hàng, trả lại nếu không lấy được hết0
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         if (!$userInfo) {
             return [0, 0, 0, 0];
@@ -924,7 +887,7 @@ class StoreOrderCreateServices extends BaseServices
         //Tính tỷ lệ hoa hồng sau mức phân phối
         [$storeBrokerageRatio, $storeBrokerageTwo] = app()->make(AgentLevelServices::class)->getAgentLevelBrokerage($storeBrokerageRatio, $storeBrokerageTwo, $spread_one_uid, $spread_two_uid);
 
-        //Khi đánh giá rằng mức giảm giá là cấp một, hãy thay đổi uid người dùng cấp hai và tỷ lệ hoa hồng cấp hai thành0
+        //Khi đánh giá rằng mức giảm giá là cấp một, hãy thay đổi uid Khách hàng cấp hai và tỷ lệ hoa hồng cấp hai thành0
         if (sys_config('brokerage_level') == 1) {
             $storeBrokerageTwo = $spread_two_uid = 0;
         }

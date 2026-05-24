@@ -19,8 +19,7 @@ use think\Model;
 /**
  * Class LiveAnchor
  * @package app\model\live
- */
-class LiveAnchor extends BaseModel
+ */class LiveAnchor extends BaseModel
 {
     use ModelTrait;
 
@@ -41,8 +40,7 @@ class LiveAnchor extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    public function getAddTimeAttr($value)
+     */    public function getAddTimeAttr($value)
     {
         if (!empty($value)) {
             return date('Y-m-d H:i:s', (int)$value);
@@ -64,8 +62,7 @@ class LiveAnchor extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsShowAttr($query, $value)
+     */    public function searchIsShowAttr($query, $value)
     {
         if ($value !== '') $query->where('is_show', $value);
     }
@@ -73,8 +70,7 @@ class LiveAnchor extends BaseModel
     /**
      * @param Model $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }

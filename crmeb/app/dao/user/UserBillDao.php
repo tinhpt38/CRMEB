@@ -16,18 +16,16 @@ use app\dao\BaseDao;
 use app\model\user\UserBill;
 
 /**
- * Tiền & điểm & kinh nghiệm của người dùng
+ * Tiền & điểm & kinh nghiệm của Khách hàng
  * Class UserBilldao
  * @package app\dao\user
- */
-class UserBillDao extends BaseDao
+ */class UserBillDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserBill::class;
     }
@@ -44,8 +42,7 @@ class UserBillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0, array $typeWhere = [], $order = 'id desc')
+     */    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0, array $typeWhere = [], $order = 'id desc')
     {
         return $this->search($where)->when(count($typeWhere) > 0, function ($query) use ($typeWhere) {
             $query->where($typeWhere);
@@ -61,8 +58,7 @@ class UserBillDao extends BaseDao
      * @param int $page
      * @param int $limit
      * @return array
-     */
-    public function getBillList(array $where, string $field = '*', int $page, int $limit)
+     */    public function getBillList(array $where, string $field = '*', int $page, int $limit)
     {
         return $this->search($where)->field($field)->with([
             'user' => function ($query) {
@@ -75,8 +71,7 @@ class UserBillDao extends BaseDao
     /**
      * Lấy tổng số của một điều kiện nhất định
      * @param array $where
-     */
-    public function getBillSum(array $where)
+     */    public function getBillSum(array $where)
     {
         return $this->search($where)->sum('number');
     }
@@ -88,8 +83,7 @@ class UserBillDao extends BaseDao
      * @param string $field
      * @param string $str
      * @return mixed
-     */
-    public function getUserRefundPriceList(array $time, string $timeType, string $str, string $field = 'add_time')
+     */    public function getUserRefundPriceList(array $time, string $timeType, string $str, string $field = 'add_time')
     {
         return $this->getModel()->where('type', 'pay_product_refund')->where(function ($query) use ($time, $field) {
             if ($time[0] == $time[1]) {
@@ -104,8 +98,7 @@ class UserBillDao extends BaseDao
     /**
      * Lấy tổng số mục cho một điều kiện nhất định
      * @param array $where
-     */
-    public function getBillCount(array $where)
+     */    public function getBillCount(array $where)
     {
         return $this->getModel()->where($where)->count();
     }
@@ -114,8 +107,7 @@ class UserBillDao extends BaseDao
      * Lấy tổng số hóa đơn theo những điều kiện nhất định
      * @param array $where
      * @return mixed
-     */
-    public function getBillSumColumn(array $where)
+     */    public function getBillSumColumn(array $where)
     {
         if (isset($where['uid']) && is_array($where['uid'])) {
             return $this->search($where)->group('uid')->column('sum(number) as num', 'uid');
@@ -128,18 +120,16 @@ class UserBillDao extends BaseDao
      * @param array $where
      * @param string $filed
      * @return mixed
-     */
-    public function getType(array $where, string $filed = 'title,type')
+     */    public function getType(array $where, string $filed = 'title,type')
     {
         return $this->search($where)->distinct(true)->field($filed)->group('type')->select();
     }
 
     /**
-     * Lấy số lượng người dùng đã đăng nhập
+     * Lấy số lượng Khách hàng đã đăng nhập
      * @param array $where
      * @return mixed
-     */
-    public function getUserSignPoint(array $where)
+     */    public function getUserSignPoint(array $where)
     {
         return $this->search($where)->count();
     }
@@ -149,8 +139,7 @@ class UserBillDao extends BaseDao
      * @param int $uid
      * @param int $id
      * @return \crmeb\basic\BaseModel
-     */
-    public function takeUpdate(int $uid, int $id)
+     */    public function takeUpdate(int $uid, int $id)
     {
         return $this->getModel()->where('uid', $uid)->where('link_id', $id)->where('type', 'pay_money')->update(['take' => 1]);
     }
@@ -161,8 +150,7 @@ class UserBillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserBillList(array $where)
+     */    public function getUserBillList(array $where)
     {
         return $this->search($where)->select()->toArray();
     }
@@ -176,8 +164,7 @@ class UserBillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function brokerageRankList(array $where, int $page, int $limit)
+     */    public function brokerageRankList(array $where, int $page, int $limit)
     {
         return $this->search($where)->field('uid,SUM(IF(pm=1,`number`,-`number`)) as brokerage_price')->with(['user' => function ($query) {
             $query->field('uid,avatar,nickname');
@@ -192,8 +179,7 @@ class UserBillDao extends BaseDao
      * @param int $page
      * @param int $limit
      * @return mixed
-     */
-    public function getUserBillListByGroup(array $where, string $filed, string $group, int $page, int $limit)
+     */    public function getUserBillListByGroup(array $where, string $filed, string $group, int $page, int $limit)
     {
         return $this->search($where)->field($filed)->where('number', '>', 0)->order('add_time desc')->group($group)->page($page, $limit)->select()->toArray();
     }
@@ -206,8 +192,7 @@ class UserBillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getBalanceRecord(array $where, int $page, int $limit)
+     */    public function getBalanceRecord(array $where, int $page, int $limit)
     {
         return $this->search($where)->order('add_time desc')->page($page, $limit)->select()->toArray();
     }
@@ -219,8 +204,7 @@ class UserBillDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTotalSum(array $where)
+     */    public function getTotalSum(array $where)
     {
         $list = $this->search($where)->with('order')->select()->toArray();
         if (count($list)) {
@@ -239,8 +223,7 @@ class UserBillDao extends BaseDao
      * @param array $where
      * @param string $field
      * @return float
-     */
-    public function getWhereSumField(array $where, string $field)
+     */    public function getWhereSumField(array $where, string $field)
     {
         return $this->search($where, false)
             ->when(isset($where['timeKey']), function ($query) use ($where) {
@@ -249,13 +232,12 @@ class UserBillDao extends BaseDao
             ->sum($field);
     }
 
-    /**Truy vấn nhóm dựa trên một trường nhất định
+    /**Tìm kiếm nhóm dựa trên một trường nhất định
      * @param array $where
      * @param string $field
      * @param string $group
      * @return mixed
-     */
-    public function getGroupField(array $where, string $field, string $group)
+     */    public function getGroupField(array $where, string $field, string $group)
     {
         return $this->search($where, false)
             ->when(isset($where['timeKey']), function ($query) use ($where, $field, $group) {
@@ -281,8 +263,7 @@ class UserBillDao extends BaseDao
     /**
      * Nhận hoa hồng hoàn trả
      * @return mixed
-     */
-    public function getRefundBrokerage()
+     */    public function getRefundBrokerage()
     {
         return $this->getModel()->whereIn('type', ['brokerage', 'brokerage_user'])
             ->where('category', 'now_money')
@@ -298,8 +279,7 @@ class UserBillDao extends BaseDao
      * @param $field
      * @param $str
      * @return mixed
-     */
-    public function getPointTrend($time, $timeType, $field, $str, $orderStatus = '')
+     */    public function getPointTrend($time, $timeType, $field, $str, $orderStatus = '')
     {
         return $this->getModel()->where(function ($query) use ($field, $orderStatus) {
             $query->where('category', 'integral');

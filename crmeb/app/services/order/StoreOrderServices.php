@@ -48,6 +48,7 @@ use crmeb\services\FormBuilder as Form;
 use crmeb\services\printer\Printer;
 use crmeb\services\SystemConfigService;
 use crmeb\utils\Arr;
+use crmeb\utils\VnBankPayHelper;
 use Guzzle\Http\EntityBody;
 use think\facade\Log;
 
@@ -58,22 +59,20 @@ use think\facade\Log;
  * @method StoreOrderDao getUserOrderDetail(string $key, int $uid, array $with) Nhận chi tiết đơn hàng
  * @method chartTimePrice($start, $stop) Nhận số tiền thanh toán từ thời điểm hiện tại đến thời điểm quy định
  * @method chartTimeNumber($start, $stop) Lấy số lượng lệnh thanh toán từ thời điểm hiện tại đến thời điểm quy định
- * @method together(array $where, string $field, string $together = 'sum') Truy vấn tổng hợp
- * @method getBuyCount($uid, $type, $typeId) Lấy số lượng vật phẩm người dùng đã mua cho sự kiện này
+ * @method together(array $where, string $field, string $together = 'sum') Tìm kiếm tổng hợp
+ * @method getBuyCount($uid, $type, $typeId) Lấy số lượng vật phẩm Khách hàng đã mua cho sự kiện này
  * @method getDistinctCount(array $where, $field, ?bool $search = true)
- * @method getTrendData($time, $type, $timeType, $str) Xu hướng người dùng
+ * @method getTrendData($time, $type, $timeType, $str) Xu hướng Khách hàng
  * @method getRegion($time, $channelType) thống kê địa lý
- * @method getProductTrend($time, $timeType, $field, $str) Xu hướng hàng hóa
+ * @method getProductTrend($time, $timeType, $field, $str) Xu hướng sản phẩm
  * @method getList(array $where, array $field, int $page = 0, int $limit = 0, array $with = [])
- */
-class StoreOrderServices extends BaseServices
+ */class StoreOrderServices extends BaseServices
 {
 
     /**
      * Loại vận chuyển
      * @var string[]
-     */
-    public $deliveryType = [
+     */    public $deliveryType = [
         'send' => 'giao hàng của người bán',
         'express' => 'chuyển phát nhanh',
         'fictitious' => 'giao hàng ảo',
@@ -84,8 +83,7 @@ class StoreOrderServices extends BaseServices
     /**
      * StoreOrderProductServices constructor.
      * @param StoreOrderDao $dao
-     */
-    public function __construct(StoreOrderDao $dao)
+     */    public function __construct(StoreOrderDao $dao)
     {
         $this->dao = $dao;
     }
@@ -99,8 +97,7 @@ class StoreOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderList(array $where, array $field = ['*'], array $with = [])
+     */    public function getOrderList(array $where, array $field = ['*'], array $with = [])
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getOrderList($where, $field, $page, $limit, $with);
@@ -130,8 +127,7 @@ class StoreOrderServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderApiList(array $where, array $field = ['*'], array $with = [])
+     */    public function getOrderApiList(array $where, array $field = ['*'], array $with = [])
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getOrderList($where, $field, $page, $limit, $with);
@@ -159,8 +155,7 @@ class StoreOrderServices extends BaseServices
      * @param int $uid
      * @return array
      * @throws \ReflectionException
-     */
-    public function getOrderData(int $uid = 0)
+     */    public function getOrderData(int $uid = 0)
     {
         $data['order_count'] = (string)$this->dao->count(['uid' => $uid, 'refund_status' => [0, 3], 'pid' => 0, 'is_del' => 0, 'is_system_del' => 0]);
         $data['sum_price'] = (string)$this->dao->sum([
@@ -179,8 +174,7 @@ class StoreOrderServices extends BaseServices
         $data['evaluated_count'] = (string)$this->dao->count(['status' => 3] + $countWhere + ['pid' => 0]);
         $data['complete_count'] = (string)$this->dao->count(['status' => 4] + $countWhere + ['pid' => 0]);
 
-        /** @var StoreOrderRefundServices $storeOrderRefundServices */
-        $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $storeOrderRefundServices */        $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
         $refund_where = ['is_cancel' => 0];
         if ($uid) $refund_where['uid'] = $uid;
         $data['refunding_count'] = (string)$storeOrderRefundServices->count($refund_where + ['refund_type' => [1, 2, 4, 5]]);
@@ -197,8 +191,7 @@ class StoreOrderServices extends BaseServices
 
     /**
      * Định dạng thời điểm giao/nhận cho `_status._msg` (unix timestamp).
-     */
-    protected function formatOrderStatusTime(int $timestamp): string
+     */    protected function formatOrderStatusTime(int $timestamp): string
     {
         if ($timestamp <= 0) {
             return '';
@@ -212,16 +205,13 @@ class StoreOrderServices extends BaseServices
      * @param bool $detail Bạn có cần đặt hàng chi tiết sản phẩm?
      * @param bool $isPic Bạn có cần một hình ảnh trạng thái đơn hàng?
      * @return mixed
-     */
-    public function tidyOrder($order, bool $detail = false, $isPic = false)
+     */    public function tidyOrder($order, bool $detail = false, $isPic = false)
     {
         if ($detail == true && isset($order['id'])) {
-            /** @var StoreOrderCartInfoServices $cartServices */
-            $cartServices = app()->make(StoreOrderCartInfoServices::class);
+            /** @var StoreOrderCartInfoServices $cartServices */            $cartServices = app()->make(StoreOrderCartInfoServices::class);
             $cartInfos = $cartServices->getCartColunm(['oid' => $order['id']], 'cart_num,surplus_num,cart_info,refund_num', 'unique');
             $info = [];
-            /** @var StoreProductReplyServices $replyServices */
-            $replyServices = app()->make(StoreProductReplyServices::class);
+            /** @var StoreProductReplyServices $replyServices */            $replyServices = app()->make(StoreProductReplyServices::class);
             foreach ($cartInfos as $k => $cartInfo) {
                 $cart = json_decode($cartInfo['cart_info'], true);
                 $cart['cart_num'] = $cartInfo['cart_num'];
@@ -243,8 +233,7 @@ class StoreOrderServices extends BaseServices
             }
             $order['cartInfo'] = $info;
         }
-        /** @var StoreOrderStatusServices $statusServices */
-        $statusServices = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusServices */        $statusServices = app()->make(StoreOrderStatusServices::class);
         $status = [];
         if ($order['is_cancel']) {
             $status['_type'] = 4;
@@ -261,7 +250,7 @@ class StoreOrderServices extends BaseServices
                     $status['_class'] = 'nobuy';
                 } elseif ($payType === PayServices::VN_COD) {
                     $status['_type'] = 9;
-                    $status['_title'] = 'Đặt hàng thành công (COD)';
+                    $status['_title'] = 'Đơn hàng thành công (COD)';
                     $status['_msg'] = 'Đơn hàng đã được ghi nhận. Bạn thanh toán khi nhận hàng.';
                     $status['_class'] = 'nobuy';
                 } elseif ($payType === PayServices::OFFLINE_PAY && (int)$order['status'] < 2) {
@@ -272,7 +261,7 @@ class StoreOrderServices extends BaseServices
                 } else {
                     $status['_type'] = 0;
                     $status['_title'] = 'Chờ thanh toán';
-                    //Hệ thống cài đặt trước khoảng thời gian hủy đơn hàng
+                    //Hệ thống Cài đặt trước khoảng thời gian hủy đơn hàng
                     $keyValue = ['order_cancel_time', 'order_activity_time', 'order_bargain_time', 'order_seckill_time', 'order_pink_time'];
                     //Nhận cấu hình
                     $systemValue = SystemConfigService::more($keyValue);
@@ -302,7 +291,7 @@ class StoreOrderServices extends BaseServices
                     $status['_title'] = 'Đang giao hàng';
                     $ts = (int)$statusServices->value(['oid' => $order['id'], 'change_type' => 'delivery'], 'change_time');
                     $fmt = $this->formatOrderStatusTime($ts);
-                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Shop đã bàn giao đơn vị giao hàng.';
+                    $status['_msg'] = ($fmt !== '' ? $fmt . ' — ' : '') . 'Shop đã bàn giao Đơn vị giao hàng.';
                     $status['_class'] = 'state-ysh';
                 } elseif ($order['delivery_type'] == 'express') {//TODO  vận chuyển
                     $status['_type'] = 1;
@@ -366,8 +355,7 @@ class StoreOrderServices extends BaseServices
                 $status['_class'] = 'state-sqtk';
             } else if (!$order['status']) {
                 if ($order['pink_id']) {
-                    /** @var StorePinkServices $pinkServices */
-                    $pinkServices = app()->make(StorePinkServices::class);
+                    /** @var StorePinkServices $pinkServices */                    $pinkServices = app()->make(StorePinkServices::class);
                     if ($pinkServices->getCount(['id' => $order['pink_id'], 'status' => 1])) {
                         $status['_type'] = 1;
                         $status['_title'] = 'Tham gia nhóm';
@@ -434,7 +422,7 @@ class StoreOrderServices extends BaseServices
             } else if ($order['status'] == 2) {
                 $status['_type'] = 3;
                 $status['_title'] = 'Chờ đánh giá';
-                $status['_msg'] = 'Bạn đã nhận hàng. Hãy đánh giá sản phẩm.';
+                $status['_msg'] = 'Bạn đã nhận hàng. Hãy Đánh giá sản phẩm.';
                 $status['_class'] = 'state-ypj';
             } else if ($order['status'] == 3) {
                 $status['_type'] = 4;
@@ -451,7 +439,7 @@ class StoreOrderServices extends BaseServices
         $order['_pay_time'] = isset($order['pay_time']) && $order['pay_time'] != null ? date('Y-m-d H:i:s', $order['pay_time']) : '';
         $order['_add_time'] = isset($order['add_time']) ? (strstr((string)$order['add_time'], '-') === false ? date('Y-m-d H:i:s', $order['add_time']) : $order['add_time']) : '';
 
-        //Hệ thống cài đặt trước khoảng thời gian hủy đơn hàng
+        //Hệ thống Cài đặt trước khoảng thời gian hủy đơn hàng
         $keyValue = ['order_cancel_time', 'order_activity_time', 'order_bargain_time', 'order_seckill_time', 'order_pink_time'];
         //Nhận cấu hình
         $systemValue = SystemConfigService::more($keyValue);
@@ -487,8 +475,12 @@ class StoreOrderServices extends BaseServices
         $order['offlinePayStatus'] = (int)sys_config('offline_pay_status') ?? (int)2;
         $order['vn_cod_pay_status'] = (int)sys_config('vn_cod_pay_status', 2);
         $order['vn_bank_pay_status'] = (int)sys_config('vn_bank_pay_status', 2);
-        $order['vn_bank_pay_guide'] = (string)sys_config('vn_bank_pay_guide', '');
-        $order['vn_bank_pay_qr_image'] = (string)sys_config('vn_bank_pay_qr_image', '');
+        $guideTemplate = (string)sys_config('vn_bank_pay_guide', '');
+        $order['vn_bank_transfer_content'] = VnBankPayHelper::transferContent((string)$order['order_id']);
+        $order['vn_bank_pay_guide'] = $guideTemplate !== ''
+            ? VnBankPayHelper::renderGuide($guideTemplate, (string)$order['order_id'], $order['pay_price'])
+            : '';
+        $order['vn_bank_pay_qr_image'] = VnBankPayHelper::resolveQrImage((string)$order['order_id'], $order['pay_price']);
         $log = $statusServices->getColumn(['oid' => $order['id']], 'change_time', 'change_type');
         if (isset($log['delivery'])) {
             $delivery = date('Y-m-d', $log['delivery']);
@@ -513,8 +505,7 @@ class StoreOrderServices extends BaseServices
             'gift_avatar' => '',
         ];
         if ($order['gift_uid'] != 0) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $giftUser = $userServices->get($order['gift_uid'], ['nickname', 'avatar']);
             $order['gift_user_info'] = [
                 'gift_uid' => $order['gift_uid'],
@@ -529,11 +520,9 @@ class StoreOrderServices extends BaseServices
      * chuyển đổi dữ liệu
      * @param array $data
      * @return array
-     */
-    public function tidyOrderList(array $data)
+     */    public function tidyOrderList(array $data)
     {
-        /** @var StoreOrderCartInfoServices $services */
-        $services = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $services */        $services = app()->make(StoreOrderCartInfoServices::class);
         foreach ($data as &$item) {
             $item['_info'] = $services->getOrderCartInfo((int)$item['id']);
             $item['add_time'] = date('Y-m-d H:i:s', $item['add_time']);
@@ -585,7 +574,7 @@ class StoreOrderServices extends BaseServices
                         $item['pay_type_name'] = 'Thanh toán WeChat';
                         break;
                     case PayServices::YUE_PAY:
-                        $item['pay_type_name'] = 'thanh toán số dư';
+                        $item['pay_type_name'] = 'Thanh toán bằng số dư';
                         break;
                     case PayServices::OFFLINE_PAY:
                         $item['pay_type_name'] = 'Thanh toán ngoại tuyến';
@@ -594,13 +583,18 @@ class StoreOrderServices extends BaseServices
                         $item['pay_type_name'] = 'thanh toán Alipay';
                         break;
                     case PayServices::ALLIN_PAY:
-                        $item['pay_type_name'] = 'thanh toán Tonglian';
+                        $item['pay_type_name'] = 'Thanh toán Tonglian';
                         break;
                     case PayServices::VN_COD:
                         $item['pay_type_name'] = PayServices::PAY_TYPE[PayServices::VN_COD];
                         break;
                     case PayServices::VN_BANK:
                         $item['pay_type_name'] = PayServices::PAY_TYPE[PayServices::VN_BANK];
+                        break;
+                    case PayServices::VN_VNPAY:
+                    case PayServices::VN_MOMO:
+                    case PayServices::VN_ZALOPAY:
+                        $item['pay_type_name'] = PayServices::PAY_TYPE[$item['pay_type']] ?? '';
                         break;
                     default:
                         $item['pay_type_name'] = 'Các khoản thanh toán khác';
@@ -680,7 +674,7 @@ HTML;
             } else if ($item['paid'] == 1 && $item['refund_status'] == 3 && $item['status'] == 4) {
                 $item['_status'] = 9;//Chia đơn hàng và vận chuyển, xin hoàn lại một phần
             } else if ($item['paid'] == 1 && $item['refund_status'] == 4) {
-                $item['_status'] = 10;//Tất cả các đơn đặt hàng đã được chia nhỏ và vận chuyển. Tất cả các khoản hoàn trả đã được áp dụng.
+                $item['_status'] = 10;//Tất cả đơn hàng đã được chia nhỏ và vận chuyển. Tất cả các khoản hoàn trả đã được áp dụng.
             } else if ($item['paid'] == 1 && $item['refund_status'] == 3 && $item['status'] == 0) {
                 $item['_status'] = 11;//Tách đơn hàng và hoàn tiền không được vận chuyển
             }
@@ -696,8 +690,7 @@ HTML;
 
             //Thay đổi theo người bảo lãnhstore_name
             if ($item['clerk_id'] && isset($item['staff_store_id']) && $item['staff_store_id']) {
-                /** @var SystemStoreServices $store */
-                $store = app()->make(SystemStoreServices::class);
+                /** @var SystemStoreServices $store */                $store = app()->make(SystemStoreServices::class);
                 $storeOne = $store->value(['id' => $item['staff_store_id']], 'name');
                 if ($storeOne) $item['store_name'] = $storeOne;
             }
@@ -709,8 +702,7 @@ HTML;
      * Xử lý số tiền đặt hàng
      * @param $where
      * @return array
-     */
-    public function getOrderPrice($where)
+     */    public function getOrderPrice($where)
     {
         if (isset($where['refund_type']) && $where['refund_type']) unset($where['refund_type']);
         $where['is_del'] = 0;//Xóa đơn hàng không được tính
@@ -718,10 +710,10 @@ HTML;
         $price['pay_price'] = 0;//Số tiền thanh toán
         $price['refund_price'] = 0;//Số tiền hoàn lại
         $price['pay_price_wx'] = 0;//Số tiền thanh toán WeChat
-        $price['pay_price_yue'] = 0;//Số tiền thanh toán số dư
+        $price['pay_price_yue'] = 0;//Số tiền Thanh toán bằng số dư
         $price['pay_price_offline'] = 0;//Số tiền thanh toán ngoại tuyến
         $price['pay_price_other'] = 0;//Số tiền thanh toán khác
-        $price['use_integral'] = 0;//Điểm người dùng
+        $price['use_integral'] = 0;//Điểm Khách hàng
         $price['back_integral'] = 0;//Tổng số điểm được hoàn trả
         $price['deduction_price'] = 0;//Số tiền khấu trừ
         $price['total_num'] = 0; //Tổng số mặt hàng
@@ -735,8 +727,7 @@ HTML;
         }
         $ids = $this->dao->column($where + $whereData, 'id');
         if (count($ids)) {
-            /** @var UserBillServices $services */
-            $services = app()->make(UserBillServices::class);
+            /** @var UserBillServices $services */            $services = app()->make(UserBillServices::class);
             $price['brokerage'] = $services->getBrokerageNumSum($ids);
         }
         $price['refund_price'] = $this->dao->together($where + ['is_del' => 0, 'paid' => 1, 'refund_status' => 2], 'refund_price');
@@ -786,8 +777,7 @@ HTML;
      * Nhận thống kê trang danh sách đơn hàng
      * @param $where
      * @return array
-     */
-    public function getBadge($where)
+     */    public function getBadge($where)
     {
         $price = $this->getOrderPrice($where);
         return [
@@ -826,16 +816,14 @@ HTML;
      *
      * @param array $where
      * @return mixed
-     */
-    /**
+     */    /**
      * @param array $where
      * @return array
      * @throws \ReflectionException
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/3/14
-     */
-    public function orderCount(array $where)
+     */    public function orderCount(array $where)
     {
         $where['is_system_del'] = 0;
         $where['pid'] = 0;
@@ -850,8 +838,7 @@ HTML;
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function updateForm(int $id)
+     */    public function updateForm(int $id)
     {
         $product = $this->dao->get($id);
         if (!$product) {
@@ -872,15 +859,13 @@ HTML;
      * @param array $data
      * @return mixed
      * @throws \Exception
-     */
-    public function updateOrder(int $id, array $data)
+     */    public function updateOrder(int $id, array $data)
     {
         $order = $this->dao->getOne(['id' => $id, 'is_del' => 0]);
         if (!$order) {
             throw new AdminException('Đơn hàng không tồn tại');
         }
-        /** @var StoreOrderCreateServices $createServices */
-        $createServices = app()->make(StoreOrderCreateServices::class);
+        /** @var StoreOrderCreateServices $createServices */        $createServices = app()->make(StoreOrderCreateServices::class);
         $data['order_id'] = $createServices->getNewOrderId('cp');
         if (sys_config('user_brokerage_type') == 1) {
             $percent = $order['pay_price'] != 0 ? bcdiv((string)$data['pay_price'], (string)$order['pay_price'], 6) : $order['pay_price'];
@@ -900,8 +885,7 @@ HTML;
                 $data['division_brokerage'] = bcmul((string)$order['division_brokerage'], $percent, 2);
             }
         }
-        /** @var StoreOrderStatusServices $services */
-        $services = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $services */        $services = app()->make(StoreOrderStatusServices::class);
         return $this->transaction(function () use ($id, $data, $services) {
             $res = $this->dao->update($id, $data);
             $res = $res && $services->save([
@@ -946,8 +930,7 @@ HTML;
      * Biểu đồ đặt hàng
      * @param $cycle
      * @return array
-     */
-    public function orderCharts($cycle)
+     */    public function orderCharts($cycle)
     {
         $datalist = [];
         switch ($cycle) {
@@ -1530,8 +1513,7 @@ HTML;
     /**
      * Nhận số lượng đặt hàng
      * @return int
-     */
-    public function storeOrderCount()
+     */    public function storeOrderCount()
     {
         return $this->dao->storeOrderCount();
     }
@@ -1540,8 +1522,7 @@ HTML;
      * trật tự mớiID
      * @param $status
      * @return array
-     */
-    public function newOrderId($status)
+     */    public function newOrderId($status)
     {
         return $this->dao->search(['status' => $status, 'is_remind' => 0])->column('order_id', 'id');
     }
@@ -1550,8 +1531,7 @@ HTML;
      * Sửa đổi đơn hàng mới
      * @param $newOrderId
      * @return \crmeb\basic\BaseModel
-     */
-    public function newOrderUpdate($newOrderId)
+     */    public function newOrderUpdate($newOrderId)
     {
         return $this->dao->newOrderUpdates($newOrderId);
     }
@@ -1561,8 +1541,7 @@ HTML;
      * @param $left
      * @param $right
      * @return int|string
-     */
-    public function growth($nowValue, $lastValue)
+     */    public function growth($nowValue, $lastValue)
     {
         if ($lastValue == 0 && $nowValue == 0) return 0;
         if ($lastValue == 0) return bcmul((string)$nowValue, '100', 2);
@@ -1576,13 +1555,10 @@ HTML;
      * @tác giả Ngô triều
      * @email 442384644@qq.com
      * @date 2023/04/03
-     */
-    public function homeStatics()
+     */    public function homeStatics()
     {
-        /** @var UserServices $userService */
-        $userService = app()->make(UserServices::class);
-        /** @var StoreProductLogServices $productLogServices */
-        $productLogServices = app()->make(StoreProductLogServices::class);
+        /** @var UserServices $userService */        $userService = app()->make(UserServices::class);
+        /** @var StoreProductLogServices $productLogServices */        $productLogServices = app()->make(StoreProductLogServices::class);
         //TODO bán hàng
         // Doanh thu hôm nay
         $today_sales = $this->dao->todaySales('today');
@@ -1599,7 +1575,7 @@ HTML;
             'total' => $total_sales . 'đ',
             'date' => 'Hôm nay'
         ];
-        //TODO:Lượt truy cập của người dùng
+        //TODO:Lượt truy cập của Khách hàng
         //Chuyến thăm hôm nay
         $today_visits = $productLogServices->count(['time' => 'today', 'type' => 'visit']);
         //Lượt truy cập ngày hôm qua
@@ -1631,14 +1607,14 @@ HTML;
             'total' => $total_order . 'một',
             'date' => 'Hôm nay'
         ];
-        //TODO người dùng
+        //TODO Khách hàng
         //Người dùng mới hôm nay
         $today_user = $userService->todayAddVisits('today', 1);
         //Người dùng mới ngày hôm qua
         $yesterday_user = $userService->todayAddVisits('yesterday', 1);
         //Người dùng mới hàng ngày hàng năm
         $user_today_ratio = $this->growth($today_user, $yesterday_user);
-        //tất cả người dùng
+        //Tất cả Khách hàng
         $total_user = $userService->count(['time' => 'month']);
         $user = [
             'today' => $today_user,
@@ -1649,7 +1625,7 @@ HTML;
         ];
         $info = array_values(compact('sales', 'visits', 'order', 'user'));
         $info[0]['title'] = 'việc bán hàng';
-        $info[1]['title'] = 'Lượt truy cập của người dùng';
+        $info[1]['title'] = 'Lượt truy cập của Khách hàng';
         $info[2]['title'] = 'Số lượng đặt hàng';
         $info[3]['title'] = 'Thêm khách hàng mới';
         $info[0]['total_name'] = 'doanh số tháng này';
@@ -1668,15 +1644,13 @@ HTML;
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \Exception
-     */
-    public function orderPrintTicket(int $id, $print_type)
+     */    public function orderPrintTicket(int $id, $print_type)
     {
         $order = $this->get($id);
         if (!$order) {
             throw new AdminException('Đơn hàng không tồn tại');
         }
-        /** @var StoreOrderCartInfoServices $cartServices */
-        $cartServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $cartServices */        $cartServices = app()->make(StoreOrderCartInfoServices::class);
         $product = $cartServices->getCartInfoPrintProduct($order['id']);
         if (!$product) {
             throw new AdminException('Không thể lấy được các mặt hàng đặt hàng,Không thể in');
@@ -1740,12 +1714,10 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getOrderConfirmData(array $user, $cartId, bool $new, int $addressId, int $shipping_type = 1, int $is_gift = 0)
+     */    public function getOrderConfirmData(array $user, $cartId, bool $new, int $addressId, int $shipping_type = 1, int $is_gift = 0)
     {
         $addr = [];
-        /** @var UserAddressServices $addressServices */
-        $addressServices = app()->make(UserAddressServices::class);
+        /** @var UserAddressServices $addressServices */        $addressServices = app()->make(UserAddressServices::class);
         if ($addressId) {
             $addr = $addressServices->getAddress($addressId);
         }
@@ -1763,14 +1735,12 @@ HTML;
             $addr = [];
             $shipping_type = 0;
         }
-        /** @var StoreCartServices $cartServices */
-        $cartServices = app()->make(StoreCartServices::class);
+        /** @var StoreCartServices $cartServices */        $cartServices = app()->make(StoreCartServices::class);
         $cartGroup = $cartServices->getUserProductCartListV1($user['uid'], $cartId, $new, $addr, $shipping_type, $is_gift);
         $data = [];
         $data['storeFreePostage'] = $storeFreePostage = floatval(sys_config('store_free_postage')) ?: 0;//Miễn phí vận chuyển cho toàn bộ số tiền
         $validCartInfo = $cartGroup['valid'];
-        /** @var StoreOrderComputedServices $computedServices */
-        $computedServices = app()->make(StoreOrderComputedServices::class);
+        /** @var StoreOrderComputedServices $computedServices */        $computedServices = app()->make(StoreOrderComputedServices::class);
         $priceGroup = $computedServices->getOrderPriceGroup($storeFreePostage, $validCartInfo, $addr, $user, $shipping_type, $is_gift);
         $validCartInfo = $priceGroup['cartInfo'] ?? $validCartInfo;
         $other = [
@@ -1802,8 +1772,7 @@ HTML;
         $data['priceGroup'] = $priceGroup;
         $data['orderKey'] = $this->cacheOrderInfo($user['uid'], $validCartInfo, $priceGroup, $other);
         $data['offlinePostage'] = $other['offlinePostage'];
-        /** @var UserLevelServices $levelServices */
-        $levelServices = app()->make(UserLevelServices::class);
+        /** @var UserLevelServices $levelServices */        $levelServices = app()->make(UserLevelServices::class);
         $userLevel = $levelServices->getUerLevelInfoByUid($user['uid']);
         if (isset($user['pwd'])) unset($user['pwd']);
         $user['vip'] = $userLevel !== false;
@@ -1822,21 +1791,18 @@ HTML;
         $data['pay_weixin_open'] = sys_config('pay_weixin_open', '0') != '0';//WeChat Trả 1 Bật 0 Tắt
         $data['friend_pay_status'] = (int)sys_config('friend_pay_status') ?? 0;//Bạn bè thanh toán thay mặt 1 Trên 0 Tắt
         $data['store_self_mention'] = (int)sys_config('store_self_mention') ?? 0;//Có bật tính năng nhận tại cửa hàng không?
-        /** @var SystemStoreServices $systemStoreServices */
-        $systemStoreServices = app()->make(SystemStoreServices::class);
+        /** @var SystemStoreServices $systemStoreServices */        $systemStoreServices = app()->make(SystemStoreServices::class);
         $store_count = $systemStoreServices->count(['type' => 0]);
         $data['store_self_mention'] = $data['store_self_mention'] && $store_count;
 
         $data['ali_pay_status'] = sys_config('ali_pay_status', '0') != '0';//Gói thanh toán thanh toán 1 tặng 0 giảm
         $data['system_store'] = [];//lưu trữ thông tin
-        /** @var UserInvoiceServices $userInvoice */
-        $userInvoice = app()->make(UserInvoiceServices::class);
+        /** @var UserInvoiceServices $userInvoice */        $userInvoice = app()->make(UserInvoiceServices::class);
         $invoice_func = $userInvoice->invoiceFuncStatus();
         $data['invoice_func'] = $invoice_func['invoice_func'];
         $data['special_invoice'] = $invoice_func['special_invoice'];
 
-        /** @var UserBillServices $userBillServices */
-        $userBillServices = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBillServices */        $userBillServices = app()->make(UserBillServices::class);
         $data['usable_integral'] = bcsub((string)$user['integral'], (string)$userBillServices->getBillSum(['uid' => $user['uid'], 'is_frozen' => 1]), 0);
         $data['integral_open'] = sys_config('integral_ratio', 0) > 0;
 
@@ -1854,8 +1820,7 @@ HTML;
      * @param int $cacheTime
      * @return string
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function cacheOrderInfo($uid, $cartInfo, $priceGroup, $other = [], $cacheTime = 600)
+     */    public function cacheOrderInfo($uid, $cartInfo, $priceGroup, $other = [], $cacheTime = 600)
     {
         $key = $this->getCacheKey();
         CacheService::set('user_order_' . $uid . $key, compact('cartInfo', 'priceGroup', 'other'), $cacheTime);
@@ -1866,8 +1831,7 @@ HTML;
      * Tạo đơn hàng bằng thuật toán bông tuyếtID
      * @return string
      * @throws \Exception
-     */
-    public function getCacheKey(string $prefix = '')
+     */    public function getCacheKey(string $prefix = '')
     {
         $snowflake = new \Godruoyi\Snowflake\Snowflake();
         //32Chút
@@ -1879,12 +1843,11 @@ HTML;
         return $prefix . $id;
     }
 
-    /**Lấy số lần người dùng mua sản phẩm đang hoạt động
+    /**Lấy số lần Khách hàng mua sản phẩm đang hoạt động
      * @param $uid
      * @param $seckill_id
      * @return int
-     */
-    public function activityProductCount(array $where)
+     */    public function activityProductCount(array $where)
     {
         return $this->dao->count($where);
     }
@@ -1894,8 +1857,7 @@ HTML;
      * @param int $uid
      * @param string $key
      * @return |null
-     */
-    public function getCacheOrderInfo(int $uid, string $key)
+     */    public function getCacheOrderInfo(int $uid, string $key)
     {
         $cacheName = 'user_order_' . $uid . $key;
         if (!CacheService::has($cacheName)) return null;
@@ -1907,8 +1869,7 @@ HTML;
      * @param int $pid
      * @param int $uid
      * @return mixed
-     */
-    public function getStoreIdPink(int $pid, int $uid)
+     */    public function getStoreIdPink(int $pid, int $uid)
     {
         return $this->dao->value(['uid' => $uid, 'pink_id' => $pid, 'is_del' => 0], 'order_id');
     }
@@ -1918,8 +1879,7 @@ HTML;
      * @param int $pid
      * @param int $uid
      * @return int
-     */
-    public function getIsOrderPink($pid = 0, $uid = 0)
+     */    public function getIsOrderPink($pid = 0, $uid = 0)
     {
         return $this->dao->count(['uid' => $uid, 'pink_id' => $pid, 'refund_status' => 0, 'is_del' => 0]);
     }
@@ -1928,8 +1888,7 @@ HTML;
      * Xác định xem phương thức thanh toán có được bật hay không
      * @param $payType
      * @return bool
-     */
-    public function checkPaytype(string $payType)
+     */    public function checkPaytype(string $payType)
     {
         $res = false;
         switch ($payType) {
@@ -1957,6 +1916,22 @@ HTML;
             case PayServices::VN_BANK:
                 $res = (int)sys_config('vn_bank_pay_status', 2) === 1;
                 break;
+            case PayServices::VN_VNPAY:
+                $res = (int)sys_config('vn_vnpay_pay_status', 2) === 1
+                    && trim((string)sys_config('vn_vnpay_tmn_code', '')) !== ''
+                    && trim((string)sys_config('vn_vnpay_hash_secret', '')) !== '';
+                break;
+            case PayServices::VN_MOMO:
+                $res = (int)sys_config('vn_momo_pay_status', 2) === 1
+                    && trim((string)sys_config('vn_momo_partner_code', '')) !== ''
+                    && trim((string)sys_config('vn_momo_access_key', '')) !== ''
+                    && trim((string)sys_config('vn_momo_secret_key', '')) !== '';
+                break;
+            case PayServices::VN_ZALOPAY:
+                $res = (int)sys_config('vn_zalopay_pay_status', 2) === 1
+                    && (int)sys_config('vn_zalopay_app_id', 0) > 0
+                    && trim((string)sys_config('vn_zalopay_key1', '')) !== '';
+                break;
         }
         return $res;
     }
@@ -1969,8 +1944,7 @@ HTML;
      * @param string $orderId
      * @param string $payType offline|vn_cod|vn_bank
      * @return bool|\crmeb\basic\BaseModel
-     */
-    public function setOrderTypePayOffline(string $orderId, string $payType = PayServices::OFFLINE_PAY)
+     */    public function setOrderTypePayOffline(string $orderId, string $payType = PayServices::OFFLINE_PAY)
     {
         $allowDeferred = [
             PayServices::OFFLINE_PAY,
@@ -2010,8 +1984,7 @@ HTML;
      * @param int $uid
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function removeOrder(string $uni, int $uid)
+     */    public function removeOrder(string $uni, int $uid)
     {
         $order = $this->getUserOrderDetail($uni, $uid);
         if (!$order) {
@@ -2022,8 +1995,7 @@ HTML;
             throw new ApiException('Lệnh này không thể bị xóa');
 
         $order->is_del = 1;
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $res = $statusService->save([
             'oid' => $order['id'],
             'change_type' => 'remove_order',
@@ -2044,8 +2016,7 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function cancelOrder($order_id, int $uid)
+     */    public function cancelOrder($order_id, int $uid)
     {
         $order = $this->dao->getOne(['order_id' => $order_id, 'uid' => $uid, 'is_del' => 0]);
         if (!$order) {
@@ -2057,8 +2028,7 @@ HTML;
         if ($order->paid) {
             throw new ApiException('Đơn hàng đã được thanh toán và không thể hủy được');
         }
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
 
         $this->transaction(function () use ($refundServices, $order) {
             $res = $refundServices->integralAndCouponBack($order, 'cancel') && $refundServices->regressionStock($order);
@@ -2092,20 +2062,18 @@ HTML;
      * @param array $uniqueList
      * @param $oid
      * @return mixed
-     */
-    public function checkOrderOver($replyServices, array $uniqueList, $oid)
+     */    public function checkOrderOver($replyServices, array $uniqueList, $oid)
     {
         //Tất cả các đánh giá của các hạng mục đơn hàng đã hoàn thành
         $replyServices->count(['unique' => $uniqueList, 'oid' => $oid]);
         if ($replyServices->count(['unique' => $uniqueList, 'oid' => $oid]) >= count($uniqueList)) {
             $res = $this->dao->update(['id' => $oid, 'status' => 2], ['status' => 3]);
             if (!$res) throw new ApiException('Sửa đổi không thành công');
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $statusService->save([
                 'oid' => $oid,
                 'change_type' => 'check_order_over',
-                'change_message' => 'Đánh giá của người dùng',
+                'change_message' => 'Đánh giá của Khách hàng',
                 'change_time' => time()
             ]);
             $order = $this->dao->get((int)$oid, ['id,pid,status']);
@@ -2117,7 +2085,7 @@ HTML;
                     $statusService->save([
                         'oid' => $p_order['id'],
                         'change_type' => 'check_order_over',
-                        'change_message' => 'Đánh giá của người dùng',
+                        'change_message' => 'Đánh giá của Khách hàng',
                         'change_time' => time()
                     ]);
                 }
@@ -2126,18 +2094,16 @@ HTML;
     }
 
     /**
-     * Đơn đặt hàng của người dùng
+     * Đơn đặt hàng của Khách hàng
      * @param int $uid
      * @param UserServices $userServices
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserOrderList(int $uid)
+     */    public function getUserOrderList(int $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid, 'uid');
         if (!$user) {
             throw new AdminException('Dữ liệu không tồn tại');
@@ -2158,8 +2124,7 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserStairOrderList(int $uid, $where)
+     */    public function getUserStairOrderList(int $uid, $where)
     {
         $where_data = [];
         if (isset($where['type'])) {
@@ -2187,7 +2152,7 @@ HTML;
         if (isset($where['order_id']) && $where['order_id']) {
             $where_data['order_id'] = $where['order_id'];
         }
-        //Đơn hàng khuyến mãi chỉ hiển thị đơn hàng đã thanh toán và chưa được hoàn tiền
+        //Đơn hàng Affiliate chỉ hiển thị đơn hàng đã thanh toán và chưa được hoàn tiền
         $where_data['paid'] = 1;
         $where_data['refund_status'] = 0;
         $where_data['pid'] = 0;
@@ -2204,13 +2169,11 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getExportList(array $where)
+     */    public function getExportList(array $where)
     {
         $list = $this->dao->search($where)->order('id desc')->select()->toArray();
         foreach ($list as &$item) {
-            /** @var StoreOrderCartInfoServices $orderCart */
-            $orderCart = app()->make(StoreOrderCartInfoServices::class);
+            /** @var StoreOrderCartInfoServices $orderCart */            $orderCart = app()->make(StoreOrderCartInfoServices::class);
             $_info = $orderCart->getCartColunm(['oid' => $item['id']], 'cart_info', 'unique');
             foreach ($_info as $k => $v) {
                 $cart_info = is_string($v) ? json_decode($v, true) : $v;
@@ -2219,12 +2182,10 @@ HTML;
                 unset($cart_info);
             }
             $item['_info'] = $_info;
-            /** @var WechatUserServices $wechatUserService */
-            $wechatUserService = app()->make(WechatUserServices::class);
+            /** @var WechatUserServices $wechatUserService */            $wechatUserService = app()->make(WechatUserServices::class);
             $item['sex'] = $wechatUserService->value(['uid' => $item['uid']], 'sex');
             if ($item['pink_id'] || $item['combination_id']) {
-                /** @var StorePinkServices $pinkService */
-                $pinkService = app()->make(StorePinkServices::class);
+                /** @var StorePinkServices $pinkService */                $pinkService = app()->make(StorePinkServices::class);
                 $pinkStatus = $pinkService->value(['order_id_key' => $item['id']], 'status');
                 switch ($pinkStatus) {
                     case 1:
@@ -2269,18 +2230,16 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderUnpaidCancel()
+     */    public function orderUnpaidCancel()
     {
-        //Hệ thống cài đặt trước khoảng thời gian hủy đơn hàng
+        //Hệ thống Cài đặt trước khoảng thời gian hủy đơn hàng
         $keyValue = ['order_cancel_time', 'order_activity_time', 'order_bargain_time', 'order_seckill_time', 'order_pink_time'];
         //Nhận cấu hình
         $systemValue = SystemConfigService::more($keyValue);
         //Định dạng dữ liệu
         $systemValue = Arr::setValeTime($keyValue, is_array($systemValue) ? $systemValue : []);
         $list = $this->dao->getOrderUnPaidList();
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
         foreach ($list as $order) {
             if ($order['pink_id'] || $order['combination_id']) {
                 $secs = $systemValue['order_pink_time'] ?: $systemValue['order_activity_time'];
@@ -2307,8 +2266,7 @@ HTML;
                         return true;
                     });
 
-                    /** @var StoreOrderCartInfoServices $cartServices */
-                    $cartServices = app()->make(StoreOrderCartInfoServices::class);
+                    /** @var StoreOrderCartInfoServices $cartServices */                    $cartServices = app()->make(StoreOrderCartInfoServices::class);
                     $cartInfo = $cartServices->getOrderCartInfo((int)$order['id']);
 
                 } catch (\Throwable $e) {
@@ -2321,8 +2279,7 @@ HTML;
     /**Lấy doanh số đơn hàng hôm nay hoặc hôm qua theo thời gian
      * @param array $where
      * @return float|int
-     */
-    public function getOrderMoneyByWhere(array $where, string $sum_field, string $selectType, string $group = "")
+     */    public function getOrderMoneyByWhere(array $where, string $sum_field, string $selectType, string $group = "")
     {
 
         switch ($selectType) {
@@ -2333,29 +2290,26 @@ HTML;
         }
     }
 
-    /**Số lượng đơn hàng trong khoảng thời gian thống kê
+    /**Số lượng đơn hàng Trong khoảng thời gian thống kê
      * @param array $where
      * @param string $sum_field
-     */
-    public function getOrderCountByWhere(array $where)
+     */    public function getOrderCountByWhere(array $where)
     {
         return $this->dao->getDayOrderCount($where);
     }
 
-    /**Số lượng đơn hàng trong khoảng thời gian thống kê nhóm
+    /**Số lượng đơn hàng Trong khoảng thời gian thống kê nhóm
      * @param $where
      * @return mixed
-     */
-    public function getOrderGroupCountByWhere($where)
+     */    public function getOrderGroupCountByWhere($where)
     {
         return $this->dao->getOrderGroupCount($where);
     }
 
-    /** Số người thanh toán đơn hàng trong khoảng thời gian
+    /** Số người thanh toán đơn hàng Trong khoảng thời gian
      * @param $where
      * @return mixed
-     */
-    public function getPayOrderPeopleByWhere($where)
+     */    public function getPayOrderPeopleByWhere($where)
     {
         return $this->dao->getPayOrderPeople($where);
     }
@@ -2363,8 +2317,7 @@ HTML;
     /**Thống kê nhóm khoảng thời gian về số người thanh toán đơn hàng
      * @param $where
      * @return mixed
-     */
-    public function getPayOrderGroupPeopleByWhere($where)
+     */    public function getPayOrderGroupPeopleByWhere($where)
     {
         return $this->dao->getPayOrderGroupPeople($where);
     }
@@ -2376,8 +2329,7 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refundList(array $where)
+     */    public function refundList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         if ($where['refund_reason_time'] != '') $where['refund_reason_time'] = explode('-', $where['refund_reason_time']);
@@ -2399,16 +2351,14 @@ HTML;
      * Người bán đồng ý hoàn tiền và chờ khách hàng trả lại hàng
      * @param $order_id
      * @return bool
-     */
-    public function agreeRefund($order_id)
+     */    public function agreeRefund($order_id)
     {
         $res = $this->dao->update(['id' => $order_id], ['refund_type' => 4]);
-        /** @var StoreOrderStatusServices $statusService */
-        $statusService = app()->make(StoreOrderStatusServices::class);
+        /** @var StoreOrderStatusServices $statusService */        $statusService = app()->make(StoreOrderStatusServices::class);
         $statusService->save([
             'oid' => $order_id,
             'change_type' => 'refund_express',
-            'change_message' => 'Đang chờ người dùng quay lại',
+            'change_message' => 'Đang chờ Khách hàng quay lại',
             'change_time' => time()
         ]);
         if ($res) return true;
@@ -2426,8 +2376,7 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSplitOrderList(array $where, array $field = ['*'], array $with = [], $page = 0, $limit = 0, $order = 'pay_time DESC,id DESC')
+     */    public function getSplitOrderList(array $where, array $field = ['*'], array $with = [], $page = 0, $limit = 0, $order = 'pay_time DESC,id DESC')
     {
         $data = $this->dao->getOrderList($where, $field, $page, $limit, $with, $order);
         if ($data) {
@@ -2444,8 +2393,7 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getFriendDetail($orderId, $uid)
+     */    public function getFriendDetail($orderId, $uid)
     {
         $orderInfo = $this->dao->getOne(['id' => $orderId, 'is_del' => 0]);
         if ($orderInfo) {
@@ -2454,8 +2402,7 @@ HTML;
             throw new ApiException('Đơn hàng không tồn tại');
         }
         $orderInfo = $this->tidyOrder($orderInfo, true);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($orderInfo['uid']);
         $friendInfo = $userServices->get($orderInfo['pay_uid']);
         $info = [
@@ -2484,8 +2431,7 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refundCartInfoList(array $cart_ids = [], int $id = 0)
+     */    public function refundCartInfoList(array $cart_ids = [], int $id = 0)
     {
         $orderInfo = $this->dao->get($id);
         if (!$orderInfo) {
@@ -2517,12 +2463,11 @@ HTML;
     }
 
     /**
-     * Đặt hàng lại
+     * Đơn hàng lại
      * @param string $uni
      * @param int $uid
      * @return array
-     */
-    public function againOrder(StoreCartServices $services, string $uni, int $uid): array
+     */    public function againOrder(StoreCartServices $services, string $uni, int $uid): array
     {
         if (!$uni) throw new ApiException('Lỗi tham số');
         $order = $this->getUserOrderDetail($uni, $uid);
@@ -2551,8 +2496,7 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function aliPayOrder(OrderPayServices $payServices, OtherOrderServices $services, string $key, string $quitUrl)
+     */    public function aliPayOrder(OrderPayServices $payServices, OtherOrderServices $services, string $key, string $quitUrl)
     {
         if (!$key) {
             throw new ApiException('Lỗi tham số');
@@ -2580,7 +2524,7 @@ HTML;
     }
 
     /**
-     * Thông tin đặt hàng của người dùng
+     * Thông tin đơn hàng của Khách hàng
      * @param StoreOrderEconomizeServices $services
      * @param string $uni
      * @param int $uid
@@ -2588,8 +2532,7 @@ HTML;
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserOrderByKey(StoreOrderEconomizeServices $services, string $uni, int $uid): array
+     */    public function getUserOrderByKey(StoreOrderEconomizeServices $services, string $uni, int $uid): array
     {
         $order = $this->getUserOrderDetail($uni, $uid, ['split', 'invoice', 'user']);
         if (!$order) throw new ApiException('Sản phẩm không tồn tại');
@@ -2610,8 +2553,7 @@ HTML;
         $order['add_time_h'] = date('H:i:s', $order['add_time']);
         $order['system_store'] = false;
         if ($order['store_id']) {
-            /** @var SystemStoreServices $storeServices */
-            $storeServices = app()->make(SystemStoreServices::class);
+            /** @var SystemStoreServices $storeServices */            $storeServices = app()->make(SystemStoreServices::class);
             $order['system_store'] = $storeServices->getStoreDispose($order['store_id']);
         }
         $order['code'] = '';
@@ -2634,8 +2576,7 @@ HTML;
             try {
                 $verifyName = 'verify_code_' . $order['verify_code'] . '.jpg';
                 $data = 'verify_code=' . $order['verify_code'];
-                /** @var SystemAttachmentServices $systemAttachmentService */
-                $systemAttachmentService = app()->make(SystemAttachmentServices::class);
+                /** @var SystemAttachmentServices $systemAttachmentService */                $systemAttachmentService = app()->make(SystemAttachmentServices::class);
                 $imageInfo = $systemAttachmentService->getOne(['name' => $verifyName]);
                 $siteUrl = sys_config('site_url');
                 if (!$imageInfo) {
@@ -2699,8 +2640,7 @@ HTML;
             $orderData['member_price'] = 0;
         }
         $orderData['routine_contact_type'] = sys_config('routine_contact_type', 0);
-        /** @var UserInvoiceServices $userInvoice */
-        $userInvoice = app()->make(UserInvoiceServices::class);
+        /** @var UserInvoiceServices $userInvoice */        $userInvoice = app()->make(UserInvoiceServices::class);
         $invoice_func = $userInvoice->invoiceFuncStatus();
         $orderData['invoice_func'] = $invoice_func['invoice_func'];
         $orderData['special_invoice'] = $invoice_func['special_invoice'];
@@ -2720,8 +2660,7 @@ HTML;
             'gift_avatar' => '',
         ];
         if ($orderData['uid'] != $orderData['pay_uid']) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $payUser = $userServices->get($orderData['pay_uid'], ['nickname', 'avatar']);
             $orderData['help_info'] = [
                 'pay_uid' => $orderData['pay_uid'],
@@ -2731,8 +2670,7 @@ HTML;
             ];
         }
         if ($orderData['gift_uid'] != 0) {
-            /** @var UserServices $userServices */
-            $userServices = app()->make(UserServices::class);
+            /** @var UserServices $userServices */            $userServices = app()->make(UserServices::class);
             $giftUser = $userServices->get($orderData['gift_uid'], ['nickname', 'avatar']);
             $orderData['gift_user_info'] = [
                 'gift_uid' => $orderData['gift_uid'],
@@ -2758,8 +2696,7 @@ HTML;
         $orderData['gift_key'] = $orderData['gift_code'] = '';
         if ($order['is_gift'] == 1) {
             $orderData['gift_key'] = md5($order['id'] . '_' . $order['order_id'] . '_' . $order['uid']);
-            /** @var QrcodeServices $qrcodeService */
-            $qrcodeService = app()->make(QrcodeServices::class);
+            /** @var QrcodeServices $qrcodeService */            $qrcodeService = app()->make(QrcodeServices::class);
             $orderData['gift_code'] = $qrcodeService->getRoutineQrcodePath($order['id'], $order['uid'], 7, ['gift_key' => $orderData['gift_key']]);
         }
         $orderData['avatar'] = set_file_url($orderData['avatar']);
@@ -2773,8 +2710,7 @@ HTML;
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/10/11
-     */
-    public function isRefundAvailable($oid)
+     */    public function isRefundAvailable($oid)
     {
         $refundTimeAvailable = (int)sys_config('refund_time_available');
         if ($refundTimeAvailable == 0) return true;
@@ -2794,8 +2730,7 @@ HTML;
      * @param $new
      * @return array
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function checkShipping($uid, $cartIds, $new)
+     */    public function checkShipping($uid, $cartIds, $new)
     {
         if ($new) {
             $cartIds = explode(',', $cartIds);
@@ -2807,8 +2742,7 @@ HTML;
                 }
             }
         } else {
-            /** @var StoreCartServices $cartServices */
-            $cartServices = app()->make(StoreCartServices::class);
+            /** @var StoreCartServices $cartServices */            $cartServices = app()->make(StoreCartServices::class);
             $cartInfo = $cartServices->getCartList(['uid' => $uid, 'status' => 1, 'id' => $cartIds], 0, 0, ['productInfo', 'attrInfo']);
         }
         if (!$cartInfo) {
@@ -2832,8 +2766,7 @@ HTML;
     /**
      * Đánh giá tự động
      * @return bool
-     */
-    public function autoComment()
+     */    public function autoComment()
     {
         //Ngày đánh giá tự động
         $systemCommentTime = sys_config('system_comment_time', 0);
@@ -2842,8 +2775,7 @@ HTML;
             return true;
         }
         $sevenDay = bcsub((string)time(), bcmul((string)$systemCommentTime, '86400'));
-        /** @var StoreOrderStoreOrderStatusServices $service */
-        $service = app()->make(StoreOrderStoreOrderStatusServices::class);
+        /** @var StoreOrderStoreOrderStatusServices $service */        $service = app()->make(StoreOrderStoreOrderStatusServices::class);
         $orderList = $service->getTakeOrderIds([
             'change_time' => $sevenDay,
             'is_del' => 0,
@@ -2868,8 +2800,7 @@ HTML;
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/13
-     */
-    public function getCashierInfo(int $uid, string $orderId, string $type)
+     */    public function getCashierInfo(int $uid, string $orderId, string $type)
     {
         //Chuyển đổi loại thanh toán
         $data = [
@@ -2952,8 +2883,7 @@ HTML;
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/5/15
-     */
-    public function shipmentCancelOrder(int $id, string $msg)
+     */    public function shipmentCancelOrder(int $id, string $msg)
     {
         $orderInfo = $this->dao->get($id);
         if (!$orderInfo) {
@@ -2999,15 +2929,14 @@ HTML;
     }
 
     /**
-     * Xác định xem tất cả các đơn đặt hàng đã được chuyển đi chưa
+     * Xác định xem Tất cả các đơn đặt hàng đã được chuyển đi chưa
      * @param int $pid
      * @param int $order_id
      * @return bool
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    public function checkSubOrderNotSend(int $pid, int $order_id)
+     */    public function checkSubOrderNotSend(int $pid, int $order_id)
     {
         $order_count = $this->dao->getSubOrderNotSend($pid, $order_id);
         if ($order_count > 0) {
@@ -3025,8 +2954,7 @@ HTML;
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/31
-     */
-    public function checkSubOrderNotTake(int $pid, int $order_id)
+     */    public function checkSubOrderNotTake(int $pid, int $order_id)
     {
         $order_count = $this->dao->getSubOrderNotTake($pid, $order_id);
         if ($order_count > 0) {
@@ -3046,8 +2974,7 @@ HTML;
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/10/11
-     */
-    public function printShippingData($order_id)
+     */    public function printShippingData($order_id)
     {
         $orderInfo = $this->dao->get(['order_id' => $order_id]);
         if (!$orderInfo) {
@@ -3089,8 +3016,7 @@ HTML;
             throw new ApiException('Đơn hàng không tồn tại');
         }
         $orderInfo = $this->tidyOrder($orderInfo, true);
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($orderInfo['uid']);
         $arr = [];
         foreach ($orderInfo['cartInfo'] as $cartInfo) {
@@ -3180,8 +3106,7 @@ HTML;
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/9/8
-     */
-    public function editAddress($id, $data)
+     */    public function editAddress($id, $data)
     {
         $orderInfo = $this->dao->getOne(['id' => $id, 'is_del' => 0]);
         if (!$orderInfo) {
@@ -3200,8 +3125,7 @@ HTML;
 
     /**
      * Nhãn lý do hủy đơn (admin) — key cố định cho form
-     */
-    public static function adminCancelReasonLabels(): array
+     */    public static function adminCancelReasonLabels(): array
     {
         return [
             'customer_change' => 'Khách đổi ý / không mua nữa',
@@ -3210,14 +3134,13 @@ HTML;
             'out_of_stock' => 'Hết hàng / không đủ tồn kho',
             'cannot_deliver' => 'Không giao được đến địa chỉ',
             'payment_issue' => 'Không nhận được thanh toán',
-            'other' => 'Khác (nhập nội dung bên dưới)',
+            'other' => 'Khác (nhập Nội dung bên dưới)',
         ];
     }
 
     /**
      * @throws AdminException
-     */
-    public function adminBuildCancelMessage(string $reasonKey, string $customReason = ''): string
+     */    public function adminBuildCancelMessage(string $reasonKey, string $customReason = ''): string
     {
         $labels = self::adminCancelReasonLabels();
         if (!isset($labels[$reasonKey])) {
@@ -3226,7 +3149,7 @@ HTML;
         if ($reasonKey === 'other') {
             $customReason = trim($customReason);
             if ($customReason === '') {
-                throw new AdminException('Vui lòng nhập nội dung hủy đơn');
+                throw new AdminException('Vui lòng nhập Nội dung hủy đơn');
             }
             if (mb_strlen($customReason) > 500) {
                 throw new AdminException('Nội dung hủy tối đa 500 ký tự');
@@ -3239,8 +3162,7 @@ HTML;
     /**
      * Hủy đơn từ admin (chỉ đơn chưa thanh toán), ghi lý do vào mark + lịch sử đơn
      * @throws AdminException
-     */
-    public function adminCancelOrder(int $id, string $reasonKey, string $customReason = ''): bool
+     */    public function adminCancelOrder(int $id, string $reasonKey, string $customReason = ''): bool
     {
         $message = $this->adminBuildCancelMessage($reasonKey, $customReason);
         $orderModel = $this->dao->getOne(['id' => $id, 'is_del' => 0]);
@@ -3259,8 +3181,7 @@ HTML;
         if ((int)$orderModel['refund_status'] !== 0) {
             throw new AdminException('Đơn hàng đang trong quy trình hoàn tiền');
         }
-        /** @var StoreOrderRefundServices $refundServices */
-        $refundServices = app()->make(StoreOrderRefundServices::class);
+        /** @var StoreOrderRefundServices $refundServices */        $refundServices = app()->make(StoreOrderRefundServices::class);
         $markLine = '[Hủy đơn admin] ' . $message . ' — ' . date('Y-m-d H:i:s');
         $uid = (int)$orderModel['uid'];
         $orderIdStr = (string)$orderModel['order_id'];
@@ -3272,8 +3193,7 @@ HTML;
             if (!($res && $orderModel->save())) {
                 throw new AdminException('Hủy đơn không thành công');
             }
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $statusService->save([
                 'oid' => $id,
                 'change_type' => 'order_cancel_admin',
@@ -3294,8 +3214,7 @@ HTML;
 
     /**
      * Điều chỉnh kho theo chênh lệch số lượng một dòng đơn (delta = mới - cũ)
-     */
-    protected function adjustStockDeltaForOrderLine(array $order, array $cart, int $delta): bool
+     */    protected function adjustStockDeltaForOrderLine(array $order, array $cart, int $delta): bool
     {
         if ($delta === 0) {
             return true;
@@ -3335,8 +3254,7 @@ HTML;
      * @param array $items [['unique' => string, 'cart_num' => int], ...]
      * @return array tóm tắt cập nhật
      * @throws AdminException
-     */
-    public function adminUpdateCartQuantities(int $id, array $items): array
+     */    public function adminUpdateCartQuantities(int $id, array $items): array
     {
         if (!$items) {
             throw new AdminException('Không có dòng số lượng cần cập nhật');
@@ -3362,8 +3280,7 @@ HTML;
             throw new AdminException('Đơn khuyến mãi / nhóm / mặc cả — không sửa số lượng tại đây');
         }
 
-        /** @var StoreOrderCartInfoServices $cartServices */
-        $cartServices = app()->make(StoreOrderCartInfoServices::class);
+        /** @var StoreOrderCartInfoServices $cartServices */        $cartServices = app()->make(StoreOrderCartInfoServices::class);
         $rows = $cartServices->getCartInfoList(['oid' => $id], ['id', 'unique', 'cart_num', 'surplus_num', 'refund_num', 'cart_info']);
         $byUnique = [];
         foreach ($rows as $row) {
@@ -3458,8 +3375,7 @@ HTML;
 
             $this->dao->update($id, $dataUpdate);
 
-            /** @var StoreOrderStatusServices $statusService */
-            $statusService = app()->make(StoreOrderStatusServices::class);
+            /** @var StoreOrderStatusServices $statusService */            $statusService = app()->make(StoreOrderStatusServices::class);
             $statusService->save([
                 'oid' => $id,
                 'change_type' => 'order_edit_cart_num',

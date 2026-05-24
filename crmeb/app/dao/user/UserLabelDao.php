@@ -19,15 +19,13 @@ use app\model\user\UserLabel;
  *
  * Class UserLabelDao
  * @package app\dao\user
- */
-class UserLabelDao extends BaseDao
+ */class UserLabelDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserLabel::class;
     }
@@ -43,8 +41,7 @@ class UserLabelDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(int $page = 0, int $limit = 0, array $where = [], array $field = ['*']): array
+     */    public function getList(int $page = 0, int $limit = 0, array $where = [], array $field = ['*']): array
     {
         return $this->search($where)->with(['cateName'])->when(isset($where['label_cate']) && $where['label_cate'], function ($query) use ($where) {
             $query->where('label_cate', $where['label_cate']);

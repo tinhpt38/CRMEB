@@ -29,11 +29,9 @@ use think\facade\Route as Url;
  * @method getCateParentAndChildName(string $cateIds) Nhận bộ sưu tập bao gồm phân loại cấp một và phân loại cấp hai
  * @method value(array $where, string $field) Lấy giá trị của một trường
  * @method getColumn(array $where, string $field, string $key = '') Nhận một mảng trường
- */
-class StoreCategoryServices extends BaseServices
+ */class StoreCategoryServices extends BaseServices
 {
-    /** @var int Tên danh mục tối đa */
-    protected const MAX_CATE_NAME_LENGTH = 32;
+    /** @var int Tên danh mục tối đa */    protected const MAX_CATE_NAME_LENGTH = 32;
 
     public function __construct(StoreCategoryDao $dao)
     {
@@ -47,8 +45,7 @@ class StoreCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList($where)
+     */    public function getList($where)
     {
         $list = $this->dao->getTierList($where);
         if (!empty($list) && ($where['cate_name'] !== '' || $where['pid'] !== '')) {
@@ -83,8 +80,7 @@ class StoreCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getTierList($show = '', $type = 0)
+     */    public function getTierList($show = '', $type = 0)
     {
         $where = [];
         if ($show !== '') $where['is_show'] = $show;
@@ -100,8 +96,7 @@ class StoreCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function cascaderList($show = '', $type = 0)
+     */    public function cascaderList($show = '', $type = 0)
     {
         $where = [];
         if ($show !== '') $where['is_show'] = $show;
@@ -119,8 +114,7 @@ class StoreCategoryServices extends BaseServices
      * Đặt trạng thái phân loại
      * @param int $id
      * @param int $is_show
-     */
-    public function setShow(int $id, int $is_show)
+     */    public function setShow(int $id, int $is_show)
     {
         $res = $this->dao->update($id, ['is_show' => $is_show]);
         $res = $res && $this->dao->update($id, ['is_show' => $is_show], 'pid');
@@ -134,8 +128,7 @@ class StoreCategoryServices extends BaseServices
      * Tạo biểu mẫu mới
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm()
+     */    public function createForm()
     {
         return create_form('Thêm danh mục', $this->form(), Url::buildUrl('/product/category'), 'POST');
     }
@@ -145,8 +138,7 @@ class StoreCategoryServices extends BaseServices
      * @param $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function editForm(int $id)
+     */    public function editForm(int $id)
     {
         $info = $this->dao->get($id);
         return create_form('Chỉnh sửa danh mục', $this->form($info), $this->url('/product/category/' . $id), 'PUT');
@@ -157,8 +149,7 @@ class StoreCategoryServices extends BaseServices
      * @param array $info
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function form($info = [])
+     */    public function form($info = [])
     {
         if (isset($info['pid'])) {
             $f[] = Form::select('pid', 'Danh mục cha', (int)($info['pid'] ?? ''))->setOptions($this->menus($info['pid']))->filterable(1);
@@ -171,7 +162,7 @@ class StoreCategoryServices extends BaseServices
             ->required('Vui lòng nhập tên danh mục');
         $f[] = Form::frameImage('pic', 'Biểu tượng danh mục (180*180)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'pic')), $info['pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
         $f[] = Form::frameImage('big_pic', 'Ảnh danh mục lớn (468*340)', Url::buildUrl(config('app.admin_prefix', 'admin') . '/widget.images/index', array('fodder' => 'big_pic')), $info['big_pic'] ?? '')->icon('el-icon-picture-outline')->width('950px')->height('560px')->props(['footer' => false]);
-        $f[] = Form::number('sort', 'Thứ tự', (int)($info['sort'] ?? 0))->min(0)->precision(0);
+        $f[] = Form::number('sort', 'Đơn hàng', (int)($info['sort'] ?? 0))->min(0)->precision(0);
         $f[] = Form::radio('is_show', 'Trạng thái', $info['is_show'] ?? 1)->options([['label' => 'Hiển thị', 'value' => 1], ['label' => 'Ẩn', 'value' => 0]]);
         return $f;
     }
@@ -180,8 +171,7 @@ class StoreCategoryServices extends BaseServices
      * Nhận dữ liệu kết hợp phân loại cấp đầu tiên
      * @param string $pid
      * @return array[]
-     */
-    public function menus($pid = '')
+     */    public function menus($pid = '')
     {
         $list = $this->dao->getMenus(['pid' => 0]);
         $menus = [['value' => 0, 'label' => 'Danh mục gốc']];
@@ -200,8 +190,7 @@ class StoreCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function createData($data)
+     */    public function createData($data)
     {
         if (!$data['cate_name']) {
             throw new AdminException('Vui lòng điền tên danh mục');
@@ -238,8 +227,7 @@ class StoreCategoryServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/23
-     */
-    public function editData($id, $data)
+     */    public function editData($id, $data)
     {
         if (!$data['cate_name']) {
             throw new AdminException('Vui lòng điền tên danh mục');
@@ -259,8 +247,7 @@ class StoreCategoryServices extends BaseServices
         }
         $this->transaction(function () use ($id, $data) {
             $res = $this->dao->update($id, $data);
-            /** @var StoreProductCateServices $productCate */
-            $productCate = app()->make(StoreProductCateServices::class);
+            /** @var StoreProductCateServices $productCate */            $productCate = app()->make(StoreProductCateServices::class);
             $res = $res && $productCate->update(['cate_id' => $id], ['cate_pid' => $data['pid']]);
             if (!$res) throw new AdminException('Sửa đổi không thành công');
         });
@@ -271,8 +258,7 @@ class StoreCategoryServices extends BaseServices
     /**
      * Xóa dữ liệu
      * @param int $id
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
         if ($this->dao->count(['pid' => $id])) {
             throw new AdminException('Vui lòng xóa các danh mục phụ trước');
@@ -288,8 +274,7 @@ class StoreCategoryServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/8
-     */
-    public function getCategoryVersion()
+     */    public function getCategoryVersion()
     {
         return CacheService::remember('category_version', function () {
             return [
@@ -309,8 +294,7 @@ class StoreCategoryServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/23
-     */
-    public function getCateArray(string $cateIds)
+     */    public function getCateArray(string $cateIds)
     {
         return $this->dao->getCateArray($cateIds);
     }
@@ -325,8 +309,7 @@ class StoreCategoryServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/02/23
-     */
-    public function getCategory(array $where)
+     */    public function getCategory(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         if ($limit) {
@@ -345,8 +328,7 @@ class StoreCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getInfo(int $id)
+     */    public function getInfo(int $id)
     {
         $info = $this->dao->get($id, ['id', 'cate_name', 'pid', 'pic', 'big_pic', 'sort', 'is_show']);
         if ($info) {
@@ -358,8 +340,7 @@ class StoreCategoryServices extends BaseServices
     /**
      * Danh sách danh mục
      * @return mixed
-     */
-    public function getCategoryList(array $where)
+     */    public function getCategoryList(array $where)
     {
         return CacheService::remember('CATEGORY_LIST', function () use ($where) {
             return $this->dao->getALlByIndex($where, 'id, cate_name, pid, pic, big_pic, sort, is_show, add_time');
@@ -373,8 +354,7 @@ class StoreCategoryServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/7/16
-     */
-    public function getCateId(string $cate_name_one = '', string $cate_name_two = '')
+     */    public function getCateId(string $cate_name_one = '', string $cate_name_two = '')
     {
         if ($cate_name_one != '') {
             $cate_id_one = $this->dao->value(['cate_name' => $cate_name_one], 'id');

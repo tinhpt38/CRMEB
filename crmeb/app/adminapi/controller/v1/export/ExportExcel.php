@@ -30,20 +30,17 @@ use think\facade\App;
  * Xuất lớp excel
  * Class ExportExcel
  * @package app\adminapi\controller\v1\export
- */
-class ExportExcel extends AuthController
+ */class ExportExcel extends AuthController
 {
     /**
      * @var ExportServices
-     */
-    protected $service;
+     */    protected $service;
 
     /**
      * ExportExcel constructor.
      * @param App $app
      * @param ExportServices $services
-     */
-    public function __construct(App $app, ExportServices $services)
+     */    public function __construct(App $app, ExportServices $services)
     {
         parent::__construct($app);
         $this->service = $services;
@@ -84,8 +81,7 @@ class ExportExcel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderList()
+     */    public function orderList()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -109,8 +105,7 @@ class ExportExcel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function orderDeliveryList()
+     */    public function orderDeliveryList()
     {
         return app('json')->success($this->service->exportOrderDeliveryList());
     }
@@ -118,8 +113,7 @@ class ExportExcel extends AuthController
     /**
      * Xuất danh sách sản phẩm
      * @return mixed
-     */
-    public function productList()
+     */    public function productList()
     {
         $where = $this->request->getMore([
             ['store_name', ''],
@@ -136,8 +130,7 @@ class ExportExcel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function bargainList()
+     */    public function bargainList()
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -148,10 +141,9 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * Nhóm sản phẩm xuất khẩu
+     * Sản phẩm mua chung xuất khẩu
      * @return mixed
-     */
-    public function combinationList()
+     */    public function combinationList()
     {
         $where = $this->request->getMore([
             ['is_show', ''],
@@ -162,13 +154,12 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * Xuất khẩu sản phẩm flash sale
+     * Xuất file sản phẩm flash sale
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function seckillList()
+     */    public function seckillList()
     {
         $where = $this->request->getMore([
             [['status', 's'], ''],
@@ -184,18 +175,16 @@ class ExportExcel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function memberCardList($id)
+     */    public function memberCardList($id)
     {
         return app('json')->success($this->service->exportMemberCard($id));
     }
 
     /**
-     * Lưu bảng excel để theo dõi quỹ người dùng
+     * Lưu bảng excel để theo dõi quỹ Khách hàng
      * @param UserBillServices $services
      * @return mixed
-     */
-    public function userFinance(UserBillServices $services)
+     */    public function userFinance(UserBillServices $services)
     {
         $where = $this->request->getMore([
             ['start_time', ''],
@@ -208,11 +197,10 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * Hoa hồng người dùng
+     * Hoa hồng Khách hàng
      * @param UserBillServices $services
      * @return mixed
-     */
-    public function userCommission(UserBillServices $services)
+     */    public function userCommission(UserBillServices $services)
     {
         $where = $this->request->getMore([
             ['page', 1],
@@ -228,11 +216,10 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * Điểm người dùng
+     * Điểm Khách hàng
      * @param UserBillServices $services
      * @return mixed
-     */
-    public function userPoint(UserBillServices $services)
+     */    public function userPoint(UserBillServices $services)
     {
         $where = $this->request->getMore([
             ['start_time', ''],
@@ -245,11 +232,10 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * Nạp tiền người dùng
+     * Nạp tiền vào ví
      * @param UserRechargeServices $services
      * @return mixed
-     */
-    public function userRecharge(UserRechargeServices $services)
+     */    public function userRecharge(UserRechargeServices $services)
     {
         $where = $this->request->getMore([
             ['data', ''],
@@ -264,14 +250,13 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * Quảng cáo người dùng quản lý phân phối
+     * Quảng cáo Khách hàng quản lý phân phối
      * @param AgentManageServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function userAgent(AgentManageServices $services)
+     */    public function userAgent(AgentManageServices $services)
     {
         $where = $this->request->getMore([
             ['nickname', ''],
@@ -283,11 +268,10 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * Xuất người dùng WeChat (không được dùng nữa)）
+     * Xuất file khách hàng WeChat (không được dùng nữa)）
      * @param WechatUserServices $services
      * @return mixed
-     */
-    public function wechatUser(WechatUserServices $services)
+     */    public function wechatUser(WechatUserServices $services)
     {
         $where = $this->request->getMore([
             ['page', 1],
@@ -316,8 +300,7 @@ class ExportExcel extends AuthController
      * Hoạt động mặc cả của cửa hàng xuất khẩu
      * @param StoreBargainServices $services
      * @return mixed
-     */
-    public function storeBargain(StoreBargainServices $services)
+     */    public function storeBargain(StoreBargainServices $services)
     {
         $where = $this->request->getMore([
             ['start_status', ''],
@@ -332,8 +315,7 @@ class ExportExcel extends AuthController
      * Xuất nhóm
      * @param StoreCombinationServices $services
      * @return mixed
-     */
-    public function storeCombination(StoreCombinationServices $services)
+     */    public function storeCombination(StoreCombinationServices $services)
     {
         $where = $this->request->getMore([
             ['start_status', ''],
@@ -341,8 +323,7 @@ class ExportExcel extends AuthController
             ['store_name', ''],
         ]);
         $data = $services->getList($where);
-        /** @var StorePinkServices $storePinkServices */
-        $storePinkServices = app()->make(StorePinkServices::class);
+        /** @var StorePinkServices $storePinkServices */        $storePinkServices = app()->make(StorePinkServices::class);
         $countAll = $storePinkServices->getPinkCount([]);
         $countTeam = $storePinkServices->getPinkCount(['k_id' => 0, 'status' => 2]);
         $countPeople = $storePinkServices->getPinkCount(['k_id' => 0]);
@@ -368,8 +349,7 @@ class ExportExcel extends AuthController
      * Xuất flash sale
      * @param StoreSeckillServices $services
      * @return mixed
-     */
-    public function storeSeckill(StoreSeckillServices $services)
+     */    public function storeSeckill(StoreSeckillServices $services)
     {
         $where = $this->request->getMore([
             ['start_status', ''],
@@ -381,11 +361,10 @@ class ExportExcel extends AuthController
     }
 
     /**
-     * Xuất khẩu sản phẩm
+     * Xuất file sản phẩm
      * @param StoreProductServices $services
      * @return mixed
-     */
-    public function storeProduct(StoreProductServices $services)
+     */    public function storeProduct(StoreProductServices $services)
     {
         $where = $this->request->getMore([
             ['store_name', ''],
@@ -403,8 +382,7 @@ class ExportExcel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function storeOrder(StoreOrderServices $services)
+     */    public function storeOrder(StoreOrderServices $services)
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -430,8 +408,7 @@ class ExportExcel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function storeMerchant(SystemStoreServices $services)
+     */    public function storeMerchant(SystemStoreServices $services)
     {
         $where = $this->request->getMore([
             [['keywords', 's'], ''],
@@ -449,8 +426,7 @@ class ExportExcel extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function memberCard(int $id, MemberCardServices $services)
+     */    public function memberCard(int $id, MemberCardServices $services)
     {
         $data = $services->getExportData(['batch_card_id' => $id]);
         return app('json')->success($this->service->memberCard($data));
@@ -466,8 +442,7 @@ class ExportExcel extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/9/9
-     */
-    public function verifyOrder(StoreOrderServices $services)
+     */    public function verifyOrder(StoreOrderServices $services)
     {
         $where = $this->request->getMore([
             ['data', '', '', 'time'],

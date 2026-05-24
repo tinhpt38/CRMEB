@@ -21,20 +21,17 @@ class MemberRight extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'member_right';
+     */    protected $name = 'member_right';
 
     /**công cụ tìm trạng thái
      * @param $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value) {
             $query->where('status', $value);

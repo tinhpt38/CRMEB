@@ -24,8 +24,7 @@ class ProductStockJob extends BaseJobs
      * tính toán chia
      * @param array $data
      * @return bool
-     */
-    public function distribute(array $data): bool
+     */    public function distribute(array $data): bool
     {
         try {
             foreach ($data as $key => $item) {
@@ -41,12 +40,10 @@ class ProductStockJob extends BaseJobs
      * Tính toán hàng tồn kho
      * @param int $id
      * @return bool
-     */
-    public function calcValueStock(int $id): bool
+     */    public function calcValueStock(int $id): bool
     {
         try {
-            /** @var OutStoreProductServices $services */
-            $services = app()->make(OutStoreProductServices::class);
+            /** @var OutStoreProductServices $services */            $services = app()->make(OutStoreProductServices::class);
             $services->calcStockByAttrValue($id);
         } catch (\Exception $e) {
             Log::error(['msg' => 'Không thể tính toán tồn kho sản phẩm,Lý do lỗi:' . $e->getMessage(), 'data' => $id]);

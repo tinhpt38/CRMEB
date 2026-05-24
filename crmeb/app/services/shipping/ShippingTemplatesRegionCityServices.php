@@ -20,16 +20,14 @@ use app\services\BaseServices;
  * Class ShippingTemplatesRegionCityServices
  * @package app\services\shipping
  * @method getUniqidList(array $where,bool $group) Nhận danh sách vận chuyển miễn phí theo các điều kiện được chỉ định
- */
-class ShippingTemplatesRegionCityServices extends BaseServices
+ */class ShippingTemplatesRegionCityServices extends BaseServices
 {
 
     /**
      * Người xây dựng
      * ShippingTemplatesRegionCityServices constructor.
      * @param ShippingTemplatesRegionCityDao $dao
-     */
-    public function __construct(ShippingTemplatesRegionCityDao $dao)
+     */    public function __construct(ShippingTemplatesRegionCityDao $dao)
     {
         $this->dao = $dao;
     }

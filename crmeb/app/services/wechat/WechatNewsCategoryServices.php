@@ -20,19 +20,17 @@ use app\services\article\ArticleServices;
  *
  * Class UserWechatuserServices
  * @package app\services\user
- * @method delete($id, ?string $key = null)  xóa bỏ
+ * @method delete($id, ?string $key = null)  Xóa
  * @method update($id, array $data, ?string $key = null) Cập nhật dữ liệu
  * @method save(array $data) Chèn dữ liệu
  * @method get(int $id, ?array $field = []) Lấy một phần dữ liệu
- */
-class WechatNewsCategoryServices extends BaseServices
+ */class WechatNewsCategoryServices extends BaseServices
 {
 
     /**
      * UserWechatuserServices constructor.
      * @param WechatNewsCategoryDao $dao
-     */
-    public function __construct(WechatNewsCategoryDao $dao)
+     */    public function __construct(WechatNewsCategoryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -41,8 +39,7 @@ class WechatNewsCategoryServices extends BaseServices
      * Nhận phân loại cấu hình
      * @param array $where
      * @return array
-     */
-    public function getAll($where = array())
+     */    public function getAll($where = array())
     {
         [$page, $limit] = $this->getPageValue();
         $model = $this->dao->getNewCtae($where);
@@ -50,8 +47,7 @@ class WechatNewsCategoryServices extends BaseServices
         $list = $model->page($page, $limit)
             ->select()
             ->each(function ($item) {
-                /** @var ArticleServices $services */
-                $services = app()->make(ArticleServices::class);
+                /** @var ArticleServices $services */                $services = app()->make(ArticleServices::class);
                 $new = $services->articleList($item['new_id']);
                 if ($new) $new = $new->toArray();
                 $item['new'] = $new;
@@ -63,15 +59,13 @@ class WechatNewsCategoryServices extends BaseServices
      * Nhận hình ảnh và văn bản
      * @param int $id
      * @return array|false|\PDOStatement|string|\think\Model
-     */
-    public function getWechatNewsItem($id = 0)
+     */    public function getWechatNewsItem($id = 0)
     {
         if (!$id) return [];
         $list = $this->dao->getOne(['id' => $id, 'status' => 1], 'cate_name as title,new_id');
         if ($list) {
             $list = $list->toArray();
-            /** @var ArticleServices $services */
-            $services = app()->make(ArticleServices::class);
+            /** @var ArticleServices $services */            $services = app()->make(ArticleServices::class);
             $new = $services->articleList($list['new_id']);
             if ($new) $new = $new->toArray();
             $list['new'] = $new;
@@ -84,15 +78,13 @@ class WechatNewsCategoryServices extends BaseServices
      * Gửi tin nhắn chăm sóc khách hàngChọn danh sách bài viết
      * @param $where
      * @return array
-     */
-    public function list($where)
+     */    public function list($where)
     {
         $list = $this->dao->getNewCtae($where)
             ->page((int)$where['page'], (int)$where['limit'])
             ->select()
             ->each(function ($item) {
-                /** @var ArticleServices $services */
-                $services = app()->make(ArticleServices::class);
+                /** @var ArticleServices $services */                $services = app()->make(ArticleServices::class);
                 $item['new'] = $services->articleList($item['new_id']);
             });
         return ['list' => $list];
@@ -101,32 +93,27 @@ class WechatNewsCategoryServices extends BaseServices
     /**Tổ chức tài nguyên đồ họa và văn bản
      * @param $wechatNews
      * @return bool
-     */
-    public function wechatPush($wechatNews)
+     */    public function wechatPush($wechatNews)
     {
-        /** @var WechatReplyServices $services */
-        $services = app()->make(WechatReplyServices::class);
+        /** @var WechatReplyServices $services */        $services = app()->make(WechatReplyServices::class);
         return $services->tidyNews($wechatNews);
     }
 
-    /**gửi người dùng
+    /**gửi Khách hàng
      * @param $user_ids
      * @param $column
      * @param $key
      * @return array
-     */
-    public function getWechatUser($user_ids, $column, $key)
+     */    public function getWechatUser($user_ids, $column, $key)
     {
-        /** @var WechatUserServices $services */
-        $services = app()->make(WechatUserServices::class);
+        /** @var WechatUserServices $services */        $services = app()->make(WechatUserServices::class);
         return $services->getColumnUser($user_ids, $column, $key);
     }
 
     /**
      * Nhận bài viếtid
      * @return array
-     */
-    public function getNewIds()
+     */    public function getNewIds()
     {
         return $this->dao->getColumn([], 'new_id');
     }

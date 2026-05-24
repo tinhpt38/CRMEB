@@ -23,32 +23,28 @@ use crmeb\services\CacheService;
  * Dịch vụ khách hàng
  * Class StoreService
  * @package app\api\controller\user
- */
-class StoreService
+ */class StoreService
 {
     /**
      * @var StoreServiceLogServices
-     */
-    protected $services;
+     */    protected $services;
 
     /**
      * StoreService constructor.
      * @param StoreServiceLogServices $services
-     */
-    public function __construct(StoreServiceLogServices $services)
+     */    public function __construct(StoreServiceLogServices $services)
     {
         $this->services = $services;
     }
 
     /**
-     * Danh sách dịch vụ khách hàng
+     * Danh sách CSKH
      * @param StoreServiceServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst(StoreServiceServices $services)
+     */    public function lst(StoreServiceServices $services)
     {
         $serviceInfoList = $services->getServiceList(['status' => 1]);
         if (!count($serviceInfoList)) return app('json')->success([]);
@@ -56,7 +52,7 @@ class StoreService
     }
 
     /**
-     * Lịch sử trò chuyện dịch vụ khách hàng
+     * Lịch sử trò chuyện CSKH
      * @param Request $request
      * @param StoreServiceServices $services
      * @param StoreServiceRecordServices $recordServices
@@ -64,8 +60,7 @@ class StoreService
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function record(Request $request, StoreServiceServices $services, StoreServiceRecordServices $recordServices)
+     */    public function record(Request $request, StoreServiceServices $services, StoreServiceRecordServices $recordServices)
     {
         list($uidTo) = $request->getMore([
             ['uidTo', 0]
@@ -88,7 +83,7 @@ class StoreService
         if (!$uids) {
             return app('json')->fail('Hiện tại chưa có nhân viên chăm sóc khách hàng trực tuyến, vui lòng liên hệ sau.');
         }
-        //Cuộc trò chuyện ưu tiên dịch vụ khách hàng cuối cùng
+        //Cuộc trò chuyện ưu tiên CSKH cuối cùng
         $toUid = $recordServices->value(['user_id' => $uid], 'to_uid');
         if (!in_array($toUid, $uids)) {
             $toUid = 0;
@@ -108,13 +103,11 @@ class StoreService
     }
 
     /**
-     * Lấy nội dung quảng cáo trên trang chăm sóc khách hàng
+     * Lấy Nội dung quảng cáo trên trang chăm sóc khách hàng
      * @return mixed
-     */
-    public function getKfAdv()
+     */    public function getKfAdv()
     {
-        /** @var CacheServices $cache */
-        $cache = app()->make(CacheServices::class);
+        /** @var CacheServices $cache */        $cache = app()->make(CacheServices::class);
         $content = $cache->getDbCache('kf_adv', '');
         return app('json')->success(compact('content'));
     }
@@ -124,8 +117,7 @@ class StoreService
      * @param Request $request
      * @param StoreServiceFeedbackServices $services
      * @return mixed
-     */
-    public function saveFeedback(Request $request, StoreServiceFeedbackServices $services)
+     */    public function saveFeedback(Request $request, StoreServiceFeedbackServices $services)
     {
         $data = $request->postMore([
             ['rela_name', ''],
@@ -143,10 +135,9 @@ class StoreService
     }
 
     /**
-     * Văn bản tiêu đề của trang phản hồi dịch vụ khách hàng
+     * Văn bản tiêu đề của trang phản hồi CSKH
      * @return mixed
-     */
-    public function getFeedbackInfo()
+     */    public function getFeedbackInfo()
     {
         return app('json')->success(['feedback' => sys_config('service_feedback')]);
     }
@@ -157,8 +148,7 @@ class StoreService
      * @param StoreServiceServices $services
      * @param string $code
      * @return mixed
-     */
-    public function setLoginCode(Request $request, StoreServiceServices $services, string $code)
+     */    public function setLoginCode(Request $request, StoreServiceServices $services, string $code)
     {
         if (!$code) {
             return app('json')->fail('Quét không thành công, vui lòng quét lại');
@@ -169,7 +159,7 @@ class StoreService
         }
         $userInfo = $services->get(['uid' => $request->uid()]);
         if (!$userInfo) {
-            return app('json')->fail('Bạn không phải là nhân viên dịch vụ khách hàng và không thể đăng nhập.');
+            return app('json')->fail('Bạn không phải là nhân viên CSKH và không thể đăng nhập.');
         }
         $userInfo->uniqid = $code;
         $userInfo->save();
@@ -178,13 +168,12 @@ class StoreService
     }
 
     /**
-     * Nhận lịch sử trò chuyện của dịch vụ khách hàng và người dùng hiện tại
+     * Nhận lịch sử trò chuyện của CSKH và Khách hàng hiện tại
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function recordList(StoreServiceRecordServices $services, Request $request, string $nickname = '', $is_tourist = 0)
+     */    public function recordList(StoreServiceRecordServices $services, Request $request, string $nickname = '', $is_tourist = 0)
     {
         return app('json')->success($services->getServiceList((int)$request->uid(), $nickname, (int)$is_tourist));
     }

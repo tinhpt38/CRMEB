@@ -17,14 +17,12 @@ use app\model\product\product\StoreVisit;
 /**
  * Class StoreVisitDao
  * @package app\dao\product\product
- */
-class StoreVisitDao extends BaseDao
+ */class StoreVisitDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreVisit::class;
     }
@@ -33,8 +31,7 @@ class StoreVisitDao extends BaseDao
      *
      * @param int $uid
      * @return array
-     */
-    public function getUserVisitProductId(int $uid)
+     */    public function getUserVisitProductId(int $uid)
     {
         return $this->getModel()->where('uid', $uid)->column('product_id');
     }
@@ -45,13 +42,12 @@ class StoreVisitDao extends BaseDao
     }
 
     /**
-     * Xu hướng hàng hóa
+     * Xu hướng sản phẩm
      * @param $time
      * @param $timeType
      * @param $str
      * @return mixed
-     */
-    public function getProductTrend($time, $timeType, $str)
+     */    public function getProductTrend($time, $timeType, $str)
     {
         return $this->getModel()->where(function ($query) use ($time) {
             if ($time[0] == $time[1]) {

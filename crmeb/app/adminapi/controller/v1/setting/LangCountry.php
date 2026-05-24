@@ -19,8 +19,7 @@ class LangCountry extends AuthController
     /**
      * @param App $app
      * @param LangCountryServices $services
-     */
-    public function __construct(App $app, LangCountryServices $services)
+     */    public function __construct(App $app, LangCountryServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -32,8 +31,7 @@ class LangCountry extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function langCountryList()
+     */    public function langCountryList()
     {
         $where = $this->request->getMore([
             ['keyword', ''],
@@ -49,8 +47,7 @@ class LangCountry extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function langCountryForm($id)
+     */    public function langCountryForm($id)
     {
         return app('json')->success($this->services->langCountryForm($id));
     }
@@ -59,8 +56,7 @@ class LangCountry extends AuthController
      * Sửa đổi ngôn ngữ khu vực
      * @param $id
      * @return mixed
-     */
-    public function langCountrySave($id)
+     */    public function langCountrySave($id)
     {
         $data = $this->request->postMore([
             ['name', ''],

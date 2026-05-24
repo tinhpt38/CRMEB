@@ -26,29 +26,26 @@ use app\services\user\UserServices;
 use app\services\shipping\ExpressServices;
 
 /**
- * Loại lệnh
+ * Loại đơn hàng
  * Class StoreOrderController
  * @package app\api\controller\admin\order
- */
-class StoreOrderController
+ */class StoreOrderController
 {
     /**
      * @var StoreOrderWapServices
-     */
-    protected $service;
+     */    protected $service;
 
     /**
      * StoreOrderController constructor.
      * @param StoreOrderWapServices $services
-     */
-    public function __construct(StoreOrderWapServices $services)
+     */    public function __construct(StoreOrderWapServices $services)
     {
         $this->service = $services;
     }
 
 
     /**
-     * Đặt hàng Xem hậu cần
+     * Đơn hàng Xem hậu cần
      * @param StoreOrderCartInfoServices $services
      * @param ExpressServices $expressServices
      * @param $uni
@@ -57,12 +54,10 @@ class StoreOrderController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function express(StoreOrderServices $orderServices, StoreOrderCartInfoServices $services, ExpressServices $expressServices, $uni, $type = '')
+     */    public function express(StoreOrderServices $orderServices, StoreOrderCartInfoServices $services, ExpressServices $expressServices, $uni, $type = '')
     {
         if ($type == 'refund') {
-            /** @var StoreOrderRefundServices $refundService */
-            $refundService = app()->make(StoreOrderRefundServices::class);
+            /** @var StoreOrderRefundServices $refundService */            $refundService = app()->make(StoreOrderRefundServices::class);
             $order = $refundService->refundDetail($uni);
             $express = $order['refund_express'];
             $cacheName = $uni . $express;
@@ -128,8 +123,7 @@ class StoreOrderController
      * Thống kê dữ liệu đơn hàng
      * @param StoreOrderServices $services
      * @return mixed
-     */
-    public function statistics(StoreOrderServices $services)
+     */    public function statistics(StoreOrderServices $services)
     {
         $dataCount = $services->getOrderData();
         $dataPrice = $this->service->getOrderTimeData();
@@ -141,8 +135,7 @@ class StoreOrderController
      * Thống kê đặt hàng hàng tháng
      * @param Request $request
      * @return mixed
-     */
-    public function data(Request $request)
+     */    public function data(Request $request)
     {
         [$start, $stop] = $request->getMore([
             ['start', 0],
@@ -158,8 +151,7 @@ class StoreOrderController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function lst(Request $request)
+     */    public function lst(Request $request)
     {
         $where = $request->getMore([
             ['status', ''],
@@ -179,7 +171,7 @@ class StoreOrderController
     }
 
     /**
-     * Chi tiết đặt hàng
+     * Chi tiết đơn hàng
      * @param Request $request
      * @param StoreOrderServices $services
      * @param UserServices $userServices
@@ -188,8 +180,7 @@ class StoreOrderController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function detail(Request $request, StoreOrderServices $services, UserServices $userServices, $orderId)
+     */    public function detail(Request $request, StoreOrderServices $services, UserServices $userServices, $orderId)
     {
         $economizeServices = app()->make(StoreOrderEconomizeServices::class);
         $orderData = $services->getUserOrderByKey($economizeServices, $orderId, 0);
@@ -202,8 +193,7 @@ class StoreOrderController
      * @param UserServices $userServices
      * @param $orderId
      * @return mixed
-     */
-    public function delivery_gain(UserServices $userServices, $orderId)
+     */    public function delivery_gain(UserServices $userServices, $orderId)
     {
         $order = $this->service->getOne(['order_id' => $orderId], 'real_name,user_phone,user_address,order_id,uid,status,paid,id');
         if (!$order) return app('json')->fail('Đơn hàng không tồn tại');
@@ -217,13 +207,12 @@ class StoreOrderController
     }
 
     /**
-     * Đơn hàng đã được vận chuyển
+     * Đã giao cho ĐVVC
      * @param Request $request
      * @param StoreOrderDeliveryServices $services
      * @param $id
      * @return mixed
-     */
-    public function delivery_keep(Request $request, StoreOrderDeliveryServices $services, $id)
+     */    public function delivery_keep(Request $request, StoreOrderDeliveryServices $services, $id)
     {
         $data = $request->postMore([
             ['type', 1],
@@ -259,8 +248,7 @@ class StoreOrderController
      * @param StoreOrderServices $services
      * @return mixed
      * @throws \Exception
-     */
-    public function price(Request $request, StoreOrderServices $services)
+     */    public function price(Request $request, StoreOrderServices $services)
     {
         [$order_id, $price] = $request->postMore([
             ['order_id', ''],
@@ -279,11 +267,10 @@ class StoreOrderController
     }
 
     /**
-     * Ghi chú đặt hàng
+     * Ghi chú đơn hàng
      * @param Request $request
      * @return mixed
-     */
-    public function remark(Request $request)
+     */    public function remark(Request $request)
     {
         [$order_id, $remark] = $request->postMore([
             ['order_id', ''],
@@ -302,8 +289,7 @@ class StoreOrderController
      * Thống kê khối lượng giao dịch/số lượng đặt hàng theo thời gian
      * @param Request $request
      * @return bool
-     */
-    public function time(Request $request)
+     */    public function time(Request $request)
     {
         list($start, $stop, $type) = $request->getMore([
             ['start', strtotime(date('Y-m'))],
@@ -319,8 +305,7 @@ class StoreOrderController
         }
         $space = bcsub($stop, $start, 0);//Khoảng thời gian ngắt quãng
         $front = bcsub($start, $space, 0) - 1;//khoảng thời gian đầu tiên
-        /** @var StoreOrderServices $orderService */
-        $orderService = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $orderService */        $orderService = app()->make(StoreOrderServices::class);
         $order_where = [
             'pid' => 0,
             'paid' => 1,
@@ -347,7 +332,7 @@ class StoreOrderController
             $afterNumber = $orderService->count($order_where + ['time' => [$start, $stop]]);
             $chartInfo = $orderService->chartTimeNumber($start, $stop);
             $data['chart'] = $chartInfo;//Dữ liệu biểu đồ số thứ tự
-            $data['time'] = $afterNumber;//Số lượng đơn đặt hàng trong khoảng thời gian
+            $data['time'] = $afterNumber;//Số lượng đơn đặt hàng Trong khoảng thời gian
             $increase = $afterNumber - $frontNumber; //Số lượng đơn hàng tăng so với khoảng thời gian trước đó
             $growthRate = abs($increase);
             if ($growthRate == 0) $data['growth_rate'] = 0;
@@ -364,8 +349,7 @@ class StoreOrderController
      * @param Request $request
      * @param OrderOfflineServices $services
      * @return mixed
-     */
-    public function offline(Request $request, OrderOfflineServices $services)
+     */    public function offline(Request $request, OrderOfflineServices $services)
     {
         [$orderId] = $request->postMore([['order_id', '']], true);
         $orderInfo = $this->service->getOne(['order_id' => $orderId], 'id');
@@ -387,8 +371,7 @@ class StoreOrderController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function refund(Request $request, StoreOrderRefundServices $services, StoreOrderServices $orderServices, StoreOrderCartInfoServices $storeOrderCartInfoServices, StoreOrderCreateServices $storeOrderCreateServices)
+     */    public function refund(Request $request, StoreOrderRefundServices $services, StoreOrderServices $orderServices, StoreOrderCartInfoServices $storeOrderCartInfoServices, StoreOrderCreateServices $storeOrderCreateServices)
     {
         list($orderId, $price, $type) = $request->postMore([
             ['order_id', ''],
@@ -412,7 +395,7 @@ class StoreOrderController
                 return app('json')->fail('Dữ liệu không tồn tại');
             }
             if ($orderRefund['is_cancel'] == 1) {
-                return app('json')->fail('Người dùng đã hủy ứng dụng');
+                return app('json')->fail('Người dùng đã hủy Ứng dụng');
             }
             $orderInfo = $this->service->get((int)$orderRefund['store_order_id']);
             if (!$orderInfo) {
@@ -533,15 +516,14 @@ class StoreOrderController
     }
 
     /**
-     * Xóa sổ cửa hàng
+     * Xác nhận cửa hàng
      * @param Request $request
      * @param StoreOrderWriteOffServices $services
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function order_verific(Request $request, StoreOrderWriteOffServices $services)
+     */    public function order_verific(Request $request, StoreOrderWriteOffServices $services)
     {
         list($verifyCode, $isConfirm, $auth) = $request->postMore([
             ['verify_code', ''],
@@ -558,11 +540,10 @@ class StoreOrderController
     }
 
     /**
-     * Nhận danh sách tất cả các nhà chuyển phát nhanh
+     * Nhận danh sách Tất cả các nhà chuyển phát nhanh
      * @param DeliveryServiceServices $services
      * @return mixed
-     */
-    public function getDeliveryAll(DeliveryServiceServices $services)
+     */    public function getDeliveryAll(DeliveryServiceServices $services)
     {
         $list = $services->getDeliveryList();
         return app('json')->success($list['list']);
@@ -571,8 +552,7 @@ class StoreOrderController
     /**
      * Nhận thông tin cấu hình
      * @return mixed
-     */
-    public function getDeliveryInfo()
+     */    public function getDeliveryInfo()
     {
         return app('json')->success([
             'express_temp_id' => sys_config('config_export_temp_id'),
@@ -588,8 +568,7 @@ class StoreOrderController
      * @param Request $request
      * @param ServeServices $services
      * @return mixed
-     */
-    public function getExportTemp(Request $request, ServeServices $services)
+     */    public function getExportTemp(Request $request, ServeServices $services)
     {
         [$com] = $request->getMore([
             ['com', ''],
@@ -601,8 +580,7 @@ class StoreOrderController
      * Công ty hậu cần
      * @param ExpressServices $services
      * @return mixed
-     */
-    public function getExportAll(ExpressServices $services)
+     */    public function getExportAll(ExpressServices $services)
     {
         return app('json')->success($services->expressList());
     }
@@ -612,8 +590,7 @@ class StoreOrderController
      * @param Request $request
      * @param StoreOrderRefundServices $services
      * @return mixed
-     */
-    public function refundOrderList(Request $request, StoreOrderRefundServices $services)
+     */    public function refundOrderList(Request $request, StoreOrderRefundServices $services)
     {
         $where = $request->getMore([
             ['order_id', ''],
@@ -628,12 +605,11 @@ class StoreOrderController
     }
 
     /**
-     * Chi tiết đặt hàng
+     * Chi tiết đơn hàng
      * @param StoreOrderRefundServices $services
      * @param $uni
      * @return mixed
-     */
-    public function refundOrderDetail(StoreOrderRefundServices $services, $uni)
+     */    public function refundOrderDetail(StoreOrderRefundServices $services, $uni)
     {
         $data = $services->refundDetail($uni);
         return app('json')->success($data);
@@ -644,8 +620,7 @@ class StoreOrderController
      * @param StoreOrderRefundServices $services
      * @param Request $request
      * @return mixed
-     */
-    public function refundRemark(StoreOrderRefundServices $services, Request $request)
+     */    public function refundRemark(StoreOrderRefundServices $services, Request $request)
     {
         [$remark, $order_id] = $request->postMore([
             ['remark', ''],
@@ -671,8 +646,7 @@ class StoreOrderController
      * @param StoreOrderRefundServices $services
      * @param Request $request
      * @return mixed
-     */
-    public function agreeExpress(StoreOrderRefundServices $services, Request $request)
+     */    public function agreeExpress(StoreOrderRefundServices $services, Request $request)
     {
         [$id] = $request->postMore([
             ['id', ''],

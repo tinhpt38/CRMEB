@@ -20,8 +20,7 @@ use crmeb\traits\QueueTrait;
  * nhiệm vụ theo lịch trình
  * Class TaskJob
  * @package crmeb\jobs
- */
-class TaskJob extends BaseJobs
+ */class TaskJob extends BaseJobs
 {
     use QueueTrait;
 
@@ -29,11 +28,9 @@ class TaskJob extends BaseJobs
      * Xóa áp phích ngày hôm qua
      * @return bool
      * @throws \Exception
-     */
-    public function emptyYesterdayAttachment(): bool
+     */    public function emptyYesterdayAttachment(): bool
     {
-        /** @var SystemAttachmentServices $attach */
-        $attach = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $attach */        $attach = app()->make(SystemAttachmentServices::class);
         $attach->emptyYesterdayAttachment();
         return true;
     }

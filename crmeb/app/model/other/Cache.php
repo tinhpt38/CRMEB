@@ -18,8 +18,7 @@ use think\Model;
  *  bộ nhớ đệmModel
  * Class Cache
  * @package app\model\other
- */
-class Cache extends BaseModel
+ */class Cache extends BaseModel
 {
     use ModelTrait;
 
@@ -27,16 +26,14 @@ class Cache extends BaseModel
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'cache';
+     */    protected $name = 'cache';
 
     /**
      * Trình tìm kiếm KEY được lưu trong bộ nhớ đệm
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchKeyAttr($query, $value, $data)
+     */    public function searchKeyAttr($query, $value, $data)
     {
         $query->where('key', $value);
     }

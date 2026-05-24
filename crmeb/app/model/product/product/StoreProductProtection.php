@@ -20,12 +20,10 @@ class StoreProductProtection extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_protection';
+     */    protected $name = 'store_product_protection';
 }

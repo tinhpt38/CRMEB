@@ -19,29 +19,26 @@ use app\model\activity\lottery\LuckPrize;
  *
  * Class LuckPrizeDao
  * @package app\dao\activity\lottery
- */
-class LuckPrizeDao extends BaseDao
+ */class LuckPrizeDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return LuckPrize::class;
     }
 
     /**
-     * Nhận tất cả các giải thưởng từ một sự kiện
+     * Nhận Tất cả các giải thưởng từ một sự kiện
      * @param int $lottery_id
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getPrizeList(int $lottery_id, string $field = '*')
+     */    public function getPrizeList(int $lottery_id, string $field = '*')
     {
         $where = ['is_del' => 0, 'status' => 1];
         return $this->search($where + ['lottery_id' => $lottery_id])->field($field)->order('sort desc,id desc')->select()->toArray();

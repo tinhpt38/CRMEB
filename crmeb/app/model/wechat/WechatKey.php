@@ -19,22 +19,19 @@ use crmeb\traits\ModelTrait;
  * từ khóamodel
  * Class WechatKey
  * @package app\model\wechat
- */
-class WechatKey extends BaseModel
+ */class WechatKey extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'wechat_key';
+     */    protected $name = 'wechat_key';
 
     public function searchKeysAttr($query, $value)
     {

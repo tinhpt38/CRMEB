@@ -17,15 +17,13 @@ use app\services\BaseServices;
  * @author thủy triều
  * @email 442384644@qq.com
  * @date 2023/04/07
- */
-class SystemFileInfoServices extends BaseServices
+ */class SystemFileInfoServices extends BaseServices
 {
     /**
      * Người xây dựng
      * SystemLogServices constructor.
      * @param SystemFileInfoDao $dao
-     */
-    public function __construct(SystemFileInfoDao $dao)
+     */    public function __construct(SystemFileInfoDao $dao)
     {
         $this->dao = $dao;
     }

@@ -21,21 +21,18 @@ class StoreProductVirtual extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_product_virtual';
+     */    protected $name = 'store_product_virtual';
 
     /**
      * Trình tìm kiếm số thẻ
      * @param $query
      * @param $value
-     */
-    public function searchCardNoAttr($query, $value)
+     */    public function searchCardNoAttr($query, $value)
     {
         $query->where('card_no', $value);
     }
@@ -44,8 +41,7 @@ class StoreProductVirtual extends BaseModel
      * Công cụ tìm kiếm thẻ
      * @param $query
      * @param $value
-     */
-    public function searchCardPwdAttr($query, $value)
+     */    public function searchCardPwdAttr($query, $value)
     {
         $query->where('card_pwd', $value);
     }
@@ -54,18 +50,16 @@ class StoreProductVirtual extends BaseModel
      * Công cụ tìm sản phẩm
      * @param $query
      * @param $value
-     */
-    public function searchProductIdAttr($query, $value)
+     */    public function searchProductIdAttr($query, $value)
     {
         $query->where('product_id', $value);
     }
 
     /**
-     * Người tìm kiếm người dùng
+     * Người tìm kiếm Khách hàng
      * @param $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         $query->where('uid', $value);
     }
@@ -74,8 +68,7 @@ class StoreProductVirtual extends BaseModel
      * Trình tìm đơn hàng
      * @param $query
      * @param $value
-     */
-    public function searchOrderIdAttr($query, $value)
+     */    public function searchOrderIdAttr($query, $value)
     {
         $query->where('order_id', $value);
     }

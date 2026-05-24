@@ -18,21 +18,18 @@ use crmeb\traits\ModelTrait;
  * Mô hình xác minh tập tin
  * Class SystemFile
  * @package app\model\system\log
- */
-class SystemFile extends BaseModel
+ */class SystemFile extends BaseModel
 {
     use ModelTrait;
 
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'system_file';
+     */    protected $name = 'system_file';
 
 }

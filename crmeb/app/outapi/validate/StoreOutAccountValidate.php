@@ -19,8 +19,7 @@ class StoreOutAccountValidate extends Validate
 
     /**
      * @var string[]
-     */
-    protected $rule = [
+     */    protected $rule = [
         'appid' => 'require|account',
         'appsecret' => 'min:6|max:32',
         'title' => 'max:120'
@@ -28,8 +27,7 @@ class StoreOutAccountValidate extends Validate
 
     /**
      * @var string[]
-     */
-    protected $message = [
+     */    protected $message = [
         'appid.require' => 'Vui lòng điền số tài khoản',
         'appid.account' => 'Số tài khoản phải là sự kết hợp của các số hoặc chữ cái từ 4-30 chữ số',
         'appsecret.min' => 'Mật khẩu phải có từ 6 đến 16 ký tự',

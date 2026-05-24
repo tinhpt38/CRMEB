@@ -18,8 +18,7 @@ class SpeechcraftValidate extends Validate
 {
     /**
      * @var string[]
-     */
-    protected $rule = [
+     */    protected $rule = [
         'title' => 'chsAlphaNum|length:0,50',
         'cate_id' => 'require|number',
         'message' => 'require|length:0,500',
@@ -28,13 +27,12 @@ class SpeechcraftValidate extends Validate
 
     /**
      * @var string[]
-     */
-    protected $message = [
+     */    protected $message = [
         'title.chsAlphaNum' => 'Vui lòng điền chữ hoặc số tiếng Trung',
         'title.length' => 'Độ dài tiêu đề không thể vượt quá 50 từ',
         'cate_id.require' => 'Vui lòng chọn một danh mục',
         'cate_id.number' => 'Danh mục phải là số',
-        'message.require' => 'Hãy điền nội dung bài phát biểu',
+        'message.require' => 'Hãy điền Nội dung bài phát biểu',
         'message.length' => 'Độ dài bài phát biểu không quá 500 từ',
         'sort.number' => 'Sắp xếp phải là số',
     ];

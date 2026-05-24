@@ -11,8 +11,7 @@ import { Button } from "zmp-ui";
  *  1. User nhấn "Lấy số điện thoại từ Zalo"
  *  2. Zalo hiện hộp thoại xin quyền chia sẻ số điện thoại
  *  3. Sau khi user đồng ý, phone được gắn tự động vào tài khoản CRMEB
- */
-export default function BindPhonePage() {
+ */export default function BindPhonePage() {
   const navigate = useNavigate();
   const { bindFromZalo } = useBindPhone();
   const [loading, setLoading] = useState(false);

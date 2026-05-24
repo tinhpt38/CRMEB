@@ -39,14 +39,13 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function statistics()
+     */    public function statistics()
     {
         $storeOrderServices = app()->make(StoreOrderServices::class);
         $userVisitServices = app()->make(UserVisitServices::class);
         $storeOrderRefundServices = app()->make(StoreOrderRefundServices::class);
         $storeProductServices = app()->make(StoreProductServices::class);
-        // Số tiền đặt hàng của ngày hôm nay, không bao gồm các đơn hàng bị người dùng hủy hoặc xóa và các đơn hàng đã được thanh toán
+        // Số tiền đặt hàng của ngày hôm nay, không bao gồm các đơn hàng bị Khách hàng hủy hoặc xóa và các đơn hàng đã được thanh toán
         $todayOrderPrice = $storeOrderServices->sum([
             ['add_time', '>', strtotime(date('Y-m-d'))],
             ['is_del', '=', 0],
@@ -54,14 +53,14 @@ class StoreManageServices extends BaseServices
             ['paid', '=', 1],
             ['pid', '>=', 0],
         ], 'pay_price', false);
-        // Tổng số đơn hàng hôm nay, không bao gồm đơn hàng bị người dùng hủy và xóa
+        // Tổng số đơn hàng hôm nay, không bao gồm đơn hàng bị Khách hàng hủy và xóa
         $todayOrderCount = $storeOrderServices->count([
             ['add_time', '>', strtotime(date('Y-m-d'))],
             ['is_del', '=', 0],
             ['is_cancel', '=', 0],
             ['pid', '>=', 0],
         ]);
-        // Số người đã thanh toán hôm nay, không bao gồm các đơn hàng bị người dùng hủy và xóa cũng như các đơn hàng đã được thanh toán, loại trừ trùng lặp
+        // Số người đã thanh toán hôm nay, không bao gồm các đơn hàng bị Khách hàng hủy và xóa cũng như các đơn hàng đã được thanh toán, loại trừ trùng lặp
         $todayOrderUserCount = $storeOrderServices->getDistinctCount([
             ['add_time', '>', strtotime(date('Y-m-d'))],
             ['is_del', '=', 0],
@@ -92,8 +91,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function product($where)
+     */    public function product($where)
     {
         $storeProductServices = app()->make(StoreProductServices::class);
         $where['is_del'] = 0;
@@ -101,15 +99,14 @@ class StoreManageServices extends BaseServices
     }
 
     /**
-     * Tải và dỡ sản phẩm
+     * Bật / Tắt bán
      * @param $id
      * @param $isShow
      * @return bool
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function productShow($id, $isShow)
+     */    public function productShow($id, $isShow)
     {
         $storeProductServices = app()->make(StoreProductServices::class);
         $del = $storeProductServices->value(['id' => $id], 'is_del');
@@ -124,8 +121,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function productLabel()
+     */    public function productLabel()
     {
         $storeProductLabelServices = app()->make(StoreProductLabelServices::class);
         return $storeProductLabelServices->labelUseList();
@@ -140,8 +136,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function saveProductLabel($ids, $label_list)
+     */    public function saveProductLabel($ids, $label_list)
     {
         $data['ids'] = $ids;
         $data['label_list'] = $label_list;
@@ -160,8 +155,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function productCate()
+     */    public function productCate()
     {
         $storeCategoryServices = app()->make(StoreCategoryServices::class);
         return $storeCategoryServices->cascaderList(1, 1);
@@ -176,8 +170,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function saveProductCate($ids, $cate_id)
+     */    public function saveProductCate($ids, $cate_id)
     {
         $data['ids'] = $ids;
         $data['cate_id'] = $cate_id;
@@ -194,8 +187,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function productAttr($id)
+     */    public function productAttr($id)
     {
         $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
         return $storeProductAttrValueServices->selectList(['product_id' => $id, 'type' => 0])->toArray();
@@ -209,8 +201,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/13
-     */
-    public function saveProductAttr($id, $attr_value)
+     */    public function saveProductAttr($id, $attr_value)
     {
         $storeProductServices = app()->make(StoreProductServices::class);
         $storeProductAttrValueServices = app()->make(StoreProductAttrValueServices::class);
@@ -272,8 +263,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/12/9
-     */
-    public function createProduct($data)
+     */    public function createProduct($data)
     {
         $data['attr']['brokerage'] = 0;
         $data['attr']['brokerage_two'] = 0;
@@ -336,21 +326,20 @@ class StoreManageServices extends BaseServices
     }
 
     /**
-     * Danh sách người dùng
+     * Danh sách Khách hàng
      * @param $where
      * @return array
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function user($where)
+     */    public function user($where)
     {
         $userServices = app()->make(UserServices::class);
         return $userServices->index($where);
     }
 
     /**
-     * Chi tiết thông tin người dùng
+     * Chi tiết thông tin Khách hàng
      * @param $uid
      * @return mixed
      * @throws \think\db\exception\DataNotFoundException
@@ -359,8 +348,7 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userInfo($uid)
+     */    public function userInfo($uid)
     {
         $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->get($uid);
@@ -370,7 +358,7 @@ class StoreManageServices extends BaseServices
         $userInfo['birthday'] = $userInfo['birthday'] != 0 ? date('Y-m-d', $userInfo['birthday']) : '';
         // Số lượng phiếu giảm giá
         $userInfo['coupon_num'] = app()->make(StoreCouponUserServices::class)->getUserValidCouponCount((int)$uid);
-        // Thẻ người dùng
+        // Thẻ khách hàng
         $label_list = app()->make(UserLabelRelationServices::class)->getUserLabelList([$uid]);
         $label_id = [];
         $userInfo['label_list'] = '';
@@ -384,7 +372,7 @@ class StoreManageServices extends BaseServices
             }
         }
         $userInfo['label_id'] = $label_id;
-        // Số lượng và số lượng đặt hàng của người dùng
+        // Số lượng và số lượng đặt hàng của Khách hàng
         $orderServices = app()->make(StoreOrderServices::class);
         $userInfo['order_total_price'] = $orderServices->sum(['uid' => $uid, 'paid' => 1, 'refund_status' => 0], 'pay_price');
         $userInfo['order_total_count'] = $orderServices->count(['uid' => $uid, 'paid' => 1, 'refund_status' => 0]);
@@ -402,7 +390,7 @@ class StoreManageServices extends BaseServices
     }
 
     /**
-     * Nhóm người dùng
+     * Nhóm khách hàng
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -410,15 +398,14 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userGroup()
+     */    public function userGroup()
     {
         $userGroupServices = app()->make(UserGroupServices::class);
         return $userGroupServices->getGroupList();
     }
 
     /**
-     * Cấp độ người dùng
+     * Hạng khách hàng
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -426,15 +413,14 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userLevel()
+     */    public function userLevel()
     {
         $systemUserLevelServices = app()->make(SystemUserLevelServices::class);
         return $systemUserLevelServices->getLevelList([], 'id,name,icon,image');
     }
 
     /**
-     * Thẻ người dùng
+     * Thẻ khách hàng
      * @param $uid
      * @return array
      * @throws \think\db\exception\DataNotFoundException
@@ -443,22 +429,20 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userLabel($uid)
+     */    public function userLabel($uid)
     {
         $userLabelCateServices = app()->make(UserLabelCateServices::class);
         return $userLabelCateServices->getUserLabel($uid);
     }
 
     /**
-     * Phiếu giảm giá người dùng
+     * Mã giảm giá Khách hàng
      * @param $where
      * @return mixed
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userCoupon($where)
+     */    public function userCoupon($where)
     {
         if ($where['uid'] == 0) {
             $page = $where['page'] ?? 1;
@@ -474,7 +458,7 @@ class StoreManageServices extends BaseServices
     }
 
     /**
-     * Sửa đổi dữ liệu người dùng
+     * Sửa đổi dữ liệu Khách hàng
      * @param $uid
      * @param $data
      * @return bool
@@ -485,15 +469,13 @@ class StoreManageServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/11/17
-     */
-    public function userUpdate($uid, $data)
+     */    public function userUpdate($uid, $data)
     {
         $userServices = app()->make(UserServices::class);
         $userInfo = $userServices->getUserInfo($uid);
         switch ($data['type']) {
-            case 0: // Sự cân bằng
-                /** @var UserMoneyServices $userMoneyServices */
-                $userMoneyServices = app()->make(UserMoneyServices::class);
+            case 0: // Số dư
+                /** @var UserMoneyServices $userMoneyServices */                $userMoneyServices = app()->make(UserMoneyServices::class);
                 if ($data['status'] == 1) { //Tăng
                     $edit['now_money'] = bcadd($userInfo['now_money'], $data['number'], 2);
                     $userMoneyServices->income('system_add', $uid, $data['number'], $edit['now_money'], 0, 'Quản lý người bán di động để tăng số dư');
@@ -521,9 +503,8 @@ class StoreManageServices extends BaseServices
                 }
                 $userServices->update($uid, $edit);
                 break;
-            case 1: // tích phân
-                /** @var UserBillServices $userBill */
-                $userBill = app()->make(UserBillServices::class);
+            case 1: // điểm thưởng
+                /** @var UserBillServices $userBill */                $userBill = app()->make(UserBillServices::class);
                 $integral_data = ['link_id' => 0, 'number' => $data['number']];
                 if ($data['status'] == 1) { //Tăng
                     $edit['integral'] = bcadd($userInfo['integral'], $data['number'], 2);
@@ -543,12 +524,11 @@ class StoreManageServices extends BaseServices
             case 2: // cấp
                 $userServices->saveGiveLevel((int)$uid, (int)$data['level']);
                 break;
-            case 3: // Thành viên trả phí
+            case 3: // Gói thẻ VIP
                 $userServices->saveGiveLevelTime((int)$uid, (int)$data['days']);
                 break;
-            case 4: // Phiếu giảm giá
-                /** @var StoreCouponIssueServices $issueService */
-                $issueService = app()->make(StoreCouponIssueServices::class);
+            case 4: // Mã giảm giá
+                /** @var StoreCouponIssueServices $issueService */                $issueService = app()->make(StoreCouponIssueServices::class);
                 $coupon = $issueService->get($data['coupon_id']);
                 if (!$coupon) {
                     throw new ApiException('Mã giảm giá không tồn tại');
@@ -560,7 +540,7 @@ class StoreManageServices extends BaseServices
             case 5: // Nhóm
                 $userServices->saveSetGroup([$uid], $data['group_id']);
                 break;
-            case 6: // Thẻ người dùng
+            case 6: // Thẻ khách hàng
                 $userServices->saveSetLabel([$uid], $data['label_id'], 0);
                 break;
         }

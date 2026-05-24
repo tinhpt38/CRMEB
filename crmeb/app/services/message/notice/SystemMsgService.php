@@ -21,16 +21,14 @@ use think\facade\Log;
  * Created by PhpStorm.
  * User: xurongyao <763569752@qq.com>
  * Date: 2021/9/22 1:23 PM
- */
-class SystemMsgService extends NoticeService
+ */class SystemMsgService extends NoticeService
 {
     /**
      * Gửi tin nhắn
      * @param int $uid
      * @param $data
      * @return bool|void
-     */
-    public function sendMsg(int $uid, $data)
+     */    public function sendMsg(int $uid, $data)
     {
         try {
             if ($this->noticeInfo['is_system'] == 1) {
@@ -48,8 +46,7 @@ class SystemMsgService extends NoticeService
                 $sdata['type'] = 1;
                 $sdata['add_time'] = time();
                 $sdata['data'] = json_encode($data);
-                /** @var MessageSystemServices $MessageSystemServices */
-                $MessageSystemServices = app()->make(MessageSystemServices::class);
+                /** @var MessageSystemServices $MessageSystemServices */                $MessageSystemServices = app()->make(MessageSystemServices::class);
                 $MessageSystemServices->save($sdata);
             }
         } catch (\Exception $e) {
@@ -62,13 +59,10 @@ class SystemMsgService extends NoticeService
      * Gửi tin nhắn nội bộ tới bộ phận chăm sóc khách hàng
      * @param $data
      * @return bool|void
-     */
-    public function kefuSystemSend($data)
+     */    public function kefuSystemSend($data)
     {
-        /** @var MessageSystemServices $MessageSystemServices */
-        $MessageSystemServices = app()->make(MessageSystemServices::class);
-        /** @var StoreServiceServices $StoreServiceServices */
-        $StoreServiceServices = app()->make(StoreServiceServices::class);
+        /** @var MessageSystemServices $MessageSystemServices */        $MessageSystemServices = app()->make(MessageSystemServices::class);
+        /** @var StoreServiceServices $StoreServiceServices */        $StoreServiceServices = app()->make(StoreServiceServices::class);
         $adminList = $StoreServiceServices->getStoreServiceOrderNotice();
         try {
             if ($this->noticeInfo['is_system'] == 1) {

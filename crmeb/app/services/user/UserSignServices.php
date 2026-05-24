@@ -24,21 +24,19 @@ use think\facade\Log;
  *
  * Class UserSignServices
  * @package app\services\user
- */
-class UserSignServices extends BaseServices
+ */class UserSignServices extends BaseServices
 {
 
     /**
      * UserSignServices constructor.
      * @param UserSignDao $dao
-     */
-    public function __construct(UserSignDao $dao)
+     */    public function __construct(UserSignDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Nhận xem người dùng đã đăng nhập hay chưa
+     * Nhận xem Khách hàng đã đăng nhập hay chưa
      * @param int $uid
      * @param string $type
      * @return bool
@@ -46,22 +44,20 @@ class UserSignServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/8
-     */
-    public function getIsSign(int $uid, string $type = 'today')
+     */    public function getIsSign(int $uid, string $type = 'today')
     {
         return (bool)$this->dao->count(['uid' => $uid, 'time' => $type]);
     }
 
     /**
-     * Lấy số lần đăng ký tích lũy của người dùng
+     * Lấy số lần đăng ký tích lũy của Khách hàng
      * @param int $uid
      * @return int
      * @throws \ReflectionException
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/8
-     */
-    public function getSignSumDay(int $uid)
+     */    public function getSignSumDay(int $uid)
     {
         return $this->dao->count(['uid' => $uid]);
     }
@@ -79,8 +75,7 @@ class UserSignServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/8
-     */
-    public function setSignData($uid, $title = '', $number = 0, $integral_balance = 0, $exp_banlance = 0, $exp_num = 0)
+     */    public function setSignData($uid, $title = '', $number = 0, $integral_balance = 0, $exp_banlance = 0, $exp_num = 0)
     {
         $data = [];
         $data['uid'] = $uid;
@@ -91,8 +86,7 @@ class UserSignServices extends BaseServices
         if (!$this->dao->save($data)) {
             throw new ApiException('Không thể thêm dữ liệu đăng ký');
         }
-        /** @var UserBillServices $userBill */
-        $userBill = app()->make(UserBillServices::class);
+        /** @var UserBillServices $userBill */        $userBill = app()->make(UserBillServices::class);
         $data['mark'] = $title;
         $userBill->incomeIntegral($uid, 'sign', $data);
 
@@ -109,7 +103,7 @@ class UserSignServices extends BaseServices
             }
             //Kiểm tra cấp độ thành viên
             try {
-                //Sự kiện nâng cấp người dùng
+                //Sự kiện nâng cấp Khách hàng
                 event('UserLevelListener', [$uid]);
             } catch (\Throwable $e) {
                 Log::error('Nâng cấp cấp thành viên không thành công,Lý do thất bại:' . $e->getMessage());
@@ -119,7 +113,7 @@ class UserSignServices extends BaseServices
     }
 
     /**
-     * Nhận danh sách đăng ký của người dùng
+     * Nhận danh sách đăng ký của Khách hàng
      * @param int $uid
      * @param string $field
      * @return array
@@ -129,8 +123,7 @@ class UserSignServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/8
-     */
-    public function getUserSignList(int $uid, string $field = '*')
+     */    public function getUserSignList(int $uid, string $field = '*')
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList(['uid' => $uid], $field, $page, $limit);
@@ -141,19 +134,17 @@ class UserSignServices extends BaseServices
     }
 
     /**
-     * Đăng nhập người dùng
+     * Đăng nhập Khách hàng
      * @param $uid
      * @return bool|int|mixed
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function sign(int $uid)
+     */    public function sign(int $uid)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
 
-        //Kiểm tra xem người dùng có tồn tại không
+        //Kiểm tra xem Khách hàng có tồn tại không
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Người dùng không tồn tại');
@@ -202,8 +193,7 @@ class UserSignServices extends BaseServices
         //Điểm đăng nhập thành viên phần thưởng thành viên
         if ($user->is_money_level > 0) {
             //Kiểm tra xem phần thưởng nhân đôi điểm đăng ký có được bật hay không.
-            /** @var MemberCardServices $memberCardService */
-            $memberCardService = app()->make(MemberCardServices::class);
+            /** @var MemberCardServices $memberCardService */            $memberCardService = app()->make(MemberCardServices::class);
             $sign_rule_number = $memberCardService->isOpenMemberCard('sign');
             if ($sign_rule_number) {
                 $up_num = (int)$sign_rule_number * $sign_point - $sign_point;
@@ -218,11 +208,11 @@ class UserSignServices extends BaseServices
             $user->integral = (int)$user->integral + (int)$sign_point;
             if ($sign_exp) $user->exp = bcadd((string)$user->exp, (string)$sign_exp, 2);
             if (!$user->save()) {
-                throw new ApiException('Không thể sửa đổi thông tin người dùng');
+                throw new ApiException('Không thể sửa đổi thông tin Khách hàng');
             }
         });
 
-        //Đăng ký người dùng sự kiện tùy chỉnh
+        //Đăng ký Khách hàng sự kiện tùy chỉnh
         event('CustomEventListener', ['user_sign', [
             'uid' => $uid,
             'sign_point' => $sign_point,
@@ -234,7 +224,7 @@ class UserSignServices extends BaseServices
     }
 
     /**
-     * Đăng nhập thông tin người dùng
+     * Đăng nhập thông tin Khách hàng
      * @param int $uid
      * @param $sign
      * @param $integral
@@ -246,11 +236,9 @@ class UserSignServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/8
-     */
-    public function signUser(int $uid, $sign, $integral, $all)
+     */    public function signUser(int $uid, $sign, $integral, $all)
     {
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         $user = $userServices->getUserInfo($uid);
         if (!$user) {
             throw new ApiException('Dữ liệu không tồn tại');
@@ -266,13 +254,11 @@ class UserSignServices extends BaseServices
         }
         //Có tính điểm sử dụng hay không
         if ($integral || $all) {
-            /** @var UserBillServices $userBill */
-            $userBill = app()->make(UserBillServices::class);
+            /** @var UserBillServices $userBill */            $userBill = app()->make(UserBillServices::class);
             $user['sum_integral'] = intval($userBill->getRecordCount($user['uid'], 'integral', 'sign,system_add,gain,lottery_add,product_gain,pay_product_integral_back'));
             $user['deduction_integral'] = intval($userBill->getRecordCount($user['uid'], 'integral', 'deduction,lottery_use,order_deduction,storeIntegral_use', '', true) ?? 0);
             $user['today_integral'] = intval($userBill->getRecordCount($user['uid'], 'integral', 'sign,system_add,gain,product_gain,lottery_add,pay_product_integral_back', 'today'));
-            /** @var UserBillServices $userBillServices */
-            $userBillServices = app()->make(UserBillServices::class);
+            /** @var UserBillServices $userBillServices */            $userBillServices = app()->make(UserBillServices::class);
             $user['frozen_integral'] = $userBillServices->getBillSum(['uid' => $user['uid'], 'is_frozen' => 1]);
         }
         unset($user['pwd']);
@@ -292,8 +278,7 @@ class UserSignServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/8
-     */
-    public function getSignMonthList($uid)
+     */    public function getSignMonthList($uid)
     {
         [$page, $limit] = $this->getPageValue();
         $data = $this->dao->getListGroup(['uid' => $uid], 'FROM_UNIXTIME(add_time,"%Y-%m") as time,group_concat(id SEPARATOR ",") ids', $page, $limit, 'time');
@@ -324,8 +309,7 @@ class UserSignServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/8
-     */
-    public function signConfig($uid, $signMode = 0)
+     */    public function signConfig($uid, $signMode = 0)
     {
         if (!$signMode) {
             //Nhận đăng nhập hàng tuần hoặc đăng nhập hàng tháng
@@ -408,7 +392,7 @@ class UserSignServices extends BaseServices
         //Định dạng dữ liệu đăng ký
         $signList = array_chunk($signList, 7);
 
-        //Nhận trạng thái nhắc nhở đăng ký của người dùng
+        //Nhận trạng thái nhắc nhở đăng ký của Khách hàng
         $signRemindStatus = app()->make(UserServices::class)->value($uid, 'sign_remind');
 
         //Có hiển thị nút nhắc nhở đăng ký hay không
@@ -431,8 +415,7 @@ class UserSignServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/8/9
-     */
-    public function setSignRemind($uid, $status)
+     */    public function setSignRemind($uid, $status)
     {
         app()->make(UserServices::class)->update($uid, ['sign_remind' => $status]);
         return true;
@@ -444,17 +427,16 @@ class UserSignServices extends BaseServices
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2023/9/30
-     */
-    public function sendSignRemind()
+     */    public function sendSignRemind()
     {
         //Nó đã được gửi hôm nay và logic nhắc nhở gửi không được thực thi.
         if (CacheService::get('sign_remind_expire')) return true;
         //Nếu thời gian hiện tại nhỏ hơn thời gian gửi lời nhắc hàng ngày thì logic gửi lời nhắc sẽ không được thực thi.
         if (time() < strtotime('today ' . sys_config('sign_remind_time'))) return true;
-        //Thu hút những người dùng cần lời nhắc đăng ký
+        //Thu hút những Khách hàng cần lời nhắc đăng ký
         $list = app()->make(UserServices::class)->getColumn(['sign_remind' => 1], 'phone', 'uid');
         if ($list) {
-            //Nhận người dùng đã đăng nhập ngay hôm nay
+            //Nhận Khách hàng đã đăng nhập ngay hôm nay
             $signList = $this->dao->getColumn([['add_time', 'between', [strtotime('today'), strtotime('today 23:59:59')]]], 'uid');
             $noSignList = array_diff_key($list, array_flip($signList));
             foreach ($noSignList as $uid => $phone) {

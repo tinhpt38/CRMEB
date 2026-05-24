@@ -18,11 +18,10 @@ use crmeb\traits\ModelTrait;
 use think\Model;
 
 /**
- * Hồ sơ người dùng trò chuyện dịch vụ khách hàng
+ * Hồ sơ Khách hàng trò chuyện CSKH
  * Class StoreServiceRecord
  * @package app\model\service
- */
-class StoreServiceRecord extends BaseModel
+ */class StoreServiceRecord extends BaseModel
 {
     use ModelTrait;
 
@@ -33,14 +32,12 @@ class StoreServiceRecord extends BaseModel
     /**
      * Thời gian cập nhật
      * @var bool | string | int
-     */
-    protected $updateTime = false;
+     */    protected $updateTime = false;
 
     /**
-     * Hiệp hội người dùng
+     * Hiệp hội Khách hàng
      * @return \think\model\relation\HasOne
-     */
-    public function user()
+     */    public function user()
     {
         return $this->hasOne(User::class, 'uid', 'to_uid')->field(['nickname', 'uid', 'avatar'])->bind([
             'wx_nickname' => 'nickname',
@@ -49,10 +46,9 @@ class StoreServiceRecord extends BaseModel
     }
 
     /**
-     * Người sử dụng dịch vụ khách hàng
+     * Người sử dụng CSKH
      * @return \think\model\relation\HasOne
-     */
-    public function service()
+     */    public function service()
     {
         return $this->hasOne(StoreService::class, 'uid', 'to_uid')->field(['nickname', 'uid', 'avatar'])->bind([
             'kefu_nickname' => 'nickname',
@@ -64,8 +60,7 @@ class StoreServiceRecord extends BaseModel
      * người tìm kiếm id người gửi
      * @param Model $query
      * @param $value
-     */
-    public function searchUserIdAttr($query, $value)
+     */    public function searchUserIdAttr($query, $value)
     {
         $query->where('user_id', $value);
     }
@@ -74,18 +69,16 @@ class StoreServiceRecord extends BaseModel
      * Người giao hàng tìm kiếm uid
      * @param Model $query
      * @param $value
-     */
-    public function searchToUidAttr($query, $value)
+     */    public function searchToUidAttr($query, $value)
     {
         $query->where('to_uid', $value);
     }
 
     /**
-     * Người tìm kiếm biệt danh người dùng
+     * Người tìm kiếm biệt danh Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchTitleAttr($query, $value)
+     */    public function searchTitleAttr($query, $value)
     {
         if ($value) {
             $query->whereIn('to_uid', function ($query) use ($value) {
@@ -98,8 +91,7 @@ class StoreServiceRecord extends BaseModel
      * Dù là khách du lịch
      * @param Model $query
      * @param $value
-     */
-    public function searchIsTouristAttr($query, $value)
+     */    public function searchIsTouristAttr($query, $value)
     {
         $query->where('is_tourist', $value);
     }

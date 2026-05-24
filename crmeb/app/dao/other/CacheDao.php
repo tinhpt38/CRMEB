@@ -18,14 +18,12 @@ use app\model\other\Cache;
 /**
  * Class CacheDao
  * @package app\dao\other
- */
-class CacheDao extends BaseDao
+ */class CacheDao extends BaseDao
 {
 
     /**
      * @return string
-     */
-    public function setModel(): string
+     */    public function setModel(): string
     {
         return Cache::class;
     }
@@ -33,8 +31,7 @@ class CacheDao extends BaseDao
     /**
      * Xóa bộ nhớ đệm đã hết hạn
      * @throws \Exception
-     */
-    public function delectDeOverdueDbCache()
+     */    public function delectDeOverdueDbCache()
     {
         $this->getModel()->where('expire_time', '<>', 0)->where('expire_time', '<', time())->delete();
     }

@@ -18,15 +18,13 @@ use app\dao\user\UserSpreadDao;
 /**
  * Class UserSpreadServices
  * @package app\services\user
- */
-class UserSpreadServices extends BaseServices
+ */class UserSpreadServices extends BaseServices
 {
 
     /**
      * UserSpreadServices constructor.
      * @param UserSpreadDao $dao
-     */
-    public function __construct(UserSpreadDao $dao)
+     */    public function __construct(UserSpreadDao $dao)
     {
         $this->dao = $dao;
     }
@@ -36,12 +34,10 @@ class UserSpreadServices extends BaseServices
      * @param int $uid
      * @param int $spread_uid
      * @return false|mixed
-     */
-    public function setSpread(int $uid, int $spread_uid, int $spread_time = 0)
+     */    public function setSpread(int $uid, int $spread_uid, int $spread_time = 0)
     {
         if (!$uid || !$spread_uid) return false;
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
 
         if (!$userServices->getUserInfo($uid, 'uid')) {
             return false;
@@ -58,7 +54,7 @@ class UserSpreadServices extends BaseServices
     }
 
     /**
-     * Truy vấn người dùng quảng cáouids
+     * Tìm kiếm Khách hàng quảng cáouids
      * @param int $uid
      * @param int $type 1:Cấp 2: Cấp 2 0: Tất cả
      * @param array $where
@@ -66,12 +62,10 @@ class UserSpreadServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSpreadUids(int $uid, int $type = 0, array $where = [])
+     */    public function getSpreadUids(int $uid, int $type = 0, array $where = [])
     {
         if (!$uid) return [];
-        /** @var UserServices $userServices */
-        $userServices = app()->make(UserServices::class);
+        /** @var UserServices $userServices */        $userServices = app()->make(UserServices::class);
         if (!$userServices->getUserInfo($uid, 'uid')) {
             return [];
         }

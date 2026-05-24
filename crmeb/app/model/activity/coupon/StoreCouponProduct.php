@@ -17,15 +17,13 @@ use crmeb\traits\ModelTrait;
  * TODO Hiệp hội phiếu giảm giáModel
  * Class StoreCoupon
  * @package app\model\coupon
- */
-class StoreCouponProduct extends BaseModel
+ */class StoreCouponProduct extends BaseModel
 {
     use ModelTrait;
 
     /**
      * tên bảng
      * @var string
-     */
-    protected $name = 'store_coupon_product';
+     */    protected $name = 'store_coupon_product';
 
 }

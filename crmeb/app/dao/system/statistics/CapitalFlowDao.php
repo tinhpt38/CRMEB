@@ -19,14 +19,13 @@ class CapitalFlowDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return CapitalFlow::class;
     }
 
     /**
-     * Dòng vốn
+     * Dòng tiền
      * @param $where
      * @param int $page
      * @param int $limit
@@ -34,8 +33,7 @@ class CapitalFlowDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList($where, $page = 0, $limit = 0)
+     */    public function getList($where, $page = 0, $limit = 0)
     {
         return $this->search($where)->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -43,7 +41,7 @@ class CapitalFlowDao extends BaseDao
     }
 
     /**
-     * hồ sơ thanh toán
+     * Lịch sử thanh toán
      * @param $where
      * @param int $page
      * @param int $limit
@@ -51,8 +49,7 @@ class CapitalFlowDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getRecordList($where, int $page = 0, int $limit = 0)
+     */    public function getRecordList($where, int $page = 0, int $limit = 0)
     {
         $timeUnix = "%Y-%m-%d";
         switch ($where['type']) {
@@ -93,8 +90,7 @@ class CapitalFlowDao extends BaseDao
      * @param int $year
      * @param int $week
      * @return array|false|string
-     */
-    public function weekDayTime(int $year, int $week = 1)
+     */    public function weekDayTime(int $year, int $week = 1)
     {
         $year_start = mktime(0, 0, 0, 1, 1, $year);
         // Xác định xem ngày đầu tiên có phải là ngày đầu tiên của tuần đầu tiên không

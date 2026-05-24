@@ -19,15 +19,13 @@ use app\dao\product\product\StoreProductReplyStoreProductDao;
  *
  * Class StoreProductReplyStoreProductServices
  * @package app\services\product\product
- */
-class StoreProductReplyStoreProductServices extends BaseServices
+ */class StoreProductReplyStoreProductServices extends BaseServices
 {
 
     /**
      * StoreProductReplyStoreProductServices constructor.
      * @param StoreProductReplyStoreProductDao $dao
-     */
-    public function __construct(StoreProductReplyStoreProductDao $dao)
+     */    public function __construct(StoreProductReplyStoreProductDao $dao)
     {
         $this->dao = $dao;
     }
@@ -39,8 +37,7 @@ class StoreProductReplyStoreProductServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductReplyList(array $where)
+     */    public function getProductReplyList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getProductReplyList($where, $page, $limit);

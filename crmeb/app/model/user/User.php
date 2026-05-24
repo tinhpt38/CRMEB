@@ -21,15 +21,13 @@ use think\Model;
 /**
  * Class User
  * @package app\model\user
- */
-class User extends BaseModel
+ */class User extends BaseModel
 {
     use ModelTrait;
 
     /**
      * @var string
-     */
-    protected $pk = 'uid';
+     */    protected $pk = 'uid';
 
     protected $name = 'user';
 
@@ -42,8 +40,7 @@ class User extends BaseModel
     /**
      * Tự động thay đổi loại
      * @var string[]
-     */
-    protected $type = [
+     */    protected $type = [
         'birthday' => 'int'
     ];
 
@@ -75,19 +72,17 @@ class User extends BaseModel
 //    }
 
     /**
-     * Link form cài đặt đăng nhập thành viên
+     * Link form Cài đặt đăng nhập thành viên
      * @return \think\model\relation\HasOne
-     */
-    public function systemUserLevel()
+     */    public function systemUserLevel()
     {
         return $this->hasOne(SystemUserLevel::class, 'id', 'level');
     }
 
     /**
-     * Nhóm người dùng được liên kết
+     * Nhóm khách hàng được liên kết
      * @return \think\model\relation\HasOne
-     */
-    public function userGroup()
+     */    public function userGroup()
     {
         return $this->hasOne(UserGroup::class, 'id', 'group_id');
     }
@@ -95,8 +90,7 @@ class User extends BaseModel
     /**
      * Liên quan đến chính mình
      * @return \think\model\relation\HasOne
-     */
-    public function spreadUser()
+     */    public function spreadUser()
     {
         return $this->hasOne(self::class, 'uid', 'spread_uid');
     }
@@ -104,35 +98,31 @@ class User extends BaseModel
     /**
      * Liên quan đến chính mình
      * @return \think\model\relation\HasOne
-     */
-    public function spreadCount()
+     */    public function spreadCount()
     {
         return $this->hasMany(User::class, 'spread_uid', 'uid');
     }
 
     /**
-     * Mối quan hệ thẻ người dùng được liên kết
+     * Mối quan hệ thẻ Khách hàng được liên kết
      * @return \think\model\relation\HasMany
-     */
-    public function LabelRelation()
+     */    public function LabelRelation()
     {
         return $this->hasMany(UserLabelRelation::class, 'uid', 'uid');
     }
 
     /**
-     * Thẻ người dùng được liên kết
+     * Thẻ khách hàng được liên kết
      * @return \think\model\relation\HasManyThrough
-     */
-    public function label()
+     */    public function label()
     {
         return $this->hasManyThrough(UserLabel::class, UserLabelRelation::class, 'uid', 'id', 'uid', 'label_id');
     }
 
     /**
-     * Địa chỉ người dùng được liên kết
+     * Địa chỉ Khách hàng được liên kết
      * @return \think\model\relation\HasMany
-     */
-    public function address()
+     */    public function address()
     {
         return $this->hasMany(UserAddress::class, 'uid', 'uid');
     }
@@ -140,8 +130,7 @@ class User extends BaseModel
     /**
      * Rút tiền liên quan
      * @return \think\model\relation\HasMany
-     */
-    public function extract()
+     */    public function extract()
     {
         return $this->hasMany(UserExtract::class, 'uid', 'uid');
     }
@@ -149,8 +138,7 @@ class User extends BaseModel
     /**
      * Đơn hàng liên kết
      * @return User|\think\model\relation\HasMany
-     */
-    public function order()
+     */    public function order()
     {
         return $this->hasMany(StoreOrder::class, 'uid', 'uid');
     }
@@ -158,8 +146,7 @@ class User extends BaseModel
     /**
      * Các mức phân phối liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function agentLevel()
+     */    public function agentLevel()
     {
         return $this->hasOne(AgentLevel::class, 'id', 'agent_level')->where('is_del', 0)->where('status', 1);
     }
@@ -167,18 +154,16 @@ class User extends BaseModel
     /**
      * Dữ liệu hoa hồng liên kết
      * @return \think\model\relation\HasMany
-     */
-    public function bill()
+     */    public function bill()
     {
         return $this->hasMany(UserBill::class, 'uid', 'uid');
     }
 
     /**
-     * người dùnguid
+     * Khách hànguid
      * @param Model $query
      * @param $value
-     */
-    public function searchUidAttr($query, $value)
+     */    public function searchUidAttr($query, $value)
     {
         if (is_array($value))
             $query->whereIn('uid', $value);
@@ -190,8 +175,7 @@ class User extends BaseModel
      * Trình tìm tài khoản
      * @param Model $query
      * @param $value
-     */
-    public function searchAccountAttr($query, $value)
+     */    public function searchAccountAttr($query, $value)
     {
         $query->where('account', $value);
     }
@@ -200,8 +184,7 @@ class User extends BaseModel
      * người tìm kiếm mật khẩu
      * @param Model $query
      * @param $value
-     */
-    public function searchPwdAttr($query, $value)
+     */    public function searchPwdAttr($query, $value)
     {
         $query->where('pwd', $value);
     }
@@ -210,8 +193,7 @@ class User extends BaseModel
      * uidtrình tìm kiếm truy vấn phạm vi
      * @param Model $query
      * @param $value
-     */
-    public function searchUidsAttr($query, $value)
+     */    public function searchUidsAttr($query, $value)
     {
         $query->whereIn('uid', $value);
     }
@@ -220,8 +202,7 @@ class User extends BaseModel
      * Trình tìm kiếm điều kiện mờ
      * @param Model $query
      * @param $value
-     */
-    public function searchLikeAttr($query, $value)
+     */    public function searchLikeAttr($query, $value)
     {
         $query->where('account|nickname|phone|real_name|uid', 'like', '%' . $value . '%');
     }
@@ -230,8 +211,7 @@ class User extends BaseModel
      * Công cụ tìm số điện thoại di động
      * @param Model $query
      * @param $value
-     */
-    public function searchPhoneAttr($query, $value)
+     */    public function searchPhoneAttr($query, $value)
     {
         $query->where('phone', $value);
     }
@@ -240,8 +220,7 @@ class User extends BaseModel
      * Người tìm kiếm nhóm
      * @param Model $query
      * @param $value
-     */
-    public function searchGroupIdAttr($query, $value)
+     */    public function searchGroupIdAttr($query, $value)
     {
         $query->where('group_id', $value);
     }
@@ -250,8 +229,7 @@ class User extends BaseModel
      * Có nên quảng bá công cụ tìm người hay không
      * @param Model $query
      * @param $value
-     */
-    public function searchIsPromoterAttr($query, $value)
+     */    public function searchIsPromoterAttr($query, $value)
     {
         $query->where('is_promoter', $value);
     }
@@ -260,8 +238,7 @@ class User extends BaseModel
      * công cụ tìm trạng thái
      * @param Model $query
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         $query->where('status', $value);
     }
@@ -270,8 +247,7 @@ class User extends BaseModel
      * Trình tìm kiếm cấp độ thành viên
      * @param Model $query
      * @param $value
-     */
-    public function searchLevelAttr($query, $value)
+     */    public function searchLevelAttr($query, $value)
     {
         $query->where('level', $value);
     }
@@ -280,8 +256,7 @@ class User extends BaseModel
      * Trình tìm kiếm uid của nhà quảng cáo
      * @param Model $query
      * @param $value
-     */
-    public function searchSpreadUidAttr($query, $value)
+     */    public function searchSpreadUidAttr($query, $value)
     {
         $query->where('spread_uid', $value);
     }
@@ -290,8 +265,7 @@ class User extends BaseModel
      * Uid của người khởi xướng không bằng người tìm kiếm
      * @param Model $query
      * @param $value
-     */
-    public function searchNotSpreadUidAttr($query, $value)
+     */    public function searchNotSpreadUidAttr($query, $value)
     {
         $query->where('spread_uid', '<>', $value);
     }
@@ -300,8 +274,7 @@ class User extends BaseModel
      * Công cụ tìm thời gian của nhà quảng bá
      * @param Model $query
      * @param $value
-     */
-    public function searchSpreadTimeAttr($query, $value)
+     */    public function searchSpreadTimeAttr($query, $value)
     {
         if ($value) {
             if (is_array($value)) {
@@ -313,11 +286,10 @@ class User extends BaseModel
     }
 
     /**
-     * Công cụ tìm loại người dùng
+     * Công cụ tìm loại Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchUserTypeAttr($query, $value)
+     */    public function searchUserTypeAttr($query, $value)
     {
         if ($value != '') $query->where('user_type', $value);
     }
@@ -326,18 +298,16 @@ class User extends BaseModel
      * Công cụ tìm số lượng mua hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchPayCountAttr($query, $value)
+     */    public function searchPayCountAttr($query, $value)
     {
         $query->where('pay_count', $value);
     }
 
     /**
-     * Trình độ khuyến mãi của người dùng
+     * Trình độ khuyến mãi của Khách hàng
      * @param Model $query
      * @param $value
-     */
-    public function searchSpreadOpenAttr($query, $value)
+     */    public function searchSpreadOpenAttr($query, $value)
     {
         if ($value != '') $query->where('spread_open', $value);
     }
@@ -346,8 +316,7 @@ class User extends BaseModel
      * nicknameNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchNicknameAttr($query, $value)
+     */    public function searchNicknameAttr($query, $value)
     {
         $query->where('nickname', "like", "%" . $value . "%");
     }
@@ -356,8 +325,7 @@ class User extends BaseModel
      * division_typeNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchDivisionTypeAttr($query, $value)
+     */    public function searchDivisionTypeAttr($query, $value)
     {
         if ($value !== '') $query->where('division_type', $value);
     }
@@ -366,8 +334,7 @@ class User extends BaseModel
      * division_idNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchDivisionIdAttr($query, $value)
+     */    public function searchDivisionIdAttr($query, $value)
     {
         if ((int)$value !== 0) $query->where('division_id', $value);
     }
@@ -376,8 +343,7 @@ class User extends BaseModel
      * agent_idNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchAgentIdAttr($query, $value)
+     */    public function searchAgentIdAttr($query, $value)
     {
         if ($value !== '') $query->where('agent_id', $value);
     }
@@ -386,8 +352,7 @@ class User extends BaseModel
      * staff_idNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchStaffIdAttr($query, $value)
+     */    public function searchStaffIdAttr($query, $value)
     {
         if ($value !== '') $query->where('staff_id', $value);
     }
@@ -396,8 +361,7 @@ class User extends BaseModel
      * is_divisionNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchIsDivisionAttr($query, $value)
+     */    public function searchIsDivisionAttr($query, $value)
     {
         if ($value !== '') $query->where('is_division', $value);
     }
@@ -406,8 +370,7 @@ class User extends BaseModel
      * is_agentNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchIsAgentAttr($query, $value)
+     */    public function searchIsAgentAttr($query, $value)
     {
         if ($value !== '') $query->where('is_agent', $value);
     }
@@ -416,8 +379,7 @@ class User extends BaseModel
      * is_staffNgười tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchIsStaffAttr($query, $value)
+     */    public function searchIsStaffAttr($query, $value)
     {
         if ($value !== '') $query->where('is_staff', $value);
     }
@@ -425,8 +387,7 @@ class User extends BaseModel
     /**
      * @param $query
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value !== '') $query->where('uid|nickname', 'like', '%' . $value . '%');
     }
@@ -435,8 +396,7 @@ class User extends BaseModel
      * Đăng xuất khỏi người tìm kiếm
      * @param $query
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }
@@ -445,8 +405,7 @@ class User extends BaseModel
      * Không bằng trình tìm kiếm uid
      * @param $query
      * @param $value
-     */
-    public function searchNotUidAttr($query, $value)
+     */    public function searchNotUidAttr($query, $value)
     {
         if ($value !== '') $query->where('uid', '<>', $value);
     }

@@ -21,30 +21,25 @@ use app\model\wechat\WechatUser;
  *
  * Class UserWechatUserDao
  * @package app\dao\user
- */
-class UserWechatUserDao extends BaseDao
+ */class UserWechatUserDao extends BaseDao
 {
     /**
      * @var string
-     */
-    protected $alias = '';
+     */    protected $alias = '';
 
     /**
      * @var string
-     */
-    protected $join_alis = '';
+     */    protected $join_alis = '';
 
     /**
      * Danh sách trắng tìm kiếm chính xác
      * @var string[]
-     */
-    protected $withField = ['uid', 'nickname', 'user_type', 'phone'];
+     */    protected $withField = ['uid', 'nickname', 'user_type', 'phone'];
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return User::class;
     }
@@ -59,13 +54,11 @@ class UserWechatUserDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    public function getModel(string $alias = 'u', string $join_alias = 'w', $join = 'left')
+     */    public function getModel(string $alias = 'u', string $join_alias = 'w', $join = 'left')
     {
         $this->alias = $alias;
         $this->join_alis = $join_alias;
-        /** @var WechatUser $wechcatUser */
-        $wechcatUser = app()->make($this->joinModel());
+        /** @var WechatUser $wechcatUser */        $wechcatUser = app()->make($this->joinModel());
         $table = $wechcatUser->getName();
         return parent::getModel()->alias($alias)->join($table . ' ' . $join_alias, $alias . '.uid = ' . $join_alias . '.uid', $join);
     }
@@ -79,8 +72,7 @@ class UserWechatUserDao extends BaseDao
      * Nhận tổng số
      * @param array $where
      * @return int
-     */
-    public function getCount(array $where): int
+     */    public function getCount(array $where): int
     {
         return $this->getModel()->where($where)->count();
     }
@@ -89,8 +81,7 @@ class UserWechatUserDao extends BaseDao
      * Số lượng mục mô hình điều kiện kết hợp
      * @param Model $model
      * @return int
-     */
-    public function getCountByWhere(array $where): int
+     */    public function getCountByWhere(array $where): int
     {
         return $this->searchWhere($where)->group($this->alias . '.uid')->count();
     }
@@ -99,8 +90,7 @@ class UserWechatUserDao extends BaseDao
      * Danh sách truy vấn mô hình điều kiện kết hợp
      * @param Model $model
      * @return array
-     */
-    public function getListByModel(array $where, string $field = '', string $order = '', int $page, int $limit): array
+     */    public function getListByModel(array $where, string $field = '', string $order = '', int $page, int $limit): array
     {
         return $this->searchWhere($where)->field($field)->page($page, $limit)->group($this->alias . '.uid')->order(($order ? $order . ' ,' : '') . $this->alias . '.uid desc')->select()->toArray();
     }
@@ -110,8 +100,7 @@ class UserWechatUserDao extends BaseDao
      * @param $where array mảng có điều kiện
      * @param array|null $field Các trường cần truy vấn
      * @return \crmeb\basic\BaseModel
-     */
-    public function searchWhere($where, ?array $field = [])
+     */    public function searchWhere($where, ?array $field = [])
     {
         $model = $this->getModel();
         $userAlias = $this->alias . '.';
@@ -120,16 +109,16 @@ class UserWechatUserDao extends BaseDao
         // --- Mô-đun lọc thời gian ---
         // Kiểu bộ lọc：visitno(Chưa ghé thăm), visit(thời gian truy cập), add_time(Thời gian đăng ký)
         if (isset($where['user_time_type']) && isset($where['user_time'])) {
-            // Lọc người dùng chưa truy cập trong một thời gian nhất định
+            // Lọc Khách hàng chưa truy cập trong một thời gian nhất định
             if ($where['user_time_type'] == 'visitno' && $where['user_time'] != '') {
                 list($startTime, $endTime) = explode('-', $where['user_time']);
                 if ($startTime && $endTime) {
                     $endTime = strtotime($endTime) + 24 * 3600;
-                    // last_time Nhỏ hơn thời gian bắt đầu hoặc lớn hơn thời gian kết thúc (nghĩa là không được truy cập trong khoảng thời gian này）
+                    // last_time Nhỏ hơn thời gian bắt đầu hoặc lớn hơn thời gian kết thúc (nghĩa là không được truy cập Trong khoảng thời gian này）
                     $model = $model->where($userAlias . "last_time < " . strtotime($startTime) . " OR " . $userAlias . "last_time > " . $endTime);
                 }
             }
-            // Lọc người dùng đã truy cập trong một thời gian nhất định
+            // Lọc Khách hàng đã truy cập trong một thời gian nhất định
             if ($where['user_time_type'] == 'visit' && $where['user_time'] != '') {
                 list($startTime, $endTime) = explode('-', $where['user_time']);
                 if ($startTime && $endTime) {
@@ -137,7 +126,7 @@ class UserWechatUserDao extends BaseDao
                     $model = $model->where($userAlias . 'last_time', '<', strtotime($endTime) + 24 * 3600);
                 }
             }
-            // Lọc người dùng đã đăng ký trong một thời gian nhất định
+            // Lọc Khách hàng đã đăng ký trong một thời gian nhất định
             if ($where['user_time_type'] == 'add_time' && $where['user_time'] != '') {
                 list($startTime, $endTime) = explode('-', $where['user_time']);
                 if ($startTime && $endTime) {
@@ -161,7 +150,7 @@ class UserWechatUserDao extends BaseDao
         // pay_count_num: [min, max]
         if (isset($where['pay_count_num']) && count($where['pay_count_num']) == 2) {
             if ($where['pay_count_num'][0] != '' && $where['pay_count_num'][1] != '') {
-                // Truy vấn khoảng thời gian
+                // Tìm kiếm khoảng thời gian
                 $model = $model->whereBetween($userAlias . 'pay_count', $where['pay_count_num']);
             } elseif ($where['pay_count_num'][0] != '' && $where['pay_count_num'][1] == '') {
                 // lớn hơn mức tối thiểu
@@ -173,14 +162,14 @@ class UserWechatUserDao extends BaseDao
         }
 
         // --- Lọc theo lượng tiêu thụ (khoảng thời gian) ---
-        // pay_count_money: [min, max] Thống kê số tiền thanh toán thực tế trong bảng store_order
+        // pay_count_money: [min, max] Thống kê số tiền Thanh toán thực tế trong bảng store_order
         if (isset($where['pay_count_money']) && count($where['pay_count_money']) == 2) {
             $min = $where['pay_count_money'][0];
             $max = $where['pay_count_money'][1];
             
             if ($min !== '' || $max !== '') {
                 $model = $model->where(function ($query) use ($userAlias, $min, $max) {
-                    // Truy vấn con: Tìm các bản ghi thỏa mãn điều kiện trong bảng store_order
+                    // Tìm kiếm con: Tìm các bản ghi thỏa mãn điều kiện trong bảng store_order
                     $query->whereExists(function ($q) use ($userAlias, $min, $max) {
                         $q->name('store_order')
                             ->whereColumn('uid', $userAlias . 'uid')
@@ -197,7 +186,7 @@ class UserWechatUserDao extends BaseDao
                         }
                     });
                     
-                    // Xử lý đặc biệt: Nếu giá trị tối thiểu là 0 hoặc trống, cần đưa vào người dùng không có bản ghi đơn hàng (nghĩa là người dùng có số lượng tiêu thụ là 0）
+                    // Xử lý đặc biệt: Nếu giá trị tối thiểu là 0 hoặc trống, cần đưa vào Khách hàng không có bản ghi đơn hàng (nghĩa là Khách hàng có số lượng tiêu thụ là 0）
                     if ($min === '' || $min == 0) {
                         $query->whereOr(function ($q) use ($userAlias) {
                             $q->whereNotExists(function ($sub) use ($userAlias) {
@@ -220,7 +209,7 @@ class UserWechatUserDao extends BaseDao
             
             if ($min !== '' || $max !== '') {
                 $model = $model->where(function ($query) use ($userAlias, $min, $max) {
-                    // Truy vấn con: Đếm số lượng bản ghi nạp tiền theo nhóm
+                    // Tìm kiếm con: Đếm số lượng bản ghi nạp tiền theo nhóm
                     $query->whereExists(function ($q) use ($userAlias, $min, $max) {
                         $q->name('user_recharge')
                             ->whereColumn('uid', $userAlias . 'uid')
@@ -229,7 +218,7 @@ class UserWechatUserDao extends BaseDao
                             ->having('COUNT(*) BETWEEN ' . (int)$min . ' AND ' . (int)$max);
                     });
                     
-                    // Đối xử đặc biệt: bao gồm cả người dùng không có hồ sơ nạp tiền
+                    // Đối xử đặc biệt: bao gồm cả Khách hàng không có hồ sơ nạp tiền
                     if ($min === '' || $min == 0) {
                         $query->whereOr(function ($q) use ($userAlias) {
                             $q->whereNotExists(function ($sub) use ($userAlias) {
@@ -267,15 +256,15 @@ class UserWechatUserDao extends BaseDao
         }
 
         // --- Lọc thuộc tính cơ bản ---
-        // Cấp độ người dùng
+        // Hạng khách hàng
         if (isset($where['level']) && $where['level']) {
             $model = $model->where($userAlias . 'level', $where['level']);
         }
-        // Nhóm người dùng
+        // Nhóm khách hàng
         if (isset($where['group_id']) && $where['group_id']) {
             $model = $model->where($userAlias . 'group_id', $where['group_id']);
         }
-        // Trạng thái người dùng
+        // Trạng thái Khách hàng
         if (isset($where['status']) && $where['status'] != '') {
             $model = $model->where($userAlias . 'status', $where['status']);
         }
@@ -353,7 +342,7 @@ class UserWechatUserDao extends BaseDao
         }
 
         // --- Sàng lọc giới tính ---
-        // sex: 1(nam giới), 2(nữ giới), 0(không rõ)
+        // sex: 1(Nam), 2(nữ giới), 0(không rõ)
         if (isset($where['sex']) && $where['sex'] !== '' && in_array($where['sex'], [0, 1, 2])) {
             $model = $model->where($wechatUserAlias . 'sex', $where['sex']);
         }
@@ -393,12 +382,11 @@ class UserWechatUserDao extends BaseDao
     }
 
     /**
-     * Nhận giới tính người dùng
+     * Nhận giới tính Khách hàng
      * @param $time
      * @param $userType
      * @return mixed
-     */
-    public function getSex($time, $userType)
+     */    public function getSex($time, $userType)
     {
         return $this->getModel()->when($userType != '', function ($query) use ($userType) {
             $query->where($this->join_alis . '.user_type', $userType);

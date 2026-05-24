@@ -11,116 +11,111 @@
 use think\facade\Route;
 
 /**
- * Định tuyến liên quan đến mô-đun người dùng
- */
-Route::group('user', function () {
+ * Định tuyến liên quan đến mô-đun Khách hàng
+ */Route::group('user', function () {
 
-    /** người dùng */
-    Route::group(function () {
-        //Định tuyến tài nguyên quản lý người dùng
+    /** Khách hàng */    Route::group(function () {
+        //Định tuyến tài nguyên quản lý Khách hàng
         Route::resource('user', 'v1.user.User')->option([
             'real_name' => [
-                'index' => 'Lấy danh sách người dùng',
-                'create' => 'Nhận biểu mẫu người dùng',
-                'save' => 'lưu người dùng',
-                'read' => 'Nhận thông tin chi tiết người dùng',
-                'edit' => 'Nhận biểu mẫu người dùng đã sửa đổi',
-                'update' => 'Sửa đổi người dùng',
-                'delete' => 'Xóa người dùng'
+                'index' => 'Lấy danh sách Khách hàng',
+                'create' => 'Nhận biểu mẫu Khách hàng',
+                'save' => 'lưu Khách hàng',
+                'read' => 'Nhận thông tin chi tiết Khách hàng',
+                'edit' => 'Nhận biểu mẫu Khách hàng đã sửa đổi',
+                'update' => 'Sửa đổi Khách hàng',
+                'delete' => 'Xóa Khách hàng'
             ]
         ]);
-        //Thêm người dùng lưu
+        //Thêm khách hàng lưu
         Route::post('user/save', 'v1.user.User/save_info')->option(['real_name' => 'Thêm khách hàng']);
-        //Đồng bộ hóa người dùng WeChat
-        Route::get('user/syncUsers', 'v1.user.User/syncWechatUsers')->option(['real_name' => 'Đồng bộ hóa người dùng WeChat']);
-        //Thông tin người dùng
-        Route::get('user/user_save_info/:uid', 'v1.user.User/userSaveInfo')->option(['real_name' => 'Thêm thông tin khi chỉnh sửa thông tin người dùng']);
+        //Đồng bộ hóa Khách hàng WeChat
+        Route::get('user/syncUsers', 'v1.user.User/syncWechatUsers')->option(['real_name' => 'Đồng bộ hóa Khách hàng WeChat']);
+        //Thông tin Khách hàng
+        Route::get('user/user_save_info/:uid', 'v1.user.User/userSaveInfo')->option(['real_name' => 'Thêm thông tin khi chỉnh sửa thông tin Khách hàng']);
         //Cấp độ thành viên miễn phí
         Route::get('give_level/:id', 'v1.user.User/give_level')->option(['real_name' => 'Hạng khách hàng miễn phí']);
         //Triển khai cấp độ thành viên miễn phí
-        Route::put('save_give_level/:id', 'v1.user.User/save_give_level')->option(['real_name' => 'Triển khai cấp độ người dùng miễn phí']);
+        Route::put('save_give_level/:id', 'v1.user.User/save_give_level')->option(['real_name' => 'Triển khai cấp độ Khách hàng miễn phí']);
         //Thời gian thành viên trả phí miễn phí
         Route::get('give_level_time/:id', 'v1.user.User/give_level_time')->option(['real_name' => 'Thời gian thành viên trả phí miễn phí']);
         //Thực hiện thời hạn thành viên trả phí miễn phí
         Route::put('save_give_level_time/:id', 'v1.user.User/save_give_level_time')->option(['real_name' => 'Thực hiện thời hạn thành viên trả phí miễn phí']);
         //Xóa cấp độ thành viên
-        Route::delete('del_level/:id', 'v1.user.User/del_level')->option(['real_name' => 'Xóa cấp độ người dùng']);
+        Route::delete('del_level/:id', 'v1.user.User/del_level')->option(['real_name' => 'Xóa cấp độ Khách hàng']);
         //Chỉnh sửa khác
         Route::get('edit_other/:id/:type', 'v1.user.User/edit_other')->option(['real_name' => 'Sửa đổi biểu mẫu cân bằng điểm']);
         //Chỉnh sửa khác
         Route::put('update_other/:id', 'v1.user.User/update_other')->option(['real_name' => 'Sửa đổi số dư điểm']);
-        //Sửa đổi trạng thái người dùng
-        Route::put('set_status/:status/:id', 'v1.user.User/set_status')->option(['real_name' => 'Sửa đổi trạng thái người dùng']);
-        //Nhận thông tin về một người dùng được chỉ định
-        Route::get('one_info/:id', 'v1.user.User/oneUserInfo')->option(['real_name' => 'Nhận thông tin về một người dùng được chỉ định']);
+        //Sửa đổi trạng thái Khách hàng
+        Route::put('set_status/:status/:id', 'v1.user.User/set_status')->option(['real_name' => 'Sửa đổi trạng thái Khách hàng']);
+        //Nhận thông tin về một Khách hàng được chỉ định
+        Route::get('one_info/:id', 'v1.user.User/oneUserInfo')->option(['real_name' => 'Nhận thông tin về một Khách hàng được chỉ định']);
         //Thiết lập các nhóm thành viên
-        Route::post('set_group', 'v1.user.User/set_group')->option(['real_name' => 'Biểu mẫu nhóm người dùng']);
-        //Thực hiện cài đặt nhóm thành viên
-        Route::put('save_set_group', 'v1.user.User/save_set_group')->option(['real_name' => 'Thiết lập nhóm người dùng']);
+        Route::post('set_group', 'v1.user.User/set_group')->option(['real_name' => 'Biểu mẫu nhóm Khách hàng']);
+        //Thực hiện Cài đặt nhóm thành viên
+        Route::put('save_set_group', 'v1.user.User/save_set_group')->option(['real_name' => 'Thiết lập nhóm Khách hàng']);
         //Đặt nhãn thành viên
-        Route::post('set_label', 'v1.user.User/set_label')->option(['real_name' => 'Đặt nhãn người dùng']);
-    })->option(['parent' => 'user', 'cate_name' => 'người dùng']);
+        Route::post('set_label', 'v1.user.User/set_label')->option(['real_name' => 'Đặt nhãn Khách hàng']);
+    })->option(['parent' => 'user', 'cate_name' => 'Khách hàng']);
 
-    /** Cấp độ người dùng */
-    Route::group(function () {
+    /** Hạng khách hàng */    Route::group(function () {
         //Nhận biểu mẫu thêm cấp độ thành viên
-        Route::get('user_level/create', 'v1.user.UserLevel/create')->option(['real_name' => 'Thêm biểu mẫu cấp độ người dùng']);
+        Route::get('user_level/create', 'v1.user.UserLevel/create')->option(['real_name' => 'Thêm biểu mẫu cấp độ Khách hàng']);
         //Thêm hoặc sửa đổi cấp độ thành viên
-        Route::post('user_level', 'v1.user.UserLevel/save')->option(['real_name' => 'Thêm hoặc sửa đổi cấp độ người dùng']);
+        Route::post('user_level', 'v1.user.UserLevel/save')->option(['real_name' => 'Thêm hoặc sửa đổi cấp độ Khách hàng']);
         //Chi tiết cấp độ
-        Route::get('user_level/read/:id', 'v1.user.UserLevel/read')->option(['real_name' => 'Chi tiết cấp độ người dùng']);
+        Route::get('user_level/read/:id', 'v1.user.UserLevel/read')->option(['real_name' => 'Chi tiết cấp độ Khách hàng']);
         //Lấy danh sách VIP do hệ thống thiết lập
-        Route::get('user_level/vip_list', 'v1.user.UserLevel/get_system_vip_list')->option(['real_name' => 'Lấy danh sách cấp độ người dùng do hệ thống thiết lập']);
+        Route::get('user_level/vip_list', 'v1.user.UserLevel/get_system_vip_list')->option(['real_name' => 'Lấy danh sách cấp độ Khách hàng do hệ thống thiết lập']);
         //Xóa cấp độ thành viên
-        Route::put('user_level/delete/:id', 'v1.user.UserLevel/delete')->option(['real_name' => 'Xóa cấp độ người dùng']);
+        Route::put('user_level/delete/:id', 'v1.user.UserLevel/delete')->option(['real_name' => 'Xóa cấp độ Khách hàng']);
         //Thiết lập một sản phẩm duy nhất để đặt trên kệ|Đã xóa khỏi kệ
-        Route::put('user_level/set_show/:id/:is_show', 'v1.user.UserLevel/set_show')->option(['real_name' => 'Đặt cấp độ người dùng để tải lên và xóa']);
+        Route::put('user_level/set_show/:id/:is_show', 'v1.user.UserLevel/set_show')->option(['real_name' => 'Đặt cấp độ Khách hàng để tải lên và xóa']);
         //Chỉnh sửa nhanh danh sách cấp độ
-        Route::put('user_level/set_value/:id', 'v1.user.UserLevel/set_value')->option(['real_name' => 'Chỉnh sửa nhanh danh sách cấp độ người dùng']);
+        Route::put('user_level/set_value/:id', 'v1.user.UserLevel/set_value')->option(['real_name' => 'Chỉnh sửa nhanh danh sách cấp độ Khách hàng']);
         //Danh sách nhiệm vụ cấp độ
-        Route::get('user_level/task/:level_id', 'v1.user.UserLevel/get_task_list')->option(['real_name' => 'Danh sách nhiệm vụ cấp người dùng']);
+        Route::get('user_level/task/:level_id', 'v1.user.UserLevel/get_task_list')->option(['real_name' => 'Danh sách nhiệm vụ cấp Khách hàng']);
         //Chỉnh sửa nhanh các nhiệm vụ cấp độ
-        Route::put('user_level/set_task/:id', 'v1.user.UserLevel/set_task_value')->option(['real_name' => 'Chỉnh sửa nhanh các tác vụ cấp người dùng']);
+        Route::put('user_level/set_task/:id', 'v1.user.UserLevel/set_task_value')->option(['real_name' => 'Chỉnh sửa nhanh các tác vụ cấp Khách hàng']);
         //Đặt hiển thị nhiệm vụ cấp độ|trốn
-        Route::put('user_level/set_task_show/:id/:is_show', 'v1.user.UserLevel/set_task_show')->option(['real_name' => 'Đặt hiển thị tác vụ ở cấp độ người dùng|trốn']);
-        //Có phải đạt được cài đặt hay không
-        Route::put('user_level/set_task_must/:id/:is_must', 'v1.user.UserLevel/set_task_must')->option(['real_name' => 'Có phải hoàn thành nhiệm vụ thiết lập cấp độ người dùng hay không']);
+        Route::put('user_level/set_task_show/:id/:is_show', 'v1.user.UserLevel/set_task_show')->option(['real_name' => 'Đặt hiển thị tác vụ ở cấp độ Khách hàng|trốn']);
+        //Có phải đạt được Cài đặt hay không
+        Route::put('user_level/set_task_must/:id/:is_must', 'v1.user.UserLevel/set_task_must')->option(['real_name' => 'Có phải hoàn thành nhiệm vụ thiết lập cấp độ Khách hàng hay không']);
         //Thêm biểu mẫu nhiệm vụ cấp độ
-        Route::get('user_level/create_task', 'v1.user.UserLevel/create_task')->option(['real_name' => 'Thêm biểu mẫu nhiệm vụ cấp người dùng']);
+        Route::get('user_level/create_task', 'v1.user.UserLevel/create_task')->option(['real_name' => 'Thêm biểu mẫu nhiệm vụ cấp Khách hàng']);
         //Lưu hoặc sửa đổi nhiệm vụ
-        Route::post('user_level/save_task', 'v1.user.UserLevel/save_task')->option(['real_name' => 'Lưu hoặc sửa đổi nhiệm vụ cấp người dùng']);
+        Route::post('user_level/save_task', 'v1.user.UserLevel/save_task')->option(['real_name' => 'Lưu hoặc sửa đổi nhiệm vụ cấp Khách hàng']);
         //Xóa tác vụ
-        Route::delete('user_level/delete_task/:id', 'v1.user.UserLevel/delete_task')->option(['real_name' => 'Xóa nhiệm vụ cấp người dùng']);
+        Route::delete('user_level/delete_task/:id', 'v1.user.UserLevel/delete_task')->option(['real_name' => 'Xóa nhiệm vụ cấp Khách hàng']);
     })->option(['parent' => 'user', 'cate_name' => 'Hạng khách hàng']);
 
-    /** Nhóm người dùng */
-    Route::group(function () {
-        //Lấy danh sách nhóm người dùng
-        Route::get('user_group/list', 'v1.user.UserGroup/index')->option(['real_name' => 'Lấy danh sách nhóm người dùng']);
+    /** Nhóm khách hàng */    Route::group(function () {
+        //Lấy danh sách nhóm Khách hàng
+        Route::get('user_group/list', 'v1.user.UserGroup/index')->option(['real_name' => 'Lấy danh sách nhóm Khách hàng']);
         //Thêm và sửa đổi biểu mẫu nhóm
         Route::get('user_group/add/:id', 'v1.user.UserGroup/add')->option(['real_name' => 'Thêm và sửa đổi biểu mẫu nhóm']);
         //Lưu dữ liệu biểu mẫu được nhóm
         Route::post('user_group/save', 'v1.user.UserGroup/save')->option(['real_name' => 'Lưu dữ liệu biểu mẫu được nhóm']);
         //Xóa dữ liệu được nhóm
-        Route::delete('user_group/del/:id', 'v1.user.UserGroup/delete')->option(['real_name' => 'Xóa dữ liệu nhóm người dùng']);
+        Route::delete('user_group/del/:id', 'v1.user.UserGroup/delete')->option(['real_name' => 'Xóa dữ liệu nhóm Khách hàng']);
     })->option(['parent' => 'user', 'cate_name' => 'Nhóm khách hàng']);
 
-    /** Thẻ người dùng */
-    Route::group(function () {
+    /** Thẻ khách hàng */    Route::group(function () {
         //Danh sách thẻ thành viên
-        Route::get('user_label', 'v1.user.UserLabel/index')->option(['real_name' => 'Danh sách thẻ người dùng']);
+        Route::get('user_label', 'v1.user.UserLabel/index')->option(['real_name' => 'Danh sách thẻ Khách hàng']);
         //Mẫu bổ sung và sửa đổi thẻ thành viên
-        Route::get('user_label/add/:id', 'v1.user.UserLabel/add')->option(['real_name' => 'Thêm hoặc sửa đổi biểu mẫu nhãn người dùng']);
+        Route::get('user_label/add/:id', 'v1.user.UserLabel/add')->option(['real_name' => 'Thêm hoặc sửa đổi biểu mẫu nhãn Khách hàng']);
         //Lưu dữ liệu biểu mẫu nhãn
-        Route::post('user_label/save', 'v1.user.UserLabel/save')->option(['real_name' => 'Thêm hoặc sửa đổi thẻ người dùng']);
+        Route::post('user_label/save', 'v1.user.UserLabel/save')->option(['real_name' => 'Thêm hoặc sửa đổi thẻ Khách hàng']);
         //Xóa thẻ thành viên
-        Route::delete('user_label/del/:id', 'v1.user.UserLabel/delete')->option(['real_name' => 'Xóa nhãn người dùng']);
-        //Nhận thẻ người dùng
-        Route::get('label/:uid', 'v1.user.UserLabel/getUserLabel')->option(['real_name' => 'Nhận thẻ người dùng']);
-        //Đặt và hủy thẻ người dùng
-        Route::post('label/:uid', 'v1.user.UserLabel/setUserLabel')->option(['real_name' => 'Đặt và hủy thẻ người dùng']);
+        Route::delete('user_label/del/:id', 'v1.user.UserLabel/delete')->option(['real_name' => 'Xóa nhãn Khách hàng']);
+        //Nhận thẻ Khách hàng
+        Route::get('label/:uid', 'v1.user.UserLabel/getUserLabel')->option(['real_name' => 'Nhận thẻ Khách hàng']);
+        //Đặt và hủy thẻ Khách hàng
+        Route::post('label/:uid', 'v1.user.UserLabel/setUserLabel')->option(['real_name' => 'Đặt và hủy thẻ Khách hàng']);
         //Thiết lập các nhóm thành viên
-        Route::put('save_set_label', 'v1.user.user/save_set_label')->option(['real_name' => 'Lưu nhãn người dùng']);
+        Route::put('save_set_label', 'v1.user.user/save_set_label')->option(['real_name' => 'Lưu nhãn Khách hàng']);
         //Phân loại thẻ
         Route::resource('user_label_cate', 'v1.user.UserLabelCate')->except(['read'])->option([
             'real_name' => [
@@ -132,13 +127,12 @@ Route::group('user', function () {
                 'delete' => 'Xóa danh mục thẻ'
             ]
         ]);
-        Route::get('user_label_cate/all', 'v1.user.UserLabelCate/getAll')->option(['real_name' => 'Nhận Tất cả các danh mục thẻ người dùng']);
-        //Danh sách cây thẻ người dùng (danh mục)
-        Route::get('user_tree_label', 'v1.user.UserLabel/tree_list')->option(['real_name' => 'Danh sách cây thẻ người dùng (danh mục)']);
+        Route::get('user_label_cate/all', 'v1.user.UserLabelCate/getAll')->option(['real_name' => 'Nhận Tất cả các danh mục thẻ Khách hàng']);
+        //Danh sách cây thẻ Khách hàng (danh mục)
+        Route::get('user_tree_label', 'v1.user.UserLabel/tree_list')->option(['real_name' => 'Danh sách cây thẻ Khách hàng (danh mục)']);
     })->option(['parent' => 'user', 'cate_name' => 'Thẻ khách hàng']);
 
-    /** Thành viên trả phí */
-    Route::group(function () {
+    /** Gói thẻ VIP */    Route::group(function () {
         //Tài nguyên danh sách lô thẻ thành viên
         Route::get('member_batch/index', 'v1.user.member.MemberCardBatch/index')->option(['real_name' => 'Danh sách lô thẻ thành viên']);
         //Thêm đợt thẻ thành viên
@@ -172,16 +166,14 @@ Route::group('user', function () {
     })->option(['parent' => 'user', 'cate_name' => 'Gói thẻ VIP']);
 
 
-    /** Đăng xuất người dùng */
-    Route::group(function () {
-        Route::get('cancel_list', 'v1.user.UserCancel/getCancelList')->option(['real_name' => 'Danh sách đăng xuất của người dùng']);
+    /** Đăng xuất Khách hàng */    Route::group(function () {
+        Route::get('cancel_list', 'v1.user.UserCancel/getCancelList')->option(['real_name' => 'Danh sách đăng xuất của Khách hàng']);
         Route::post('cancel/set_mark', 'v1.user.UserCancel/setMark')->option(['real_name' => 'Ghi chú danh sách đăng xuất']);
         Route::get('cancel/agree/:id', 'v1.user.UserCancel/agreeCancel')->option(['real_name' => 'Đồng ý đăng xuất']);
         Route::get('cancel/refuse/:id', 'v1.user.UserCancel/refuseCancel')->option(['real_name' => 'Từ chối đăng xuất']);
-    })->option(['parent' => 'user', 'cate_name' => 'Đăng xuất người dùng']);
+    })->option(['parent' => 'user', 'cate_name' => 'Đăng xuất Khách hàng']);
 
-    /** lễ cưới */
-    Route::group(function () {
+    /** lễ cưới */    Route::group(function () {
         Route::get('new_gift', 'v1.user.User/getNewGift')->option(['real_name' => 'Nhận quà tân hôn']);
         Route::post('new_gift/save', 'v1.user.User/saveNewGift')->option(['real_name' => 'Tiết kiệm quà cưới']);
     })->option(['parent' => 'user', 'cate_name' => 'lễ cưới']);

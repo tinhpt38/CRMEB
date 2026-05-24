@@ -19,14 +19,12 @@ use app\model\order\StoreOrderInvoice;
 /**
  * Class StoreOrderInvoiceDao
  * @package app\dao\order
- */
-class StoreOrderInvoiceDao extends BaseDao
+ */class StoreOrderInvoiceDao extends BaseDao
 {
     /**
      * Giới hạn các trường truy vấn chính xác
      * @var string[]
-     */
-    protected $withField = ['uid', 'order_id', 'real_name', 'user_phone'];
+     */    protected $withField = ['uid', 'order_id', 'real_name', 'user_phone'];
 
     protected function setModel(): string
     {
@@ -42,8 +40,7 @@ class StoreOrderInvoiceDao extends BaseDao
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/03/20
-     */
-    public function search(array $where = [], bool $search = false)
+     */    public function search(array $where = [], bool $search = false)
     {
         $realName = $where['real_name'] ?? '';
         $fieldKey = $where['field_key'] ?? '';
@@ -93,8 +90,7 @@ class StoreOrderInvoiceDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', array $with = ['order'], string $order = '', int $page = 0, int $limit = 0)
+     */    public function getList(array $where, string $field = '*', array $with = ['order'], string $order = '', int $page = 0, int $limit = 0)
     {
         return $this->search($where)->field($field)->when(count($with), function ($query) use ($with) {
             $query->with($with);

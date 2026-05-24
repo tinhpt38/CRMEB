@@ -26,15 +26,13 @@ use crmeb\exceptions\ApiException;
  * @package app\services\user
  * @method getOne(array $where, ?string $field = '*', array $with = []) Lấy một phần dữ liệu
  * @method be($map, string $field = '') Xác minh dữ liệu tồn tại
- */
-class UserAddressServices extends BaseServices
+ */class UserAddressServices extends BaseServices
 {
 
     /**
      * UserAddressServices constructor.
      * @param UserAddressDao $dao
-     */
-    public function __construct(UserAddressDao $dao)
+     */    public function __construct(UserAddressDao $dao)
     {
         $this->dao = $dao;
     }
@@ -44,19 +42,17 @@ class UserAddressServices extends BaseServices
      * @param $id
      * @param $field
      * @return array
-     */
-    public function getAddress($id, $field = [])
+     */    public function getAddress($id, $field = [])
     {
         return $this->dao->get($id, $field);
     }
 
     /**
-     * Nhận tất cả địa chỉ
+     * Nhận Tất cả địa chỉ
      * @param array $where
      * @param string $field
      * @return array
-     */
-    public function getAddressList(array $where, string $field = '*'): array
+     */    public function getAddressList(array $where, string $field = '*'): array
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $field, $page, $limit);
@@ -65,12 +61,11 @@ class UserAddressServices extends BaseServices
     }
 
     /**
-     * Nhận tất cả địa chỉ của người dùng
+     * Nhận Tất cả địa chỉ của Khách hàng
      * @param int $uid
      * @param string $field
      * @return array
-     */
-    public function getUserAddressList(int $uid, string $field = '*'): array
+     */    public function getUserAddressList(int $uid, string $field = '*'): array
     {
         [$page, $limit] = $this->getPageValue();
         $where = ['uid' => $uid];
@@ -79,15 +74,14 @@ class UserAddressServices extends BaseServices
     }
 
     /**
-     * Nhận địa chỉ mặc định của người dùng
+     * Nhận địa chỉ mặc định của Khách hàng
      * @param int $uid
      * @param string $field
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserDefaultAddress(int $uid, string $field = '*')
+     */    public function getUserDefaultAddress(int $uid, string $field = '*')
     {
         return $this->dao->getOne(['uid' => $uid, 'is_default' => 1, 'is_del' => 0], $field);
     }
@@ -96,8 +90,7 @@ class UserAddressServices extends BaseServices
      * Lấy số lượng mặt hàng
      * @param array $where
      * @return int
-     */
-    public function getAddresCount(array $where): int
+     */    public function getAddresCount(array $where): int
     {
         return $this->dao->count($where);
     }
@@ -106,8 +99,7 @@ class UserAddressServices extends BaseServices
      * Thêm địa chỉ
      * @param array $data
      * @return bool
-     */
-    public function create(array $data)
+     */    public function create(array $data)
     {
         if (!$this->dao->save($data))
             throw new AdminException('Thêm không thành công');
@@ -119,8 +111,7 @@ class UserAddressServices extends BaseServices
      * @param $id
      * @param $data
      * @return bool
-     */
-    public function updateAddress(int $id, array $data)
+     */    public function updateAddress(int $id, array $data)
     {
         if (!$this->dao->update($id, $data))
             throw new AdminException('Sửa đổi không thành công');
@@ -132,8 +123,7 @@ class UserAddressServices extends BaseServices
      * @param int $uid
      * @param int $id
      * @return bool
-     */
-    public function setDefault(int $uid, int $id)
+     */    public function setDefault(int $uid, int $id)
     {
         if (!$this->getAddress($id)) {
             throw new ApiException('Địa chỉ không tồn tại');
@@ -149,8 +139,7 @@ class UserAddressServices extends BaseServices
      * Nhận một địa chỉ duy nhất
      * @param int $id
      * @return mixed
-     */
-    public function address(int $id)
+     */    public function address(int $id)
     {
         $addressInfo = $this->getAddress($id);
         if (!$addressInfo || $addressInfo['is_del'] == 1) {
@@ -160,12 +149,11 @@ class UserAddressServices extends BaseServices
     }
 
     /**
-     * Thêm vào|Sửa đổi địa chỉ
+     * Thêm mới|Sửa đổi địa chỉ
      * @param int $uid
      * @param array $addressInfo
      * @return mixed
-     */
-    public function editAddress(int $uid, array $addressInfo)
+     */    public function editAddress(int $uid, array $addressInfo)
     {
         if ($addressInfo['id'] == 0) {
             $where = [
@@ -186,8 +174,7 @@ class UserAddressServices extends BaseServices
             // Cố tra city_id từ SystemCity, nhưng không bắt buộc —
             // địa chỉ Việt Nam thường không có trong bảng gốc Trung Quốc.
             $city = $addressInfo['address']['city'];
-            /** @var SystemCityServices $systemCity */
-            $systemCity = app()->make(SystemCityServices::class);
+            /** @var SystemCityServices $systemCity */            $systemCity = app()->make(SystemCityServices::class);
             $cityInfo = $systemCity->getOne([['name', '=', $city], ['parent_id', '<>', 0]]);
             if (!$cityInfo) {
                 $cityInfo = $systemCity->getOne([['name', 'like', "%$city%"], ['parent_id', '<>', 0]]);
@@ -244,8 +231,7 @@ class UserAddressServices extends BaseServices
      * @param int $uid
      * @param int $id
      * @return bool
-     */
-    public function delAddress(int $uid, int $id)
+     */    public function delAddress(int $uid, int $id)
     {
         $addressInfo = $this->getAddress($id);
         if (!$addressInfo || $addressInfo['is_del'] == 1 || $addressInfo['uid'] != $uid) {
@@ -258,12 +244,11 @@ class UserAddressServices extends BaseServices
     }
 
     /**
-     * Đặt địa chỉ người dùng mặc định
+     * Đặt địa chỉ Khách hàng mặc định
      * @param $id
      * @param $uid
      * @return bool
-     */
-    public function setDefaultAddress(int $id, int $uid)
+     */    public function setDefaultAddress(int $id, int $uid)
     {
         $res1 = $this->dao->update($uid, ['is_default' => 0], 'uid');
         $res2 = $this->dao->update(['id' => $id, 'uid' => $uid], ['is_default' => 1]);

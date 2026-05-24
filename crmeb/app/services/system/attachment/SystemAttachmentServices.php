@@ -27,15 +27,13 @@ use app\services\other\UploadService;
  * @method getYesterday() Nhận dữ liệu được tạo của ngày hôm qua
  * @method delYesterday() Xóa dữ liệu được tạo của ngày hôm qua
  * @method scanUploadImage($scan_token) Lấy dữ liệu hình ảnh được tải lên bằng cách quét mã QR
- */
-class SystemAttachmentServices extends BaseServices
+ */class SystemAttachmentServices extends BaseServices
 {
 
     /**
      * SystemAttachmentServices constructor.
      * @param SystemAttachmentDao $dao
-     */
-    public function __construct(SystemAttachmentDao $dao)
+     */    public function __construct(SystemAttachmentDao $dao)
     {
         $this->dao = $dao;
     }
@@ -48,8 +46,7 @@ class SystemAttachmentServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getInfo(array $where, string $field = '*')
+     */    public function getInfo(array $where, string $field = '*')
     {
         return $this->dao->getOne($where, $field);
     }
@@ -58,8 +55,7 @@ class SystemAttachmentServices extends BaseServices
      * Lấy danh sách hình ảnh
      * @param array $where
      * @return array
-     */
-    public function getImageList(array $where)
+     */    public function getImageList(array $where)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getList($where, $page, $limit);
@@ -79,8 +75,7 @@ class SystemAttachmentServices extends BaseServices
     /**
      * Xóa ảnh
      * @param string $ids
-     */
-    public function del(string $ids)
+     */    public function del(string $ids)
     {
         $ids = explode(',', $ids);
         if (empty($ids)) throw new AdminException('Vui lòng chọn ảnh cần xóa');
@@ -111,8 +106,7 @@ class SystemAttachmentServices extends BaseServices
      * @param int $upload_type
      * @param int $type
      * @return mixed
-     */
-    public function upload(int $pid, string $file, int $upload_type, int $type, $menuName, $uploadToken = '')
+     */    public function upload(int $pid, string $file, int $upload_type, int $type, $menuName, $uploadToken = '')
     {
         $realName = false;
         if ($upload_type == 0) {
@@ -158,8 +152,7 @@ class SystemAttachmentServices extends BaseServices
     /**
      * @param array $data
      * @return \crmeb\basic\BaseModel
-     */
-    public function move(array $data)
+     */    public function move(array $data)
     {
         $this->dao->move($data);
     }
@@ -167,8 +160,7 @@ class SystemAttachmentServices extends BaseServices
     /**
      * Thêm thông tin
      * @param array $data
-     */
-    public function save(array $data)
+     */    public function save(array $data)
     {
         $this->dao->save($data);
     }
@@ -184,8 +176,7 @@ class SystemAttachmentServices extends BaseServices
      * @param int $imageType
      * @param int $time
      * @return SystemAttachment
-     */
-    public function attachmentAdd($name, $att_size, $att_type, $att_dir, $satt_dir = '', $pid = 0, $imageType = 1, $time = 0, $module_type = 1, $type = 0, $real_name = '')
+     */    public function attachmentAdd($name, $att_size, $att_type, $att_dir, $satt_dir = '', $pid = 0, $imageType = 1, $time = 0, $module_type = 1, $type = 0, $real_name = '')
     {
         $data['name'] = $name;
         $data['att_dir'] = $att_dir;
@@ -207,8 +198,7 @@ class SystemAttachmentServices extends BaseServices
     /**
      * Tạo danh thiếp quảng cáo
      * @param $name
-     */
-    public function getLikeNameList($name)
+     */    public function getLikeNameList($name)
     {
         return $this->dao->getLikeNameList(['like_name' => $name], 0, 0);
     }
@@ -217,8 +207,7 @@ class SystemAttachmentServices extends BaseServices
      * Xóa áp phích ngày hôm qua
      * @return bool
      * @throws \Exception
-     */
-    public function emptyYesterdayAttachment(): bool
+     */    public function emptyYesterdayAttachment(): bool
     {
         try {
             $list = $this->dao->getYesterday();
@@ -251,8 +240,7 @@ class SystemAttachmentServices extends BaseServices
      * @param $data
      * @param $file
      * @return mixed
-     */
-    public function videoUpload($data, $file)
+     */    public function videoUpload($data, $file)
     {
         $pathinfo = pathinfo($data['filename']);
         if (isset($pathinfo['extension']) && !in_array($pathinfo['extension'], ['avi', 'mp4', 'wmv', 'rm', 'mpg', 'mpeg', 'mov', 'flv', 'swf'])) {
@@ -300,8 +288,7 @@ class SystemAttachmentServices extends BaseServices
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/06/13
-     */
-    public function onlineUpload($data)
+     */    public function onlineUpload($data)
     {
         //Tạo thư mục đính kèm
         if (make_path('attach', 3, true) === '') {
@@ -309,8 +296,7 @@ class SystemAttachmentServices extends BaseServices
         }
 
         //Tải ảnh lên
-        /** @var SystemAttachmentServices $systemAttachmentService */
-        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
+        /** @var SystemAttachmentServices $systemAttachmentService */        $systemAttachmentService = app()->make(SystemAttachmentServices::class);
         $siteUrl = sys_config('site_url');
 
         foreach ($data['images'] as $image) {

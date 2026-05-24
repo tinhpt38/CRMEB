@@ -20,8 +20,7 @@ class LiveRoomValidate extends Validate
      *Định dạng：'Tên trường'    =>    ['luật lệ1','luật lệ2'...]
      *
      * @var array
-     */
-    protected $rule = [
+     */    protected $rule = [
         'name' => 'require',
         'cover_img' => 'require',
         'share_img' => 'require',
@@ -35,8 +34,7 @@ class LiveRoomValidate extends Validate
      *Định dạng：'Tên trường. Tên quy tắc'    =>    'thông báo lỗi'
      *
      * @var array
-     */
-    protected $message = [
+     */    protected $message = [
         'name.require' => 'Vui lòng nhập tên phòng phát sóng trực tiếp',
         'cover_img.require' => 'Vui lòng chọn hình nền',
         'share_img.require' => 'Hãy chọn chia sẻ hình ảnh',

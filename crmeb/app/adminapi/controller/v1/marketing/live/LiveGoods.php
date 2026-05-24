@@ -18,15 +18,13 @@ use think\facade\App;
  * Sản phẩm phòng phát sóng trực tiếp
  * Class LiveGoods
  * @package app\controller\admin\store
- */
-class LiveGoods extends AuthController
+ */class LiveGoods extends AuthController
 {
     /**
      * LiveGoods constructor.
      * @param App $app
      * @param LiveGoodsServices $services
-     */
-    public function __construct(App $app, LiveGoodsServices $services)
+     */    public function __construct(App $app, LiveGoodsServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -35,8 +33,7 @@ class LiveGoods extends AuthController
     /**
      * Danh sách sản phẩm phòng phát sóng trực tiếp
      * @return mixed
-     */
-    public function list()
+     */    public function list()
     {
         $where = $this->request->postMore([
             ['kerword', ''],
@@ -50,8 +47,7 @@ class LiveGoods extends AuthController
     /**
      * Tạo sản phẩm phát sóng trực tiếp
      * @return mixed
-     */
-    public function create()
+     */    public function create()
     {
         [$product_ids] = $this->request->postMore([
             ['product_id', []]
@@ -66,8 +62,7 @@ class LiveGoods extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function add()
+     */    public function add()
     {
         [$goods_info] = $this->request->postMore([
             ['goods_info', []]
@@ -88,8 +83,7 @@ class LiveGoods extends AuthController
      * Chi tiết sản phẩm
      * @param $id
      * @return mixed
-     */
-    public function detail($id)
+     */    public function detail($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $goods = $this->services->get($id, ['*'], ['product']);
@@ -99,8 +93,7 @@ class LiveGoods extends AuthController
     /**
      * Đồng bộ hóa các sản phẩm phát sóng trực tiếp
      * @return mixed
-     */
-    public function syncGoods()
+     */    public function syncGoods()
     {
         $this->services->syncGoodStatus();
         return app('json')->success('Đồng bộ hóa thành công');
@@ -113,8 +106,7 @@ class LiveGoods extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function audit($id)
+     */    public function audit($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->audit((int)$id);
@@ -128,8 +120,7 @@ class LiveGoods extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function resetAudit($id)
+     */    public function resetAudit($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->resetAudit((int)$id);
@@ -141,8 +132,7 @@ class LiveGoods extends AuthController
      * @param int $id
      * @param $is_show
      * @return mixed
-     */
-    public function setShow(int $id, $is_show)
+     */    public function setShow(int $id, $is_show)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         return app('json')->success($this->services->isShow($id, $is_show));
@@ -155,8 +145,7 @@ class LiveGoods extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function delete($id)
+     */    public function delete($id)
     {
         if (!$id) return app('json')->fail('Lỗi tham số');
         $this->services->delete($id);

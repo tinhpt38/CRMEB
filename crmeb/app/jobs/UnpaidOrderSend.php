@@ -20,15 +20,13 @@ use crmeb\traits\QueueTrait;
  * Gửi SMS sau 10 phút không thanh toán
  * Class UnpaidOrderSend
  * @package crmeb\jobs
- */
-class UnpaidOrderSend extends BaseJobs
+ */class UnpaidOrderSend extends BaseJobs
 {
     use QueueTrait;
 
     public function doJob($id)
     {
-        /** @var StoreOrderServices $services */
-        $services = app()->make(StoreOrderServices::class);
+        /** @var StoreOrderServices $services */        $services = app()->make(StoreOrderServices::class);
         $orderInfo = $services->get($id);
         if (!$orderInfo) {
             return true;
@@ -39,7 +37,7 @@ class UnpaidOrderSend extends BaseJobs
         if ($orderInfo->is_del) {
             return true;
         }
-        //Gửi tin nhắn cho người dùng sau khi nhận hàng
+        //Gửi tin nhắn cho Khách hàng sau khi nhận hàng
         event('NoticeListener', [['order' => $orderInfo], 'order_pay_false']);
         return true;
     }

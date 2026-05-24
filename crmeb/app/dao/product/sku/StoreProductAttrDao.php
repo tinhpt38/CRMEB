@@ -17,37 +17,33 @@ use app\model\product\sku\StoreProductAttr;
 /**
  * Class StoreProductAttrDao
  * @package app\dao\product\sku
- */
-class StoreProductAttrDao extends BaseDao
+ */class StoreProductAttrDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductAttr::class;
     }
 
     /**
-     * xóa bỏsku
+     * Xóasku
      * @param int $id
      * @param int $type
      * @return bool
      * @throws \Exception
-     */
-    public function del(int $id, int $type)
+     */    public function del(int $id, int $type)
     {
         return $this->search(['product_id' => $id, 'type' => $type])->delete();
     }
 
     /**
-     * cứusku
+     * Lưusku
      * @param array $data
      * @return mixed|\think\Collection
      * @throws \Exception
-     */
-    public function saveAll(array $data)
+     */    public function saveAll(array $data)
     {
         return $this->getModel()->saveAll($data);
     }
@@ -59,8 +55,7 @@ class StoreProductAttrDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductAttr(array $where)
+     */    public function getProductAttr(array $where)
     {
         return $this->search($where)->select()->toArray();
     }

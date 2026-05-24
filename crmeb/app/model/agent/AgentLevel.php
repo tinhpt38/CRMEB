@@ -20,8 +20,7 @@ use think\Model;
  * Cấp độ nhà phân phối
  * Class AgentLevel
  * @package app\model\agent
- */
-class AgentLevel extends BaseModel
+ */class AgentLevel extends BaseModel
 {
 
     use ModelTrait;
@@ -29,20 +28,17 @@ class AgentLevel extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'agent_level';
+     */    protected $name = 'agent_level';
 
     /**
      * Nhiệm vụ cấp liên quan
      * @return \think\model\relation\HasMany
-     */
-    public function task()
+     */    public function task()
     {
         return $this->hasMany(AgentLevelTask::class, 'level_id', 'id')->where('is_del', 0);
     }
@@ -51,8 +47,7 @@ class AgentLevel extends BaseModel
      * tìm kiếm từ khóa
      * @param $query
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value !== '') $query->whereLike('id|name', "%" . trim($value) . "%");
     }
@@ -61,8 +56,7 @@ class AgentLevel extends BaseModel
      * công cụ tìm mức
      * @param $query Model
      * @param $value
-     */
-    public function searchGradeAttr($query, $value)
+     */    public function searchGradeAttr($query, $value)
     {
         if ($value !== '') $query->where('grade', $value);
     }
@@ -71,8 +65,7 @@ class AgentLevel extends BaseModel
      * công cụ tìm trạng thái
      * @param $query Model
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') $query->where('status', $value);
     }
@@ -81,8 +74,7 @@ class AgentLevel extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param $query Model
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }

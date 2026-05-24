@@ -18,15 +18,13 @@ use app\model\system\SystemMenus;
  * Cấp độ thực đơn
  * Class SystemMenusDao
  * @package app\dao\system
- */
-class SystemMenusDao extends BaseDao
+ */class SystemMenusDao extends BaseDao
 {
 
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return SystemMenus::class;
     }
@@ -37,8 +35,7 @@ class SystemMenusDao extends BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/13
-     */
-    public function deleteMenus(array $menusIds)
+     */    public function deleteMenus(array $menusIds)
     {
         return $this->getModel()->whereIn('id', $menusIds)->delete();
     }
@@ -51,8 +48,7 @@ class SystemMenusDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMenusRoule(array $where, ?array $field = [])
+     */    public function getMenusRoule(array $where, ?array $field = [])
     {
         if (!$field) {
             $field = ['id', 'menu_name', 'icon', 'pid', 'sort', 'menu_path', 'is_show', 'header', 'is_header', 'is_show_path', 'is_show'];
@@ -65,8 +61,7 @@ class SystemMenusDao extends BaseDao
      * Nhận quyền duy nhất trong menu
      * @param array $where
      * @return array
-     */
-    public function getMenusUnique(array $where)
+     */    public function getMenusUnique(array $where)
     {
         $where['no_model'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
         return $this->search($where)->where('unique_auth', '<>', '')->column('unique_auth', '');
@@ -76,8 +71,7 @@ class SystemMenusDao extends BaseDao
      * Lấy tên menu dựa trên địa chỉ truy cập
      * @param string $rule
      * @return mixed
-     */
-    public function getVisitName(string $rule)
+     */    public function getVisitName(string $rule)
     {
         return $this->search(['url' => $rule])->value('menu_name');
     }
@@ -89,8 +83,7 @@ class SystemMenusDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getMenusList(array $where, array $field = ['*'])
+     */    public function getMenusList(array $where, array $field = ['*'])
     {
         $where = array_merge($where, ['is_del' => 0]);
         $where['no_model'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
@@ -101,8 +94,7 @@ class SystemMenusDao extends BaseDao
      * Tổng số thực đơn
      * @param array $where
      * @return int
-     */
-    public function countMenus(array $where)
+     */    public function countMenus(array $where)
     {
         $where = array_merge($where, ['is_del' => 0]);
         return $this->count($where);
@@ -114,8 +106,7 @@ class SystemMenusDao extends BaseDao
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function column(array $where, string $field, string $key = '')
+     */    public function column(array $where, string $field, string $key = '')
     {
         $where['no_model'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
         return $this->search($where)->column($field, $key);
@@ -128,8 +119,7 @@ class SystemMenusDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function menusSelect(array $where, $type = 1)
+     */    public function menusSelect(array $where, $type = 1)
     {
         $where['no_model'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
         if ($type == 1) {
@@ -144,8 +134,7 @@ class SystemMenusDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSearchList()
+     */    public function getSearchList()
     {
         $where['no_model'] = sys_config('model_checkbox', ['seckill', 'bargain', 'combination']);
         return $this->search(['is_show' => 1, 'auth_type' => 1, 'is_del' => 0, 'is_show_path' => 0])
@@ -159,8 +148,7 @@ class SystemMenusDao extends BaseDao
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/20
-     */
-    public function deleteMenu(string $path, string $method)
+     */    public function deleteMenu(string $path, string $method)
     {
         return $this->getModel()->where('api_url', $path)->where('methods', $method)->delete();
     }

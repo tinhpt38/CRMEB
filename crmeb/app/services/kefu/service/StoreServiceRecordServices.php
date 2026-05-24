@@ -20,29 +20,26 @@ use think\Model;
 /**
  * Class StoreServiceRecordServices
  * @package app\services\kefu\service
- * @method array|Model|null getLatelyMsgUid(array $where, string $key) Truy vấn người dùng uid gần đây đã trò chuyện với người dùng
- */
-class StoreServiceRecordServices extends BaseServices
+ * @method array|Model|null getLatelyMsgUid(array $where, string $key) Tìm kiếm Khách hàng uid gần đây đã trò chuyện với Khách hàng
+ */class StoreServiceRecordServices extends BaseServices
 {
 
     /**
      * StoreServiceRecordServices constructor.
      * @param StoreServiceRecordDao $dao
-     */
-    public function __construct(StoreServiceRecordDao $dao)
+     */    public function __construct(StoreServiceRecordDao $dao)
     {
         $this->dao = $dao;
     }
 
     /**
-     * Nhận danh sách trò chuyện của người dùng dịch vụ khách hàng
+     * Nhận danh sách trò chuyện của Khách hàng CSKH
      * @param int $userId
      * @return array
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getServiceList(int $userId, string $nickname, int $isTourist = 0)
+     */    public function getServiceList(int $userId, string $nickname, int $isTourist = 0)
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getServiceList(['user_id' => $userId, 'title' => $nickname, 'is_tourist' => $isTourist], $page, $limit, ['user', 'service']);
@@ -71,12 +68,11 @@ class StoreServiceRecordServices extends BaseServices
     }
 
     /**
-     * Cập nhật thông tin người dùng dịch vụ khách hàng
+     * Cập nhật thông tin Khách hàng CSKH
      * @param int $uid
      * @param array $data
      * @return mixed
-     */
-    public function updateRecord(array $where, array $data)
+     */    public function updateRecord(array $where, array $data)
     {
         return $this->dao->update($where, $data);
     }
@@ -93,8 +89,7 @@ class StoreServiceRecordServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function saveRecord(int $uid, int $toUid, string $message, int $type, int $messageType, int $num, int $isTourist = 0, string $nickname = '', string $avatar = '')
+     */    public function saveRecord(int $uid, int $toUid, string $message, int $type, int $messageType, int $num, int $isTourist = 0, string $nickname = '', string $avatar = '')
     {
         $info = $this->dao->get(['user_id' => $toUid, 'to_uid' => $uid]);
         if ($info) {

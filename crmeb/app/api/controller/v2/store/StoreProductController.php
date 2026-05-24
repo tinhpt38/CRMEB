@@ -28,16 +28,14 @@ class StoreProductController
      * Nhận thuộc tính sản phẩm
      * @param Request $request
      * @return mixed
-     */
-    public function getProductAttr(Request $request)
+     */    public function getProductAttr(Request $request)
     {
         list($id, $type) = $request->getMore([
             ['id', 0],
             ['type', 0]
         ], true);
         if (!$id) return app('json')->fail('Lỗi tham số');
-        /** @var StoreProductAttrServices $storeProductAttrServices */
-        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
+        /** @var StoreProductAttrServices $storeProductAttrServices */        $storeProductAttrServices = app()->make(StoreProductAttrServices::class);
         list($data['productAttr'], $data['productValue']) = $storeProductAttrServices->getProductAttrDetail($id, $request->uid(), $type);
         $storeInfo = $this->services->getOne(['id' => $id]);
         $data['storeInfo'] = $storeInfo ? $storeInfo->toArray() : [];

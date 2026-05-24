@@ -20,8 +20,7 @@ class LangType extends AuthController
     /**
      * @param App $app
      * @param LangTypeServices $services
-     */
-    public function __construct(App $app, LangTypeServices $services)
+     */    public function __construct(App $app, LangTypeServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -33,8 +32,7 @@ class LangType extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function langTypeList()
+     */    public function langTypeList()
     {
         $where['is_del'] = 0;
         return app('json')->success($this->services->langTypeList($where));
@@ -45,8 +43,7 @@ class LangType extends AuthController
      * @param int $id
      * @return mixed
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function langTypeForm(int $id = 0)
+     */    public function langTypeForm(int $id = 0)
     {
         return app('json')->success($this->services->langTypeForm($id));
     }
@@ -54,8 +51,7 @@ class LangType extends AuthController
     /**
      * Lưu loại ngôn ngữ
      * @return mixed
-     */
-    public function langTypeSave()
+     */    public function langTypeSave()
     {
         $data = $this->request->postMore([
             ['id', 0],
@@ -74,8 +70,7 @@ class LangType extends AuthController
      * @param $id
      * @param $status
      * @return mixed
-     */
-    public function langTypeStatus($id, $status)
+     */    public function langTypeStatus($id, $status)
     {
         $this->services->langTypeStatus($id, $status);
         return app('json')->success('Thiết lập thành công');
@@ -85,8 +80,7 @@ class LangType extends AuthController
      * Xóa loại ngôn ngữ
      * @param int $id
      * @return mixed
-     */
-    public function langTypeDel(int $id = 0)
+     */    public function langTypeDel(int $id = 0)
     {
         $this->services->langTypeDel($id);
         CacheService::delete('lang_type_data');

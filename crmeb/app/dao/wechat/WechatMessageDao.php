@@ -18,13 +18,11 @@ use app\model\wechat\WechatMessage;
 /**
  * Class WechatMessageDao
  * @package app\dao\wechat
- */
-class WechatMessageDao extends BaseDao
+ */class WechatMessageDao extends BaseDao
 {
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return WechatMessage::class;
     }

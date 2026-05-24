@@ -43,19 +43,19 @@ Route::group('pc', function () {
     })->middleware(\app\http\middleware\AllowOriginMiddleware::class)
         ->middleware(\app\api\middleware\StationOpenMiddleware::class)
         ->middleware(\app\api\middleware\AuthTokenMiddleware::class, false)
-        ->option(['parent' => 'PC', 'cate_name' => 'Giao diện trái phép của người dùng']);
+        ->option(['parent' => 'PC', 'cate_name' => 'Giao diện trái phép của Khách hàng']);
 
     //Giao diện phân quyền thành viên
     Route::group(function () {
         Route::get('get_cart_list', 'pc.CartController/getCartList')->name('getCartList')->option(['real_name' => 'Danh sách giỏ hàng']);//Danh sách giỏ hàng
-        Route::get('get_balance_record/:type', 'pc.UserController/getBalanceRecord')->name('getBalanceRecord')->option(['real_name' => 'Biến động số dư']);//Hồ sơ số dư
+        Route::get('get_balance_record/:type', 'pc.UserController/getBalanceRecord')->name('getBalanceRecord')->option(['real_name' => 'Biến động số dư']);//Biến động số dư
         Route::get('get_order_list', 'pc.OrderController/getOrderList')->name('getOrderList')->option(['real_name' => 'danh sách đặt hàng']);//danh sách đặt hàng
         Route::get('get_refund_order_list', 'pc.OrderController/getRefundOrderList')->name('getRefundOrderList')->option(['real_name' => 'Danh sách đơn hàng hoàn tiền']);//Danh sách đơn hàng hoàn tiền
         Route::get('get_collect_list', 'pc.UserController/getCollectList')->name('getCollectList')->option(['real_name' => 'danh sách yêu thích']);//danh sách yêu thích
     })->middleware(\app\http\middleware\AllowOriginMiddleware::class)
         ->middleware(\app\api\middleware\StationOpenMiddleware::class)
         ->middleware(\app\api\middleware\AuthTokenMiddleware::class, true)
-        ->option(['parent' => 'PC', 'cate_name' => 'Giao diện phân quyền người dùng']);
+        ->option(['parent' => 'PC', 'cate_name' => 'Giao diện phân quyền Khách hàng']);
 
     Route::miss(function () {
         if (app()->request->isOptions()) {

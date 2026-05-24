@@ -19,13 +19,11 @@ use app\model\wechat\WechatNewsCategory;
  *
  * Class UserWechatUserDao
  * @package app\dao\user
- */
-class WechatNewsCategoryDao extends BaseDao
+ */class WechatNewsCategoryDao extends BaseDao
 {
     /**
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return WechatNewsCategory::class;
     }
@@ -33,8 +31,7 @@ class WechatNewsCategoryDao extends BaseDao
     /**Phân loại tin tức $model
      * @param array $where
      * @return \crmeb\basic\BaseModel
-     */
-    public function getNewCtae(array $where)
+     */    public function getNewCtae(array $where)
     {
         return parent::getModel()->when(isset($where['cate_name']), function ($query) use ($where) {
             $query->where('cate_name', 'LIKE', "%$where[cate_name]%");

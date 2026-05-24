@@ -13,8 +13,7 @@ use think\facade\Route;
 
 /**
  * Định tuyến nền tảng dịch vụ
- */
-Route::group('serve', function () {
+ */Route::group('serve', function () {
     //Đăng nhập nền tảng
     Route::post('login', 'v1.serve.Login/login')->option(['real_name' => 'Đăng nhập nền tảng một số']);
     //Mã xác minh
@@ -25,11 +24,11 @@ Route::group('serve', function () {
     Route::post('register', 'v1.serve.Login/register')->option(['real_name' => 'Đăng ký một số Pass']);
     //Mở biểu mẫu điện tử
     Route::post('opn_express', 'v1.serve.Serve/openExpress')->option(['real_name' => 'Số 1 mở mẫu điện tử']);
-    //Lấy thông tin người dùng
+    //Lấy thông tin Khách hàng
     Route::get('info', 'v1.serve.Serve/getUserInfo')->option(['real_name' => 'Thông tin tài khoản một số']);
     //Lấy mẫu danh sách
     Route::get('meal_list', 'v1.serve.Serve/mealList')->option(['real_name' => 'Danh sách gói thanh toán một số']);
-    //Được trả tiền
+    //Đã thanh toán
     Route::post('pay_meal', 'v1.serve.Serve/payMeal')->option(['real_name' => 'Mã QR thanh toán một số']);
     //Kích hoạt dịch vụ SMS
     Route::get('sms/open', 'v1.serve.Sms/openServe')->option(['real_name' => 'Mở dịch vụ SMS qua One Number Tong']);
@@ -41,13 +40,13 @@ Route::group('serve', function () {
     Route::get('sms/temps', 'v1.serve.Sms/temps')->option(['real_name' => 'Nhận mẫu SMS từ One Number Pass']);
     //Mẫu đơn đăng ký
     Route::post('sms/apply', 'v1.serve.Sms/apply')->option(['real_name' => 'Mẫu đơn xin cấp thẻ một số']);
-    //Nhận hồ sơ ứng dụng
-    Route::get('sms/apply_record', 'v1.serve.Sms/applyRecord')->option(['real_name' => 'Nhận hồ sơ ứng dụng thông qua One Number']);
+    //Nhận hồ sơ Ứng dụng
+    Route::get('sms/apply_record', 'v1.serve.Sms/applyRecord')->option(['real_name' => 'Nhận hồ sơ Ứng dụng thông qua One Number']);
     //Ghi
     Route::get('record', 'v1.serve.Serve/getRecord')->option(['real_name' => 'Lịch sử mua hàng một số']);
     //Có bật tính năng in biểu mẫu điện tử hay không
     Route::get('dump_open', 'v1.serve.Export/dumpIsOpen')->name('dumpIsOpen')->option(['real_name' => 'Số 1 có cho phép in biểu mẫu điện tử không?']);
-    //Nhận tất cả các công ty hậu cần
+    //Nhận Tất cả các công ty hậu cần
     Route::get('export_all', 'v1.serve.Export/getExportAll')->option(['real_name' => 'Nhận Tất cả các công ty hậu cần với One Number']);
     //Nhận mẫu công ty hậu cần
     Route::get('export_temp', 'v1.serve.Export/getExportTemp')->option(['real_name' => 'Nhận mẫu công ty hậu cần thông qua One Number']);

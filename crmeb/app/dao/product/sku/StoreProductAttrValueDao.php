@@ -17,14 +17,12 @@ use app\model\product\sku\StoreProductAttrValue;
 /**
  * Class StoreProductAttrValueDao
  * @package app\dao\product\sku
- */
-class StoreProductAttrValueDao extends BaseDao
+ */class StoreProductAttrValueDao extends BaseDao
 {
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return StoreProductAttrValue::class;
     }
@@ -35,8 +33,7 @@ class StoreProductAttrValueDao extends BaseDao
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getColumn(array $where, string $field = '*', string $key = 'suk')
+     */    public function getColumn(array $where, string $field = '*', string $key = 'suk')
     {
         return $this->search($where)->column($field, $key);
     }
@@ -47,8 +44,7 @@ class StoreProductAttrValueDao extends BaseDao
      * @param int $type
      * @return bool
      * @throws \Exception
-     */
-    public function del(int $id, int $type)
+     */    public function del(int $id, int $type)
     {
         return $this->search(['product_id' => $id, 'type' => $type])->delete();
     }
@@ -58,8 +54,7 @@ class StoreProductAttrValueDao extends BaseDao
      * @param array $data
      * @return mixed|\think\Collection
      * @throws \Exception
-     */
-    public function saveAll(array $data)
+     */    public function saveAll(array $data)
     {
         return $this->getModel()->saveAll($data);
     }
@@ -71,16 +66,14 @@ class StoreProductAttrValueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getProductAttrValue(array $where)
+     */    public function getProductAttrValue(array $where)
     {
         return $this->search($where)->order('id asc')->select()->toArray();
     }
 
     /**Nhận danh sách tài sản
      * @return mixed
-     */
-    public function attrValue()
+     */    public function attrValue()
     {
         return $this->search()->field('product_id,sum(sales * price) as val')->with(['product'])->group('product_id')->limit(20)->select()->toArray();
     }
@@ -88,8 +81,7 @@ class StoreProductAttrValueDao extends BaseDao
     /**Nhận kiểm kê tài sản
      * @param string $unique
      * @return int
-     */
-    public function uniqueByStock(string $unique)
+     */    public function uniqueByStock(string $unique)
     {
         return $this->search(['unique' => $unique])->value('stock') ?: 0;
     }
@@ -99,8 +91,7 @@ class StoreProductAttrValueDao extends BaseDao
      * @param array $where
      * @param int $num
      * @return mixed
-     */
-    public function decStockIncSalesDecQuota(array $where, int $num)
+     */    public function decStockIncSalesDecQuota(array $where, int $num)
     {
         return $this->getModel()->where($where)->dec('stock', $num)->dec('quota', $num)->inc('sales', $num)->update();
     }
@@ -113,8 +104,7 @@ class StoreProductAttrValueDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function uniqueByField(string $unique, string $field = '*')
+     */    public function uniqueByField(string $unique, string $field = '*')
     {
         return $this->search(['unique' => $unique, 'type' => 4])->field($field)->with(['storeIntegral'])->find();
     }

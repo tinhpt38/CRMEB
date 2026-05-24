@@ -20,8 +20,7 @@ use app\model\user\UserBill;
  *
  * Class UserBillStoreOrderDao
  * @package app\dao\user
- */
-class UserBillStoreOrderDao extends BaseDao
+ */class UserBillStoreOrderDao extends BaseDao
 {
 
     protected $alias = '';
@@ -30,8 +29,7 @@ class UserBillStoreOrderDao extends BaseDao
     /**
      * Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         return UserBill::class;
     }
@@ -46,14 +44,12 @@ class UserBillStoreOrderDao extends BaseDao
      * @param string $alias
      * @param string $join_alias
      * @return \crmeb\basic\BaseModel
-     */
-    public function getModel(string $table = '', string $alias = 'b', string $join_alias = 'o', $join = 'left')
+     */    public function getModel(string $table = '', string $alias = 'b', string $join_alias = 'o', $join = 'left')
     {
         $this->alias = $alias;
         $this->join_alis = $join_alias;
         if (!$table) {
-            /** @var StoreOrder $storeOrder */
-            $storeOrder = app()->make($this->joinModel());
+            /** @var StoreOrder $storeOrder */            $storeOrder = app()->make($this->joinModel());
             $table = $storeOrder->getName();
         }
         return parent::getModel()->join($table . ' ' . $join_alias, $alias . '.link_id = ' . $join_alias . '.id', $join)->alias($alias);
@@ -68,8 +64,7 @@ class UserBillStoreOrderDao extends BaseDao
      * @param $page
      * @param $limit
      * @return mixed
-     */
-    public function getList(array $where, array $whereOr, array $times, string $field, $page, $limit)
+     */    public function getList(array $where, array $whereOr, array $times, string $field, $page, $limit)
     {
         return $this->getModel()->where($where)->where("FROM_UNIXTIME(b.add_time, '%Y-%m')", 'in', $times)
             ->where(function ($q) use ($whereOr) {
@@ -90,8 +85,7 @@ class UserBillStoreOrderDao extends BaseDao
      * @param $page
      * @param $limit
      * @return mixed
-     */
-    public function getListByGroup(array $where, array $whereOr, string $field, string $group, $page, $limit)
+     */    public function getListByGroup(array $where, array $whereOr, string $field, string $group, $page, $limit)
     {
         return $this->getModel()->where($where)->where(function ($q) use ($whereOr) {
             $q->whereOr($whereOr);
@@ -107,8 +101,7 @@ class UserBillStoreOrderDao extends BaseDao
      * @param $page
      * @param $limit
      * @return mixed
-     */
-    public function getListCount(array $where, array $whereOr)
+     */    public function getListCount(array $where, array $whereOr)
     {
         return $this->getModel()->where($where)->where(function ($q) use ($whereOr) {
             $q->whereOr($whereOr);

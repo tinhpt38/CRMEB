@@ -21,15 +21,13 @@ use crmeb\utils\Hook;
  * Trả tiền gọi lại không đồng bộ
  * Class NotifyListener
  * @package app\listener\pay
- */
-class NotifyListener
+ */class NotifyListener
 {
     /**
      * @param $event
      * @return bool
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
-    public function handle($event)
+     */    public function handle($event)
     {
         [$notify, $payType] = $event;
 
@@ -50,8 +48,7 @@ class NotifyListener
             }
 
             if ($notify['attach'] === 'wechat' && isset($notify['out_trade_no'])) {
-                /** @var WechatMessageServices $wechatMessageService */
-                $wechatMessageService = app()->make(WechatMessageServices::class);
+                /** @var WechatMessageServices $wechatMessageService */                $wechatMessageService = app()->make(WechatMessageServices::class);
                 $wechatMessageService->setOnceMessage($notify, $notify['openid'], 'payment_success', $notify['out_trade_no']);
             }
         }

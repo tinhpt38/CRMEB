@@ -23,14 +23,12 @@ use think\facade\Route as Url;
  * @package app\services\article
  * @method getArticleCategory()
  * @method getArticleTwoCategory()
- */
-class ArticleCategoryServices extends BaseServices
+ */class ArticleCategoryServices extends BaseServices
 {
     /**
      * ArticleCategoryServices constructor.
      * @param ArticleCategoryDao $dao
-     */
-    public function __construct(ArticleCategoryDao $dao)
+     */    public function __construct(ArticleCategoryDao $dao)
     {
         $this->dao = $dao;
     }
@@ -43,8 +41,7 @@ class ArticleCategoryServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where)
+     */    public function getList(array $where)
     {
         $list = $this->dao->getList($where);
         $list = get_tree_children($list);
@@ -56,8 +53,7 @@ class ArticleCategoryServices extends BaseServices
      * @param int $id
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createForm(int $id)
+     */    public function createForm(int $id)
     {
         $method = 'POST';
         $url = '/cms/category';
@@ -81,34 +77,30 @@ class ArticleCategoryServices extends BaseServices
     }
 
     /**
-     * cứu
+     * Lưu
      * @param array $data
      * @return mixed
-     */
-    public function save(array $data)
+     */    public function save(array $data)
     {
         return $this->dao->save($data);
     }
 
     /**
-     * Ôn lại
+     * Sửa
      * @param array $data
      * @return mixed
-     */
-    public function update(array $data)
+     */    public function update(array $data)
     {
         return $this->dao->update($data['id'], $data);
     }
 
     /**
-     * xóa bỏ
+     * Xóa
      * @param int $id
      * @return mixed
-     */
-    public function del(int $id)
+     */    public function del(int $id)
     {
-        /** @var ArticleServices $articleService */
-        $articleService = app()->make(ArticleServices::class);
+        /** @var ArticleServices $articleService */        $articleService = app()->make(ArticleServices::class);
         $pidCount = $this->dao->count(['pid' => $id]);
         if ($pidCount > 0) throw new AdminException('Danh mục này có các danh mục phụ và không thể xóa được.');
         $count = $articleService->count(['cid' => $id]);
@@ -124,8 +116,7 @@ class ArticleCategoryServices extends BaseServices
      * @param int $id
      * @param int $status
      * @return mixed
-     */
-    public function setStatus(int $id, int $status)
+     */    public function setStatus(int $id, int $status)
     {
         return $this->dao->update($id, ['status' => $status]);
     }
@@ -134,8 +125,7 @@ class ArticleCategoryServices extends BaseServices
      * Nhận dữ liệu kết hợp phân loại cấp đầu tiên
      * @param string $pid
      * @return array[]
-     */
-    public function menus($pid = '')
+     */    public function menus($pid = '')
     {
         $list = $this->dao->getMenus(['pid' => 0]);
         $menus = [['value' => 0, 'label' => 'danh mục hàng đầu']];
@@ -157,8 +147,7 @@ class ArticleCategoryServices extends BaseServices
      * @author: thủy triều
      * @email: 442384644@qq.com
      * @date: 2023/9/7
-     */
-    public function getTreeList()
+     */    public function getTreeList()
     {
         return get_tree_children($this->dao->getTreeList(['is_del' => 0, 'status' => 1, 'hidden' => 0], ['id', 'id as value', 'title as label', 'title', 'pid']), 'children', 'id');
 //        return sort_list_tier($this->dao->getMenus([]));

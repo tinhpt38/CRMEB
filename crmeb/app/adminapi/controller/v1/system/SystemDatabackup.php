@@ -22,16 +22,14 @@ use app\services\system\SystemDatabackupServices;
  * Class SystemDatabackup
  * @package app\admin\controller\system
  *
- */
-class SystemDatabackup extends AuthController
+ */class SystemDatabackup extends AuthController
 {
     /**
      * Người xây dựng
      * SystemDatabackup constructor.
      * @param App $app
      * @param SystemDatabackupServices $services
-     */
-    public function __construct(App $app, SystemDatabackupServices $services)
+     */    public function __construct(App $app, SystemDatabackupServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -39,16 +37,14 @@ class SystemDatabackup extends AuthController
 
     /**
      * Lấy bảng cơ sở dữ liệu
-     */
-    public function index()
+     */    public function index()
     {
         return app('json')->success($this->services->getDataList());
     }
 
     /**
      * Xem chi tiết cấu trúc bảng
-     */
-    public function read()
+     */    public function read()
     {
         [$tablename] = $this->request->getMore([
             ['tablename', ''],
@@ -62,8 +58,7 @@ class SystemDatabackup extends AuthController
      * @author thủy triều
      * @email 442384644@qq.com
      * @date 2023/04/11
-     */
-    public function updateMark()
+     */    public function updateMark()
     {
         [$table, $field, $type, $mark, $is_field] = $this->request->postMore([
             ['table', ''],
@@ -95,8 +90,7 @@ class SystemDatabackup extends AuthController
 
     /**
      * Bảng tối ưu hóa
-     */
-    public function optimize()
+     */    public function optimize()
     {
         [$tables] = $this->request->postMore([
             ['tables', ''],
@@ -107,8 +101,7 @@ class SystemDatabackup extends AuthController
 
     /**
      * bàn sửa chữa
-     */
-    public function repair()
+     */    public function repair()
     {
         [$tables] = $this->request->postMore([
             ['tables', ''],
@@ -119,8 +112,7 @@ class SystemDatabackup extends AuthController
 
     /**
      * bảng dự phòng
-     */
-    public function backup()
+     */    public function backup()
     {
         [$tables] = $this->request->postMore([
             ['tables', ''],
@@ -131,16 +123,14 @@ class SystemDatabackup extends AuthController
 
     /**
      * Nhận bảng ghi dự phòng
-     */
-    public function fileList()
+     */    public function fileList()
     {
         return app('json')->success($this->services->getBackup());
     }
 
     /**
      * Xóa bảng ghi dự phòng
-     */
-    public function delFile()
+     */    public function delFile()
     {
         $filename = intval(request()->post('filename'));
         $files = $this->services->getDbBackup()->delFile($filename);
@@ -149,8 +139,7 @@ class SystemDatabackup extends AuthController
 
     /**
      * Nhập bảng bản ghi dự phòng
-     */
-    public function import()
+     */    public function import()
     {
         [$part, $start, $time] = $this->request->postMore([
             [['part', 'd'], 0],
@@ -196,8 +185,7 @@ class SystemDatabackup extends AuthController
 
     /**
      * Tải xuống bảng ghi bản sao lưu
-     */
-    public function downloadFile()
+     */    public function downloadFile()
     {
         $time = intval(request()->param('time'));
         return app('json')->success(['key' => $this->services->getDbBackup()->downloadFile($time, 0, true)]);

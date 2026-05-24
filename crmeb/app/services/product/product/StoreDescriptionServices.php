@@ -20,14 +20,12 @@ use crmeb\exceptions\AdminException;
  * Class StoreDescriptionService
  * @package app\services\product\product
  * @method value($where, ?string $field = null) Nhận các trường
- */
-class StoreDescriptionServices extends BaseServices
+ */class StoreDescriptionServices extends BaseServices
 {
     /**
      * StoreDescriptionServices constructor.
      * @param StoreDescriptionDao $dao
-     */
-    public function __construct(StoreDescriptionDao $dao)
+     */    public function __construct(StoreDescriptionDao $dao)
     {
         $this->dao = $dao;
     }
@@ -36,8 +34,7 @@ class StoreDescriptionServices extends BaseServices
      * Nhận chi tiết sản phẩm
      * @param array $where
      * @return string
-     */
-    public function getDescription(array $where)
+     */    public function getDescription(array $where)
     {
         $info = $this->dao->getDescription($where);
         if ($info) return htmlspecialchars_decode($info->description);
@@ -50,8 +47,7 @@ class StoreDescriptionServices extends BaseServices
      * @param string $description
      * @param int $type
      * @return bool
-     */
-    public function saveDescription(int $id, string $description, int $type = 0)
+     */    public function saveDescription(int $id, string $description, int $type = 0)
     {
         $description = htmlspecialchars($description);
         $info = $this->dao->count(['product_id' => $id, 'type' => $type]);

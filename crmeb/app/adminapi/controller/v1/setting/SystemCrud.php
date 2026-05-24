@@ -37,16 +37,14 @@ use think\Response;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\adminapi\controller\v1\setting
- */
-class SystemCrud extends AuthController
+ */class SystemCrud extends AuthController
 {
 
     /**
      * SystemCrud constructor.
      * @param App $app
      * @param SystemCrudServices $services
-     */
-    public function __construct(App $app, SystemCrudServices $services)
+     */    public function __construct(App $app, SystemCrudServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
@@ -57,8 +55,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function index()
+     */    public function index()
     {
         return app('json')->success($this->services->getList());
     }
@@ -70,8 +67,7 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/2/19
-     */
-    public function crudVerifyPath($data)
+     */    public function crudVerifyPath($data)
     {
         if (strpos($data['controller'], 'app' . DS . 'adminapi' . DS . 'controller' . DS . 'crud' . DS) !== 0) return false;
         if (strpos($data['validate'], 'app' . DS . 'adminapi' . DS . 'validate' . DS . 'crud' . DS) !== 0) return false;
@@ -90,8 +86,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function save(SystemCrudDataService $service, $id = 0)
+     */    public function save(SystemCrudDataService $service, $id = 0)
     {
         $data = $this->request->postMore([
             ['pid', 0],//Trình đơn trướcid
@@ -217,8 +212,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function getFilePath()
+     */    public function getFilePath()
     {
         [$tableName] = $this->request->postMore([
             ['tableName', ''],
@@ -277,8 +271,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/12
-     */
-    public function read($id)
+     */    public function read($id)
     {
         if (!$id) {
             return app('json')->fail('giao diện không tồn tại');
@@ -346,7 +339,7 @@ class SystemCrud extends AuthController
             'dao' => 'Hoạt động cơ sở dữ liệu',
             'model' => 'lớp mô hình',
             'route' => 'Định tuyến phụ trợ',
-            'router' => 'Định tuyến giao diện người dùng',
+            'router' => 'Định tuyến giao diện Khách hàng',
             'api' => 'Giao diện mặt trước',
             'pages' => 'Trang đầu'
         ];
@@ -452,8 +445,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/24
-     */
-    public function savefile(Request $request, SystemFileServices $service, $id)
+     */    public function savefile(Request $request, SystemFileServices $service, $id)
     {
         $comment = $request->param('comment');
         $filepath = $request->param('filepath');
@@ -504,8 +496,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function getMenus()
+     */    public function getMenus()
     {
         return app('json')->success(app()->make(SystemMenusServices::class)
             ->getList(['auth_type' => 1, 'is_show' => 1], ['auth_type', 'pid', 'id', 'menu_name as label', 'id as value']));
@@ -517,8 +508,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2023/8/2
-     */
-    public function getAssociationTable()
+     */    public function getAssociationTable()
     {
         return app('json')->success($this->services->getTableAll());
     }
@@ -530,8 +520,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/2
-     */
-    public function getAssociationTableInfo(string $tableName)
+     */    public function getAssociationTableInfo(string $tableName)
     {
         if (!$tableName) {
             return app('json')->fail('Thiếu tên bảng');
@@ -558,8 +547,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió về
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function columnType()
+     */    public function columnType()
     {
         return app('json')->success($this->services->getTabelRule());
     }
@@ -571,8 +559,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/11
-     */
-    public function delete(SystemMenusServices $services, $id)
+     */    public function delete(SystemMenusServices $services, $id)
     {
         if (!$id) {
             return app('json')->fail('giao diện không tồn tại');
@@ -632,8 +619,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/15
-     */
-    public function download($id)
+     */    public function download($id)
     {
         if (!$id) {
             return app('json')->fail('giao diện không tồn tại');
@@ -691,7 +677,7 @@ class SystemCrud extends AuthController
         ], $makePath, $zipPath);
 
         if (!extension_loaded('zip')) {
-            return app('json')->fail('zipTiện ích mở rộng chưa được cài đặt');
+            return app('json')->fail('zipTiện ích mở rộng chưa được Cài đặt');
         }
 
         $fileService = new FileService();
@@ -712,8 +698,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/4/20
-     */
-    public function getRouteList($tableName)
+     */    public function getRouteList($tableName)
     {
         $info = $this->services->get(['table_name' => $tableName]);
         if (!$info) {
@@ -846,8 +831,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/1
-     */
-    public function saveDataDictionary(SystemCrudDataService $service, $id = 0)
+     */    public function saveDataDictionary(SystemCrudDataService $service, $id = 0)
     {
         $data = $this->request->postMore([
             ['name', ''],
@@ -878,8 +862,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/7
-     */
-    public function getDataDictionaryOne(SystemCrudDataService $service, $id)
+     */    public function getDataDictionaryOne(SystemCrudDataService $service, $id)
     {
         if (!$id) {
             return app('json')->fail('Thiếu tham số');
@@ -902,8 +885,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/1
-     */
-    public function getDataDictionary(SystemCrudDataService $service)
+     */    public function getDataDictionary(SystemCrudDataService $service)
     {
         $name = $this->request->get('name', '');
         $data = $service->getlistAll($name);
@@ -918,8 +900,7 @@ class SystemCrud extends AuthController
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/8/4
-     */
-    public function deleteDataDictionary(SystemCrudDataService $service, $id)
+     */    public function deleteDataDictionary(SystemCrudDataService $service, $id)
     {
         if (!$id) {
             return app('json')->fail('Thiếu tham số');
@@ -935,7 +916,6 @@ class SystemCrud extends AuthController
 
 
     /** Từ điển dữ liệu mới */
-
     /**
      * Lấy danh sách từ điển dữ liệu
      * @param SystemCrudListServices $service
@@ -947,8 +927,7 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryList(SystemCrudListServices $service)
+     */    public function dataDictionaryList(SystemCrudListServices $service)
     {
         $where = $this->request->getMore([
             ['status', ''],
@@ -968,8 +947,7 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryListCreate(SystemCrudListServices $service, $id)
+     */    public function dataDictionaryListCreate(SystemCrudListServices $service, $id)
     {
         return app('json')->success($service->dataDictionaryListCreate($id));
     }
@@ -982,8 +960,7 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryListSave(SystemCrudListServices $service, $id)
+     */    public function dataDictionaryListSave(SystemCrudListServices $service, $id)
     {
         $data = $this->request->getMore([
             ['name', ''],
@@ -1003,15 +980,14 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryListDel(SystemCrudListServices $service, $id)
+     */    public function dataDictionaryListDel(SystemCrudListServices $service, $id)
     {
         $service->dataDictionaryListDel($id);
         return app('json')->success('Xóa thành công');
     }
 
     /**
-     * Danh sách nội dung từ điển dữ liệu
+     * Danh sách Nội dung từ điển dữ liệu
      * @param SystemCrudDataService $service
      * @param $cid
      * @return Response
@@ -1022,14 +998,13 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryInfoList(SystemCrudDataService $service, $cid)
+     */    public function dataDictionaryInfoList(SystemCrudDataService $service, $cid)
     {
         return app('json')->success($service->dataDictionaryInfoList($cid));
     }
 
     /**
-     * Biểu mẫu bổ sung, sửa đổi nội dung từ điển dữ liệu
+     * Biểu mẫu bổ sung, sửa đổi Nội dung từ điển dữ liệu
      * @param SystemCrudDataService $service
      * @param $cid
      * @param $id
@@ -1043,14 +1018,13 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryInfoCreate(SystemCrudDataService $service, $cid, $id, $pid)
+     */    public function dataDictionaryInfoCreate(SystemCrudDataService $service, $cid, $id, $pid)
     {
         return app('json')->success($service->dataDictionaryInfoCreate($cid, (int)$id, (int)$pid));
     }
 
     /**
-     * Lưu trữ dữ liệu nội dung từ điển
+     * Lưu trữ dữ liệu Nội dung từ điển
      * @param SystemCrudDataService $service
      * @param $cid
      * @param $id
@@ -1058,8 +1032,7 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryInfoSave(SystemCrudDataService $service, $cid, $id)
+     */    public function dataDictionaryInfoSave(SystemCrudDataService $service, $cid, $id)
     {
         $data = $this->request->getMore([
             ['name', ''],
@@ -1072,7 +1045,7 @@ class SystemCrud extends AuthController
     }
 
     /**
-     * Xóa nội dung từ điển dữ liệu
+     * Xóa Nội dung từ điển dữ liệu
      * @param SystemCrudDataService $service
      * @param $id
      * @return Response
@@ -1080,8 +1053,7 @@ class SystemCrud extends AuthController
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2024/5/20
-     */
-    public function dataDictionaryInfoDel(SystemCrudDataService $service, $id)
+     */    public function dataDictionaryInfoDel(SystemCrudDataService $service, $id)
     {
         $service->dataDictionaryInfoDel($id);
         return app('json')->success('Xóa thành công');

@@ -26,20 +26,17 @@ use think\facade\Config;
  * Lối vào dịch vụ nền tảng
  * Class ServeServices
  * @package crmeb\services
- */
-class ServeServices extends BaseServices
+ */class ServeServices extends BaseServices
 {
 
     /**
      * @var FormBuilder
-     */
-    protected $builder;
+     */    protected $builder;
 
     /**
      * SmsTemplateApplyServices constructor.
      * @param FormBuilder $builder
-     */
-    public function __construct(FormBuilder $builder)
+     */    public function __construct(FormBuilder $builder)
     {
         $this->builder = $builder;
     }
@@ -48,8 +45,7 @@ class ServeServices extends BaseServices
      * Nhận cấu hình
      * @param array $config
      * @return array
-     */
-    public function getConfig(array $config = [])
+     */    public function getConfig(array $config = [])
     {
         return array_merge([
             'account' => sys_config('sms_account'),
@@ -63,8 +59,7 @@ class ServeServices extends BaseServices
      * @param $type
      * @param array $configDefault
      * @return array
-     */
-    protected function getTypeConfig($type, array $configDefault = [])
+     */    protected function getTypeConfig($type, array $configDefault = [])
     {
         if (!$type) {
             $type = Config::get('sms.default', '');
@@ -86,8 +81,7 @@ class ServeServices extends BaseServices
      * @param string|null $type
      * @param array $config
      * @return Sms
-     */
-    public function sms(string $type = null, array $config = [])
+     */    public function sms(string $type = null, array $config = [])
     {
         return app()->make(Sms::class, [$type, $this->getTypeConfig($type, $config)]);
     }
@@ -97,8 +91,7 @@ class ServeServices extends BaseServices
      * @param string|null $type
      * @param array $config
      * @return CopyProduct
-     */
-    public function copy(string $type = null, array $config = [])
+     */    public function copy(string $type = null, array $config = [])
     {
         return app()->make(CopyProduct::class, [$type, $this->getConfig($config)]);
     }
@@ -107,28 +100,25 @@ class ServeServices extends BaseServices
      * Mẫu điện tử
      * @param array $config
      * @return Express
-     */
-    public function express(array $config = [])
+     */    public function express(array $config = [])
     {
         return app()->make(Express::class, [$this->getConfig($config)]);
     }
 
     /**
-     * In biên lai
+     * In phiếu giao hàng
      * @param array $config
      * @return Express
-     */
-    public function orderPrint(array $config = [])
+     */    public function orderPrint(array $config = [])
     {
         return app()->make(Printer::class, [$this->getConfig($config)]);
     }
 
     /**
-     * người dùng
+     * Khách hàng
      * @param array $config
      * @return Serve
-     */
-    public function user(array $config = [])
+     */    public function user(array $config = [])
     {
         return app()->make(Serve::class, [$this->getConfig($config)]);
     }
@@ -137,8 +127,7 @@ class ServeServices extends BaseServices
      * Hóa đơn điện tử
      * @param array $config
      * @return Serve
-     */
-    public function invoice(array $config = [])
+     */    public function invoice(array $config = [])
     {
         return app()->make(Invoice::class, [$this->getConfig($config)]);
     }
@@ -149,8 +138,7 @@ class ServeServices extends BaseServices
      * @param int $limit
      * @param int $type
      * @return array
-     */
-    public function getSmsTempsList(int $page, int $limit, int $type)
+     */    public function getSmsTempsList(int $page, int $limit, int $type)
     {
         $list = $this->sms()->temps($page, $limit, $type);
         foreach ($list['data'] as &$item) {
@@ -163,7 +151,7 @@ class ServeServices extends BaseServices
                     $item['type'] = 'thông báo';
                     break;
                 case 30:
-                    $item['type'] = 'SMS tiếp thị';
+                    $item['type'] = 'SMS Marketing';
                     break;
             }
         }
@@ -174,23 +162,21 @@ class ServeServices extends BaseServices
      * Tạo mẫu tin nhắn SMS
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function createSmsTemplateForm()
+     */    public function createSmsTemplateForm()
     {
         $field = [
             $this->builder->input('title', 'Tên mẫu')->placeholder('Tên mẫu,Ví dụ: thanh toán đơn hàng thành công'),
-            $this->builder->input('content', 'Nội dung mẫu')->type('textarea')->placeholder('Nội dung mẫu như: hàng bạn mua đã được thanh toán thành công, số tiền thanh toán{$pay_price}nhân dân tệ, số đơn hàng{$order_id},Cảm ơn bạn đã ghé thăm! (Lưu ý: Không thêm chữ ký SMS vào nội dung mẫu.）'),
-            $this->builder->radio('type', 'loại mẫu', 1)->options([['label' => 'Mã xác minh', 'value' => 1], ['label' => 'thông báo', 'value' => 2], ['label' => 'tiếp thị', 'value' => 3]])
+            $this->builder->input('content', 'Nội dung mẫu')->type('textarea')->placeholder('Nội dung mẫu như: hàng bạn mua đã được thanh toán thành công, số tiền thanh toán{$pay_price}nhân dân tệ, số đơn hàng{$order_id},Cảm ơn bạn đã ghé thăm! (Lưu ý: Không thêm chữ ký SMS vào Nội dung mẫu.）'),
+            $this->builder->radio('type', 'loại mẫu', 1)->options([['label' => 'Mã xác minh', 'value' => 1], ['label' => 'thông báo', 'value' => 2], ['label' => 'Marketing', 'value' => 3]])
         ];
         return $field;
     }
 
     /**
-     * Nhận mẫu ứng dụng SMS
+     * Nhận mẫu Ứng dụng SMS
      * @return array
      * @throws \FormBuilder\Exception\FormBuilderException
-     */
-    public function getSmsTemplateForm()
+     */    public function getSmsTemplateForm()
     {
         return create_form('Đăng ký mẫu SMS', $this->createSmsTemplateForm(), $this->url('/notify/sms/temp'), 'POST');
     }

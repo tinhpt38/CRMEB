@@ -21,15 +21,13 @@ use think\Response;
 use Throwable;
 
 /**
- * Lớp xử lý ngoại lệ ứng dụng
- */
-class ExceptionHandle extends Handle
+ * Lớp xử lý ngoại lệ Ứng dụng
+ */class ExceptionHandle extends Handle
 {
     /**
      * Danh sách các lớp ngoại lệ không yêu cầu ghi thông tin (log)
      * @var array
-     */
-    protected $ignoreReport = [
+     */    protected $ignoreReport = [
         HttpException::class,
         HttpResponseException::class,
         ModelNotFoundException::class,
@@ -43,8 +41,7 @@ class ExceptionHandle extends Handle
      * @access public
      * @param  Throwable $exception
      * @return void
-     */
-    public function report(Throwable $exception): void
+     */    public function report(Throwable $exception): void
     {
         // Sử dụng các phương thức tích hợp để ghi lại các ngoại lệ
         parent::report($exception);
@@ -57,8 +54,7 @@ class ExceptionHandle extends Handle
      * @param \think\Request   $request
      * @param Throwable $e
      * @return Response
-     */
-    public function render($request, Throwable $e): Response
+     */    public function render($request, Throwable $e): Response
     {
         // Thêm cơ chế xử lý ngoại lệ tùy chỉnh
 

@@ -19,8 +19,7 @@ class MemberShipDao extends BaseDao
 {
     /** Thiết lập mô hình
      * @return string
-     */
-    protected function setModel(): string
+     */    protected function setModel(): string
     {
         // TODO: Implement setModel() method.
         return MemberShip::class;
@@ -35,8 +34,7 @@ class MemberShipDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSearchList(array $where, int $page = 0, int $limit = 0, array $field = ['*'])
+     */    public function getSearchList(array $where, int $page = 0, int $limit = 0, array $field = ['*'])
     {
         return $this->search($where)->order('sort desc,id desc')
             ->field($field)
@@ -47,8 +45,7 @@ class MemberShipDao extends BaseDao
 
     /**Nhận giao diện api loại thành viên
      * @return mixed
-     */
-    public function getApiList(array $where)
+     */    public function getApiList(array $where)
     {
         return $this->search()->where($where)->order('sort desc,id DESC')->select()->toArray();
     }

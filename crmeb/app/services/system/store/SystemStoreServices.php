@@ -22,15 +22,13 @@ use crmeb\exceptions\AdminException;
  * @package app\services\system\store
  * @method update($id, array $data, ?string $key = null) Sửa đổi dữ liệu
  * @method get(int $id, ?array $field = []) Nhận dữ liệu
- */
-class SystemStoreServices extends BaseServices
+ */class SystemStoreServices extends BaseServices
 {
     /**
      * Người xây dựng
      * SystemStoreServices constructor.
      * @param SystemStoreDao $dao
-     */
-    public function __construct(SystemStoreDao $dao)
+     */    public function __construct(SystemStoreDao $dao)
     {
         $this->dao = $dao;
     }
@@ -44,8 +42,7 @@ class SystemStoreServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStoreList(array $where, array $field = ['*'], string $latitude = '', string $longitude = '')
+     */    public function getStoreList(array $where, array $field = ['*'], string $latitude = '', string $longitude = '')
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->getStoreList($where, $field, $page, $limit, $latitude, $longitude);
@@ -61,8 +58,7 @@ class SystemStoreServices extends BaseServices
     /**
      * Lấy thống kê đầu của điểm đón
      * @return mixed
-     */
-    public function getStoreData()
+     */    public function getStoreData()
     {
         $data['show'] = [
             'name' => 'Hiển thị điểm đón',
@@ -84,8 +80,7 @@ class SystemStoreServices extends BaseServices
      * @param int $id
      * @param array $data
      * @return mixed
-     */
-    public function saveStore(int $id, array $data)
+     */    public function saveStore(int $id, array $data)
     {
         return $this->transaction(function () use ($id, $data) {
             if ($id) {
@@ -114,8 +109,7 @@ class SystemStoreServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStoreDispose(int $id, string $felid = '')
+     */    public function getStoreDispose(int $id, string $felid = '')
     {
         if ($felid) {
             return $this->dao->value(['id' => $id], $felid);
@@ -138,8 +132,7 @@ class SystemStoreServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getStore()
+     */    public function getStore()
     {
         return $this->dao->getStore(['type' => 0]);
     }
@@ -151,8 +144,7 @@ class SystemStoreServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getExportData(array $where)
+     */    public function getExportData(array $where)
     {
         return $this->dao->getStoreList($where, ['*']);
     }

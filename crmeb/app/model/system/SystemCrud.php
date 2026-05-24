@@ -20,19 +20,16 @@ use crmeb\basic\BaseModel;
  * @email 136327134@qq.com
  * @date 2023/4/6
  * @package app\model\system
- */
-class SystemCrud extends BaseModel
+ */class SystemCrud extends BaseModel
 {
 
     /**
      * @var string
-     */
-    protected $name = 'system_crud';
+     */    protected $name = 'system_crud';
 
     /**
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     public function getAddTimeAttr($value)
     {

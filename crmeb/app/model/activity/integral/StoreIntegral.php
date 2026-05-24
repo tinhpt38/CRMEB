@@ -21,28 +21,24 @@ use think\Model;
  * TODO Sản phẩm tích điểmModel
  * Class StoreCombination
  * @package app\model\activity
- */
-class StoreIntegral extends BaseModel
+ */class StoreIntegral extends BaseModel
 {
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'store_integral';
+     */    protected $name = 'store_integral';
 
     use ModelTrait;
 
     /**
      * Nhận giá gốc 1-1
      * @return \think\model\relation\HasOne
-     */
-    public function getPrice()
+     */    public function getPrice()
     {
         return $this->hasOne(StoreProduct::class, 'id', 'product_id')->bind(['ot_price', 'product_price' => 'price']);
     }
@@ -51,8 +47,7 @@ class StoreIntegral extends BaseModel
      * hiệp hội một-một
      *Chi tiết sản phẩm của các sản phẩm liên quan đến sản phẩm
      * @return \think\model\relation\HasOne
-     */
-    public function description()
+     */    public function description()
     {
         return $this->hasOne(StoreDescription::class, 'product_id', 'id')->where('type', 4)->bind(['description']);
     }
@@ -61,8 +56,7 @@ class StoreIntegral extends BaseModel
      * Thêm công cụ lấy thời gian
      * @param $value
      * @return false|string
-     */
-    protected function getAddTimeAttr($value)
+     */    protected function getAddTimeAttr($value)
     {
         if ($value) return date('Y-m-d H:i:s', (int)$value);
         return '';
@@ -72,8 +66,7 @@ class StoreIntegral extends BaseModel
      * Trình lấy hình ảnh băng chuyền
      * @param $value
      * @return mixed
-     */
-    public function getImagesAttr($value)
+     */    public function getImagesAttr($value)
     {
         return json_decode($value, true) ?? [];
     }
@@ -83,8 +76,7 @@ class StoreIntegral extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchStoreNameAttr($query, $value, $data)
+     */    public function searchStoreNameAttr($query, $value, $data)
     {
         if ($value) $query->where('title|id', 'like', '%' . $value . '%');
     }
@@ -94,8 +86,7 @@ class StoreIntegral extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsHostAttr($query, $value, $data)
+     */    public function searchIsHostAttr($query, $value, $data)
     {
         $query->where('is_host', $value ?? 1);
     }
@@ -105,8 +96,7 @@ class StoreIntegral extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsShowAttr($query, $value, $data)
+     */    public function searchIsShowAttr($query, $value, $data)
     {
         if ($value != '') $query->where('is_show', $value ?: 0);
     }
@@ -116,8 +106,7 @@ class StoreIntegral extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchIsDelAttr($query, $value, $data)
+     */    public function searchIsDelAttr($query, $value, $data)
     {
         $query->where('is_del', $value ?? 0);
     }
@@ -127,8 +116,7 @@ class StoreIntegral extends BaseModel
      * @param Model $query
      * @param $value
      * @param $data
-     */
-    public function searchProductIdAttr($query, $value, $data)
+     */    public function searchProductIdAttr($query, $value, $data)
     {
         if ($value) {
             if (is_array($value)) {

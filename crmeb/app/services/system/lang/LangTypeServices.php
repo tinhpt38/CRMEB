@@ -22,8 +22,7 @@ class LangTypeServices extends BaseServices
 {
     /**
      * @param LangTypeDao $dao
-     */
-    public function __construct(LangTypeDao $dao)
+     */    public function __construct(LangTypeDao $dao)
     {
         $this->dao = $dao;
     }
@@ -35,8 +34,7 @@ class LangTypeServices extends BaseServices
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function langTypeList(array $where = []): array
+     */    public function langTypeList(array $where = []): array
     {
         [$page, $limit] = $this->getPageValue();
         $list = $this->dao->selectList($where, '*', $page, $limit);
@@ -49,8 +47,7 @@ class LangTypeServices extends BaseServices
      * @param int $id
      * @return array
      * @throws FormBuilderException
-     */
-    public function langTypeForm(int $id = 0): array
+     */    public function langTypeForm(int $id = 0): array
     {
         if ($id) $info = $this->dao->get($id);
         $field = [];
@@ -70,8 +67,7 @@ class LangTypeServices extends BaseServices
      * Lưu loại ngôn ngữ
      * @param array $data
      * @return bool
-     */
-    public function langTypeSave(array $data)
+     */    public function langTypeSave(array $data)
     {
         if ($data['id']) {
             $this->dao->update($data['id'], $data);
@@ -81,8 +77,7 @@ class LangTypeServices extends BaseServices
             $res = $this->dao->save($data);
             if ($res) {
                 //ngôn ngữ đồng bộ
-                /** @var LangCodeServices $codeServices */
-                $codeServices = app()->make(LangCodeServices::class);
+                /** @var LangCodeServices $codeServices */                $codeServices = app()->make(LangCodeServices::class);
                 $list = $codeServices->selectList(['type_id' => 1])->toArray();
                 foreach ($list as $key => $item) {
                     unset($list[$key]['id']);
@@ -106,8 +101,7 @@ class LangTypeServices extends BaseServices
      * @author Chờ gió tới
      * @email 136327134@qq.com
      * @date 2023/2/10
-     */
-    public function setDefaultLangName()
+     */    public function setDefaultLangName()
     {
         $fileName = $this->dao->value(['is_default' => 1], 'file_name');
         CacheService::clear();
@@ -119,8 +113,7 @@ class LangTypeServices extends BaseServices
      * @param $id
      * @param $status
      * @return bool
-     */
-    public function langTypeStatus($id, $status)
+     */    public function langTypeStatus($id, $status)
     {
         $res = $this->dao->update(['id' => $id], ['status' => $status]);
         if (!$res) throw new AdminException('Thiết lập không thành công');
@@ -132,15 +125,12 @@ class LangTypeServices extends BaseServices
      * Xóa loại ngôn ngữ
      * @param int $id
      * @return bool
-     */
-    public function langTypeDel(int $id = 0)
+     */    public function langTypeDel(int $id = 0)
     {
         $this->dao->update(['id' => $id], ['is_del' => 1]);
-        /** @var LangCountryServices $countryServices */
-        $countryServices = app()->make(LangCountryServices::class);
+        /** @var LangCountryServices $countryServices */        $countryServices = app()->make(LangCountryServices::class);
         $countryServices->update(['type_id' => $id], ['type_id' => 0]);
-        /** @var LangCodeServices $codeServices */
-        $codeServices = app()->make(LangCodeServices::class);
+        /** @var LangCodeServices $codeServices */        $codeServices = app()->make(LangCodeServices::class);
         $codeServices->delete(['type_id' => $id]);
         $this->setDefaultLangName();
         return true;

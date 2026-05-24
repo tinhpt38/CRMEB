@@ -20,8 +20,7 @@ use think\Model;
  * rút thăm trúng thưởng
  * Class LuckLottery
  * @package app\model\activity\lottery
- */
-class LuckLottery extends BaseModel
+ */class LuckLottery extends BaseModel
 {
 
     use ModelTrait;
@@ -29,21 +28,18 @@ class LuckLottery extends BaseModel
     /**
      * Khóa chính của bảng dữ liệu
      * @var string
-     */
-    protected $pk = 'id';
+     */    protected $pk = 'id';
 
     /**
      * Tên mẫu
      * @var string
-     */
-    protected $name = 'luck_lottery';
+     */    protected $name = 'luck_lottery';
 
     /**
-     * Công cụ sửa đổi cấp độ người dùng xổ số
+     * Công cụ sửa đổi cấp độ Khách hàng xổ số
      * @param $value
      * @return false|string
-     */
-    protected function setUserLevelAttr($value)
+     */    protected function setUserLevelAttr($value)
     {
         if ($value) {
             return is_array($value) ? json_encode($value) : $value;
@@ -52,22 +48,20 @@ class LuckLottery extends BaseModel
     }
 
     /**
-     * Trình nhận cấp độ người dùng xổ số
+     * Trình nhận cấp độ Khách hàng xổ số
      * @param $value
      * @param $data
      * @return mixed
-     */
-    protected function getUserLevelAttr($value)
+     */    protected function getUserLevelAttr($value)
     {
         return $value ? json_decode($value, true) : [];
     }
 
     /**
-     * Công cụ sửa đổi thẻ người dùng xổ số
+     * Công cụ sửa đổi thẻ Khách hàng xổ số
      * @param $value
      * @return false|string
-     */
-    protected function setUserLabelAttr($value)
+     */    protected function setUserLabelAttr($value)
     {
         if ($value) {
             return is_array($value) ? json_encode($value) : $value;
@@ -76,12 +70,11 @@ class LuckLottery extends BaseModel
     }
 
     /**
-     * Trình lấy thẻ người dùng xổ số
+     * Trình lấy thẻ Khách hàng xổ số
      * @param $value
      * @param $data
      * @return mixed
-     */
-    protected function getUserLabelAttr($value)
+     */    protected function getUserLabelAttr($value)
     {
         return $value ? json_decode($value, true) : [];
     }
@@ -89,8 +82,7 @@ class LuckLottery extends BaseModel
     /**
      * Giải thưởng liên quan
      * @return \think\model\relation\HasOne
-     */
-    public function prize()
+     */    public function prize()
     {
         return $this->hasMany(LuckPrize::class, 'lottery_id', 'id')->where('status', 1)->where('is_del', 0)->order('sort asc,id asc');
     }
@@ -99,8 +91,7 @@ class LuckLottery extends BaseModel
      * người tìm kiếm từ khóa
      * @param $query Model
      * @param $value
-     */
-    public function searchKeywordAttr($query, $value)
+     */    public function searchKeywordAttr($query, $value)
     {
         if ($value !== '') $query->where('id|name|desc|content', 'like', '%' . $value . '%');
     }
@@ -109,8 +100,7 @@ class LuckLottery extends BaseModel
      * Công cụ tìm kiếm định dạng xổ số
      * @param $query Model
      * @param $value
-     */
-    public function searchTypeAttr($query, $value)
+     */    public function searchTypeAttr($query, $value)
     {
         if ($value) $query->where('type', $value);
     }
@@ -119,8 +109,7 @@ class LuckLottery extends BaseModel
      * Công cụ tìm loại xổ số
      * @param $query Model
      * @param $value
-     */
-    public function searchFactorAttr($query, $value)
+     */    public function searchFactorAttr($query, $value)
     {
         if ($value !== '') $query->where('factor', $value);
     }
@@ -129,8 +118,7 @@ class LuckLottery extends BaseModel
      * công cụ tìm trạng thái
      * @param $query Model
      * @param $value
-     */
-    public function searchStatusAttr($query, $value)
+     */    public function searchStatusAttr($query, $value)
     {
         if ($value !== '') $query->where('status', $value);
     }
@@ -139,8 +127,7 @@ class LuckLottery extends BaseModel
      * Có nên xóa người tìm kiếm hay không
      * @param $query Model
      * @param $value
-     */
-    public function searchIsDelAttr($query, $value)
+     */    public function searchIsDelAttr($query, $value)
     {
         if ($value !== '') $query->where('is_del', $value);
     }

@@ -16,11 +16,10 @@ use app\dao\BaseDao;
 use app\model\user\User;
 
 /**
- * người dùng
+ * Khách hàng
  * Class UserDao
  * @package app\dao\user
- */
-class UserDao extends BaseDao
+ */class UserDao extends BaseDao
 {
 
     protected function setModel(): string
@@ -29,7 +28,7 @@ class UserDao extends BaseDao
     }
 
     /**
-     * Lấy danh sách người dùng
+     * Lấy danh sách Khách hàng
      * @param array $where
      * @param string $field
      * @param int $page
@@ -38,8 +37,7 @@ class UserDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0): array
+     */    public function getList(array $where, string $field = '*', int $page = 0, int $limit = 0): array
     {
         return $this->search($where)->field($field)->with(['label'])->when($page && $limit, function ($query) use ($page, $limit) {
             $query->page($page, $limit);
@@ -51,8 +49,7 @@ class UserDao extends BaseDao
      * @param array $where
      * @param bool $is_list
      * @return array|int
-     */
-    public function getCount(array $where, bool $is_list = false)
+     */    public function getCount(array $where, bool $is_list = false)
     {
         if ($is_list)
             return $this->getModel()->where($where)->group('uid')->fetchSql(true)->column('count(*) as user_count', 'uid');
@@ -61,11 +58,10 @@ class UserDao extends BaseDao
     }
 
     /**
-     * Số lượng người dùng thanh toán thành công tăng lên
+     * Số lượng Khách hàng thanh toán thành công tăng lên
      * @param int $uid
      * @return mixed
-     */
-    public function incPayCount(int $uid)
+     */    public function incPayCount(int $uid)
     {
         return $this->getModel()->where('uid', $uid)->inc('pay_count', 1)->update();
     }
@@ -74,8 +70,7 @@ class UserDao extends BaseDao
      * Tích lũy một giá trị nhất định trong một trường nhất định
      * @param string $field
      * @param int $num
-     */
-    public function incField(int $uid, string $field, int $num = 1)
+     */    public function incField(int $uid, string $field, int $num = 1)
     {
         return $this->getModel()->where('uid', $uid)->inc($field, $num)->update();
     }
@@ -88,14 +83,13 @@ class UserDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserLabel($uid, $field = '*')
+     */    public function getUserLabel($uid, $field = '*')
     {
         return $this->search(['uid' => $uid])->field($field)->with(['label'])->select()->toArray();
     }
 
     /**
-     * Nhận người dùng phân phối
+     * Nhận Khách hàng phân phối
      * @param array $where
      * @param string $field
      * @param int $page
@@ -104,8 +98,7 @@ class UserDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getAgentUserList(array $where, string $field = '*', int $page, int $limit)
+     */    public function getAgentUserList(array $where, string $field = '*', int $page, int $limit)
     {
         return $this->search($where)->field($field)->with([
             'extract' => function ($query) {
@@ -136,8 +129,7 @@ class UserDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getSairList(array $where, string $field = '*', int $page, int $limit)
+     */    public function getSairList(array $where, string $field = '*', int $page, int $limit)
     {
         return $this->search($where)->field($field)->with([
             'order' => function ($query) {
@@ -156,8 +148,7 @@ class UserDao extends BaseDao
      * @param string $field
      * @param int $page
      * @param int $limit
-     */
-    public function getAgentRankList(array $time, string $field = '*', int $page, int $limit)
+     */    public function getAgentRankList(array $time, string $field = '*', int $page, int $limit)
     {
         return $this->getModel()->alias('t0')
             ->field($field)
@@ -177,42 +168,38 @@ class UserDao extends BaseDao
      * @param array $where
      * @return array
      * @throws \ReflectionException
-     */
-    public function getAgentUserIds(array $where)
+     */    public function getAgentUserIds(array $where)
     {
         return $this->search($where)->column('uid');
     }
 
     /**
-     * Một điều kiện nhất định, tổng của một trường nhất định của người dùng
+     * Một điều kiện nhất định, tổng của một trường nhất định của Khách hàng
      * @param array $where
      * @param string $filed
      * @return float
-     */
-    public function getWhereSumField(array $where, string $filed)
+     */    public function getWhereSumField(array $where, string $filed)
     {
         return $this->search($where)->sum($filed);
     }
 
     /**
-     * Thông tin người dùng tương ứng với truy vấn theo điều kiện được trả về dưới dạng mảng.
+     * Thông tin Khách hàng tương ứng với truy vấn theo điều kiện được trả về dưới dạng mảng.
      * @param array $where
      * @param string $field
      * @param string $key
      * @return array
-     */
-    public function getUserInfoArray(array $where, string $field, string $key)
+     */    public function getUserInfoArray(array $where, string $field, string $key)
     {
         return $this->search($where)->column($field, $key);
     }
 
     /**
-     * Lấy số lượt truy cập của người dùng tại một thời điểm cụ thể
+     * Lấy số lượt truy cập của Khách hàng tại một thời điểm cụ thể
      * @param $time
      * @param $week
      * @return int
-     */
-    public function todayLastVisit($time, $week)
+     */    public function todayLastVisit($time, $week)
     {
         switch ($week) {
             case 1:
@@ -223,12 +210,11 @@ class UserDao extends BaseDao
     }
 
     /**
-     * Lấy số lượt truy cập của người dùng tại một thời điểm cụ thể
+     * Lấy số lượt truy cập của Khách hàng tại một thời điểm cụ thể
      * @param $time
      * @param $week
      * @return int
-     */
-    public function todayAddVisit($time, $week)
+     */    public function todayAddVisit($time, $week)
     {
         switch ($week) {
             case 1:
@@ -239,12 +225,11 @@ class UserDao extends BaseDao
     }
 
     /**
-     * Nhận danh sách người dùng trong một thời gian cụ thể
+     * Nhận danh sách Khách hàng trong một thời gian cụ thể
      * @param $starday
      * @param $yesterday
      * @return mixed
-     */
-    public function userList($starday, $yesterday)
+     */    public function userList($starday, $yesterday)
     {
         return $this->getModel()
             ->whereBetweenTime('add_time', $starday, $yesterday)
@@ -254,11 +239,10 @@ class UserDao extends BaseDao
     }
 
     /**
-     * Số lượng người dùng trong phạm vi khối lượng mua hàng
+     * Số lượng Khách hàng trong phạm vi khối lượng mua hàng
      * @param $status
      * @return int
-     */
-    public function userCount($status)
+     */    public function userCount($status)
     {
         switch ($status) {
             case 1:
@@ -269,13 +253,12 @@ class UserDao extends BaseDao
     }
 
     /**
-     * Nhận số liệu thống kê người dùng
+     * Nhận số liệu thống kê Khách hàng
      * @param $time
      * @param $type
      * @param $timeType
      * @return mixed
-     */
-    public function getTrendData($time, $type, $timeType)
+     */    public function getTrendData($time, $type, $timeType)
     {
         return $this->getModel()->when($type != '', function ($query) use ($type) {
             $query->where('user_type', $type);
@@ -295,18 +278,16 @@ class UserDao extends BaseDao
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function getUserInfoList(array $where, $field = "*"): array
+     */    public function getUserInfoList(array $where, $field = "*"): array
     {
         return $this->search($where)->field($field)->select()->toArray();
     }
 
     /**
-     * Lấy số lượng thành viên người dùng
+     * Lấy số lượng thành viên Khách hàng
      * @param $where (time  type)
      * @return int
-     */
-    public function getMemberCount($where, int $overdue_time = 0)
+     */    public function getMemberCount($where, int $overdue_time = 0)
     {
         if (!$overdue_time) $overdue_time = time();
         return $this->search($where)->where('is_ever_level', 1)->whereOr(function ($qeury) use ($overdue_time) {
@@ -322,8 +303,7 @@ class UserDao extends BaseDao
      * @author wuhaotian
      * @email 442384644@qq.com
      * @date 2025/10/10
-     */
-    public function getSearch($where = [])
+     */    public function getSearch($where = [])
     {
         return $this->search($where);
     }

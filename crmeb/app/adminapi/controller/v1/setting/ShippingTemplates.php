@@ -16,29 +16,26 @@ use app\services\shipping\SystemCityServices;
 use think\facade\App;
 
 /**
- * Mẫu vận chuyển hàng hóa
+ * Mẫu vận chuyển sản phẩm
  * Class ShippingTemplates
  * @package app\adminapi\controller\v1\setting
- */
-class ShippingTemplates extends AuthController
+ */class ShippingTemplates extends AuthController
 {
     /**
      * Người xây dựng
      * ShippingTemplates constructor.
      * @param App $app
      * @param ShippingTemplatesServices $services
-     */
-    public function __construct(App $app, ShippingTemplatesServices $services)
+     */    public function __construct(App $app, ShippingTemplatesServices $services)
     {
         parent::__construct($app);
         $this->services = $services;
     }
 
     /**
-     * Danh sách mẫu vận chuyển hàng hóa
+     * Danh sách mẫu vận chuyển sản phẩm
      * @return mixed
-     */
-    public function temp_list()
+     */    public function temp_list()
     {
         $where = $this->request->getMore([
             [['name', 's'], '']
@@ -47,11 +44,10 @@ class ShippingTemplates extends AuthController
     }
 
     /**
-     * Ôn lại
+     * Sửa
      * @return string
      * @throws \Exception
-     */
-    public function edit($id)
+     */    public function edit($id)
     {
         return app('json')->success($this->services->getShipping((int)$id));
     }
@@ -59,8 +55,7 @@ class ShippingTemplates extends AuthController
     /**
      * Lưu hoặc sửa đổi
      * @param int $id
-     */
-    public function save($id = 0)
+     */    public function save($id = 0)
     {
         $data = $this->request->postMore([
             [['region_info', 'a'], []],
@@ -85,8 +80,7 @@ class ShippingTemplates extends AuthController
 
     /**
      * Xóa mẫu vận chuyển
-     */
-    public function delete()
+     */    public function delete()
     {
         [$id] = $this->request->getMore([
             [['id', 'd'], 0],
@@ -105,8 +99,7 @@ class ShippingTemplates extends AuthController
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     */
-    public function city_list(SystemCityServices $services)
+     */    public function city_list(SystemCityServices $services)
     {
         return app('json')->success($services->getShippingCity());
     }
