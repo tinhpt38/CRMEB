@@ -127,7 +127,7 @@ class DivisionAgentApplyServices extends BaseServices
         if ($type) {
             $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', '')->placeholder('Tỷ lệ hoa hồng đại lý1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%,Nhưng không thể cao hơn tỷ lệ của Đơn vị kinh doanh cấp trên')->style(['width' => '173px'])->min(0)->max(100)->required();
             $field[] = Form::date('division_end_time', 'Thời gian hết hạn', '')->placeholder('Thời gian hết hạn đại lý');
-            $field[] = Form::radio('division_status', 'trạng thái đại lý', 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+            $field[] = Form::radio('division_status', 'trạng thái đại lý', 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'Ngưng hoạt động', 'value' => 0]]);
             $title = 'Đồng ý với Ứng dụng';
         } else {
             $field[] = Form::textarea('refusal_reason', 'Lý do từ chối', '')->rows(5);

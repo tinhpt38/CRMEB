@@ -182,7 +182,7 @@ use think\facade\App;
      * Yêu cầu thông số:
      * - version: string, Bắt buộc, số phiên bản, định dạng là x.x.x (giống 1.0.0)
      * - desc: string, Tùy chọn, mô tả phiên bản, mặc định là "phiên bản {version}"
-     * - is_live: int, Tùy chọn, có bật chức năng phát sóng trực tiếp hay không，0=đóng cửa 1=Bật, tắt theo mặc định
+     * - is_live: int, Tùy chọn, có bật chức năng phát sóng trực tiếp hay không，0=Ngưng hoạt động 1=Hoạt động, tắt theo mặc định
      *
      *Quy trình thực hiện:
      * 1. Xác minh định dạng số phiên bản

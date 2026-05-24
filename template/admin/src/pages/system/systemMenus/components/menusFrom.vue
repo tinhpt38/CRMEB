@@ -198,7 +198,7 @@ export default {
       searchData: [],
       isShowRadio: [
         { value: 1, label: 'Hoạt động' },
-        { value: 0, label: 'đóng cửa' },
+        { value: 0, label: 'Ngưng hoạt động' },
       ],
     };
   },

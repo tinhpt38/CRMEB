@@ -75,7 +75,7 @@ use think\facade\Route as Url;
         $f[] = Form::number('use_min_price', 'Phiếu chi tiêu tối thiểu', 0)->min(0);
         $f[] = Form::number('coupon_time', 'Thời hạn hiệu lực của phiếu giảm giá', 0)->min(0);
         $f[] = Form::number('sort', 'loại')->value(0)->precision(0);
-        $f[] = Form::radio('status', 'Trạng thái', 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $f[] = Form::radio('status', 'Trạng thái', 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'Ngưng hoạt động', 'value' => 0]]);
         $f[] = Form::hidden('type', $type);
         return create_form('Tạo mã giảm giá', $f, Url::buildUrl('/marketing/coupon/save'), 'POST');
     }
@@ -100,7 +100,7 @@ use think\facade\Route as Url;
         $f[] = Form::number('count', 'Số lượng phát hành', 0)->min(0)->placeholder('Để trống hoặc điền vào0,không giới hạn');
         $f[] = Form::radio('is_type', 'Loại phiếu giảm giá', 0)->options([['label' => 'Mã giảm giá thông thường', 'value' => 0], ['label' => 'phiếu quà tặng', 'value' => 1], ['label' => 'Phiếu quà tặng người mới', 'value' => 2]]);
         $f[] = Form::number('full_reduction', 'Toàn bộ số tiền quà tặng', 0)->min(0)->placeholder('Số tiền chi tiêu tối thiểu để nhận phiếu giảm giá');
-        $f[] = Form::radio('status', 'Trạng thái', 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $f[] = Form::radio('status', 'Trạng thái', 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'Ngưng hoạt động', 'value' => 0]]);
         return create_form('Đăng phiếu giảm giá', $f, $this->url('/marketing/coupon/issue/' . $id), 'POST');
     }
 

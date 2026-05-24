@@ -102,8 +102,8 @@ use crmeb\services\FormBuilder;
         $field[] = $this->builder->select('store_id', 'Điểm đón', ($formData['store_id'] ?? ''))->setOptions($this->getStoreSelectFormData())->filterable(true);
         $field[] = $this->builder->input('staff_name', 'Tên người bảo lãnh', $formData['staff_name'] ?? '')->col(24)->required();
         $field[] = $this->builder->input('phone', 'số điện thoại', $formData['phone'] ?? '')->col(24)->required();
-        $field[] = $this->builder->radio('verify_status', 'công tắc xóa', $formData['verify_status'] ?? 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
-        $field[] = $this->builder->radio('status', 'Trạng thái', $formData['status'] ?? 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
+        $field[] = $this->builder->radio('verify_status', 'công tắc xóa', $formData['verify_status'] ?? 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'Ngưng hoạt động']]);
+        $field[] = $this->builder->radio('status', 'Trạng thái', $formData['status'] ?? 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'Ngưng hoạt động']]);
         return $field;
     }
 

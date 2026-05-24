@@ -109,7 +109,7 @@ class DivisionServices extends BaseServices
         $field[] = Form::hidden('aid', $adminInfo['id'] ?? 0);
         $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', $userInfo['division_percent'] ?? '')->placeholder('Tỷ lệ hoa hồng đại lý khu vực1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%')->style(['width' => '173px'])->min(0)->max(100)->required();
         $field[] = Form::date('division_end_time', 'Thời gian hết hạn', ($userInfo['division_end_time'] ?? '') != 0 ? date('Y-m-d H:i:s', $userInfo['division_end_time']) : '')->placeholder('Thời gian hết hạn đại lý khu vực');
-        $field[] = Form::radio('division_status', 'trạng thái đại lý', $userInfo['division_status'] ?? 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $field[] = Form::radio('division_status', 'trạng thái đại lý', $userInfo['division_status'] ?? 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'Ngưng hoạt động', 'value' => 0]]);
         $field[] = Form::input('account', 'Quản lý tài khoản', $adminInfo['account'] ?? '')->required('Vui lòng điền vào tài khoản quản trị viên');
         $field[] = Form::input('pwd', 'Mật khẩu quản trị viên')->type('password')->placeholder('Vui lòng điền mật khẩu quản trị viên');
         $field[] = Form::input('conf_pwd', 'Xác nhận mật khẩu')->type('password')->placeholder('Vui lòng nhập mật khẩu xác nhận');
@@ -251,7 +251,7 @@ class DivisionServices extends BaseServices
         }
         $field[] = Form::number('division_percent', 'Tỷ lệ hoa hồng', $userInfo['division_percent'] ?? '')->placeholder('Tỷ lệ hoa hồng đại lý1-100')->info('Điền từ 1-100, nếu điền 50 tức là giảm giá50%,Nhưng không thể cao hơn tỷ lệ của Đơn vị kinh doanh cấp trên')->style(['width' => '173px'])->min(0)->max(100)->required();
         $field[] = Form::date('division_end_time', 'Thời gian hết hạn', ($userInfo['division_end_time'] ?? '') != 0 ? date('Y-m-d H:i:s', $userInfo['division_end_time']) : '')->placeholder('Thời gian hết hạn đại lý');
-        $field[] = Form::radio('division_status', 'trạng thái đại lý', $userInfo['division_status'] ?? 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $field[] = Form::radio('division_status', 'trạng thái đại lý', $userInfo['division_status'] ?? 1)->options([['label' => 'Mở', 'value' => 1], ['label' => 'Ngưng hoạt động', 'value' => 0]]);
         return create_form('đại lý', $field, Route::buildUrl('/agent/division/agent/save'), 'POST');
     }
 
@@ -473,7 +473,7 @@ class DivisionServices extends BaseServices
     {
         $division_open = (int)sys_config('division_status', 1);
         if (!$division_open) {
-            /** Đại lý đã đóng cửa */            $storeBrokerageOne = $storeBrokerageRatio;
+            /** Đại lý đã ngưng hoạt động */            $storeBrokerageOne = $storeBrokerageRatio;
             $storeBrokerageTwo = $storeBrokerageRatioTwo;
             $staffPercent = 0;
             $agentPercent = 0;

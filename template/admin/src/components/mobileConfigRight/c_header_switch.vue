@@ -6,7 +6,7 @@
         class="defineSwitch"
         v-model="configData.enable"
         active-text="Hoạt động"
-        inactive-text="đóng cửa"
+        inactive-text="Ngưng hoạt động"
         @change="handleChange"
       ></el-switch>
     </div>

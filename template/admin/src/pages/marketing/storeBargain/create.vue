@@ -260,7 +260,7 @@
                       v-model="formValidate.is_commission"
                       size="large"
                       active-text="Hoạt động"
-                      inactive-text="đóng cửa"
+                      inactive-text="Ngưng hoạt động"
                     >
                     </el-switch>
                     <div class="grey">Liệu sản phẩm có tham gia giảm giá phân phối tại trung tâm mua sắm hay không</div>
@@ -276,7 +276,7 @@
                     v-model="formValidate.status"
                     size="large"
                     active-text="Hoạt động"
-                    inactive-text="đóng cửa"
+                    inactive-text="Ngưng hoạt động"
                   >
                   </el-switch>
                 </el-form-item>

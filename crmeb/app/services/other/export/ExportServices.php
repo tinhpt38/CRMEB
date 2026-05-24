@@ -746,7 +746,7 @@ class ExportServices extends BaseServices
                     $item['info'],
                     format_vnd($item['price']),
                     $item['bargain_num'],
-                    $item['status'] ? 'Hoạt động' : 'đóng cửa',
+                    $item['status'] ? 'Hoạt động' : 'Ngưng hoạt động',
                     empty($item['start_time']) ? '' : date('Y-m-d H:i:s', (int)$item['start_time']),
                     empty($item['stop_time']) ? '' : date('Y-m-d H:i:s', (int)$item['stop_time']),
                     $item['sales'],
@@ -781,7 +781,7 @@ class ExportServices extends BaseServices
                     $item['count_people_all'],
                     $item['count_people_pink'],
                     $item['sales'] ?? 0,
-                    $item['is_show'] ? 'Hoạt động' : 'đóng cửa',
+                    $item['is_show'] ? 'Hoạt động' : 'Ngưng hoạt động',
                     empty($item['stop_time']) ? '' : date('Y/m/d H:i:s', (int)$item['stop_time'])
                 ];
             }
@@ -822,7 +822,7 @@ class ExportServices extends BaseServices
                     $item['sales'],
                     $item['start_name'],
                     $item['stop_time'] ? date('Y-m-d H:i:s', $item['stop_time']) : '/',
-                    $item['status'] ? 'Hoạt động' : 'đóng cửa',
+                    $item['status'] ? 'Hoạt động' : 'Ngưng hoạt động',
                 ];
             }
         }
@@ -875,7 +875,7 @@ class ExportServices extends BaseServices
                     $item['phone'],
                     $item['address'] . '' . $item['detailed_address'],
                     $item['day_time'],
-                    $item['is_show'] ? 'Hoạt động' : 'đóng cửa'
+                    $item['is_show'] ? 'Hoạt động' : 'Ngưng hoạt động'
                 ];
             }
         }

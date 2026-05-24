@@ -946,7 +946,7 @@ export default {
             : dataItem.type === 2
               ? "phiếu giảm giá sản phẩm"
               : "Mã giảm giá phổ quát";
-        if (field === "status") return dataItem.status === 1 ? "Hoạt động" : "đóng cửa";
+        if (field === "status") return dataItem.status === 1 ? "Hoạt động" : "Ngưng hoạt động";
         if (field === "receive_time") return dataItem.receive_time;
         if (field === "use_time") return dataItem.use_time;
         if (field === "receive_count") return dataItem.receive_count;

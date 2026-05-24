@@ -71,7 +71,7 @@
                 </div>
               </div>
             </div>
-            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? 'Hoạt động' : 'đóng cửa' }}</span>
+            <span v-if="scope.row.type === 'switch'">{{ scope.row.value == 1 ? 'Hoạt động' : 'Ngưng hoạt động' }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Cấu hình/giá trị liên quan" min-width="130">

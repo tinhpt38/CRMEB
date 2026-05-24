@@ -805,6 +805,9 @@ export default {
         cod: 'Thanh toán khi nhận hàng (COD)',
         vn_bank: 'Chuyển khoản ngân hàng / VietQR',
         bank: 'Chuyển khoản ngân hàng / VietQR',
+        vnpay: 'VNPay',
+        momo: 'MoMo',
+        zalopay: 'ZaloPay',
       };
       return obj[String(val || '').toLowerCase()] ?? 'Phương thức khác';
     },

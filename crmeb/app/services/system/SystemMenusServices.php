@@ -141,7 +141,7 @@ use crmeb\utils\Arr;
         $field[] = Form::frameInput('icon', 'biểu tượng', $this->url(config('app.admin_prefix', 'admin') . '/widget.widgets/icon', ['fodder' => 'icon']), $formData['icon'] ?? '')->icon('md-add')->height('560px')->props(['footer' => false]);
         $field[] = Form::number('sort', 'loại', (int)($formData['sort'] ?? 0))->precision(0);
         $field[] = Form::radio('auth_type', 'kiểu', $formData['auth_type'] ?? 1)->options([['value' => 1, 'label' => 'thực đơn'], ['value' => 3, 'label' => 'cái nút'], ['value' => 2, 'label' => 'giao diện']]);
-        $field[] = Form::radio('is_show', 'trạng thái cho phép', $formData['is_show'] ?? 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
+        $field[] = Form::radio('is_show', 'trạng thái cho phép', $formData['is_show'] ?? 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'Ngưng hoạt động']]);
         $field[] = Form::radio('is_show_path', 'Có hiển thị hay không', $formData['is_show_path'] ?? 0)->options([['value' => 1, 'label' => 'trình diễn'], ['value' => 0, 'label' => 'trốn']]);
         [$menuList, $data] = $this->getFormCascaderMenus((int)($formData['pid'] ?? 0), 3);
         $field[] = Form::cascader('menu_list', 'cha mẹid', $data)->options($menuList)->filterable(true);

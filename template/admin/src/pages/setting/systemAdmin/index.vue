@@ -14,7 +14,7 @@
             <el-select v-model="status" placeholder="Vui lòng chọn" @change="userSearchs" clearable class="form_content_width">
               <el-option value="all" label="Tất cả"></el-option>
               <el-option value="1" label="Hoạt động"></el-option>
-              <el-option value="0" label="đóng cửa"></el-option>
+              <el-option value="0" label="Ngưng hoạt động"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Tìm kiếm：" label-for="status2">
@@ -79,7 +79,7 @@
               @change="onchangeIsShow(scope.row)"
               size="large"
               active-text="Hoạt động"
-              inactive-text="đóng cửa"
+              inactive-text="Ngưng hoạt động"
             >
             </el-switch>
           </template>

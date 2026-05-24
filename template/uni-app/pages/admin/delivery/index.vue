@@ -293,7 +293,7 @@ export default {
           key: 1,
         },
         {
-          title: "đóng cửa",
+          title: "Ngưng hoạt động",
           key: 0,
         },
       ],

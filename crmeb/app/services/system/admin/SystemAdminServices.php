@@ -248,7 +248,7 @@ use think\Model;
             }
         }
         $f[] = $this->builder->select('roles', 'Vai trò quản trị viên', $formData['roles'] ?? [])->setOptions(FormBuilder::setOptions($options))->multiple(true)->required('Vui lòng chọn vai trò quản trị viên');
-        $f[] = $this->builder->radio('status', 'Trạng thái', $formData['status'] ?? 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $f[] = $this->builder->radio('status', 'Trạng thái', $formData['status'] ?? 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'Ngưng hoạt động', 'value' => 0]]);
         return $f;
     }
 

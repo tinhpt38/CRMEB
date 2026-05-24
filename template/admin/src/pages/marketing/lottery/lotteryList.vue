@@ -62,7 +62,7 @@
           >
             <el-option label="Tất cả" value="" />
             <el-option label="Hoạt động" :value="1" />
-            <el-option label="đóng cửa" :value="2" />
+            <el-option label="Ngưng hoạt động" :value="2" />
           </el-select>
         </el-form-item>
 
@@ -132,7 +132,7 @@
               @change="onchangeIsShow(scope.row)"
               size="large"
               active-text="Hoạt động"
-              inactive-text="đóng cửa"
+              inactive-text="Ngưng hoạt động"
             >
             </el-switch>
           </template>

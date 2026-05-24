@@ -213,7 +213,7 @@
                     :value="scope.row.status"
                     @change="onchangeTaskIsShow(scope.row)"
                     active-text="Hoạt động"
-                    inactive-text="đóng cửa"
+                    inactive-text="Ngưng hoạt động"
                   >
                     <span slot="open">Bật lên</span>
                     <span slot="close">Đóng cửa</span>

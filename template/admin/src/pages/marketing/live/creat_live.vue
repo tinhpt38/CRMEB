@@ -150,7 +150,7 @@
                 v-model="formValidate.close_like"
                 size="large"
                 active-text="Hoạt động"
-                inactive-text="đóng cửa"
+                inactive-text="Ngưng hoạt động"
               >
               </el-switch>
             </el-form-item>
@@ -164,7 +164,7 @@
                 v-model="formValidate.close_goods"
                 size="large"
                 active-text="Hoạt động"
-                inactive-text="đóng cửa"
+                inactive-text="Ngưng hoạt động"
               >
               </el-switch>
             </el-form-item>
@@ -178,7 +178,7 @@
                 v-model="formValidate.close_comment"
                 size="large"
                 active-text="Hoạt động"
-                inactive-text="đóng cửa"
+                inactive-text="Ngưng hoạt động"
               >
               </el-switch>
             </el-form-item>
@@ -307,7 +307,7 @@ export default {
           label: 1,
         },
         {
-          value: 'đóng cửa',
+          value: 'Ngưng hoạt động',
           label: 0,
         },
       ],
@@ -317,7 +317,7 @@ export default {
           label: 1,
         },
         {
-          value: 'đóng cửa',
+          value: 'Ngưng hoạt động',
           label: 0,
         },
       ],
@@ -327,7 +327,7 @@ export default {
           label: 1,
         },
         {
-          value: 'đóng cửa',
+          value: 'Ngưng hoạt động',
           label: 0,
         },
       ],

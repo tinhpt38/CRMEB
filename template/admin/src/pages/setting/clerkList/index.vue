@@ -72,7 +72,7 @@
               @change="onchangeIsShow(scope.row.id, scope.row.status)"
               size="large"
               active-text="Hoạt động"
-              inactive-text="đóng cửa"
+              inactive-text="Ngưng hoạt động"
             >
             </el-switch>
           </template>

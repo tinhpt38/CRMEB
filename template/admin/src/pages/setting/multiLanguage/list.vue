@@ -44,7 +44,7 @@
               @change="changeSwitch(scope.row)"
               size="large"
               active-text="Hoạt động"
-              inactive-text="đóng cửa"
+              inactive-text="Ngưng hoạt động"
             >
             </el-switch>
           </template>

@@ -13,7 +13,7 @@
         :inactive-value="0"
         v-model="configData.val"
         active-text="Hoạt động"
-        inactive-text="đóng cửa"
+        inactive-text="Ngưng hoạt động"
       >
       </el-switch>
     </el-col>

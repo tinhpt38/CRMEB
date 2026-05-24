@@ -186,7 +186,7 @@ use think\facade\Db;
     {
         $issueInfo = $this->dao->get($id);
         if (-1 == $issueInfo['status'] || 1 == $issueInfo['is_del']) throw new AdminException('Sửa đổi không thành công');
-        $f = [FormBuilder::radio('status', 'Có nên bật không', $issueInfo['status'])->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]])];
+        $f = [FormBuilder::radio('status', 'Có nên bật không', $issueInfo['status'])->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'Ngưng hoạt động', 'value' => 0]])];
         return create_form('Sửa đổi trạng thái', $f, $this->url('/marketing/coupon/released/status/' . $id), 'PUT');
     }
 

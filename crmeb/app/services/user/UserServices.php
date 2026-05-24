@@ -682,7 +682,7 @@ use think\facade\Route as Url;
         //Mô hình phân phối Renren Distribution
         $storeBrokerageStatus = sys_config('store_brokerage_statu', 1);
         if ($storeBrokerageStatus == 1) {
-            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', $user->getData('is_promoter'))->info('Bật hoặc tắt quyền khuyến mãi của Khách hàng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
+            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', $user->getData('is_promoter'))->info('Bật hoặc tắt quyền khuyến mãi của Khách hàng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'Ngưng hoạt động']]);
         }
         $f[] = Form::radio('status', 'Trạng thái Khách hàng', $user->getData('status'))->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'khóa']]);
         return create_form('Sửa', $f, Url::buildUrl('/user/user/' . $id), 'PUT');
@@ -735,7 +735,7 @@ use think\facade\Route as Url;
         //Mô hình phân phối Renren Distribution
         $storeBrokerageStatus = sys_config('store_brokerage_statu', 1);
         if ($storeBrokerageStatus == 1) {
-            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', 0)->info('Bật hoặc tắt quyền khuyến mãi của Khách hàng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'đóng cửa']]);
+            $f[] = Form::radio('is_promoter', 'Quyền của nhà quảng cáo', 0)->info('Bật hoặc tắt quyền khuyến mãi của Khách hàng theo chế độ phân phối được chỉ định')->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'Ngưng hoạt động']]);
         }
         $f[] = Form::radio('status', 'Trạng thái Khách hàng', 1)->options([['value' => 1, 'label' => 'Hoạt động'], ['value' => 0, 'label' => 'khóa']]);
         return create_form('Thêm khách hàng', $f, $this->url('/user/user'), 'POST');

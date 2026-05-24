@@ -96,7 +96,7 @@ use crmeb\exceptions\ApiException;
         $data['status'] = $data['status'] ? 'Bình thường' : 'Vô hiệu hóa';
         $data['level'] = app()->make(SystemUserLevelServices::class)->value($data['level'], 'name') ?? 'không có';
         $data['agent_level'] = app()->make(AgentLevelServices::class)->value($data['agent_level'], 'name') ?? 'không có';
-        $data['spread_open'] = $data['spread_open'] ? 'Bắt đầu phân phối' : 'Đã đóng cửa phân phối';
+        $data['spread_open'] = $data['spread_open'] ? 'Bắt đầu phân phối' : 'Đã ngưng phân phối';
         $data['spread_name'] = app()->make(UserServices::class)->value($data['spread_uid'], 'nickname') ?? 'không có';
         $data['spread_time'] = date('Y-m-d H:i:s', $data['spread_time']);
         $data['add_time'] = date('Y-m-d H:i:s', $data['add_time']);

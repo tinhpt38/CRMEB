@@ -353,7 +353,7 @@
                   v-model="formValidate.is_all_record"
                   size="large"
                   active-text="Hoạt động"
-                  inactive-text="đóng cửa"
+                  inactive-text="Ngưng hoạt động"
                 >
                 </el-switch>
               </el-form-item>
@@ -370,7 +370,7 @@
                   v-model="formValidate.is_personal_record"
                   size="large"
                   active-text="Hoạt động"
-                  inactive-text="đóng cửa"
+                  inactive-text="Ngưng hoạt động"
                 >
                 </el-switch>
               </el-form-item>
@@ -387,7 +387,7 @@
                   v-model="formValidate.is_content"
                   size="large"
                   active-text="Hoạt động"
-                  inactive-text="đóng cửa"
+                  inactive-text="Ngưng hoạt động"
                 >
                 </el-switch>
               </el-form-item>
@@ -412,7 +412,7 @@
                   v-model="formValidate.status"
                   size="large"
                   active-text="Hoạt động"
-                  inactive-text="đóng cửa"
+                  inactive-text="Ngưng hoạt động"
                 >
                 </el-switch>
               </el-form-item>

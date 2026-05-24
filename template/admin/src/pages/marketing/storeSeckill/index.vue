@@ -14,7 +14,7 @@
             <el-select placeholder="Vui lòng chọn" clearable v-model="tableFrom.status" @change="userSearchs"
               class="form_content_width">
               <el-option value="1" label="Hoạt động"></el-option>
-              <el-option value="0" label="đóng cửa"></el-option>
+              <el-option value="0" label="Ngưng hoạt động"></el-option>
             </el-select>
           </el-form-item>
           <!-- <el-form-item label="Thời gian hoạt động：">
@@ -111,7 +111,7 @@
           <template slot-scope="scope">
             <el-switch class="defineSwitch" :active-value="1" :inactive-value="0" v-model="scope.row.status"
               :value="scope.row.status" @change="onchangeIsShow(scope.row)" size="large" active-text="Hoạt động"
-              inactive-text="đóng cửa">
+              inactive-text="Ngưng hoạt động">
             </el-switch>
           </template>
         </el-table-column>

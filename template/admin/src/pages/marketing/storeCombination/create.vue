@@ -304,7 +304,7 @@
                       v-model="formValidate.is_commission"
                       size="large"
                       active-text="Hoạt động"
-                      inactive-text="đóng cửa"
+                      inactive-text="Ngưng hoạt động"
                     >
                     </el-switch>
                     <div class="grey">Liệu các sản phẩm mua theo nhóm có tham gia giảm giá phân phối tại trung tâm thương mại hay không</div>
@@ -333,7 +333,7 @@
                     v-model="formValidate.is_host"
                     size="large"
                     active-text="Hoạt động"
-                    inactive-text="đóng cửa"
+                    inactive-text="Ngưng hoạt động"
                   >
                   </el-switch>
                 </el-form-item>
@@ -347,7 +347,7 @@
                     v-model="formValidate.is_show"
                     size="large"
                     active-text="Hoạt động"
-                    inactive-text="đóng cửa"
+                    inactive-text="Ngưng hoạt động"
                   >
                   </el-switch>
                 </el-form-item>

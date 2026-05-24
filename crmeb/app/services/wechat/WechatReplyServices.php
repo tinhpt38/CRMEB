@@ -350,7 +350,7 @@ use crmeb\services\FormBuilder;
         ])->appendControl('image', [
             FormBuilder::frameImage('data', 'Trả lời hình ảnh', $this->url(config('app.admin_prefix', 'admin') . '/widget.images/index', ['fodder' => 'data'], true), (string)($replyInfo['data']['src'] ?? ''))->icon('el-icon-picture-outline')->width('950px')->height('560px')->Props(['footer' => false]),
         ])->options([['label' => 'tin nhắn văn bản', 'value' => 'text'], ['label' => 'tin nhắn hình ảnh', 'value' => 'image']]);
-        $field[] = FormBuilder::radio('status', 'Trạng thái', $replyInfo['status'] ?? 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'đóng cửa', 'value' => 0]]);
+        $field[] = FormBuilder::radio('status', 'Trạng thái', $replyInfo['status'] ?? 1)->options([['label' => 'Hoạt động', 'value' => 1], ['label' => 'Ngưng hoạt động', 'value' => 0]]);
         return create_form('Dịch vụ khách hàng trả lời tự động', $field, $this->url('/app/kefu/auto_reply/save/' . $id), 'POST');
     }
 

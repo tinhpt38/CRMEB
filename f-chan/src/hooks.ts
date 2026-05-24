@@ -405,7 +405,7 @@ export function useCheckout() {
     client: CrmebApiClient;
     uni: string | number;
     payType: string;
-  }) => {
+  }): Promise<boolean> => {
     const { payInfo, payType } = args;
     const onlineGateways = new Set(["vnpay", "momo", "zalopay"]);
 
@@ -418,7 +418,7 @@ export function useCheckout() {
 
     if (payUrl.length > 0) {
       window.location.href = payUrl;
-      return;
+      return true;
     }
 
     if (onlineGateways.has(payType)) {
@@ -431,6 +431,7 @@ export function useCheckout() {
         icon: "ℹ",
       });
     }
+    return false;
   };
 
   return async () => {
@@ -590,6 +591,7 @@ export function useCheckout() {
       if (!orderId) throw new Error("Missing orderId from /order/create");
 
       // 5) pay theo phương thức đã chọn (CRMEB side: offline flow)
+      let paymentRedirect = false;
       if (payPrice > 0) {
         const payInfo = await client.post<any>("/order/pay", {
           uni: orderId,
@@ -598,7 +600,12 @@ export function useCheckout() {
           type: 0,
         });
 
-        await handleCrmebPayment({ payInfo, client, uni: orderId, payType });
+        paymentRedirect = await handleCrmebPayment({ payInfo, client, uni: orderId, payType });
+      }
+
+      if (paymentRedirect) {
+        toast.success("Đang chuyển sang cổng thanh toán...");
+        return;
       }
 
       if (payType === "vn_bank") {
@@ -609,8 +616,6 @@ export function useCheckout() {
         toast.success("Đơn hàng thành công. Bạn thanh toán khi nhận hàng.");
       } else if (payType === "offline") {
         toast.success("Đã tạo đơn. Đang chờ cửa hàng xác nhận thanh toán.");
-      } else if (["vnpay", "momo", "zalopay"].includes(payType)) {
-        toast.success("Đang chuyển sang cổng thanh toán...");
       } else {
         toast.success("Đơn hàng thành công.");
       }

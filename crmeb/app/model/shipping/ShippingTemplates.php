@@ -49,7 +49,7 @@ use think\Model;
      * @return string
      */    public function getAppointAttr($value)
     {
-        $status = [1 => 'Hoạt động', 0 => 'đóng cửa'];
+        $status = [1 => 'Hoạt động', 0 => 'Ngưng hoạt động'];
         return $status[$value];
     }
 
